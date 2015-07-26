@@ -13,12 +13,14 @@
 
 
 //==============================================================================
-CamomileAudioProcessor::CamomileAudioProcessor()
+CamomileAudioProcessor::CamomileAudioProcessor() : m_buffer_in(nullptr), m_buffer_out(nullptr)
 {
+    m_pd = new pd::PdBase;
 }
 
 CamomileAudioProcessor::~CamomileAudioProcessor()
 {
+    this->releaseResources();
 }
 
 //==============================================================================
@@ -126,34 +128,90 @@ void CamomileAudioProcessor::changeProgramName (int index, const String& newName
 //==============================================================================
 void CamomileAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    releaseResources();
+    if(m_pd)
+    {
+        if(m_pd->init(getNumInputChannels(), getNumOutputChannels(), sampleRate))
+        {
+            int numChannels = jmin(getNumInputChannels(), getNumOutputChannels());
+            try
+            {
+                m_buffer_in  = new float[m_pd->blockSize() * numChannels];
+            }
+            catch(std::exception& e)
+            {
+                m_buffer_in = nullptr;
+            }
+            try
+            {
+                m_buffer_out = new float[m_pd->blockSize() * numChannels];
+            }
+            catch(std::exception& e)
+            {
+                m_buffer_out = nullptr;
+            }
+            m_patch = m_pd->openPatch("Test.pd", "/Users/Pierre/Desktop/");
+            m_pd->computeAudio(true);
+        }
+    }
 }
 
 void CamomileAudioProcessor::releaseResources()
 {
-    // When playback stops, you can use this as an opportunity to free up any
-    // spare memory, etc.
+    if(m_pd)
+    {
+        m_pd->computeAudio(false);
+        if(m_buffer_in)
+        {
+            free(m_buffer_in);
+        }
+        if(m_buffer_out)
+        {
+            free(m_buffer_out);
+        }
+        m_buffer_in  = nullptr;
+        m_buffer_out = nullptr;
+    }
 }
 
 void CamomileAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
-    // In case we have more outputs than inputs, this code clears any output
-    // channels that didn't contain input data, (because these aren't
-    // guaranteed to be empty - they may contain garbage).
-    // I've added this to avoid people getting screaming feedback
-    // when they first compile the plugin, but obviously you don't need to
-    // this code if your algorithm already fills all the output channels.
-    for (int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
-        buffer.clear (i, 0, buffer.getNumSamples());
-
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    for (int channel = 0; channel < getNumInputChannels(); ++channel)
+    int nsamples = buffer.getNumSamples();
+    int nchannels = buffer.getNumChannels();
+    for(int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
     {
-        float* channelData = buffer.getWritePointer (channel);
-
-        // ..do something to the data...
+        buffer.clear (i, 0, buffer.getNumSamples());
+    }
+    
+    if(shouldProcess())
+    {
+        int index = 0;
+        while(nsamples > 0)
+        {
+            int max = jmin(nsamples, m_pd->blockSize());
+            float* input = m_buffer_in;
+            for(int i = 0; i < max; ++i)
+            {
+                for(int j = 0; j < nchannels; ++j)
+                {
+                    *input++ = buffer.getReadPointer(j)[index + i];
+                }
+            }
+            
+            m_pd->processFloat (1, m_buffer_in, m_buffer_out);
+            
+            const float* output = m_buffer_out;
+            for(int i = 0; i < max; ++i)
+            {
+                for(int j = 0; j < nchannels; ++j)
+                {
+                    buffer.getWritePointer(j)[index + i] = *output++;
+                }
+            }
+            
+            index    += max;
+            nsamples -= max;
+        }
     }
 }
 
@@ -182,9 +240,32 @@ void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBy
     // whose contents will have been created by the getStateInformation() call.
 }
 
+void CamomileAudioProcessor::loadPatch(const String& path)
+{
+    if(m_pd)
+    {
+        suspendProcessing(true);
+        if(isSuspended())
+        {
+            if(path.isNotEmpty() && path.endsWith(juce::StringRef(".pd")))
+            {
+                m_patch = m_pd->openPatch(path.toStdString(), std::string());
+            }
+            else if(m_patch.isValid())
+            {
+                m_pd->closePatch(m_patch);
+            }
+        }
+        suspendProcessing(false);
+    }
+    
+}
+
 //==============================================================================
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new CamomileAudioProcessor();
 }
+
+

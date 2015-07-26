@@ -14,25 +14,25 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 
-
-//==============================================================================
-/**
-*/
-class CamomileAudioProcessorEditor  : public AudioProcessorEditor
+class CamomileAudioProcessorEditor  : public AudioProcessorEditor, public FileDragAndDropTarget
 {
+private:
+    CamomileAudioProcessor& m_processor;
+    bool                    m_file_drop;
+    String                  m_file;
 public:
-    CamomileAudioProcessorEditor (CamomileAudioProcessor&);
+    CamomileAudioProcessorEditor(CamomileAudioProcessor&);
     ~CamomileAudioProcessorEditor();
 
-    //==============================================================================
-    void paint (Graphics&) override;
+    void paint(Graphics&) override;
     void resized() override;
+    
+    bool isInterestedInFileDrag(const StringArray& files) override;
+    void filesDropped(const StringArray& files, int x, int y) override;
+    void fileDragEnter(const StringArray& files, int x, int y) override;
+    void fileDragExit(const StringArray& files) override;
 
 private:
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
-    CamomileAudioProcessor& processor;
-
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessorEditor)
 };
 
