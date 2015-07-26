@@ -28,3 +28,4 @@
 *.app
 
 /ThirdParty/Vst
+/JuceLibraryCode
