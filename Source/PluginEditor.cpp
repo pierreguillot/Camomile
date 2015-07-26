@@ -64,9 +64,10 @@ void CamomileAudioProcessorEditor::filesDropped(const StringArray& files, int x,
     {
         for(int i = 0; i < files.size(); i++)
         {
-            if(files[i].endsWith(juce::StringRef(".pd")))
+            juce::File file(files[i]);
+            if(file.getFileExtension() == juce::String(".pd"))
             {
-                m_processor.loadPatch(files[i]);
+                m_processor.loadPatch(file);
                 repaint();
             }
         }

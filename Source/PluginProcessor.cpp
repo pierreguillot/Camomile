@@ -150,7 +150,7 @@ void CamomileAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
             {
                 m_buffer_out = nullptr;
             }
-            m_patch = m_pd->openPatch("Test.pd", "/Users/Pierre/Desktop/");
+            
             m_pd->computeAudio(true);
         }
     }
@@ -240,20 +240,21 @@ void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBy
     // whose contents will have been created by the getStateInformation() call.
 }
 
-void CamomileAudioProcessor::loadPatch(const String& path)
+void CamomileAudioProcessor::loadPatch(const juce::File& file)
 {
     if(m_pd)
     {
         suspendProcessing(true);
         if(isSuspended())
         {
-            if(path.isNotEmpty() && path.endsWith(juce::StringRef(".pd")))
-            {
-                m_patch = m_pd->openPatch(path.toStdString(), std::string());
-            }
-            else if(m_patch.isValid())
+            if(m_patch.isValid())
             {
                 m_pd->closePatch(m_patch);
+                m_patch = pd::Patch();
+            }
+            if(file.exists() && file.getFileExtension() == String(".pd"))
+            {
+                m_patch = m_pd->openPatch(file.getFileName().toStdString(), (file.getParentDirectory()).getFullPathName().toStdString());
             }
         }
         suspendProcessing(false);

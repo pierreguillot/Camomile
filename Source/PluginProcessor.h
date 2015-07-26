@@ -65,7 +65,7 @@ public:
     inline bool hasPatch() const noexcept {return m_patch.isValid();}
     inline bool shouldProcess() const noexcept {return m_pd && m_buffer_in && m_buffer_out;}
     
-    void loadPatch(const String& path);
+    void loadPatch(const juce::File& file);
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)
