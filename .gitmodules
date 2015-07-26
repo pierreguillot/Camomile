@@ -1,0 +1,9 @@
+[submodule "ThirdParty/Pd"]
+	path = ThirdParty/Pd
+	url = https://pierreguillot@github.com/libpd/libpd.git
+[submodule "ThirdParty/Juce"]
+	path = ThirdParty/Juce
+	url = https://pierreguillot@github.com/julianstorer/JUCE.git
+[submodule "ThirdParty/Cream"]
+	path = ThirdParty/Cream
+	url = https://pierreguillot@github.com/CICM/CreamLibrary.git

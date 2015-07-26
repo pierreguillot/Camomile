@@ -20,30 +20,62 @@
             file="Source/PluginEditor.cpp"/>
       <FILE id="eyUmy8" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
     </GROUP>
+    <GROUP id="{A0A35B6E-B905-B6D7-677E-96FCFD44E2C9}" name="Pd">
+      <GROUP id="{279BCA5C-6684-421B-F130-0183AF8C9C76}" name="cpp">
+        <FILE id="Zs2zUl" name="PdBase.cpp" compile="1" resource="0" file="ThirdParty/Pd/cpp/PdBase.cpp"/>
+        <FILE id="VQjJix" name="PdBase.hpp" compile="0" resource="0" file="ThirdParty/Pd/cpp/PdBase.hpp"/>
+        <FILE id="uu4rge" name="PdMidiReceiver.hpp" compile="0" resource="0"
+              file="ThirdParty/Pd/cpp/PdMidiReceiver.hpp"/>
+        <FILE id="bKb6dQ" name="PdReceiver.hpp" compile="0" resource="0" file="ThirdParty/Pd/cpp/PdReceiver.hpp"/>
+        <FILE id="XLPSkU" name="PdTypes.cpp" compile="1" resource="0" file="ThirdParty/Pd/cpp/PdTypes.cpp"/>
+        <FILE id="BJ7zIo" name="PdTypes.hpp" compile="0" resource="0" file="ThirdParty/Pd/cpp/PdTypes.hpp"/>
+      </GROUP>
+      <GROUP id="{CC79FB24-C8C8-B708-2A66-0C044F987282}" name="libpd_wrapper">
+        <FILE id="TOwo6C" name="s_libpdmidi.c" compile="1" resource="0" file="ThirdParty/Pd/libpd_wrapper/s_libpdmidi.c"/>
+        <GROUP id="{0DD6E784-029C-FB8E-D304-DFF0BDEC7446}" name="util">
+          <FILE id="WwMgRz" name="ringbuffer.c" compile="1" resource="0" file="ThirdParty/Pd/libpd_wrapper/util/ringbuffer.c"/>
+          <FILE id="Dy2HOL" name="ringbuffer.h" compile="0" resource="0" file="ThirdParty/Pd/libpd_wrapper/util/ringbuffer.h"/>
+          <FILE id="gGhHYG" name="z_print_util.c" compile="1" resource="0" file="ThirdParty/Pd/libpd_wrapper/util/z_print_util.c"/>
+          <FILE id="RJugPK" name="z_print_util.h" compile="0" resource="0" file="ThirdParty/Pd/libpd_wrapper/util/z_print_util.h"/>
+          <FILE id="pgotxz" name="z_queued.c" compile="1" resource="0" file="ThirdParty/Pd/libpd_wrapper/util/z_queued.c"/>
+          <FILE id="J5XRDA" name="z_queued.h" compile="0" resource="0" file="ThirdParty/Pd/libpd_wrapper/util/z_queued.h"/>
+        </GROUP>
+        <FILE id="BBH42b" name="x_libpdreceive.c" compile="1" resource="0"
+              file="ThirdParty/Pd/libpd_wrapper/x_libpdreceive.c"/>
+        <FILE id="VHrAJ6" name="x_libpdreceive.h" compile="0" resource="0"
+              file="ThirdParty/Pd/libpd_wrapper/x_libpdreceive.h"/>
+        <FILE id="MlwQkA" name="z_hooks.c" compile="1" resource="0" file="ThirdParty/Pd/libpd_wrapper/z_hooks.c"/>
+        <FILE id="JM0QoW" name="z_hooks.h" compile="0" resource="0" file="ThirdParty/Pd/libpd_wrapper/z_hooks.h"/>
+        <FILE id="SHmz3D" name="z_libpd.c" compile="1" resource="0" file="ThirdParty/Pd/libpd_wrapper/z_libpd.c"/>
+        <FILE id="cPlaN1" name="z_libpd.h" compile="0" resource="0" file="ThirdParty/Pd/libpd_wrapper/z_libpd.h"/>
+      </GROUP>
+    </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" vstFolder="ThirdParty/Vst/vstsdk2.4"
                postbuildCommand="&#13;&#10;# This script takes the build product and copies it to the AU, VST, VST3, RTAS and AAX folders, depending on &#13;&#10;# which plugin types you've built&#13;&#10;&#13;&#10;original=$CONFIGURATION_BUILD_DIR/$FULL_PRODUCT_NAME&#13;&#10;&#13;&#10;# this looks inside the binary to detect which platforms are needed.. &#13;&#10;copyAU=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'AudioUnit' | wc -l&#96;&#13;&#10;copyVST=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'VSTPlugin' | wc -l&#96;&#13;&#10;copyVST3=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'GetPluginFactory' | wc -l&#96;&#13;&#10;copyRTAS=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'CProcess' | wc -l&#96;&#13;&#10;copyAAX=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'ACFStartup' | wc -l&#96;&#13;&#10;&#13;&#10;if [ $copyAU -gt 0 ]; then&#13;&#10;  echo &quot;Copying to AudioUnit folder...&quot;&#13;&#10;  AU=~/Library/Audio/Plug-Ins/Components/$PRODUCT_NAME.component&#13;&#10;  if [ -d &quot;$AU&quot; ]; then &#13;&#10;    rm -r &quot;$AU&quot;&#13;&#10;  fi&#13;&#10;&#13;&#10;  cp -r &quot;$original&quot; &quot;$AU&quot;&#13;&#10;  sed -i &quot;&quot; -e 's/TDMwPTul/BNDLPTul/g' &quot;$AU/Contents/PkgInfo&quot;&#13;&#10;  sed -i &quot;&quot; -e 's/TDMw/BNDL/g' &quot;$AU/Contents/$INFOPLIST_FILE&quot;&#13;&#10;&#13;&#10;  # Fix info.plist for AUs built with Xcode 3&#13;&#10;  if [ -f &quot;$DEVELOPER_DIR/Library/Developer/CoreAudio/AudioUnits/AUPublic/AUBase/AUPlugInDispatch.cpp&quot; ]; then&#13;&#10;    echo&#13;&#10;  else&#13;&#10;    echo &quot;Removing AudioComponents entry from Info.plist because this is not a new-format AU&quot;&#13;&#10;    /usr/libexec/PlistBuddy -c &quot;Delete AudioComponents&quot; &quot;$AU/Contents/Info.plist&quot;&#13;&#10;  fi&#13;&#10;fi&#13;&#10;&#13;&#10;if [ $copyVST -gt 0 ]; then&#13;&#10;  echo &quot;Copying to VST folder...&quot;&#13;&#10;  VST=~/Library/Audio/Plug-Ins/VST/$PRODUCT_NAME.vst&#13;&#10;  if [ -d &quot;$VST&quot; ]; then &#13;&#10;    rm -r &quot;$VST&quot;&#13;&#10;  fi&#13;&#10;&#13;&#10;  cp -r &quot;$original&quot; &quot;$VST&quot;&#13;&#10;  sed -i &quot;&quot; -e 's/TDMwPTul/BNDLPTul/g' &quot;$VST/Contents/PkgInfo&quot;&#13;&#10;  sed -i &quot;&quot; -e 's/TDMw/BNDL/g' &quot;$VST/Contents/$INFOPLIST_FILE&quot;&#13;&#10;fi&#13;&#10;&#13;&#10;if [ $copyVST3 -gt 0 ]; then&#13;&#10;  echo &quot;Copying to VST3 folder...&quot;&#13;&#10;  VST3=~/Library/Audio/Plug-Ins/VST3/$PRODUCT_NAME.vst3&#13;&#10;  if [ -d &quot;$VST3&quot; ]; then &#13;&#10;    rm -r &quot;$VST3&quot;&#13;&#10;  fi&#13;&#10;&#13;&#10;  cp -r &quot;$original&quot; &quot;$VST3&quot;&#13;&#10;  sed -i &quot;&quot; -e 's/TDMwPTul/BNDLPTul/g' &quot;$VST3/Contents/PkgInfo&quot;&#13;&#10;  sed -i &quot;&quot; -e 's/TDMw/BNDL/g' &quot;$VST3/Contents/$INFOPLIST_FILE&quot;&#13;&#10;fi&#13;&#10;&#13;&#10;if [ $copyRTAS -gt 0 ]; then&#13;&#10;  echo &quot;Copying to RTAS folder...&quot;&#13;&#10;  RTAS=/Library/Application\ Support/Digidesign/Plug-Ins/$PRODUCT_NAME.dpm&#13;&#10;  if [ -d &quot;$RTAS&quot; ]; then&#13;&#10;    rm -r &quot;$RTAS&quot;&#13;&#10;  fi&#13;&#10;&#13;&#10;  cp -r &quot;$original&quot; &quot;$RTAS&quot;&#13;&#10;fi&#13;&#10;&#13;&#10;if [ $copyAAX -gt 0 ]; then&#13;&#10;  echo &quot;Copying to AAX folder...&quot;&#13;&#10;&#13;&#10;  if [ -d &quot;/Applications/ProTools_3PDev/Plug-Ins&quot; ]; then&#13;&#10;    AAX1=&quot;/Applications/ProTools_3PDev/Plug-Ins/$PRODUCT_NAME.aaxplugin&quot;&#13;&#10;&#13;&#10;    if [ -d &quot;$AAX1&quot; ]; then&#13;&#10;      rm -r &quot;$AAX1&quot;&#13;&#10;    fi&#13;&#10;&#13;&#10;    cp -R -H &quot;$original&quot; &quot;$AAX1&quot;&#13;&#10;  fi&#13;&#10;&#13;&#10;  if [ -d &quot;/Library/Application Support/Avid/Audio/Plug-Ins&quot; ]; then&#13;&#10;    AAX2=&quot;/Library/Application Support/Avid/Audio/Plug-Ins/$PRODUCT_NAME.aaxplugin&quot;&#13;&#10;&#13;&#10;    if [ -d &quot;$AAX2&quot; ]; then&#13;&#10;      rm -r &quot;$AAX2&quot;&#13;&#10;    fi&#13;&#10;&#13;&#10;    cp -R -H &quot;$original&quot; &quot;$AAX2&quot;&#13;&#10;  fi&#13;&#10;fi&#13;&#10;"
-               vst3Folder="ThirdParty/Vst/">
+               vst3Folder="ThirdParty/Vst/" externalLibraries="pd-osx">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
-                       isDebug="1" optimisation="1" targetName="Camomile"/>
+                       isDebug="1" optimisation="1" targetName="Camomile" headerPath="../../ThirdParty/Pd/pure-data/src"
+                       libraryPath="../../ThirdParty/Pd/libs"/>
         <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
-                       isDebug="0" optimisation="3" targetName="Camomile"/>
+                       isDebug="0" optimisation="3" targetName="Camomile" headerPath="../../ThirdParty/Pd/pure-data/src"
+                       libraryPath="../../ThirdParty/Pd/libs"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_core" path="../Juce/modules"/>
-        <MODULEPATH id="juce_events" path="../Juce/modules"/>
-        <MODULEPATH id="juce_graphics" path="../Juce/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../Juce/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../Juce/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../Juce/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../Juce/modules"/>
-        <MODULEPATH id="juce_audio_basics" path="../Juce/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../Juce/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../Juce/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="../Juce/modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="../Juce/modules"/>
+        <MODULEPATH id="juce_core" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_events" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_cryptography" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="ThirdParty/Juce/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
