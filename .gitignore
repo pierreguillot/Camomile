@@ -27,5 +27,15 @@
 *.out
 *.app
 
+# Mac Xcode
+*.plist
+*.nib
+*.pbxproj
+*.xcworkspacedata
+*.xcuserstate
+*.xcscheme
+/Builds
+
+# Juce & ThirdParty
 /ThirdParty/Vst
 /JuceLibraryCode
