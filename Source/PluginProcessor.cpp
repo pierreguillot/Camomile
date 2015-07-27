@@ -11,15 +11,17 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-
 //==============================================================================
 CamomileAudioProcessor::CamomileAudioProcessor() : m_buffer_in(nullptr), m_buffer_out(nullptr)
 {
-    m_pd = new pd::PdBase;
+    m_pd = new pd::PdBase();
+    libpd_loadcream();
 }
 
 CamomileAudioProcessor::~CamomileAudioProcessor()
 {
+    lock_guard<mutex> guard(m_mutex);
+    m_listeners.clear();
     this->releaseResources();
 }
 
@@ -174,7 +176,7 @@ void CamomileAudioProcessor::releaseResources()
     }
 }
 
-void CamomileAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
+void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
     int nsamples = buffer.getNumSamples();
     int nchannels = buffer.getNumChannels();
@@ -256,7 +258,13 @@ void CamomileAudioProcessor::loadPatch(const juce::File& file)
             {
                 m_patch = m_pd->openPatch(file.getFileName().toStdString(), (file.getParentDirectory()).getFullPathName().toStdString());
             }
+            vector<Listener*> listeners = getListeners();
+            for(auto it : listeners)
+            {
+                it->patchChanged();
+            }
         }
+        
         suspendProcessing(false);
     }
     

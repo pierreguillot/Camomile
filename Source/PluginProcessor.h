@@ -13,14 +13,24 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "../ThirdParty/Pd/cpp/PdBase.hpp"
+#include "../ThirdParty/Cream/c.library.hpp"
+
+#include <set>
+
+using namespace std;
 
 class CamomileAudioProcessor  : public AudioProcessor
 {
+public:
+    class Listener;
 private:
     ScopedPointer<pd::PdBase> m_pd;
     pd::Patch                 m_patch;
     float*                    m_buffer_in;
     float*                    m_buffer_out;
+    
+    set<Listener*>            m_listeners;
+    mutable mutex             m_mutex;
     
 public:
     CamomileAudioProcessor();
@@ -63,9 +73,47 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     
     inline bool hasPatch() const noexcept {return m_patch.isValid();}
+    void loadPatch(const juce::File& file);
+    inline t_canvas* getPatch() const noexcept {return static_cast<t_canvas*>(m_patch.handle());}
     inline bool shouldProcess() const noexcept {return m_pd && m_buffer_in && m_buffer_out;}
     
-    void loadPatch(const juce::File& file);
+    // ================================================================================ //
+    //                                      LISTENER                                    //
+    // ================================================================================ //
+    
+    void addListener(Listener* listener)
+    {
+        if(listener)
+        {
+            lock_guard<mutex> guard(m_mutex);
+            m_listeners.insert(listener);
+        }
+    }
+    
+    void removeListener(Listener* listener)
+    {
+        if(listener)
+        {
+            lock_guard<mutex> guard(m_mutex);
+            m_listeners.erase(listener);
+        }
+    }
+    
+    vector<Listener*> getListeners() const noexcept
+    {
+        lock_guard<mutex> guard(m_mutex);
+        return vector<Listener*>(m_listeners.begin(), m_listeners.end());
+    }
+    
+    class Listener
+    {
+    public:
+        inline Listener() {}
+        
+        inline virtual ~Listener() {}
+        
+        virtual void patchChanged() = 0;
+    };
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)

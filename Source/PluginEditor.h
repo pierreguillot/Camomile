@@ -14,7 +14,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 
-class CamomileAudioProcessorEditor  : public AudioProcessorEditor, public FileDragAndDropTarget
+class CamomileAudioProcessorEditor  : public AudioProcessorEditor, public CamomileAudioProcessor::Listener, public FileDragAndDropTarget
 {
 private:
     CamomileAudioProcessor& m_processor;
@@ -31,6 +31,7 @@ public:
     void filesDropped(const StringArray& files, int x, int y) override;
     void fileDragEnter(const StringArray& files, int x, int y) override;
     void fileDragExit(const StringArray& files) override;
+    void patchChanged() override;
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessorEditor)

@@ -11,33 +11,113 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+typedef struct _iem_fstyle_flags
+{
+    unsigned int x_font_style:6;
+    unsigned int x_rcv_able:1;
+    unsigned int x_snd_able:1;
+    unsigned int x_lab_is_unique:1;
+    unsigned int x_rcv_is_unique:1;
+    unsigned int x_snd_is_unique:1;
+    unsigned int x_lab_arg_tail_len:6;
+    unsigned int x_lab_is_arg_num:6;
+    unsigned int x_shiftdown:1;
+    unsigned int x_selected:1;
+    unsigned int x_finemoved:1;
+    unsigned int x_put_in2out:1;
+    unsigned int x_change:1;
+    unsigned int x_thick:1;
+    unsigned int x_lin0_log1:1;
+    unsigned int x_steady:1;
+} t_iem_fstyle_flags;
+
+typedef struct _iem_init_symargs
+{
+    unsigned int x_loadinit:1;
+    unsigned int x_rcv_arg_tail_len:6;
+    unsigned int x_snd_arg_tail_len:6;
+    unsigned int x_rcv_is_arg_num:6;
+    unsigned int x_snd_is_arg_num:6;
+    unsigned int x_scale:1;
+    unsigned int x_flashed:1;
+    unsigned int x_locked:1;
+} t_iem_init_symargs;
+
+typedef void (*t_iemfunptr)(void *x, t_glist *glist, int mode);
+
+typedef struct _iemgui
+{
+    t_object           x_obj;
+    t_glist            *x_glist;
+    t_iemfunptr        x_draw;
+    int                x_h;
+    int                x_w;
+    int                x_ldx;
+    int                x_ldy;
+    char               x_font[MAXPDSTRING]; /* font names can be long! */
+    t_iem_fstyle_flags x_fsf;
+    int                x_fontsize;
+    t_iem_init_symargs x_isa;
+    int                x_fcol;
+    int                x_bcol;
+    int                x_lcol;
+    t_symbol           *x_snd;              /* send symbol */
+    t_symbol           *x_rcv;              /* receive */
+    t_symbol           *x_lab;              /* label */
+    t_symbol           *x_snd_unexpanded;   /* same 3, with '$' unexpanded */
+    t_symbol           *x_rcv_unexpanded;
+    t_symbol           *x_lab_unexpanded;
+    int                x_binbufindex;       /* where in binbuf to find these */
+    int                x_labelbindex;       /* where in binbuf to find label */
+} t_iemgui;
+
 CamomileAudioProcessorEditor::CamomileAudioProcessorEditor(CamomileAudioProcessor& p) :
 AudioProcessorEditor(&p),
 m_processor(p),
 m_file_drop(false)
 {
     setSize(400, 300);
+    m_processor.addListener(this);
 }
 
 CamomileAudioProcessorEditor::~CamomileAudioProcessorEditor()
 {
+    m_processor.removeListener(this);
 }
 
 void CamomileAudioProcessorEditor::paint(Graphics& g)
 {
-    g.fillAll(Colours::white);
     if(m_file_drop)
     {
         g.fillAll(Colours::lightblue);
     }
-    g.setColour(Colours::black);
+    
     if(!m_processor.hasPatch())
     {
+        g.fillAll(Colours::white);
+        g.setColour(Colours::black);
         g.setFont (15.0f);
         g.drawText(juce::String("Drag & Drop your patch..."), getBounds().withZeroOrigin(), juce::Justification::centred);
     }
     else
     {
+        t_canvas* cnv = m_processor.getPatch();
+        if(cnv)
+        {
+            t_gobj *y;
+            for(y = cnv->gl_list; y; y = y->g_next)
+            {
+                if(eobj_getclassname(y) == gensym("cnv"))
+                {
+                    char temp[10];
+                    t_iemgui* mcnv = (t_iemgui*)y;
+                    sprintf(temp, "#%6.6x", mcnv->x_bcol);
+                    t_rgba color = hex_to_rgba(temp);
+                    g.fillAll(juce::Colour::fromFloatRGBA(color.red, color.green, color.blue, 1.));
+                    break;
+                }
+            }
+        }
         g.setFont (15.0f);
         g.drawText(juce::String("Patch loaded"), getBounds().withZeroOrigin(), juce::Justification::centred);
     }
@@ -68,9 +148,24 @@ void CamomileAudioProcessorEditor::filesDropped(const StringArray& files, int x,
             if(file.getFileExtension() == juce::String(".pd"))
             {
                 m_processor.loadPatch(file);
-                repaint();
             }
         }
+    }
+}
+
+void CamomileAudioProcessorEditor::patchChanged()
+{
+    if(m_processor.hasPatch())
+    {
+        t_canvas* cnv = m_processor.getPatch();
+        if(cnv)
+        {
+            setSize(cnv->gl_screenx2, cnv->gl_screeny2);
+        }
+    }
+    else
+    {
+        repaint();
     }
 }
 

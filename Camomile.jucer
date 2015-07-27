@@ -50,6 +50,80 @@
         <FILE id="cPlaN1" name="z_libpd.h" compile="0" resource="0" file="ThirdParty/Pd/libpd_wrapper/z_libpd.h"/>
       </GROUP>
     </GROUP>
+    <GROUP id="{219DB9C7-7A3A-0A0B-CC0D-A3924A13804E}" name="Cream">
+      <FILE id="PruMgh" name="c.library.cpp" compile="1" resource="0" file="ThirdParty/Cream/c.library.cpp"/>
+      <FILE id="HFBm8i" name="c.library.hpp" compile="0" resource="0" file="ThirdParty/Cream/c.library.hpp"/>
+      <GROUP id="{EEE92DE8-391A-6127-C38B-CE87A425D953}" name="CicmWrapper">
+        <FILE id="XhYvr2" name="cicm_wrapper.h" compile="0" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/cicm_wrapper.h"/>
+        <FILE id="uGCVrx" name="ebox.c" compile="1" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/ebox.c"/>
+        <FILE id="R3oeSw" name="ebox.h" compile="0" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/ebox.h"/>
+        <FILE id="XRUOme" name="eclass.c" compile="1" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/eclass.c"/>
+        <FILE id="C5oyYx" name="eclass.h" compile="0" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/eclass.h"/>
+        <FILE id="oAbJ69" name="ecommon.c" compile="1" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/ecommon.c"/>
+        <FILE id="Ug9C9h" name="ecommon.h" compile="0" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/ecommon.h"/>
+        <FILE id="dzpO6c" name="edefine.h" compile="0" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/edefine.h"/>
+        <FILE id="t8HafQ" name="egraphics.c" compile="1" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/egraphics.c"/>
+        <FILE id="GY3BGd" name="egraphics.h" compile="0" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/egraphics.h"/>
+        <FILE id="bGHnto" name="eobj.c" compile="1" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/eobj.c"/>
+        <FILE id="ewWgKV" name="eobj.h" compile="0" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/eobj.h"/>
+        <FILE id="z73DU2" name="epdmax.h" compile="0" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/epdmax.h"/>
+        <FILE id="xdPsR3" name="epopup.c" compile="1" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/epopup.c"/>
+        <FILE id="sqsZ2g" name="epopup.h" compile="0" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/epopup.h"/>
+      </GROUP>
+      <GROUP id="{374A4B91-58F8-29B5-31DC-892ABB2B5249}" name="Sources">
+        <FILE id="BMH4fd" name="c.bang.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.bang.cpp"/>
+        <FILE id="Vv2gMA" name="c.blackboard.cpp" compile="1" resource="0"
+              file="ThirdParty/Cream/Sources/c.blackboard.cpp"/>
+        <FILE id="N7wsUi" name="c.breakpoints.cpp" compile="1" resource="0"
+              file="ThirdParty/Cream/Sources/c.breakpoints.cpp"/>
+        <FILE id="jDSQQo" name="c.colorpanel.cpp" compile="1" resource="0"
+              file="ThirdParty/Cream/Sources/c.colorpanel.cpp"/>
+        <FILE id="oLThD0" name="c.dsp_tilde.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.dsp_tilde.cpp"/>
+        <FILE id="hUF5fn" name="c.gain_tilde.cpp" compile="1" resource="0"
+              file="ThirdParty/Cream/Sources/c.gain_tilde.cpp"/>
+        <FILE id="vRp5Ky" name="c.incdec.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.incdec.cpp"/>
+        <FILE id="uhTiEO" name="c.knob.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.knob.cpp"/>
+        <FILE id="ZvNbdV" name="c.matrix.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.matrix.cpp"/>
+        <FILE id="ekcA8Q" name="c.menu.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.menu.cpp"/>
+        <FILE id="EYnkX4" name="c.meter_tilde.cpp" compile="1" resource="0"
+              file="ThirdParty/Cream/Sources/c.meter_tilde.cpp"/>
+        <FILE id="gnzb5y" name="c.number.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.number.cpp"/>
+        <FILE id="P4Eu8D" name="c.number_tilde.cpp" compile="1" resource="0"
+              file="ThirdParty/Cream/Sources/c.number_tilde.cpp"/>
+        <FILE id="g2OARo" name="c.plane.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.plane.cpp"/>
+        <FILE id="ud4sm4" name="c.preset.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.preset.cpp"/>
+        <FILE id="XSo9Wr" name="c.radio.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.radio.cpp"/>
+        <FILE id="vZc4bI" name="c.rslider.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.rslider.cpp"/>
+        <FILE id="YPBJEO" name="c.scope_tilde.cpp" compile="1" resource="0"
+              file="ThirdParty/Cream/Sources/c.scope_tilde.cpp"/>
+        <FILE id="pmdUQo" name="c.slider.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.slider.cpp"/>
+        <FILE id="qyL96w" name="c.tab.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.tab.cpp"/>
+        <FILE id="VOsnjA" name="c.toggle.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.toggle.cpp"/>
+      </GROUP>
+      <GROUP id="{1EDA2F75-6F42-54B2-E78D-2C7629C9E9F4}" name="Deprecated">
+        <FILE id="OQFYhN" name="AudioFFT.cpp" compile="1" resource="0" file="ThirdParty/Cream/Deprecated/AudioFFT.cpp"/>
+        <FILE id="iR2uXR" name="AudioFFT.h" compile="0" resource="0" file="ThirdParty/Cream/Deprecated/AudioFFT.h"/>
+        <FILE id="PgJdLl" name="c.convolve_tilde.cpp" compile="1" resource="0"
+              file="ThirdParty/Cream/Deprecated/c.convolve_tilde.cpp"/>
+        <FILE id="y5uKJj" name="c.freeverb_tilde.cpp" compile="1" resource="0"
+              file="ThirdParty/Cream/Deprecated/c.freeverb_tilde.cpp"/>
+        <FILE id="tHMmx9" name="c.loadmess.cpp" compile="1" resource="0" file="ThirdParty/Cream/Deprecated/c.loadmess.cpp"/>
+        <FILE id="bfQW08" name="c.pak.cpp" compile="1" resource="0" file="ThirdParty/Cream/Deprecated/c.pak.cpp"/>
+        <FILE id="e19Ynp" name="c.patcherargs.cpp" compile="1" resource="0"
+              file="ThirdParty/Cream/Deprecated/c.patcherargs.cpp"/>
+        <FILE id="SRCFFq" name="c.patcherinfos.cpp" compile="1" resource="0"
+              file="ThirdParty/Cream/Deprecated/c.patcherinfos.cpp"/>
+        <FILE id="CzjJaA" name="c.patchermess.cpp" compile="1" resource="0"
+              file="ThirdParty/Cream/Deprecated/c.patchermess.cpp"/>
+        <FILE id="h1L2OH" name="c.prepend.cpp" compile="1" resource="0" file="ThirdParty/Cream/Deprecated/c.prepend.cpp"/>
+        <FILE id="S8Y69j" name="FFTConvolver.cpp" compile="1" resource="0"
+              file="ThirdParty/Cream/Deprecated/FFTConvolver.cpp"/>
+        <FILE id="puF7eY" name="FFTConvolver.h" compile="0" resource="0" file="ThirdParty/Cream/Deprecated/FFTConvolver.h"/>
+        <FILE id="DUcgao" name="Makefile.am" compile="0" resource="1" file="ThirdParty/Cream/Deprecated/Makefile.am"/>
+        <FILE id="StPHE7" name="Utilities.cpp" compile="1" resource="0" file="ThirdParty/Cream/Deprecated/Utilities.cpp"/>
+        <FILE id="AWhcoh" name="Utilities.h" compile="0" resource="0" file="ThirdParty/Cream/Deprecated/Utilities.h"/>
+      </GROUP>
+    </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" vstFolder="ThirdParty/Vst/vstsdk2.4"
