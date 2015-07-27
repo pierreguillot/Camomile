@@ -15,6 +15,10 @@
 CamomileAudioProcessor::CamomileAudioProcessor() : m_buffer_in(nullptr), m_buffer_out(nullptr)
 {
     m_pd = new pd::PdBase();
+    int later_clean_it;
+    m_pd->init(2, 2, 44100);
+    m_pd->clearSearchPath();
+    m_pd->addToSearchPath("Users/Pierre/Desktop/");
     libpd_loadcream();
 }
 

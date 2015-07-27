@@ -14,12 +14,25 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 
+typedef struct _camomile
+{
+    t_ebox      j_box;
+    t_rgba		f_color_background;
+    t_rgba		f_color_border;
+} t_camomile;
+
+class Cobject : public Component
+{
+    
+};
+
 class CamomileAudioProcessorEditor  : public AudioProcessorEditor, public CamomileAudioProcessor::Listener, public FileDragAndDropTarget
 {
 private:
     CamomileAudioProcessor& m_processor;
     bool                    m_file_drop;
     String                  m_file;
+    vector<Cobject>         m_objects;
 public:
     CamomileAudioProcessorEditor(CamomileAudioProcessor&);
     ~CamomileAudioProcessorEditor();
@@ -34,6 +47,9 @@ public:
     void patchChanged() override;
 
 private:
+    
+    static t_camomile* getCamomile(t_canvas* cnv) noexcept;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessorEditor)
 };
 
