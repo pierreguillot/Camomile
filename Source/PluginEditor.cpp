@@ -11,21 +11,21 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-t_camomile* CamomileAudioProcessorEditor::getCamomile(t_canvas* cnv) noexcept
+CicmComponent::CicmComponent(CicmObject const& object) : m_object(object)
 {
-    if(cnv)
-    {
-        t_symbol* name = gensym("c.camomile");
-        t_gobj *y;
-        for(y = cnv->gl_list; y; y = y->g_next)
-        {
-            if(eobj_getclassname(y) == name)
-            {
-                return (t_camomile *)y;
-            }
-        }
-    }
-    return nullptr;
+    Component::setBounds(m_object.getBounds());
+}
+
+CicmComponent::~CicmComponent()
+{
+    ;
+}
+
+void CicmComponent::paint(Graphics& g)
+{
+    g.fillAll(m_object.getBackgroundColor());
+    g.setColour(m_object.getBorderColor());
+    g.drawRect(getBounds().withZeroOrigin());
 }
 
 CamomileAudioProcessorEditor::CamomileAudioProcessorEditor(CamomileAudioProcessor& p) :
@@ -33,8 +33,22 @@ AudioProcessorEditor(&p),
 m_processor(p),
 m_file_drop(false)
 {
-    setSize(400, 300);
     m_processor.addListener(this);
+    m_patch = m_processor.getPatch();
+    if(m_patch.isPlugin())
+    {
+        const std::vector<CicmObject> objects = m_patch.getObjects();
+        for(auto it : objects)
+        {
+            m_objects.add(new CicmComponent(it));
+            addAndMakeVisible(m_objects.getLast());
+        }
+        Component::setSize(m_patch.getWidth(), m_patch.getHeight());
+    }
+    else
+    {
+        setSize(400, 300);
+    }
 }
 
 CamomileAudioProcessorEditor::~CamomileAudioProcessorEditor()
@@ -44,12 +58,7 @@ CamomileAudioProcessorEditor::~CamomileAudioProcessorEditor()
 
 void CamomileAudioProcessorEditor::paint(Graphics& g)
 {
-    if(m_file_drop)
-    {
-        g.fillAll(Colours::lightblue);
-    }
-    
-    if(!m_processor.hasPatch())
+    if(!m_patch.isPlugin())
     {
         g.fillAll(Colours::white);
         g.setColour(Colours::black);
@@ -58,12 +67,23 @@ void CamomileAudioProcessorEditor::paint(Graphics& g)
     }
     else
     {
-        t_camomile* cm = getCamomile(m_processor.getPatch());
-        if(cm)
-        {
-            g.fillAll(Colour::fromFloatRGBA(cm->f_color_background.red, cm->f_color_background.green, cm->f_color_background.blue, cm->f_color_background.alpha));
-        }
+        g.fillAll(Colours::blue);
     }
+    
+    if(m_file_drop)
+    {
+        g.fillAll(Colours::lightblue.withAlpha(0.2f));
+    }
+    
+    g.setColour(Colours::black);
+    g.setFont (15.0f);
+    g.drawText(juce::String(to_string(getNumChildComponents())), getBounds().withZeroOrigin(), juce::Justification::left);
+    /*
+    
+    g.drawText(juce::String(to_string(counter2)), getBounds().withZeroOrigin(), juce::Justification::right);
+    
+    g.drawText(juce::String(to_string(counter)), getBounds().withZeroOrigin(), juce::Justification::centred);
+     */
 }
 
 bool CamomileAudioProcessorEditor::isInterestedInFileDrag(const StringArray& files)
@@ -100,25 +120,34 @@ void CamomileAudioProcessorEditor::patchChanged()
 {
     if(m_processor.hasPatch())
     {
-        t_camomile* cm = getCamomile(m_processor.getPatch());
-        if(cm)
+        const MessageManagerLock mmLock;
+        if(mmLock.lockWasGained())
         {
-            t_rect rect;
-            pd_bang((t_pd *)cm);
-            ebox_get_rect_for_view((t_ebox *)cm, &rect);
-            setBounds(0, 0, (int)rect.width, (int)rect.height);
+            m_objects.clear();
+            const std::vector<CicmObject> objects = m_patch.getObjects();
+            for(auto it : objects)
+            {
+                m_objects.add(new CicmComponent(it));
+                addAndMakeVisible(m_objects.getLast());
+            }
+            Component::setSize(m_patch.getWidth(), m_patch.getHeight());
         }
     }
     else
     {
+        const MessageManagerLock mmLock;
         repaint();
     }
 }
 
 void CamomileAudioProcessorEditor::fileDragEnter(const StringArray& files, int x, int y)
 {
-    m_file_drop = true;
-    repaint();
+    const MessageManagerLock mmLock;
+    if(mmLock.lockWasGained())
+    {
+        m_file_drop = true;
+        repaint();
+    }
 }
 
 void CamomileAudioProcessorEditor::fileDragExit(const StringArray& files)

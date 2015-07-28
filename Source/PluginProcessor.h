@@ -14,6 +14,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "../ThirdParty/Pd/cpp/PdBase.hpp"
 #include "../ThirdParty/Cream/c.library.hpp"
+#include "CicmPatch.h"
 
 #include <set>
 
@@ -25,7 +26,7 @@ public:
     class Listener;
 private:
     ScopedPointer<pd::PdBase> m_pd;
-    pd::Patch                 m_patch;
+    CicmPatch                 m_patch;
     float*                    m_buffer_in;
     float*                    m_buffer_out;
     
@@ -74,7 +75,7 @@ public:
     
     inline bool hasPatch() const noexcept {return m_patch.isValid();}
     void loadPatch(const juce::File& file);
-    inline t_canvas* getPatch() const noexcept {return static_cast<t_canvas*>(m_patch.handle());}
+    inline CicmPatch const& getPatch() const noexcept {return m_patch;}
     inline bool shouldProcess() const noexcept {return m_pd && m_buffer_in && m_buffer_out;}
     
     // ================================================================================ //
