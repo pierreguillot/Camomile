@@ -17,10 +17,11 @@
 
 //! @brief The camomille component for an Object.
 //! @details This class is the juce component of an Object.
-class Interface : public juce::Component
+class Interface : public juce::Component, public pd::Listener
 {
 private:
     const wGui m_object;
+    const sMessenger m_messenger;
 public:
     
     Interface(sGui object);
@@ -44,6 +45,11 @@ public:
     void mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel) override;
     
     void redraw();
+    
+    void receive(const std::string& dest, t_symbol* s)
+    {
+        redraw();
+    }
 };
 
 class CamomileAudioProcessorEditor  : public AudioProcessorEditor, public CamomileAudioProcessor::Listener, public FileDragAndDropTarget

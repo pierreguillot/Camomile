@@ -11,6 +11,7 @@
 #include <array>
 #include <vector>
 #include <set>
+#include <map>
 #include <mutex>
 #include <tuple>
 #include <iostream>
@@ -26,20 +27,26 @@ namespace pd
     class Patch;
     class Object;
     class Gui;
+    class Messenger;
+    class Listener;
     
     typedef std::shared_ptr<Instance>       sInstance;
     typedef std::weak_ptr<Instance>         wInstance;
     typedef std::shared_ptr<const Instance> scInstance;
     typedef std::weak_ptr<const Instance>   wcInstance;
     
-    typedef std::shared_ptr<Patch>        sPatch;
-    typedef std::weak_ptr<Patch>          wPatch;
-    typedef std::shared_ptr<const Patch>  scPatch;
-    typedef std::weak_ptr<const Patch>    wcPatch;
-    typedef std::shared_ptr<Object> sObject;
-    typedef std::weak_ptr<Object> wObject;
-    typedef std::shared_ptr<Gui> sGui;
-    typedef std::weak_ptr<Gui> wGui;
+    typedef std::shared_ptr<Patch>          sPatch;
+    typedef std::weak_ptr<Patch>            wPatch;
+    typedef std::shared_ptr<const Patch>    scPatch;
+    typedef std::weak_ptr<const Patch>      wcPatch;
+    typedef std::shared_ptr<Object>         sObject;
+    typedef std::weak_ptr<Object>           wObject;
+    typedef std::shared_ptr<Gui>            sGui;
+    typedef std::weak_ptr<Gui>              wGui;
+    typedef std::shared_ptr<Messenger>      sMessenger;
+    typedef std::weak_ptr<Messenger>        wMessenger;
+    typedef std::shared_ptr<Messenger>      sListener;
+    typedef std::weak_ptr<Messenger>        wListener;
     
     class Master
     {
@@ -48,6 +55,7 @@ namespace pd
         static std::mutex   s_mutex;
         static int          s_sample_rate;
         static const int    s_max_channels = 16;
+        
         static void print(const char* s);
         
         static t_canvas* openPatch(t_pdinstance* instance, std::string const& name, std::string const& path);
@@ -111,6 +119,10 @@ namespace pd
         
         //! @brief Gets the class name of the object.
         inline virtual std::string getName() const noexcept {return std::string(eobj_getclassname(m_handle)->s_name);}
+        
+        //! @brief Gets the class name of the object.
+        inline virtual std::string getBindingName() const noexcept {
+            return std::to_string(reinterpret_cast<unsigned long>(m_handle)) + std::string("camo");}
         
         //! @brief Gets the position.
         inline std::array<int,2> getPosition() const noexcept {
@@ -269,9 +281,10 @@ namespace pd
     {
         friend class Master;
     private:
-        t_pdinstance*      m_instance;
-        std::mutex         m_mutex;
-        std::set<sPatch> m_patcher;
+        t_pdinstance*                       m_instance;
+        std::mutex                          m_mutex;
+        std::set<sPatch>                    m_patcher;
+        std::map<std::string, sMessenger>   m_messengers;
         
         Instance(t_pdinstance* instance);
         
@@ -289,7 +302,7 @@ namespace pd
         
         void releaseDsp() noexcept;
         
-        inline void sendBang(t_symbol* dest) noexcept
+        inline void send(t_symbol* dest) noexcept
         {
             if(dest->s_thing)
             {
@@ -298,7 +311,7 @@ namespace pd
             }
         }
         
-        inline void sendFloat(t_symbol* dest, float val)
+        inline void send(t_symbol* dest, float val)
         {
             if(dest->s_thing)
             {
@@ -307,7 +320,7 @@ namespace pd
             }
         }
         
-        inline void sendSymbol(t_symbol* dest, t_symbol* sym)
+        inline void send(t_symbol* dest, t_symbol* sym)
         {
             if(dest->s_thing)
             {
@@ -316,7 +329,7 @@ namespace pd
             }
         }
         
-        inline void sendList(t_symbol* dest, t_symbol* sym, std::vector<t_atom> atoms)
+        inline void send(t_symbol* dest, t_symbol* sym, std::vector<t_atom> atoms)
         {
             if(dest->s_thing)
             {
@@ -328,6 +341,48 @@ namespace pd
         sPatch openPatch(const std::string& name, const std::string& path);
         
         void closePatch(sPatch patch);
+    };
+    
+    // ==================================================================================== //
+    //                                      MESSENGER                                       //
+    // ==================================================================================== //
+    
+    class Messenger
+    {
+    private:        
+        void*                       m_internal;
+        std::string                 m_symbol;
+        std::set<pd::Listener*>     m_listeners;
+        mutable std::mutex          m_mutex;
+        std::vector<pd::Listener*>  getListeners() const noexcept;
+        
+    public:
+        Messenger(std::string const& name);
+        ~Messenger();
+        void addListener(pd::Listener* listener);
+        void removeListener(pd::Listener* listener);
+        
+        void receiveBang();
+        void receiveFloat(float num);
+        void receiveSymbol(t_symbol* s);
+        void receiveList(std::vector<const t_atom *> atoms);
+        void receiveAnything(t_symbol* s, std::vector<const t_atom *> atoms);
+        
+    };
+    
+    // ==================================================================================== //
+    //                                      MESSENGER                                       //
+    // ==================================================================================== //
+    
+    class Listener
+    {
+    public:
+        virtual ~Listener() {};
+        virtual void receive(const std::string& dest) {}
+        virtual void receive(const std::string& dest, float num) {}
+        virtual void receive(const std::string& dest, t_symbol* s) {}
+        virtual void receive(const std::string& dest, std::vector<const t_atom *> atoms) {}
+        virtual void receive(const std::string& dest, t_symbol* s, std::vector<const t_atom *> atoms) {}
     };
 }
 

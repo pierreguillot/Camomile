@@ -47,7 +47,9 @@ static inline juce::Path tojPath(int size, t_pt* points)
     return path;
 }
 
-Interface::Interface(sGui object) : m_object(object)
+Interface::Interface(sGui object) :
+m_object(object),
+m_messenger(make_shared<Messenger>(object->getBindingName()))
 {
     if(object)
     {
@@ -65,6 +67,7 @@ void Interface::paint(Graphics& g)
     sGui object = m_object.lock();
     if(object)
     {
+        m_messenger->addListener(this);
         g.fillAll(tojColor(object->getBackgroundColor()));
         std::vector<t_elayer*> layers(object->paint());
         for(auto it : layers)
