@@ -4,70 +4,93 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef __CAMOMILE__WRAPPER__
-#define __CAMOMILE__WRAPPER__
+#ifndef __CAMOMILE_PD_WRAPPER__
+#define __CAMOMILE_PD_WRAPPER__
 
-#include "../JuceLibraryCode/JuceHeader.h"
-#include "../ThirdParty/Pd/cpp/PdBase.hpp"
+#include <string>
+#include <array>
+#include <vector>
+#include <mutex>
+#include <tuple>
+#include <iostream>
+#include <memory>
+
+extern "C"
+{
+    
+#include "m_pd.h"
+#include "z_libpd.h"
+#include "z_queued.h"
+#include "z_print_util.h"
+EXTERN  void pd_init(void);
+}
 #include "../ThirdParty/Cream/c.library.hpp"
 
-namespace camo
+
+namespace mpd
 {
-    //! @brief The camomile counterpart of the t_drawparams.
-    //! @details This class is a wrapper for the drawing parameters of the cicm wrapper.
-    class DrawParameters
+    class Instance;
+    class Patcher;
+    class Object;
+    
+    typedef std::shared_ptr<Object> sObject;
+    typedef std::weak_ptr<Object> wObject;
+    
+    class Master
     {
     private:
-        //! @brief The background color.
-        juce::Colour m_background_color;
-        //! @brief The border color.
-        juce::Colour m_border_color;
-        //! @brief The border size.
-        int          m_border_size;
-        //! @brief The corner roudness.
-        int          m_corner_roundness;
+        static std::mutex   s_mutex;
+        static int          s_sample_rate;
+        
+        static void print(const char* s);
+        
+        //! @brief Initialize Pure Data.
+        static void initialize() noexcept;
         
     public:
         
-        //! @brief The default constructor.
-        DrawParameters() noexcept;
+        //! @brief Creates a new instance.
+        static t_pdinstance* createInstance() noexcept;
         
-        //! @brief The attributes constructor.
-        DrawParameters(juce::Colour const& bgcolor,
-                       juce::Colour const& bdcolor,
-                       int bordersize,
-                       int cornersize) noexcept;
+        //! @brief Adds a path to the search path.
+        static void addToSearchPath(std::string const& path) noexcept
+        {
+            std::lock_guard<std::mutex> guard(s_mutex);
+            sys_searchpath = namelist_append(sys_searchpath, path.c_str(), 0);
+        }
         
-        //! @brief The copy constructor.
-        DrawParameters(DrawParameters const& other) noexcept;
         
-        //! @brief The copy operator.
-        void operator=(DrawParameters const& other) noexcept;
+        //! @brief Clears the search the search path.
+        static void clearSearchPath() noexcept
+        {
+            std::lock_guard<std::mutex> guard(s_mutex);
+            namelist_free(sys_searchpath);
+            sys_searchpath = NULL;
+        }
         
-        //! @brief Gets the background color.
-        inline juce::Colour getBackgroundColor() const noexcept {return m_background_color;}
+        static t_canvas* evalFile(std::string const& name,
+                             std::string const& path) noexcept
+        {
+            if(!name.empty() && path.empty())
+            {
+                std::lock_guard<std::mutex> guard(s_mutex);
+                return reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym(path.c_str())));
+            }
+            return nullptr;
+        }
         
-        //! @brief Gets the border color.
-        inline juce::Colour getBorderColor() const noexcept {return m_border_color;}
-        
-        //! @brief Gets the border size.
-        inline int getBorderSize() const noexcept {return m_border_size;}
-        
-        //! @brief Gets the border size.
-        inline int getCornerRoundness() const noexcept {return m_corner_roundness;}
+        static void closePatch(const t_canvas* cnv)
+        {
+            std::lock_guard<std::mutex> guard(s_mutex);
+            canvas_free(const_cast<t_canvas*>(cnv));
+        }
     };
     
-    class Gobj
-    {
-        juce::Path      m_path;         /*!< The path. */
-        juce::Colour    m_color;        /*!< The color. */
-        bool            m_fill;         /*!< If the path should be paint or stroke. */
-        float           m_width;        /*!< The line width. */
-        juce::Font      m_font;         /*!< The font of the graphical object. */
-        t_symbol*       e_anchor;       /*!< The anchor of the graphical object. */
-        t_symbol*       e_justify;      /*!< The justification of the graphical object. */
-        t_symbol*       e_text;         /*!< The text of the graphical object. */
-    };
+    
+    
+    // ==================================================================================== //
+    //                                          OBJECT                                      //
+    // ==================================================================================== //
     
     //! @brief The camomile counterpart of the t_ebox.
     //! @details This class is a wrapper for GUI object of the cicm wrapper.
@@ -77,126 +100,280 @@ namespace camo
         //! @brief The t_ebox pointer.
         void* m_handle;
         
+    protected:
+        
+        inline t_eclass* getClass() const noexcept {
+            return bool(m_handle) ? eobj_getclass(m_handle) : nullptr;}
     public:
         
         //! @brief The default constructor.
-        Object() noexcept;
+        inline Object() noexcept : m_handle(nullptr) {}
         
         //! @brief The attribute constructor.
-        Object(void* handle) noexcept;
-        
-        //! @brief The copy constructor.
-        Object(Object const& other) noexcept;
-        
-        //! @brief The copy operator.
-        void operator=(Object const& other) noexcept;
-        
-        //! @brief The bool operator.
-        inline operator bool() const noexcept {return bool(m_handle);}
-        
-        //! @brief The void* comparaison.
-        inline bool operator==(void* handler) const noexcept {return m_handle == handler;}
-        
-        //! @brief The void* comparaison.
-        inline bool operator!=(void* handler) const noexcept {return m_handle != handler;}
+        inline Object(void* handle) noexcept : m_handle(handle) {}
         
         //! @brief Gets the position.
-        Point<int> getPosition() const noexcept;
+        inline std::tuple<int,int> getPosition() const noexcept {
+            return std::make_tuple(getX(), getY());}
         
         //! @brief Gets the abscissa.
-        int getX() const noexcept;
+        inline int getX() const noexcept {
+            return int(static_cast<t_object *>(m_handle)->te_xpix);}
         
         //! @brief Gets the ordinate.
-        int getY() const noexcept;
+        inline int getY() const noexcept {
+            return int(static_cast<t_object *>(m_handle)->te_ypix);}
         
         //! @brief Gets the size.
-        Point<int> getSize() const noexcept;
+        inline virtual std::tuple<int,int> getSize() const noexcept {
+            return std::make_tuple(getWidth(), getHeight());}
         
         //! @brief Gets the width.
-        int getWidth() const noexcept;
+        inline virtual int getWidth() const noexcept {
+            return int(static_cast<t_ebox *>(m_handle)->b_rect.width);}
         
         //! @brief Gets the height.
-        int getHeight() const noexcept;
+        inline virtual int getHeight() const noexcept {
+            return int(static_cast<t_ebox *>(m_handle)->b_rect.height);}
         
         //! @brief Gets the bounds.
-        Rectangle<int> getBounds() const noexcept;
-        
-        //! @brief Gets the box wants mouse events.
-        bool wantMouse() const noexcept;
-        
-        //! @brief Gets the box wants keyboard events.
-        bool wantKeyboard() const noexcept;
+        inline virtual std::tuple<int,int, int, int> getBounds() const noexcept {
+            return std::make_tuple(getX(), getY(), getWidth(), getHeight());}
         
         //! @brief Gets the drawing parameters.
-        DrawParameters getDrawParameters() const noexcept;
+        //DrawParameters getDrawParameters() const noexcept;
         
-        //! @brief Calls the paint method.
-        std::tuple<int, t_elayer*> paint() const noexcept;
-        
-        void mouseMove(const MouseEvent& event) const noexcept;
-        
-        void mouseEnter(const MouseEvent& event) const noexcept;
-        
-        void mouseExit(const MouseEvent& event) const noexcept;
-        
-        void mouseDown(const MouseEvent& event) const noexcept;
-        
-        void mouseDrag(const MouseEvent& event) const noexcept;
-        
-        void mouseUp(const MouseEvent& event) const noexcept;
-        
-        void mouseDoubleClick(const MouseEvent& event) const noexcept;
-        
-        void mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel) const noexcept;
-
     };
     
-    //! @brief Converts a t_rgba to a juce::Colour object.
-    inline static juce::Colour toJuce(t_rgba const& rgba)
-    {
-        return juce::Colour::fromFloatRGBA(rgba.red, rgba.green, rgba.blue, rgba.alpha);
-    }
+    // ==================================================================================== //
+    //                                          GUI                                         //
+    // ==================================================================================== //
     
-    //! @brief Converts a t_edrawparams to a DrawParameters object.
-    inline static DrawParameters toJuce(t_edrawparams const& param)
+    class Gui : public Object
     {
-        return DrawParameters(toJuce(param.d_boxfillcolor),
-                              toJuce(param.d_bordercolor),
-                              std::max(int(param.d_borderthickness), 0),
-                              std::max(int(param.d_cornersize), 0));
-    }
+        t_ebox* m_handle;
+        //! @brief The background color.
+        std::array<float, 4> m_background_color;
+        //! @brief The border color.
+        std::array<float, 4> m_border_color;
+        //! @brief The border size.
+        int          m_border_size;
+        //! @brief The corner roudness.
+        int          m_corner_roundness;
+    public:
+        
+        //! @brief The destructor.
+        virtual ~Gui() {};
+        
+        //! @brief Gets if the GUI wants the mouse events.
+        bool wantMouse() const noexcept;
+        
+        //! @brief Gets the GUI wants keyboard events.
+        bool wantKeyboard() const noexcept;
+        
+        //! @brief Gets the width.
+        inline int getWidth() const noexcept override {
+            return int(m_handle->b_rect.width);}
+        
+        //! @brief Gets the height.
+        inline int getHeight() const noexcept override {
+            return int(m_handle->b_rect.height);}
+        
+        //! @brief Gets the bounds.
+        inline std::tuple<int,int, int, int> getBounds() const noexcept override {
+            return std::make_tuple(getX(), getY(), getWidth(), getHeight());}
+        
+        //! @brief Calls the mouse move method.
+        void mouseMove(std::array<float, 2> const& pos, const long mod) noexcept;
+        
+        //! @brief Calls the mouse enter method.
+        void mouseEnter(std::array<float, 2> const& pos, const long mod) noexcept;
+        
+        //! @brief Calls the mouse exist method.
+        void mouseExit(std::array<float, 2> const& pos, const long mod) noexcept;
+        
+        //! @brief Calls the mouse down method.
+        void mouseDown(std::array<float, 2> const& pos, const long mod) noexcept;
+        
+        //! @brief Calls the mouse drag method.
+        void mouseDrag(std::array<float, 2> const& pos, const long mod) noexcept;
+        
+        //! @brief Calls the mouse up method.
+        void mouseUp(std::array<float, 2> const& pos, const long mod) noexcept;
+        
+        //! @brief Calls the mouse double click method.
+        void mouseDoubleClick(std::array<float, 2> const& pos, const long mod) noexcept;
+        
+        //! @brief Calls the mouse wheel method.
+        void mouseWheelMove(std::array<float, 2> const& pos, const long mod, std::array<float, 2> const& delta) noexcept;
+        
+        //! @brief Gets the background color.
+        inline std::array<float, 4> getBackgroundColor() const noexcept {return m_background_color;}
+        
+        //! @brief Gets the border color.
+        inline std::array<float, 4> getBorderColor() const noexcept {return m_border_color;}
+        
+        //! @brief Gets the border size.
+        inline int getBorderSize() const noexcept {return m_border_size;}
+        
+        //! @brief Gets the border size.
+        inline int getCornerRoundness() const noexcept {return m_corner_roundness;}
+        
+        std::tuple<int, t_elayer*> paint() const noexcept;
+    };
     
-    //! @brief Converts a set of point to a juce::Path.
-    inline static juce::Path toJuce(int size, t_pt* points)
+    // ==================================================================================== //
+    //                                          PATCHER                                     //
+    // ==================================================================================== //
+    
+    //! @brief
+    //! @details 
+    class Patcher
     {
-        juce::Path path;
-        for(int i = 0; i < size; i++)
+        friend class Instance;
+    private:
+        const std::string m_name;
+        const std::string m_path;
+        const t_canvas*   m_cnv;
+    
+        Patcher(std::string const& name,
+                std::string const& path);
+        
+    public:
+        ~Patcher() noexcept;
+        
+        //! @brief Gets the objects.
+         std::vector<sObject> getObjects() const noexcept;
+        
+        //! @brief Gets the file's name.
+        inline std::string getName() const {return m_name;}
+        
+        //! @brief Gets the file's path.
+        inline std::string getPath() const {return m_path;}
+    };
+    
+    
+    // ==================================================================================== //
+    //                                          INSTANCE                                    //
+    // ==================================================================================== //
+    
+    //! @brief The CPP wrapper for pd's instance.
+    class Instance
+    {
+    private:
+        t_pdinstance*       m_instance;
+        std::mutex          m_mutex;
+        std::vector<std::shared_ptr<Patcher>> m_patcher;
+    public:
+
+        inline Instance() noexcept :
         {
-            if(points[i].x == E_PATH_MOVE && i < size - 1)
+            m_instance = pdinstance_new();
+        }
+
+        inline ~Instance() noexcept
+        {
+            if(m_instance)
             {
-                path.startNewSubPath(points[i+1].x, points[i+1].y);
-                ++i;
-            }
-            else if(points[i].x == E_PATH_LINE && i < size - 1)
-            {
-                path.lineTo(points[i+1].x, points[i+1].y);
-                ++i;
-            }
-            else if(points[i].x == E_PATH_CURVE && i < size - 3)
-            {
-                path.cubicTo(points[i+1].x, points[i+1].y,
-                             points[i+2].x, points[i+2].y,
-                             points[i+3].x, points[i+3].y);
-                i += 3;
-            }
-            else if(points[i].x == E_PATH_CLOSE)
-            {
-                path.closeSubPath();
+                pdinstance_free(m_instance);
             }
         }
-       
-        return path;
-    }
+        
+        inline void prepare(const int nins, const int nouts, const int samplerate) noexcept
+        {
+            if(m_instance)
+            {
+                std::lock_guard<std::mutex> guard(s_mutex);
+                pd_setinstance(m_instance);
+                std::lock_guard<std::mutex> guard2(m_mutex);
+                
+                /*
+                int indev[MAXAUDIOINDEV], inch[MAXAUDIOINDEV],
+                outdev[MAXAUDIOOUTDEV], outch[MAXAUDIOOUTDEV];
+                indev[0] = outdev[0] = DEFAULTAUDIODEV;
+                inch[0] = inChans;
+                outch[0] = outChans;
+                sys_set_audio_settings(1, indev, 1, inch,
+                                       1, outdev, 1, outch, sampleRate, -1, 1, DEFDACBLKSIZE);
+                sched_set_using_audio(SCHED_AUDIO_CALLBACK);
+                sys_reopen_audio();
+                 */
+            }
+        }
+        
+        inline void process(int ticks, const float* inputs, float* outputs) noexcept
+        {
+            if(m_instance)
+            {
+                std::lock_guard<std::mutex> guard(s_mutex);
+                pd_setinstance(m_instance);
+                std::lock_guard<std::mutex> guard2(m_mutex);
+                libpd_process_float(ticks, inputs, outputs);
+            }
+        }
+        
+        inline void process(int ticks, const double* inputs, double* outputs) noexcept
+        {
+            if(m_instance)
+            {
+                std::lock_guard<std::mutex> guard(s_mutex);
+                pd_setinstance(m_instance);
+                std::lock_guard<std::mutex> guard2(m_mutex);
+                libpd_process_double(ticks, inputs, outputs);
+            }
+        }
+        
+        inline void sendBang(t_symbol* dest) noexcept
+        {
+            if(dest->s_thing && m_instance)
+            {
+                std::lock_guard<std::mutex> guard(m_mutex);
+                pd_bang(dest->s_thing);
+            }
+        }
+        
+        inline void sendFloat(t_symbol* dest, float val)
+        {
+            if(dest->s_thing && m_instance)
+            {
+                std::lock_guard<std::mutex> guard(m_mutex);
+                pd_float(dest->s_thing, val);
+            }
+        }
+        
+        inline void sendSymbol(t_symbol* dest, t_symbol* sym)
+        {
+            if(dest->s_thing && m_instance)
+            {
+                std::lock_guard<std::mutex> guard(m_mutex);
+                pd_symbol(dest->s_thing, sym);
+            }
+        }
+        
+        inline void sendList(t_symbol* dest, t_symbol* sym, std::vector<t_atom> atoms)
+        {
+            if(dest->s_thing && m_instance)
+            {
+                std::lock_guard<std::mutex> guard(m_mutex);
+                pd_typedmess(dest->s_thing, sym, int(atoms.size()), atoms.data());
+            }
+        }
+        
+        std::shared_ptr<Patcher> openPatch(const std::string& patch, const std::string& path)
+        {
+            std::shared_ptr<Patcher> patcher;
+            try
+            {
+                patcher = std::shared_ptr<Patcher>(new Patcher(patch.c_str(), path.c_str()));
+            }
+            catch (std::exception& e)
+            {
+                throw e;
+            }
+            m_patcher.push_back(patcher);
+            return patcher;
+        }
+    };
 }
 
 #endif

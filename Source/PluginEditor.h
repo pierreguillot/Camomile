@@ -14,25 +14,51 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 
-class CicmComponent : public Component
+
+//! @brief The camomille component for an Object.
+//! @details This class is the juce component of an Object.
+class Interface : public juce::Component
 {
 private:
-    CicmObject m_object;
+    //! @brief The object.
+    Object m_object;
+    
 public:
-    CicmComponent(CicmObject const& object);
     
-    ~CicmComponent();
+    //! @brief The attribute constructor.
+    Interface(Object const& object);
     
+    //! @brief The paint method.
     void paint(Graphics& g) override;
+    
+    void mouseMove(const MouseEvent& event) override;
+    
+    void mouseEnter(const MouseEvent& event) override;
+    
+    void mouseExit(const MouseEvent& event) override;
+    
+    void mouseDown(const MouseEvent& event) override;
+    
+    void mouseDrag(const MouseEvent& event) override;
+    
+    void mouseUp(const MouseEvent& event) override;
+    
+    void mouseDoubleClick(const MouseEvent& event) override;
+    
+    void mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel) override;
+    
+    void redraw();
+    
+    bool operator==(Object const& other) noexcept {return m_object == other;}
+    
 };
 
 class CamomileAudioProcessorEditor  : public AudioProcessorEditor, public CamomileAudioProcessor::Listener, public FileDragAndDropTarget
 {
 private:
     CamomileAudioProcessor& m_processor;
-    CicmPatch               m_patch;
     bool                    m_file_drop;
-    OwnedArray<CicmComponent> m_objects;
+    OwnedArray<Interface>   m_objects;
 public:
     CamomileAudioProcessorEditor(CamomileAudioProcessor&);
     ~CamomileAudioProcessorEditor();
@@ -45,7 +71,6 @@ public:
     void fileDragEnter(const StringArray& files, int x, int y) override;
     void fileDragExit(const StringArray& files) override;
     void patchChanged() override;
-
 private:
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessorEditor)

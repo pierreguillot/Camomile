@@ -11,21 +11,121 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-CicmComponent::CicmComponent(CicmObject const& object) : m_object(object)
+Interface::Interface(Object const& object) : m_object(object)
 {
-    Component::setBounds(m_object.getBounds());
+    tuple<int, int> size = m_object.getSize();
+    Component::setSize(std::get<0>(size), std::get<1>(size));
+    Component::setVisible(true);
+    Component::setInterceptsMouseClicks(m_object.wantMouse(), m_object.wantMouse());
+    Component::setMouseClickGrabsKeyboardFocus(m_object.wantKeyboard());
+    Component::setWantsKeyboardFocus(m_object.wantKeyboard());
 }
 
-CicmComponent::~CicmComponent()
+void Interface::paint(Graphics& g)
 {
-    ;
+    //DrawParameters parameters = m_object.getDrawParameters();
+    //g.fillAll(parameters.getBackgroundColor());
+    /*
+     const std::tuple<int, t_elayer*> tup = m_object.paint();
+     const int size = std::get<0>(tup);
+     t_elayer* layers = std::get<1>(tup);
+     if(size && layers)
+     {
+     AffineTransform transform(AffineTransform::translation(parameters.getBorderSize(), parameters.getBorderSize()));
+     for(int i = 0; i < size; i++)
+     {
+     if(layers[i].e_state == EGRAPHICS_TODRAW)
+     {
+     for(int j = 0; j < layers[i].e_number_objects; j++)
+     {
+     t_egobj const& obj = layers[i].e_objects[j];
+     const t_rgba color = hex_to_rgba(obj.e_color->s_name);
+     g.setColour(toJuce(color));
+     
+     if(obj.e_type == E_GOBJ_PATH)
+     {
+     juce::Path path(toJuce(obj.e_npoints, obj.e_points));
+     if(obj.e_filled)
+     {
+     g.fillPath(path, transform);
+     }
+     else
+     {
+     g.strokePath(path, PathStrokeType(obj.e_width), transform);
+     }
+     }
+     else if(obj.e_type == E_GOBJ_RECT)
+     {
+     
+     }
+     else if(obj.e_type == E_GOBJ_TEXT)
+     {
+     g.drawText(juce::String(obj.e_text->s_name),
+     obj.e_points[0].x,
+     obj.e_points[0].y,
+     obj.e_points[1].x,
+     obj.e_points[1].y,
+     juce::Justification(juce::Justification::centred), true);
+     
+     }
+     }
+     layers[i].e_state = EGRAPHICS_CLOSE;
+     }
+     
+     }
+     }
+     */
+    //g.setColour(parameters.getBorderColor());
+    //g.drawRect(getBounds().withZeroOrigin(), parameters.getBorderSize());
 }
 
-void CicmComponent::paint(Graphics& g)
+void Interface::mouseMove(const MouseEvent& event)
 {
-    g.fillAll(m_object.getBackgroundColor());
-    g.setColour(m_object.getBorderColor());
-    g.drawRect(getBounds().withZeroOrigin());
+    //m_object.mouseMove(event);
+}
+
+void Interface::mouseEnter(const MouseEvent& event)
+{
+    //m_object.mouseEnter(event);
+}
+
+void Interface::mouseExit(const MouseEvent& event)
+{
+    //m_object.mouseExit(event);
+}
+
+void Interface::mouseDown(const MouseEvent& event)
+{
+    //m_object.mouseDown(event);
+}
+
+void Interface::mouseDrag(const MouseEvent& event)
+{
+    //m_object.mouseDrag(event);
+}
+
+void Interface::mouseUp(const MouseEvent& event)
+{
+    //m_object.mouseUp(event);
+}
+
+void Interface::mouseDoubleClick(const MouseEvent& event)
+{
+    //m_object.mouseDoubleClick(event);
+}
+
+void Interface::mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel)
+{
+    //m_object.mouseWheelMove(event, wheel);
+}
+
+void Interface::redraw()
+{
+    const MessageManagerLock thread(Thread::getCurrentThread());
+    if(thread.lockWasGained())
+    {
+        repaint();
+    }
 }
 
 CamomileAudioProcessorEditor::CamomileAudioProcessorEditor(CamomileAudioProcessor& p) :
@@ -34,21 +134,17 @@ m_processor(p),
 m_file_drop(false)
 {
     m_processor.addListener(this);
-    m_patch = m_processor.getPatch();
-    if(m_patch.isPlugin())
+    shared_ptr<const Patcher> patch = m_processor.getPatch();
+    if(patch)
     {
-        const std::vector<CicmObject> objects = m_patch.getObjects();
+        const std::vector<Object> objects = patch->getObjects();
         for(auto it : objects)
         {
-            m_objects.add(new CicmComponent(it));
+            m_objects.add(new Interface(it));
             addAndMakeVisible(m_objects.getLast());
         }
-        Component::setSize(m_patch.getWidth(), m_patch.getHeight());
     }
-    else
-    {
-        setSize(400, 300);
-    }
+    setSize(600, 400);
 }
 
 CamomileAudioProcessorEditor::~CamomileAudioProcessorEditor()
@@ -58,32 +154,29 @@ CamomileAudioProcessorEditor::~CamomileAudioProcessorEditor()
 
 void CamomileAudioProcessorEditor::paint(Graphics& g)
 {
-    if(!m_patch.isPlugin())
+    shared_ptr<const Patcher> patch = m_processor.getPatch();
+    if(patch)
+    {
+        /*
+        camo::Object cam = patch.getCamomile();
+        camo::DrawParameters parameters = cam.getDrawParameters();
+        g.fillAll(parameters.getBackgroundColor());
+        g.setColour(parameters.getBorderColor());
+         */
+        g.drawRect(getBounds().withZeroOrigin());
+    }
+    else
     {
         g.fillAll(Colours::white);
         g.setColour(Colours::black);
         g.setFont (15.0f);
         g.drawText(juce::String("Drag & Drop your patch..."), getBounds().withZeroOrigin(), juce::Justification::centred);
     }
-    else
-    {
-        g.fillAll(Colours::blue);
-    }
     
     if(m_file_drop)
     {
         g.fillAll(Colours::lightblue.withAlpha(0.2f));
     }
-    
-    g.setColour(Colours::black);
-    g.setFont (15.0f);
-    g.drawText(juce::String(to_string(getNumChildComponents())), getBounds().withZeroOrigin(), juce::Justification::left);
-    /*
-    
-    g.drawText(juce::String(to_string(counter2)), getBounds().withZeroOrigin(), juce::Justification::right);
-    
-    g.drawText(juce::String(to_string(counter)), getBounds().withZeroOrigin(), juce::Justification::centred);
-     */
 }
 
 bool CamomileAudioProcessorEditor::isInterestedInFileDrag(const StringArray& files)
@@ -118,24 +211,21 @@ void CamomileAudioProcessorEditor::filesDropped(const StringArray& files, int x,
 
 void CamomileAudioProcessorEditor::patchChanged()
 {
-    if(m_processor.hasPatch())
+    removeAllChildren();
+    m_objects.clear(true);
+    shared_ptr<const Patcher> patch = m_processor.getPatch();
+    if(patch)
     {
-        const MessageManagerLock mmLock;
-        if(mmLock.lockWasGained())
+        const std::vector<Object> objects = patch->getObjects();
+        for(auto it : objects)
         {
-            m_objects.clear();
-            const std::vector<CicmObject> objects = m_patch.getObjects();
-            for(auto it : objects)
-            {
-                m_objects.add(new CicmComponent(it));
-                addAndMakeVisible(m_objects.getLast());
-            }
-            Component::setSize(m_patch.getWidth(), m_patch.getHeight());
+            m_objects.add(new Interface(it));
+            addAndMakeVisible(m_objects.getLast());
         }
     }
-    else
+    const MessageManagerLock mmLock;
+    if(mmLock.lockWasGained())
     {
-        const MessageManagerLock mmLock;
         repaint();
     }
 }

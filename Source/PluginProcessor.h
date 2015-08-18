@@ -12,26 +12,27 @@
 #define PLUGINPROCESSOR_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "../ThirdParty/Pd/cpp/PdBase.hpp"
-#include "../ThirdParty/Cream/c.library.hpp"
-#include "CicmPatch.h"
+#include "CamoInterface.h"
+#include "PdWrapper.h"
 
 #include <set>
+#include <memory>
 
 using namespace std;
+using namespace mpd;
 
 class CamomileAudioProcessor  : public AudioProcessor
 {
 public:
     class Listener;
 private:
-    ScopedPointer<pd::PdBase> m_pd;
-    CicmPatch                 m_patch;
-    float*                    m_buffer_in;
-    float*                    m_buffer_out;
+    shared_ptr<Instance>    m_pd;
+    shared_ptr<Patcher>     m_patch;
+    float*                  m_buffer_in;
+    float*                  m_buffer_out;
     
-    set<Listener*>            m_listeners;
-    mutable mutex             m_mutex;
+    set<Listener*>          m_listeners;
+    mutable mutex           m_mutex;
     
 public:
     CamomileAudioProcessor();
@@ -73,9 +74,11 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
-    inline bool hasPatch() const noexcept {return m_patch.isValid();}
+    inline bool hasPatch() const noexcept {return bool(m_patch);}
     void loadPatch(const juce::File& file);
-    inline CicmPatch const& getPatch() const noexcept {return m_patch;}
+    
+    inline shared_ptr<const Patcher> getPatch() const noexcept {return m_patch;}
+    inline shared_ptr<Patcher> getPatch() noexcept {return m_patch;}
     inline bool shouldProcess() const noexcept {return m_pd && m_buffer_in && m_buffer_out;}
     
     // ================================================================================ //

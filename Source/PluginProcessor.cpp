@@ -14,12 +14,11 @@
 //==============================================================================
 CamomileAudioProcessor::CamomileAudioProcessor() : m_buffer_in(nullptr), m_buffer_out(nullptr)
 {
-    m_pd = new pd::PdBase();
-    int later_clean_it;
-    m_pd->init(2, 2, 44100);
-    m_pd->clearSearchPath();
-    m_pd->addToSearchPath("Users/Pierre/Desktop/");
-    libpd_loadcream();
+    m_pd = make_shared<Instance>();
+    if(m_pd)
+    {
+        m_patch = m_pd->openPatch("Test2.pd", "/Users/Pierre/Desktop/");
+    }
 }
 
 CamomileAudioProcessor::~CamomileAudioProcessor()
@@ -132,13 +131,16 @@ void CamomileAudioProcessor::changeProgramName (int index, const String& newName
 }
 
 //==============================================================================
-void CamomileAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     releaseResources();
     if(m_pd)
     {
-        if(m_pd->init(getNumInputChannels(), getNumOutputChannels(), sampleRate))
+        /*
+        m_pd->prepare(getNumInputChannels(), getNumOutputChannels(), sampleRate);
+        if(m_pd->init()
         {
+            m_pd->subscribe(m_patch.getName());
             int numChannels = jmin(getNumInputChannels(), getNumOutputChannels());
             try
             {
@@ -159,6 +161,7 @@ void CamomileAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
             
             m_pd->computeAudio(true);
         }
+         */
     }
 }
 
@@ -166,6 +169,7 @@ void CamomileAudioProcessor::releaseResources()
 {
     if(m_pd)
     {
+        /*
         m_pd->computeAudio(false);
         if(m_buffer_in)
         {
@@ -177,11 +181,13 @@ void CamomileAudioProcessor::releaseResources()
         }
         m_buffer_in  = nullptr;
         m_buffer_out = nullptr;
+         */
     }
 }
 
 void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
+    /*
     int nsamples = buffer.getNumSamples();
     int nchannels = buffer.getNumChannels();
     for(int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
@@ -204,7 +210,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
                 }
             }
             
-            m_pd->processFloat (1, m_buffer_in, m_buffer_out);
+            m_pd->processFloat(1, m_buffer_in, m_buffer_out);
             
             const float* output = m_buffer_out;
             for(int i = 0; i < max; ++i)
@@ -219,6 +225,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
             nsamples -= max;
         }
     }
+     */
 }
 
 //==============================================================================
@@ -250,17 +257,20 @@ void CamomileAudioProcessor::loadPatch(const juce::File& file)
 {
     if(m_pd)
     {
+        /*
         suspendProcessing(true);
         if(isSuspended())
         {
-            if(m_patch.isValid())
+            if(m_patch.isOpen())
             {
+                m_pd->unsubscribe(m_patch.getName());
                 m_pd->closePatch(m_patch);
                 m_patch = pd::Patch();
             }
             if(file.exists() && file.getFileExtension() == String(".pd"))
             {
                 m_patch = m_pd->openPatch(file.getFileName().toStdString(), (file.getParentDirectory()).getFullPathName().toStdString());
+                m_pd->subscribe(m_patch.getName());
             }
             vector<Listener*> listeners = getListeners();
             for(auto it : listeners)
@@ -270,6 +280,7 @@ void CamomileAudioProcessor::loadPatch(const juce::File& file)
         }
         
         suspendProcessing(false);
+         */
     }
     
 }

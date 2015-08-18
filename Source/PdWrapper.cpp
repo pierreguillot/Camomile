@@ -4,249 +4,199 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "CamoWrapper.h"
-#include "../ThirdParty/Cream/c.library.hpp"
+#include "PdWrapper.h"
 
-namespace camo
+namespace mpd
 {
-    /*
-    inline static juce::Colour toJuce(t_rgba const& rgba)
+    // ==================================================================================== //
+    //                                          MASTER                                      //
+    // ==================================================================================== //
+    
+    int Master::s_sample_rate;
+    std::mutex Master::s_mutex;
+    
+    void Master::initialize() noexcept
     {
-        return juce::Colour::fromFloatRGBA(rgba.red, rgba.green, rgba.blue, rgba.alpha);
-    }
-    
-    //! @brief Converts a t_edrawparams to a DrawParameters object.
-    
-     inline static DrawParameters toJuce(t_edrawparams const& param)
-     {
-     return DrawParameters(toJuce(param.d_boxfillcolor),
-     toJuce(param.d_bordercolor),
-     std::max(int(param.d_borderthickness), 0),
-     std::max(int(param.d_cornersize), 0));
-     }
-    
-    DrawParameters::DrawParameters() noexcept :
-    m_background_color(juce::Colours::white),
-    m_border_color(juce::Colours::white),
-    m_border_size(0),
-    m_corner_roundness(0)
-    {
-        
-    }
-    
-    DrawParameters::DrawParameters(juce::Colour const& bgcolor,
-                                   juce::Colour const& bdcolor,
-                                   int bordersize,
-                                   int cornersize) noexcept :
-    m_background_color(bgcolor),
-    m_border_color(bdcolor),
-    m_border_size(std::max(bordersize, 0)),
-    m_corner_roundness(std::max(cornersize, 0))
-    {
-        
-    }
-    
-    DrawParameters::DrawParameters(DrawParameters const& other) noexcept :
-    m_background_color(other.m_background_color),
-    m_border_color(other.m_border_color),
-    m_border_size(other.m_border_size),
-    m_corner_roundness(other.m_corner_roundness)
-    {
-        
-    }
-    
-    void DrawParameters::operator=(DrawParameters const& other) noexcept
-    {
-        m_background_color  = other.m_background_color;
-        m_border_color      = other.m_border_color;
-        m_border_size       = other.m_border_size;
-        m_corner_roundness  = other.m_corner_roundness;
-    }
-    
-    Object::Object() noexcept : m_handle(nullptr)
-    {
-        
-    }
-    
-    Object::Object(void* handle) noexcept : m_handle(handle)
-    {
-        
-    }
-    
-    Object::Object(Object const& other) noexcept : m_handle(other.m_handle)
-    {
-        
-    }
-    
-    void Object::operator=(Object const& other) noexcept
-    {
-        m_handle = other.m_handle;
-    }
-    
-    Point<int> Object::getPosition() const noexcept
-    {
-        return Point<int>(getX(), getY());
-    }
-    
-    int Object::getX() const noexcept
-    {
-        return int(((t_object *)(m_handle))->te_xpix);
-    }
-    
-    int Object::getY() const noexcept
-    {
-        return int(((t_object *)(m_handle))->te_ypix);
-    }
-    
-    Point<int> Object::getSize() const noexcept
-    {
-        return Point<int>(getWidth(), getHeight());
-    }
-    
-    int Object::getWidth() const noexcept
-    {
-        return int(((t_ebox *)(m_handle))->b_rect.width);
-    }
-    
-    int Object::getHeight() const noexcept
-    {
-        return int(((t_ebox *)(m_handle))->b_rect.height);
-    }
-    
-    Rectangle<int> Object::getBounds() const noexcept
-    {
-        return Rectangle<int>(getX(), getY(), getWidth(), getHeight());
-    }
-    
-    bool Object::wantMouse() const noexcept
-    {
-        t_eclass* c = eobj_getclass(m_handle);
-        if(c && !(((t_ebox *)m_handle)->b_flags & EBOX_IGNORELOCKCLICK))
+        static int initialized = 0;
+        if(!initialized)
         {
-            return c->c_widget.w_mousedown ||
-            c->c_widget.w_mousedrag ||
-            c->c_widget.w_mouseenter ||
-            c->c_widget.w_mouseleave ||
-            c->c_widget.w_mousemove ||
-            c->c_widget.w_mouseup ||
-            c->c_widget.w_mousewheel ||
-            c->c_widget.w_dblclick;
+            //std::lock_guard<std::mutex> guard(s_mutex);
+            signal(SIGFPE, SIG_IGN);
+            sys_printhook = (t_printhook)print;
+            sys_soundin = NULL;
+            sys_soundout = NULL;
+            // are all these settings necessary?
+            sys_schedblocksize = DEFDACBLKSIZE;
+            sys_externalschedlib = 0;
+            sys_printtostderr = 0;
+            sys_usestdpath = 0;
+            sys_debuglevel = 0;
+            sys_verbose = 0;
+            sys_noloadbang = 0;
+            sys_nogui = 1;
+            sys_hipriority = 0;
+            sys_nmidiin = 0;
+            sys_nmidiout = 0;
+            sys_init_fdpoll();
+#ifdef HAVE_SCHED_TICK_ARG
+            sys_time = 0;
+#endif
+            pd_init();
+            sys_set_audio_api(API_DUMMY);
+            sys_searchpath = NULL;
+            s_sample_rate  = 44100;
+            initialized = 1;
+            libpd_loadcream();
         }
-        return false;
     }
     
-    bool Object::wantKeyboard() const noexcept
+    t_pdinstance* Master::createInstance() noexcept
     {
-        t_eclass* c = eobj_getclass(m_handle);
-        if(c && (c->c_widget.w_key || c->c_widget.w_keyfilter))
-        {
-            return c->c_widget.w_key || c->c_widget.w_keyfilter;
-        }
-        return false;
+        std::lock_guard<std::mutex> guard(s_mutex);
+        initialize();
+        return pdinstance_new();
     }
     
-    DrawParameters Object::getDrawParameters() const noexcept
+    void Master::print(const char* s)
     {
-        t_eclass* c = eobj_getclass(m_handle);
-        if(c && c->c_widget.w_getdrawparameters)
-        {
-            t_edrawparams params;
-            c->c_widget.w_getdrawparameters(m_handle, NULL, &params);
-            return toJuce(params);
-        }
-        return DrawParameters();
+        std::cout << s << "\n";
     }
     
-    /*
-    std::tuple<int, t_elayer*> Object::paint() const noexcept
-    {
-        t_eclass* c = eobj_getclass(m_handle);
-        
-        for(int i = 0; i < ((t_ebox *)m_handle)->b_number_of_layers; i++)
-        {
-            ((t_ebox *)m_handle)->b_layers[i].e_state = EGRAPHICS_INVALID;
-        }
-        if(c && c->c_widget.w_paint)
-        {
-            c->c_widget.w_paint(m_handle, NULL);
-            return std::tuple<int, t_elayer*>(int(((t_ebox *)(m_handle))->b_number_of_layers), ((t_ebox *)(m_handle))->b_layers);
-        }
-        return std::tuple<int, t_elayer*>(0, nullptr);
-    }*/
     
-    /*
-    void Object::mouseMove(const MouseEvent& event) const noexcept
+    // ==================================================================================== //
+    //                                          PATCHER                                     //
+    // ==================================================================================== //
+    
+    Patcher::Patcher(std::string const& name,
+                     std::string const& path) :
+    m_name(name),
+    m_path(path),
+    m_cnv(Master::evalFile(name, path))
     {
-        t_eclass* c = eobj_getclass(m_handle);
+        if(!m_cnv)
+        {
+            class Error : public std::exception {
+            public:
+                const char* what() const noexcept override {
+                    return "Can't allocate patcher !";}
+            };
+            throw Error();
+        }
+    }
+    
+    Patcher::~Patcher() noexcept
+    {
+        if(m_cnv)
+        {
+            Master::closePatch(m_cnv);
+        }
+    }
+    
+    std::vector<sObject> Patcher::getObjects() const noexcept
+    {
+        std::vector<sObject> objects;
+        for(t_gobj *y = m_cnv->gl_list; y; y = y->g_next)
+        {
+            objects.push_back(std::make_shared<Object>(y));
+        }
+        return objects;
+    }
+    
+    // ==================================================================================== //
+    //                                          GUI                                         //
+    // ==================================================================================== //
+    
+    bool Gui::wantMouse() const noexcept
+    {
+        t_eclass* c = getClass();
+        return c && !(m_handle->b_flags & EBOX_IGNORELOCKCLICK) &&
+        (c->c_widget.w_mousedown ||
+         c->c_widget.w_mousedrag ||
+         c->c_widget.w_mouseenter ||
+         c->c_widget.w_mouseleave ||
+         c->c_widget.w_mousemove ||
+         c->c_widget.w_mouseup ||
+         c->c_widget.w_mousewheel ||
+         c->c_widget.w_dblclick);
+    }
+    
+    bool Gui::wantKeyboard() const noexcept
+    {
+        t_eclass* c = getClass();
+        return c && (c->c_widget.w_key || c->c_widget.w_keyfilter);
+    }
+    
+    void Gui::mouseMove(std::array<float, 2> const& pos, const long mod) noexcept
+    {
+        t_eclass* c = getClass();
         if(c && c->c_widget.w_mousemove)
         {
-            c->c_widget.w_mousemove(m_handle, NULL, t_pt({float(event.x), float(event.y)}), (long)event.mods.getRawFlags());
+            c->c_widget.w_mousemove(m_handle, NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
-    void Object::mouseEnter(const MouseEvent& event) const noexcept
+    void Gui::mouseEnter(std::array<float, 2> const& pos, const long mod) noexcept
     {
-        t_eclass* c = eobj_getclass(m_handle);
+        t_eclass* c = getClass();
         if(c && c->c_widget.w_mouseenter)
         {
-            c->c_widget.w_mouseenter(m_handle, NULL, t_pt({float(event.x), float(event.y)}), (long)event.mods.getRawFlags());
+            c->c_widget.w_mouseenter(m_handle, NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
-    void Object::mouseExit(const MouseEvent& event) const noexcept
+    void Gui::mouseExit(std::array<float, 2> const& pos, const long mod) noexcept
     {
-        t_eclass* c = eobj_getclass(m_handle);
+        t_eclass* c = getClass();
         if(c && c->c_widget.w_mouseleave)
         {
-            c->c_widget.w_mouseleave(m_handle, NULL, t_pt({float(event.x), float(event.y)}), (long)event.mods.getRawFlags());
+            c->c_widget.w_mouseleave(m_handle, NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
-    void Object::mouseDown(const MouseEvent& event) const noexcept
+    void Gui::mouseDown(std::array<float, 2> const& pos, const long mod) noexcept
     {
-        t_eclass* c = eobj_getclass(m_handle);
+        t_eclass* c = getClass();
         if(c && c->c_widget.w_mousedown)
         {
-            c->c_widget.w_mousedown(m_handle, NULL, t_pt({float(event.x), float(event.y)}), (long)event.mods.getRawFlags());
+            c->c_widget.w_mousedown(m_handle, NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
-    void Object::mouseDrag(const MouseEvent& event) const noexcept
+    void Gui::mouseDrag(std::array<float, 2> const& pos, const long mod) noexcept
     {
-        t_eclass* c = eobj_getclass(m_handle);
+        t_eclass* c = getClass();
         if(c && c->c_widget.w_mousedrag)
         {
-            c->c_widget.w_mousedrag(m_handle, NULL, t_pt({float(event.x), float(event.y)}), (long)event.mods.getRawFlags());
+            c->c_widget.w_mousedrag(m_handle, NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
-    void Object::mouseUp(const MouseEvent& event) const noexcept
+    void Gui::mouseUp(std::array<float, 2> const& pos, const long mod) noexcept
     {
-        t_eclass* c = eobj_getclass(m_handle);
+        t_eclass* c = getClass();
         if(c && c->c_widget.w_mouseup)
         {
-            c->c_widget.w_mouseup(m_handle, NULL, t_pt({float(event.x), float(event.y)}), (long)event.mods.getRawFlags());
+            c->c_widget.w_mouseup(m_handle, NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
-    void Object::mouseDoubleClick(const MouseEvent& event) const noexcept
+    void Gui::mouseDoubleClick(std::array<float, 2> const& pos, const long mod) noexcept
     {
-        t_eclass* c = eobj_getclass(m_handle);
+        t_eclass* c = getClass();
         if(c && c->c_widget.w_dblclick)
         {
-            c->c_widget.w_dblclick(m_handle, NULL, t_pt({float(event.x), float(event.y)}), (long)event.mods.getRawFlags());
+            c->c_widget.w_dblclick(m_handle, NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
-    void Object::mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel) const noexcept
+    void Gui::mouseWheelMove(std::array<float, 2> const& pos, const long mod, std::array<float, 2> const& delta) noexcept
     {
-        t_eclass* c = eobj_getclass(m_handle);
+        t_eclass* c = getClass();
         if(c && c->c_widget.w_mousewheel)
         {
-            c->c_widget.w_mousewheel(m_handle, NULL, t_pt({float(event.x), float(event.y)}), (long)event.mods.getRawFlags(), wheel.deltaY, wheel.deltaY);
+            c->c_widget.w_mousewheel(m_handle, NULL, t_pt({pos[0], pos[1]}), (long)mod, delta[0], delta[1]);
         }
-    }*/
-    
+    }
 }
 
 

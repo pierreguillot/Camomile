@@ -9,93 +9,80 @@
 namespace camo
 {
     /*
-    Patcher::Patcher() noexcept
+    Patcher::Patcher() noexcept : m_camomile(nullptr)
     {
         ;
     }
     
-    Patcher::Patcher(const std::string& filename, const std::string& path) :
-    pd::Patch(filename, path)
+    Patcher::Patcher(pd::Patch const& other) noexcept :
+    m_camomile(nullptr),
+    m_patch(other)
     {
-        loadController();
+        t_canvas* cnv = (t_canvas *)(m_patch.handle());
+        if(cnv)
+        {
+            for(t_gobj *y = cnv->gl_list; y; y = y->g_next)
+            {
+                if(eobj_getclassname(y) == gensym("c.camomile"))
+                {
+                    m_camomile = y;
+                    return;
+                }
+            }
+        }
     }
     
-    Patcher::Patcher(void* handle, int dollarZero, const std::string& filename, const std::string& path) :
-    pd::Patch(handle, dollarZero, filename, path), m_controller(nullptr)
-    {
-        loadController();
-    }
-    
-    Patcher::Patcher(pd::Patch const& other) :
-    pd::Patch(other), m_controller(nullptr)
-    {
-        loadController();
-    }
-    
-    Patcher::Patcher(Patcher const& other) :
-    pd::Patch(other), m_controller(other.m_controller), m_bounds(other.m_bounds)
+    Patcher::Patcher(Patcher const& other) noexcept :
+    m_camomile(other.m_camomile),
+    m_patch(other.m_patch)
     {
         
     }
     
-    Patcher::~Patcher()
+    void Patcher::operator=(pd::Patch const& from) noexcept
     {
-        
+        m_patch = from;
+        m_camomile = nullptr;
+        t_canvas* cnv = (t_canvas *)(m_patch.handle());
+        if(cnv)
+        {
+            for(t_gobj *y = cnv->gl_list; y; y = y->g_next)
+            {
+                if(eobj_getclassname(y) == gensym("c.camomile"))
+                {
+                    m_camomile = y;
+                    return;
+                }
+            }
+        }
     }
     
-    void Patcher::operator =(pd::Patch const& from)
+    void Patcher::operator=(Patcher const& from) noexcept
     {
-        Patch::operator=(from);
-        loadController();
+        m_camomile = from.m_camomile;
+        m_patch = from.m_patch;
     }
     
-    void Patcher::operator =(Patcher const& from)
+    std::vector<Object> Patcher::getObjects() const noexcept
     {
-        Patch::operator=(from);
-        m_controller = from.m_controller;
-        m_bounds = from.m_bounds;
-    }
-    
-    bool Patcher::isPlugin() const noexcept
-    {
-        return isValid() && m_controller;
-    }
-    
-    int Patcher::getX() const noexcept
-    {
-        return m_bounds.getX();
-    }
-    
-    int Patcher::getY() const noexcept
-    {
-        return m_bounds.getY();
-    }
-    
-    Point<int> Patcher::getPosition() const noexcept
-    {
-        return m_bounds.getPosition();
-    }
-    
-    int Patcher::getWidth() const noexcept
-    {
-        return m_bounds.getWidth();
-    }
-    
-    int Patcher::getHeight() const noexcept
-    {
-        return m_bounds.getHeight();
-    }
-    
-    Point<int> Patcher::getSize() const noexcept
-    {
-        return Point<int>(m_bounds.getWidth(), m_bounds.getHeight());
-    }
-    
-    Rectangle<int> Patcher::getBounds() const noexcept
-    {
-        return Rectangle<int>(0, 0, m_bounds.getX(), m_bounds.getY());
-    }
-     */
+        std::vector<Object> objects;
+        t_canvas* cnv = (t_canvas *)(m_patch.handle());
+        if(cnv)
+        {
+            for(t_gobj *y = cnv->gl_list; y; y = y->g_next)
+            {
+                if(m_camomile != ((void *)(y)) && eobj_iscicm(y) && eobj_isbox(y))
+                {
+                    Object temp((void *)(y));
+                    if(m_camomile.getBounds().contains(temp.getBounds()))
+                    {
+                        objects.push_back(temp);
+                    }
+                }
+            }
+        }
+        return objects;
+    }*/
 }
 
 

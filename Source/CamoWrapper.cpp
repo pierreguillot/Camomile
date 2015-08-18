@@ -5,9 +5,26 @@
 */
 
 #include "CamoWrapper.h"
+#include "../ThirdParty/Cream/c.library.hpp"
 
 namespace camo
 {
+    /*
+    inline static juce::Colour toJuce(t_rgba const& rgba)
+    {
+        return juce::Colour::fromFloatRGBA(rgba.red, rgba.green, rgba.blue, rgba.alpha);
+    }
+    
+    //! @brief Converts a t_edrawparams to a DrawParameters object.
+    
+     inline static DrawParameters toJuce(t_edrawparams const& param)
+     {
+     return DrawParameters(toJuce(param.d_boxfillcolor),
+     toJuce(param.d_bordercolor),
+     std::max(int(param.d_borderthickness), 0),
+     std::max(int(param.d_cornersize), 0));
+     }
+    
     DrawParameters::DrawParameters() noexcept :
     m_background_color(juce::Colours::white),
     m_border_color(juce::Colours::white),
@@ -101,6 +118,33 @@ namespace camo
         return Rectangle<int>(getX(), getY(), getWidth(), getHeight());
     }
     
+    bool Object::wantMouse() const noexcept
+    {
+        t_eclass* c = eobj_getclass(m_handle);
+        if(c && !(((t_ebox *)m_handle)->b_flags & EBOX_IGNORELOCKCLICK))
+        {
+            return c->c_widget.w_mousedown ||
+            c->c_widget.w_mousedrag ||
+            c->c_widget.w_mouseenter ||
+            c->c_widget.w_mouseleave ||
+            c->c_widget.w_mousemove ||
+            c->c_widget.w_mouseup ||
+            c->c_widget.w_mousewheel ||
+            c->c_widget.w_dblclick;
+        }
+        return false;
+    }
+    
+    bool Object::wantKeyboard() const noexcept
+    {
+        t_eclass* c = eobj_getclass(m_handle);
+        if(c && (c->c_widget.w_key || c->c_widget.w_keyfilter))
+        {
+            return c->c_widget.w_key || c->c_widget.w_keyfilter;
+        }
+        return false;
+    }
+    
     DrawParameters Object::getDrawParameters() const noexcept
     {
         t_eclass* c = eobj_getclass(m_handle);
@@ -112,6 +156,25 @@ namespace camo
         }
         return DrawParameters();
     }
+    
+    /*
+    std::tuple<int, t_elayer*> Object::paint() const noexcept
+    {
+        t_eclass* c = eobj_getclass(m_handle);
+        
+        for(int i = 0; i < ((t_ebox *)m_handle)->b_number_of_layers; i++)
+        {
+            ((t_ebox *)m_handle)->b_layers[i].e_state = EGRAPHICS_INVALID;
+        }
+        if(c && c->c_widget.w_paint)
+        {
+            c->c_widget.w_paint(m_handle, NULL);
+            return std::tuple<int, t_elayer*>(int(((t_ebox *)(m_handle))->b_number_of_layers), ((t_ebox *)(m_handle))->b_layers);
+        }
+        return std::tuple<int, t_elayer*>(0, nullptr);
+    }*/
+
+    
 }
 
 
