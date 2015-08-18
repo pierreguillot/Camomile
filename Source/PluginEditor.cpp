@@ -16,6 +16,37 @@ static inline juce::Colour tojColor(std::array<float, 4> const& color)
     return juce::Colour::fromFloatRGBA(color[0], color[1], color[2], color[3]);
 }
 
+static inline juce::Path tojPath(int size, t_pt* points)
+{
+    juce::Path path;
+    for(int i = 0; i < size; i++)
+    {
+        if(points[i].x == E_PATH_MOVE && i < size - 1)
+        {
+            path.startNewSubPath(points[i+1].x, points[i+1].y);
+            ++i;
+        }
+        else if(points[i].x == E_PATH_LINE && i < size - 1)
+        {
+            path.lineTo(points[i+1].x, points[i+1].y);
+            ++i;
+        }
+        else if(points[i].x == E_PATH_CURVE && i < size - 3)
+        {
+            path.cubicTo(points[i+1].x, points[i+1].y,
+                         points[i+2].x, points[i+2].y,
+                         points[i+3].x, points[i+3].y);
+            i += 3;
+        }
+        else if(points[i].x == E_PATH_CLOSE)
+        {
+            path.closeSubPath();
+        }
+    }
+    
+    return path;
+}
+
 Interface::Interface(sGui object) : m_object(object)
 {
     if(object)
@@ -35,7 +66,56 @@ void Interface::paint(Graphics& g)
     if(object)
     {
         g.fillAll(tojColor(object->getBackgroundColor()));
-        
+        std::vector<t_elayer*> layers(object->paint());
+        for(auto it : layers)
+        {
+            if(it->e_state == EGRAPHICS_TODRAW)
+            {
+                for(int j = 0; j < it->e_number_objects; j++)
+                {
+                    t_egobj const& obj = it->e_objects[j];
+                    t_rgba col = hex_to_rgba(obj.e_color->s_name);
+                    g.setColour(tojColor(std::array<float, 4>({col.red, col.green, col.blue, col.alpha})));
+                    if(obj.e_type == E_GOBJ_PATH || obj.e_type == E_GOBJ_RECT)
+                    {
+                        juce::Path path(tojPath(obj.e_npoints, obj.e_points));
+                        if(obj.e_filled)
+                        {
+                            g.fillPath(path);
+                        }
+                        else
+                        {
+                            g.strokePath(path, PathStrokeType(obj.e_width));
+                        }
+                    }
+                    else if(obj.e_type == E_GOBJ_OVAL)
+                    {
+                        /*
+                        if(obj.e_filled)
+                        {
+                            g.fillRect(obj.e_points[0].x, obj.e_points[0].y, obj.e_points[1].x, obj.e_points[1].y);
+                        }
+                        else
+                        {
+                            g.drawRect(obj.e_points[0].x, obj.e_points[0].y, obj.e_points[1].x, obj.e_points[1].y);
+                        }*/
+                    }
+                    else if(obj.e_type == E_GOBJ_TEXT)
+                    {
+                        /*
+                        g.drawText(juce::String(obj.e_text->s_name),
+                                   obj.e_points[0].x,
+                                   obj.e_points[0].y,
+                                   obj.e_points[1].x,
+                                   obj.e_points[1].y,
+                                   juce::Justification(juce::Justification::centred), true);
+                         */
+                        
+                    }
+                }
+                it->e_state = EGRAPHICS_CLOSE;
+            }
+        }
         g.setColour(tojColor(object->getBorderColor()));
         g.drawRect(getBounds().withZeroOrigin(), object->getBorderSize());
     }
@@ -43,57 +123,6 @@ void Interface::paint(Graphics& g)
     {
         g.fillAll(Colours::whitesmoke);
     }
-    
-    /*
-     const std::tuple<int, t_elayer*> tup = m_object.paint();
-     const int size = std::get<0>(tup);
-     t_elayer* layers = std::get<1>(tup);
-     if(size && layers)
-     {
-     AffineTransform transform(AffineTransform::translation(parameters.getBorderSize(), parameters.getBorderSize()));
-     for(int i = 0; i < size; i++)
-     {
-     if(layers[i].e_state == EGRAPHICS_TODRAW)
-     {
-     for(int j = 0; j < layers[i].e_number_objects; j++)
-     {
-     t_egobj const& obj = layers[i].e_objects[j];
-     const t_rgba color = hex_to_rgba(obj.e_color->s_name);
-     g.setColour(toJuce(color));
-     
-     if(obj.e_type == E_GOBJ_PATH)
-     {
-     juce::Path path(toJuce(obj.e_npoints, obj.e_points));
-     if(obj.e_filled)
-     {
-     g.fillPath(path, transform);
-     }
-     else
-     {
-     g.strokePath(path, PathStrokeType(obj.e_width), transform);
-     }
-     }
-     else if(obj.e_type == E_GOBJ_RECT)
-     {
-     
-     }
-     else if(obj.e_type == E_GOBJ_TEXT)
-     {
-     g.drawText(juce::String(obj.e_text->s_name),
-     obj.e_points[0].x,
-     obj.e_points[0].y,
-     obj.e_points[1].x,
-     obj.e_points[1].y,
-     juce::Justification(juce::Justification::centred), true);
-     
-     }
-     }
-     layers[i].e_state = EGRAPHICS_CLOSE;
-     }
-     
-     }
-     }
-     */
 }
 
 void Interface::mouseMove(const MouseEvent& event)

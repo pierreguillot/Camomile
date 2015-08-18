@@ -16,15 +16,6 @@
 #include <iostream>
 #include <memory>
 
-extern "C"
-{
-    
-#include "m_pd.h"
-#include "z_libpd.h"
-#include "z_queued.h"
-#include "z_print_util.h"
-EXTERN  void pd_init(void);
-}
 #include "../ThirdParty/Cream/c.library.hpp"
 
 
@@ -55,12 +46,23 @@ namespace mpd
     private:
         static std::mutex   s_mutex;
         static int          s_sample_rate;
-        
+        static const int    s_max_channels = 16;
         static void print(const char* s);
         
-        static t_canvas* openPatch(std::string const& name, std::string const& path);
+        static t_canvas* openPatch(t_pdinstance* instance, std::string const& name, std::string const& path);
         
-        static void closePatch(const t_canvas* cnv);
+        static void closePatch(t_pdinstance* instance, const t_canvas* cnv);
+        
+        static void prepareDsp(t_pdinstance* instance,
+                               const int samplerate,
+                               int nsamples) noexcept;
+        
+        static void processDsp(t_pdinstance* instance,
+                               int nsamples,
+                               const int nins,
+                               const float** inputs,
+                               const int nouts,
+                               float** output) noexcept;
     public:
         
         //! @brief Creates a new instance.
@@ -70,20 +72,11 @@ namespace mpd
         static void closeInstance(sInstance instance);
         
         //! @brief Adds a path to the search path.
-        static void addToSearchPath(std::string const& path) noexcept
-        {
-            std::lock_guard<std::mutex> guard(s_mutex);
-            sys_searchpath = namelist_append(sys_searchpath, path.c_str(), 0);
-        }
+        static void addToSearchPath(std::string const& path) noexcept;
         
         
         //! @brief Clears the search the search path.
-        static void clearSearchPath() noexcept
-        {
-            std::lock_guard<std::mutex> guard(s_mutex);
-            namelist_free(sys_searchpath);
-            sys_searchpath = NULL;
-        }
+        static void clearSearchPath() noexcept;
     };
     
     
@@ -226,7 +219,8 @@ namespace mpd
         //! @brief Gets the border size.
         inline int getCornerRoundness() const noexcept {return m_corner_roundness;}
         
-        std::tuple<int, t_elayer*> paint() const noexcept;
+        //! @brief Calls the paint method and return a set of object to paint.
+        std::vector<t_elayer*> paint() const noexcept;
     };
     
     // ==================================================================================== //
@@ -271,61 +265,29 @@ namespace mpd
     {
         friend class Master;
     private:
-        t_pdinstance* m_instance;
-        std::mutex    m_mutex;
+        t_pdinstance*      m_instance;
+        std::mutex         m_mutex;
         std::set<sPatcher> m_patcher;
         
         Instance(t_pdinstance* instance);
+        
     public:
         
-        inline ~Instance() noexcept {}
+        ~Instance() noexcept;
         
-        inline void prepare(const int nins, const int nouts, const int samplerate) noexcept
+        void prepareDsp(const int nins, const int nouts, const int samplerate, const int nsamples) noexcept;
+        
+        inline void processDsp(int nsamples, const int nins, const float** inputs, const int nouts, float** outputs) noexcept
         {
-            if(m_instance)
-            {
-                pd_setinstance(m_instance);
-                std::lock_guard<std::mutex> guard2(m_mutex);
-                
-                /*
-                 int indev[MAXAUDIOINDEV], inch[MAXAUDIOINDEV],
-                 outdev[MAXAUDIOOUTDEV], outch[MAXAUDIOOUTDEV];
-                 indev[0] = outdev[0] = DEFAULTAUDIODEV;
-                 inch[0] = inChans;
-                 outch[0] = outChans;
-                 sys_set_audio_settings(1, indev, 1, inch,
-                 1, outdev, 1, outch, sampleRate, -1, 1, DEFDACBLKSIZE);
-                 sched_set_using_audio(SCHED_AUDIO_CALLBACK);
-                 sys_reopen_audio();
-                 */
-            }
+            std::lock_guard<std::mutex> guard(m_mutex);
+            Master::processDsp(m_instance, nsamples, nins, inputs, nouts, outputs);
         }
         
-        inline void process(int ticks, const float* inputs, float* outputs) noexcept
-        {
-            if(m_instance)
-            {
-                //std::lock_guard<std::mutex> guard(s_mutex);
-                pd_setinstance(m_instance);
-                std::lock_guard<std::mutex> guard2(m_mutex);
-                libpd_process_float(ticks, inputs, outputs);
-            }
-        }
-        
-        inline void process(int ticks, const double* inputs, double* outputs) noexcept
-        {
-            if(m_instance)
-            {
-                //std::lock_guard<std::mutex> guard(s_mutex);
-                pd_setinstance(m_instance);
-                std::lock_guard<std::mutex> guard2(m_mutex);
-                libpd_process_double(ticks, inputs, outputs);
-            }
-        }
+        void releaseDsp() noexcept;
         
         inline void sendBang(t_symbol* dest) noexcept
         {
-            if(dest->s_thing && m_instance)
+            if(dest->s_thing)
             {
                 std::lock_guard<std::mutex> guard(m_mutex);
                 pd_bang(dest->s_thing);
@@ -334,7 +296,7 @@ namespace mpd
         
         inline void sendFloat(t_symbol* dest, float val)
         {
-            if(dest->s_thing && m_instance)
+            if(dest->s_thing)
             {
                 std::lock_guard<std::mutex> guard(m_mutex);
                 pd_float(dest->s_thing, val);
@@ -343,7 +305,7 @@ namespace mpd
         
         inline void sendSymbol(t_symbol* dest, t_symbol* sym)
         {
-            if(dest->s_thing && m_instance)
+            if(dest->s_thing)
             {
                 std::lock_guard<std::mutex> guard(m_mutex);
                 pd_symbol(dest->s_thing, sym);
@@ -352,7 +314,7 @@ namespace mpd
         
         inline void sendList(t_symbol* dest, t_symbol* sym, std::vector<t_atom> atoms)
         {
-            if(dest->s_thing && m_instance)
+            if(dest->s_thing)
             {
                 std::lock_guard<std::mutex> guard(m_mutex);
                 pd_typedmess(dest->s_thing, sym, int(atoms.size()), atoms.data());

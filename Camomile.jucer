@@ -19,36 +19,8 @@
       <FILE id="mXsWWK" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="eyUmy8" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
-    </GROUP>
-    <GROUP id="{A0A35B6E-B905-B6D7-677E-96FCFD44E2C9}" name="Pd">
-      <GROUP id="{279BCA5C-6684-421B-F130-0183AF8C9C76}" name="cpp">
-        <FILE id="Zs2zUl" name="PdBase.cpp" compile="1" resource="0" file="ThirdParty/Pd/cpp/PdBase.cpp"/>
-        <FILE id="VQjJix" name="PdBase.hpp" compile="0" resource="0" file="ThirdParty/Pd/cpp/PdBase.hpp"/>
-        <FILE id="uu4rge" name="PdMidiReceiver.hpp" compile="0" resource="0"
-              file="ThirdParty/Pd/cpp/PdMidiReceiver.hpp"/>
-        <FILE id="bKb6dQ" name="PdReceiver.hpp" compile="0" resource="0" file="ThirdParty/Pd/cpp/PdReceiver.hpp"/>
-        <FILE id="XLPSkU" name="PdTypes.cpp" compile="1" resource="0" file="ThirdParty/Pd/cpp/PdTypes.cpp"/>
-        <FILE id="BJ7zIo" name="PdTypes.hpp" compile="0" resource="0" file="ThirdParty/Pd/cpp/PdTypes.hpp"/>
-      </GROUP>
-      <GROUP id="{CC79FB24-C8C8-B708-2A66-0C044F987282}" name="libpd_wrapper">
-        <FILE id="TOwo6C" name="s_libpdmidi.c" compile="1" resource="0" file="ThirdParty/Pd/libpd_wrapper/s_libpdmidi.c"/>
-        <GROUP id="{0DD6E784-029C-FB8E-D304-DFF0BDEC7446}" name="util">
-          <FILE id="WwMgRz" name="ringbuffer.c" compile="1" resource="0" file="ThirdParty/Pd/libpd_wrapper/util/ringbuffer.c"/>
-          <FILE id="Dy2HOL" name="ringbuffer.h" compile="0" resource="0" file="ThirdParty/Pd/libpd_wrapper/util/ringbuffer.h"/>
-          <FILE id="gGhHYG" name="z_print_util.c" compile="1" resource="0" file="ThirdParty/Pd/libpd_wrapper/util/z_print_util.c"/>
-          <FILE id="RJugPK" name="z_print_util.h" compile="0" resource="0" file="ThirdParty/Pd/libpd_wrapper/util/z_print_util.h"/>
-          <FILE id="pgotxz" name="z_queued.c" compile="1" resource="0" file="ThirdParty/Pd/libpd_wrapper/util/z_queued.c"/>
-          <FILE id="J5XRDA" name="z_queued.h" compile="0" resource="0" file="ThirdParty/Pd/libpd_wrapper/util/z_queued.h"/>
-        </GROUP>
-        <FILE id="BBH42b" name="x_libpdreceive.c" compile="1" resource="0"
-              file="ThirdParty/Pd/libpd_wrapper/x_libpdreceive.c"/>
-        <FILE id="VHrAJ6" name="x_libpdreceive.h" compile="0" resource="0"
-              file="ThirdParty/Pd/libpd_wrapper/x_libpdreceive.h"/>
-        <FILE id="MlwQkA" name="z_hooks.c" compile="1" resource="0" file="ThirdParty/Pd/libpd_wrapper/z_hooks.c"/>
-        <FILE id="JM0QoW" name="z_hooks.h" compile="0" resource="0" file="ThirdParty/Pd/libpd_wrapper/z_hooks.h"/>
-        <FILE id="SHmz3D" name="z_libpd.c" compile="1" resource="0" file="ThirdParty/Pd/libpd_wrapper/z_libpd.c"/>
-        <FILE id="cPlaN1" name="z_libpd.h" compile="0" resource="0" file="ThirdParty/Pd/libpd_wrapper/z_libpd.h"/>
-      </GROUP>
+      <FILE id="lzYHNP" name="PdWrapper.cpp" compile="1" resource="0" file="Source/PdWrapper.cpp"/>
+      <FILE id="yfjZUg" name="PdWrapper.h" compile="0" resource="0" file="Source/PdWrapper.h"/>
     </GROUP>
     <GROUP id="{219DB9C7-7A3A-0A0B-CC0D-A3924A13804E}" name="Cream">
       <FILE id="MfBIJd" name="c.library.cpp" compile="1" resource="0" file="ThirdParty/Cream/c.library.cpp"/>
@@ -134,10 +106,10 @@
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
                        isDebug="1" optimisation="1" targetName="Camomile" headerPath="../../ThirdParty/Pd/pure-data/src"
-                       libraryPath="../../ThirdParty/Pd/libs"/>
+                       libraryPath="../../ThirdParty/Pd/libs" defines="LIB_PD"/>
         <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
                        isDebug="0" optimisation="3" targetName="Camomile" headerPath="../../ThirdParty/Pd/pure-data/src"
-                       libraryPath="../../ThirdParty/Pd/libs"/>
+                       libraryPath="../../ThirdParty/Pd/libs" defines="LIB_PD"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="ThirdParty/Juce/modules"/>

@@ -12,7 +12,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-CamomileAudioProcessor::CamomileAudioProcessor() : m_buffer_in(nullptr), m_buffer_out(nullptr)
+CamomileAudioProcessor::CamomileAudioProcessor()
 {
     try
     {
@@ -39,7 +39,6 @@ CamomileAudioProcessor::~CamomileAudioProcessor()
 {
     lock_guard<mutex> guard(m_mutex);
     m_listeners.clear();
-    this->releaseResources();
 }
 
 //==============================================================================
@@ -147,35 +146,16 @@ void CamomileAudioProcessor::changeProgramName (int index, const String& newName
 //==============================================================================
 void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    releaseResources();
     if(m_pd)
     {
-        /*
-        m_pd->prepare(getNumInputChannels(), getNumOutputChannels(), sampleRate);
-        if(m_pd->init()
+        try
         {
-            m_pd->subscribe(m_patch.getName());
-            int numChannels = jmin(getNumInputChannels(), getNumOutputChannels());
-            try
-            {
-                m_buffer_in  = new float[m_pd->blockSize() * numChannels];
-            }
-            catch(std::exception& e)
-            {
-                m_buffer_in = nullptr;
-            }
-            try
-            {
-                m_buffer_out = new float[m_pd->blockSize() * numChannels];
-            }
-            catch(std::exception& e)
-            {
-                m_buffer_out = nullptr;
-            }
-            
-            m_pd->computeAudio(true);
+            m_pd->prepareDsp(getNumInputChannels(), getNumOutputChannels(), sampleRate, samplesPerBlock);
         }
-         */
+        catch(std::exception& e)
+        {
+            cout << e.what() << "\n";
+        }
     }
 }
 
@@ -183,63 +163,22 @@ void CamomileAudioProcessor::releaseResources()
 {
     if(m_pd)
     {
-        /*
-        m_pd->computeAudio(false);
-        if(m_buffer_in)
-        {
-            free(m_buffer_in);
-        }
-        if(m_buffer_out)
-        {
-            free(m_buffer_out);
-        }
-        m_buffer_in  = nullptr;
-        m_buffer_out = nullptr;
-         */
+        m_pd->releaseDsp();
     }
 }
 
 void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
-    /*
-    int nsamples = buffer.getNumSamples();
-    int nchannels = buffer.getNumChannels();
     for(int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
     {
-        buffer.clear (i, 0, buffer.getNumSamples());
+        buffer.clear(i, 0, buffer.getNumSamples());
     }
-    
-    if(shouldProcess())
+    if(m_pd)
     {
-        int index = 0;
-        while(nsamples > 0)
-        {
-            int max = jmin(nsamples, m_pd->blockSize());
-            float* input = m_buffer_in;
-            for(int i = 0; i < max; ++i)
-            {
-                for(int j = 0; j < nchannels; ++j)
-                {
-                    *input++ = buffer.getReadPointer(j)[index + i];
-                }
-            }
-            
-            m_pd->processFloat(1, m_buffer_in, m_buffer_out);
-            
-            const float* output = m_buffer_out;
-            for(int i = 0; i < max; ++i)
-            {
-                for(int j = 0; j < nchannels; ++j)
-                {
-                    buffer.getWritePointer(j)[index + i] = *output++;
-                }
-            }
-            
-            index    += max;
-            nsamples -= max;
-        }
+        m_pd->processDsp(buffer.getNumSamples(),
+                         getNumInputChannels(), buffer.getArrayOfReadPointers(),
+                         getNumOutputChannels(), buffer.getArrayOfWritePointers());
     }
-     */
 }
 
 //==============================================================================

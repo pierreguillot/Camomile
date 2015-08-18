@@ -27,9 +27,6 @@ public:
 private:
     shared_ptr<Instance>    m_pd;
     weak_ptr<Patcher>       m_patch;
-    float*                  m_buffer_in;
-    float*                  m_buffer_out;
-    
     set<Listener*>          m_listeners;
     mutable mutex           m_mutex;
     
@@ -76,7 +73,6 @@ public:
     void loadPatch(const juce::File& file);
     inline shared_ptr<const Patcher> getPatch() const noexcept {return m_patch.lock();}
     inline shared_ptr<Patcher> getPatch() noexcept {return m_patch.lock();}
-    inline bool shouldProcess() const noexcept {return m_pd && m_buffer_in && m_buffer_out;}
     
     // ================================================================================ //
     //                                      LISTENER                                    //
