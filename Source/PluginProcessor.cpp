@@ -26,7 +26,7 @@ CamomileAudioProcessor::CamomileAudioProcessor()
     {
         try
         {
-            m_patch = m_pd->openPatcher("Test2.pd", "/Users/Pierre/Desktop/");
+            m_patch = m_pd->openPatch("Test2.pd", "/Users/Pierre/Desktop/");
         }
         catch(std::exception& e)
         {
@@ -154,7 +154,7 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
         }
         catch(std::exception& e)
         {
-            cout << e.what() << "\n";
+            std::cout << e.what() << "\n";
         }
     }
 }
@@ -210,20 +210,17 @@ void CamomileAudioProcessor::loadPatch(const juce::File& file)
 {
     if(m_pd)
     {
-        /*
         suspendProcessing(true);
         if(isSuspended())
         {
-            if(m_patch.isOpen())
+            sPatch patch = m_patch.lock();
+            if(patch)
             {
-                m_pd->unsubscribe(m_patch.getName());
-                m_pd->closePatch(m_patch);
-                m_patch = pd::Patch();
+                m_pd->closePatch(patch);
             }
             if(file.exists() && file.getFileExtension() == String(".pd"))
             {
                 m_patch = m_pd->openPatch(file.getFileName().toStdString(), (file.getParentDirectory()).getFullPathName().toStdString());
-                m_pd->subscribe(m_patch.getName());
             }
             vector<Listener*> listeners = getListeners();
             for(auto it : listeners)
@@ -233,7 +230,6 @@ void CamomileAudioProcessor::loadPatch(const juce::File& file)
         }
         
         suspendProcessing(false);
-         */
     }
     
 }

@@ -51,8 +51,8 @@ Interface::Interface(sGui object) : m_object(object)
 {
     if(object)
     {
-        tuple<int, int, int, int> bounds = object->getBounds();
-        Component::setBounds(std::get<0>(bounds), std::get<1>(bounds), std::get<2>(bounds), std::get<3>(bounds));
+        const std::array<int,2> bounds = object->getSize();
+        Component::setSize(bounds[0], bounds[1]);
         Component::setVisible(true);
         Component::setInterceptsMouseClicks(object->wantMouse(), object->wantMouse());
         Component::setMouseClickGrabsKeyboardFocus(object->wantKeyboard());
@@ -90,15 +90,33 @@ void Interface::paint(Graphics& g)
                     }
                     else if(obj.e_type == E_GOBJ_OVAL)
                     {
-                        /*
                         if(obj.e_filled)
                         {
-                            g.fillRect(obj.e_points[0].x, obj.e_points[0].y, obj.e_points[1].x, obj.e_points[1].y);
+                            g.fillEllipse(obj.e_points[0].x, obj.e_points[0].y,
+                                          obj.e_points[1].x - obj.e_points[0].x,
+                                          obj.e_points[1].y - obj.e_points[0].y);
                         }
                         else
                         {
-                            g.drawRect(obj.e_points[0].x, obj.e_points[0].y, obj.e_points[1].x, obj.e_points[1].y);
-                        }*/
+                            g.drawEllipse(obj.e_points[0].x, obj.e_points[0].y,
+                                          obj.e_points[1].x - obj.e_points[0].x,
+                                          obj.e_points[1].y - obj.e_points[0].y,
+                                          obj.e_width);
+                        }
+                    }
+                    else if(obj.e_type == E_GOBJ_ARC)
+                    {
+                        Path path;
+                        //path.addCentredArc(obj.e_points[0].x, obj.e_points[0].y, obj.e_points[1].x, obj.e_points[1].y,, )
+                        /*
+                         if(obj.e_filled)
+                         {
+                         g.fillRect(obj.e_points[0].x, obj.e_points[0].y, obj.e_points[1].x, obj.e_points[1].y);
+                         }
+                         else
+                         {
+                         g.drawRect(obj.e_points[0].x, obj.e_points[0].y, obj.e_points[1].x, obj.e_points[1].y);
+                         }*/
                     }
                     else if(obj.e_type == E_GOBJ_TEXT)
                     {
@@ -212,18 +230,26 @@ m_processor(p),
 m_file_drop(false)
 {
     m_processor.addListener(this);
-    shared_ptr<const Patcher> patch = m_processor.getPatch();
+    shared_ptr<const Patch> patch = m_processor.getPatch();
     if(patch)
     {
-        const std::vector<sObject> objects = patch->getObjects();
-        for(auto it : objects)
+        sGui camo = patch->getCamomile();
+        if(camo)
         {
-            if(it->isGui())
+            const std::vector<sObject> objects = patch->getObjects();
+            const std::array<int,2> ref = camo->getPosition();
+            for(auto it : objects)
             {
-                m_objects.add(new Interface(dynamic_pointer_cast<Gui>(it)));
-                addAndMakeVisible(m_objects.getLast());
+                if(it != camo && it->isGui())
+                {
+                    Interface* inte = m_objects.add(new Interface(dynamic_pointer_cast<Gui>(it)));
+                    const std::array<int,2> pos = it->getPosition();
+                    inte->setTopLeftPosition(pos[0] - ref[0], pos[1] - ref[1]);
+                    addAndMakeVisible(inte);
+                }
             }
         }
+        
     }
     setSize(600, 400);
 }
@@ -235,16 +261,23 @@ CamomileAudioProcessorEditor::~CamomileAudioProcessorEditor()
 
 void CamomileAudioProcessorEditor::paint(Graphics& g)
 {
-    shared_ptr<const Patcher> patch = m_processor.getPatch();
+    shared_ptr<const Patch> patch = m_processor.getPatch();
     if(patch)
     {
-        /*
-        camo::Object cam = patch.getCamomile();
-        camo::DrawParameters parameters = cam.getDrawParameters();
-        g.fillAll(parameters.getBackgroundColor());
-        g.setColour(parameters.getBorderColor());
-         */
-        g.drawRect(getBounds().withZeroOrigin());
+        sGui camo = patch->getCamomile();
+        if(camo)
+        {
+            g.fillAll(tojColor(camo->getBackgroundColor()));
+            g.setColour(tojColor(camo->getBorderColor()));
+            g.drawRect(getBounds().withZeroOrigin());
+        }
+        else
+        {
+            g.fillAll(Colours::white);
+            g.setColour(Colours::black);
+            g.setFont (15.0f);
+            g.drawText(juce::String("The patch is not valid !"), getBounds().withZeroOrigin(), juce::Justification::centred);
+        }
     }
     else
     {
@@ -294,18 +327,26 @@ void CamomileAudioProcessorEditor::patchChanged()
 {
     removeAllChildren();
     m_objects.clear(true);
-    shared_ptr<const Patcher> patch = m_processor.getPatch();
+    shared_ptr<const Patch> patch = m_processor.getPatch();
     if(patch)
     {
-        const std::vector<sObject> objects = patch->getObjects();
-        for(auto it : objects)
+        sGui camo = patch->getCamomile();
+        if(camo)
         {
-            if(it->isGui())
+            const std::vector<sObject> objects = patch->getObjects();
+            const std::array<int,2> ref = camo->getPosition();
+            for(auto it : objects)
             {
-                m_objects.add(new Interface(dynamic_pointer_cast<Gui>(it)));
-                addAndMakeVisible(m_objects.getLast());
+                if(it != camo && it->isGui())
+                {
+                    Interface* inte = m_objects.add(new Interface(dynamic_pointer_cast<Gui>(it)));
+                    const std::array<int,2> pos = it->getPosition();
+                    inte->setTopLeftPosition(pos[0] - ref[0], pos[1] - ref[1]);
+                    addAndMakeVisible(inte);
+                }
             }
         }
+        
     }
     const MessageManagerLock mmLock;
     if(mmLock.lockWasGained())

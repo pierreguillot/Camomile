@@ -18,11 +18,12 @@
 
 #include "../ThirdParty/Cream/c.library.hpp"
 
+// Mieux gérer les layers
 
-namespace mpd
+namespace pd
 {
     class Instance;
-    class Patcher;
+    class Patch;
     class Object;
     class Gui;
     
@@ -31,10 +32,10 @@ namespace mpd
     typedef std::shared_ptr<const Instance> scInstance;
     typedef std::weak_ptr<const Instance>   wcInstance;
     
-    typedef std::shared_ptr<Patcher>        sPatcher;
-    typedef std::weak_ptr<Patcher>          wPatcher;
-    typedef std::shared_ptr<const Patcher>  scPatcher;
-    typedef std::weak_ptr<const Patcher>    wcPatcher;
+    typedef std::shared_ptr<Patch>        sPatch;
+    typedef std::weak_ptr<Patch>          wPatch;
+    typedef std::shared_ptr<const Patch>  scPatch;
+    typedef std::weak_ptr<const Patch>    wcPatch;
     typedef std::shared_ptr<Object> sObject;
     typedef std::weak_ptr<Object> wObject;
     typedef std::shared_ptr<Gui> sGui;
@@ -87,7 +88,7 @@ namespace mpd
     
     class Object
     {
-        friend class Patcher;
+        friend class Patch;
     protected:
         //! @brief The t_ebox pointer.
         void* m_handle;
@@ -112,8 +113,8 @@ namespace mpd
         inline virtual std::string getName() const noexcept {return std::string(eobj_getclassname(m_handle)->s_name);}
         
         //! @brief Gets the position.
-        inline std::tuple<int,int> getPosition() const noexcept {
-            return std::make_tuple(getX(), getY());}
+        inline std::array<int,2> getPosition() const noexcept {
+            return std::array<int,2>({getX(), getY()});}
         
         //! @brief Gets the abscissa.
         inline int getX() const noexcept {
@@ -124,8 +125,8 @@ namespace mpd
             return int(static_cast<t_object *>(m_handle)->te_ypix);}
         
         //! @brief Gets the size.
-        inline virtual std::tuple<int,int> getSize() const noexcept {
-            return std::make_tuple(getWidth(), getHeight());}
+        inline virtual std::array<int,2> getSize() const noexcept {
+            return std::array<int,2>({getWidth(), getHeight()});}
         
         //! @brief Gets the width.
         inline virtual int getWidth() const noexcept {
@@ -135,8 +136,8 @@ namespace mpd
         inline virtual int getHeight() const noexcept {return 0;}
         
         //! @brief Gets the bounds.
-        inline virtual std::tuple<int,int, int, int> getBounds() const noexcept {
-            return std::make_tuple(getX(), getY(), getWidth(), getHeight());}
+        inline virtual std::array<int,4> getBounds() const noexcept {
+            return std::array<int,4>({getX(), getY(), getWidth(), getHeight()});}
         
     protected:
         
@@ -151,7 +152,7 @@ namespace mpd
     
     class Gui : public Object
     {
-        friend class Patcher;
+        friend class Patch;
     private:
         //! @brief The background color.
         std::array<float, 4> m_background_color;
@@ -229,7 +230,7 @@ namespace mpd
     
     //! @brief
     //! @details 
-    class Patcher
+    class Patch
     {
         friend class Instance;
     private:
@@ -238,15 +239,18 @@ namespace mpd
         const std::string m_path;
         std::set<sObject> m_objects;
         
-        Patcher(t_canvas* cnv,
+        Patch(t_canvas* cnv,
                 std::string const& name,
                 std::string const& path);
         
     public:
-        ~Patcher() noexcept {};
+        ~Patch() noexcept {};
         
         //! @brief Gets the objects.
         std::vector<sObject> getObjects() const noexcept;
+        
+        //! @brief Gets the camomile object.
+        sGui getCamomile() const noexcept;
         
         //! @brief Gets the file's name.
         inline std::string getName() const {return m_name;}
@@ -267,7 +271,7 @@ namespace mpd
     private:
         t_pdinstance*      m_instance;
         std::mutex         m_mutex;
-        std::set<sPatcher> m_patcher;
+        std::set<sPatch> m_patcher;
         
         Instance(t_pdinstance* instance);
         
@@ -321,9 +325,9 @@ namespace mpd
             }
         }
         
-        sPatcher openPatcher(const std::string& name, const std::string& path);
+        sPatch openPatch(const std::string& name, const std::string& path);
         
-        void closePatcher(sPatcher patch);
+        void closePatch(sPatch patch);
     };
 }
 

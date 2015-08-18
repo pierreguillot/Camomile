@@ -12,7 +12,7 @@ extern "C"
 EXTERN  void pd_init(void);
 }
 
-namespace mpd
+namespace pd
 {
     // ==================================================================================== //
     //                                          MASTER                                      //
@@ -38,7 +38,7 @@ namespace mpd
             sys_printtostderr = 0;
             sys_usestdpath = 0;
             sys_debuglevel = 0;
-            sys_verbose = 0;
+            sys_verbose = 1;
             sys_noloadbang = 0;
             sys_nogui = 1;
             sys_hipriority = 0;
@@ -223,14 +223,14 @@ namespace mpd
         ;
     }
     
-    sPatcher Instance::openPatcher(const std::string& name, const std::string& path)
+    sPatch Instance::openPatch(const std::string& name, const std::string& path)
     {
-        std::shared_ptr<Patcher> patcher;
+        std::shared_ptr<Patch> patcher;
         std::lock_guard<std::mutex> guard(m_mutex);
         t_canvas* cnv = Master::openPatch(m_instance, name.c_str(), path.c_str());
         try
         {
-            patcher = std::shared_ptr<Patcher>(new Patcher(cnv, name, path));
+            patcher = std::shared_ptr<Patch>(new Patch(cnv, name, path));
         }
         catch(std::exception& e)
         {
@@ -240,7 +240,7 @@ namespace mpd
         return patcher;
     }
     
-    void Instance::closePatcher(sPatcher patch)
+    void Instance::closePatch(sPatch patch)
     {
         if(patch)
         {
@@ -256,7 +256,7 @@ namespace mpd
     //                                          PATCHER                                     //
     // ==================================================================================== //
     
-    Patcher::Patcher(t_canvas* cnv,
+    Patch::Patch(t_canvas* cnv,
                      std::string const& name,
                      std::string const& path) :
     m_cnv(cnv),
@@ -289,9 +289,25 @@ namespace mpd
         }
     }
     
-    std::vector<sObject> Patcher::getObjects() const noexcept
+    std::vector<sObject> Patch::getObjects() const noexcept
     {
         return std::vector<sObject>(m_objects.begin(), m_objects.end());
+    }
+    
+    sGui Patch::getCamomile() const noexcept
+    {
+        auto it = std::find_if(m_objects.begin(), m_objects.end(), [] (sObject const& obj)
+                               {
+                                   return obj->getName() == "c.camomile";
+                               });
+        if(it != m_objects.end())
+        {
+            return std::dynamic_pointer_cast<Gui>(*it);
+        }
+        else
+        {
+            return nullptr;
+        }
     }
     
     // ==================================================================================== //

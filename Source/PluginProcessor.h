@@ -18,7 +18,7 @@
 #include <memory>
 
 using namespace std;
-using namespace mpd;
+using namespace pd;
 
 class CamomileAudioProcessor  : public AudioProcessor
 {
@@ -26,7 +26,7 @@ public:
     class Listener;
 private:
     shared_ptr<Instance>    m_pd;
-    weak_ptr<Patcher>       m_patch;
+    weak_ptr<Patch>       m_patch;
     set<Listener*>          m_listeners;
     mutable mutex           m_mutex;
     
@@ -71,8 +71,8 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     
     void loadPatch(const juce::File& file);
-    inline shared_ptr<const Patcher> getPatch() const noexcept {return m_patch.lock();}
-    inline shared_ptr<Patcher> getPatch() noexcept {return m_patch.lock();}
+    inline shared_ptr<const Patch> getPatch() const noexcept {return m_patch.lock();}
+    inline shared_ptr<Patch> getPatch() noexcept {return m_patch.lock();}
     
     // ================================================================================ //
     //                                      LISTENER                                    //
