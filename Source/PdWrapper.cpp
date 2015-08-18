@@ -15,8 +15,10 @@ namespace mpd
     int Master::s_sample_rate;
     std::mutex Master::s_mutex;
     
-    void Master::initialize() noexcept
+    sInstance Master::createInstance()
     {
+        std::lock_guard<std::mutex> guard(s_mutex);
+        
         static int initialized = 0;
         if(!initialized)
         {
@@ -48,13 +50,47 @@ namespace mpd
             initialized = 1;
             libpd_loadcream();
         }
+        
+        sInstance instance;
+        try
+        {
+            instance = std::shared_ptr<Instance>(new Instance(pdinstance_new()));
+        }
+        catch(std::exception& e)
+        {
+            throw e;
+        }
+        return instance;
     }
     
-    t_pdinstance* Master::createInstance() noexcept
+    void Master::closeInstance(sInstance instance)
+    {
+        if(instance)
+        {
+            std::lock_guard<std::mutex> guard(s_mutex);
+            pdinstance_free(instance->m_instance);
+        }
+    }
+    
+    t_canvas* Master::openPatch(std::string const& name, std::string const& path)
+    {
+        if(!name.empty() && !path.empty())
+        {
+            std::lock_guard<std::mutex> guard(s_mutex);
+            return reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym(path.c_str())));
+        }
+        else if(!name.empty())
+        {
+            std::lock_guard<std::mutex> guard(s_mutex);
+            return reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym("")));
+        }
+        return nullptr;
+    }
+    
+    void Master::closePatch(const t_canvas* cnv)
     {
         std::lock_guard<std::mutex> guard(s_mutex);
-        initialize();
-        return pdinstance_new();
+        canvas_free(const_cast<t_canvas*>(cnv));
     }
     
     void Master::print(const char* s)
@@ -62,16 +98,62 @@ namespace mpd
         std::cout << s << "\n";
     }
     
+    // ==================================================================================== //
+    //                                          INSTANCE                                    //
+    // ==================================================================================== //
+    
+    Instance::Instance(t_pdinstance* instance) : m_instance(instance)
+    {
+        if(!m_instance)
+        {
+            class Error : public std::exception {
+            public:
+                const char* what() const noexcept override {
+                    return "Can't allocate instance !";}
+            };
+            throw Error();
+        }
+    }
+    
+    sPatcher Instance::openPatcher(const std::string& name, const std::string& path)
+    {
+        std::shared_ptr<Patcher> patcher;
+        t_canvas* cnv = Master::openPatch(name.c_str(), path.c_str());
+        try
+        {
+            patcher = std::shared_ptr<Patcher>(new Patcher(cnv, name, path));
+        }
+        catch(std::exception& e)
+        {
+            throw e;
+        }
+        std::lock_guard<std::mutex> guard(m_mutex);
+        m_patcher.insert(patcher);
+        return patcher;
+    }
+    
+    void Instance::closePatcher(sPatcher patch)
+    {
+        if(patch)
+        {
+            std::lock_guard<std::mutex> guard(m_mutex);
+            if(m_patcher.erase(patch))
+            {
+                Master::closePatch(patch->m_cnv);
+            }
+        }
+    }
     
     // ==================================================================================== //
     //                                          PATCHER                                     //
     // ==================================================================================== //
     
-    Patcher::Patcher(std::string const& name,
+    Patcher::Patcher(t_canvas* cnv,
+                     std::string const& name,
                      std::string const& path) :
+    m_cnv(cnv),
     m_name(name),
-    m_path(path),
-    m_cnv(Master::evalFile(name, path))
+    m_path(path)
     {
         if(!m_cnv)
         {
@@ -82,34 +164,80 @@ namespace mpd
             };
             throw Error();
         }
-    }
-    
-    Patcher::~Patcher() noexcept
-    {
-        if(m_cnv)
+        else
         {
-            Master::closePatch(m_cnv);
+            for(t_gobj *y = m_cnv->gl_list; y; y = y->g_next)
+            {
+                Object* obj = new Object(y);
+                if(obj && obj->isGui())
+                {
+                    m_objects.insert(std::shared_ptr<Gui>(new Gui(y)));
+                }
+                else
+                {
+                    m_objects.insert(std::shared_ptr<Object>(obj));
+                }
+            }
         }
     }
     
     std::vector<sObject> Patcher::getObjects() const noexcept
     {
-        std::vector<sObject> objects;
-        for(t_gobj *y = m_cnv->gl_list; y; y = y->g_next)
+        return std::vector<sObject>(m_objects.begin(), m_objects.end());
+    }
+    
+    // ==================================================================================== //
+    //                                          OBJECT                                      //
+    // ==================================================================================== //
+    
+    Object::Object(void* handle) : m_handle(handle)
+    {
+        if(!handle)
         {
-            objects.push_back(std::make_shared<Object>(y));
+            class Error : public std::exception {
+            public:
+                const char* what() const noexcept override {
+                    return "The object isn't valid !";}
+            };
         }
-        return objects;
     }
     
     // ==================================================================================== //
     //                                          GUI                                         //
     // ==================================================================================== //
     
+    Gui::Gui(void* handle) : Object(handle)
+    {
+        t_eclass* c = getClass();
+        if(!c || !eobj_iscicm(getHandle()) || !eobj_isbox(getHandle()))
+        {
+            class Error : public std::exception {
+            public:
+                const char* what() const noexcept override {
+                    return "The object isn't a GUI !";}
+            };
+        }
+        else if(c && c->c_widget.w_getdrawparameters)
+        {
+            t_edrawparams params;
+            c->c_widget.w_getdrawparameters(getHandle(), NULL, &params);
+            m_background_color = {params.d_boxfillcolor.red,
+                params.d_boxfillcolor.green,
+                params.d_boxfillcolor.blue,
+                params.d_boxfillcolor.alpha};
+            m_border_color = {params.d_bordercolor.red,
+                params.d_bordercolor.green,
+                params.d_bordercolor.blue,
+                params.d_bordercolor.alpha};
+            m_border_size = params.d_borderthickness;
+            m_corner_roundness = params.d_cornersize;
+        }
+    }
+    
     bool Gui::wantMouse() const noexcept
     {
         t_eclass* c = getClass();
-        return c && !(m_handle->b_flags & EBOX_IGNORELOCKCLICK) &&
+        return c && !(static_cast<t_ebox *>(getHandle())->b_flags & EBOX_IGNORELOCKCLICK) &&
         (c->c_widget.w_mousedown ||
          c->c_widget.w_mousedrag ||
          c->c_widget.w_mouseenter ||
@@ -131,7 +259,7 @@ namespace mpd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_mousemove)
         {
-            c->c_widget.w_mousemove(m_handle, NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            c->c_widget.w_mousemove(getHandle(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
@@ -140,7 +268,7 @@ namespace mpd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_mouseenter)
         {
-            c->c_widget.w_mouseenter(m_handle, NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            c->c_widget.w_mouseenter(getHandle(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
@@ -149,7 +277,7 @@ namespace mpd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_mouseleave)
         {
-            c->c_widget.w_mouseleave(m_handle, NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            c->c_widget.w_mouseleave(getHandle(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
@@ -158,7 +286,7 @@ namespace mpd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_mousedown)
         {
-            c->c_widget.w_mousedown(m_handle, NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            c->c_widget.w_mousedown(getHandle(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
@@ -167,7 +295,7 @@ namespace mpd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_mousedrag)
         {
-            c->c_widget.w_mousedrag(m_handle, NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            c->c_widget.w_mousedrag(getHandle(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
@@ -176,7 +304,7 @@ namespace mpd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_mouseup)
         {
-            c->c_widget.w_mouseup(m_handle, NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            c->c_widget.w_mouseup(getHandle(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
@@ -185,7 +313,7 @@ namespace mpd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_dblclick)
         {
-            c->c_widget.w_dblclick(m_handle, NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            c->c_widget.w_dblclick(getHandle(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
@@ -194,7 +322,7 @@ namespace mpd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_mousewheel)
         {
-            c->c_widget.w_mousewheel(m_handle, NULL, t_pt({pos[0], pos[1]}), (long)mod, delta[0], delta[1]);
+            c->c_widget.w_mousewheel(getHandle(), NULL, t_pt({pos[0], pos[1]}), (long)mod, delta[0], delta[1]);
         }
     }
 }

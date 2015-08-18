@@ -10,6 +10,7 @@
 #include <string>
 #include <array>
 #include <vector>
+#include <set>
 #include <mutex>
 #include <tuple>
 #include <iostream>
@@ -32,25 +33,41 @@ namespace mpd
     class Instance;
     class Patcher;
     class Object;
+    class Gui;
     
+    typedef std::shared_ptr<Instance>       sInstance;
+    typedef std::weak_ptr<Instance>         wInstance;
+    typedef std::shared_ptr<const Instance> scInstance;
+    typedef std::weak_ptr<const Instance>   wcInstance;
+    
+    typedef std::shared_ptr<Patcher>        sPatcher;
+    typedef std::weak_ptr<Patcher>          wPatcher;
+    typedef std::shared_ptr<const Patcher>  scPatcher;
+    typedef std::weak_ptr<const Patcher>    wcPatcher;
     typedef std::shared_ptr<Object> sObject;
     typedef std::weak_ptr<Object> wObject;
+    typedef std::shared_ptr<Gui> sGui;
+    typedef std::weak_ptr<Gui> wGui;
     
     class Master
     {
+        friend class Instance;
     private:
         static std::mutex   s_mutex;
         static int          s_sample_rate;
         
         static void print(const char* s);
         
-        //! @brief Initialize Pure Data.
-        static void initialize() noexcept;
+        static t_canvas* openPatch(std::string const& name, std::string const& path);
         
+        static void closePatch(const t_canvas* cnv);
     public:
         
         //! @brief Creates a new instance.
-        static t_pdinstance* createInstance() noexcept;
+        static sInstance createInstance();
+        
+        //! @brief Close an instance.
+        static void closeInstance(sInstance instance);
         
         //! @brief Adds a path to the search path.
         static void addToSearchPath(std::string const& path) noexcept
@@ -67,23 +84,6 @@ namespace mpd
             namelist_free(sys_searchpath);
             sys_searchpath = NULL;
         }
-        
-        static t_canvas* evalFile(std::string const& name,
-                             std::string const& path) noexcept
-        {
-            if(!name.empty() && path.empty())
-            {
-                std::lock_guard<std::mutex> guard(s_mutex);
-                return reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym(path.c_str())));
-            }
-            return nullptr;
-        }
-        
-        static void closePatch(const t_canvas* cnv)
-        {
-            std::lock_guard<std::mutex> guard(s_mutex);
-            canvas_free(const_cast<t_canvas*>(cnv));
-        }
     };
     
     
@@ -92,25 +92,31 @@ namespace mpd
     //                                          OBJECT                                      //
     // ==================================================================================== //
     
-    //! @brief The camomile counterpart of the t_ebox.
-    //! @details This class is a wrapper for GUI object of the cicm wrapper.
     class Object
     {
-    private:
+        friend class Patcher;
+    protected:
         //! @brief The t_ebox pointer.
         void* m_handle;
-        
-    protected:
-        
-        inline t_eclass* getClass() const noexcept {
-            return bool(m_handle) ? eobj_getclass(m_handle) : nullptr;}
+
+        //! @brief The constructor.
+        Object(void* handle);
     public:
+            
+        //! @brief The destructor.
+        inline virtual ~Object() noexcept {}
         
-        //! @brief The default constructor.
-        inline Object() noexcept : m_handle(nullptr) {}
+        //! @brief Checks if the object is GUI.
+        inline virtual bool isGui() const noexcept {return bool(eobj_isbox(m_handle));}
         
-        //! @brief The attribute constructor.
-        inline Object(void* handle) noexcept : m_handle(handle) {}
+        //! @brief Checks if the object is CICM.
+        inline virtual bool isCicm() const noexcept {return bool(eobj_iscicm(m_handle));}
+        
+        //! @brief Checks if the object is DSP.
+        inline virtual bool isDsp() const noexcept {return bool(eobj_isdsp(m_handle));}
+        
+        //! @brief Gets the class name of the object.
+        inline virtual std::string getName() const noexcept {return std::string(eobj_getclassname(m_handle)->s_name);}
         
         //! @brief Gets the position.
         inline std::tuple<int,int> getPosition() const noexcept {
@@ -130,19 +136,20 @@ namespace mpd
         
         //! @brief Gets the width.
         inline virtual int getWidth() const noexcept {
-            return int(static_cast<t_ebox *>(m_handle)->b_rect.width);}
+            return int(static_cast<t_object *>(m_handle)->te_width);}
         
         //! @brief Gets the height.
-        inline virtual int getHeight() const noexcept {
-            return int(static_cast<t_ebox *>(m_handle)->b_rect.height);}
+        inline virtual int getHeight() const noexcept {return 0;}
         
         //! @brief Gets the bounds.
         inline virtual std::tuple<int,int, int, int> getBounds() const noexcept {
             return std::make_tuple(getX(), getY(), getWidth(), getHeight());}
         
-        //! @brief Gets the drawing parameters.
-        //DrawParameters getDrawParameters() const noexcept;
+    protected:
         
+        inline t_eclass* getClass() const noexcept {return (bool(m_handle)) ? (eobj_getclass(m_handle)) : nullptr;}
+            
+        inline void* getHandle() const noexcept {return m_handle;}
     };
     
     // ==================================================================================== //
@@ -151,7 +158,8 @@ namespace mpd
     
     class Gui : public Object
     {
-        t_ebox* m_handle;
+        friend class Patcher;
+    private:
         //! @brief The background color.
         std::array<float, 4> m_background_color;
         //! @brief The border color.
@@ -160,10 +168,13 @@ namespace mpd
         int          m_border_size;
         //! @brief The corner roudness.
         int          m_corner_roundness;
-    public:
         
+        //! @brief The Contructor.
+        Gui(void* handle);
+    public:
+            
         //! @brief The destructor.
-        virtual ~Gui() {};
+        inline virtual ~Gui() {};
         
         //! @brief Gets if the GUI wants the mouse events.
         bool wantMouse() const noexcept;
@@ -173,15 +184,11 @@ namespace mpd
         
         //! @brief Gets the width.
         inline int getWidth() const noexcept override {
-            return int(m_handle->b_rect.width);}
+            return int(static_cast<t_ebox *>(getHandle())->b_rect.width);}
         
         //! @brief Gets the height.
         inline int getHeight() const noexcept override {
-            return int(m_handle->b_rect.height);}
-        
-        //! @brief Gets the bounds.
-        inline std::tuple<int,int, int, int> getBounds() const noexcept override {
-            return std::make_tuple(getX(), getY(), getWidth(), getHeight());}
+            return int(static_cast<t_ebox *>(getHandle())->b_rect.height);}
         
         //! @brief Calls the mouse move method.
         void mouseMove(std::array<float, 2> const& pos, const long mod) noexcept;
@@ -232,18 +239,20 @@ namespace mpd
     {
         friend class Instance;
     private:
+        t_canvas*         m_cnv;
         const std::string m_name;
         const std::string m_path;
-        const t_canvas*   m_cnv;
-    
-        Patcher(std::string const& name,
+        std::set<sObject> m_objects;
+        
+        Patcher(t_canvas* cnv,
+                std::string const& name,
                 std::string const& path);
         
     public:
-        ~Patcher() noexcept;
+        ~Patcher() noexcept {};
         
         //! @brief Gets the objects.
-         std::vector<sObject> getObjects() const noexcept;
+        std::vector<sObject> getObjects() const noexcept;
         
         //! @brief Gets the file's name.
         inline std::string getName() const {return m_name;}
@@ -260,43 +269,34 @@ namespace mpd
     //! @brief The CPP wrapper for pd's instance.
     class Instance
     {
+        friend class Master;
     private:
-        t_pdinstance*       m_instance;
-        std::mutex          m_mutex;
-        std::vector<std::shared_ptr<Patcher>> m_patcher;
+        t_pdinstance* m_instance;
+        std::mutex    m_mutex;
+        std::set<sPatcher> m_patcher;
+        
+        Instance(t_pdinstance* instance);
     public:
-
-        inline Instance() noexcept :
-        {
-            m_instance = pdinstance_new();
-        }
-
-        inline ~Instance() noexcept
-        {
-            if(m_instance)
-            {
-                pdinstance_free(m_instance);
-            }
-        }
+        
+        inline ~Instance() noexcept {}
         
         inline void prepare(const int nins, const int nouts, const int samplerate) noexcept
         {
             if(m_instance)
             {
-                std::lock_guard<std::mutex> guard(s_mutex);
                 pd_setinstance(m_instance);
                 std::lock_guard<std::mutex> guard2(m_mutex);
                 
                 /*
-                int indev[MAXAUDIOINDEV], inch[MAXAUDIOINDEV],
-                outdev[MAXAUDIOOUTDEV], outch[MAXAUDIOOUTDEV];
-                indev[0] = outdev[0] = DEFAULTAUDIODEV;
-                inch[0] = inChans;
-                outch[0] = outChans;
-                sys_set_audio_settings(1, indev, 1, inch,
-                                       1, outdev, 1, outch, sampleRate, -1, 1, DEFDACBLKSIZE);
-                sched_set_using_audio(SCHED_AUDIO_CALLBACK);
-                sys_reopen_audio();
+                 int indev[MAXAUDIOINDEV], inch[MAXAUDIOINDEV],
+                 outdev[MAXAUDIOOUTDEV], outch[MAXAUDIOOUTDEV];
+                 indev[0] = outdev[0] = DEFAULTAUDIODEV;
+                 inch[0] = inChans;
+                 outch[0] = outChans;
+                 sys_set_audio_settings(1, indev, 1, inch,
+                 1, outdev, 1, outch, sampleRate, -1, 1, DEFDACBLKSIZE);
+                 sched_set_using_audio(SCHED_AUDIO_CALLBACK);
+                 sys_reopen_audio();
                  */
             }
         }
@@ -305,7 +305,7 @@ namespace mpd
         {
             if(m_instance)
             {
-                std::lock_guard<std::mutex> guard(s_mutex);
+                //std::lock_guard<std::mutex> guard(s_mutex);
                 pd_setinstance(m_instance);
                 std::lock_guard<std::mutex> guard2(m_mutex);
                 libpd_process_float(ticks, inputs, outputs);
@@ -316,7 +316,7 @@ namespace mpd
         {
             if(m_instance)
             {
-                std::lock_guard<std::mutex> guard(s_mutex);
+                //std::lock_guard<std::mutex> guard(s_mutex);
                 pd_setinstance(m_instance);
                 std::lock_guard<std::mutex> guard2(m_mutex);
                 libpd_process_double(ticks, inputs, outputs);
@@ -359,20 +359,9 @@ namespace mpd
             }
         }
         
-        std::shared_ptr<Patcher> openPatch(const std::string& patch, const std::string& path)
-        {
-            std::shared_ptr<Patcher> patcher;
-            try
-            {
-                patcher = std::shared_ptr<Patcher>(new Patcher(patch.c_str(), path.c_str()));
-            }
-            catch (std::exception& e)
-            {
-                throw e;
-            }
-            m_patcher.push_back(patcher);
-            return patcher;
-        }
+        sPatcher openPatcher(const std::string& name, const std::string& path);
+        
+        void closePatcher(sPatcher patch);
     };
 }
 

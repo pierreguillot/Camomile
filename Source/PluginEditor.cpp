@@ -11,20 +11,39 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-Interface::Interface(Object const& object) : m_object(object)
+static inline juce::Colour tojColor(std::array<float, 4> const& color)
 {
-    tuple<int, int> size = m_object.getSize();
-    Component::setSize(std::get<0>(size), std::get<1>(size));
-    Component::setVisible(true);
-    Component::setInterceptsMouseClicks(m_object.wantMouse(), m_object.wantMouse());
-    Component::setMouseClickGrabsKeyboardFocus(m_object.wantKeyboard());
-    Component::setWantsKeyboardFocus(m_object.wantKeyboard());
+    return juce::Colour::fromFloatRGBA(color[0], color[1], color[2], color[3]);
+}
+
+Interface::Interface(sGui object) : m_object(object)
+{
+    if(object)
+    {
+        tuple<int, int, int, int> bounds = object->getBounds();
+        Component::setBounds(std::get<0>(bounds), std::get<1>(bounds), std::get<2>(bounds), std::get<3>(bounds));
+        Component::setVisible(true);
+        Component::setInterceptsMouseClicks(object->wantMouse(), object->wantMouse());
+        Component::setMouseClickGrabsKeyboardFocus(object->wantKeyboard());
+        Component::setWantsKeyboardFocus(object->wantKeyboard());
+    }
 }
 
 void Interface::paint(Graphics& g)
 {
-    //DrawParameters parameters = m_object.getDrawParameters();
-    //g.fillAll(parameters.getBackgroundColor());
+    sGui object = m_object.lock();
+    if(object)
+    {
+        g.fillAll(tojColor(object->getBackgroundColor()));
+        
+        g.setColour(tojColor(object->getBorderColor()));
+        g.drawRect(getBounds().withZeroOrigin(), object->getBorderSize());
+    }
+    else
+    {
+        g.fillAll(Colours::whitesmoke);
+    }
+    
     /*
      const std::tuple<int, t_elayer*> tup = m_object.paint();
      const int size = std::get<0>(tup);
@@ -75,48 +94,78 @@ void Interface::paint(Graphics& g)
      }
      }
      */
-    //g.setColour(parameters.getBorderColor());
-    //g.drawRect(getBounds().withZeroOrigin(), parameters.getBorderSize());
 }
 
 void Interface::mouseMove(const MouseEvent& event)
 {
-    //m_object.mouseMove(event);
+    sGui object = m_object.lock();
+    if(object)
+    {
+        object->mouseMove({float(event.x), float(event.y)}, event.mods.getRawFlags());
+    }
 }
 
 void Interface::mouseEnter(const MouseEvent& event)
 {
-    //m_object.mouseEnter(event);
+    sGui object = m_object.lock();
+    if(object)
+    {
+        object->mouseEnter({float(event.x), float(event.y)}, event.mods.getRawFlags());
+    }
 }
 
 void Interface::mouseExit(const MouseEvent& event)
 {
-    //m_object.mouseExit(event);
+    sGui object = m_object.lock();
+    if(object)
+    {
+        object->mouseExit({float(event.x), float(event.y)}, event.mods.getRawFlags());
+    }
 }
 
 void Interface::mouseDown(const MouseEvent& event)
 {
-    //m_object.mouseDown(event);
+    sGui object = m_object.lock();
+    if(object)
+    {
+        object->mouseDown({float(event.x), float(event.y)}, event.mods.getRawFlags());
+    }
 }
 
 void Interface::mouseDrag(const MouseEvent& event)
 {
-    //m_object.mouseDrag(event);
+    sGui object = m_object.lock();
+    if(object)
+    {
+        object->mouseDrag({float(event.x), float(event.y)}, event.mods.getRawFlags());
+    }
 }
 
 void Interface::mouseUp(const MouseEvent& event)
 {
-    //m_object.mouseUp(event);
+    sGui object = m_object.lock();
+    if(object)
+    {
+        object->mouseUp({float(event.x), float(event.y)}, event.mods.getRawFlags());
+    }
 }
 
 void Interface::mouseDoubleClick(const MouseEvent& event)
 {
-    //m_object.mouseDoubleClick(event);
+    sGui object = m_object.lock();
+    if(object)
+    {
+        object->mouseDoubleClick({float(event.x), float(event.y)}, event.mods.getRawFlags());
+    }
 }
 
 void Interface::mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel)
 {
-    //m_object.mouseWheelMove(event, wheel);
+    sGui object = m_object.lock();
+    if(object)
+    {
+        object->mouseWheelMove({float(event.x), float(event.y)}, event.mods.getRawFlags(), {wheel.deltaX, wheel.deltaY});
+    }
 }
 
 void Interface::redraw()
@@ -137,11 +186,14 @@ m_file_drop(false)
     shared_ptr<const Patcher> patch = m_processor.getPatch();
     if(patch)
     {
-        const std::vector<Object> objects = patch->getObjects();
+        const std::vector<sObject> objects = patch->getObjects();
         for(auto it : objects)
         {
-            m_objects.add(new Interface(it));
-            addAndMakeVisible(m_objects.getLast());
+            if(it->isGui())
+            {
+                m_objects.add(new Interface(dynamic_pointer_cast<Gui>(it)));
+                addAndMakeVisible(m_objects.getLast());
+            }
         }
     }
     setSize(600, 400);
@@ -216,11 +268,14 @@ void CamomileAudioProcessorEditor::patchChanged()
     shared_ptr<const Patcher> patch = m_processor.getPatch();
     if(patch)
     {
-        const std::vector<Object> objects = patch->getObjects();
+        const std::vector<sObject> objects = patch->getObjects();
         for(auto it : objects)
         {
-            m_objects.add(new Interface(it));
-            addAndMakeVisible(m_objects.getLast());
+            if(it->isGui())
+            {
+                m_objects.add(new Interface(dynamic_pointer_cast<Gui>(it)));
+                addAndMakeVisible(m_objects.getLast());
+            }
         }
     }
     const MessageManagerLock mmLock;

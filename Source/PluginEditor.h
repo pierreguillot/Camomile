@@ -20,15 +20,11 @@
 class Interface : public juce::Component
 {
 private:
-    //! @brief The object.
-    Object m_object;
-    
+    const wGui m_object;
 public:
     
-    //! @brief The attribute constructor.
-    Interface(Object const& object);
+    Interface(sGui object);
     
-    //! @brief The paint method.
     void paint(Graphics& g) override;
     
     void mouseMove(const MouseEvent& event) override;
@@ -48,9 +44,6 @@ public:
     void mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel) override;
     
     void redraw();
-    
-    bool operator==(Object const& other) noexcept {return m_object == other;}
-    
 };
 
 class CamomileAudioProcessorEditor  : public AudioProcessorEditor, public CamomileAudioProcessor::Listener, public FileDragAndDropTarget

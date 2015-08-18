@@ -12,7 +12,6 @@
 #define PLUGINPROCESSOR_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "CamoInterface.h"
 #include "PdWrapper.h"
 
 #include <set>
@@ -27,7 +26,7 @@ public:
     class Listener;
 private:
     shared_ptr<Instance>    m_pd;
-    shared_ptr<Patcher>     m_patch;
+    weak_ptr<Patcher>       m_patch;
     float*                  m_buffer_in;
     float*                  m_buffer_out;
     
@@ -74,11 +73,9 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
-    inline bool hasPatch() const noexcept {return bool(m_patch);}
     void loadPatch(const juce::File& file);
-    
-    inline shared_ptr<const Patcher> getPatch() const noexcept {return m_patch;}
-    inline shared_ptr<Patcher> getPatch() noexcept {return m_patch;}
+    inline shared_ptr<const Patcher> getPatch() const noexcept {return m_patch.lock();}
+    inline shared_ptr<Patcher> getPatch() noexcept {return m_patch.lock();}
     inline bool shouldProcess() const noexcept {return m_pd && m_buffer_in && m_buffer_out;}
     
     // ================================================================================ //

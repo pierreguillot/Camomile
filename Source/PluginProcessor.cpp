@@ -14,10 +14,24 @@
 //==============================================================================
 CamomileAudioProcessor::CamomileAudioProcessor() : m_buffer_in(nullptr), m_buffer_out(nullptr)
 {
-    m_pd = make_shared<Instance>();
+    try
+    {
+        m_pd = Master::createInstance();
+    }
+    catch(std::exception& e)
+    {
+        std::cout << e.what() << "\n";
+    }
     if(m_pd)
     {
-        m_patch = m_pd->openPatch("Test2.pd", "/Users/Pierre/Desktop/");
+        try
+        {
+            m_patch = m_pd->openPatcher("Test2.pd", "/Users/Pierre/Desktop/");
+        }
+        catch(std::exception& e)
+        {
+            std::cout << e.what() << "\n";
+        }
     }
 }
 
