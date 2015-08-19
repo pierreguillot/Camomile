@@ -218,7 +218,7 @@ void Interface::mouseWheelMove(const MouseEvent& event, const MouseWheelDetails&
     }
 }
 
-void Interface::redraw()
+void Interface::receive(const std::string& dest, t_symbol* s)
 {
     const MessageManagerLock thread(Thread::getCurrentThread());
     if(thread.lockWasGained())

@@ -25,10 +25,10 @@ class CamomileAudioProcessor  : public AudioProcessor
 public:
     class Listener;
 private:
-    shared_ptr<Instance>    m_pd;
+    shared_ptr<Instance>  m_pd;
     weak_ptr<Patch>       m_patch;
-    set<Listener*>          m_listeners;
-    mutable mutex           m_mutex;
+    set<Listener*>        m_listeners;
+    mutable mutex         m_mutex;
     
 public:
     CamomileAudioProcessor();
@@ -67,8 +67,8 @@ public:
     const String getProgramName (int index) override;
     void changeProgramName (int index, const String& newName) override;
 
-    void getStateInformation (MemoryBlock& destData) override;
-    void setStateInformation (const void* data, int sizeInBytes) override;
+    void getStateInformation(MemoryBlock& destData) override;
+    void setStateInformation(const void* data, int sizeInBytes) override;
     
     void loadPatch(const juce::File& file);
     inline shared_ptr<const Patch> getPatch() const noexcept {return m_patch.lock();}

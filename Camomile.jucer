@@ -4,12 +4,13 @@
               bundleIdentifier="com.cicm.Camomile" includeBinaryInAppConfig="1"
               buildVST="1" buildVST3="1" buildAU="0" buildRTAS="0" buildAAX="0"
               pluginName="Camomile" pluginDesc="Camomile" pluginManufacturer="CICM"
-              pluginManufacturerCode="CICM" pluginCode="Y2nd" pluginChannelConfigs="{1, 1}, {2, 2}"
+              pluginManufacturerCode="CICM" pluginCode="Y2nd" pluginChannelConfigs=""
               pluginIsSynth="0" pluginWantsMidiIn="0" pluginProducesMidiOut="0"
-              pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="0"
+              pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="1"
               pluginAUExportPrefix="CamomileAU" pluginRTASCategory="" aaxIdentifier="com.cicm.Camomile"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="3.2.0"
-              companyName="CICM" companyEmail="guillotpierre6@gmail.com" companyWebsite="http://www.mshparisnord.fr/hoalibrary/">
+              companyName="CICM" companyEmail="guillotpierre6@gmail.com" companyWebsite="http://www.mshparisnord.fr/hoalibrary/"
+              defines="LIB_PD">
   <MAINGROUP id="Lkdhlo" name="Camomile">
     <GROUP id="{6858D652-D432-5FB6-C946-D9F3FA76E6E9}" name="Source">
       <FILE id="C44MJA" name="PluginProcessor.cpp" compile="1" resource="0"
@@ -106,10 +107,10 @@
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
                        isDebug="1" optimisation="1" targetName="Camomile" headerPath="../../ThirdParty/Pd/pure-data/src"
-                       libraryPath="../../ThirdParty/Pd/libs" defines="LIB_PD"/>
+                       libraryPath="../../ThirdParty/Pd/libs" defines=""/>
         <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
                        isDebug="0" optimisation="3" targetName="Camomile" headerPath="../../ThirdParty/Pd/pure-data/src"
-                       libraryPath="../../ThirdParty/Pd/libs" defines="LIB_PD"/>
+                       libraryPath="../../ThirdParty/Pd/libs" defines=""/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="ThirdParty/Juce/modules"/>

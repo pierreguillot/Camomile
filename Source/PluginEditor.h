@@ -44,12 +44,7 @@ public:
     
     void mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel) override;
     
-    void redraw();
-    
-    void receive(const std::string& dest, t_symbol* s)
-    {
-        redraw();
-    }
+    void receive(const std::string& dest, t_symbol* s);
 };
 
 class CamomileAudioProcessorEditor  : public AudioProcessorEditor, public CamomileAudioProcessor::Listener, public FileDragAndDropTarget

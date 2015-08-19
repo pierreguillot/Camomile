@@ -193,17 +193,35 @@ AudioProcessorEditor* CamomileAudioProcessor::createEditor()
 }
 
 //==============================================================================
-void CamomileAudioProcessor::getStateInformation (MemoryBlock& destData)
+void CamomileAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+    if(m_pd)
+    {
+        sPatch patch = m_patch.lock();
+        if(patch)
+        {
+            XmlElement xml("CamomileSettings");
+            xml.setAttribute("name", patch->getName());
+            xml.setAttribute("path", patch->getPath());
+            copyXmlToBinary (xml, destData);
+        }
+    }
 }
 
 void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+    ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
+    if(xml != nullptr)
+    {
+        if(xml->hasTagName("CamomileSettings"))
+        {
+            String name = xml->getStringAttribute("name");
+            String path = xml->getStringAttribute("path");
+            
+            File file(path + "/" + name);
+            loadPatch(file);
+        }
+    }
 }
 
 void CamomileAudioProcessor::loadPatch(const juce::File& file)
