@@ -88,10 +88,8 @@ namespace pd
         static void clearSearchPath() noexcept;
     };
     
-    
-    
     // ==================================================================================== //
-    //                                          OBJECT                                      //
+    //                                      OBJECT                                          //
     // ==================================================================================== //
     
     class Object
@@ -108,14 +106,14 @@ namespace pd
         //! @brief The destructor.
         inline virtual ~Object() noexcept {}
         
-        //! @brief Checks if the object is GUI.
-        inline virtual bool isGui() const noexcept {return bool(eobj_isbox(m_handle));}
-        
         //! @brief Checks if the object is CICM.
         inline virtual bool isCicm() const noexcept {return bool(eobj_iscicm(m_handle));}
         
+        //! @brief Checks if the object is GUI.
+        inline virtual bool isGui() const noexcept {return isCicm() && bool(eobj_isbox(m_handle));}
+        
         //! @brief Checks if the object is DSP.
-        inline virtual bool isDsp() const noexcept {return bool(eobj_isdsp(m_handle));}
+        inline virtual bool isDsp() const noexcept {return isCicm() && bool(eobj_isdsp(m_handle));}
         
         //! @brief Gets the class name of the object.
         inline virtual std::string getName() const noexcept {return std::string(eobj_getclassname(m_handle)->s_name);}
@@ -159,6 +157,124 @@ namespace pd
     };
     
     // ==================================================================================== //
+    //                                       PATH                                           //
+    // ==================================================================================== //
+    
+    class Gobj
+    {
+    private:
+        t_egobj* obj;
+    public:
+        
+        enum Type
+        {
+            Invalid = 0,
+            Path    = 1,
+            Rect    = 2,
+            Arc     = 3,
+            Oval    = 4,
+            Text    = 5
+        };
+        
+        enum Justification
+        {
+            Left                            = 1,
+            Right                           = 2,
+            HorizontallyCentred             = 4,
+            Top                             = 8,
+            Bottom                          = 16,
+            VerticallyCentred               = 32,
+            horizontallyJustified           = 64,
+            Centred                         = 36,
+            CentredLeft                     = 33,
+            CentredRight                    = 34,
+            CentredTop                      = 12,
+            CentredBottom                   = 20,
+            TopLeft                         = 9,
+            TopRight                        = 10,
+            BottomLeft                      = 17,
+            BottomRight                     = 18
+        };
+        
+        inline constexpr Gobj() noexcept : obj(nullptr) {}
+        inline constexpr Gobj(t_egobj* obj) noexcept : obj(obj) {}
+        inline Type type() const noexcept {return Type(obj->e_type);}
+        inline bool filled() const noexcept {return bool(obj->e_filled);}
+        inline int witdh() const noexcept {return int(obj->e_width);}
+        inline std::string text() const noexcept {return std::string(obj->e_text->s_name);}
+        inline Justification justification() const noexcept
+        {
+            if(obj->e_anchor == gensym("n"))
+            {
+                return Top;
+            }
+            else if(obj->e_anchor == gensym("ne"))
+            {
+                return TopRight;
+            }
+            else if(obj->e_anchor == gensym("s"))
+            {
+                return Bottom;
+            }
+            else if(obj->e_anchor == gensym("se"))
+            {
+                return BottomRight;
+            }
+            else if(obj->e_anchor == gensym("e"))
+            {
+                return CentredRight;
+            }
+            else if(obj->e_anchor == gensym("sw"))
+            {
+                return BottomLeft;
+            }
+            else if(obj->e_anchor == gensym("w"))
+            {
+                return CentredLeft;
+            }
+            else if(obj->e_anchor == gensym("nw"))
+            {
+                return TopLeft;
+            }
+            return Centred;
+        }
+        inline std::vector<t_pt> points() const noexcept {
+            return std::vector<t_pt>(obj->e_points, obj->e_points+obj->e_npoints);}
+        inline std::array<float, 4> color() const noexcept {
+            const t_rgba col = hex_to_rgba(obj->e_color->s_name);
+            return std::array<float, 4>({col.red, col.green, col.blue, col.alpha});
+        }
+    };
+    
+    // ==================================================================================== //
+    //                                      LAYER                                           //
+    // ==================================================================================== //
+    
+    class Layer
+    {
+    private:
+        t_elayer* layer;
+    public:
+        
+        enum State
+        {
+            Open    =  0,
+            Closed  = -1,
+            Invalid = -2,
+            Todraw  = -3
+        };
+        
+        inline constexpr Layer() noexcept : layer(nullptr) {}
+        inline constexpr Layer(t_elayer* _layer) : layer(_layer) {}
+        inline Layer& operator=(t_elayer* _layer) noexcept {layer = _layer; return *this;}
+        inline State state() const noexcept {return (layer) ? (State(layer->e_state)) : Invalid;}
+        inline size_t size() const noexcept {return size_t(layer->e_number_objects);}
+        inline bool empty() const noexcept {return bool(layer->e_number_objects);}
+        inline Gobj operator[](size_t index) const noexcept {return Gobj(layer->e_objects+index);}
+        inline void close() noexcept {layer->e_state = Closed;}
+    };
+    
+    // ==================================================================================== //
     //                                          GUI                                         //
     // ==================================================================================== //
     
@@ -181,6 +297,12 @@ namespace pd
             
         //! @brief The destructor.
         inline virtual ~Gui() {};
+        
+        //! @brief Gets the preset name.
+        bool hasPresetName() const noexcept;
+        
+        //! @brief Gets the preset name.
+        std::string getPresetName() const noexcept;
         
         //! @brief Gets if the GUI wants the mouse events.
         bool wantMouse() const noexcept;
@@ -220,6 +342,12 @@ namespace pd
         //! @brief Calls the mouse wheel method.
         void mouseWheelMove(std::array<float, 2> const& pos, const long mod, std::array<float, 2> const& delta) noexcept;
         
+        //! @brief Calls the key method.
+        void keyPressed(const char key, const long mod) noexcept;
+        
+        //! @brief Calls the key filter method.
+        void keyFilter(const char key, const long mod) noexcept;
+        
         //! @brief Gets the background color.
         inline std::array<float, 4> getBackgroundColor() const noexcept {return m_background_color;}
         
@@ -233,7 +361,7 @@ namespace pd
         inline int getCornerRoundness() const noexcept {return m_corner_roundness;}
         
         //! @brief Calls the paint method and return a set of object to paint.
-        std::vector<t_elayer*> paint() const noexcept;
+        std::vector<Layer> paint() const noexcept;
     };
     
     // ==================================================================================== //
@@ -249,7 +377,7 @@ namespace pd
         t_canvas*         m_cnv;
         const std::string m_name;
         const std::string m_path;
-        std::set<sObject> m_objects;
+        std::vector<sObject> m_objects;
         
         Patch(t_canvas* cnv,
                 std::string const& name,
@@ -260,6 +388,9 @@ namespace pd
         
         //! @brief Gets the objects.
         std::vector<sObject> getObjects() const noexcept;
+        
+        //! @brief Gets the Guis.
+        std::vector<sGui> getGuis() const noexcept;
         
         //! @brief Gets the camomile object.
         sGui getCamomile() const noexcept;

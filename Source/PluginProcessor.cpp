@@ -33,6 +33,11 @@ CamomileAudioProcessor::CamomileAudioProcessor()
             std::cout << e.what() << "\n";
         }
     }
+    cout << "vst3 : "<< bool(this->wrapperType == wrapperType_VST3)<< "\n";
+    /*
+    AudioProcessorParameter parameter;
+    addParameter(parameter);
+     */
 }
 
 CamomileAudioProcessor::~CamomileAudioProcessor()
@@ -41,15 +46,33 @@ CamomileAudioProcessor::~CamomileAudioProcessor()
     m_listeners.clear();
 }
 
-//==============================================================================
-const String CamomileAudioProcessor::getName() const
-{
-    return JucePlugin_Name;
-}
-
 int CamomileAudioProcessor::getNumParameters()
 {
-    return 0;
+    return 64;
+}
+
+const String CamomileAudioProcessor::getParameterName(int index)
+{
+    if(m_pd)
+    {
+        sPatch patch = m_patch.lock();
+        if(patch)
+        {
+            int count = 0;
+            vector<sGui> objects(patch->getGuis());
+            for(auto it : objects)
+            {
+                if(it->hasPresetName())
+                {
+                    if(count++ == index)
+                    {
+                        return String(it->getPresetName());
+                    }
+                }
+            }
+        }
+    }
+    return String();
 }
 
 float CamomileAudioProcessor::getParameter (int index)
@@ -61,34 +84,9 @@ void CamomileAudioProcessor::setParameter (int index, float newValue)
 {
 }
 
-const String CamomileAudioProcessor::getParameterName (int index)
-{
-    return String();
-}
-
 const String CamomileAudioProcessor::getParameterText (int index)
 {
     return String();
-}
-
-const String CamomileAudioProcessor::getInputChannelName (int channelIndex) const
-{
-    return String (channelIndex + 1);
-}
-
-const String CamomileAudioProcessor::getOutputChannelName (int channelIndex) const
-{
-    return String (channelIndex + 1);
-}
-
-bool CamomileAudioProcessor::isInputChannelStereoPair (int index) const
-{
-    return true;
-}
-
-bool CamomileAudioProcessor::isOutputChannelStereoPair (int index) const
-{
-    return true;
 }
 
 bool CamomileAudioProcessor::acceptsMidi() const
@@ -109,41 +107,6 @@ bool CamomileAudioProcessor::producesMidi() const
    #endif
 }
 
-bool CamomileAudioProcessor::silenceInProducesSilenceOut() const
-{
-    return false;
-}
-
-double CamomileAudioProcessor::getTailLengthSeconds() const
-{
-    return 0.0;
-}
-
-int CamomileAudioProcessor::getNumPrograms()
-{
-    return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
-                // so this should be at least 1, even if you're not really implementing programs.
-}
-
-int CamomileAudioProcessor::getCurrentProgram()
-{
-    return 0;
-}
-
-void CamomileAudioProcessor::setCurrentProgram (int index)
-{
-}
-
-const String CamomileAudioProcessor::getProgramName (int index)
-{
-    return String();
-}
-
-void CamomileAudioProcessor::changeProgramName (int index, const String& newName)
-{
-}
-
-//==============================================================================
 void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     if(m_pd)
@@ -181,18 +144,11 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     }
 }
 
-//==============================================================================
-bool CamomileAudioProcessor::hasEditor() const
-{
-    return true; // (change this to false if you choose to not supply an editor)
-}
-
 AudioProcessorEditor* CamomileAudioProcessor::createEditor()
 {
-    return new CamomileAudioProcessorEditor (*this);
+    return new CamomileInterface(*this);
 }
 
-//==============================================================================
 void CamomileAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
     if(m_pd)
@@ -203,7 +159,7 @@ void CamomileAudioProcessor::getStateInformation(MemoryBlock& destData)
             XmlElement xml("CamomileSettings");
             xml.setAttribute("name", patch->getName());
             xml.setAttribute("path", patch->getPath());
-            copyXmlToBinary (xml, destData);
+            copyXmlToBinary(xml, destData);
         }
     }
 }
@@ -238,13 +194,22 @@ void CamomileAudioProcessor::loadPatch(const juce::File& file)
             }
             if(file.exists() && file.getFileExtension() == String(".pd"))
             {
-                m_patch = m_pd->openPatch(file.getFileName().toStdString(), (file.getParentDirectory()).getFullPathName().toStdString());
+                try
+                {
+                    m_patch = m_pd->openPatch(file.getFileName().toStdString(), (file.getParentDirectory()).getFullPathName().toStdString());
+                }
+                catch(std::exception& e)
+                {
+                    std::cout << e.what() << "\n";
+                }
             }
+            
             vector<Listener*> listeners = getListeners();
             for(auto it : listeners)
             {
                 it->patchChanged();
             }
+            updateHostDisplay();
         }
         
         suspendProcessing(false);
@@ -252,8 +217,6 @@ void CamomileAudioProcessor::loadPatch(const juce::File& file)
     
 }
 
-//==============================================================================
-// This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new CamomileAudioProcessor();

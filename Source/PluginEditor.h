@@ -14,60 +14,84 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 
+// ==================================================================================== //
+//                                  MENU INTERFACE                                      //
+// ==================================================================================== //
 
-//! @brief The camomille component for an Object.
-//! @details This class is the juce component of an Object.
-class Interface : public juce::Component, public pd::Listener
+class MenuInterface : public MenuBarModel
 {
 private:
-    const wGui m_object;
-    const sMessenger m_messenger;
+    
 public:
+    StringArray getMenuBarNames() override;
     
-    Interface(sGui object);
+    PopupMenu getMenuForIndex(int topLevelMenuIndex, const String& menuName) override;
     
-    void paint(Graphics& g) override;
-    
-    void mouseMove(const MouseEvent& event) override;
-    
-    void mouseEnter(const MouseEvent& event) override;
-    
-    void mouseExit(const MouseEvent& event) override;
-    
-    void mouseDown(const MouseEvent& event) override;
-    
-    void mouseDrag(const MouseEvent& event) override;
-    
-    void mouseUp(const MouseEvent& event) override;
-    
-    void mouseDoubleClick(const MouseEvent& event) override;
-    
-    void mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel) override;
-    
-    void receive(const std::string& dest, t_symbol* s);
+    /** This is called when a menu item has been clicked on.
+     
+     @param menuItemID           the item ID of the PopupMenu item that was selected
+     @param topLevelMenuIndex    the index of the top-level menu from which the item was
+     chosen (just in case you've used duplicate ID numbers
+     on more than one of the popup menus)
+     */
+    virtual void menuItemSelected (int menuItemID,
+                                   int topLevelMenuIndex) = 0;
 };
 
-class CamomileAudioProcessorEditor  : public AudioProcessorEditor, public CamomileAudioProcessor::Listener, public FileDragAndDropTarget
+// ==================================================================================== //
+//                                  OBJECT INTERFACE                                    //
+// ==================================================================================== //
+
+class ObjectInterface :
+public Component,
+public Listener
 {
 private:
-    CamomileAudioProcessor& m_processor;
-    bool                    m_file_drop;
-    OwnedArray<Interface>   m_objects;
+    const wGui       m_object;
+    const sMessenger m_messenger;
+    bool             m_attached;
 public:
-    CamomileAudioProcessorEditor(CamomileAudioProcessor&);
-    ~CamomileAudioProcessorEditor();
+    ObjectInterface(sGui object);
+    void paint(Graphics& g) override;
+    void mouseMove(const MouseEvent& event) override;
+    void mouseEnter(const MouseEvent& event) override;
+    void mouseExit(const MouseEvent& event) override;
+    void mouseDown(const MouseEvent& event) override;
+    void mouseDrag(const MouseEvent& event) override;
+    void mouseUp(const MouseEvent& event) override;
+    void mouseDoubleClick(const MouseEvent& event) override;
+    void mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel) override;
+    bool keyPressed(const KeyPress& key) override;
+    void receive(const std::string& dest, t_symbol* s);
+private:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ObjectInterface)
+};
 
+// ==================================================================================== //
+//                                  CAMOMILE INTERFACE                                  //
+// ==================================================================================== //
+
+class CamomileInterface  :
+public AudioProcessorEditor,
+public CamomileAudioProcessor::Listener,
+public FileDragAndDropTarget
+{
+private:
+    CamomileAudioProcessor&     m_processor;
+    OwnedArray<ObjectInterface> m_objects;
+    bool                        m_dropping;
+public:
+    CamomileInterface(CamomileAudioProcessor&);
+    ~CamomileInterface();
     void paint(Graphics&) override;
     void resized() override;
-    
     bool isInterestedInFileDrag(const StringArray& files) override;
     void filesDropped(const StringArray& files, int x, int y) override;
     void fileDragEnter(const StringArray& files, int x, int y) override;
     void fileDragExit(const StringArray& files) override;
     void patchChanged() override;
 private:
-    
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileInterface)
 };
 
 

@@ -16,22 +16,22 @@ static inline juce::Colour tojColor(std::array<float, 4> const& color)
     return juce::Colour::fromFloatRGBA(color[0], color[1], color[2], color[3]);
 }
 
-static inline juce::Path tojPath(int size, t_pt* points)
+static inline juce::Path fromPath(vector<t_pt> const& points)
 {
     juce::Path path;
-    for(int i = 0; i < size; i++)
+    for(int i = 0; i < points.size(); i++)
     {
-        if(points[i].x == E_PATH_MOVE && i < size - 1)
+        if(points[i].x == E_PATH_MOVE && i < points.size() - 1)
         {
             path.startNewSubPath(points[i+1].x, points[i+1].y);
             ++i;
         }
-        else if(points[i].x == E_PATH_LINE && i < size - 1)
+        else if(points[i].x == E_PATH_LINE && i < points.size() - 1)
         {
             path.lineTo(points[i+1].x, points[i+1].y);
             ++i;
         }
-        else if(points[i].x == E_PATH_CURVE && i < size - 3)
+        else if(points[i].x == E_PATH_CURVE && i < points.size() - 3)
         {
             path.cubicTo(points[i+1].x, points[i+1].y,
                          points[i+2].x, points[i+2].y,
@@ -43,18 +43,102 @@ static inline juce::Path tojPath(int size, t_pt* points)
             path.closeSubPath();
         }
     }
-    
     return path;
 }
 
-Interface::Interface(sGui object) :
+static inline juce::Path fromRect(vector<t_pt> const& points)
+{
+    juce::Path path;
+    if(points.size() == 5)
+    {
+        path.addRectangle(points[0].x, points[0].y,
+                          points[2].x - points[0].x,
+                          points[2].y - points[0].y);
+    }
+    else
+    {
+        path.addRoundedRectangle(points[6].x, points[0].y,
+                                 points[2].x - points[6].x,
+                                 points[5].y - points[0].y,
+                                 points[2].y - points[0].y);
+    }
+    return path;
+}
+
+static inline juce::Path fromOval(vector<t_pt> const& points)
+{
+    juce::Path path;
+    path.addEllipse(points[0].x, points[0].y,
+                    points[1].x - points[0].x,
+                    points[1].y - points[0].y);
+    return path;
+}
+
+static inline juce::Path tojPath(Gobj const& obj)
+{
+    if(obj.type() == Gobj::Path)
+    {
+        return fromPath(obj.points());
+    }
+    else if(obj.type() == Gobj::Rect)
+    {
+        return fromRect(obj.points());
+    }
+    else if(obj.type() == Gobj::Oval)
+    {
+        return fromOval(obj.points());
+    }
+    else if(obj.type() == Gobj::Arc)
+    {
+        
+    }
+    return juce::Path();
+}
+
+// ==================================================================================== //
+//                                  MENU INTERFACE                                      //
+// ==================================================================================== //
+
+StringArray MenuInterface::getMenuBarNames()
+{
+    StringArray menus;
+    menus.add("File");
+    menus.add("Console");
+    menus.add("Help");
+    return menus;
+}
+
+PopupMenu MenuInterface::getMenuForIndex(int topLevelMenuIndex, const String& menuName)
+{
+    PopupMenu menu;
+    switch(topLevelMenuIndex)
+    {
+        case 0:
+            menu.addItem(0, String("Open..."));
+            menu.addItem(1, String("Open Recent"));
+            menu.addItem(2, String("Close"));
+            break;
+            
+        default:
+            break;
+    }
+    return menu;
+}
+
+// ==================================================================================== //
+//                                  OBJECT INTERFACE                                    //
+// ==================================================================================== //
+
+ObjectInterface::ObjectInterface(sGui object) :
 m_object(object),
-m_messenger(make_shared<Messenger>(object->getBindingName()))
+m_messenger(make_shared<Messenger>(object->getBindingName())),
+m_attached(false)
 {
     if(object)
     {
         const std::array<int,2> bounds = object->getSize();
-        Component::setSize(bounds[0], bounds[1]);
+        const int offset = object->getBorderSize() * 2;
+        Component::setSize(bounds[0] + offset, bounds[1] + offset);
         Component::setVisible(true);
         Component::setInterceptsMouseClicks(object->wantMouse(), object->wantMouse());
         Component::setMouseClickGrabsKeyboardFocus(object->wantKeyboard());
@@ -62,79 +146,52 @@ m_messenger(make_shared<Messenger>(object->getBindingName()))
     }
 }
 
-void Interface::paint(Graphics& g)
+void ObjectInterface::paint(Graphics& g)
 {
     sGui object = m_object.lock();
     if(object)
     {
-        m_messenger->addListener(this);
+        if(!m_attached)
+        {
+            m_messenger->addListener(this);
+            m_attached = true;
+        }
+        const int offset = object->getBorderSize();
+        const AffineTransform transform(AffineTransform::translation(offset, offset));
         g.fillAll(tojColor(object->getBackgroundColor()));
-        std::vector<t_elayer*> layers(object->paint());
+        std::vector<Layer> layers(object->paint());
         for(auto it : layers)
         {
-            if(it->e_state == EGRAPHICS_TODRAW)
+            if(it.state() == Layer::Todraw)
             {
-                for(int j = 0; j < it->e_number_objects; j++)
+                for(int i = 0; i < it.size(); i++)
                 {
-                    t_egobj const& obj = it->e_objects[j];
-                    t_rgba col = hex_to_rgba(obj.e_color->s_name);
-                    g.setColour(tojColor(std::array<float, 4>({col.red, col.green, col.blue, col.alpha})));
-                    if(obj.e_type == E_GOBJ_PATH || obj.e_type == E_GOBJ_RECT)
+                    const Gobj obj = it[i];
+                    g.setColour(tojColor(obj.color()));
+                    if(obj.type() == Gobj::Text)
                     {
-                        juce::Path path(tojPath(obj.e_npoints, obj.e_points));
-                        if(obj.e_filled)
-                        {
-                            g.fillPath(path);
-                        }
-                        else
-                        {
-                            g.strokePath(path, PathStrokeType(obj.e_width));
-                        }
+                        const std::array<int,2> bounds = object->getSize();
+                        vector<t_pt> const points(obj.points());
+                        const float w = (points[1].x > 0.f) ? points[1].x : float(bounds[0]);
+                        const float h = (points[1].y > 0.f) ? points[1].y : float(bounds[1]);
+                
+                        g.drawText(juce::String(obj.text()),
+                                   points[0].x,
+                                   points[0].y,
+                                   w,
+                                   h,
+                                   juce::Justification(obj.justification()), true);
                     }
-                    else if(obj.e_type == E_GOBJ_OVAL)
+                    else if(obj.filled())
                     {
-                        if(obj.e_filled)
-                        {
-                            g.fillEllipse(obj.e_points[0].x, obj.e_points[0].y,
-                                          obj.e_points[1].x - obj.e_points[0].x,
-                                          obj.e_points[1].y - obj.e_points[0].y);
-                        }
-                        else
-                        {
-                            g.drawEllipse(obj.e_points[0].x, obj.e_points[0].y,
-                                          obj.e_points[1].x - obj.e_points[0].x,
-                                          obj.e_points[1].y - obj.e_points[0].y,
-                                          obj.e_width);
-                        }
+                        g.fillPath(tojPath(obj), transform);
                     }
-                    else if(obj.e_type == E_GOBJ_ARC)
+                    else
                     {
-                        Path path;
-                        //path.addCentredArc(obj.e_points[0].x, obj.e_points[0].y, obj.e_points[1].x, obj.e_points[1].y,, )
-                        /*
-                         if(obj.e_filled)
-                         {
-                         g.fillRect(obj.e_points[0].x, obj.e_points[0].y, obj.e_points[1].x, obj.e_points[1].y);
-                         }
-                         else
-                         {
-                         g.drawRect(obj.e_points[0].x, obj.e_points[0].y, obj.e_points[1].x, obj.e_points[1].y);
-                         }*/
-                    }
-                    else if(obj.e_type == E_GOBJ_TEXT)
-                    {
-                        /*
-                        g.drawText(juce::String(obj.e_text->s_name),
-                                   obj.e_points[0].x,
-                                   obj.e_points[0].y,
-                                   obj.e_points[1].x,
-                                   obj.e_points[1].y,
-                                   juce::Justification(juce::Justification::centred), true);
-                         */
-                        
+                        g.strokePath(tojPath(obj), PathStrokeType(obj.witdh()), transform);
                     }
                 }
-                it->e_state = EGRAPHICS_CLOSE;
+                it.close();
             }
         }
         g.setColour(tojColor(object->getBorderColor()));
@@ -146,7 +203,7 @@ void Interface::paint(Graphics& g)
     }
 }
 
-void Interface::mouseMove(const MouseEvent& event)
+void ObjectInterface::mouseMove(const MouseEvent& event)
 {
     sGui object = m_object.lock();
     if(object)
@@ -155,7 +212,7 @@ void Interface::mouseMove(const MouseEvent& event)
     }
 }
 
-void Interface::mouseEnter(const MouseEvent& event)
+void ObjectInterface::mouseEnter(const MouseEvent& event)
 {
     sGui object = m_object.lock();
     if(object)
@@ -164,7 +221,7 @@ void Interface::mouseEnter(const MouseEvent& event)
     }
 }
 
-void Interface::mouseExit(const MouseEvent& event)
+void ObjectInterface::mouseExit(const MouseEvent& event)
 {
     sGui object = m_object.lock();
     if(object)
@@ -173,7 +230,7 @@ void Interface::mouseExit(const MouseEvent& event)
     }
 }
 
-void Interface::mouseDown(const MouseEvent& event)
+void ObjectInterface::mouseDown(const MouseEvent& event)
 {
     sGui object = m_object.lock();
     if(object)
@@ -182,7 +239,7 @@ void Interface::mouseDown(const MouseEvent& event)
     }
 }
 
-void Interface::mouseDrag(const MouseEvent& event)
+void ObjectInterface::mouseDrag(const MouseEvent& event)
 {
     sGui object = m_object.lock();
     if(object)
@@ -191,7 +248,7 @@ void Interface::mouseDrag(const MouseEvent& event)
     }
 }
 
-void Interface::mouseUp(const MouseEvent& event)
+void ObjectInterface::mouseUp(const MouseEvent& event)
 {
     sGui object = m_object.lock();
     if(object)
@@ -200,7 +257,7 @@ void Interface::mouseUp(const MouseEvent& event)
     }
 }
 
-void Interface::mouseDoubleClick(const MouseEvent& event)
+void ObjectInterface::mouseDoubleClick(const MouseEvent& event)
 {
     sGui object = m_object.lock();
     if(object)
@@ -209,7 +266,7 @@ void Interface::mouseDoubleClick(const MouseEvent& event)
     }
 }
 
-void Interface::mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel)
+void ObjectInterface::mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel)
 {
     sGui object = m_object.lock();
     if(object)
@@ -218,19 +275,49 @@ void Interface::mouseWheelMove(const MouseEvent& event, const MouseWheelDetails&
     }
 }
 
-void Interface::receive(const std::string& dest, t_symbol* s)
+bool ObjectInterface::keyPressed(const KeyPress& key)
 {
-    const MessageManagerLock thread(Thread::getCurrentThread());
-    if(thread.lockWasGained())
+    sGui object = m_object.lock();
+    if(object)
     {
-        repaint();
+        char buffer[MB_CUR_MAX];
+        if(key.getKeyCode() == KeyPress::deleteKey ||
+           key.getKeyCode() == KeyPress::returnKey ||
+           key.getKeyCode() == KeyPress::tabKey ||
+           key.getKeyCode() == KeyPress::escapeKey)
+        {
+            wctomb(buffer, key.getTextCharacter());
+            object->keyFilter(buffer[0], key.getModifiers().getRawFlags());
+        }
+        else
+        {
+            wctomb(buffer, key.getTextCharacter());
+            object->keyPressed(buffer[0], key.getModifiers().getRawFlags());
+        }
+        return true;
+    }
+    return false;
+}
+
+void ObjectInterface::receive(const std::string& dest, t_symbol* s)
+{
+    if(isShowing())
+    {
+        const MessageManagerLock thread(Thread::getCurrentThread());
+        if(thread.lockWasGained())
+        {
+            repaint();
+        }
     }
 }
 
-CamomileAudioProcessorEditor::CamomileAudioProcessorEditor(CamomileAudioProcessor& p) :
-AudioProcessorEditor(&p),
-m_processor(p),
-m_file_drop(false)
+// ==================================================================================== //
+//                                  CAMOMILE INTERFACE                                  //
+// ==================================================================================== //
+
+CamomileInterface::CamomileInterface(CamomileAudioProcessor& p) : AudioProcessorEditor(&p),
+    m_processor(p),
+    m_dropping(false)
 {
     m_processor.addListener(this);
     shared_ptr<const Patch> patch = m_processor.getPatch();
@@ -239,17 +326,15 @@ m_file_drop(false)
         sGui camo = patch->getCamomile();
         if(camo)
         {
-            const std::vector<sObject> objects = patch->getObjects();
+            const std::vector<sGui> objects = patch->getGuis();
             const std::array<int,2> ref = camo->getPosition();
             for(auto it : objects)
             {
-                if(it != camo && it->isGui())
-                {
-                    Interface* inte = m_objects.add(new Interface(dynamic_pointer_cast<Gui>(it)));
-                    const std::array<int,2> pos = it->getPosition();
-                    inte->setTopLeftPosition(pos[0] - ref[0], pos[1] - ref[1]);
-                    addAndMakeVisible(inte);
-                }
+                ObjectInterface* inte = m_objects.add(new ObjectInterface(it));
+                const std::array<int,2> pos = it->getPosition();
+                const int offset = it->getBorderSize();
+                inte->setTopLeftPosition(pos[0] - ref[0] - offset, pos[1] - ref[1] - offset);
+                addChildComponent(inte);
             }
         }
         
@@ -257,12 +342,12 @@ m_file_drop(false)
     setSize(600, 400);
 }
 
-CamomileAudioProcessorEditor::~CamomileAudioProcessorEditor()
+CamomileInterface::~CamomileInterface()
 {
     m_processor.removeListener(this);
 }
 
-void CamomileAudioProcessorEditor::paint(Graphics& g)
+void CamomileInterface::paint(Graphics& g)
 {
     shared_ptr<const Patch> patch = m_processor.getPatch();
     if(patch)
@@ -290,13 +375,13 @@ void CamomileAudioProcessorEditor::paint(Graphics& g)
         g.drawText(juce::String("Drag & Drop your patch..."), getBounds().withZeroOrigin(), juce::Justification::centred);
     }
     
-    if(m_file_drop)
+    if(m_dropping)
     {
         g.fillAll(Colours::lightblue.withAlpha(0.2f));
     }
 }
 
-bool CamomileAudioProcessorEditor::isInterestedInFileDrag(const StringArray& files)
+bool CamomileInterface::isInterestedInFileDrag(const StringArray& files)
 {
     if(files.size())
     {
@@ -311,7 +396,7 @@ bool CamomileAudioProcessorEditor::isInterestedInFileDrag(const StringArray& fil
     return false;
 }
 
-void CamomileAudioProcessorEditor::filesDropped(const StringArray& files, int x, int y)
+void CamomileInterface::filesDropped(const StringArray& files, int x, int y)
 {
     if(files.size())
     {
@@ -326,7 +411,7 @@ void CamomileAudioProcessorEditor::filesDropped(const StringArray& files, int x,
     }
 }
 
-void CamomileAudioProcessorEditor::patchChanged()
+void CamomileInterface::patchChanged()
 {
     removeAllChildren();
     m_objects.clear(true);
@@ -336,17 +421,15 @@ void CamomileAudioProcessorEditor::patchChanged()
         sGui camo = patch->getCamomile();
         if(camo)
         {
-            const std::vector<sObject> objects = patch->getObjects();
+            const std::vector<sGui> objects = patch->getGuis();
             const std::array<int,2> ref = camo->getPosition();
             for(auto it : objects)
             {
-                if(it != camo && it->isGui())
-                {
-                    Interface* inte = m_objects.add(new Interface(dynamic_pointer_cast<Gui>(it)));
-                    const std::array<int,2> pos = it->getPosition();
-                    inte->setTopLeftPosition(pos[0] - ref[0], pos[1] - ref[1]);
-                    addAndMakeVisible(inte);
-                }
+                ObjectInterface* inte = m_objects.add(new ObjectInterface(it));
+                const std::array<int,2> pos = it->getPosition();
+                const int offset = it->getBorderSize();
+                inte->setTopLeftPosition(pos[0] - ref[0] - offset, pos[1] - ref[1] - offset);
+                addChildComponent(inte);
             }
         }
         
@@ -358,23 +441,23 @@ void CamomileAudioProcessorEditor::patchChanged()
     }
 }
 
-void CamomileAudioProcessorEditor::fileDragEnter(const StringArray& files, int x, int y)
+void CamomileInterface::fileDragEnter(const StringArray& files, int x, int y)
 {
     const MessageManagerLock mmLock;
     if(mmLock.lockWasGained())
     {
-        m_file_drop = true;
+        m_dropping = true;
         repaint();
     }
 }
 
-void CamomileAudioProcessorEditor::fileDragExit(const StringArray& files)
+void CamomileInterface::fileDragExit(const StringArray& files)
 {
-    m_file_drop = false;
+    m_dropping = false;
     repaint();
 }
 
-void CamomileAudioProcessorEditor::resized()
+void CamomileInterface::resized()
 {
     
 }

@@ -279,11 +279,11 @@ namespace pd
                 Object* obj = new Object(y);
                 if(obj && obj->isGui())
                 {
-                    m_objects.insert(std::shared_ptr<Gui>(new Gui(y)));
+                    m_objects.push_back(std::shared_ptr<Gui>(new Gui(y)));
                 }
                 else
                 {
-                    m_objects.insert(std::shared_ptr<Object>(obj));
+                    m_objects.push_back(std::shared_ptr<Object>(obj));
                 }
             }
         }
@@ -291,7 +291,24 @@ namespace pd
     
     std::vector<sObject> Patch::getObjects() const noexcept
     {
-        return std::vector<sObject>(m_objects.begin(), m_objects.end());
+        return m_objects;
+    }
+    
+    std::vector<sGui> Patch::getGuis() const noexcept
+    {
+        std::vector<sGui> guis;
+        for(auto it : m_objects)
+        {
+            if(it->isGui())
+            {
+                sGui gui = std::dynamic_pointer_cast<Gui>(it);
+                if(gui)
+                {
+                    guis.push_back(gui);
+                }
+            }
+        }
+        return guis;
     }
     
     sGui Patch::getCamomile() const noexcept
@@ -356,6 +373,22 @@ namespace pd
             m_border_size = params.d_borderthickness;
             m_corner_roundness = params.d_cornersize;
         }
+    }
+    
+    bool Gui::hasPresetName() const noexcept
+    {
+        t_ebox* box = static_cast<t_ebox *>(getHandle());
+        return box->b_objpreset_id && box->b_objpreset_id != s_null;
+    }
+    
+    std::string Gui::getPresetName() const noexcept
+    {
+        if(hasPresetName())
+        {
+            t_ebox* box = static_cast<t_ebox *>(getHandle());
+            return std::string(box->b_objpreset_id->s_name);
+        }
+        return std::string();
     }
     
     bool Gui::wantMouse() const noexcept
@@ -450,23 +483,46 @@ namespace pd
         }
     }
     
-    std::vector<t_elayer*> Gui::paint() const noexcept
+    void Gui::keyPressed(const char key, const long mod) noexcept
     {
         t_eclass* c = getClass();
-        std::vector<t_elayer*> objs;
-        for(int i = 0; i < ((t_ebox *)getHandle())->b_number_of_layers; i++)
+        if(c && c->c_widget.w_key)
         {
-            ((t_ebox *)m_handle)->b_layers[i].e_state = EGRAPHICS_INVALID;
+            c->c_widget.w_key(getHandle(), NULL, key, mod);
         }
-        if(c && c->c_widget.w_paint)
+    }
+    
+    void Gui::keyFilter(const char key, const long mod) noexcept
+    {
+        t_eclass* c = getClass();
+        if(c && c->c_widget.w_keyfilter)
         {
+            c->c_widget.w_keyfilter(getHandle(), NULL, key, mod);
+        }
+    }
+    
+    std::vector<Layer> Gui::paint() const noexcept
+    {
+        t_eclass* c = getClass();
+        std::vector<Layer> objs;
+        t_ebox* x = ((t_ebox *)getHandle());
+        if(c && c->c_widget.w_paint && x->b_ready_to_draw)
+        {
+            if(x->b_layers)
+            {
+                for(int i = 0; i < x->b_number_of_layers; i++)
+                {
+                    x->b_layers[i].e_state = EGRAPHICS_INVALID;
+                }
+            }
             c->c_widget.w_paint(m_handle, NULL);
-            objs.resize(((t_ebox *)(m_handle))->b_number_of_layers);
+            objs.resize(x->b_number_of_layers);
             for(size_t i = 0; i < objs.size(); i++)
             {
                 objs[i] = ((t_ebox *)(m_handle))->b_layers+i;
             }
         }
+        
         return objs;
     }
     

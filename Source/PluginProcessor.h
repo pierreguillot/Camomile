@@ -40,9 +40,9 @@ public:
     void processBlock(AudioSampleBuffer&, MidiBuffer&) override;
 
     AudioProcessorEditor* createEditor() override;
-    bool hasEditor() const override;
+    bool hasEditor() const override {return true;};
 
-    const String getName() const override;
+    const String getName() const override {return String(JucePlugin_Name);};
 
     int getNumParameters() override;
     float getParameter (int index) override;
@@ -51,21 +51,21 @@ public:
     const String getParameterName (int index) override;
     const String getParameterText (int index) override;
 
-    const String getInputChannelName (int channelIndex) const override;
-    const String getOutputChannelName (int channelIndex) const override;
-    bool isInputChannelStereoPair (int index) const override;
-    bool isOutputChannelStereoPair (int index) const override;
+    const String getInputChannelName(int index) const override {return String(index + 1);}
+    const String getOutputChannelName(int index) const override {return String(index + 1);}
+    bool isInputChannelStereoPair(int index) const override {return false;}
+    bool isOutputChannelStereoPair(int index) const override {return false;}
 
     bool acceptsMidi() const override;
     bool producesMidi() const override;
-    bool silenceInProducesSilenceOut() const override;
-    double getTailLengthSeconds() const override;
+    bool silenceInProducesSilenceOut() const override {return false;}
+    double getTailLengthSeconds() const override {return 0.0;}
 
-    int getNumPrograms() override;
-    int getCurrentProgram() override;
-    void setCurrentProgram (int index) override;
-    const String getProgramName (int index) override;
-    void changeProgramName (int index, const String& newName) override;
+    int getNumPrograms() override {return 1;}
+    int getCurrentProgram() override {return 0;}
+    void setCurrentProgram(int index) override {}
+    const String getProgramName(int index) override {return String();}
+    void changeProgramName(int index, const String& newName) override {}
 
     void getStateInformation(MemoryBlock& destData) override;
     void setStateInformation(const void* data, int sizeInBytes) override;
