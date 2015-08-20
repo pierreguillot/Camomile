@@ -37,8 +37,8 @@ namespace pd
             sys_externalschedlib = 0;
             sys_printtostderr = 0;
             sys_usestdpath = 0;
-            sys_debuglevel = 0;
-            sys_verbose = 1;
+            sys_debuglevel = 4;
+            sys_verbose = 0;
             sys_noloadbang = 0;
             sys_nogui = 1;
             sys_hipriority = 0;
@@ -134,8 +134,8 @@ namespace pd
         pd_setinstance(instance);
         t_atom av;
         atom_setfloat(&av, 0);
-        pd_typedmess((t_pd *)gensym("pd")->s_thing, gensym("dsp"), 0, &av);
-
+        pd_typedmess((t_pd *)gensym("pd")->s_thing, gensym("dsp"), 1, &av);
+        
         if(s_sample_rate != samplerate)
         {
             int indev[MAXAUDIOINDEV], inch[MAXAUDIOINDEV],

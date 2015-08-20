@@ -14,6 +14,8 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 
+class CamomileInterface;
+
 // ==================================================================================== //
 //                                  MENU INTERFACE                                      //
 // ==================================================================================== //
@@ -47,11 +49,12 @@ public Component,
 public Listener
 {
 private:
+    CamomileInterface& m_interface;
     const wGui       m_object;
     const sMessenger m_messenger;
     bool             m_attached;
 public:
-    ObjectInterface(sGui object);
+    ObjectInterface(CamomileInterface& camo, sGui object);
     void paint(Graphics& g) override;
     void mouseMove(const MouseEvent& event) override;
     void mouseEnter(const MouseEvent& event) override;
@@ -90,6 +93,8 @@ public:
     void fileDragEnter(const StringArray& files, int x, int y) override;
     void fileDragExit(const StringArray& files) override;
     void patchChanged() override;
+    inline void lock() const noexcept {m_processor.lock();}
+    inline void unlock() const noexcept {m_processor.unlock();}
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileInterface)
 };

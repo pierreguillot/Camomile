@@ -103,6 +103,7 @@ StringArray MenuInterface::getMenuBarNames()
 {
     StringArray menus;
     menus.add("File");
+    menus.add("Preset");
     menus.add("Console");
     menus.add("Help");
     return menus;
@@ -129,7 +130,8 @@ PopupMenu MenuInterface::getMenuForIndex(int topLevelMenuIndex, const String& me
 //                                  OBJECT INTERFACE                                    //
 // ==================================================================================== //
 
-ObjectInterface::ObjectInterface(sGui object) :
+ObjectInterface::ObjectInterface(CamomileInterface& camo, sGui object) :
+m_interface(camo),
 m_object(object),
 m_messenger(make_shared<Messenger>(object->getBindingName())),
 m_attached(false)
@@ -156,6 +158,7 @@ void ObjectInterface::paint(Graphics& g)
             m_messenger->addListener(this);
             m_attached = true;
         }
+        m_interface.lock();
         const int offset = object->getBorderSize();
         const AffineTransform transform(AffineTransform::translation(offset, offset));
         g.fillAll(tojColor(object->getBackgroundColor()));
@@ -196,6 +199,7 @@ void ObjectInterface::paint(Graphics& g)
         }
         g.setColour(tojColor(object->getBorderColor()));
         g.drawRect(getBounds().withZeroOrigin(), object->getBorderSize());
+        m_interface.unlock();
     }
     else
     {
@@ -320,25 +324,7 @@ CamomileInterface::CamomileInterface(CamomileAudioProcessor& p) : AudioProcessor
     m_dropping(false)
 {
     m_processor.addListener(this);
-    shared_ptr<const Patch> patch = m_processor.getPatch();
-    if(patch)
-    {
-        sGui camo = patch->getCamomile();
-        if(camo)
-        {
-            const std::vector<sGui> objects = patch->getGuis();
-            const std::array<int,2> ref = camo->getPosition();
-            for(auto it : objects)
-            {
-                ObjectInterface* inte = m_objects.add(new ObjectInterface(it));
-                const std::array<int,2> pos = it->getPosition();
-                const int offset = it->getBorderSize();
-                inte->setTopLeftPosition(pos[0] - ref[0] - offset, pos[1] - ref[1] - offset);
-                addChildComponent(inte);
-            }
-        }
-        
-    }
+    patchChanged();
     setSize(600, 400);
 }
 
@@ -349,6 +335,7 @@ CamomileInterface::~CamomileInterface()
 
 void CamomileInterface::paint(Graphics& g)
 {
+    m_processor.lock();
     shared_ptr<const Patch> patch = m_processor.getPatch();
     if(patch)
     {
@@ -366,9 +353,11 @@ void CamomileInterface::paint(Graphics& g)
             g.setFont (15.0f);
             g.drawText(juce::String("The patch is not valid !"), getBounds().withZeroOrigin(), juce::Justification::centred);
         }
+        m_processor.unlock();
     }
     else
     {
+        m_processor.unlock();
         g.fillAll(Colours::white);
         g.setColour(Colours::black);
         g.setFont (15.0f);
@@ -415,9 +404,11 @@ void CamomileInterface::patchChanged()
 {
     removeAllChildren();
     m_objects.clear(true);
+    m_processor.lock();
     shared_ptr<const Patch> patch = m_processor.getPatch();
     if(patch)
     {
+        
         sGui camo = patch->getCamomile();
         if(camo)
         {
@@ -425,15 +416,15 @@ void CamomileInterface::patchChanged()
             const std::array<int,2> ref = camo->getPosition();
             for(auto it : objects)
             {
-                ObjectInterface* inte = m_objects.add(new ObjectInterface(it));
+                ObjectInterface* inte = m_objects.add(new ObjectInterface(*this, it));
                 const std::array<int,2> pos = it->getPosition();
                 const int offset = it->getBorderSize();
                 inte->setTopLeftPosition(pos[0] - ref[0] - offset, pos[1] - ref[1] - offset);
                 addChildComponent(inte);
             }
         }
-        
     }
+    m_processor.unlock();
     const MessageManagerLock mmLock;
     if(mmLock.lockWasGained())
     {

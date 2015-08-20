@@ -74,45 +74,23 @@ public:
     inline shared_ptr<const Patch> getPatch() const noexcept {return m_patch.lock();}
     inline shared_ptr<Patch> getPatch() noexcept {return m_patch.lock();}
     
-    // ================================================================================ //
-    //                                      LISTENER                                    //
-    // ================================================================================ //
-    
-    void addListener(Listener* listener)
-    {
-        if(listener)
-        {
-            lock_guard<mutex> guard(m_mutex);
-            m_listeners.insert(listener);
-        }
-    }
-    
-    void removeListener(Listener* listener)
-    {
-        if(listener)
-        {
-            lock_guard<mutex> guard(m_mutex);
-            m_listeners.erase(listener);
-        }
-    }
-    
-    vector<Listener*> getListeners() const noexcept
-    {
-        lock_guard<mutex> guard(m_mutex);
-        return vector<Listener*>(m_listeners.begin(), m_listeners.end());
-    }
+    void addListener(Listener* listener);
+    void removeListener(Listener* listener);
+    inline void lock() const noexcept {m_mutex.lock();}
+    inline void unlock() const noexcept {m_mutex.unlock();}
     
     class Listener
     {
     public:
-        inline Listener() {}
-        
+        inline constexpr Listener() {}
         inline virtual ~Listener() {}
-        
         virtual void patchChanged() = 0;
     };
 
 private:
+    
+    vector<Listener*> getListeners() const noexcept;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)
 };
 

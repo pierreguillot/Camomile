@@ -33,7 +33,6 @@ CamomileAudioProcessor::CamomileAudioProcessor()
             std::cout << e.what() << "\n";
         }
     }
-    cout << "vst3 : "<< bool(this->wrapperType == wrapperType_VST3)<< "\n";
     /*
     AudioProcessorParameter parameter;
     addParameter(parameter);
@@ -187,20 +186,23 @@ void CamomileAudioProcessor::loadPatch(const juce::File& file)
         suspendProcessing(true);
         if(isSuspended())
         {
-            sPatch patch = m_patch.lock();
-            if(patch)
             {
-                m_pd->closePatch(patch);
-            }
-            if(file.exists() && file.getFileExtension() == String(".pd"))
-            {
-                try
+                lock_guard<mutex> guard(m_mutex);
+                sPatch patch = m_patch.lock();
+                if(patch)
                 {
-                    m_patch = m_pd->openPatch(file.getFileName().toStdString(), (file.getParentDirectory()).getFullPathName().toStdString());
+                    m_pd->closePatch(patch);
                 }
-                catch(std::exception& e)
+                if(file.exists() && file.getFileExtension() == String(".pd"))
                 {
-                    std::cout << e.what() << "\n";
+                    try
+                    {
+                        m_patch = m_pd->openPatch(file.getFileName().toStdString(), (file.getParentDirectory()).getFullPathName().toStdString());
+                    }
+                    catch(std::exception& e)
+                    {
+                        std::cout << e.what() << "\n";
+                    }
                 }
             }
             
@@ -215,6 +217,30 @@ void CamomileAudioProcessor::loadPatch(const juce::File& file)
         suspendProcessing(false);
     }
     
+}
+
+void CamomileAudioProcessor::addListener(Listener* listener)
+{
+    if(listener)
+    {
+        lock_guard<mutex> guard(m_mutex);
+        m_listeners.insert(listener);
+    }
+}
+
+void CamomileAudioProcessor::removeListener(Listener* listener)
+{
+    if(listener)
+    {
+        lock_guard<mutex> guard(m_mutex);
+        m_listeners.erase(listener);
+    }
+}
+
+vector<CamomileAudioProcessor::Listener*> CamomileAudioProcessor::getListeners() const noexcept
+{
+    lock_guard<mutex> guard(m_mutex);
+    return vector<Listener*>(m_listeners.begin(), m_listeners.end());
 }
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
