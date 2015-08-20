@@ -202,42 +202,7 @@ namespace pd
         inline bool filled() const noexcept {return bool(obj->e_filled);}
         inline int witdh() const noexcept {return int(obj->e_width);}
         inline std::string text() const noexcept {return std::string(obj->e_text->s_name);}
-        inline Justification justification() const noexcept
-        {
-            if(obj->e_anchor == gensym("n"))
-            {
-                return Top;
-            }
-            else if(obj->e_anchor == gensym("ne"))
-            {
-                return TopRight;
-            }
-            else if(obj->e_anchor == gensym("s"))
-            {
-                return Bottom;
-            }
-            else if(obj->e_anchor == gensym("se"))
-            {
-                return BottomRight;
-            }
-            else if(obj->e_anchor == gensym("e"))
-            {
-                return CentredRight;
-            }
-            else if(obj->e_anchor == gensym("sw"))
-            {
-                return BottomLeft;
-            }
-            else if(obj->e_anchor == gensym("w"))
-            {
-                return CentredLeft;
-            }
-            else if(obj->e_anchor == gensym("nw"))
-            {
-                return TopLeft;
-            }
-            return Centred;
-        }
+        inline Justification justification() const noexcept {return Justification(obj->e_justify);}
         inline std::vector<t_pt> points() const noexcept {
             return std::vector<t_pt>(obj->e_points, obj->e_points+obj->e_npoints);}
         inline std::array<float, 4> color() const noexcept {

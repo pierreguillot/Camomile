@@ -173,16 +173,12 @@ void ObjectInterface::paint(Graphics& g)
                     g.setColour(tojColor(obj.color()));
                     if(obj.type() == Gobj::Text)
                     {
-                        const std::array<int,2> bounds = object->getSize();
                         vector<t_pt> const points(obj.points());
-                        const float w = (points[1].x > 0.f) ? points[1].x : float(bounds[0]);
-                        const float h = (points[1].y > 0.f) ? points[1].y : float(bounds[1]);
-                
                         g.drawText(juce::String(obj.text()),
                                    points[0].x,
                                    points[0].y,
-                                   w,
-                                   h,
+                                   points[1].x,
+                                   points[1].y,
                                    juce::Justification(obj.justification()), true);
                     }
                     else if(obj.filled())
