@@ -377,8 +377,7 @@ namespace pd
     
     bool Gui::hasPresetName() const noexcept
     {
-        t_ebox* box = static_cast<t_ebox *>(getHandle());
-        return box->b_objpreset_id && box->b_objpreset_id != s_null;
+        return is_valid_symbol(static_cast<t_ebox *>(getHandle())->b_preset_id);
     }
     
     std::string Gui::getPresetName() const noexcept
@@ -386,7 +385,7 @@ namespace pd
         if(hasPresetName())
         {
             t_ebox* box = static_cast<t_ebox *>(getHandle());
-            return std::string(box->b_objpreset_id->s_name);
+            return std::string(box->b_preset_id->s_name);
         }
         return std::string();
     }

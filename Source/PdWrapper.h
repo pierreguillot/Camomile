@@ -241,8 +241,7 @@ namespace pd
         inline std::vector<t_pt> points() const noexcept {
             return std::vector<t_pt>(obj->e_points, obj->e_points+obj->e_npoints);}
         inline std::array<float, 4> color() const noexcept {
-            const t_rgba col = hex_to_rgba(obj->e_color->s_name);
-            return std::array<float, 4>({col.red, col.green, col.blue, col.alpha});
+            return std::array<float, 4>({obj->e_color.red, obj->e_color.green, obj->e_color.blue, obj->e_color.alpha});
         }
     };
     
