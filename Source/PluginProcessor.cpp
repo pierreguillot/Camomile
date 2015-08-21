@@ -33,6 +33,7 @@ CamomileAudioProcessor::CamomileAudioProcessor()
             std::cout << e.what() << "\n";
         }
     }
+    int tod_mouse_radio_slider;
     /*
     AudioProcessorParameter parameter;
     addParameter(parameter);

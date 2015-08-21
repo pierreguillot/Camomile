@@ -46,7 +46,8 @@ public:
 
 class ObjectInterface :
 public Component,
-public Listener
+public Listener,
+public TextInputTarget
 {
 private:
     CamomileInterface& m_interface;
@@ -55,6 +56,7 @@ private:
     bool             m_attached;
 public:
     ObjectInterface(CamomileInterface& camo, sGui object);
+    virtual ~ObjectInterface() {};
     void paint(Graphics& g) override;
     void mouseMove(const MouseEvent& event) override;
     void mouseEnter(const MouseEvent& event) override;
@@ -66,6 +68,14 @@ public:
     void mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel) override;
     bool keyPressed(const KeyPress& key) override;
     void receive(const std::string& dest, t_symbol* s);
+    
+    bool isTextInputActive() const override {return false;}
+    Range<int> getHighlightedRegion() const override {return Range<int>();}
+    void setHighlightedRegion(const Range<int>& newRange)override {}
+    void setTemporaryUnderlining(const Array <Range<int> >& underlinedRegions) override {};
+    String getTextInRange(const Range<int>& range) const override {return String();}
+    void insertTextAtCaret(const String& textToInsert) override {};
+    Rectangle<int> getCaretRectangle() override {return Rectangle<int>();}
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ObjectInterface)
 };

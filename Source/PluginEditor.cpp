@@ -174,12 +174,13 @@ void ObjectInterface::paint(Graphics& g)
                     if(obj.type() == Gobj::Text)
                     {
                         vector<t_pt> const points(obj.points());
+                        g.setFont(obj.fontSize());
                         g.drawText(juce::String(obj.text()),
                                    points[0].x,
                                    points[0].y,
                                    points[1].x,
                                    points[1].y,
-                                   juce::Justification(obj.justification()), true);
+                                   juce::Justification(obj.justification()), obj.wrapText());
                     }
                     else if(obj.filled())
                     {
@@ -214,6 +215,7 @@ void ObjectInterface::mouseMove(const MouseEvent& event)
 
 void ObjectInterface::mouseEnter(const MouseEvent& event)
 {
+    setMouseCursor(juce::MouseCursor::NormalCursor);
     sGui object = m_object.lock();
     if(object)
     {
@@ -281,17 +283,32 @@ bool ObjectInterface::keyPressed(const KeyPress& key)
     if(object)
     {
         char buffer[MB_CUR_MAX];
+        wctomb(buffer, key.getTextCharacter());
         if(key.getKeyCode() == KeyPress::deleteKey ||
            key.getKeyCode() == KeyPress::returnKey ||
            key.getKeyCode() == KeyPress::tabKey ||
            key.getKeyCode() == KeyPress::escapeKey)
         {
-            wctomb(buffer, key.getTextCharacter());
-            object->keyFilter(buffer[0], key.getModifiers().getRawFlags());
+            
+            if(key.getKeyCode() == KeyPress::deleteKey)
+            {
+                object->keyFilter(buffer[0], EKEY_DEL);
+            }
+            else if(key.getKeyCode() == KeyPress::returnKey)
+            {
+                object->keyFilter(buffer[0], EKEY_ENTER);
+            }
+            else if(key.getKeyCode() == KeyPress::tabKey)
+            {
+                object->keyFilter(buffer[0], EKEY_TAB);
+            }
+            else if(key.getKeyCode() == KeyPress::escapeKey)
+            {
+                object->keyFilter(buffer[0], EKEY_ESC);
+            }
         }
         else
         {
-            wctomb(buffer, key.getTextCharacter());
             object->keyPressed(buffer[0], key.getModifiers().getRawFlags());
         }
         return true;
@@ -322,6 +339,7 @@ CamomileInterface::CamomileInterface(CamomileAudioProcessor& p) : AudioProcessor
     m_processor.addListener(this);
     patchChanged();
     setSize(600, 400);
+    Component::setWantsKeyboardFocus(true);
 }
 
 CamomileInterface::~CamomileInterface()
