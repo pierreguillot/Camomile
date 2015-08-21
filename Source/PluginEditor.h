@@ -53,6 +53,7 @@ private:
     CamomileInterface& m_interface;
     const wGui       m_object;
     const sMessenger m_messenger;
+    OwnedArray<TextEditor> m_editors;
     bool             m_attached;
 public:
     ObjectInterface(CamomileInterface& camo, sGui object);
@@ -68,6 +69,8 @@ public:
     void mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel) override;
     bool keyPressed(const KeyPress& key) override;
     void receive(const std::string& dest, t_symbol* s);
+    void receive(const std::string& dest, std::vector<const t_atom *> atoms) override {}
+    void receive(const std::string& dest, t_symbol* s, std::vector<const t_atom *> atoms) override;
     
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ObjectInterface)

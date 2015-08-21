@@ -11,6 +11,21 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+extern "C"
+{
+typedef struct _bindelem
+{
+    t_pd *e_who;
+    struct _bindelem *e_next;
+} t_bindelem;
+
+typedef struct _bindlist
+{
+    t_pd b_pd;
+    t_bindelem *b_list;
+} t_bindlist;
+}
+
 static inline juce::Colour tojColor(std::array<float, 4> const& color)
 {
     return juce::Colour::fromFloatRGBA(color[0], color[1], color[2], color[3]);
@@ -318,12 +333,162 @@ bool ObjectInterface::keyPressed(const KeyPress& key)
 
 void ObjectInterface::receive(const std::string& dest, t_symbol* s)
 {
-    if(isShowing())
+    if(isShowing() && s == s_cream_repaint)
     {
         const MessageManagerLock thread(Thread::getCurrentThread());
         if(thread.lockWasGained())
         {
-            repaint();
+             repaint();
+        }
+    }
+}
+
+void ObjectInterface::receive(const std::string& dest, t_symbol* s, std::vector<const t_atom *> atoms)
+{
+    if(isShowing() && s == s_cream_texteditor && atoms.size() == 2 && atom_gettype(atoms[0]) == A_SYMBOL && atom_gettype(atoms[1]) == A_FLOAT)
+    {
+        const t_etexteditor* editor = etexteditor_getfromsymbol(atoms[0]->a_w.w_symbol);
+        const ewidget_action action = ewidget_action(atoms[1]->a_w.w_float);
+        const String name(editor->c_name->s_name);
+        if(editor)
+        {
+            const MessageManagerLock thread(Thread::getCurrentThread());
+            if(thread.lockWasGained())
+            {
+                switch(action)
+                {
+                    case EWIDGET_CREATE:
+                        m_editors.add(new TextEditor(name));
+                        break;
+                    case EWIDGET_DESTROY:
+                    {
+                        for(int i = 0; i < m_editors.size(); i++)
+                        {
+                            if(m_editors[i]->getName() == name)
+                            {
+                                m_editors.remove(i);
+                                break;
+                            }
+                        }
+                    }
+                        break;
+                    case EWIDGET_SETTEXT:
+                    {
+                        for(int i = 0; i < m_editors.size(); i++)
+                        {
+                            if(m_editors[i]->getName() == name)
+                            {
+                                if(editor->c_text && editor->c_size)
+                                {
+                                    m_editors[i]->setText(String());
+                                    break;
+                                }
+                                else
+                                {
+                                    m_editors[i]->clear();
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                        break;
+                    case EWIDGET_GETTEXT:
+                        ;
+                        break;
+                    case EWIDGET_CLEAR:
+                    {
+                        for(int i = 0; i < m_editors.size(); i++)
+                        {
+                            if(m_editors[i]->getName() == name)
+                            {
+                                m_editors[i]->clear();
+                                break;
+                            }
+                        }
+                    }
+                        break;
+                    case EWIDGET_SETFONT:
+                    {
+                        for(int i = 0; i < m_editors.size(); i++)
+                        {
+                            if(m_editors[i]->getName() == name)
+                            {
+                                m_editors[i]->setFont(juce::Font(editor->c_font.c_size));
+                                break;
+                            }
+                        }
+                    }
+                        break;
+                    case EWIDGET_SETBGCOLOR:
+                    {
+                        for(int i = 0; i < m_editors.size(); i++)
+                        {
+                            if(m_editors[i]->getName() == name)
+                            {
+                                m_editors[i]->setColour(TextEditor::backgroundColourId, Colour::fromFloatRGBA(editor->c_bgcolor.red, editor->c_bgcolor.green, editor->c_bgcolor.blue, editor->c_bgcolor.alpha));
+                                break;
+                            }
+                        }
+                    }
+                        break;
+                    case EWIDGET_SETTXTCOLOR:
+                    {
+                        for(int i = 0; i < m_editors.size(); i++)
+                        {
+                            if(m_editors[i]->getName() == name)
+                            {
+                                m_editors[i]->setColour(TextEditor::textColourId, Colour::fromFloatRGBA(editor->c_txtcolor.red, editor->c_txtcolor.green, editor->c_txtcolor.blue, editor->c_txtcolor.alpha));
+                                break;
+                            }
+                        }
+                    }
+                        break;
+                    case EWIDGET_WRAPMODE:
+                    {
+                        for(int i = 0; i < m_editors.size(); i++)
+                        {
+                            if(m_editors[i]->getName() == name)
+                            {
+                               m_editors[i]->setMultiLine(bool(editor->c_wrap), bool(editor->c_wrap));
+                                break;
+                            }
+                        }
+                    }
+                        break;
+                    case EWIDGET_POPUP:
+                    {
+                        for(int i = 0; i < m_editors.size(); i++)
+                        {
+                            if(m_editors[i]->getName() == name)
+                            {
+                                m_editors[i]->setBounds(int(editor->c_bounds.x - editor->c_owner->o_obj.te_xpix),
+                                                        int(editor->c_bounds.y - editor->c_owner->o_obj.te_ypix),
+                                                        int(editor->c_bounds.width),
+                                                        int(editor->c_bounds.height));
+                                addAndMakeVisible(m_editors[i]);
+                                break;
+                            }
+                        }
+                    }
+                        break;
+                    case EWIDGET_GRABFOCUS:
+                    {
+                        for(int i = 0; i < m_editors.size(); i++)
+                        {
+                            if(m_editors[i]->getName() == name)
+                            {
+                                m_editors[i]->grabKeyboardFocus();
+                                break;
+                            }
+                        }
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+            }
         }
     }
 }
