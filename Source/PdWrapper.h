@@ -201,7 +201,7 @@ namespace pd
         inline Type type() const noexcept {return Type(obj->e_type);}
         inline bool filled() const noexcept {return bool(obj->e_filled);}
         inline int witdh() const noexcept {return int(obj->e_width);}
-        inline std::string text() const noexcept {return std::string(obj->e_text->s_name);}
+        inline std::string text() const noexcept {return std::string(obj->e_text);}
         inline Justification justification() const noexcept {return Justification(obj->e_justify);}
         inline float fontSize() const noexcept {return obj->e_font.c_size;}
         inline bool wrapText() const noexcept {return false;}

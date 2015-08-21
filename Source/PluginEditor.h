@@ -47,7 +47,7 @@ public:
 class ObjectInterface :
 public Component,
 public Listener,
-public TextInputTarget
+public TextEditor::Listener
 {
 private:
     CamomileInterface& m_interface;
@@ -69,13 +69,6 @@ public:
     bool keyPressed(const KeyPress& key) override;
     void receive(const std::string& dest, t_symbol* s);
     
-    bool isTextInputActive() const override {return false;}
-    Range<int> getHighlightedRegion() const override {return Range<int>();}
-    void setHighlightedRegion(const Range<int>& newRange)override {}
-    void setTemporaryUnderlining(const Array <Range<int> >& underlinedRegions) override {};
-    String getTextInRange(const Range<int>& range) const override {return String();}
-    void insertTextAtCaret(const String& textToInsert) override {};
-    Rectangle<int> getCaretRectangle() override {return Rectangle<int>();}
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ObjectInterface)
 };
