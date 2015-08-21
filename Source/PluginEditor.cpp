@@ -11,21 +11,6 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-extern "C"
-{
-typedef struct _bindelem
-{
-    t_pd *e_who;
-    struct _bindelem *e_next;
-} t_bindelem;
-
-typedef struct _bindlist
-{
-    t_pd b_pd;
-    t_bindelem *b_list;
-} t_bindlist;
-}
-
 static inline juce::Colour tojColor(std::array<float, 4> const& color)
 {
     return juce::Colour::fromFloatRGBA(color[0], color[1], color[2], color[3]);
@@ -345,7 +330,10 @@ void ObjectInterface::receive(const std::string& dest, t_symbol* s)
 
 void ObjectInterface::receive(const std::string& dest, t_symbol* s, std::vector<const t_atom *> atoms)
 {
-    if(isShowing() && s == s_cream_texteditor && atoms.size() == 2 && atom_gettype(atoms[0]) == A_SYMBOL && atom_gettype(atoms[1]) == A_FLOAT)
+    sGui object = m_object.lock();
+    if(object && isShowing() &&
+       s == s_cream_texteditor &&
+       atoms.size() == 2 && atom_gettype(atoms[0]) == A_SYMBOL && atom_gettype(atoms[1]) == A_FLOAT)
     {
         const t_etexteditor* editor = etexteditor_getfromsymbol(atoms[0]->a_w.w_symbol);
         const ewidget_action action = ewidget_action(atoms[1]->a_w.w_float);
@@ -457,12 +445,13 @@ void ObjectInterface::receive(const std::string& dest, t_symbol* s, std::vector<
                         break;
                     case EWIDGET_POPUP:
                     {
+                        const int offset = object->getBorderSize();
                         for(int i = 0; i < m_editors.size(); i++)
                         {
                             if(m_editors[i]->getName() == name)
                             {
-                                m_editors[i]->setBounds(int(editor->c_bounds.x - editor->c_owner->o_obj.te_xpix),
-                                                        int(editor->c_bounds.y - editor->c_owner->o_obj.te_ypix),
+                                m_editors[i]->setBounds(int(editor->c_bounds.x + offset),
+                                                        int(editor->c_bounds.y + offset),
                                                         int(editor->c_bounds.width),
                                                         int(editor->c_bounds.height));
                                 addAndMakeVisible(m_editors[i]);
