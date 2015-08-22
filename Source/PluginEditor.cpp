@@ -337,7 +337,7 @@ void ObjectInterface::receive(const std::string& dest, t_symbol* s, std::vector<
     {
         const t_etexteditor* editor = etexteditor_getfromsymbol(atoms[0]->a_w.w_symbol);
         const ewidget_action action = ewidget_action(atoms[1]->a_w.w_float);
-        const String name(editor->c_name->s_name);
+        const String name(editor->c_editor_id->s_name);
         if(editor)
         {
             const MessageManagerLock thread(Thread::getCurrentThread());
@@ -354,6 +354,7 @@ void ObjectInterface::receive(const std::string& dest, t_symbol* s, std::vector<
                         {
                             if(m_editors[i]->getName() == name)
                             {
+                                cout << "EWIDGET_DESTROY\n";
                                 m_editors.remove(i);
                                 break;
                             }
@@ -450,6 +451,10 @@ void ObjectInterface::receive(const std::string& dest, t_symbol* s, std::vector<
                         {
                             if(m_editors[i]->getName() == name)
                             {
+                                m_editors[i]->addListener(this);
+                                m_editors[i]->setReturnKeyStartsNewLine(false);
+                                
+                                m_editors[i]->setInputFilter(this, false);
                                 m_editors[i]->setBounds(int(editor->c_bounds.x + offset),
                                                         int(editor->c_bounds.y + offset),
                                                         int(editor->c_bounds.width),
@@ -480,6 +485,102 @@ void ObjectInterface::receive(const std::string& dest, t_symbol* s, std::vector<
             }
         }
     }
+}
+
+void ObjectInterface::textEditorTextChanged(TextEditor& editor)
+{
+    sGui object = m_object.lock();
+    if(object)
+    {
+        const String name = editor.getName();
+        t_etexteditor* mtext = etexteditor_getfromsymbol(gensym(name.getCharPointer().getAddress()));
+        if(mtext)
+        {
+            const String text = editor.getText();
+            if(mtext->c_text && mtext->c_size)
+            {
+                memset(mtext->c_text, 0, mtext->c_size * sizeof(char));
+            }
+            
+            if(!text.isEmpty())
+            {
+                const size_t lenght = strlen(text.getCharPointer().getAddress());
+                if(lenght > mtext->c_size)
+                {
+                    if(mtext->c_text && mtext->c_size)
+                    {
+                        char* temp = (char *)realloc(mtext->c_text, lenght * sizeof(char));
+                        if(temp)
+                        {
+                            mtext->c_text = temp;
+                            mtext->c_size = lenght;
+                        }
+                    }
+                    else
+                    {
+                        mtext->c_text = (char *)malloc(lenght * sizeof(char));
+                        if(mtext->c_text)
+                        {
+                            mtext->c_size = lenght;
+                        }
+                    }
+                    
+                    if(mtext->c_text && mtext->c_size)
+                    {
+                        memcpy(mtext->c_text, text.getCharPointer().getAddress(), mtext->c_size * sizeof(char));
+                    }
+                }
+                else
+                {
+                    memcpy(mtext->c_text, text.getCharPointer().getAddress(), lenght * sizeof(char));
+                }
+            }
+            object->textEditorKeyPress(mtext, m_last_input);
+        }
+    }
+}
+
+void ObjectInterface::textEditorReturnKeyPressed(TextEditor& editor)
+{
+    cout << "textEditorReturnKeyPressed ";
+    sGui object = m_object.lock();
+    if(object)
+    {
+        const String name = editor.getName();
+        t_etexteditor* mtext = etexteditor_getfromsymbol(gensym(name.getCharPointer().getAddress()));
+        if(mtext)
+        {
+            object->textEditorKeyFilter(mtext, EKEY_ENTER);
+        }
+    }
+}
+
+void ObjectInterface::textEditorEscapeKeyPressed(TextEditor& editor)
+{
+    cout << "textEditorEscapeKeyPressed ";
+    sGui object = m_object.lock();
+    if(object)
+    {
+        const String name = editor.getName();
+        t_etexteditor* mtext = etexteditor_getfromsymbol(gensym(name.getCharPointer().getAddress()));
+        if(mtext)
+        {
+            object->textEditorKeyFilter(mtext, EKEY_ESC);
+        }
+    }
+}
+
+void ObjectInterface::textEditorFocusLost(TextEditor&)
+{
+    cout << "textEditorFocusLost " << KeyPress::isKeyCurrentlyDown(KeyPress::returnKey) << " ";
+}
+
+String ObjectInterface::filterNewText(TextEditor& editor, const String& newInput)
+{
+    const string text = newInput.toStdString();
+    if(!text.empty())
+        m_last_input = text[0];
+    return newInput;
 }
 
 // ==================================================================================== //

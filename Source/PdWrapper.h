@@ -308,6 +308,12 @@ namespace pd
         //! @brief Calls the mouse wheel method.
         void mouseWheelMove(std::array<float, 2> const& pos, const long mod, std::array<float, 2> const& delta) noexcept;
         
+        //! @brief Calls the text editor key press method.
+        void textEditorKeyPress(t_etexteditor* editor, char c) noexcept;
+        
+        //! @brief Calls the text editor key filter method.
+        void textEditorKeyFilter(t_etexteditor* editor, int filter) noexcept;
+        
         //! @brief Calls the key method.
         void keyPressed(const char key, const long mod) noexcept;
         

@@ -482,6 +482,24 @@ namespace pd
         }
     }
     
+    void Gui::textEditorKeyPress(t_etexteditor* editor, char ch) noexcept
+    {
+        t_eclass* c = getClass();
+        if(c && c->c_widget.w_texteditor_keypress)
+        {
+            c->c_widget.w_texteditor_keypress(getHandle(), editor, (int)ch);
+        }
+    }
+    
+    void Gui::textEditorKeyFilter(t_etexteditor* editor, int filter) noexcept
+    {
+        t_eclass* c = getClass();
+        if(c && c->c_widget.w_texteditor_keyfilter)
+        {
+            c->c_widget.w_texteditor_keyfilter(getHandle(), (t_etexteditor*)editor, (ekey_flags)filter);
+        }
+    }
+    
     void Gui::keyPressed(const char key, const long mod) noexcept
     {
         t_eclass* c = getClass();

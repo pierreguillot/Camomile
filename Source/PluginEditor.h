@@ -47,7 +47,8 @@ public:
 class ObjectInterface :
 public Component,
 public Listener,
-public TextEditor::Listener
+public TextEditor::Listener,
+public TextEditor::InputFilter
 {
 private:
     CamomileInterface& m_interface;
@@ -55,6 +56,7 @@ private:
     const sMessenger m_messenger;
     OwnedArray<TextEditor> m_editors;
     bool             m_attached;
+    char             m_last_input;
 public:
     ObjectInterface(CamomileInterface& camo, sGui object);
     virtual ~ObjectInterface() {};
@@ -68,9 +70,16 @@ public:
     void mouseDoubleClick(const MouseEvent& event) override;
     void mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel) override;
     bool keyPressed(const KeyPress& key) override;
+    
     void receive(const std::string& dest, t_symbol* s);
-    void receive(const std::string& dest, std::vector<const t_atom *> atoms) override {}
     void receive(const std::string& dest, t_symbol* s, std::vector<const t_atom *> atoms) override;
+    
+    void textEditorTextChanged(TextEditor&) override;
+    void textEditorReturnKeyPressed(TextEditor&) override;
+    void textEditorEscapeKeyPressed(TextEditor&) override;
+    void textEditorFocusLost(TextEditor&) override;
+    
+    String filterNewText(TextEditor& editor, const String& newInput) override;
     
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ObjectInterface)
