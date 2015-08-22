@@ -410,6 +410,12 @@ namespace pd
         return c && (c->c_widget.w_key || c->c_widget.w_keyfilter);
     }
     
+    bool Gui::hasTextEditor() const noexcept
+    {
+        t_eclass* c = getClass();
+        return c && (c->c_widget.w_texteditor_keyfilter || c->c_widget.w_texteditor_keypress);
+    }
+    
     void Gui::mouseMove(std::array<float, 2> const& pos, const long mod) noexcept
     {
         t_eclass* c = getClass();
@@ -649,7 +655,7 @@ extern "C"
         }
     }
     
-    void Messenger::receiveList(std::vector<const t_atom *> atoms)
+    void Messenger::receiveList(std::vector<const t_atom *> const& atoms)
     {
         std::vector<pd::Listener*> listeners = getListeners();
         for(auto it : listeners)
@@ -658,7 +664,7 @@ extern "C"
         }
     }
     
-    void Messenger::receiveAnything(t_symbol* s, std::vector<const t_atom *> atoms)
+    void Messenger::receiveAnything(t_symbol* s, std::vector<const t_atom *> const& atoms)
     {
         std::vector<pd::Listener*> listeners = getListeners();
         for(auto it : listeners)

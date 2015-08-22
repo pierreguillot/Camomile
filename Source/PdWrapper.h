@@ -276,6 +276,9 @@ namespace pd
         //! @brief Gets the GUI wants keyboard events.
         bool wantKeyboard() const noexcept;
         
+        //! @brief Gets the GUI has a text editor.
+        bool hasTextEditor() const noexcept;
+        
         //! @brief Gets the width.
         inline int getWidth() const noexcept override {
             return int(static_cast<t_ebox *>(getHandle())->b_rect.width);}
@@ -468,8 +471,8 @@ namespace pd
         void receiveBang();
         void receiveFloat(float num);
         void receiveSymbol(t_symbol* s);
-        void receiveList(std::vector<const t_atom *> atoms);
-        void receiveAnything(t_symbol* s, std::vector<const t_atom *> atoms);
+        void receiveList(std::vector<const t_atom *> const& atoms);
+        void receiveAnything(t_symbol* s, std::vector<const t_atom *> const& atoms);
         
     };
     
@@ -484,8 +487,8 @@ namespace pd
         virtual void receive(const std::string& dest) {}
         virtual void receive(const std::string& dest, float num) {}
         virtual void receive(const std::string& dest, t_symbol* s) {}
-        virtual void receive(const std::string& dest, std::vector<const t_atom *> atoms) {}
-        virtual void receive(const std::string& dest, t_symbol* s, std::vector<const t_atom *> atoms) {}
+        virtual void receive(const std::string& dest, std::vector<const t_atom *> const& atoms) {}
+        virtual void receive(const std::string& dest, t_symbol* s, std::vector<const t_atom *> const& atoms) {}
     };
 }
 

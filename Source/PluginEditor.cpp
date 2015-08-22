@@ -145,6 +145,7 @@ m_attached(false)
         Component::setInterceptsMouseClicks(object->wantMouse(), object->wantMouse());
         Component::setMouseClickGrabsKeyboardFocus(object->wantKeyboard());
         Component::setWantsKeyboardFocus(object->wantKeyboard());
+        Component::setFocusContainer(object->hasTextEditor());
     }
 }
 
@@ -328,7 +329,7 @@ void ObjectInterface::receive(const std::string& dest, t_symbol* s)
     }
 }
 
-void ObjectInterface::receive(const std::string& dest, t_symbol* s, std::vector<const t_atom *> atoms)
+void ObjectInterface::receive(const std::string& dest, t_symbol* s, std::vector<const t_atom *> const& atoms)
 {
     sGui object = m_object.lock();
     if(object && isShowing() &&
@@ -356,6 +357,7 @@ void ObjectInterface::receive(const std::string& dest, t_symbol* s, std::vector<
                             {
                                 cout << "EWIDGET_DESTROY\n";
                                 m_editors.remove(i);
+                                exitModalState(0);
                                 break;
                             }
                         }
@@ -453,12 +455,13 @@ void ObjectInterface::receive(const std::string& dest, t_symbol* s, std::vector<
                             {
                                 m_editors[i]->addListener(this);
                                 m_editors[i]->setReturnKeyStartsNewLine(false);
-                                
+                                m_editors[i]->setKeyboardType(TextEditor::textKeyboard);
                                 m_editors[i]->setInputFilter(this, false);
                                 m_editors[i]->setBounds(int(editor->c_bounds.x + offset),
                                                         int(editor->c_bounds.y + offset),
                                                         int(editor->c_bounds.width),
                                                         int(editor->c_bounds.height));
+                                enterModalState (false);
                                 addAndMakeVisible(m_editors[i]);
                                 break;
                             }
@@ -489,6 +492,11 @@ void ObjectInterface::receive(const std::string& dest, t_symbol* s, std::vector<
 
 void ObjectInterface::textEditorTextChanged(TextEditor& editor)
 {
+    if (! (hasKeyboardFocus (true) || isCurrentlyBlockedByAnotherModalComponent()))
+    {
+        textEditorReturnKeyPressed (editor);
+        return;
+    }
     sGui object = m_object.lock();
     if(object)
     {
@@ -570,8 +578,9 @@ void ObjectInterface::textEditorEscapeKeyPressed(TextEditor& editor)
     }
 }
 
-void ObjectInterface::textEditorFocusLost(TextEditor&)
+void ObjectInterface::textEditorFocusLost(TextEditor& ed)
 {
+    textEditorTextChanged (ed);
     cout << "textEditorFocusLost " << KeyPress::isKeyCurrentlyDown(KeyPress::returnKey) << " ";
 }
 

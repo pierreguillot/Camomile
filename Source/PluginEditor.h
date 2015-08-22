@@ -72,7 +72,7 @@ public:
     bool keyPressed(const KeyPress& key) override;
     
     void receive(const std::string& dest, t_symbol* s);
-    void receive(const std::string& dest, t_symbol* s, std::vector<const t_atom *> atoms) override;
+    void receive(const std::string& dest, t_symbol* s, std::vector<const t_atom *> const& atoms) override;
     
     void textEditorTextChanged(TextEditor&) override;
     void textEditorReturnKeyPressed(TextEditor&) override;
@@ -80,6 +80,14 @@ public:
     void textEditorFocusLost(TextEditor&) override;
     
     String filterNewText(TextEditor& editor, const String& newInput) override;
+    
+    void inputAttemptWhenModal() override
+    {
+        if(m_editors.size())
+        {
+           textEditorReturnKeyPressed(*m_editors[0]);
+        }
+    }
     
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ObjectInterface)
