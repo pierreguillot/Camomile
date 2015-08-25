@@ -12,7 +12,8 @@
 #define PLUGINPROCESSOR_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "PdWrapper.h"
+#include "PdGui.h"
+#include "PdMessenger.h"
 
 #include <set>
 #include <memory>
@@ -20,15 +21,14 @@
 using namespace std;
 using namespace pd;
 
-class CamomileAudioProcessor  : public AudioProcessor
+class CamomileAudioProcessor  : public AudioProcessor, public Instance
 {
 public:
     class Listener;
 private:
-    shared_ptr<Instance>  m_pd;
-    weak_ptr<Patch>       m_patch;
-    set<Listener*>        m_listeners;
-    mutable mutex         m_mutex;
+    Patch           m_patch;
+    set<Listener*>  m_listeners;
+    mutable mutex   m_mutex;
     
 public:
     CamomileAudioProcessor();
@@ -71,8 +71,8 @@ public:
     void setStateInformation(const void* data, int sizeInBytes) override;
     
     void loadPatch(const juce::File& file);
-    inline shared_ptr<const Patch> getPatch() const noexcept {return m_patch.lock();}
-    inline shared_ptr<Patch> getPatch() noexcept {return m_patch.lock();}
+    inline Patch getPatch() const noexcept {return m_patch;}
+    inline Patch getPatch() noexcept {return m_patch;}
     
     void addListener(Listener* listener);
     void removeListener(Listener* listener);

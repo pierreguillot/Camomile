@@ -29,7 +29,7 @@ PatchEditor::~PatchEditor()
 void PatchEditor::paint(Graphics& g)
 {
     m_processor.lock();
-    shared_ptr<const Patch> patch = m_processor.getPatch();
+    const Patch patch = m_processor.getPatch();
     if(patch)
     {
         sGui camo = patch->getCamomile();
@@ -98,10 +98,10 @@ void PatchEditor::patchChanged()
     removeAllChildren();
     m_objects.clear(true);
     m_processor.lock();
-    shared_ptr<const Patch> patch = m_processor.getPatch();
-    if(patch)
+    const Patch patch = m_processor.getPatch();
+    if(!patch.getName().empty())
     {
-        
+        /*
         sGui camo = patch->getCamomile();
         if(camo)
         {
@@ -116,6 +116,7 @@ void PatchEditor::patchChanged()
                 addChildComponent(inte);
             }
         }
+        */
     }
     m_processor.unlock();
     const MessageManagerLock mmLock;

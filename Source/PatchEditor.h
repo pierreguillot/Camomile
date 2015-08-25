@@ -21,9 +21,9 @@ public CamomileAudioProcessor::Listener,
 public FileDragAndDropTarget
 {
 private:
-    CamomileAudioProcessor&     m_processor;
+    CamomileAudioProcessor&  m_processor;
     OwnedArray<ObjectEditor> m_objects;
-    bool                        m_dropping;
+    bool                     m_dropping;
 public:
     PatchEditor(CamomileAudioProcessor&);
     ~PatchEditor();

@@ -11,23 +11,20 @@
 //                                  OBJECT EDITOR                                       //
 // ==================================================================================== //
 
-ObjectEditor::ObjectEditor(PatchEditor& camo, sGui object) :
-Messenger(object->getBindingName()),
+ObjectEditor::ObjectEditor(PatchEditor& camo, Gui const& object) :
+Messenger(m_object.getBindingName()),
 m_interface(camo),
 m_object(object),
 m_attached(false)
 {
-    if(object)
-    {
-        const std::array<int,2> bounds = object->getSize();
-        const int offset = object->getBorderSize() * 2;
-        Component::setSize(bounds[0] + offset, bounds[1] + offset);
-        Component::setVisible(true);
-        Component::setInterceptsMouseClicks(object->wantMouse(), object->wantMouse());
-        Component::setMouseClickGrabsKeyboardFocus(object->wantKeyboard());
-        Component::setWantsKeyboardFocus(object->wantKeyboard());
-        Component::setFocusContainer(object->hasTextEditor());
-    }
+    const std::array<int,2> bounds = m_object.getSize();
+    const int offset = m_object.getBorderSize() * 2;
+    Component::setSize(bounds[0] + offset, bounds[1] + offset);
+    Component::setVisible(true);
+    Component::setInterceptsMouseClicks(m_object.wantMouse(), m_object.wantMouse());
+    Component::setMouseClickGrabsKeyboardFocus(m_object.wantKeyboard());
+    Component::setWantsKeyboardFocus(m_object.wantKeyboard());
+    Component::setFocusContainer(m_object.hasTextEditor());
 }
 
 ObjectEditor::~ObjectEditor()
@@ -41,56 +38,48 @@ ObjectEditor::~ObjectEditor()
 
 void ObjectEditor::paint(Graphics& g)
 {
-    sGui object = m_object.lock();
-    if(object)
+    if(!m_attached)
     {
-        if(!m_attached)
+        //m_messenger->addListener(this);
+        m_attached = true;
+    }
+    m_interface.lock();
+    const int offset = m_object.getBorderSize();
+    const AffineTransform transform(AffineTransform::translation(offset, offset));
+    g.fillAll(tojColor(m_object.getBackgroundColor()));
+    std::vector<Layer> layers(m_object.paint());
+    for(auto it : layers)
+    {
+        if(it.state() == Layer::Todraw)
         {
-            //m_messenger->addListener(this);
-            m_attached = true;
-        }
-        m_interface.lock();
-        const int offset = object->getBorderSize();
-        const AffineTransform transform(AffineTransform::translation(offset, offset));
-        g.fillAll(tojColor(object->getBackgroundColor()));
-        std::vector<Layer> layers(object->paint());
-        for(auto it : layers)
-        {
-            if(it.state() == Layer::Todraw)
+            for(int i = 0; i < it.size(); i++)
             {
-                for(int i = 0; i < it.size(); i++)
+                const Gobj obj = it[i];
+                g.setColour(tojColor(obj.color()));
+                if(obj.type() == Gobj::Text)
                 {
-                    const Gobj obj = it[i];
-                    g.setColour(tojColor(obj.color()));
-                    if(obj.type() == Gobj::Text)
-                    {
-                        vector<t_pt> const points(obj.points());
-                        const Font f(obj.fontSize());
-                        g.setFont(f);
-                        g.drawText(juce::String(obj.text()),
-                                   points[0].x + offset, points[0].y + offset, points[1].x, points[1].y,
-                                   juce::Justification(obj.justification()), obj.wrapText());
-                    }
-                    else if(obj.filled())
-                    {
-                        g.fillPath(tojPath(obj), transform);
-                    }
-                    else
-                    {
-                        g.strokePath(tojPath(obj), PathStrokeType(obj.witdh()), transform);
-                    }
+                    vector<t_pt> const points(obj.points());
+                    const Font f(obj.fontSize());
+                    g.setFont(f);
+                    g.drawText(juce::String(obj.text()),
+                               points[0].x + offset, points[0].y + offset, points[1].x, points[1].y,
+                               juce::Justification(obj.justification()), obj.wrapText());
                 }
-                it.close();
+                else if(obj.filled())
+                {
+                    g.fillPath(tojPath(obj), transform);
+                }
+                else
+                {
+                    g.strokePath(tojPath(obj), PathStrokeType(obj.witdh()), transform);
+                }
             }
+            it.close();
         }
-        g.setColour(tojColor(object->getBorderColor()));
-        g.drawRect(getBounds().withZeroOrigin(), object->getBorderSize());
-        m_interface.unlock();
     }
-    else
-    {
-        g.fillAll(Colours::whitesmoke);
-    }
+    g.setColour(tojColor(m_object.getBorderColor()));
+    g.drawRect(getBounds().withZeroOrigin(), m_object.getBorderSize());
+    m_interface.unlock();
 }
 
 // ==================================================================================== //
@@ -99,114 +88,77 @@ void ObjectEditor::paint(Graphics& g)
 
 void ObjectEditor::mouseMove(const MouseEvent& event)
 {
-    sGui object = m_object.lock();
-    if(object)
-    {
-        object->mouseMove({float(event.x), float(event.y)}, event.mods.getRawFlags());
-    }
+    m_object.mouseMove({float(event.x), float(event.y)}, event.mods.getRawFlags());
 }
 
 void ObjectEditor::mouseEnter(const MouseEvent& event)
 {
     setMouseCursor(juce::MouseCursor::NormalCursor);
-    sGui object = m_object.lock();
-    if(object)
-    {
-        object->mouseEnter({float(event.x), float(event.y)}, event.mods.getRawFlags());
-    }
+    m_object.mouseEnter({float(event.x), float(event.y)}, event.mods.getRawFlags());
 }
 
 void ObjectEditor::mouseExit(const MouseEvent& event)
 {
-    sGui object = m_object.lock();
-    if(object)
-    {
-        object->mouseExit({float(event.x), float(event.y)}, event.mods.getRawFlags());
-    }
+    m_object.mouseExit({float(event.x), float(event.y)}, event.mods.getRawFlags());
 }
 
 void ObjectEditor::mouseDown(const MouseEvent& event)
 {
-    sGui object = m_object.lock();
-    if(object)
-    {
-        object->mouseDown({float(event.x), float(event.y)}, event.mods.getRawFlags());
-    }
+    m_object.mouseDown({float(event.x), float(event.y)}, event.mods.getRawFlags());
 }
 
 void ObjectEditor::mouseDrag(const MouseEvent& event)
 {
-    sGui object = m_object.lock();
-    if(object)
-    {
-        object->mouseDrag({float(event.x), float(event.y)}, event.mods.getRawFlags());
-    }
+    m_object.mouseDrag({float(event.x), float(event.y)}, event.mods.getRawFlags());
 }
 
 void ObjectEditor::mouseUp(const MouseEvent& event)
 {
-    sGui object = m_object.lock();
-    if(object)
-    {
-        object->mouseUp({float(event.x), float(event.y)}, event.mods.getRawFlags());
-    }
+     m_object.mouseUp({float(event.x), float(event.y)}, event.mods.getRawFlags());
 }
 
 void ObjectEditor::mouseDoubleClick(const MouseEvent& event)
 {
-    sGui object = m_object.lock();
-    if(object)
-    {
-        object->mouseDoubleClick({float(event.x), float(event.y)}, event.mods.getRawFlags());
-    }
+    m_object.mouseDoubleClick({float(event.x), float(event.y)}, event.mods.getRawFlags());
 }
 
 void ObjectEditor::mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel)
 {
-    sGui object = m_object.lock();
-    if(object)
-    {
-        object->mouseWheelMove({float(event.x), float(event.y)}, event.mods.getRawFlags(), {wheel.deltaX, wheel.deltaY});
-    }
+     m_object.mouseWheelMove({float(event.x), float(event.y)}, event.mods.getRawFlags(), {wheel.deltaX, wheel.deltaY});
 }
 
 bool ObjectEditor::keyPressed(const KeyPress& key)
 {
-    sGui object = m_object.lock();
-    if(object)
+    char buffer[MB_CUR_MAX];
+    wctomb(buffer, key.getTextCharacter());
+    if(key.getKeyCode() == KeyPress::deleteKey ||
+       key.getKeyCode() == KeyPress::returnKey ||
+       key.getKeyCode() == KeyPress::tabKey ||
+       key.getKeyCode() == KeyPress::escapeKey)
     {
-        char buffer[MB_CUR_MAX];
-        wctomb(buffer, key.getTextCharacter());
-        if(key.getKeyCode() == KeyPress::deleteKey ||
-           key.getKeyCode() == KeyPress::returnKey ||
-           key.getKeyCode() == KeyPress::tabKey ||
-           key.getKeyCode() == KeyPress::escapeKey)
+        
+        if(key.getKeyCode() == KeyPress::deleteKey)
         {
-            
-            if(key.getKeyCode() == KeyPress::deleteKey)
-            {
-                object->keyFilter(buffer[0], EKEY_DEL);
-            }
-            else if(key.getKeyCode() == KeyPress::returnKey)
-            {
-                object->keyFilter(buffer[0], EKEY_RETURN);
-            }
-            else if(key.getKeyCode() == KeyPress::tabKey)
-            {
-                object->keyFilter(buffer[0], EKEY_TAB);
-            }
-            else if(key.getKeyCode() == KeyPress::escapeKey)
-            {
-                object->keyFilter(buffer[0], EKEY_ESC);
-            }
+            m_object.keyFilter(buffer[0], EKEY_DEL);
         }
-        else
+        else if(key.getKeyCode() == KeyPress::returnKey)
         {
-            object->keyPressed(buffer[0], key.getModifiers().getRawFlags());
+            m_object.keyFilter(buffer[0], EKEY_RETURN);
         }
-        return true;
+        else if(key.getKeyCode() == KeyPress::tabKey)
+        {
+            m_object.keyFilter(buffer[0], EKEY_TAB);
+        }
+        else if(key.getKeyCode() == KeyPress::escapeKey)
+        {
+            m_object.keyFilter(buffer[0], EKEY_ESC);
+        }
     }
-    return false;
+    else
+    {
+        m_object.keyPressed(buffer[0], key.getModifiers().getRawFlags());
+    }
+    return true;
 }
 
 // ==================================================================================== //
@@ -256,8 +208,8 @@ void ObjectEditor::textEditorAction(pd::TextEditor& editor, ewidget_action actio
                     break;
                 case EWIDGET_POPUP:
                 {
-                    sGui object = m_object.lock();
-                    const int offset = object->getBorderSize();
+                    sGui m_object = m_m_object.lock();
+                    const int offset = m_object.getBorderSize();
                     for(int i = 0; i < m_editors.size(); i++)
                     {
                         if(m_editors[i]->getBindingName() == editor.getName())
@@ -324,8 +276,8 @@ void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, ewidget_action action)
                     break;
                 case EWIDGET_POPUP:
                 {
-                    sGui object = m_object.lock();
-                    const int offset = object->getBorderSize();
+                    sGui m_object = m_m_object.lock();
+                    const int offset = m_object.getBorderSize();
                     const std::array<int, 4> bounds(menu.getBounds());
                     m_popup.show();
                     break;
@@ -340,8 +292,7 @@ void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, ewidget_action action)
 
 void ObjectEditor::receive(std::string const& dest, std::string const& s, std::vector<Atom> const& atoms)
 {
-    sGui object = m_object.lock();
-    if(object && isShowing())
+    if(isShowing())
     {
         if(s == string("symbol") && !atoms.empty() && atoms[0] == string("repaint"))
         {
@@ -381,41 +332,29 @@ void ObjectEditor::textEditorTextChanged(juce::TextEditor& ed)
         textEditorReturnKeyPressed(ed);
         return;
     }
-    sGui object = m_object.lock();
-    if(object)
+    pd::TextEditor editor(reinterpret_cast<ObjectText&>(ed).getEditor());
+    if(editor)
     {
-        pd::TextEditor editor(reinterpret_cast<ObjectText&>(ed).getEditor());
-        if(editor)
-        {
-            editor.setText(ed.getText().toStdString());
-            object->textEditorKeyPress(editor, m_last_input);
-        }
+        editor.setText(ed.getText().toStdString());
+        m_object.textEditorKeyPress(editor, m_last_input);
     }
 }
 
 void ObjectEditor::textEditorReturnKeyPressed(juce::TextEditor& ed)
 {
-    sGui object = m_object.lock();
-    if(object)
+    pd::TextEditor editor(reinterpret_cast<ObjectText&>(ed).getEditor());
+    if(editor)
     {
-        pd::TextEditor editor(reinterpret_cast<ObjectText&>(ed).getEditor());
-        if(editor)
-        {
-            object->textEditorKeyFilter(editor, EKEY_RETURN);
-        }
+        m_object.textEditorKeyFilter(editor, EKEY_RETURN);
     }
 }
 
 void ObjectEditor::textEditorEscapeKeyPressed(juce::TextEditor& ed)
 {
-    sGui object = m_object.lock();
-    if(object)
+    pd::TextEditor editor(reinterpret_cast<ObjectText&>(ed).getEditor());
+    if(editor)
     {
-        pd::TextEditor editor(reinterpret_cast<ObjectText&>(ed).getEditor());
-        if(editor)
-        {
-            object->textEditorKeyFilter(editor, EKEY_ESC);
-        }
+        m_object.textEditorKeyFilter(editor, EKEY_ESC);
     }
 }
 

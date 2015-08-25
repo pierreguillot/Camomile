@@ -7,10 +7,11 @@
 #ifndef __CAMOMILE_PD_OBJECT__
 #define __CAMOMILE_PD_OBJECT__
 
-#include "PdAtom.h"
+#include "PdPatch.h"
 
 namespace pd
 {
+    class Patch;
     // ==================================================================================== //
     //                                      OBJECT                                          //
     // ==================================================================================== //
@@ -19,21 +20,20 @@ namespace pd
     {
         friend class Patch;
     protected:
-        void* m_handle;
-        Object(void* handle);
+        Patch*  m_patch;
+        t_eobj* m_handle;
     public:
         
-        //! @brief The destructor.
-        inline virtual ~Object() noexcept {}
-        
-        //! @brief Checks if the object is CICM.
-        inline virtual bool isCicm() const noexcept {return bool(eobj_iscicm(m_handle));}
+        inline Object() noexcept : m_handle(nullptr) {}
+        inline Object(Object const& other) : m_handle(other.m_handle) {}
+        inline virtual ~Object() noexcept {};
+        Object& operator=(Object const& other) {m_handle = other.m_handle; return *this;}
         
         //! @brief Checks if the object is GUI.
-        inline virtual bool isGui() const noexcept {return isCicm() && bool(eobj_isbox(m_handle));}
+        inline virtual bool isGui() const noexcept {return bool(eobj_isbox(m_handle));}
         
         //! @brief Checks if the object is DSP.
-        inline virtual bool isDsp() const noexcept {return isCicm() && bool(eobj_isdsp(m_handle));}
+        inline virtual bool isDsp() const noexcept {return bool(eobj_isdsp(m_handle));}
         
         //! @brief Gets the class name of the object.
         inline virtual std::string getName() const noexcept {return std::string(eobj_getclassname(m_handle)->s_name);}
@@ -48,11 +48,11 @@ namespace pd
         
         //! @brief Gets the abscissa.
         inline int getX() const noexcept {
-            return int(static_cast<t_object *>(m_handle)->te_xpix);}
+            return int(reinterpret_cast<t_object *>(m_handle)->te_xpix);}
         
         //! @brief Gets the ordinate.
         inline int getY() const noexcept {
-            return int(static_cast<t_object *>(m_handle)->te_ypix);}
+            return int(reinterpret_cast<t_object *>(m_handle)->te_ypix);}
         
         //! @brief Gets the size.
         inline virtual std::array<int,2> getSize() const noexcept {
@@ -60,7 +60,7 @@ namespace pd
         
         //! @brief Gets the width.
         inline virtual int getWidth() const noexcept {
-            return int(static_cast<t_object *>(m_handle)->te_width);}
+            return int(reinterpret_cast<t_object *>(m_handle)->te_width);}
         
         //! @brief Gets the height.
         inline virtual int getHeight() const noexcept {return 0;}
@@ -73,7 +73,7 @@ namespace pd
         
         inline t_eclass* getClass() const noexcept {return (bool(m_handle)) ? (eobj_getclass(m_handle)) : nullptr;}
         
-        inline void* getHandle() const noexcept {return m_handle;}
+        inline t_eobj* getHandle() const noexcept {return m_handle;}
     };
 }
 

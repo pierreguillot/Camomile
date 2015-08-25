@@ -25,19 +25,19 @@ public juce::TextEditor::InputFilter
 {
 private:
     class ObjectText;
-    PatchEditor&                    m_interface;
-    const wGui                      m_object;
-    OwnedArray<ObjectText>          m_editors;
-    juce::PopupMenu                 m_popup;
-    bool                            m_attached;
-    char                            m_last_input;
+    PatchEditor&            m_interface;
+    Gui                     m_object;
+    OwnedArray<ObjectText>  m_editors;
+    juce::PopupMenu         m_popup;
+    bool                    m_attached;
+    char                    m_last_input;
 public:
     
     // ==================================================================================== //
     //                              CONSTRUCTOR & DESTRUCTOR                                //
     // ==================================================================================== //
     
-    ObjectEditor(PatchEditor& camo, sGui object);
+    ObjectEditor(PatchEditor& camo, Gui const& object);
     virtual ~ObjectEditor();
     
     // ==================================================================================== //

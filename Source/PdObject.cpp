@@ -8,21 +8,7 @@
 
 namespace pd
 {
-    // ==================================================================================== //
-    //                                          OBJECT                                      //
-    // ==================================================================================== //
     
-    Object::Object(void* handle) : m_handle(handle)
-    {
-        if(!handle)
-        {
-            class Error : public std::exception {
-            public:
-                const char* what() const noexcept override {
-                    return "The object isn't valid !";}
-            };
-        }
-    }
 }
 
 

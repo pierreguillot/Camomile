@@ -12,32 +12,10 @@
 #include "PatchEditor.h"
 
 //==============================================================================
-CamomileAudioProcessor::CamomileAudioProcessor()
+CamomileAudioProcessor::CamomileAudioProcessor() :
+m_patch(Patch(*this, "Test2.pd", "/Users/Pierre/Desktop/"))
 {
-    try
-    {
-        m_pd = Master::createInstance();
-    }
-    catch(std::exception& e)
-    {
-        std::cout << e.what() << "\n";
-    }
-    if(m_pd)
-    {
-        try
-        {
-            m_patch = m_pd->openPatch("Test2.pd", "/Users/Pierre/Desktop/");
-        }
-        catch(std::exception& e)
-        {
-            std::cout << e.what() << "\n";
-        }
-    }
-    int tod_mouse_radio_slider;
-    /*
-    AudioProcessorParameter parameter;
-    addParameter(parameter);
-     */
+    
 }
 
 CamomileAudioProcessor::~CamomileAudioProcessor()
@@ -53,25 +31,23 @@ int CamomileAudioProcessor::getNumParameters()
 
 const String CamomileAudioProcessor::getParameterName(int index)
 {
-    if(m_pd)
+    /*
+    sPatch patch = m_patch.lock();
+    if(patch)
     {
-        sPatch patch = m_patch.lock();
-        if(patch)
+        int count = 0;
+        vector<sGui> objects(patch->getGuis());
+        for(auto it : objects)
         {
-            int count = 0;
-            vector<sGui> objects(patch->getGuis());
-            for(auto it : objects)
+            if(it->hasPresetName())
             {
-                if(it->hasPresetName())
+                if(count++ == index)
                 {
-                    if(count++ == index)
-                    {
-                        return String(it->getPresetName());
-                    }
+                    return String(it->getPresetName());
                 }
             }
         }
-    }
+    }*/
     return String();
 }
 
@@ -109,25 +85,19 @@ bool CamomileAudioProcessor::producesMidi() const
 
 void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    if(m_pd)
+    try
     {
-        try
-        {
-            m_pd->prepareDsp(getNumInputChannels(), getNumOutputChannels(), sampleRate, samplesPerBlock);
-        }
-        catch(std::exception& e)
-        {
-            std::cout << e.what() << "\n";
-        }
+        prepareDsp(getNumInputChannels(), getNumOutputChannels(), sampleRate, samplesPerBlock);
+    }
+    catch(std::exception& e)
+    {
+        std::cout << e.what() << "\n";
     }
 }
 
 void CamomileAudioProcessor::releaseResources()
 {
-    if(m_pd)
-    {
-        m_pd->releaseDsp();
-    }
+    releaseDsp();
 }
 
 void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
@@ -136,12 +106,9 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     {
         buffer.clear(i, 0, buffer.getNumSamples());
     }
-    if(m_pd)
-    {
-        m_pd->processDsp(buffer.getNumSamples(),
-                         getNumInputChannels(), buffer.getArrayOfReadPointers(),
-                         getNumOutputChannels(), buffer.getArrayOfWritePointers());
-    }
+    processDsp(buffer.getNumSamples(),
+                    getNumInputChannels(), buffer.getArrayOfReadPointers(),
+                    getNumOutputChannels(), buffer.getArrayOfWritePointers());
 }
 
 AudioProcessorEditor* CamomileAudioProcessor::createEditor()
@@ -151,17 +118,10 @@ AudioProcessorEditor* CamomileAudioProcessor::createEditor()
 
 void CamomileAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
-    if(m_pd)
-    {
-        sPatch patch = m_patch.lock();
-        if(patch)
-        {
-            XmlElement xml("CamomileSettings");
-            xml.setAttribute("name", patch->getName());
-            xml.setAttribute("path", patch->getPath());
-            copyXmlToBinary(xml, destData);
-        }
-    }
+    XmlElement xml("CamomileSettings");
+    xml.setAttribute("name", m_patch.getName());
+    xml.setAttribute("path", m_patch.getPath());
+    copyXmlToBinary(xml, destData);
 }
 
 void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
@@ -182,42 +142,33 @@ void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBy
 
 void CamomileAudioProcessor::loadPatch(const juce::File& file)
 {
-    if(m_pd)
+    suspendProcessing(true);
+    if(isSuspended())
     {
-        suspendProcessing(true);
-        if(isSuspended())
         {
+            lock_guard<mutex> guard(m_mutex);
+            if(file.exists() && file.getFileExtension() == String(".pd"))
             {
-                lock_guard<mutex> guard(m_mutex);
-                sPatch patch = m_patch.lock();
-                if(patch)
+                try
                 {
-                    m_pd->closePatch(patch);
+                    m_patch = Patch(*this, file.getFileName().toStdString(), (file.getParentDirectory()).getFullPathName().toStdString());
                 }
-                if(file.exists() && file.getFileExtension() == String(".pd"))
+                catch(std::exception& e)
                 {
-                    try
-                    {
-                        m_patch = m_pd->openPatch(file.getFileName().toStdString(), (file.getParentDirectory()).getFullPathName().toStdString());
-                    }
-                    catch(std::exception& e)
-                    {
-                        std::cout << e.what() << "\n";
-                    }
+                    std::cout << e.what() << "\n";
                 }
             }
-            
-            vector<Listener*> listeners = getListeners();
-            for(auto it : listeners)
-            {
-                it->patchChanged();
-            }
-            updateHostDisplay();
         }
         
-        suspendProcessing(false);
+        vector<Listener*> listeners = getListeners();
+        for(auto it : listeners)
+        {
+            it->patchChanged();
+        }
+        updateHostDisplay();
     }
     
+    suspendProcessing(false);
 }
 
 void CamomileAudioProcessor::addListener(Listener* listener)

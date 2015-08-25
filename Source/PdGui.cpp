@@ -12,7 +12,7 @@ namespace pd
     //                                          GUI                                         //
     // ==================================================================================== //
     
-    Gui::Gui(void* handle) : Object(handle)
+    Gui::Gui(void* handle)// : Object(handle)
     {
         t_eclass* c = getClass();
         if(!c || !eobj_iscicm(getHandle()) || !eobj_isbox(getHandle()))
@@ -42,14 +42,14 @@ namespace pd
     
     bool Gui::hasPresetName() const noexcept
     {
-        return is_valid_symbol(static_cast<t_ebox *>(getHandle())->b_preset_id);
+        return is_valid_symbol(reinterpret_cast<t_ebox *>(getHandle())->b_preset_id);
     }
     
     std::string Gui::getPresetName() const noexcept
     {
         if(hasPresetName())
         {
-            t_ebox* box = static_cast<t_ebox *>(getHandle());
+            t_ebox* box = reinterpret_cast<t_ebox *>(getHandle());
             return std::string(box->b_preset_id->s_name);
         }
         return std::string();
@@ -58,7 +58,7 @@ namespace pd
     bool Gui::wantMouse() const noexcept
     {
         t_eclass* c = getClass();
-        return c && !(static_cast<t_ebox *>(getHandle())->b_flags & EBOX_IGNORELOCKCLICK) &&
+        return c && !(reinterpret_cast<t_ebox *>(getHandle())->b_flags & EBOX_IGNORELOCKCLICK) &&
         (c->c_widget.w_mousedown ||
          c->c_widget.w_mousedrag ||
          c->c_widget.w_mouseenter ||
