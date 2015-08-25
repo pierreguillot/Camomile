@@ -4,7 +4,7 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "PdTextEditor.h"
+#include "PdWidget.h"
 
 namespace pd
 {

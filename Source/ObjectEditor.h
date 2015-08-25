@@ -28,7 +28,7 @@ private:
     PatchEditor&                    m_interface;
     const wGui                      m_object;
     OwnedArray<ObjectText>          m_editors;
-    OwnedArray<juce::PopupMenu>     m_popups;
+    juce::PopupMenu                 m_popup;
     bool                            m_attached;
     char                            m_last_input;
 public:
@@ -65,7 +65,8 @@ public:
     // ==================================================================================== //
 
     void receive(std::string const& dest, std::string const& s, std::vector<Atom> const& atoms) override;
-    
+    void textEditorAction(pd::TextEditor& editor, ewidget_action action);
+    void popupMenuAction(pd::PopupMenu& menu, ewidget_action action);
     // ==================================================================================== //
     //                                      TEXT EDITORS                                    //
     // ==================================================================================== //
@@ -80,12 +81,19 @@ public:
     
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ObjectEditor)
+    
     class ObjectText : public juce::TextEditor
     {
     private:
         const pd::TextEditor m_editor;
     public:
-        inline ObjectText(pd::TextEditor const& editor) : juce::TextEditor(), m_editor(editor) {}
+        ObjectText(pd::TextEditor const& editor) : juce::TextEditor(), m_editor(editor)
+        {
+            setBorder(BorderSize<int>(0));
+            setReturnKeyStartsNewLine(true);
+            setTabKeyUsedAsCharacter(true);
+            setKeyboardType(juce::TextEditor::textKeyboard);
+        }
         inline std::string getBindingName() const noexcept {return m_editor.getName();}
         inline pd::TextEditor getEditor() const noexcept {return m_editor;}
     };

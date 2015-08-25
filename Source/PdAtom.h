@@ -43,10 +43,12 @@ namespace pd
         inline Atom(Atom const& other) noexcept : m_symbol(other.m_symbol), m_float(other.m_float), m_type(other.m_type) {}
         inline Atom(float f) noexcept : m_symbol(), m_float(f), m_type(Float) {}
         inline Atom(std::string const& s) noexcept : m_symbol(s), m_float(), m_type(Symbol) {}
-        inline Atom(Atom&& other) noexcept : m_symbol(), m_float(other.m_float), m_type(other.m_type) {m_symbol.swap(other.m_symbol);}
+        inline Atom(Atom&& other) noexcept : m_symbol(), m_float(other.m_float), m_type(other.m_type)
+        {m_symbol.swap(other.m_symbol);}
         inline Atom(std::string&& s) noexcept : m_symbol(), m_float(), m_type(Symbol) {m_symbol.swap(s);}
         
-        inline Atom& operator=(Atom const& other) noexcept {m_symbol = other.m_symbol; m_float = other.m_float; m_type = other.m_type; return *this;}
+        inline Atom& operator=(Atom const& other) noexcept
+        {m_symbol = other.m_symbol; m_float = other.m_float; m_type = other.m_type; return *this;}
         inline Atom& operator=(float f) noexcept {m_float = f; m_type = Float; return *this;}
         inline Atom& operator=(std::string const& s) noexcept {m_symbol = s; m_type = Symbol; return *this;}
         inline Atom& operator=(Atom&& other) noexcept {m_symbol.swap(other.m_symbol); m_float = other.m_float; m_type = other.m_type; return *this;}
