@@ -18,6 +18,8 @@
 #include <memory>
 
 #include "../ThirdParty/Cream/c.library.hpp"
+#include "PdMessenger.h"
+#include "PdTextEditor.h"
 
 // Mieux gérer les layers
 
@@ -29,6 +31,7 @@ namespace pd
     class Gui;
     class Messenger;
     class Listener;
+    class TextEditor;
     
     typedef std::shared_ptr<Instance>       sInstance;
     typedef std::weak_ptr<Instance>         wInstance;
@@ -96,10 +99,7 @@ namespace pd
     {
         friend class Patch;
     protected:
-        //! @brief The t_ebox pointer.
         void* m_handle;
-
-        //! @brief The constructor.
         Object(void* handle);
     public:
             
@@ -312,10 +312,10 @@ namespace pd
         void mouseWheelMove(std::array<float, 2> const& pos, const long mod, std::array<float, 2> const& delta) noexcept;
         
         //! @brief Calls the text editor key press method.
-        void textEditorKeyPress(t_etexteditor* editor, char c) noexcept;
+        void textEditorKeyPress(TextEditor& editor, char c) noexcept;
         
         //! @brief Calls the text editor key filter method.
-        void textEditorKeyFilter(t_etexteditor* editor, int filter) noexcept;
+        void textEditorKeyFilter(TextEditor& editor, int filter) noexcept;
         
         //! @brief Calls the key method.
         void keyPressed(const char key, const long mod) noexcept;
@@ -408,87 +408,9 @@ namespace pd
         
         void releaseDsp() noexcept;
         
-        inline void send(t_symbol* dest) noexcept
-        {
-            if(dest->s_thing)
-            {
-                std::lock_guard<std::mutex> guard(m_mutex);
-                pd_bang(dest->s_thing);
-            }
-        }
-        
-        inline void send(t_symbol* dest, float val)
-        {
-            if(dest->s_thing)
-            {
-                std::lock_guard<std::mutex> guard(m_mutex);
-                pd_float(dest->s_thing, val);
-            }
-        }
-        
-        inline void send(t_symbol* dest, t_symbol* sym)
-        {
-            if(dest->s_thing)
-            {
-                std::lock_guard<std::mutex> guard(m_mutex);
-                pd_symbol(dest->s_thing, sym);
-            }
-        }
-        
-        inline void send(t_symbol* dest, t_symbol* sym, std::vector<t_atom> atoms)
-        {
-            if(dest->s_thing)
-            {
-                std::lock_guard<std::mutex> guard(m_mutex);
-                pd_typedmess(dest->s_thing, sym, int(atoms.size()), atoms.data());
-            }
-        }
-        
         sPatch openPatch(const std::string& name, const std::string& path);
         
         void closePatch(sPatch patch);
-    };
-    
-    // ==================================================================================== //
-    //                                      MESSENGER                                       //
-    // ==================================================================================== //
-    
-    class Messenger
-    {
-    private:        
-        void*                       m_internal;
-        std::string                 m_symbol;
-        std::set<pd::Listener*>     m_listeners;
-        mutable std::mutex          m_mutex;
-        std::vector<pd::Listener*>  getListeners() const noexcept;
-        
-    public:
-        Messenger(std::string const& name);
-        ~Messenger();
-        void addListener(pd::Listener* listener);
-        void removeListener(pd::Listener* listener);
-        
-        void receiveBang();
-        void receiveFloat(float num);
-        void receiveSymbol(t_symbol* s);
-        void receiveList(std::vector<const t_atom *> const& atoms);
-        void receiveAnything(t_symbol* s, std::vector<const t_atom *> const& atoms);
-        
-    };
-    
-    // ==================================================================================== //
-    //                                      MESSENGER                                       //
-    // ==================================================================================== //
-    
-    class Listener
-    {
-    public:
-        virtual ~Listener() {};
-        virtual void receive(const std::string& dest) {}
-        virtual void receive(const std::string& dest, float num) {}
-        virtual void receive(const std::string& dest, t_symbol* s) {}
-        virtual void receive(const std::string& dest, std::vector<const t_atom *> const& atoms) {}
-        virtual void receive(const std::string& dest, t_symbol* s, std::vector<const t_atom *> const& atoms) {}
     };
 }
 

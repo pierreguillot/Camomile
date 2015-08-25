@@ -488,21 +488,21 @@ namespace pd
         }
     }
     
-    void Gui::textEditorKeyPress(t_etexteditor* editor, char ch) noexcept
+    void Gui::textEditorKeyPress(TextEditor& editor, char ch) noexcept
     {
         t_eclass* c = getClass();
         if(c && c->c_widget.w_texteditor_keypress)
         {
-            c->c_widget.w_texteditor_keypress(getHandle(), editor, (int)ch);
+            c->c_widget.w_texteditor_keypress(getHandle(), editor.m_editor, (int)ch);
         }
     }
     
-    void Gui::textEditorKeyFilter(t_etexteditor* editor, int filter) noexcept
+    void Gui::textEditorKeyFilter(TextEditor& editor, int filter) noexcept
     {
         t_eclass* c = getClass();
         if(c && c->c_widget.w_texteditor_keyfilter)
         {
-            c->c_widget.w_texteditor_keyfilter(getHandle(), (t_etexteditor*)editor, (ekey_flags)filter);
+            c->c_widget.w_texteditor_keyfilter(getHandle(), editor.m_editor, (ekey_flags)filter);
         }
     }
     
@@ -547,162 +547,6 @@ namespace pd
         }
         
         return objs;
-    }
-    
-    
-    // ==================================================================================== //
-    //                                      MESSENGER                                       //
-    // ==================================================================================== //
-
-extern "C"
-{
-    typedef struct _messenger
-    {
-        t_eobj      obj;
-        t_symbol*   name;
-        Messenger*  messenger;
-    }t_messenger;
-    
-    static void messenger_bang(t_messenger* x)
-    {
-        x->messenger->receiveBang();
-    }
-    
-    static void messenger_float(t_messenger* x, float f)
-    {
-        x->messenger->receiveFloat(f);
-    }
-    
-    static void messenger_symbol(t_messenger* x, t_symbol* s)
-    {
-        x->messenger->receiveSymbol(s);
-    }
-    
-    static void messenger_list(t_messenger* x, t_symbol* s, int argc, t_atom* argv)
-    {
-        std::vector<const t_atom *> vec(argc);
-        for(size_t i = 0; i < vec.size(); i++)
-        {
-            vec[i] = argv+i;
-        }
-        x->messenger->receiveList(vec);
-    }
-    
-    static void messenger_anything(t_messenger* x, t_symbol* s, int argc, t_atom* argv)
-    {
-        std::vector<const t_atom *> vec(argc);
-        for(size_t i = 0; i < vec.size(); i++)
-        {
-            vec[i] = argv+i;
-        }
-        x->messenger->receiveAnything(s, vec);
-    }
-    
-    void messenger_free(t_messenger* x)
-    {
-        pd_unbind((t_pd *)(x), x->name);
-        eobj_free(x);
-    }
-}
-    
-    Messenger::Messenger(std::string const& name)
-    {
-        static t_eclass *c = NULL;
-        if(!c)
-        {
-            c = eclass_new("c.messenger", (method)NULL, (method)messenger_free, (short)sizeof(Messenger), 0L, A_GIMME, CLASS_PD);
-            eclass_addmethod(c, (method) messenger_bang,      "bang",             A_NULL,  0);
-            eclass_addmethod(c, (method) messenger_float,     "float",            A_FLOAT, 0);
-            eclass_addmethod(c, (method) messenger_symbol,    "symbol",           A_SYMBOL,0);
-            eclass_addmethod(c, (method) messenger_list,      "list",             A_GIMME, 0);
-            eclass_addmethod(c, (method) messenger_anything,  "anything",         A_GIMME, 0);
-            eclass_register(CLASS_OBJ, c);
-        }
-        m_internal = NULL;
-        m_symbol = name;
-        if(c)
-        {
-            m_internal = (t_messenger *)eobj_new(c);
-            static_cast<t_messenger *>(m_internal)->messenger = this;
-            pd_bind((t_pd *)(m_internal), gensym(name.c_str()));
-        }
-    }
-    
-    void Messenger::receiveBang()
-    {
-        std::vector<pd::Listener*> listeners = getListeners();
-        for(auto it : listeners)
-        {
-            it->receive(m_symbol);
-        }
-    }
-    
-    void Messenger::receiveFloat(float f)
-    {
-        std::vector<pd::Listener*> listeners = getListeners();
-        for(auto it : listeners)
-        {
-            it->receive(m_symbol, f);
-        }
-    }
-    
-    void Messenger::receiveSymbol(t_symbol* s)
-    {
-        std::vector<pd::Listener*> listeners = getListeners();
-        for(auto it : listeners)
-        {
-            it->receive(m_symbol, s);
-        }
-    }
-    
-    void Messenger::receiveList(std::vector<const t_atom *> const& atoms)
-    {
-        std::vector<pd::Listener*> listeners = getListeners();
-        for(auto it : listeners)
-        {
-            it->receive(m_symbol, atoms);
-        }
-    }
-    
-    void Messenger::receiveAnything(t_symbol* s, std::vector<const t_atom *> const& atoms)
-    {
-        std::vector<pd::Listener*> listeners = getListeners();
-        for(auto it : listeners)
-        {
-            it->receive(m_symbol, s, atoms);
-        }
-    }
-    
-    Messenger::~Messenger()
-    {
-        std::lock_guard<std::mutex> guard(m_mutex);
-        m_listeners.clear();
-        pd_unbind((t_pd *)(m_internal), gensym(m_symbol.c_str()));
-        eobj_free(m_internal);
-    }
-    
-    void Messenger::addListener(Listener* listener)
-    {
-        if(listener)
-        {
-            std::lock_guard<std::mutex> guard(m_mutex);
-            m_listeners.insert(listener);
-        }
-    }
-    
-    void Messenger::removeListener(Listener* listener)
-    {
-        if(listener)
-        {
-            std::lock_guard<std::mutex> guard(m_mutex);
-            m_listeners.erase(listener);
-        }
-    }
-    
-    std::vector<Listener*> Messenger::getListeners() const noexcept
-    {
-        std::lock_guard<std::mutex> guard(m_mutex);
-        return std::vector<Listener*>(m_listeners.begin(), m_listeners.end());
     }
 }
 

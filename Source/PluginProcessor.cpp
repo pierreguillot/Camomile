@@ -9,7 +9,7 @@
 */
 
 #include "PluginProcessor.h"
-#include "PluginEditor.h"
+#include "PatchEditor.h"
 
 //==============================================================================
 CamomileAudioProcessor::CamomileAudioProcessor()
@@ -146,7 +146,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
 
 AudioProcessorEditor* CamomileAudioProcessor::createEditor()
 {
-    return new CamomileInterface(*this);
+    return new PatchEditor(*this);
 }
 
 void CamomileAudioProcessor::getStateInformation(MemoryBlock& destData)

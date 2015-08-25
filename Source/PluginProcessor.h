@@ -94,5 +94,24 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)
 };
 
+class CamoParameter : public AudioProcessorParameter
+{
+private:
+    t_eparameter* m_parameter;
+    
+public:
+    
+    float getValue() const override {
+        float f;
+        m_parameter->p_getter(m_parameter->p_owner, &f);
+        return f / (m_parameter->p_max - m_parameter->p_min) + m_parameter->p_min;
+    };
+    
+    void setValue(float newValue) override {
+        m_parameter->p_setter(m_parameter->p_owner, newValue / (m_parameter->p_max - m_parameter->p_min) + m_parameter->p_min);
+    }
+
+};
+
 
 #endif  // PLUGINPROCESSOR_H_INCLUDED
