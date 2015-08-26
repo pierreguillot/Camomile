@@ -15,52 +15,43 @@
 CamomileAudioProcessor::CamomileAudioProcessor() : Instance(string("camomile")),
 m_patch(Patch(*this, "Test2.pd", "/Users/Pierre/Desktop/"))
 {
-    
+    m_parameters.resize(512);
 }
 
 CamomileAudioProcessor::~CamomileAudioProcessor()
 {
     lock_guard<mutex> guard(m_mutex);
     m_listeners.clear();
+    m_parameters.clear();
 }
 
 int CamomileAudioProcessor::getNumParameters()
 {
-    return 512;
+    lock_guard<mutex> guard(m_mutex);
+    return int(m_parameters.size());
 }
 
 const String CamomileAudioProcessor::getParameterName(int index)
-{;
-    if(m_patch)
-    {
-        int count = 0;
-        vector<Gui> objects(m_patch.getGuis());
-        for(auto it : objects)
-        {
-            if(it.hasPresetName())
-            {
-                if(count++ == index)
-                {
-                    return String(it.getPresetName());
-                }
-            }
-        }
-    }
-    return String();
+{
+    lock_guard<mutex> guard(m_mutex);
+    return String(m_parameters[index].getFullName());
 }
 
-float CamomileAudioProcessor::getParameter (int index)
+float CamomileAudioProcessor::getParameter(int index)
 {
-    return 0.0f;
+    lock_guard<mutex> guard(m_mutex);
+    return m_parameters[index].getNormalizedValue();
 }
 
-void CamomileAudioProcessor::setParameter (int index, float newValue)
+void CamomileAudioProcessor::setParameter(int index, float newValue)
 {
+    lock_guard<mutex> guard(m_mutex);
+    m_parameters[index].setNormalizedValue(newValue);
 }
 
-const String CamomileAudioProcessor::getParameterText (int index)
+const String CamomileAudioProcessor::getParameterText(int index)
 {
-    return String();
+    return String(m_parameters[index].getTextForValue(m_parameters[index].getNormalizedValue()));
 }
 
 bool CamomileAudioProcessor::acceptsMidi() const
@@ -151,6 +142,24 @@ void CamomileAudioProcessor::loadPatch(const juce::File& file)
                 m_patch = Patch(*this,
                                 file.getFileName().toStdString(),
                                 file.getParentDirectory().getFullPathName().toStdString());
+            }
+            
+            size_t index = 0;
+            vector<Gui> objects(m_patch.getGuis());
+            for(auto it : objects)
+            {
+                vector<Parameter> params = it.getParameters();
+                for(auto it2 : params)
+                {
+                    if(index < m_parameters.size())
+                    {
+                        m_parameters[index++] = it2;
+                    }
+                }
+            }
+            for(; index < m_parameters.size(); index++)
+            {
+                m_parameters[index++] = Parameter();
             }
         }
         

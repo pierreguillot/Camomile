@@ -26,7 +26,7 @@ private:
     Patch           m_patch;
     set<Listener*>  m_listeners;
     mutable mutex   m_mutex;
-    
+    vector<Parameter> m_parameters;
 public:
     CamomileAudioProcessor();
     ~CamomileAudioProcessor();
@@ -85,29 +85,9 @@ public:
     };
 
 private:
-    
     vector<Listener*> getListeners() const noexcept;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)
-};
-
-class CamoParameter : public AudioProcessorParameter
-{
-private:
-    t_eparameter* m_parameter;
-    
-public:
-    
-    float getValue() const override {
-        float f;
-        m_parameter->p_getter(m_parameter->p_owner, &f);
-        return f / (m_parameter->p_max - m_parameter->p_min) + m_parameter->p_min;
-    };
-    
-    void setValue(float newValue) override {
-        m_parameter->p_setter(m_parameter->p_owner, newValue / (m_parameter->p_max - m_parameter->p_min) + m_parameter->p_min);
-    }
-
 };
 
 

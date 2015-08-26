@@ -15,6 +15,7 @@ ObjectEditor::ObjectEditor(PatchEditor& camo, Gui const& object) :
 Messenger(object.getBindingName()),
 m_interface(camo),
 m_object(object),
+m_popup_active(false),
 m_attached(false)
 {
     const std::array<int,2> bounds = m_object.getSize();
@@ -241,7 +242,7 @@ void ObjectEditor::textEditorAction(pd::TextEditor& editor, ewidget_action actio
 
 void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, ewidget_action action)
 {
-    if(menu)
+    if(menu && !m_popup_active)
     {
         const MessageManagerLock thread(Thread::getCurrentThread());
         if(thread.lockWasGained())
@@ -249,7 +250,6 @@ void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, ewidget_action action)
             switch(action)
             {
                 case EWIDGET_DESTROY:
-                    exitModalState(0);
                     break;
                 case EWIDGET_CHANGED:
                 {
@@ -264,22 +264,18 @@ void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, ewidget_action action)
                         {
                             m_popup.addItem(menu.getItemId(i) + 1, menu.getItemLabel(i), !menu.isItemDisable(i), menu.isItemChecked(i), nullptr);
                         }
-                        
                     }
                 }
                     break;
                 case EWIDGET_POPUP:
                 {
-                    enterModalState(false);
+                    m_popup_active = true;
                     int i = m_popup.show();
                     if(i)
                     {
                         m_object.popup(menu, i-1);
                     }
-                    else
-                    {
-                        exitModalState(0);
-                    }
+                    m_popup_active = false;                    
                     break;
                 }
                 default:

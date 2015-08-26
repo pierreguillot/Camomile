@@ -29,6 +29,7 @@ private:
     Gui                     m_object;
     OwnedArray<ObjectText>  m_editors;
     juce::PopupMenu         m_popup;
+    atomic_bool             m_popup_active;
     bool                    m_attached;
     char                    m_last_input;
 public:

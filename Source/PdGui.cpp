@@ -272,6 +272,21 @@ namespace pd
         
         return objs;
     }
+    
+    std::vector<Parameter> Gui::getParameters() const noexcept
+    {
+        t_ebox* x = ((t_ebox *)getObject());
+        if(is_valid_symbol(x->b_preset_id))
+        {
+            std::vector<Parameter> params(x->b_nparams);
+            for(size_t i = 0; i < x->b_nparams; i++)
+            {
+                params[i] = Parameter(x->b_params+i);
+            }
+            return params;
+        }
+        return std::vector<Parameter>();
+    }
 
 }
 
