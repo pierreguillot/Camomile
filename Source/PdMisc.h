@@ -30,7 +30,7 @@ namespace pd
         
         inline ~LeakDetector() {
             if(--(getCounter().nobjects) < 0)
-                 std::cout << "Leak Detected";
+                 std::cout << "Leak Detected\n";
         }
         
     private:
@@ -41,7 +41,9 @@ namespace pd
             inline LeakCounter() noexcept : nobjects(0) {}
             inline ~LeakCounter() noexcept {
                 if(nobjects > 0)
-                    std::cout << "Leak Detected";
+                    std::cout << "Leak Detected\n";
+                else
+                    std::cout << "No Leak Detected\n";
             }
             
             std::atomic_int nobjects;

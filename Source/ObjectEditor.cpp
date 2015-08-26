@@ -38,11 +38,6 @@ ObjectEditor::~ObjectEditor()
 
 void ObjectEditor::paint(Graphics& g)
 {
-    if(!m_attached)
-    {
-        //m_messenger->addListener(this);
-        m_attached = true;
-    }
     m_interface.lock();
     const int offset = m_object.getBorderSize();
     const AffineTransform transform(AffineTransform::translation(offset, offset));
