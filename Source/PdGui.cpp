@@ -215,6 +215,17 @@ namespace pd
         }
     }
     
+    void Gui::popup(PopupMenu& menu, int item) noexcept
+    {
+        t_eclass* c = getClass();
+        Instance instance(getInstance());
+        if(instance && c && c->c_widget.w_popup)
+        {
+            //std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
+            c->c_widget.w_popup(getObject(), menu.m_popup, item);
+        }
+    }
+    
     void Gui::keyPressed(const char key, const long mod) noexcept
     {
         t_eclass* c = getClass();

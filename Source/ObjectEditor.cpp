@@ -249,7 +249,7 @@ void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, ewidget_action action)
             switch(action)
             {
                 case EWIDGET_DESTROY:
-                    m_popup.clear();
+                    exitModalState (false);
                     break;
                 case EWIDGET_CHANGED:
                 {
@@ -270,9 +270,12 @@ void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, ewidget_action action)
                     break;
                 case EWIDGET_POPUP:
                 {
-                    const int offset = m_object.getBorderSize();
-                    const std::array<int, 4> bounds(menu.getBounds());
-                    m_popup.show();
+                    enterModalState(false);
+                    int i = m_popup.show();
+                    if(i)
+                    {
+                        m_object.popup(menu, i-1);
+                    }
                     break;
                 }
                 default:

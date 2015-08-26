@@ -203,6 +203,9 @@ namespace pd
         //! @brief Calls the text editor key filter method.
         void textEditorKeyFilter(TextEditor& editor, int filter) noexcept;
         
+        //! @brief Calls the popup method.
+        void popup(PopupMenu& menu, int item) noexcept;
+        
         //! @brief Calls the key method.
         void keyPressed(const char key, const long mod) noexcept;
         

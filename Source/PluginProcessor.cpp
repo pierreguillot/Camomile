@@ -26,7 +26,7 @@ CamomileAudioProcessor::~CamomileAudioProcessor()
 
 int CamomileAudioProcessor::getNumParameters()
 {
-    return 64;
+    return 512;
 }
 
 const String CamomileAudioProcessor::getParameterName(int index)
