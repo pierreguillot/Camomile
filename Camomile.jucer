@@ -13,15 +13,33 @@
               defines="LIB_PD">
   <MAINGROUP id="Lkdhlo" name="Camomile">
     <GROUP id="{6858D652-D432-5FB6-C946-D9F3FA76E6E9}" name="Source">
-      <FILE id="C44MJA" name="PluginProcessor.cpp" compile="1" resource="0"
+      <FILE id="WlfqCQ" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
-      <FILE id="mbGFOu" name="PluginProcessor.h" compile="0" resource="0"
+      <FILE id="pbUZCw" name="PluginProcessor.h" compile="0" resource="0"
             file="Source/PluginProcessor.h"/>
-      <FILE id="mXsWWK" name="PluginEditor.cpp" compile="1" resource="0"
-            file="Source/PluginEditor.cpp"/>
-      <FILE id="eyUmy8" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
-      <FILE id="lzYHNP" name="PdWrapper.cpp" compile="1" resource="0" file="Source/PdWrapper.cpp"/>
-      <FILE id="yfjZUg" name="PdWrapper.h" compile="0" resource="0" file="Source/PdWrapper.h"/>
+      <FILE id="vbIZqm" name="ObjectEditor.cpp" compile="1" resource="0"
+            file="Source/ObjectEditor.cpp"/>
+      <FILE id="QYHk7C" name="ObjectEditor.h" compile="0" resource="0" file="Source/ObjectEditor.h"/>
+      <FILE id="dCEF9M" name="PatchEditor.cpp" compile="1" resource="0" file="Source/PatchEditor.cpp"/>
+      <FILE id="tLvOP3" name="PatchEditor.h" compile="0" resource="0" file="Source/PatchEditor.h"/>
+      <FILE id="TedkIq" name="PdWrapper.cpp" compile="1" resource="0" file="Source/PdWrapper.cpp"/>
+      <FILE id="NXnE2q" name="PdWrapper.h" compile="0" resource="0" file="Source/PdWrapper.h"/>
+      <FILE id="hkojgj" name="PdGui.cpp" compile="1" resource="0" file="Source/PdGui.cpp"/>
+      <FILE id="UhsxVE" name="PdGui.h" compile="0" resource="0" file="Source/PdGui.h"/>
+      <FILE id="vIWNPv" name="PdObject.cpp" compile="1" resource="0" file="Source/PdObject.cpp"/>
+      <FILE id="UaZGl6" name="PdObject.h" compile="0" resource="0" file="Source/PdObject.h"/>
+      <FILE id="Bnr3EF" name="PdPatch.cpp" compile="1" resource="0" file="Source/PdPatch.cpp"/>
+      <FILE id="rVZtQm" name="PdPatch.h" compile="0" resource="0" file="Source/PdPatch.h"/>
+      <FILE id="DEM9eo" name="PdInstance.cpp" compile="1" resource="0" file="Source/PdInstance.cpp"/>
+      <FILE id="uDVGhm" name="PdInstance.h" compile="0" resource="0" file="Source/PdInstance.h"/>
+      <FILE id="RTjZOJ" name="PdWidget.cpp" compile="1" resource="0" file="Source/PdWidget.cpp"/>
+      <FILE id="aXJ8qi" name="PdWidget.h" compile="0" resource="0" file="Source/PdWidget.h"/>
+      <FILE id="Yc14cw" name="PdMessenger.cpp" compile="1" resource="0" file="Source/PdMessenger.cpp"/>
+      <FILE id="DodMxJ" name="PdMessenger.h" compile="0" resource="0" file="Source/PdMessenger.h"/>
+      <FILE id="DTSwb9" name="PdAtom.cpp" compile="1" resource="0" file="Source/PdAtom.cpp"/>
+      <FILE id="kKrmh6" name="PdAtom.h" compile="0" resource="0" file="Source/PdAtom.h"/>
+      <FILE id="RBYVhL" name="PdMisc.cpp" compile="1" resource="0" file="Source/PdMisc.cpp"/>
+      <FILE id="Bs5kZF" name="PdMisc.h" compile="0" resource="0" file="Source/PdMisc.h"/>
     </GROUP>
     <GROUP id="{219DB9C7-7A3A-0A0B-CC0D-A3924A13804E}" name="Cream">
       <FILE id="MfBIJd" name="c.library.cpp" compile="1" resource="0" file="ThirdParty/Cream/c.library.cpp"/>

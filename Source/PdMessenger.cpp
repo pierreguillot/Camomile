@@ -85,7 +85,7 @@ namespace pd
         {
             if(!c)
             {
-                c = eclass_new("c.messenger", (method)NULL, (method)NULL, (short)sizeof(t_messenger), 0L, A_GIMME, CLASS_PD);
+                c = eclass_new("c.messenger", (method)NULL, (method)NULL, (short)sizeof(t_messenger), CLASS_PD, A_GIMME, 0);
                 eclass_addmethod(c, (method) _messenger::messenger_bang,      "bang",             A_NULL,  0);
                 eclass_addmethod(c, (method) _messenger::messenger_float,     "float",            A_FLOAT, 0);
                 eclass_addmethod(c, (method) _messenger::messenger_symbol,    "symbol",           A_SYMBOL,0);

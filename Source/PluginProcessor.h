@@ -11,10 +11,7 @@
 #ifndef PLUGINPROCESSOR_H_INCLUDED
 #define PLUGINPROCESSOR_H_INCLUDED
 
-#include "../JuceLibraryCode/JuceHeader.h"
-#include "PdGui.h"
-#include "PdMessenger.h"
-
+#include "PdWrapper.h"
 #include <set>
 #include <memory>
 
