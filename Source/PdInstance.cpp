@@ -21,7 +21,10 @@ namespace pd
     int Instance::s_sample_rate;
     std::mutex Instance::s_mutex;
     
-    Instance::Internal::Internal(std::string const& _name)
+    Instance::Internal::Internal(std::string const& _name) :
+    instance(nullptr),
+    counter(1),
+    name(_name)
     {
         std::lock_guard<std::mutex> guard(s_mutex);
         static int initialized = 0;
@@ -66,8 +69,6 @@ namespace pd
             s_sample_rate = sys_getsr();
         }
         instance = pdinstance_new();
-        counter  = 1;
-        name     = _name;
     }
     
     Instance::Internal::~Internal()
@@ -105,9 +106,9 @@ namespace pd
     
     Instance& Instance::operator=(Instance const& other) noexcept
     {
-        if(m_internal)
+        if(other.m_internal)
         {
-            m_internal->counter++;
+            other.m_internal->counter++;
             m_internal = other.m_internal;
         }
         else
@@ -119,22 +120,23 @@ namespace pd
     
     Instance& Instance::operator=(Instance&& other) noexcept
     {
-        Internal* temp = m_internal;
-        m_internal = other.m_internal;
-        other.m_internal = temp;
+        std::swap(m_internal, other.m_internal);
         return *this;
     }
     
     Instance::~Instance() noexcept
     {
-        std::lock_guard<std::mutex> guard(m_internal->mutex);
-        if(m_internal->counter)
+        if(m_internal)
         {
-            --m_internal->counter;
-            if(!m_internal->counter)
+            std::lock_guard<std::mutex> guard(m_internal->mutex);
+            if(m_internal->counter)
             {
-                releaseDsp();
-                delete m_internal;
+                --m_internal->counter;
+                if(!m_internal->counter)
+                {
+                    releaseDsp();
+                    delete m_internal;
+                }
             }
         }
     }

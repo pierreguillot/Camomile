@@ -10,20 +10,19 @@
 #include "PdAtom.h"
 
 namespace pd
-{
-    class Patch;
+{    
     // ==================================================================================== //
     //                                          INSTANCE                                    //
     // ==================================================================================== //
     
-    //! @brief The manager for Patches.
+    //! @brief The manager for Patch objects.
     //! @details The Instance is a wrapper for the pd's native t_pdinstance.
-    //! @details With an empty name, the Instance won't be initialized. A valid Instance
-    //! @details should be created with a name. The Instance has some king of smart pointer
-    //! @details behavior so when no Instance uses a t_pdinstance anymore the t_pdinstance
-    //! @details is deleted. For the moment, several Instance can share the same name, but to
-    //! @details ensure future compatibilty you should give a different name to all specifics
-    //! @details Instances.
+    //! @details With the default constructor, the Instance won't be initialized. A valid
+    //! @details Instance should be created with a name. The Instance has some kind of smart
+    //! @details pointer behavior so when no Instance uses a t_pdinstance anymore the
+    //! @details t_pdinstance is deleted. For the moment, several Instance can share the same
+    //! @details name, but to ensure future compatibilty you should give a different name to
+    //! @details all specifics Instances.
     class Instance
     {
         friend class Patch;
@@ -57,7 +56,7 @@ namespace pd
         
         //! @brief The move constructor.
         //! @details Creates a copy of an Instance and without incrementing his counter. The
-        //! @details other instance will be useless.
+        //! @details other Instance will be useless.
         Instance(Instance&& other) noexcept;
         
         //! @brief The copy operator.
