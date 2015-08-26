@@ -71,7 +71,7 @@ public:
     void setStateInformation(const void* data, int sizeInBytes) override;
     
     void loadPatch(const juce::File& file);
-    inline Patch getPatch() const noexcept {return m_patch;}
+    inline const Patch getPatch() const noexcept {return m_patch;}
     inline Patch getPatch() noexcept {return m_patch;}
     
     void addListener(Listener* listener);

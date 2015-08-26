@@ -100,27 +100,55 @@ namespace pd
     //                                          GUI                                         //
     // ==================================================================================== //
     
+    //! @brief The Graphical User Interface.
+    //! @details The Gui is a wrapper for the cream's native t_ebox.
+    //! @details With the default constructor, the Gui won't be initialized. A valid Gui
+    //! @details should be retrieved from a Patch. The GUI has some kind of smart pointer
+    //! @details behavior so when no Patch internally in pd the Object is no more valid.
     class Gui : public Object
     {
-        friend class Patch;
     private:
-        //! @brief The background color.
         std::array<float, 4> m_background_color;
-        //! @brief The border color.
         std::array<float, 4> m_border_color;
-        //! @brief The border size.
         int          m_border_size;
-        //! @brief The corner roudness.
         int          m_corner_roundness;
         
     public:
         
-        Gui() {};
-        //! @brief The Contructor.
-        Gui(void* handle);
+        //! @brief The constructor for an empty Gui.
+        //! @details Creates a Gui that can be used as an empty reference inside
+        //! @details another class.
+        Gui() noexcept;
+        
+        //! @brief The constructor for a new Gui.
+        //! @details Creates a new valid Gui. You should never have to use it. Use the
+        //! @details Patch to retrieve a Gui.
+        Gui(Patch const& patch, t_object* object) noexcept;
+        
+        //! @brief The copy constructor.
+        //! @details Creates a copy of an Gui and increments his counter.
+        Gui(Gui const& other) noexcept;
+        
+        //! @brief The move constructor.
+        //! @details Creates a copy of an Gui without incrementing his counter. The
+        //! @details Gui Patch will be useless.
+        Gui(Gui&& other) noexcept;
+        
+        //! @brief The copy operator.
+        //! @details Copies the Gui and increments his counter.
+        Gui& operator=(Gui const& other) noexcept;
+        
+        //! @brief The move operator.
+        //! @details Copies the Object without incrementing his counter. The other
+        //! @details Object will be destroyed if needed.
+        Gui& operator=(Gui&& other) noexcept;
         
         //! @brief The destructor.
-        inline virtual ~Gui() {};
+        //! @details The Object will be destroyed if no other copy exists.
+        virtual ~Gui() noexcept {};
+        
+        //! @brief Gets if the Object is valid.
+        inline virtual operator bool() const noexcept {return bool(m_internal) && bool(m_internal->object) && bool(m_internal->patch) && eobj_iscicm(m_internal->object) && eobj_isbox(m_internal->object);};
         
         //! @brief Gets the preset name.
         bool hasPresetName() const noexcept;

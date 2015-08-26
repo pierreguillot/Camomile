@@ -32,11 +32,11 @@ void PatchEditor::paint(Graphics& g)
     const Patch patch = m_processor.getPatch();
     if(patch)
     {
-        sGui camo = patch->getCamomile();
+        Gui camo = patch.getCamomile();
         if(camo)
         {
-            g.fillAll(tojColor(camo->getBackgroundColor()));
-            g.setColour(tojColor(camo->getBorderColor()));
+            g.fillAll(tojColor(camo.getBackgroundColor()));
+            g.setColour(tojColor(camo.getBorderColor()));
             g.drawRect(getBounds().withZeroOrigin());
         }
         else
@@ -101,22 +101,20 @@ void PatchEditor::patchChanged()
     const Patch patch = m_processor.getPatch();
     if(!patch.getName().empty())
     {
-        /*
-        sGui camo = patch->getCamomile();
+        const Gui camo = patch.getCamomile();
         if(camo)
         {
-            const std::vector<sGui> objects = patch->getGuis();
-            const std::array<int,2> ref = camo->getPosition();
+            const std::vector<Gui> objects = patch.getGuis();
+            const std::array<int,2> ref = camo.getPosition();
             for(auto it : objects)
             {
                 ObjectEditor* inte = m_objects.add(new ObjectEditor(*this, it));
-                const std::array<int,2> pos = it->getPosition();
-                const int offset = it->getBorderSize();
+                const std::array<int,2> pos = it.getPosition();
+                const int offset = it.getBorderSize();
                 inte->setTopLeftPosition(pos[0] - ref[0] - offset, pos[1] - ref[1] - offset);
                 addChildComponent(inte);
             }
         }
-        */
     }
     m_processor.unlock();
     const MessageManagerLock mmLock;

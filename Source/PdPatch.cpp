@@ -132,7 +132,7 @@ namespace pd
             {
                 if(eobj_iscicm(y) && eobj_isbox(y))
                 {
-                    objects.push_back(Gui(y));
+                    objects.push_back(Gui(*this, reinterpret_cast<t_object *>(y)));
                 }
             }
         }
@@ -147,7 +147,7 @@ namespace pd
         {
             if(eobj_iscicm(y) && eobj_isbox(y) && std::string(eobj_getclassname(y)->s_name) == camo)
             {
-                return Gui(y);
+                return Gui(*this, reinterpret_cast<t_object *>(y));
             }
         }
         return Gui();

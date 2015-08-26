@@ -12,7 +12,7 @@
 // ==================================================================================== //
 
 ObjectEditor::ObjectEditor(PatchEditor& camo, Gui const& object) :
-Messenger(m_object.getBindingName()),
+Messenger(object.getBindingName()),
 m_interface(camo),
 m_object(object),
 m_attached(false)
@@ -208,7 +208,6 @@ void ObjectEditor::textEditorAction(pd::TextEditor& editor, ewidget_action actio
                     break;
                 case EWIDGET_POPUP:
                 {
-                    sGui m_object = m_m_object.lock();
                     const int offset = m_object.getBorderSize();
                     for(int i = 0; i < m_editors.size(); i++)
                     {
@@ -276,7 +275,6 @@ void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, ewidget_action action)
                     break;
                 case EWIDGET_POPUP:
                 {
-                    sGui m_object = m_m_object.lock();
                     const int offset = m_object.getBorderSize();
                     const std::array<int, 4> bounds(menu.getBounds());
                     m_popup.show();

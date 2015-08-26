@@ -12,18 +12,23 @@ namespace pd
     //                                          GUI                                         //
     // ==================================================================================== //
     
-    Gui::Gui(void* handle)// : Object(handle)
+    Gui::Gui() noexcept : Object(),
+    m_background_color({0.f, 0.f, 0.f, 0.f}),
+    m_border_color({0.f, 0.f, 0.f, 0.f}),
+    m_border_size(0),
+    m_corner_roundness(0)
+    {
+        
+    }
+    
+    Gui::Gui(Patch const& patch, t_object* object) noexcept : Object(patch, object),
+    m_background_color({0.f, 0.f, 0.f, 0.f}),
+    m_border_color({0.f, 0.f, 0.f, 0.f}),
+    m_border_size(0),
+    m_corner_roundness(0)
     {
         t_eclass* c = getClass();
-        if(!c || !eobj_iscicm(getObject()) || !eobj_isbox(getObject()))
-        {
-            class Error : public std::exception {
-            public:
-                const char* what() const noexcept override {
-                    return "The object isn't a GUI !";}
-            };
-        }
-        else if(c && c->c_widget.w_getdrawparameters)
+        if(isGui() && c->c_widget.w_getdrawparameters)
         {
             t_edrawparams params;
             c->c_widget.w_getdrawparameters(getObject(), NULL, &params);
@@ -39,6 +44,25 @@ namespace pd
             m_corner_roundness = params.d_cornersize;
         }
     }
+    
+    Gui::Gui(Gui const& other) noexcept : Object(other),
+    m_background_color(other.m_background_color),
+    m_border_color(other.m_border_color),
+    m_border_size(other.m_border_size),
+    m_corner_roundness(other.m_corner_roundness)
+    {
+        
+    }
+    
+    Gui::Gui(Gui&& other) noexcept : Object(std::move(other)),
+    m_background_color(other.m_background_color),
+    m_border_color(other.m_border_color),
+    m_border_size(other.m_border_size),
+    m_corner_roundness(other.m_corner_roundness)
+    {
+        ;
+    }
+    
     
     bool Gui::hasPresetName() const noexcept
     {

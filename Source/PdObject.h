@@ -67,11 +67,12 @@ namespace pd
         //! @details The Object will be destroyed if no other copy exists.
         virtual ~Object() noexcept;
         
-        inline operator bool() const noexcept {
+        //! @brief Gets if the Object is valid.
+        inline virtual operator bool() const noexcept {
             return bool(m_internal) && bool(m_internal->object) && bool(m_internal->patch);};
         
         //! @brief Checks if the object is Cicm.
-        inline bool isCicm() const noexcept {return bool(*this) && bool(eobj_isbox(m_internal->object));}
+        inline bool isCicm() const noexcept {return bool(*this) && bool(eobj_iscicm(m_internal->object));}
         
         //! @brief Checks if the object is GUI.
         inline bool isGui() const noexcept {return isCicm() && bool(eobj_isbox(m_internal->object));}

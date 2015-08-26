@@ -12,7 +12,7 @@
 #include "PatchEditor.h"
 
 //==============================================================================
-CamomileAudioProcessor::CamomileAudioProcessor() :
+CamomileAudioProcessor::CamomileAudioProcessor() : Instance(string("camomile")),
 m_patch(Patch(*this, "Test2.pd", "/Users/Pierre/Desktop/"))
 {
     
@@ -30,24 +30,22 @@ int CamomileAudioProcessor::getNumParameters()
 }
 
 const String CamomileAudioProcessor::getParameterName(int index)
-{
-    /*
-    sPatch patch = m_patch.lock();
-    if(patch)
+{;
+    if(m_patch)
     {
         int count = 0;
-        vector<sGui> objects(patch->getGuis());
+        vector<Gui> objects(m_patch.getGuis());
         for(auto it : objects)
         {
-            if(it->hasPresetName())
+            if(it.hasPresetName())
             {
                 if(count++ == index)
                 {
-                    return String(it->getPresetName());
+                    return String(it.getPresetName());
                 }
             }
         }
-    }*/
+    }
     return String();
 }
 
@@ -106,7 +104,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     {
         buffer.clear(i, 0, buffer.getNumSamples());
     }
-    processDsp(buffer.getNumSamples(),
+    performDsp(buffer.getNumSamples(),
                     getNumInputChannels(), buffer.getArrayOfReadPointers(),
                     getNumOutputChannels(), buffer.getArrayOfWritePointers());
 }
@@ -145,18 +143,14 @@ void CamomileAudioProcessor::loadPatch(const juce::File& file)
     suspendProcessing(true);
     if(isSuspended())
     {
+        if(true)
         {
             lock_guard<mutex> guard(m_mutex);
             if(file.exists() && file.getFileExtension() == String(".pd"))
             {
-                try
-                {
-                    m_patch = Patch(*this, file.getFileName().toStdString(), (file.getParentDirectory()).getFullPathName().toStdString());
-                }
-                catch(std::exception& e)
-                {
-                    std::cout << e.what() << "\n";
-                }
+                m_patch = Patch(*this,
+                                file.getFileName().toStdString(),
+                                file.getParentDirectory().getFullPathName().toStdString());
             }
         }
         
