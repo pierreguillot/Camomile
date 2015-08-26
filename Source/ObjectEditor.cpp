@@ -39,7 +39,6 @@ ObjectEditor::~ObjectEditor()
 
 void ObjectEditor::paint(Graphics& g)
 {
-    m_interface.lock();
     const int offset = m_object.getBorderSize();
     const AffineTransform transform(AffineTransform::translation(offset, offset));
     g.fillAll(tojColor(m_object.getBackgroundColor()));
@@ -75,7 +74,6 @@ void ObjectEditor::paint(Graphics& g)
     }
     g.setColour(tojColor(m_object.getBorderColor()));
     g.drawRect(getBounds().withZeroOrigin(), m_object.getBorderSize());
-    m_interface.unlock();
 }
 
 // ==================================================================================== //
@@ -288,31 +286,28 @@ void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, ewidget_action action)
 
 void ObjectEditor::receive(std::string const& dest, std::string const& s, std::vector<Atom> const& atoms)
 {
-    if(isShowing())
+    if(s == string("symbol") && !atoms.empty() && atoms[0] == string("repaint"))
     {
-        if(s == string("symbol") && !atoms.empty() && atoms[0] == string("repaint"))
+        const MessageManagerLock mml(Thread::getCurrentThread());
+        if(mml.lockWasGained())
         {
-            const MessageManagerLock thread(Thread::getCurrentThread());
-            if(thread.lockWasGained())
-            {
-                repaint();
-            }
+            repaint();
         }
-        else if(s == string("texteditor"))
+    }
+    else if(s == string("texteditor"))
+    {
+        if(atoms.size() == 2 && atoms[0].isSymbol() && atoms[1].isFloat())
         {
-            if(atoms.size() == 2 && atoms[0].isSymbol() && atoms[1].isFloat())
-            {
-                pd::TextEditor editor(atoms[0]);
-                textEditorAction(editor, ewidget_action(float(atoms[1])));
-            }
+            pd::TextEditor editor(atoms[0]);
+            textEditorAction(editor, ewidget_action(float(atoms[1])));
         }
-        else if(s == string("popup"))
+    }
+    else if(s == string("popup"))
+    {
+        if(atoms.size() == 2 && atoms[0].isSymbol() && atoms[1].isFloat())
         {
-            if(atoms.size() == 2 && atoms[0].isSymbol() && atoms[1].isFloat())
-            {
-                pd::PopupMenu menu(atoms[0]);
-                popupMenuAction(menu, ewidget_action(float(atoms[1])));
-            }
+            pd::PopupMenu menu(atoms[0]);
+            popupMenuAction(menu, ewidget_action(float(atoms[1])));
         }
     }
 }

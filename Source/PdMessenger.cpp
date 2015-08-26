@@ -63,6 +63,11 @@ namespace pd
         x->messenger->receive(x->name, std::string(s->s_name), vec);
     }
     
+    Messenger::Messenger()
+    {
+        ;
+    }
+    
     Messenger::Messenger(std::string const& name)
     {
         bind(name);

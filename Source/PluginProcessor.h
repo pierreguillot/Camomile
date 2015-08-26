@@ -25,8 +25,9 @@ public:
 private:
     Patch           m_patch;
     set<Listener*>  m_listeners;
-    mutable mutex   m_mutex;
+    mutable mutex   m_mutex_list;
     vector<Parameter> m_parameters;
+    mutable mutex   m_mutex;
 public:
     CamomileAudioProcessor();
     ~CamomileAudioProcessor();
@@ -73,8 +74,6 @@ public:
     
     void addListener(Listener* listener);
     void removeListener(Listener* listener);
-    inline void lock() const noexcept {m_mutex.lock();}
-    inline void unlock() const noexcept {m_mutex.unlock();}
     
     class Listener
     {

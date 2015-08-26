@@ -221,6 +221,7 @@ namespace pd
         Instance instance(getInstance());
         if(instance && c && c->c_widget.w_popup)
         {
+            int tocheck_recursion;
             //std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
             c->c_widget.w_popup(getObject(), menu.m_popup, item);
         }
@@ -253,8 +254,10 @@ namespace pd
         t_eclass* c = getClass();
         std::vector<Layer> objs;
         t_ebox* x = ((t_ebox *)getObject());
-        if(c && c->c_widget.w_paint && x->b_ready_to_draw)
+        Instance instance(getInstance());
+        if(instance && c && c->c_widget.w_paint && x->b_ready_to_draw)
         {
+            std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
             if(x->b_layers)
             {
                 for(int i = 0; i < x->b_number_of_layers; i++)

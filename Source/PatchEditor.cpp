@@ -28,7 +28,6 @@ PatchEditor::~PatchEditor()
 
 void PatchEditor::paint(Graphics& g)
 {
-    m_processor.lock();
     const Patch patch = m_processor.getPatch();
     if(patch)
     {
@@ -46,11 +45,9 @@ void PatchEditor::paint(Graphics& g)
             g.setFont (15.0f);
             g.drawText(juce::String("The patch is not valid !"), getBounds().withZeroOrigin(), juce::Justification::centred);
         }
-        m_processor.unlock();
     }
     else
     {
-        m_processor.unlock();
         g.fillAll(Colours::white);
         g.setColour(Colours::black);
         g.setFont (15.0f);
@@ -97,9 +94,8 @@ void PatchEditor::patchChanged()
 {
     removeAllChildren();
     m_objects.clear(true);
-    m_processor.lock();
     const Patch patch = m_processor.getPatch();
-    if(!patch.getName().empty())
+    if(patch)
     {
         const Gui camo = patch.getCamomile();
         if(camo)
@@ -116,7 +112,6 @@ void PatchEditor::patchChanged()
             }
         }
     }
-    m_processor.unlock();
     const MessageManagerLock mmLock;
     if(mmLock.lockWasGained())
     {

@@ -34,8 +34,6 @@ public:
     void fileDragEnter(const StringArray& files, int x, int y) override;
     void fileDragExit(const StringArray& files) override;
     void patchChanged() override;
-    inline void lock() const noexcept {m_processor.lock();}
-    inline void unlock() const noexcept {m_processor.unlock();}
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PatchEditor)
 };

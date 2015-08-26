@@ -20,8 +20,9 @@ m_patch(Patch(*this, "Test2.pd", "/Users/Pierre/Desktop/"))
 
 CamomileAudioProcessor::~CamomileAudioProcessor()
 {
-    lock_guard<mutex> guard(m_mutex);
+    lock_guard<mutex> guard(m_mutex_list);
     m_listeners.clear();
+    lock_guard<mutex> guard2(m_mutex);
     m_parameters.clear();
 }
 
@@ -46,11 +47,12 @@ float CamomileAudioProcessor::getParameter(int index)
 void CamomileAudioProcessor::setParameter(int index, float newValue)
 {
     lock_guard<mutex> guard(m_mutex);
-    m_parameters[index].setNormalizedValue(newValue);
+    m_parameters[index].setNormalizedValue(newValue, !AudioProcessor::isSuspended());
 }
 
 const String CamomileAudioProcessor::getParameterText(int index)
 {
+    lock_guard<mutex> guard(m_mutex);
     return String(m_parameters[index].getTextForValue(m_parameters[index].getNormalizedValue()));
 }
 
@@ -74,6 +76,7 @@ bool CamomileAudioProcessor::producesMidi() const
 
 void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
+    lock_guard<mutex> guard(m_mutex);
     try
     {
         prepareDsp(getNumInputChannels(), getNumOutputChannels(), sampleRate, samplesPerBlock);
@@ -86,22 +89,43 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
 void CamomileAudioProcessor::releaseResources()
 {
+    lock_guard<mutex> guard(m_mutex);
     releaseDsp();
 }
 
 void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
-    for(int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
+    if(true)
     {
-        buffer.clear(i, 0, buffer.getNumSamples());
+        lock_guard<mutex> guard(m_mutex);
+        for(int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
+        {
+            buffer.clear(i, 0, buffer.getNumSamples());
+        }
+        performDsp(buffer.getNumSamples(),
+                   getNumInputChannels(), buffer.getArrayOfReadPointers(),
+                   getNumOutputChannels(), buffer.getArrayOfWritePointers());
     }
-    performDsp(buffer.getNumSamples(),
-                    getNumInputChannels(), buffer.getArrayOfReadPointers(),
-                    getNumOutputChannels(), buffer.getArrayOfWritePointers());
+    if(m_mutex.try_lock())
+    {
+        for(auto it : m_parameters)
+        {
+            if(it.isValid())
+            {
+                it.performSynchronization();
+            }
+            else
+            {
+                break;
+            }
+        }
+        m_mutex.unlock();
+    }
 }
 
 AudioProcessorEditor* CamomileAudioProcessor::createEditor()
 {
+    lock_guard<mutex> guard(m_mutex);
     return new PatchEditor(*this);
 }
 
@@ -178,7 +202,7 @@ void CamomileAudioProcessor::addListener(Listener* listener)
 {
     if(listener)
     {
-        lock_guard<mutex> guard(m_mutex);
+        lock_guard<mutex> guard(m_mutex_list);
         m_listeners.insert(listener);
     }
 }
@@ -187,14 +211,14 @@ void CamomileAudioProcessor::removeListener(Listener* listener)
 {
     if(listener)
     {
-        lock_guard<mutex> guard(m_mutex);
+        lock_guard<mutex> guard(m_mutex_list);
         m_listeners.erase(listener);
     }
 }
 
 vector<CamomileAudioProcessor::Listener*> CamomileAudioProcessor::getListeners() const noexcept
 {
-    lock_guard<mutex> guard(m_mutex);
+    lock_guard<mutex> guard(m_mutex_list);
     return vector<Listener*>(m_listeners.begin(), m_listeners.end());
 }
 
