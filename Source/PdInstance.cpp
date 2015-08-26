@@ -21,7 +21,7 @@ namespace pd
     int Instance::s_sample_rate;
     std::mutex Instance::s_mutex;
     
-    Instance::Instance()
+    Instance::Internal::Internal(std::string const& _name)
     {
         std::lock_guard<std::mutex> guard(s_mutex);
         static int initialized = 0;
@@ -65,31 +65,76 @@ namespace pd
             sys_reopen_audio();
             s_sample_rate = sys_getsr();
         }
-        m_internal = new Internal();
-        m_internal->instance = pdinstance_new();
-        m_internal->counter  = 1;
-        if(!m_internal->instance)
+        instance = pdinstance_new();
+        counter  = 1;
+        name     = _name;
+    }
+    
+    Instance::Internal::~Internal()
+    {
+        patcher.clear();
+        std::lock_guard<std::mutex> guard(s_mutex);
+        if(instance)
         {
-            class Error : public std::exception {
-            public:
-                const char* what() const noexcept override {
-                    return "Can't allocate instance !";}
-            };
-            throw Error();
+            pdinstance_free(instance);
         }
+    }
+    
+    Instance::Instance() noexcept : m_internal(nullptr)
+    {
+        
+    }
+    
+    Instance::Instance(std::string const& name) noexcept : m_internal(new Internal(name))
+    {
+        
+    }
+    
+    Instance::Instance(Instance const& other) noexcept : m_internal(other.m_internal)
+    {
+        if(m_internal)
+        {
+            m_internal->counter++;
+        }
+    }
+    
+    Instance::Instance(Instance&& other) noexcept : m_internal(other.m_internal)
+    {
+        other.m_internal = nullptr;
+    }
+    
+    Instance& Instance::operator=(Instance const& other) noexcept
+    {
+        if(m_internal)
+        {
+            m_internal->counter++;
+            m_internal = other.m_internal;
+        }
+        else
+        {
+            m_internal = nullptr;
+        }
+        return *this;
+    }
+    
+    Instance& Instance::operator=(Instance&& other) noexcept
+    {
+        Internal* temp = m_internal;
+        m_internal = other.m_internal;
+        other.m_internal = temp;
+        return *this;
     }
     
     Instance::~Instance() noexcept
     {
         std::lock_guard<std::mutex> guard(m_internal->mutex);
-        if(!(--m_internal->counter))
+        if(m_internal->counter)
         {
-            releaseDsp();
-            m_internal->patcher.clear();
-            if(m_internal->instance)
+            --m_internal->counter;
+            if(!m_internal->counter)
             {
-                std::lock_guard<std::mutex> guard(s_mutex);
-                pdinstance_free(m_internal->instance);
+                releaseDsp();
+                delete m_internal;
             }
         }
     }
@@ -122,7 +167,7 @@ namespace pd
         pd_typedmess((t_pd *)gensym("pd")->s_thing, gensym("dsp"), 1, &av);
     }
     
-    void Instance::processDsp(int nsamples, const int nins, const float** inputs, const int nouts, float** outputs) noexcept
+    void Instance::performDsp(int nsamples, const int nins, const float** inputs, const int nouts, float** outputs) noexcept
     {
         std::lock_guard<std::mutex> guard(m_internal->mutex);
         std::lock_guard<std::mutex> guard2(s_mutex);
@@ -146,52 +191,6 @@ namespace pd
     void Instance::releaseDsp() noexcept
     {
         ;
-    }
-    
-    Patch Instance::openPatch(const std::string& name, const std::string& path)
-    {
-        /*
-        std::lock_guard<std::mutex> guard(m_internal->mutex);
-        t_canvas* cnv = NULL;
-        if(!name.empty() && !path.empty())
-        {
-            std::lock_guard<std::mutex> guard(s_mutex);
-            pd_setinstance(m_internal->instance);
-            cnv = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym(path.c_str())));
-        }
-        else if(!name.empty())
-        {
-            std::lock_guard<std::mutex> guard(s_mutex);
-            pd_setinstance(m_internal->instance);
-            cnv = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym("")));
-        }
-        try
-        {
-            patcher = std::shared_ptr<Patch>(new Patch(cnv, name, path));
-        }
-        catch(std::exception& e)
-        {
-            throw e;
-        }
-        m_internal->patcher.insert(patcher);
-        return patcher;
-         */
-    }
-    
-    void Instance::closePatch(Patch patch)
-    {
-        /*
-        if(patch)
-        {
-            std::lock_guard<std::mutex> guard(m_internal->mutex);
-            if(m_internal->patcher.erase(patch))
-            {
-                std::lock_guard<std::mutex> guard(s_mutex);
-                pd_setinstance(m_internal->instance);
-                canvas_free(const_cast<t_canvas*>(patch->m_cnv));
-            }
-        }
-         */
     }
     
     void Instance::addToSearchPath(std::string const& path) noexcept
