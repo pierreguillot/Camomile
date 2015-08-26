@@ -212,7 +212,7 @@ void ObjectEditor::textEditorAction(pd::TextEditor& editor, ewidget_action actio
                             m_editors[i]->addListener(this);
                             m_editors[i]->setInputFilter(this, false);
                             m_editors[i]->setBounds(bounds[0] + offset, bounds[1] + offset, bounds[2], bounds[3]);
-                            enterModalState (false);
+                            enterModalState(false);
                             addAndMakeVisible(m_editors[i]);
                             break;
                         }
@@ -249,7 +249,7 @@ void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, ewidget_action action)
             switch(action)
             {
                 case EWIDGET_DESTROY:
-                    exitModalState (false);
+                    exitModalState(0);
                     break;
                 case EWIDGET_CHANGED:
                 {
@@ -275,6 +275,10 @@ void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, ewidget_action action)
                     if(i)
                     {
                         m_object.popup(menu, i-1);
+                    }
+                    else
+                    {
+                        exitModalState(0);
                     }
                     break;
                 }
