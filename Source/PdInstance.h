@@ -8,6 +8,7 @@
 #define __CAMOMILE_PD_MASTER__
 
 #include "PdAtom.h"
+#include "PdMisc.h"
 
 namespace pd
 {    
@@ -26,8 +27,9 @@ namespace pd
     class Instance
     {
         friend class Patch;
+        friend class Object;
     private:
-        struct Internal
+        struct Internal : public LeakDetector<Internal>
         {
             t_pdinstance*       instance;
             std::mutex          mutex;
@@ -55,7 +57,7 @@ namespace pd
         Instance(Instance const& other) noexcept;
         
         //! @brief The move constructor.
-        //! @details Creates a copy of an Instance and without incrementing his counter. The
+        //! @details Creates a copy of an Instance without incrementing his counter. The
         //! @details other Instance will be useless.
         Instance(Instance&& other) noexcept;
         
@@ -64,7 +66,7 @@ namespace pd
         Instance& operator=(Instance const& other) noexcept;
         
         //! @brief The move operator.
-        //! @details Copies the Instance and without incrementing his counter. The other
+        //! @details Copies the Instance without incrementing his counter. The other
         //! @details Instance will be destroyed if needed.
         Instance& operator=(Instance&& other) noexcept;
         

@@ -15,7 +15,7 @@ namespace pd
     Gui::Gui(void* handle)// : Object(handle)
     {
         t_eclass* c = getClass();
-        if(!c || !eobj_iscicm(getHandle()) || !eobj_isbox(getHandle()))
+        if(!c || !eobj_iscicm(getObject()) || !eobj_isbox(getObject()))
         {
             class Error : public std::exception {
             public:
@@ -26,7 +26,7 @@ namespace pd
         else if(c && c->c_widget.w_getdrawparameters)
         {
             t_edrawparams params;
-            c->c_widget.w_getdrawparameters(getHandle(), NULL, &params);
+            c->c_widget.w_getdrawparameters(getObject(), NULL, &params);
             m_background_color = {params.d_boxfillcolor.red,
                 params.d_boxfillcolor.green,
                 params.d_boxfillcolor.blue,
@@ -42,14 +42,14 @@ namespace pd
     
     bool Gui::hasPresetName() const noexcept
     {
-        return is_valid_symbol(reinterpret_cast<t_ebox *>(getHandle())->b_preset_id);
+        return is_valid_symbol(reinterpret_cast<t_ebox *>(getObject())->b_preset_id);
     }
     
     std::string Gui::getPresetName() const noexcept
     {
         if(hasPresetName())
         {
-            t_ebox* box = reinterpret_cast<t_ebox *>(getHandle());
+            t_ebox* box = reinterpret_cast<t_ebox *>(getObject());
             return std::string(box->b_preset_id->s_name);
         }
         return std::string();
@@ -58,7 +58,7 @@ namespace pd
     bool Gui::wantMouse() const noexcept
     {
         t_eclass* c = getClass();
-        return c && !(reinterpret_cast<t_ebox *>(getHandle())->b_flags & EBOX_IGNORELOCKCLICK) &&
+        return c && !(reinterpret_cast<t_ebox *>(getObject())->b_flags & EBOX_IGNORELOCKCLICK) &&
         (c->c_widget.w_mousedown ||
          c->c_widget.w_mousedrag ||
          c->c_widget.w_mouseenter ||
@@ -86,7 +86,7 @@ namespace pd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_mousemove)
         {
-            c->c_widget.w_mousemove(getHandle(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            c->c_widget.w_mousemove(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
@@ -95,7 +95,7 @@ namespace pd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_mouseenter)
         {
-            c->c_widget.w_mouseenter(getHandle(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            c->c_widget.w_mouseenter(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
@@ -104,7 +104,7 @@ namespace pd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_mouseleave)
         {
-            c->c_widget.w_mouseleave(getHandle(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            c->c_widget.w_mouseleave(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
@@ -113,7 +113,7 @@ namespace pd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_mousedown)
         {
-            c->c_widget.w_mousedown(getHandle(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            c->c_widget.w_mousedown(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
@@ -122,7 +122,7 @@ namespace pd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_mousedrag)
         {
-            c->c_widget.w_mousedrag(getHandle(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            c->c_widget.w_mousedrag(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
@@ -131,7 +131,7 @@ namespace pd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_mouseup)
         {
-            c->c_widget.w_mouseup(getHandle(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            c->c_widget.w_mouseup(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
@@ -140,7 +140,7 @@ namespace pd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_dblclick)
         {
-            c->c_widget.w_dblclick(getHandle(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            c->c_widget.w_dblclick(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
     
@@ -149,7 +149,7 @@ namespace pd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_mousewheel)
         {
-            c->c_widget.w_mousewheel(getHandle(), NULL, t_pt({pos[0], pos[1]}), (long)mod, delta[0], delta[1]);
+            c->c_widget.w_mousewheel(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod, delta[0], delta[1]);
         }
     }
     
@@ -158,7 +158,7 @@ namespace pd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_texteditor_keypress)
         {
-            c->c_widget.w_texteditor_keypress(getHandle(), editor.m_editor, (int)ch);
+            c->c_widget.w_texteditor_keypress(getObject(), editor.m_editor, (int)ch);
         }
     }
     
@@ -167,7 +167,7 @@ namespace pd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_texteditor_keyfilter)
         {
-            c->c_widget.w_texteditor_keyfilter(getHandle(), editor.m_editor, (ekey_flags)filter);
+            c->c_widget.w_texteditor_keyfilter(getObject(), editor.m_editor, (ekey_flags)filter);
         }
     }
     
@@ -176,7 +176,7 @@ namespace pd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_key)
         {
-            c->c_widget.w_key(getHandle(), NULL, key, mod);
+            c->c_widget.w_key(getObject(), NULL, key, mod);
         }
     }
     
@@ -185,7 +185,7 @@ namespace pd
         t_eclass* c = getClass();
         if(c && c->c_widget.w_keyfilter)
         {
-            c->c_widget.w_keyfilter(getHandle(), NULL, key, mod);
+            c->c_widget.w_keyfilter(getObject(), NULL, key, mod);
         }
     }
     
@@ -193,7 +193,7 @@ namespace pd
     {
         t_eclass* c = getClass();
         std::vector<Layer> objs;
-        t_ebox* x = ((t_ebox *)getHandle());
+        t_ebox* x = ((t_ebox *)getObject());
         if(c && c->c_widget.w_paint && x->b_ready_to_draw)
         {
             if(x->b_layers)
@@ -203,11 +203,11 @@ namespace pd
                     x->b_layers[i].e_state = EGRAPHICS_INVALID;
                 }
             }
-            c->c_widget.w_paint(m_handle, NULL);
+            c->c_widget.w_paint(getObject(), NULL);
             objs.resize(x->b_number_of_layers);
             for(size_t i = 0; i < objs.size(); i++)
             {
-                objs[i] = ((t_ebox *)(m_handle))->b_layers+i;
+                objs[i] = ((t_ebox *)(getObject()))->b_layers+i;
             }
         }
         

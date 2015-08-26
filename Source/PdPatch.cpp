@@ -115,7 +115,7 @@ namespace pd
             {
                 if(eobj_iscicm(y))
                 {
-                    objects.push_back(Object(y));
+                    objects.push_back(Object(*this, reinterpret_cast<t_object *>(y)));
                 }
             }
         }

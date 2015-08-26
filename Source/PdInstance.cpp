@@ -95,7 +95,7 @@ namespace pd
     {
         if(m_internal)
         {
-            m_internal->counter++;
+            ++m_internal->counter;
         }
     }
     
@@ -126,17 +126,12 @@ namespace pd
     
     Instance::~Instance() noexcept
     {
-        if(m_internal)
+        if(m_internal && m_internal->counter)
         {
-            std::lock_guard<std::mutex> guard(m_internal->mutex);
-            if(m_internal->counter)
+            if(!(--m_internal->counter))
             {
-                --m_internal->counter;
-                if(!m_internal->counter)
-                {
-                    releaseDsp();
-                    delete m_internal;
-                }
+                releaseDsp();
+                delete m_internal;
             }
         }
     }
@@ -171,6 +166,7 @@ namespace pd
     
     void Instance::performDsp(int nsamples, const int nins, const float** inputs, const int nouts, float** outputs) noexcept
     {
+
         std::lock_guard<std::mutex> guard(m_internal->mutex);
         std::lock_guard<std::mutex> guard2(s_mutex);
         pd_setinstance(m_internal->instance);

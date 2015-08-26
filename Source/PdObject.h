@@ -11,69 +11,107 @@
 
 namespace pd
 {
-    class Patch;
     // ==================================================================================== //
     //                                      OBJECT                                          //
     // ==================================================================================== //
     
+    //! @brief The basic Object.
+    //! @details The Object is a wrapper for the pd's native t_object.
+    //! @details With the default constructor, the Object won't be initialized. A valid Object
+    //! @details should be retrieved from a Patch. The Object has some kind of smart pointer
+    //! @details behavior so when no Patch internally in pd the Object is no more valid.
     class Object
     {
-        friend class Patch;
     protected:
-        Patch*  m_patch;
-        t_eobj* m_handle;
+        struct Internal : public LeakDetector<Internal>
+        {
+            Patch               patch;
+            t_object*           object;
+            std::atomic<size_t> counter;
+            
+            Internal(Patch const& _patch, t_object* _object);
+            ~Internal();
+        };
+        Internal* m_internal;
     public:
         
-        inline Object() noexcept : m_handle(nullptr) {}
-        inline Object(Object const& other) : m_handle(other.m_handle) {}
-        inline virtual ~Object() noexcept {};
-        Object& operator=(Object const& other) {m_handle = other.m_handle; return *this;}
+        //! @brief The constructor for an empty Object.
+        //! @details Creates an Object that can be used as an empty reference inside
+        //! @details another class.
+        Object() noexcept;
+        
+        //! @brief The constructor for a new Object.
+        //! @details Creates a new valid Object. You should never have to use it. Use the
+        //! @details Patch to retrieve an Object.
+        Object(Patch const& patch, t_object* object) noexcept;
+        
+        //! @brief The copy constructor.
+        //! @details Creates a copy of an Object and increments his counter.
+        Object(Object const& other) noexcept;
+        
+        //! @brief The move constructor.
+        //! @details Creates a copy of an Object without incrementing his counter. The
+        //! @details Object Patch will be useless.
+        Object(Object&& other) noexcept;
+        
+        //! @brief The copy operator.
+        //! @details Copies the Object and increments his counter.
+        Object& operator=(Object const& other) noexcept;
+        
+        //! @brief The move operator.
+        //! @details Copies the Object without incrementing his counter. The other
+        //! @details Object will be destroyed if needed.
+        Object& operator=(Object&& other) noexcept;
+        
+        //! @brief The destructor.
+        //! @details The Object will be destroyed if no other copy exists.
+        virtual ~Object() noexcept;
+        
+        inline operator bool() const noexcept {
+            return bool(m_internal) && bool(m_internal->object) && bool(m_internal->patch);};
+        
+        //! @brief Checks if the object is Cicm.
+        inline bool isCicm() const noexcept {return bool(*this) && bool(eobj_isbox(m_internal->object));}
         
         //! @brief Checks if the object is GUI.
-        inline virtual bool isGui() const noexcept {return bool(eobj_isbox(m_handle));}
+        inline bool isGui() const noexcept {return isCicm() && bool(eobj_isbox(m_internal->object));}
         
         //! @brief Checks if the object is DSP.
-        inline virtual bool isDsp() const noexcept {return bool(eobj_isdsp(m_handle));}
+        inline bool isDsp() const noexcept {return isCicm() && bool(eobj_isdsp(m_internal->object));}
         
         //! @brief Gets the class name of the object.
-        inline virtual std::string getName() const noexcept {return std::string(eobj_getclassname(m_handle)->s_name);}
+        inline virtual std::string getName() const noexcept {
+            return (bool(*this)) ? (std::string(eobj_getclassname(getObject())->s_name)) : std::string();}
         
-        //! @brief Gets the class name of the object.
+        //! @brief Gets the binding name of the object.
         inline virtual std::string getBindingName() const noexcept {
-            return std::to_string(reinterpret_cast<unsigned long>(m_handle)) + std::string("camo");}
+            return isCicm() ? std::to_string(reinterpret_cast<unsigned long>(getObject())) + std::string("camo") : std::string();}
         
         //! @brief Gets the position.
-        inline std::array<int,2> getPosition() const noexcept {
-            return std::array<int,2>({getX(), getY()});}
+        inline std::array<int,2> getPosition() const noexcept {return std::array<int,2>({getX(), getY()});}
         
         //! @brief Gets the abscissa.
-        inline int getX() const noexcept {
-            return int(reinterpret_cast<t_object *>(m_handle)->te_xpix);}
+        inline int getX() const noexcept {return (bool(*this)) ? int(getObject()->te_xpix) : 0;}
         
         //! @brief Gets the ordinate.
-        inline int getY() const noexcept {
-            return int(reinterpret_cast<t_object *>(m_handle)->te_ypix);}
+        inline int getY() const noexcept {return (bool(*this)) ? int(getObject()->te_ypix) : 0;}
         
         //! @brief Gets the size.
-        inline virtual std::array<int,2> getSize() const noexcept {
-            return std::array<int,2>({getWidth(), getHeight()});}
+        inline std::array<int,2> getSize() const noexcept {return std::array<int,2>({getWidth(), getHeight()});}
         
         //! @brief Gets the width.
-        inline virtual int getWidth() const noexcept {
-            return int(reinterpret_cast<t_object *>(m_handle)->te_width);}
+        inline virtual int getWidth() const noexcept {return (bool(*this)) ? int(getObject()->te_width) : 0;}
         
         //! @brief Gets the height.
-        inline virtual int getHeight() const noexcept {return 0;}
+        inline virtual int getHeight() const noexcept {return 12;}
         
         //! @brief Gets the bounds.
         inline virtual std::array<int,4> getBounds() const noexcept {
             return std::array<int,4>({getX(), getY(), getWidth(), getHeight()});}
         
     protected:
-        
-        inline t_eclass* getClass() const noexcept {return (bool(m_handle)) ? (eobj_getclass(m_handle)) : nullptr;}
-        
-        inline t_eobj* getHandle() const noexcept {return m_handle;}
+        inline t_eclass* getClass() const noexcept {return (bool(*this)) ? (eobj_getclass(m_internal->object)) : nullptr;}
+        inline t_object* getObject() const noexcept {return (bool(*this)) ? m_internal->object : nullptr;}
     };
 }
 

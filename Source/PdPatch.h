@@ -24,7 +24,7 @@ namespace pd
     class Patch
     {
     private:
-        struct Internal
+        struct Internal : public LeakDetector<Internal>
         {
             Instance            instance;
             t_canvas*           canvas;
@@ -53,7 +53,7 @@ namespace pd
         Patch(Patch const& other) noexcept;
         
         //! @brief The move constructor.
-        //! @details Creates a copy of an Patch and without incrementing his counter. The
+        //! @details Creates a copy of a Patch without incrementing his counter. The
         //! @details other Patch will be useless.
         Patch(Patch&& other) noexcept;
         
@@ -62,7 +62,7 @@ namespace pd
         Patch& operator=(Patch const& other) noexcept;
         
         //! @brief The move operator.
-        //! @details Copies the Patch and without incrementing his counter. The other
+        //! @details Copies the Patch without incrementing his counter. The other
         //! @details Patch will be destroyed if needed.
         Patch& operator=(Patch&& other) noexcept;
         

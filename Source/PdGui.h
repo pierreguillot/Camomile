@@ -139,11 +139,11 @@ namespace pd
         
         //! @brief Gets the width.
         inline int getWidth() const noexcept override {
-            return int(reinterpret_cast<t_ebox *>(getHandle())->b_rect.width);}
+            return int(reinterpret_cast<t_ebox *>(getObject())->b_rect.width);}
         
         //! @brief Gets the height.
         inline int getHeight() const noexcept override {
-            return int(reinterpret_cast<t_ebox *>(getHandle())->b_rect.height);}
+            return int(reinterpret_cast<t_ebox *>(getObject())->b_rect.height);}
         
         //! @brief Calls the mouse move method.
         void mouseMove(std::array<float, 2> const& pos, const long mod) noexcept;
