@@ -28,6 +28,7 @@ namespace pd
     {
         friend class Patch;
         friend class Object;
+        friend class Gui;
     private:
         struct Internal : public LeakDetector<Internal>
         {

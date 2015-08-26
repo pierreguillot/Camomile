@@ -108,8 +108,10 @@ namespace pd
     void Gui::mouseMove(std::array<float, 2> const& pos, const long mod) noexcept
     {
         t_eclass* c = getClass();
-        if(c && c->c_widget.w_mousemove)
+        Instance instance(getInstance());
+        if(instance && c && c->c_widget.w_mousemove)
         {
+            std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
             c->c_widget.w_mousemove(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
@@ -117,8 +119,10 @@ namespace pd
     void Gui::mouseEnter(std::array<float, 2> const& pos, const long mod) noexcept
     {
         t_eclass* c = getClass();
-        if(c && c->c_widget.w_mouseenter)
+        Instance instance(getInstance());
+        if(instance && c && c->c_widget.w_mouseenter)
         {
+            std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
             c->c_widget.w_mouseenter(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
@@ -126,8 +130,10 @@ namespace pd
     void Gui::mouseExit(std::array<float, 2> const& pos, const long mod) noexcept
     {
         t_eclass* c = getClass();
-        if(c && c->c_widget.w_mouseleave)
+        Instance instance(getInstance());
+        if(instance && c && c->c_widget.w_mouseleave)
         {
+            std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
             c->c_widget.w_mouseleave(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
@@ -135,8 +141,10 @@ namespace pd
     void Gui::mouseDown(std::array<float, 2> const& pos, const long mod) noexcept
     {
         t_eclass* c = getClass();
-        if(c && c->c_widget.w_mousedown)
+        Instance instance(getInstance());
+        if(instance && c && c->c_widget.w_mousedown)
         {
+            std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
             c->c_widget.w_mousedown(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
@@ -144,8 +152,10 @@ namespace pd
     void Gui::mouseDrag(std::array<float, 2> const& pos, const long mod) noexcept
     {
         t_eclass* c = getClass();
-        if(c && c->c_widget.w_mousedrag)
+        Instance instance(getInstance());
+        if(instance && c && c->c_widget.w_mousedrag)
         {
+            std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
             c->c_widget.w_mousedrag(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
@@ -153,8 +163,10 @@ namespace pd
     void Gui::mouseUp(std::array<float, 2> const& pos, const long mod) noexcept
     {
         t_eclass* c = getClass();
-        if(c && c->c_widget.w_mouseup)
+        Instance instance(getInstance());
+        if(instance && c && c->c_widget.w_mouseup)
         {
+            std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
             c->c_widget.w_mouseup(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
@@ -162,8 +174,10 @@ namespace pd
     void Gui::mouseDoubleClick(std::array<float, 2> const& pos, const long mod) noexcept
     {
         t_eclass* c = getClass();
-        if(c && c->c_widget.w_dblclick)
+        Instance instance(getInstance());
+        if(instance && c && c->c_widget.w_dblclick)
         {
+            std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
             c->c_widget.w_dblclick(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
         }
     }
@@ -171,8 +185,10 @@ namespace pd
     void Gui::mouseWheelMove(std::array<float, 2> const& pos, const long mod, std::array<float, 2> const& delta) noexcept
     {
         t_eclass* c = getClass();
-        if(c && c->c_widget.w_mousewheel)
+        Instance instance(getInstance());
+        if(instance && c && c->c_widget.w_mousewheel)
         {
+            std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
             c->c_widget.w_mousewheel(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod, delta[0], delta[1]);
         }
     }
@@ -180,8 +196,10 @@ namespace pd
     void Gui::textEditorKeyPress(TextEditor& editor, char ch) noexcept
     {
         t_eclass* c = getClass();
-        if(c && c->c_widget.w_texteditor_keypress)
+        Instance instance(getInstance());
+        if(instance && c && c->c_widget.w_texteditor_keypress)
         {
+            std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
             c->c_widget.w_texteditor_keypress(getObject(), editor.m_editor, (int)ch);
         }
     }
@@ -189,8 +207,10 @@ namespace pd
     void Gui::textEditorKeyFilter(TextEditor& editor, int filter) noexcept
     {
         t_eclass* c = getClass();
-        if(c && c->c_widget.w_texteditor_keyfilter)
+        Instance instance(getInstance());
+        if(instance && c && c->c_widget.w_texteditor_keyfilter)
         {
+            std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
             c->c_widget.w_texteditor_keyfilter(getObject(), editor.m_editor, (ekey_flags)filter);
         }
     }
@@ -198,8 +218,10 @@ namespace pd
     void Gui::keyPressed(const char key, const long mod) noexcept
     {
         t_eclass* c = getClass();
-        if(c && c->c_widget.w_key)
+        Instance instance(getInstance());
+        if(instance && c && c->c_widget.w_key)
         {
+            std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
             c->c_widget.w_key(getObject(), NULL, key, mod);
         }
     }
@@ -207,8 +229,10 @@ namespace pd
     void Gui::keyFilter(const char key, const long mod) noexcept
     {
         t_eclass* c = getClass();
-        if(c && c->c_widget.w_keyfilter)
+        Instance instance(getInstance());
+        if(instance && c && c->c_widget.w_keyfilter)
         {
+            std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
             c->c_widget.w_keyfilter(getObject(), NULL, key, mod);
         }
     }

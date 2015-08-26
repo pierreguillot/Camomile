@@ -80,6 +80,15 @@ namespace pd
         //! @brief Checks if the object is DSP.
         inline bool isDsp() const noexcept {return isCicm() && bool(eobj_isdsp(m_internal->object));}
         
+        //! @brief Gets the Patch that owns the Object.
+        inline Patch getPatch() const noexcept {
+            return bool(m_internal) ? m_internal->patch : Patch();};
+        
+        //! @brief Gets the Instance that owns the Object.
+        inline Instance getInstance() const noexcept {
+            Patch patch(getPatch());
+            return bool(patch) ? patch.getInstance() : Instance();};
+        
         //! @brief Gets the class name of the object.
         inline virtual std::string getName() const noexcept {
             return (bool(*this)) ? (std::string(eobj_getclassname(getObject())->s_name)) : std::string();}
