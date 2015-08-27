@@ -108,7 +108,7 @@ namespace pd
     std::vector<Object> Patch::getObjects() const noexcept
     {
         std::vector<Object> objects;
-        if(true)
+        if(bool(*this))
         {
             std::lock_guard<std::mutex> guard3(m_internal->instance.s_mutex);
             for(t_gobj *y = m_internal->canvas->gl_list; y; y = y->g_next)
@@ -125,7 +125,7 @@ namespace pd
     std::vector<Gui> Patch::getGuis() const noexcept
     {
         std::vector<Gui> objects;
-        if(true)
+        if(bool(*this))
         {
             std::lock_guard<std::mutex> guard3(m_internal->instance.s_mutex);
             for(t_gobj *y = m_internal->canvas->gl_list; y; y = y->g_next)
@@ -142,12 +142,15 @@ namespace pd
     Gui Patch::getCamomile() const noexcept
     {
         std::string camo("c.camomile");
-        std::lock_guard<std::mutex> guard3(m_internal->instance.s_mutex);
-        for(t_gobj *y = m_internal->canvas->gl_list; y; y = y->g_next)
+        if(bool(*this))
         {
-            if(eobj_iscicm(y) && eobj_isbox(y) && std::string(eobj_getclassname(y)->s_name) == camo)
+            std::lock_guard<std::mutex> guard3(m_internal->instance.s_mutex);
+            for(t_gobj *y = m_internal->canvas->gl_list; y; y = y->g_next)
             {
-                return Gui(*this, reinterpret_cast<t_object *>(y));
+                if(eobj_iscicm(y) && eobj_isbox(y) && std::string(eobj_getclassname(y)->s_name) == camo)
+                {
+                    return Gui(*this, reinterpret_cast<t_object *>(y));
+                }
             }
         }
         return Gui();

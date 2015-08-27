@@ -117,6 +117,11 @@
         <FILE id="gMG7CA" name="Utilities.h" compile="0" resource="0" file="ThirdParty/Cream/Deprecated/Utilities.h"/>
       </GROUP>
     </GROUP>
+    <GROUP id="{8DE6AA0C-11D5-0E76-0B00-0843C90E25ED}" name="Ressources">
+      <FILE id="u4WnyC" name="flower_petite.png" compile="0" resource="1"
+            file="Ressources/flower_petite.png"/>
+      <FILE id="LPsYD4" name="icon.png" compile="0" resource="1" file="Ressources/icon.png"/>
+    </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" vstFolder="ThirdParty/Vst/vstsdk2.4"

@@ -88,10 +88,10 @@ namespace pd
         Gui getCamomile() const noexcept;
         
         //! @brief Gets the file's name.
-        inline std::string getName() const {return m_internal->name;}
+        inline std::string getName() const {return bool(m_internal) ? m_internal->name : std::string();}
         
         //! @brief Gets the file's path.
-        inline std::string getPath() const {return m_internal->path;}
+        inline std::string getPath() const {return bool(m_internal) ? m_internal->path : std::string();}
     };
 }
 

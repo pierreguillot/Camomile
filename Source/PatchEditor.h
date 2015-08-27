@@ -18,12 +18,14 @@
 class PatchEditor  :
 public AudioProcessorEditor,
 public InstanceProcessor::Listener,
-public FileDragAndDropTarget
+public FileDragAndDropTarget,
+public Button::Listener
 {
 private:
-    InstanceProcessor&  m_processor;
-    OwnedArray<ObjectEditor> m_objects;
-    bool                     m_dropping;
+    InstanceProcessor&      m_processor;
+    OwnedArray<ObjectEditor>m_objects;
+    bool                    m_dropping;
+    OwnedArray<Component>   m_buttons;
 public:
     PatchEditor(InstanceProcessor&);
     ~PatchEditor();
@@ -33,6 +35,7 @@ public:
     void filesDropped(const StringArray& files, int x, int y) override;
     void fileDragEnter(const StringArray& files, int x, int y) override;
     void fileDragExit(const StringArray& files) override;
+    void buttonClicked(Button* button) override;
     void patchChanged() override;
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PatchEditor)

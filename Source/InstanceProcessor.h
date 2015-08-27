@@ -17,11 +17,11 @@ class InstanceProcessor : public AudioProcessor, public Instance
 public:
     class Listener;
 private:
-    Patch           m_patch;
-    set<Listener*>  m_listeners;
-    mutable mutex   m_mutex_list;
-    vector<Parameter> m_parameters;
-    mutable mutex   m_mutex;
+    Patch               m_patch;
+    set<Listener*>      m_listeners;
+    mutable mutex       m_mutex_list;
+    vector<Parameter>   m_parameters;
+    mutable mutex       m_mutex;
 public:
     InstanceProcessor();
     ~InstanceProcessor();

@@ -71,6 +71,13 @@ namespace pd
         inline virtual operator bool() const noexcept {
             return bool(m_internal) && bool(m_internal->object) && bool(m_internal->patch);};
         
+        //! @brief Compare two Object objects.
+        inline bool operator ==(Object const& other) const noexcept {
+            return bool(*this) && bool(other) && other.getObject() == getObject();};
+        
+        //! @brief Compare two Object objects.
+        inline bool operator !=(Object const& other) const noexcept {return !(*this == other);};
+        
         //! @brief Checks if the object is Cicm.
         inline bool isCicm() const noexcept {return bool(*this) && bool(eobj_iscicm(m_internal->object));}
         

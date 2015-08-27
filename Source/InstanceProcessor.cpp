@@ -15,7 +15,7 @@
 InstanceProcessor::InstanceProcessor() : Instance(string("camomile")),
 m_patch(Patch(*this, "Test2.pd", "/Users/Pierre/Desktop/"))
 {
-    m_parameters.resize(512);
+    m_parameters.resize(128);
 }
 
 InstanceProcessor::~InstanceProcessor()
@@ -155,30 +155,38 @@ void InstanceProcessor::loadPatch(const juce::File& file)
         if(true)
         {
             lock_guard<mutex> guard(m_mutex);
+            for(size_t i = 0; i < m_parameters.size(); i++)
+            {
+                 m_parameters[i] = Parameter();
+            }
             if(file.exists() && file.getFileExtension() == String(".pd"))
             {
                 m_patch = Patch(*this,
                                 file.getFileName().toStdString(),
                                 file.getParentDirectory().getFullPathName().toStdString());
             }
+            else
+            {
+                m_patch = Patch();
+            }
             
             size_t index = 0;
-            vector<Gui> objects(m_patch.getGuis());
-            for(auto it : objects)
+            if(m_patch)
             {
-                vector<Parameter> params = it.getParameters();
-                for(auto it2 : params)
+                vector<Gui> objects(m_patch.getGuis());
+                for(auto it : objects)
                 {
-                    if(index < m_parameters.size())
+                    vector<Parameter> params = it.getParameters();
+                    for(auto it2 : params)
                     {
-                        m_parameters[index++] = it2;
+                        if(index < m_parameters.size())
+                        {
+                            m_parameters[index++] = it2;
+                        }
                     }
                 }
             }
-            for(; index < m_parameters.size(); index++)
-            {
-                m_parameters[index++] = Parameter();
-            }
+            
         }
         
         vector<Listener*> listeners = getListeners();
