@@ -20,6 +20,7 @@ namespace pd
     
     int Instance::s_sample_rate;
     std::mutex Instance::s_mutex;
+    std::string Instance::s_console;
     
     Instance::Internal::Internal(std::string const& _name) :
     instance(nullptr),
@@ -39,8 +40,8 @@ namespace pd
             sys_externalschedlib = 0;
             sys_printtostderr = 0;
             sys_usestdpath = 0;
-            sys_debuglevel = 4;
-            sys_verbose = 0;
+            sys_debuglevel = 1;
+            sys_verbose = 1;
             sys_noloadbang = 0;
             sys_nogui = 1;
             sys_hipriority = 0;
@@ -205,7 +206,26 @@ namespace pd
         sys_searchpath = NULL;
     }
     
+    void Instance::setConsole(std::string const& text) noexcept
+    {
+        s_console = text;
+    }
     
+    std::string Instance::getConsole() noexcept
+    {
+        return s_console;
+    }
+    
+    void Instance::print(const char* s)
+    {
+        s_console.append(s);
+        t_symbol* send = gensym("camo-console");
+        if(send->s_thing)
+        {
+            pd_bang(send->s_thing);
+        }
+        std::cout << s;
+    }
 }
 
 

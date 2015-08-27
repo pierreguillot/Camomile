@@ -14,24 +14,31 @@ private:
     {
     private:
         DrawableImage m_image;
-        Label         m_text;
+        juce::TextEditor m_text;
     public:
-        Content() :
-        m_text("About", "Camomile v" + String(JucePlugin_VersionString) + "\n\n"
-               "Camomile is a dynamic Plugin that allows to load and control Pure Data patches "
-               "inside a digital audio workstation. Camomile uses the Cream library as framework "
-               "for the graphical user interfaces.\n\n"
-               "Author :\n"+JucePlugin_Manufacturer+"\n\n"
-               "Organizations :\nCICM | Université Paris 8 | Labex Arts H2H\n\n"
-               "Contacts :\n"+String(JucePlugin_ManufacturerEmail)+"\n"+ String(JucePlugin_ManufacturerWebsite)+"\n\n"
-               "Credits :\nPure Data by Miller Puckette\nJuce by ROLI Ltd.")
+        Content()
         {
             m_image.setImage(ImageCache::getFromMemory(BinaryData::flowerM_png, BinaryData::flowerM_pngSize));
             m_image.setBoundingBox(RelativeParallelogram(Rectangle<float>(300.f - 128.f, 320.f - 128.f, 128.f, 128.f)));
             m_image.setOpacity(0.5f);
             addAndMakeVisible(&m_image, 0);
             
-            m_text.setJustificationType(juce::Justification::horizontallyJustified);
+            m_text.setMultiLine(true);
+            m_text.setReadOnly(true);
+            m_text.setScrollbarsShown(false);
+            m_text.setCaretVisible(false);
+            m_text.setPopupMenuEnabled (true);
+            m_text.setColour(juce::TextEditor::backgroundColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
+            m_text.setColour(juce::TextEditor::outlineColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
+            m_text.setColour(juce::TextEditor::shadowColourId,Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
+            m_text.setText("Camomile v" + String(JucePlugin_VersionString) + "\n\n"
+                           "Camomile is a dynamic Plugin that allows to load and control Pure Data patches "
+                           "inside a Digital Audio Work Station. Camomile uses the Cream library as framework "
+                           "for the graphical user interfaces.\n\n"
+                           "Author :\n"+JucePlugin_Manufacturer+"\n\n"
+                           "Organizations :\nCICM | Université Paris 8 | Labex Arts H2H\n\n"
+                           "Contacts :\n"+String(JucePlugin_ManufacturerEmail)+"\n"+ String(JucePlugin_ManufacturerWebsite)+"\n\n"
+                           "Credits :\nPure Data by Miller Puckette\nJuce by ROLI Ltd.");
             m_text.setBounds(0, 0, 300, 320);
             addAndMakeVisible(&m_text, 1);
         }
@@ -58,29 +65,35 @@ public:
 class PatchEditor::ConsoleWindow : public DocumentWindow
 {
 private:
-    class Content : public Component
+    class Content : public Component, public Messenger, public juce::TextEditor::Listener
     {
     private:
-        DrawableImage m_image;
-        Label         m_text;
+        juce::TextEditor m_text;
     public:
-        Content() :
-        m_text("About", "Camomile v" + String(JucePlugin_VersionString) + "\n\n"
-               "Camomile is a dynamic Plugin that allows to load and control Pure Data patches "
-               "inside a Digital Audio Work Station. Camomile uses the Cream library as framework "
-               "for the graphical user interfaces.\n\n"
-               "Author :\n"+JucePlugin_Manufacturer+"\n\n"
-               "Organizations :\nCICM | Université Paris 8 | Labex Arts H2H\n\n"
-               "Contacts :\n"+String(JucePlugin_ManufacturerEmail)+"\n"+ String(JucePlugin_ManufacturerWebsite)+"\n\n"
-               "Credits :\nPure Data by Miller Puckette\nJuce by ROLI Ltd.")
+        Content() : Messenger("camo_console")
         {
-            m_image.setImage(ImageCache::getFromMemory(BinaryData::flowerM_png, BinaryData::flowerM_pngSize));
-            m_image.setBounds(300 - 128, 300 - 128, 128, 128);
-            addAndMakeVisible(&m_image, 0);
+            m_text.setMultiLine(true);
+            m_text.setReadOnly(false);
+            m_text.setScrollbarsShown(true);
+            m_text.setCaretVisible(false);
+            m_text.setPopupMenuEnabled (true);
+            m_text.setColour(juce::TextEditor::backgroundColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
+            m_text.setColour(juce::TextEditor::outlineColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
+            m_text.setColour(juce::TextEditor::shadowColourId,Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
+            m_text.setText(Instance::getConsole());
             
-            m_text.setJustificationType(juce::Justification::horizontallyJustified);
             m_text.setBounds(0, 0, 300, 320);
             addAndMakeVisible(&m_text, 1);
+        }
+        
+        void textEditorTextChanged(juce::TextEditor& ed) override
+        {
+            Instance::setConsole(ed.getText().toStdString());
+        }
+        
+        void receive(std::string const& dest, std::string const& s, std::vector<Atom> const& atoms) override
+        {
+            m_text.setText(Instance::getConsole());
         }
     };
     Content m_content;
@@ -94,6 +107,7 @@ public:
         setDropShadowEnabled(true);
         setVisible(true);
         setContentNonOwned(&m_content, false);
+        
     }
     
     void closeButtonPressed() override
@@ -113,7 +127,6 @@ m_dropping(false),
 m_color_bg(Colours::lightgrey),
 m_color_bd(Colours::darkgrey)
 {
-    m_window = new AboutWindow();
     DrawableImage image;
     image.setImage(ImageCache::getFromMemory(BinaryData::flowerM_png, BinaryData::flowerM_pngSize));
     DrawableImage image2(image);
@@ -282,7 +295,10 @@ void PatchEditor::patchChanged()
     const MessageManagerLock mmLock;
     if(mmLock.lockWasGained())
     {
-        m_window->setBackgroundColour(m_color_bg.brighter(0.75));
+        if(m_window)
+        {
+            m_window->setBackgroundColour(m_color_bg.brighter(0.75));
+        }
         repaint();
     }
 }
@@ -307,12 +323,20 @@ void PatchEditor::buttonClicked(Button* button)
 {
     if(button->getRadioGroupId() == 1)
     {
+        if(!m_window || m_window->getName() != String("About Camomile"))
+        {
+            m_window = new AboutWindow();
+        }
         m_window->addToDesktop();
         m_window->centreAroundComponent(this, m_window->getWidth(), m_window->getHeight());
         m_window->setBackgroundColour(m_color_bg.brighter(0.75));
     }
     else if(button->getRadioGroupId() == 2)
     {
+        if(m_window)
+        {
+            m_window = nullptr;
+        }
         FileChooser fc("Open a patch...", File::getSpecialLocation(File::userDocumentsDirectory), "*.pd", true);
         if(fc.browseForFileToOpen())
         {
@@ -326,16 +350,28 @@ void PatchEditor::buttonClicked(Button* button)
     }
     else if(button->getRadioGroupId() == 3)
     {
+        if(m_window)
+        {
+            m_window = nullptr;
+        }
         m_processor.loadPatch(juce::File());
     }
     else if(button->getRadioGroupId() == 4)
     {
-        NativeMessageBox::showMessageBoxAsync(AlertWindow::InfoIcon,
-                                              "Console",
-                                              "This should be a console window", nullptr);
+        if(!m_window || m_window->getName() != String("Camomile Console"))
+        {
+            m_window = new ConsoleWindow();
+        }
+        m_window->addToDesktop();
+        m_window->centreAroundComponent(this, m_window->getWidth(), m_window->getHeight());
+        m_window->setBackgroundColour(m_color_bg.brighter(0.75));
     }
     else if(button->getRadioGroupId() == 5)
     {
+        if(m_window)
+        {
+            m_window = nullptr;
+        }
         juce::URL url("https://github.com/pierreguillot/Camomile/wiki");
         if(url.isWellFormed())
             url.launchInDefaultBrowser();

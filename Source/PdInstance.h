@@ -96,11 +96,18 @@ namespace pd
         //! @brief Clears all the paths of the global search path.
         static void clearSearchPath() noexcept;
         
+        //! @brief Sets the text of the console.
+        static void setConsole(std::string const& text) noexcept;
+        
+        //! @brief Retrieves the text of the console.
+        static std::string getConsole() noexcept;
+        
     private:
         static std::mutex                       s_mutex;
         static int                              s_sample_rate;
         static const int                        s_max_channels = 16;
-        static void print(const char* s) {std::cout << s << "\n";}
+        static std::string                      s_console;
+        static void print(const char* s);
     };
 
 }
