@@ -96,10 +96,10 @@ namespace pd
     {
     private:
         friend class Gui;
-        t_eparam* m_parameter;
-        float     m_value;
-        bool      m_changed;
-        std::mutex m_mutex;
+        t_eparam*   m_parameter;
+        float      m_value;
+        mutable bool        m_changed;
+        mutable std::mutex  m_mutex;
     public:
         
         Parameter() noexcept : m_parameter(nullptr) {}
@@ -121,11 +121,13 @@ namespace pd
         inline float getNormalizedValue() const {
             return bool(m_parameter) ? ebox_parameter_get(m_parameter->p_owner, m_parameter->p_name) : 0.f;}
         
-        inline void setNormalizedValue(float value, bool async = false) {
-            if(async)
+        void setNormalizedValue(const float value, const bool async = false) {
+            if(async && m_mutex.try_lock())
             {
                 m_value = value;
                 m_changed = true;
+               std::cout << "setNormalizedValue "<< m_value << "\n";
+                m_mutex.unlock();
             }
             else
             {
@@ -135,14 +137,17 @@ namespace pd
             }
         }
         
-        inline void performSynchronization()
+        void performSynchronization() const
         {
-            bool val = m_changed;
-            if(m_mutex.try_lock() && val && bool(m_parameter)) {
-              
-                ebox_parameter_set(m_parameter->p_owner, m_parameter->p_name, m_value);
-                m_changed = false;
-                m_mutex.unlock();
+            if(m_changed && bool(m_parameter)) {
+            
+                if(m_mutex.try_lock())
+                {
+                    std::cout << "performSynchronization "<< m_value << "\n";
+                    ebox_parameter_set(m_parameter->p_owner, m_parameter->p_name, m_value);
+                    m_changed = false;
+                    m_mutex.unlock();
+                }
             }
         }
         

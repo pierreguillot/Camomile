@@ -284,15 +284,20 @@ void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, ewidget_action action)
     }
 }
 
+void ObjectEditor::handleAsyncUpdate()
+{
+    const MessageManagerLock mml(Thread::getCurrentThread());
+    if(mml.lockWasGained())
+    {
+        repaint();
+    }
+}
+
 void ObjectEditor::receive(std::string const& dest, std::string const& s, std::vector<Atom> const& atoms)
 {
     if(s == string("symbol") && !atoms.empty() && atoms[0] == string("repaint"))
     {
-        const MessageManagerLock mml(Thread::getCurrentThread());
-        if(mml.lockWasGained())
-        {
-            repaint();
-        }
+        AsyncUpdater::triggerAsyncUpdate();
     }
     else if(s == string("texteditor"))
     {

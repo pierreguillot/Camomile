@@ -16,6 +16,7 @@ CamomileAudioProcessor::CamomileAudioProcessor() : Instance(string("camomile")),
 m_patch(Patch(*this, "Test2.pd", "/Users/Pierre/Desktop/"))
 {
     m_parameters.resize(512);
+    counter = 0;
 }
 
 CamomileAudioProcessor::~CamomileAudioProcessor()
@@ -47,6 +48,7 @@ float CamomileAudioProcessor::getParameter(int index)
 void CamomileAudioProcessor::setParameter(int index, float newValue)
 {
     lock_guard<mutex> guard(m_mutex);
+    std::cout << "setParameter "  << index << " "<< newValue << "\n";
     m_parameters[index].setNormalizedValue(newValue, !AudioProcessor::isSuspended());
 }
 
@@ -106,8 +108,10 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
                    getNumInputChannels(), buffer.getArrayOfReadPointers(),
                    getNumOutputChannels(), buffer.getArrayOfWritePointers());
     }
-    if(m_mutex.try_lock())
+    counter++;
+    if(1)
     {
+        lock_guard<mutex> guard(m_mutex);
         for(auto it : m_parameters)
         {
             if(it.isValid())
@@ -119,7 +123,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
                 break;
             }
         }
-        m_mutex.unlock();
+        counter = 0;
     }
 }
 

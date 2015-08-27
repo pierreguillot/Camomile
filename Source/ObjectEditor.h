@@ -18,6 +18,7 @@ class PatchEditor;
 // ==================================================================================== //
 
 class ObjectEditor :
+public AsyncUpdater,
 public Component,
 public Messenger,
 public juce::TextEditor::Listener,
@@ -45,6 +46,7 @@ public:
     //                                        PAINT                                         //
     // ==================================================================================== //
     
+    void handleAsyncUpdate() override;
     void paint(Graphics& g) override;
     
     // ==================================================================================== //
