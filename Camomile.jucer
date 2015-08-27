@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="1.0.0"
+<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="0.0.1"
               bundleIdentifier="com.cicm.Camomile" includeBinaryInAppConfig="1"
               buildVST="1" buildVST3="1" buildAU="0" buildRTAS="0" buildAAX="0"
-              pluginName="Camomile" pluginDesc="Camomile" pluginManufacturer="CICM"
+              pluginName="Camomile" pluginDesc="Camomile" pluginManufacturer="Pierre Guillot"
               pluginManufacturerCode="CICM" pluginCode="Y2nd" pluginChannelConfigs=""
               pluginIsSynth="0" pluginWantsMidiIn="0" pluginProducesMidiOut="0"
               pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="1"
               pluginAUExportPrefix="CamomileAU" pluginRTASCategory="" aaxIdentifier="com.cicm.Camomile"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="3.2.0"
-              companyName="CICM" companyEmail="guillotpierre6@gmail.com" companyWebsite="http://www.mshparisnord.fr/hoalibrary/"
+              companyName="CICM" companyEmail="guillotpierre6@gmail.com" companyWebsite="http://cicm.mshparisnord.org/"
               defines="LIB_PD">
   <MAINGROUP id="Lkdhlo" name="Camomile">
     <GROUP id="{6858D652-D432-5FB6-C946-D9F3FA76E6E9}" name="Source">
@@ -118,9 +118,8 @@
       </GROUP>
     </GROUP>
     <GROUP id="{8DE6AA0C-11D5-0E76-0B00-0843C90E25ED}" name="Ressources">
-      <FILE id="u4WnyC" name="flower_petite.png" compile="0" resource="1"
-            file="Ressources/flower_petite.png"/>
-      <FILE id="LPsYD4" name="icon.png" compile="0" resource="1" file="Ressources/icon.png"/>
+      <FILE id="yrAyQZ" name="flowerG.png" compile="0" resource="1" file="Ressources/flowerG.png"/>
+      <FILE id="sGIoTl" name="flowerM.png" compile="0" resource="1" file="Ressources/flowerM.png"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

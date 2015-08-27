@@ -22,10 +22,15 @@ public FileDragAndDropTarget,
 public Button::Listener
 {
 private:
-    InstanceProcessor&      m_processor;
-    OwnedArray<ObjectEditor>m_objects;
-    bool                    m_dropping;
-    OwnedArray<Component>   m_buttons;
+    class AboutWindow;
+    class ConsoleWindow;
+    InstanceProcessor&              m_processor;
+    OwnedArray<ObjectEditor>        m_objects;
+    bool                            m_dropping;
+    OwnedArray<Component>           m_buttons;
+    ScopedPointer<DocumentWindow>   m_window;
+    Colour                          m_color_bg;
+    Colour                          m_color_bd;
 public:
     PatchEditor(InstanceProcessor&);
     ~PatchEditor();
