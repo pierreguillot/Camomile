@@ -8,7 +8,7 @@
 #define __CAMOMILE_PATCH_EDITOR__
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "PluginProcessor.h"
+#include "InstanceProcessor.h"
 #include "ObjectEditor.h"
 
 // ==================================================================================== //

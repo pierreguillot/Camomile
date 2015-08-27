@@ -9,7 +9,7 @@
 #define __CAMOMILE_OBJECT_EDITOR__
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "PluginProcessor.h"
+#include "InstanceProcessor.h"
 
 class PatchEditor;
 

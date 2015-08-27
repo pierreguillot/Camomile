@@ -13,10 +13,10 @@
               defines="LIB_PD">
   <MAINGROUP id="Lkdhlo" name="Camomile">
     <GROUP id="{6858D652-D432-5FB6-C946-D9F3FA76E6E9}" name="Source">
-      <FILE id="WlfqCQ" name="PluginProcessor.cpp" compile="1" resource="0"
-            file="Source/PluginProcessor.cpp"/>
-      <FILE id="pbUZCw" name="PluginProcessor.h" compile="0" resource="0"
-            file="Source/PluginProcessor.h"/>
+      <FILE id="BUNrem" name="InstanceProcessor.cpp" compile="1" resource="0"
+            file="Source/InstanceProcessor.cpp"/>
+      <FILE id="shFm3X" name="InstanceProcessor.h" compile="0" resource="0"
+            file="Source/InstanceProcessor.h"/>
       <FILE id="vbIZqm" name="ObjectEditor.cpp" compile="1" resource="0"
             file="Source/ObjectEditor.cpp"/>
       <FILE id="QYHk7C" name="ObjectEditor.h" compile="0" resource="0" file="Source/ObjectEditor.h"/>

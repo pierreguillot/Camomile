@@ -4,7 +4,7 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "PluginProcessor.h"
+#include "InstanceProcessor.h"
 #include "PatchEditor.h"
 
 // ==================================================================================== //
