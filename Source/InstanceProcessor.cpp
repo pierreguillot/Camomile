@@ -12,13 +12,13 @@
 #include "PatchEditor.h"
 
 //==============================================================================
-CamomileAudioProcessor::CamomileAudioProcessor() : Instance(string("camomile")),
+InstanceProcessor::InstanceProcessor() : Instance(string("camomile")),
 m_patch(Patch(*this, "Test2.pd", "/Users/Pierre/Desktop/"))
 {
     m_parameters.resize(512);
 }
 
-CamomileAudioProcessor::~CamomileAudioProcessor()
+InstanceProcessor::~InstanceProcessor()
 {
     lock_guard<mutex> guard(m_mutex_list);
     m_listeners.clear();
@@ -26,67 +26,85 @@ CamomileAudioProcessor::~CamomileAudioProcessor()
     m_parameters.clear();
 }
 
-int CamomileAudioProcessor::getNumParameters()
+int InstanceProcessor::getNumParameters()
 {
     lock_guard<mutex> guard(m_mutex);
     return int(m_parameters.size());
 }
 
-const String CamomileAudioProcessor::getParameterName(int index)
+const String InstanceProcessor::getParameterName(int index)
 {
     lock_guard<mutex> guard(m_mutex);
     return String(m_parameters[index].getFullName());
 }
 
-float CamomileAudioProcessor::getParameter(int index)
+float InstanceProcessor::getParameter(int index)
 {
     lock_guard<mutex> guard(m_mutex);
     return m_parameters[index].getNormalizedValue();
 }
 
-void CamomileAudioProcessor::setParameter(int index, float newValue)
+void InstanceProcessor::setParameter(int index, float newValue)
 {
     lock_guard<mutex> guard(m_mutex);
     m_parameters[index].setNormalizedValue(newValue);
 }
 
-const String CamomileAudioProcessor::getParameterText(int index)
+float InstanceProcessor::getParameterDefaultValue(int index)
+{
+    lock_guard<mutex> guard(m_mutex);
+    return m_parameters[index].getDefaultNormalizedValue();
+}
+
+const String InstanceProcessor::getParameterText(int index)
 {
     lock_guard<mutex> guard(m_mutex);
     return String(m_parameters[index].getTextForValue(m_parameters[index].getNormalizedValue()));
 }
 
-bool CamomileAudioProcessor::acceptsMidi() const
+String InstanceProcessor::getParameterText(int index, int size)
 {
-   #if JucePlugin_WantsMidiInput
-    return true;
-   #else
-    return false;
-   #endif
+    lock_guard<mutex> guard(m_mutex);
+    return String(m_parameters[index].getTextForValue(m_parameters[index].getNormalizedValue()).c_str(), size);
 }
 
-bool CamomileAudioProcessor::producesMidi() const
+int InstanceProcessor::getParameterNumSteps(int index)
 {
-   #if JucePlugin_ProducesMidiOutput
-    return true;
-   #else
-    return false;
-   #endif
+    lock_guard<mutex> guard(m_mutex);
+    return m_parameters[index].getNumberOfStep();
 }
 
-void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
+bool InstanceProcessor::isParameterAutomatable(int index) const
+{
+    lock_guard<mutex> guard(m_mutex);
+    return m_parameters[index].isAutomatable();
+}
+
+bool InstanceProcessor::isParameterOrientationInverted(int index) const
+{
+    return false;
+}
+
+bool InstanceProcessor::isMetaParameter(int index) const
+{
+    lock_guard<mutex> guard(m_mutex);
+    return m_parameters[index].isMetaParameter();
+}
+
+
+void InstanceProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     lock_guard<mutex> guard(m_mutex);
     prepareDsp(getNumInputChannels(), getNumOutputChannels(), sampleRate, samplesPerBlock);
 }
 
-void CamomileAudioProcessor::releaseResources()
+void InstanceProcessor::releaseResources()
 {
     lock_guard<mutex> guard(m_mutex);
     releaseDsp();
 }
 
-void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
+void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
     lock_guard<mutex> guard(m_mutex);
     for(int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
@@ -98,13 +116,13 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
                getNumOutputChannels(), buffer.getArrayOfWritePointers());
 }
 
-AudioProcessorEditor* CamomileAudioProcessor::createEditor()
+AudioProcessorEditor* InstanceProcessor::createEditor()
 {
     lock_guard<mutex> guard(m_mutex);
     return new PatchEditor(*this);
 }
 
-void CamomileAudioProcessor::getStateInformation(MemoryBlock& destData)
+void InstanceProcessor::getStateInformation(MemoryBlock& destData)
 {
     lock_guard<mutex> guard(m_mutex);
     XmlElement xml("CamomileSettings");
@@ -113,7 +131,7 @@ void CamomileAudioProcessor::getStateInformation(MemoryBlock& destData)
     copyXmlToBinary(xml, destData);
 }
 
-void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void InstanceProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     lock_guard<mutex> guard(m_mutex);
     ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
@@ -130,7 +148,7 @@ void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBy
     }
 }
 
-void CamomileAudioProcessor::loadPatch(const juce::File& file)
+void InstanceProcessor::loadPatch(const juce::File& file)
 {
     suspendProcessing(true);
     if(isSuspended())
@@ -175,7 +193,7 @@ void CamomileAudioProcessor::loadPatch(const juce::File& file)
     suspendProcessing(false);
 }
 
-void CamomileAudioProcessor::addListener(Listener* listener)
+void InstanceProcessor::addListener(Listener* listener)
 {
     if(listener)
     {
@@ -184,7 +202,7 @@ void CamomileAudioProcessor::addListener(Listener* listener)
     }
 }
 
-void CamomileAudioProcessor::removeListener(Listener* listener)
+void InstanceProcessor::removeListener(Listener* listener)
 {
     if(listener)
     {
@@ -193,7 +211,7 @@ void CamomileAudioProcessor::removeListener(Listener* listener)
     }
 }
 
-vector<CamomileAudioProcessor::Listener*> CamomileAudioProcessor::getListeners() const noexcept
+vector<InstanceProcessor::Listener*> InstanceProcessor::getListeners() const noexcept
 {
     lock_guard<mutex> guard(m_mutex_list);
     return vector<Listener*>(m_listeners.begin(), m_listeners.end());
@@ -201,7 +219,7 @@ vector<CamomileAudioProcessor::Listener*> CamomileAudioProcessor::getListeners()
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new CamomileAudioProcessor();
+    return new InstanceProcessor();
 }
 
 

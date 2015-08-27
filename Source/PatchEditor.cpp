@@ -11,7 +11,7 @@
 //                                  CAMOMILE INTERFACE                                  //
 // ==================================================================================== //
 
-PatchEditor::PatchEditor(CamomileAudioProcessor& p) : AudioProcessorEditor(&p),
+PatchEditor::PatchEditor(InstanceProcessor& p) : AudioProcessorEditor(&p),
     m_processor(p),
     m_dropping(false)
 {

@@ -4,8 +4,8 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef PLUGINEDITOR_H_INCLUDED
-#define PLUGINEDITOR_H_INCLUDED
+#ifndef __CAMOMILE_PATCH_EDITOR__
+#define __CAMOMILE_PATCH_EDITOR__
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
@@ -17,15 +17,15 @@
 
 class PatchEditor  :
 public AudioProcessorEditor,
-public CamomileAudioProcessor::Listener,
+public InstanceProcessor::Listener,
 public FileDragAndDropTarget
 {
 private:
-    CamomileAudioProcessor&  m_processor;
+    InstanceProcessor&  m_processor;
     OwnedArray<ObjectEditor> m_objects;
     bool                     m_dropping;
 public:
-    PatchEditor(CamomileAudioProcessor&);
+    PatchEditor(InstanceProcessor&);
     ~PatchEditor();
     void paint(Graphics&) override;
     void resized() override;

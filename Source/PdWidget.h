@@ -125,6 +125,12 @@ namespace pd
         inline float getDefaultNormalizedValue() const{
             return bool(m_parameter) ? ebox_parameter_getdefault(m_parameter->p_owner, m_parameter->p_name) : 0.f;}
         
+        inline float getNormalizedStep() const{
+            return bool(m_parameter) ? ebox_parameter_getdefault(m_parameter->p_owner, m_parameter->p_name) : 0.f;}
+        
+        inline size_t getNumberOfStep() const{
+            return bool(m_parameter) ? ebox_parameter_getdefault(m_parameter->p_owner, m_parameter->p_name) : 0.f;}
+        
         inline std::string getName() const {
             return bool(m_parameter) ? std::string(m_parameter->p_name->s_name) : std::string();}
         

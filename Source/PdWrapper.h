@@ -12,38 +12,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 namespace pd
-{
-    
-    class CamoParameter : public Parameter, public AudioProcessorParameter
-    {
-    public:
-        
-        CamoParameter() : Parameter() {}
-        
-        CamoParameter(Parameter const& param) : Parameter(param) {}
-        
-        float getValue() const override {return Parameter::getNormalizedValue();}
-        
-        void setValue(float newValue) override {Parameter::setNormalizedValue(newValue);}
-        
-        float getDefaultValue() const override {return Parameter::getDefaultNormalizedValue();}
-        
-        String getName(int maximumStringLength) const override {
-            return String(Parameter::getFullName().c_str(), maximumStringLength);}
-        
-        String getLabel() const override {return String(Parameter::getLabel());}
-        
-        String getText (float value, int maximumStringLength) const override {
-            return String(Parameter::getTextForValue(value).c_str(), maximumStringLength);}
-        
-        float getValueForText(const String& text) const override {
-            return Parameter::getValueForText(text.toStdString());}
-        
-        bool isAutomatable() const override {return Parameter::isAutomatable();}
-        
-        bool isMetaParameter() const override {return Parameter::isMetaParameter();}
-    };
-    
+{    
     static inline juce::Colour tojColor(std::array<float, 4> const& color)
     {
         return juce::Colour::fromFloatRGBA(color[0], color[1], color[2], color[3]);
