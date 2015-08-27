@@ -31,7 +31,7 @@ namespace pd
     // ==================================================================================== //
     
     //! @brief The container for typed messages.
-    //! @details The Instance is a wrapper for the pd's native t_atom..
+    //! @details The Instance is a wrapper for the pd's native t_atom.
     class Atom
     {
     private:

@@ -116,35 +116,34 @@ namespace pd
         inline bool isValid() const noexcept {return bool(m_parameter);}
         
         inline float getNormalizedValue() const {
-            return bool(m_parameter) ? ebox_parameter_get(m_parameter->p_owner, m_parameter->p_name) : 0.f;}
+            return isValid() ? ebox_parameter_get(m_parameter->p_owner, m_parameter->p_name) : 0.f;}
         
         void setNormalizedValue(const float value) {
-            if(bool(m_parameter)) {
-                ebox_parameter_set(m_parameter->p_owner, m_parameter->p_name, value);}}
+            if(isValid()) {ebox_parameter_set(m_parameter->p_owner, m_parameter->p_name, value);}}
         
         inline float getDefaultNormalizedValue() const{
-            return bool(m_parameter) ? ebox_parameter_getdefault(m_parameter->p_owner, m_parameter->p_name) : 0.f;}
+            return isValid() ? ebox_parameter_getdefault(m_parameter->p_owner, m_parameter->p_name) : 0.f;}
         
         inline float getNormalizedStep() const{
-            return bool(m_parameter) ? ebox_parameter_getdefault(m_parameter->p_owner, m_parameter->p_name) : 0.f;}
+            return 0.1;}
         
         inline size_t getNumberOfStep() const{
-            return bool(m_parameter) ? ebox_parameter_getdefault(m_parameter->p_owner, m_parameter->p_name) : 0.f;}
+            return 100;}
         
         inline std::string getName() const {
-            return bool(m_parameter) ? std::string(m_parameter->p_name->s_name) : std::string();}
+            return isValid() ? std::string(m_parameter->p_name->s_name) : std::string();}
         
         inline std::string getObjectName() const {
-            return bool(m_parameter) ? std::string(m_parameter->p_owner->b_preset_id->s_name) : std::string();}
+            return isValid() ? std::string(m_parameter->p_owner->b_preset_id->s_name) : std::string();}
         
         inline std::string getFullName() const {return getObjectName() + " : " + getName();}
         
         inline std::string getLabel() const {
-            return bool(m_parameter) ? std::string(m_parameter->p_label->s_name) : std::string();}
+            return isValid() ? std::string(m_parameter->p_label->s_name) : std::string();}
         
         std::string getTextForValue(float value) const {
             std::string text;
-            if(bool(m_parameter))
+            if(isValid())
             {
                 char* text = NULL;
                 ebox_parameter_gettextforvalue(m_parameter->p_owner, m_parameter->p_name, &text, value);
@@ -158,11 +157,11 @@ namespace pd
         }
         
         float getValueForText(const std::string& text) const {
-            return bool(m_parameter) ? ebox_parameter_getvaluefortext(m_parameter->p_owner, m_parameter->p_name, text.c_str()) : 0.f;}
+            return isValid() ? ebox_parameter_getvaluefortext(m_parameter->p_owner, m_parameter->p_name, text.c_str()) : 0.f;}
         
-        inline bool isAutomatable() const {return bool(m_parameter->p_auto);}
+        inline bool isAutomatable() const {return isValid() ? bool(m_parameter->p_auto) : false;}
         
-        inline bool isMetaParameter() const {return bool(m_parameter->p_meta);}
+        inline bool isMetaParameter() const {return isValid() ? bool(m_parameter->p_meta) : false;}
     };
 }
 

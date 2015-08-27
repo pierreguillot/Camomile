@@ -23,6 +23,8 @@ namespace pd
     //                                      LEAK DETECTOR                                   //
     // ==================================================================================== //
     
+    //! @brief The memory leak counter.
+    //! @details A simple memory leak counter that I hope works.
     template <class T> class LeakDetector
     {
     public:

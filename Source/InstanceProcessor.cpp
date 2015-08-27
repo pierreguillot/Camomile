@@ -133,7 +133,6 @@ void InstanceProcessor::getStateInformation(MemoryBlock& destData)
 
 void InstanceProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    lock_guard<mutex> guard(m_mutex);
     ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
     if(xml != nullptr)
     {
