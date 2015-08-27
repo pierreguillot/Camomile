@@ -16,7 +16,6 @@ CamomileAudioProcessor::CamomileAudioProcessor() : Instance(string("camomile")),
 m_patch(Patch(*this, "Test2.pd", "/Users/Pierre/Desktop/"))
 {
     m_parameters.resize(512);
-    counter = 0;
 }
 
 CamomileAudioProcessor::~CamomileAudioProcessor()
@@ -48,8 +47,7 @@ float CamomileAudioProcessor::getParameter(int index)
 void CamomileAudioProcessor::setParameter(int index, float newValue)
 {
     lock_guard<mutex> guard(m_mutex);
-    std::cout << "setParameter "  << index << " "<< newValue << "\n";
-    m_parameters[index].setNormalizedValue(newValue, !AudioProcessor::isSuspended());
+    m_parameters[index].setNormalizedValue(newValue);
 }
 
 const String CamomileAudioProcessor::getParameterText(int index)
@@ -79,14 +77,7 @@ bool CamomileAudioProcessor::producesMidi() const
 void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     lock_guard<mutex> guard(m_mutex);
-    try
-    {
-        prepareDsp(getNumInputChannels(), getNumOutputChannels(), sampleRate, samplesPerBlock);
-    }
-    catch(std::exception& e)
-    {
-        std::cout << e.what() << "\n";
-    }
+    prepareDsp(getNumInputChannels(), getNumOutputChannels(), sampleRate, samplesPerBlock);
 }
 
 void CamomileAudioProcessor::releaseResources()
@@ -97,34 +88,14 @@ void CamomileAudioProcessor::releaseResources()
 
 void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
-    if(true)
+    lock_guard<mutex> guard(m_mutex);
+    for(int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
     {
-        lock_guard<mutex> guard(m_mutex);
-        for(int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
-        {
-            buffer.clear(i, 0, buffer.getNumSamples());
-        }
-        performDsp(buffer.getNumSamples(),
-                   getNumInputChannels(), buffer.getArrayOfReadPointers(),
-                   getNumOutputChannels(), buffer.getArrayOfWritePointers());
+        buffer.clear(i, 0, buffer.getNumSamples());
     }
-    counter++;
-    if(1)
-    {
-        lock_guard<mutex> guard(m_mutex);
-        for(auto it : m_parameters)
-        {
-            if(it.isValid())
-            {
-                it.performSynchronization();
-            }
-            else
-            {
-                break;
-            }
-        }
-        counter = 0;
-    }
+    performDsp(buffer.getNumSamples(),
+               getNumInputChannels(), buffer.getArrayOfReadPointers(),
+               getNumOutputChannels(), buffer.getArrayOfWritePointers());
 }
 
 AudioProcessorEditor* CamomileAudioProcessor::createEditor()
@@ -135,6 +106,7 @@ AudioProcessorEditor* CamomileAudioProcessor::createEditor()
 
 void CamomileAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
+    lock_guard<mutex> guard(m_mutex);
     XmlElement xml("CamomileSettings");
     xml.setAttribute("name", m_patch.getName());
     xml.setAttribute("path", m_patch.getPath());
@@ -143,6 +115,7 @@ void CamomileAudioProcessor::getStateInformation(MemoryBlock& destData)
 
 void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
+    lock_guard<mutex> guard(m_mutex);
     ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
     if(xml != nullptr)
     {

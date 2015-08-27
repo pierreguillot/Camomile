@@ -28,7 +28,6 @@ private:
     mutable mutex   m_mutex_list;
     vector<Parameter> m_parameters;
     mutable mutex   m_mutex;
-    int counter;
 public:
     CamomileAudioProcessor();
     ~CamomileAudioProcessor();
