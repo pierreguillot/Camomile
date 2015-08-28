@@ -104,6 +104,7 @@ void InstanceProcessor::releaseResources()
     releaseDsp();
 }
 
+
 void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
     lock_guard<mutex> guard(m_mutex);
@@ -154,6 +155,7 @@ void InstanceProcessor::loadPatch(const juce::File& file)
     {
         if(true)
         {
+            releaseDsp();
             lock_guard<mutex> guard(m_mutex);
             for(size_t i = 0; i < m_parameters.size(); i++)
             {
@@ -195,6 +197,7 @@ void InstanceProcessor::loadPatch(const juce::File& file)
             it->patchChanged();
         }
         updateHostDisplay();
+        prepareDsp(getNumInputChannels(), getNumOutputChannels(), getSampleRate(), getBlockSize());
     }
     
     suspendProcessing(false);

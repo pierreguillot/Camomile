@@ -144,8 +144,6 @@ namespace pd
         std::lock_guard<std::mutex> guard2(s_mutex);
         pd_setinstance(m_internal->instance);
         t_atom av;
-        atom_setfloat(&av, 0);
-        pd_typedmess((t_pd *)gensym("pd")->s_thing, gensym("dsp"), 1, &av);
         
         if(s_sample_rate != samplerate)
         {

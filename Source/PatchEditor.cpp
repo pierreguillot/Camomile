@@ -112,7 +112,7 @@ public:
     
     void closeButtonPressed() override
     {
-        delete this;
+        removeFromDesktop();
     }
 };
 
@@ -124,6 +124,7 @@ PatchEditor::PatchEditor(InstanceProcessor& p) :
 AudioProcessorEditor(&p),
 m_processor(p),
 m_dropping(false),
+m_window(nullptr),
 m_color_bg(Colours::lightgrey),
 m_color_bd(Colours::darkgrey)
 {
@@ -230,6 +231,19 @@ void PatchEditor::paint(Graphics& g)
     }
 }
 
+void PatchEditor::handleAsyncUpdate()
+{
+    const MessageManagerLock mml(Thread::getCurrentThread());
+    if(mml.lockWasGained())
+    {
+        repaint();
+        if(m_window)
+        {
+            m_window->setBackgroundColour(m_color_bg.brighter(0.75));
+        }
+    }
+}
+
 bool PatchEditor::isInterestedInFileDrag(const StringArray& files)
 {
     if(files.size())
@@ -292,38 +306,25 @@ void PatchEditor::patchChanged()
             m_color_bd = tojColor(camo.getBorderColor());
         }
     }
-    const MessageManagerLock mmLock;
-    if(mmLock.lockWasGained())
-    {
-        if(m_window)
-        {
-            m_window->setBackgroundColour(m_color_bg.brighter(0.75));
-        }
-        repaint();
-    }
+    AsyncUpdater::triggerAsyncUpdate();
 }
 
 void PatchEditor::fileDragEnter(const StringArray& files, int x, int y)
 {
-    const MessageManagerLock mmLock;
-    if(mmLock.lockWasGained())
-    {
-        m_dropping = true;
-        repaint();
-    }
+    AsyncUpdater::triggerAsyncUpdate();
 }
 
 void PatchEditor::fileDragExit(const StringArray& files)
 {
     m_dropping = false;
-    repaint();
+    AsyncUpdater::triggerAsyncUpdate();
 }
 
 void PatchEditor::buttonClicked(Button* button)
 {
     if(button->getRadioGroupId() == 1)
     {
-        if(!m_window || m_window->getName() != String("About Camomile"))
+        if(!m_window || (m_window && m_window->getName() != String("About Camomile")))
         {
             m_window = new AboutWindow();
         }
@@ -358,7 +359,7 @@ void PatchEditor::buttonClicked(Button* button)
     }
     else if(button->getRadioGroupId() == 4)
     {
-        if(!m_window || m_window->getName() != String("Camomile Console"))
+        if(!m_window || (m_window && m_window->getName() != String("Camomile Console")))
         {
             m_window = new ConsoleWindow();
         }

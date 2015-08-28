@@ -16,6 +16,7 @@
 // ==================================================================================== //
 
 class PatchEditor  :
+public AsyncUpdater,
 public AudioProcessorEditor,
 public InstanceProcessor::Listener,
 public FileDragAndDropTarget,
@@ -34,6 +35,7 @@ private:
 public:
     PatchEditor(InstanceProcessor&);
     ~PatchEditor();
+    void handleAsyncUpdate() override;
     void paint(Graphics&) override;
     void resized() override;
     bool isInterestedInFileDrag(const StringArray& files) override;

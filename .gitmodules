@@ -7,3 +7,6 @@
 [submodule "ThirdParty/Cream"]
 	path = ThirdParty/Cream
 	url = https://pierreguillot@github.com/CICM/CreamLibrary.git
+[submodule "ThirdParty/PureData"]
+	path = ThirdParty/PureData
+	url = https://pierreguillot@github.com/pure-data/pure-data.git
