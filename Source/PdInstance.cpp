@@ -74,7 +74,6 @@ namespace pd
     
     Instance::Internal::~Internal()
     {
-        patcher.clear();
         std::lock_guard<std::mutex> guard(s_mutex);
         if(instance)
         {
@@ -169,7 +168,6 @@ namespace pd
         std::lock_guard<std::mutex> guard(m_internal->mutex);
         std::lock_guard<std::mutex> guard2(s_mutex);
         pd_setinstance(m_internal->instance);
-        
         for(int i = 0; i < nsamples; i += DEFDACBLKSIZE)
         {
             for(int j = 0; j < nins; j++)
@@ -211,6 +209,10 @@ namespace pd
     
     std::string Instance::getConsole() noexcept
     {
+        if(s_console.size() > 1000)
+        {
+            s_console.erase(s_console.begin(), s_console.end()-1000);
+        }
         return s_console;
     }
     

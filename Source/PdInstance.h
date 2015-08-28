@@ -34,7 +34,6 @@ namespace pd
         {
             t_pdinstance*       instance;
             std::mutex          mutex;
-            std::set<Patch>     patcher;
             std::atomic<size_t> counter;
             std::string         name;
             

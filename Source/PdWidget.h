@@ -136,7 +136,7 @@ namespace pd
         inline std::string getObjectName() const {
             return isValid() ? std::string(m_parameter->p_owner->b_preset_id->s_name) : std::string();}
         
-        inline std::string getFullName() const {return getObjectName() + " : " + getName();}
+        inline std::string getFullName() const {return isValid() ? getObjectName() + " : " + getName() : std::string();}
         
         inline std::string getLabel() const {
             return isValid() ? std::string(m_parameter->p_label->s_name) : std::string();}
@@ -159,7 +159,7 @@ namespace pd
         float getValueForText(const std::string& text) const {
             return isValid() ? ebox_parameter_getvaluefortext(m_parameter->p_owner, m_parameter->p_name, text.c_str()) : 0.f;}
         
-        inline bool isAutomatable() const {return isValid() ? bool(m_parameter->p_auto) : false;}
+        inline bool isAutomatable() const {return isValid() ? bool(m_parameter->p_auto) : true;}
         
         inline bool isMetaParameter() const {return isValid() ? bool(m_parameter->p_meta) : false;}
     };

@@ -33,7 +33,7 @@ public:
     AudioProcessorEditor* createEditor() override;
     bool hasEditor() const override {return true;};
     const String getName() const override {return String(JucePlugin_Name);};
-
+    
     int getNumParameters() override;
     float getParameter(int index) override;
     void setParameter(int index, float newValue) override;
@@ -45,7 +45,7 @@ public:
     bool isParameterAutomatable(int index) const;
     bool isParameterOrientationInverted (int index) const;
     bool isMetaParameter(int index) const;
-
+     
     const String getInputChannelName(int index) const override {return String(index + 1);}
     const String getOutputChannelName(int index) const override {return String(index + 1);}
     bool isInputChannelStereoPair(int index) const override {return false;}
