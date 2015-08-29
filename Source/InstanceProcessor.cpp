@@ -8,16 +8,10 @@
 #include "PatchEditor.h"
 #include "LookAndFeel.h"
 
-InstanceProcessor::InstanceProcessor() : Instance(string("camomile")),
-m_patch(Patch(*this, "Test2.pd", "/Users/Pierre/Desktop/"))
+InstanceProcessor::InstanceProcessor() : Instance(string("camomile"))
 {
-    static bool init = false;
-    if(!init)
-    {
-        static CamoLookAndFeel lookAndFeel;
-        LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
-        init = true;
-    }
+    static CamoLookAndFeel lookAndFeel;
+    LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
     m_parameters.resize(32);
 }
 
@@ -188,7 +182,9 @@ void InstanceProcessor::loadPatch(const juce::File& file)
                     {
                         if(index < m_parameters.size())
                         {
-                            m_parameters[index++] = it2;
+                            m_parameters[index] = it2;
+                            //setParameterNotifyingHost(index+1, m_parameters[index].getDefaultNormalizedValue());
+                            index++;
                         }
                     }
                 }

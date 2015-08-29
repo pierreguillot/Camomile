@@ -172,12 +172,12 @@ namespace pd
             std::string text;
             if(isValid())
             {
-                char* text = NULL;
-                ebox_parameter_gettextforvalue(m_parameter->p_owner, m_parameter->p_name, &text, value);
-                if(text)
+                char* ntext = NULL;
+                ebox_parameter_gettextforvalue(m_parameter->p_owner, m_parameter->p_name, &ntext, value);
+                if(ntext)
                 {
-                    text = text;
-                    free(text);
+                    text = ntext;
+                    free(ntext);
                 }
             }
             return text;
