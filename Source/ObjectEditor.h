@@ -68,8 +68,8 @@ public:
     // ==================================================================================== //
 
     void receive(std::string const& dest, std::string const& s, std::vector<Atom> const& atoms) override;
-    void textEditorAction(pd::TextEditor& editor, ewidget_action action);
-    void popupMenuAction(pd::PopupMenu& menu, ewidget_action action);
+    void textEditorAction(pd::TextEditor& editor, std::string const& action);
+    void popupMenuAction(pd::PopupMenu& menu, std::string const& action);
     // ==================================================================================== //
     //                                      TEXT EDITORS                                    //
     // ==================================================================================== //

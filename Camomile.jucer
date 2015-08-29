@@ -4,7 +4,7 @@
               bundleIdentifier="com.cicm.Camomile" includeBinaryInAppConfig="1"
               buildVST="1" buildVST3="1" buildAU="1" buildRTAS="0" buildAAX="0"
               pluginName="Camomile" pluginDesc="Camomile" pluginManufacturer="Pierre Guillot"
-              pluginManufacturerCode="CICM" pluginCode="Y2nd" pluginChannelConfigs=""
+              pluginManufacturerCode="CICM" pluginCode="PGCA" pluginChannelConfigs=""
               pluginIsSynth="0" pluginWantsMidiIn="0" pluginProducesMidiOut="0"
               pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="1"
               pluginAUExportPrefix="CamomileAU" pluginRTASCategory="" aaxIdentifier="com.cicm.Camomile"
@@ -232,7 +232,8 @@
                        libraryPath="" defines="" binaryPath="/Library/Audio/Plug-Ins"/>
         <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="64BitUniversal"
                        isDebug="0" optimisation="3" targetName="Camomile" headerPath="../../ThirdParty/PureData/src"
-                       libraryPath="" defines="" binaryPath="/Library/Audio/Plug-Ins"/>
+                       libraryPath="" defines="" binaryPath="/Library/Audio/Plug-Ins"
+                       linkTimeOptimisation="1"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="ThirdParty/Juce/modules"/>

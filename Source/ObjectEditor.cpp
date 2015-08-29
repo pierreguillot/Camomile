@@ -159,127 +159,108 @@ bool ObjectEditor::keyPressed(const KeyPress& key)
 //                                      NOTIFICATIONS                                   //
 // ==================================================================================== //
 
-void ObjectEditor::textEditorAction(pd::TextEditor& editor, ewidget_action action)
+void ObjectEditor::textEditorAction(pd::TextEditor& editor, std::string const& action)
 {
     if(editor)
     {
         const MessageManagerLock thread(Thread::getCurrentThread());
         if(thread.lockWasGained())
         {
-            switch(action)
+            if(action == "create")
             {
-                case EWIDGET_CREATE:
-                    m_editors.add(new ObjectText(editor));
-                    break;
-                case EWIDGET_DESTROY:
-                {
-                    for(int i = 0; i < m_editors.size(); i++)
-                    {
-                        if(m_editors[i]->getBindingName() == editor.getName())
-                        {
-                            m_editors.remove(i);
-                            exitModalState(0);
-                            break;
-                        }
-                    }
-                }
-                    break;
-                case EWIDGET_CHANGED:
-                {
-                    for(int i = 0; i < m_editors.size(); i++)
-                    {
-                        if(m_editors[i]->getBindingName() == editor.getName())
-                        {
-                            m_editors[i]->setFont(juce::Font(editor.getFontSize()));
-                            m_editors[i]->setText(editor.getText());
-                            m_editors[i]->setColour(juce::TextEditor::backgroundColourId, tojColor(editor.getBackgroundColor()));
-                            m_editors[i]->setColour(juce::TextEditor::textColourId, tojColor(editor.getTextColor()));
-                            m_editors[i]->setMultiLine(editor.shouldWrap(), editor.shouldWrap());
-                            break;
-                        }
-                    }
-                }
-                    break;
-                case EWIDGET_POPUP:
-                {
-                    const int offset = m_object.getBorderSize();
-                    for(int i = 0; i < m_editors.size(); i++)
-                    {
-                        if(m_editors[i]->getBindingName() == editor.getName())
-                        {
-                            const std::array<int, 4> bounds(editor.getBounds());
-                            m_editors[i]->addListener(this);
-                            m_editors[i]->setInputFilter(this, false);
-                            m_editors[i]->setBounds(bounds[0] + offset, bounds[1] + offset, bounds[2], bounds[3]);
-                            enterModalState(false);
-                            addAndMakeVisible(m_editors[i]);
-                            break;
-                        }
-                    }
-                }
-                    break;
-                case EWIDGET_GRABFOCUS:
-                {
-                    for(int i = 0; i < m_editors.size(); i++)
-                    {
-                        if(m_editors[i]->getBindingName() == editor.getName())
-                        {
-                            m_editors[i]->grabKeyboardFocus();
-                            break;
-                        }
-                    }
-                }
-                    break;
-                default:
-                    break;
+                m_editors.add(new ObjectText(editor));
             }
-            
+            else if(action == "destroy")
+            {
+                for(int i = 0; i < m_editors.size(); i++)
+                {
+                    if(m_editors[i]->getBindingName() == editor.getName())
+                    {
+                        m_editors.remove(i);
+                        exitModalState(0);
+                        break;
+                    }
+                }
+            }
+            else if(action == "attr_modified")
+            {
+                for(int i = 0; i < m_editors.size(); i++)
+                {
+                    if(m_editors[i]->getBindingName() == editor.getName())
+                    {
+                        m_editors[i]->setFont(juce::Font(editor.getFontSize()));
+                        m_editors[i]->setText(editor.getText());
+                        m_editors[i]->setColour(juce::TextEditor::backgroundColourId, tojColor(editor.getBackgroundColor()));
+                        m_editors[i]->setColour(juce::TextEditor::textColourId, tojColor(editor.getTextColor()));
+                        m_editors[i]->setMultiLine(editor.shouldWrap(), editor.shouldWrap());
+                        break;
+                    }
+                }
+            }
+            else if(action == "popup")
+            {
+                const int offset = m_object.getBorderSize();
+                for(int i = 0; i < m_editors.size(); i++)
+                {
+                    if(m_editors[i]->getBindingName() == editor.getName())
+                    {
+                        const std::array<int, 4> bounds(editor.getBounds());
+                        m_editors[i]->addListener(this);
+                        m_editors[i]->setInputFilter(this, false);
+                        m_editors[i]->setBounds(bounds[0] + offset, bounds[1] + offset, bounds[2], bounds[3]);
+                        enterModalState(false);
+                        addAndMakeVisible(m_editors[i]);
+                        break;
+                    }
+                }
+            }
+            else if(action == "grabfocus")
+            {
+                for(int i = 0; i < m_editors.size(); i++)
+                {
+                    if(m_editors[i]->getBindingName() == editor.getName())
+                    {
+                        m_editors[i]->grabKeyboardFocus();
+                        break;
+                    }
+                }
+            }
         }
     }
 }
 
-void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, ewidget_action action)
+void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, std::string const& action)
 {
     if(menu && !m_popup_active)
     {
         const MessageManagerLock thread(Thread::getCurrentThread());
         if(thread.lockWasGained())
         {
-            switch(action)
+            if(action == "attr_modified")
             {
-                case EWIDGET_DESTROY:
-                    break;
-                case EWIDGET_CHANGED:
+                m_popup.clear();
+                for(int i = 0; i < menu.getNumberOfItems(); i++)
                 {
-                    m_popup.clear();
-                    for(int i = 0; i < menu.getNumberOfItems(); i++)
+                    if(menu.isItemSeparator(i))
                     {
-                        if(menu.isItemSeparator(i))
-                        {
-                            m_popup.addSeparator();
-                        }
-                        else
-                        {
-                            m_popup.addItem(menu.getItemId(i) + 1, menu.getItemLabel(i), !menu.isItemDisable(i), menu.isItemChecked(i), nullptr);
-                        }
+                        m_popup.addSeparator();
+                    }
+                    else
+                    {
+                        m_popup.addItem(menu.getItemId(i) + 1, menu.getItemLabel(i), !menu.isItemDisable(i), menu.isItemChecked(i), nullptr);
                     }
                 }
-                    break;
-                case EWIDGET_POPUP:
-                {
-                    m_popup_active = true;
-                    int i = m_popup.show();
-                    if(i)
-                    {
-                        m_object.popup(menu, i-1);
-                    }
-                    m_popup_active = false;                    
-                    break;
-                }
-                default:
-                    break;
             }
-            
+            else if(action == "popup")
+            {
+                m_popup_active = true;
+                int i = m_popup.show();
+                if(i)
+                {
+                    m_object.popup(menu, i-1);
+                }
+                m_popup_active = false;
+            }
         }
     }
 }
@@ -301,18 +282,18 @@ void ObjectEditor::receive(std::string const& dest, std::string const& s, std::v
     }
     else if(s == string("texteditor"))
     {
-        if(atoms.size() == 2 && atoms[0].isSymbol() && atoms[1].isFloat())
+        if(atoms.size() == 2 && atoms[0].isSymbol() && atoms[1].isSymbol())
         {
             pd::TextEditor editor(atoms[0]);
-            textEditorAction(editor, ewidget_action(float(atoms[1])));
+            textEditorAction(editor, std::string(atoms[1]));
         }
     }
     else if(s == string("popup"))
     {
-        if(atoms.size() == 2 && atoms[0].isSymbol() && atoms[1].isFloat())
+        if(atoms.size() == 2 && atoms[0].isSymbol() && atoms[1].isSymbol())
         {
             pd::PopupMenu menu(atoms[0]);
-            popupMenuAction(menu, ewidget_action(float(atoms[1])));
+            popupMenuAction(menu, std::string(atoms[1]));
         }
     }
 }
