@@ -22,6 +22,8 @@
   ==============================================================================
 */
 
+#include "LookAndFeel.h"
+
 namespace LookAndFeelHelpers
 {
     static Colour createBaseColour (Colour buttonColour,
@@ -54,7 +56,7 @@ namespace LookAndFeelHelpers
 }
 
 //==============================================================================
-LookAndFeel_V2::LookAndFeel_V2()
+CamoLookAndFeel::CamoLookAndFeel()
 {
     // initialise the standard set of colours..
     const uint32 textButtonColour      = 0xffbbbbff;
@@ -70,13 +72,13 @@ LookAndFeel_V2::LookAndFeel_V2()
 
         ToggleButton::textColourId,                 0xff000000,
 
-        TextEditor::backgroundColourId,             0xffffffff,
-        TextEditor::textColourId,                   0xff000000,
-        TextEditor::highlightColourId,              textHighlightColour,
-        TextEditor::highlightedTextColourId,        0xff000000,
-        TextEditor::outlineColourId,                0x00000000,
-        TextEditor::focusedOutlineColourId,         textButtonColour,
-        TextEditor::shadowColourId,                 0x38000000,
+        juce::TextEditor::backgroundColourId,             0xffffffff,
+        juce::TextEditor::textColourId,                   0xff000000,
+        juce::TextEditor::highlightColourId,              textHighlightColour,
+        juce::TextEditor::highlightedTextColourId,        0xff000000,
+        juce::TextEditor::outlineColourId,                0x00000000,
+        juce::TextEditor::focusedOutlineColourId,         textButtonColour,
+        juce::TextEditor::shadowColourId,                 0x38000000,
 
         CaretComponent::caretColourId,              0xff000000,
 
@@ -92,11 +94,11 @@ LookAndFeel_V2::LookAndFeel_V2()
         TreeView::dragAndDropIndicatorColourId,     0x80ff0000,
         TreeView::selectedItemBackgroundColourId,   0x00000000,
 
-        PopupMenu::backgroundColourId,              0xffffffff,
-        PopupMenu::textColourId,                    0xff000000,
-        PopupMenu::headerTextColourId,              0xff000000,
-        PopupMenu::highlightedTextColourId,         0xffffffff,
-        PopupMenu::highlightedBackgroundColourId,   0x991111aa,
+        juce::PopupMenu::backgroundColourId,              0xffffffff,
+        juce::PopupMenu::textColourId,                    0xff000000,
+        juce::PopupMenu::headerTextColourId,              0xff000000,
+        juce::PopupMenu::highlightedTextColourId,         0xffffffff,
+        juce::PopupMenu::highlightedBackgroundColourId,   0x991111aa,
 
         ComboBox::buttonColourId,                   0xffbbbbff,
         ComboBox::outlineColourId,                  standardOutlineColour,
@@ -204,58 +206,32 @@ LookAndFeel_V2::LookAndFeel_V2()
         setColour ((int) standardColours [i], Colour ((uint32) standardColours [i + 1]));
 }
 
-LookAndFeel_V2::~LookAndFeel_V2()  {}
+CamoLookAndFeel::~CamoLookAndFeel()  {}
 
 //==============================================================================
-void LookAndFeel_V2::drawButtonBackground (Graphics& g,
+void CamoLookAndFeel::drawButtonBackground (Graphics& g,
                                            Button& button,
                                            const Colour& backgroundColour,
                                            bool isMouseOverButton,
                                            bool isButtonDown)
-{
-    const int width = button.getWidth();
-    const int height = button.getHeight();
-
-    const float outlineThickness = button.isEnabled() ? ((isButtonDown || isMouseOverButton) ? 1.2f : 0.7f) : 0.4f;
-    const float halfThickness = outlineThickness * 0.5f;
-
-    const float indentL = button.isConnectedOnLeft()   ? 0.1f : halfThickness;
-    const float indentR = button.isConnectedOnRight()  ? 0.1f : halfThickness;
-    const float indentT = button.isConnectedOnTop()    ? 0.1f : halfThickness;
-    const float indentB = button.isConnectedOnBottom() ? 0.1f : halfThickness;
-
-    const Colour baseColour (LookAndFeelHelpers::createBaseColour (backgroundColour,
-                                                                   button.hasKeyboardFocus (true),
-                                                                   isMouseOverButton, isButtonDown)
-                               .withMultipliedAlpha (button.isEnabled() ? 1.0f : 0.5f));
-
-    drawGlassLozenge (g,
-                      indentL,
-                      indentT,
-                      width - indentL - indentR,
-                      height - indentT - indentB,
-                      baseColour, outlineThickness, -1.0f,
-                      button.isConnectedOnLeft(),
-                      button.isConnectedOnRight(),
-                      button.isConnectedOnTop(),
-                      button.isConnectedOnBottom());
+{;
 }
 
-Font LookAndFeel_V2::getTextButtonFont (TextButton&, int buttonHeight)
+Font CamoLookAndFeel::getTextButtonFont (TextButton&, int buttonHeight)
 {
     return Font (jmin (15.0f, buttonHeight * 0.6f));
 }
 
-int LookAndFeel_V2::getTextButtonWidthToFitText (TextButton& b, int buttonHeight)
+int CamoLookAndFeel::getTextButtonWidthToFitText (TextButton& b, int buttonHeight)
 {
     return getTextButtonFont (b, buttonHeight).getStringWidth (b.getButtonText()) + buttonHeight;
 }
 
-void LookAndFeel_V2::drawButtonText (Graphics& g, TextButton& button, bool /*isMouseOverButton*/, bool /*isButtonDown*/)
+void CamoLookAndFeel::drawButtonText (Graphics& g, TextButton& button, bool isMouseOverButton, bool /*isButtonDown*/)
 {
     Font font (getTextButtonFont (button, button.getHeight()));
     g.setFont (font);
-    g.setColour (button.findColour (button.getToggleState() ? TextButton::textColourOnId
+    g.setColour (button.findColour (isMouseOverButton ? TextButton::textColourOnId
                                                             : TextButton::textColourOffId)
                        .withMultipliedAlpha (button.isEnabled() ? 1.0f : 0.5f));
 
@@ -274,7 +250,7 @@ void LookAndFeel_V2::drawButtonText (Graphics& g, TextButton& button, bool /*isM
                       Justification::centred, 2);
 }
 
-void LookAndFeel_V2::drawTickBox (Graphics& g, Component& component,
+void CamoLookAndFeel::drawTickBox (Graphics& g, Component& component,
                                   float x, float y, float w, float h,
                                   const bool ticked,
                                   const bool isEnabled,
@@ -305,12 +281,12 @@ void LookAndFeel_V2::drawTickBox (Graphics& g, Component& component,
     }
 }
 
-void LookAndFeel_V2::drawToggleButton (Graphics& g, ToggleButton& button,
+void CamoLookAndFeel::drawToggleButton (Graphics& g, ToggleButton& button,
                                        bool isMouseOverButton, bool isButtonDown)
 {
     if (button.hasKeyboardFocus (true))
     {
-        g.setColour (button.findColour (TextEditor::focusedOutlineColourId));
+        g.setColour (button.findColour (juce::TextEditor::focusedOutlineColourId));
         g.drawRect (0, 0, button.getWidth(), button.getHeight());
     }
 
@@ -338,7 +314,7 @@ void LookAndFeel_V2::drawToggleButton (Graphics& g, ToggleButton& button,
                       Justification::centredLeft, 10);
 }
 
-void LookAndFeel_V2::changeToggleButtonWidthToFitText (ToggleButton& button)
+void CamoLookAndFeel::changeToggleButtonWidthToFitText (ToggleButton& button)
 {
     Font font (jmin (15.0f, button.getHeight() * 0.6f));
 
@@ -348,7 +324,7 @@ void LookAndFeel_V2::changeToggleButtonWidthToFitText (ToggleButton& button)
                     button.getHeight());
 }
 
-void LookAndFeel_V2::drawDrawableButton (Graphics& g, DrawableButton& button,
+void CamoLookAndFeel::drawDrawableButton (Graphics& g, DrawableButton& button,
                                          bool /*isMouseOverButton*/, bool /*isButtonDown*/)
 {
     bool toggleState = button.getToggleState();
@@ -376,7 +352,7 @@ void LookAndFeel_V2::drawDrawableButton (Graphics& g, DrawableButton& button,
 }
 
 //==============================================================================
-AlertWindow* LookAndFeel_V2::createAlertWindow (const String& title, const String& message,
+AlertWindow* CamoLookAndFeel::createAlertWindow (const String& title, const String& message,
                                                 const String& button1, const String& button2, const String& button3,
                                                 AlertWindow::AlertIconType iconType,
                                                 int numButtons, Component* associatedComponent)
@@ -412,7 +388,7 @@ AlertWindow* LookAndFeel_V2::createAlertWindow (const String& title, const Strin
     return aw;
 }
 
-void LookAndFeel_V2::drawAlertBox (Graphics& g, AlertWindow& alert,
+void CamoLookAndFeel::drawAlertBox (Graphics& g, AlertWindow& alert,
                                    const Rectangle<int>& textArea, TextLayout& textLayout)
 {
     g.fillAll (alert.findColour (AlertWindow::backgroundColourId));
@@ -479,35 +455,35 @@ void LookAndFeel_V2::drawAlertBox (Graphics& g, AlertWindow& alert,
     g.drawRect (0, 0, alert.getWidth(), alert.getHeight());
 }
 
-int LookAndFeel_V2::getAlertBoxWindowFlags()
+int CamoLookAndFeel::getAlertBoxWindowFlags()
 {
     return ComponentPeer::windowAppearsOnTaskbar
             | ComponentPeer::windowHasDropShadow;
 }
 
-int LookAndFeel_V2::getAlertWindowButtonHeight()
+int CamoLookAndFeel::getAlertWindowButtonHeight()
 {
     return 28;
 }
 
-Font LookAndFeel_V2::getAlertWindowTitleFont()
+Font CamoLookAndFeel::getAlertWindowTitleFont()
 {
     Font messageFont = getAlertWindowMessageFont();
     return messageFont.withHeight (messageFont.getHeight() * 1.1f).boldened();
 }
 
-Font LookAndFeel_V2::getAlertWindowMessageFont()
+Font CamoLookAndFeel::getAlertWindowMessageFont()
 {
     return Font (15.0f);
 }
 
-Font LookAndFeel_V2::getAlertWindowFont()
+Font CamoLookAndFeel::getAlertWindowFont()
 {
     return Font (12.0f);
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawProgressBar (Graphics& g, ProgressBar& progressBar,
+void CamoLookAndFeel::drawProgressBar (Graphics& g, ProgressBar& progressBar,
                                       int width, int height,
                                       double progress, const String& textToShow)
 {
@@ -566,7 +542,7 @@ void LookAndFeel_V2::drawProgressBar (Graphics& g, ProgressBar& progressBar,
     }
 }
 
-void LookAndFeel_V2::drawSpinningWaitAnimation (Graphics& g, const Colour& colour, int x, int y, int w, int h)
+void CamoLookAndFeel::drawSpinningWaitAnimation (Graphics& g, const Colour& colour, int x, int y, int w, int h)
 {
     const float radius = jmin (w, h) * 0.4f;
     const float thickness = radius * 0.15f;
@@ -590,12 +566,12 @@ void LookAndFeel_V2::drawSpinningWaitAnimation (Graphics& g, const Colour& colou
     }
 }
 
-bool LookAndFeel_V2::areScrollbarButtonsVisible()
+bool CamoLookAndFeel::areScrollbarButtonsVisible()
 {
     return true;
 }
 
-void LookAndFeel_V2::drawScrollbarButton (Graphics& g, ScrollBar& scrollbar,
+void CamoLookAndFeel::drawScrollbarButton (Graphics& g, ScrollBar& scrollbar,
                                           int width, int height, int buttonDirection,
                                           bool /*isScrollbarVertical*/,
                                           bool /*isMouseOverButton*/,
@@ -631,7 +607,7 @@ void LookAndFeel_V2::drawScrollbarButton (Graphics& g, ScrollBar& scrollbar,
     g.strokePath (p, PathStrokeType (0.5f));
 }
 
-void LookAndFeel_V2::drawScrollbar (Graphics& g,
+void CamoLookAndFeel::drawScrollbar (Graphics& g,
                                  ScrollBar& scrollbar,
                                  int x, int y,
                                  int width, int height,
@@ -740,29 +716,29 @@ void LookAndFeel_V2::drawScrollbar (Graphics& g,
     g.strokePath (thumbPath, PathStrokeType (0.4f));
 }
 
-ImageEffectFilter* LookAndFeel_V2::getScrollbarEffect()
+ImageEffectFilter* CamoLookAndFeel::getScrollbarEffect()
 {
     return nullptr;
 }
 
-int LookAndFeel_V2::getMinimumScrollbarThumbSize (ScrollBar& scrollbar)
+int CamoLookAndFeel::getMinimumScrollbarThumbSize (ScrollBar& scrollbar)
 {
     return jmin (scrollbar.getWidth(), scrollbar.getHeight()) * 2;
 }
 
-int LookAndFeel_V2::getDefaultScrollbarWidth()
+int CamoLookAndFeel::getDefaultScrollbarWidth()
 {
     return 18;
 }
 
-int LookAndFeel_V2::getScrollbarButtonSize (ScrollBar& scrollbar)
+int CamoLookAndFeel::getScrollbarButtonSize (ScrollBar& scrollbar)
 {
     return 2 + (scrollbar.isVertical() ? scrollbar.getWidth()
                                        : scrollbar.getHeight());
 }
 
 //==============================================================================
-Path LookAndFeel_V2::getTickShape (const float height)
+Path CamoLookAndFeel::getTickShape (const float height)
 {
     static const unsigned char tickShapeData[] =
     {
@@ -779,7 +755,7 @@ Path LookAndFeel_V2::getTickShape (const float height)
     return p;
 }
 
-Path LookAndFeel_V2::getCrossShape (const float height)
+Path CamoLookAndFeel::getCrossShape (const float height)
 {
     static const unsigned char crossShapeData[] =
     {
@@ -799,7 +775,7 @@ Path LookAndFeel_V2::getCrossShape (const float height)
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawTreeviewPlusMinusBox (Graphics& g, const Rectangle<float>& area,
+void CamoLookAndFeel::drawTreeviewPlusMinusBox (Graphics& g, const Rectangle<float>& area,
                                                Colour /*backgroundColour*/, bool isOpen, bool /*isMouseOver*/)
 {
     const int boxSize = roundToInt (jmin (16.0f, area.getWidth(), area.getHeight()) * 0.7f) | 1;
@@ -824,18 +800,18 @@ void LookAndFeel_V2::drawTreeviewPlusMinusBox (Graphics& g, const Rectangle<floa
         g.fillRect (x + centre, y + (h - size) * 0.5f, 1.0f, size);
 }
 
-bool LookAndFeel_V2::areLinesDrawnForTreeView (TreeView&)
+bool CamoLookAndFeel::areLinesDrawnForTreeView (TreeView&)
 {
     return true;
 }
 
-int LookAndFeel_V2::getTreeViewIndentSize (TreeView&)
+int CamoLookAndFeel::getTreeViewIndentSize (TreeView&)
 {
     return 24;
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawBubble (Graphics& g, BubbleComponent& comp,
+void CamoLookAndFeel::drawBubble (Graphics& g, BubbleComponent& comp,
                                  const Point<float>& tip, const Rectangle<float>& body)
 {
     Path p;
@@ -851,12 +827,12 @@ void LookAndFeel_V2::drawBubble (Graphics& g, BubbleComponent& comp,
 
 
 //==============================================================================
-Font LookAndFeel_V2::getPopupMenuFont()
+Font CamoLookAndFeel::getPopupMenuFont()
 {
     return Font (17.0f);
 }
 
-void LookAndFeel_V2::getIdealPopupMenuItemSize (const String& text, const bool isSeparator,
+void CamoLookAndFeel::getIdealPopupMenuItemSize (const String& text, const bool isSeparator,
                                                 int standardMenuItemHeight, int& idealWidth, int& idealHeight)
 {
     if (isSeparator)
@@ -876,9 +852,9 @@ void LookAndFeel_V2::getIdealPopupMenuItemSize (const String& text, const bool i
     }
 }
 
-void LookAndFeel_V2::drawPopupMenuBackground (Graphics& g, int width, int height)
+void CamoLookAndFeel::drawPopupMenuBackground (Graphics& g, int width, int height)
 {
-    const Colour background (findColour (PopupMenu::backgroundColourId));
+    const Colour background (findColour (juce::PopupMenu::backgroundColourId));
 
     g.fillAll (background);
     g.setColour (background.overlaidWith (Colour (0x2badd8e6)));
@@ -887,14 +863,14 @@ void LookAndFeel_V2::drawPopupMenuBackground (Graphics& g, int width, int height
         g.fillRect (0, i, width, 1);
 
    #if ! JUCE_MAC
-    g.setColour (findColour (PopupMenu::textColourId).withAlpha (0.6f));
+    g.setColour (findColour (juce::PopupMenu::textColourId).withAlpha (0.6f));
     g.drawRect (0, 0, width, height);
    #endif
 }
 
-void LookAndFeel_V2::drawPopupMenuUpDownArrow (Graphics& g, int width, int height, bool isScrollUpArrow)
+void CamoLookAndFeel::drawPopupMenuUpDownArrow (Graphics& g, int width, int height, bool isScrollUpArrow)
 {
-    const Colour background (findColour (PopupMenu::backgroundColourId));
+    const Colour background (findColour (juce::PopupMenu::backgroundColourId));
 
     g.setGradientFill (ColourGradient (background, 0.0f, height * 0.5f,
                                        background.withAlpha (0.0f),
@@ -913,11 +889,11 @@ void LookAndFeel_V2::drawPopupMenuUpDownArrow (Graphics& g, int width, int heigh
                    hw + arrowW, y1,
                    hw, y2);
 
-    g.setColour (findColour (PopupMenu::textColourId).withAlpha (0.5f));
+    g.setColour (findColour (juce::PopupMenu::textColourId).withAlpha (0.5f));
     g.fillPath (p);
 }
 
-void LookAndFeel_V2::drawPopupMenuItem (Graphics& g, const Rectangle<int>& area,
+void CamoLookAndFeel::drawPopupMenuItem (Graphics& g, const Rectangle<int>& area,
                                         const bool isSeparator, const bool isActive,
                                         const bool isHighlighted, const bool isTicked,
                                         const bool hasSubMenu, const String& text,
@@ -937,7 +913,7 @@ void LookAndFeel_V2::drawPopupMenuItem (Graphics& g, const Rectangle<int>& area,
     }
     else
     {
-        Colour textColour (findColour (PopupMenu::textColourId));
+        Colour textColour (findColour (juce::PopupMenu::textColourId));
 
         if (textColourToUse != nullptr)
             textColour = *textColourToUse;
@@ -946,10 +922,10 @@ void LookAndFeel_V2::drawPopupMenuItem (Graphics& g, const Rectangle<int>& area,
 
         if (isHighlighted)
         {
-            g.setColour (findColour (PopupMenu::highlightedBackgroundColourId));
+            g.setColour (findColour (juce::PopupMenu::highlightedBackgroundColourId));
             g.fillRect (r);
 
-            g.setColour (findColour (PopupMenu::highlightedTextColourId));
+            g.setColour (findColour (juce::PopupMenu::highlightedTextColourId));
         }
         else
         {
@@ -1010,10 +986,10 @@ void LookAndFeel_V2::drawPopupMenuItem (Graphics& g, const Rectangle<int>& area,
     }
 }
 
-void LookAndFeel_V2::drawPopupMenuSectionHeader (Graphics& g, const Rectangle<int>& area, const String& sectionName)
+void CamoLookAndFeel::drawPopupMenuSectionHeader (Graphics& g, const Rectangle<int>& area, const String& sectionName)
 {
     g.setFont (getPopupMenuFont().boldened());
-    g.setColour (findColour (PopupMenu::headerTextColourId));
+    g.setColour (findColour (juce::PopupMenu::headerTextColourId));
 
     g.drawFittedText (sectionName,
                       area.getX() + 12, area.getY(), area.getWidth() - 16, (int) (area.getHeight() * 0.8f),
@@ -1021,14 +997,14 @@ void LookAndFeel_V2::drawPopupMenuSectionHeader (Graphics& g, const Rectangle<in
 }
 
 //==============================================================================
-int LookAndFeel_V2::getMenuWindowFlags()
+int CamoLookAndFeel::getMenuWindowFlags()
 {
     return ComponentPeer::windowHasDropShadow;
 }
 
-void LookAndFeel_V2::drawMenuBarBackground (Graphics& g, int width, int height, bool, MenuBarComponent& menuBar)
+void CamoLookAndFeel::drawMenuBarBackground (Graphics& g, int width, int height, bool, MenuBarComponent& menuBar)
 {
-    const Colour baseColour (LookAndFeelHelpers::createBaseColour (menuBar.findColour (PopupMenu::backgroundColourId),
+    const Colour baseColour (LookAndFeelHelpers::createBaseColour (menuBar.findColour (juce::PopupMenu::backgroundColourId),
                                                                    false, false, false));
 
     if (menuBar.isEnabled())
@@ -1038,35 +1014,35 @@ void LookAndFeel_V2::drawMenuBarBackground (Graphics& g, int width, int height, 
         g.fillAll (baseColour);
 }
 
-Font LookAndFeel_V2::getMenuBarFont (MenuBarComponent& menuBar, int /*itemIndex*/, const String& /*itemText*/)
+Font CamoLookAndFeel::getMenuBarFont (MenuBarComponent& menuBar, int /*itemIndex*/, const String& /*itemText*/)
 {
     return Font (menuBar.getHeight() * 0.7f);
 }
 
-int LookAndFeel_V2::getMenuBarItemWidth (MenuBarComponent& menuBar, int itemIndex, const String& itemText)
+int CamoLookAndFeel::getMenuBarItemWidth (MenuBarComponent& menuBar, int itemIndex, const String& itemText)
 {
     return getMenuBarFont (menuBar, itemIndex, itemText)
             .getStringWidth (itemText) + menuBar.getHeight();
 }
 
-void LookAndFeel_V2::drawMenuBarItem (Graphics& g, int width, int height,
+void CamoLookAndFeel::drawMenuBarItem (Graphics& g, int width, int height,
                                       int itemIndex, const String& itemText,
                                       bool isMouseOverItem, bool isMenuOpen,
                                       bool /*isMouseOverBar*/, MenuBarComponent& menuBar)
 {
     if (! menuBar.isEnabled())
     {
-        g.setColour (menuBar.findColour (PopupMenu::textColourId)
+        g.setColour (menuBar.findColour (juce::PopupMenu::textColourId)
                             .withMultipliedAlpha (0.5f));
     }
     else if (isMenuOpen || isMouseOverItem)
     {
-        g.fillAll (menuBar.findColour (PopupMenu::highlightedBackgroundColourId));
-        g.setColour (menuBar.findColour (PopupMenu::highlightedTextColourId));
+        g.fillAll (menuBar.findColour (juce::PopupMenu::highlightedBackgroundColourId));
+        g.setColour (menuBar.findColour (juce::PopupMenu::highlightedTextColourId));
     }
     else
     {
-        g.setColour (menuBar.findColour (PopupMenu::textColourId));
+        g.setColour (menuBar.findColour (juce::PopupMenu::textColourId));
     }
 
     g.setFont (getMenuBarFont (menuBar, itemIndex, itemText));
@@ -1074,12 +1050,12 @@ void LookAndFeel_V2::drawMenuBarItem (Graphics& g, int width, int height,
 }
 
 //==============================================================================
-void LookAndFeel_V2::fillTextEditorBackground (Graphics& g, int /*width*/, int /*height*/, TextEditor& textEditor)
+void CamoLookAndFeel::fillTextEditorBackground (Graphics& g, int /*width*/, int /*height*/, juce::TextEditor& textEditor)
 {
-    g.fillAll (textEditor.findColour (TextEditor::backgroundColourId));
+    g.fillAll (textEditor.findColour (juce::TextEditor::backgroundColourId));
 }
 
-void LookAndFeel_V2::drawTextEditorOutline (Graphics& g, int width, int height, TextEditor& textEditor)
+void CamoLookAndFeel::drawTextEditorOutline (Graphics& g, int width, int height, juce::TextEditor& textEditor)
 {
     /*
     if (textEditor.isEnabled())
@@ -1088,33 +1064,33 @@ void LookAndFeel_V2::drawTextEditorOutline (Graphics& g, int width, int height, 
         {
             const int border = 2;
 
-            g.setColour (textEditor.findColour (TextEditor::focusedOutlineColourId));
+            g.setColour (textEditor.findColour (juce::TextEditor::focusedOutlineColourId));
             g.drawRect (0, 0, width, height, border);
 
             g.setOpacity (1.0f);
-            const Colour shadowColour (textEditor.findColour (TextEditor::shadowColourId).withMultipliedAlpha (0.75f));
+            const Colour shadowColour (textEditor.findColour (juce::TextEditor::shadowColourId).withMultipliedAlpha (0.75f));
             drawBevel (g, 0, 0, width, height + 2, border + 2, shadowColour, shadowColour);
         }
         else
         {
-            g.setColour (textEditor.findColour (TextEditor::outlineColourId));
+            g.setColour (textEditor.findColour (juce::TextEditor::outlineColourId));
             g.drawRect (0, 0, width, height);
 
             g.setOpacity (1.0f);
-            const Colour shadowColour (textEditor.findColour (TextEditor::shadowColourId));
+            const Colour shadowColour (textEditor.findColour (juce::TextEditor::shadowColourId));
             drawBevel (g, 0, 0, width, height + 2, 3, shadowColour, shadowColour);
         }
     }
      */
 }
 
-CaretComponent* LookAndFeel_V2::createCaretComponent (Component* keyFocusOwner)
+CaretComponent* CamoLookAndFeel::createCaretComponent (Component* keyFocusOwner)
 {
     return new CaretComponent (keyFocusOwner);
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawComboBox (Graphics& g, int width, int height, const bool isButtonDown,
+void CamoLookAndFeel::drawComboBox (Graphics& g, int width, int height, const bool isButtonDown,
                                    int buttonX, int buttonY, int buttonW, int buttonH, ComboBox& box)
 {
     g.fillAll (box.findColour (ComboBox::backgroundColourId));
@@ -1162,17 +1138,17 @@ void LookAndFeel_V2::drawComboBox (Graphics& g, int width, int height, const boo
     }
 }
 
-Font LookAndFeel_V2::getComboBoxFont (ComboBox& box)
+Font CamoLookAndFeel::getComboBoxFont (ComboBox& box)
 {
     return Font (jmin (15.0f, box.getHeight() * 0.85f));
 }
 
-Label* LookAndFeel_V2::createComboBoxTextBox (ComboBox&)
+Label* CamoLookAndFeel::createComboBoxTextBox (ComboBox&)
 {
     return new Label (String::empty, String::empty);
 }
 
-void LookAndFeel_V2::positionComboBoxText (ComboBox& box, Label& label)
+void CamoLookAndFeel::positionComboBoxText (ComboBox& box, Label& label)
 {
     label.setBounds (1, 1,
                      box.getWidth() + 3 - box.getHeight(),
@@ -1182,12 +1158,12 @@ void LookAndFeel_V2::positionComboBoxText (ComboBox& box, Label& label)
 }
 
 //==============================================================================
-Font LookAndFeel_V2::getLabelFont (Label& label)
+Font CamoLookAndFeel::getLabelFont (Label& label)
 {
     return label.getFont();
 }
 
-void LookAndFeel_V2::drawLabel (Graphics& g, Label& label)
+void CamoLookAndFeel::drawLabel (Graphics& g, Label& label)
 {
     g.fillAll (label.findColour (Label::backgroundColourId));
 
@@ -1216,7 +1192,7 @@ void LookAndFeel_V2::drawLabel (Graphics& g, Label& label)
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawLinearSliderBackground (Graphics& g, int x, int y, int width, int height,
+void CamoLookAndFeel::drawLinearSliderBackground (Graphics& g, int x, int y, int width, int height,
                                                  float /*sliderPos*/,
                                                  float /*minSliderPos*/,
                                                  float /*maxSliderPos*/,
@@ -1260,7 +1236,7 @@ void LookAndFeel_V2::drawLinearSliderBackground (Graphics& g, int x, int y, int 
     g.strokePath (indent, PathStrokeType (0.5f));
 }
 
-void LookAndFeel_V2::drawLinearSliderThumb (Graphics& g, int x, int y, int width, int height,
+void CamoLookAndFeel::drawLinearSliderThumb (Graphics& g, int x, int y, int width, int height,
                                             float sliderPos, float minSliderPos, float maxSliderPos,
                                             const Slider::SliderStyle style, Slider& slider)
 {
@@ -1337,7 +1313,7 @@ void LookAndFeel_V2::drawLinearSliderThumb (Graphics& g, int x, int y, int width
     }
 }
 
-void LookAndFeel_V2::drawLinearSlider (Graphics& g, int x, int y, int width, int height,
+void CamoLookAndFeel::drawLinearSlider (Graphics& g, int x, int y, int width, int height,
                                        float sliderPos, float minSliderPos, float maxSliderPos,
                                        const Slider::SliderStyle style, Slider& slider)
 {
@@ -1371,14 +1347,14 @@ void LookAndFeel_V2::drawLinearSlider (Graphics& g, int x, int y, int width, int
     }
 }
 
-int LookAndFeel_V2::getSliderThumbRadius (Slider& slider)
+int CamoLookAndFeel::getSliderThumbRadius (Slider& slider)
 {
     return jmin (7,
                  slider.getHeight() / 2,
                  slider.getWidth() / 2) + 2;
 }
 
-void LookAndFeel_V2::drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
+void CamoLookAndFeel::drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
                                        const float rotaryStartAngle, const float rotaryEndAngle, Slider& slider)
 {
     const float radius = jmin (width / 2, height / 2) - 2.0f;
@@ -1445,12 +1421,12 @@ void LookAndFeel_V2::drawRotarySlider (Graphics& g, int x, int y, int width, int
     }
 }
 
-Button* LookAndFeel_V2::createSliderButton (Slider&, const bool isIncrement)
+Button* CamoLookAndFeel::createSliderButton (Slider&, const bool isIncrement)
 {
     return new TextButton (isIncrement ? "+" : "-", String::empty);
 }
 
-class LookAndFeel_V2::SliderLabelComp  : public Label
+class CamoLookAndFeel::SliderLabelComp  : public Label
 {
 public:
     SliderLabelComp() : Label (String::empty, String::empty) {}
@@ -1458,7 +1434,7 @@ public:
     void mouseWheelMove (const MouseEvent&, const MouseWheelDetails&) {}
 };
 
-Label* LookAndFeel_V2::createSliderTextBox (Slider& slider)
+Label* CamoLookAndFeel::createSliderTextBox (Slider& slider)
 {
     Label* const l = new SliderLabelComp();
 
@@ -1471,28 +1447,28 @@ Label* LookAndFeel_V2::createSliderTextBox (Slider& slider)
                             ? Colours::transparentBlack
                             : slider.findColour (Slider::textBoxBackgroundColourId));
     l->setColour (Label::outlineColourId, slider.findColour (Slider::textBoxOutlineColourId));
-    l->setColour (TextEditor::textColourId, slider.findColour (Slider::textBoxTextColourId));
-    l->setColour (TextEditor::backgroundColourId,
+    l->setColour (juce::TextEditor::textColourId, slider.findColour (Slider::textBoxTextColourId));
+    l->setColour (juce::TextEditor::backgroundColourId,
                   slider.findColour (Slider::textBoxBackgroundColourId)
                         .withAlpha ((slider.getSliderStyle() == Slider::LinearBar || slider.getSliderStyle() == Slider::LinearBarVertical)
                                         ? 0.7f : 1.0f));
-    l->setColour (TextEditor::outlineColourId, slider.findColour (Slider::textBoxOutlineColourId));
-    l->setColour (TextEditor::highlightColourId, slider.findColour (Slider::textBoxHighlightColourId));
+    l->setColour (juce::TextEditor::outlineColourId, slider.findColour (Slider::textBoxOutlineColourId));
+    l->setColour (juce::TextEditor::highlightColourId, slider.findColour (Slider::textBoxHighlightColourId));
 
     return l;
 }
 
-ImageEffectFilter* LookAndFeel_V2::getSliderEffect (Slider&)
+ImageEffectFilter* CamoLookAndFeel::getSliderEffect (Slider&)
 {
     return nullptr;
 }
 
-Font LookAndFeel_V2::getSliderPopupFont (Slider&)
+Font CamoLookAndFeel::getSliderPopupFont (Slider&)
 {
     return Font (15.0f, Font::bold);
 }
 
-int LookAndFeel_V2::getSliderPopupPlacement (Slider&)
+int CamoLookAndFeel::getSliderPopupPlacement (Slider&)
 {
     return BubbleComponent::above
             | BubbleComponent::below
@@ -1501,7 +1477,7 @@ int LookAndFeel_V2::getSliderPopupPlacement (Slider&)
 }
 
 //==============================================================================
-Slider::SliderLayout LookAndFeel_V2::getSliderLayout (Slider& slider)
+Slider::SliderLayout CamoLookAndFeel::getSliderLayout (Slider& slider)
 {
     // 1. compute the actually visible textBox size from the slider textBox size and some additional constraints
 
@@ -1570,7 +1546,7 @@ Slider::SliderLayout LookAndFeel_V2::getSliderLayout (Slider& slider)
 }
 
 //==============================================================================
-Rectangle<int> LookAndFeel_V2::getTooltipBounds (const String& tipText, Point<int> screenPos, Rectangle<int> parentArea)
+Rectangle<int> CamoLookAndFeel::getTooltipBounds (const String& tipText, Point<int> screenPos, Rectangle<int> parentArea)
 {
     const TextLayout tl (LookAndFeelHelpers::layoutTooltipText (tipText, Colours::black));
 
@@ -1583,7 +1559,7 @@ Rectangle<int> LookAndFeel_V2::getTooltipBounds (const String& tipText, Point<in
              .constrainedWithin (parentArea);
 }
 
-void LookAndFeel_V2::drawTooltip (Graphics& g, const String& text, int width, int height)
+void CamoLookAndFeel::drawTooltip (Graphics& g, const String& text, int width, int height)
 {
     g.fillAll (findColour (TooltipWindow::backgroundColourId));
 
@@ -1597,12 +1573,12 @@ void LookAndFeel_V2::drawTooltip (Graphics& g, const String& text, int width, in
 }
 
 //==============================================================================
-Button* LookAndFeel_V2::createFilenameComponentBrowseButton (const String& text)
+Button* CamoLookAndFeel::createFilenameComponentBrowseButton (const String& text)
 {
     return new TextButton (text, TRANS("click to browse for a different file"));
 }
 
-void LookAndFeel_V2::layoutFilenameComponent (FilenameComponent& filenameComp,
+void CamoLookAndFeel::layoutFilenameComponent (FilenameComponent& filenameComp,
                                               ComboBox* filenameBox, Button* browseButton)
 {
     browseButton->setSize (80, filenameComp.getHeight());
@@ -1616,7 +1592,7 @@ void LookAndFeel_V2::layoutFilenameComponent (FilenameComponent& filenameComp,
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawConcertinaPanelHeader (Graphics& g, const Rectangle<int>& area,
+void CamoLookAndFeel::drawConcertinaPanelHeader (Graphics& g, const Rectangle<int>& area,
                                                 bool isMouseOver, bool /*isMouseDown*/,
                                                 ConcertinaPanel&, Component& panel)
 {
@@ -1630,7 +1606,7 @@ void LookAndFeel_V2::drawConcertinaPanelHeader (Graphics& g, const Rectangle<int
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawImageButton (Graphics& g, Image* image,
+void CamoLookAndFeel::drawImageButton (Graphics& g, Image* image,
                                       int imageX, int imageY, int imageW, int imageH,
                                       const Colour& overlayColour,
                                       float imageOpacity,
@@ -1657,7 +1633,7 @@ void LookAndFeel_V2::drawImageButton (Graphics& g, Image* image,
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawCornerResizer (Graphics& g,
+void CamoLookAndFeel::drawCornerResizer (Graphics& g,
                                      int w, int h,
                                      bool /*isMouseOver*/,
                                      bool /*isMouseDragging*/)
@@ -1684,7 +1660,7 @@ void LookAndFeel_V2::drawCornerResizer (Graphics& g,
     }
 }
 
-void LookAndFeel_V2::drawResizableFrame (Graphics& g, int w, int h, const BorderSize<int>& border)
+void CamoLookAndFeel::drawResizableFrame (Graphics& g, int w, int h, const BorderSize<int>& border)
 {
     if (! border.isEmpty())
     {
@@ -1706,18 +1682,18 @@ void LookAndFeel_V2::drawResizableFrame (Graphics& g, int w, int h, const Border
 }
 
 //==============================================================================
-void LookAndFeel_V2::fillResizableWindowBackground (Graphics& g, int /*w*/, int /*h*/,
+void CamoLookAndFeel::fillResizableWindowBackground (Graphics& g, int /*w*/, int /*h*/,
                                                     const BorderSize<int>& /*border*/, ResizableWindow& window)
 {
     g.fillAll (window.getBackgroundColour());
 }
 
-void LookAndFeel_V2::drawResizableWindowBorder (Graphics&, int /*w*/, int /*h*/,
+void CamoLookAndFeel::drawResizableWindowBorder (Graphics&, int /*w*/, int /*h*/,
                                                 const BorderSize<int>& /*border*/, ResizableWindow&)
 {
 }
 
-void LookAndFeel_V2::drawDocumentWindowTitleBar (DocumentWindow& window, Graphics& g,
+void CamoLookAndFeel::drawDocumentWindowTitleBar (DocumentWindow& window, Graphics& g,
                                                  int w, int h, int titleSpaceX, int titleSpaceW,
                                                  const Image* icon, bool drawTitleTextOnLeft)
 {
@@ -1767,7 +1743,7 @@ void LookAndFeel_V2::drawDocumentWindowTitleBar (DocumentWindow& window, Graphic
 }
 
 //==============================================================================
-class LookAndFeel_V2::GlassWindowButton   : public Button
+class CamoLookAndFeel::GlassWindowButton   : public Button
 {
 public:
     GlassWindowButton (const String& name, Colour col,
@@ -1813,7 +1789,7 @@ public:
         y += 2.0f;
         diam -= 4.0f;
 
-        LookAndFeel_V2::drawGlassSphere (g, x, y, diam, colour.withAlpha (alpha), 1.0f);
+        CamoLookAndFeel::drawGlassSphere (g, x, y, diam, colour.withAlpha (alpha), 1.0f);
 
         Path& p = getToggleState() ? toggledShape : normalShape;
 
@@ -1831,7 +1807,7 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GlassWindowButton)
 };
 
-Button* LookAndFeel_V2::createDocumentWindowButton (int buttonType)
+Button* CamoLookAndFeel::createDocumentWindowButton (int buttonType)
 {
     Path shape;
     const float crossThickness = 0.25f;
@@ -1872,7 +1848,7 @@ Button* LookAndFeel_V2::createDocumentWindowButton (int buttonType)
     return nullptr;
 }
 
-void LookAndFeel_V2::positionDocumentWindowButtons (DocumentWindow&,
+void CamoLookAndFeel::positionDocumentWindowButtons (DocumentWindow&,
                                                     int titleBarX, int titleBarY,
                                                     int titleBarW, int titleBarH,
                                                     Button* minimiseButton,
@@ -1904,19 +1880,19 @@ void LookAndFeel_V2::positionDocumentWindowButtons (DocumentWindow&,
         minimiseButton->setBounds (x, titleBarY, buttonW, titleBarH);
 }
 
-int LookAndFeel_V2::getDefaultMenuBarHeight()
+int CamoLookAndFeel::getDefaultMenuBarHeight()
 {
     return 24;
 }
 
 //==============================================================================
-DropShadower* LookAndFeel_V2::createDropShadowerForComponent (Component*)
+DropShadower* CamoLookAndFeel::createDropShadowerForComponent (Component*)
 {
     return new DropShadower (DropShadow (Colours::black.withAlpha (0.4f), 10, Point<int> (0, 2)));
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawStretchableLayoutResizerBar (Graphics& g, int w, int h,
+void CamoLookAndFeel::drawStretchableLayoutResizerBar (Graphics& g, int w, int h,
                                                       bool /*isVerticalBar*/,
                                                       bool isMouseOver,
                                                       bool isMouseDragging)
@@ -1941,7 +1917,7 @@ void LookAndFeel_V2::drawStretchableLayoutResizerBar (Graphics& g, int w, int h,
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawGroupComponentOutline (Graphics& g, int width, int height,
+void CamoLookAndFeel::drawGroupComponentOutline (Graphics& g, int width, int height,
                                                 const String& text, const Justification& position,
                                                 GroupComponent& group)
 {
@@ -2001,17 +1977,17 @@ void LookAndFeel_V2::drawGroupComponentOutline (Graphics& g, int width, int heig
 }
 
 //==============================================================================
-int LookAndFeel_V2::getTabButtonOverlap (int tabDepth)
+int CamoLookAndFeel::getTabButtonOverlap (int tabDepth)
 {
     return 1 + tabDepth / 3;
 }
 
-int LookAndFeel_V2::getTabButtonSpaceAroundImage()
+int CamoLookAndFeel::getTabButtonSpaceAroundImage()
 {
     return 4;
 }
 
-int LookAndFeel_V2::getTabButtonBestWidth (TabBarButton& button, int tabDepth)
+int CamoLookAndFeel::getTabButtonBestWidth (TabBarButton& button, int tabDepth)
 {
     int width = Font (tabDepth * 0.6f).getStringWidth (button.getButtonText().trim())
                    + getTabButtonOverlap (tabDepth) * 2;
@@ -2023,7 +1999,7 @@ int LookAndFeel_V2::getTabButtonBestWidth (TabBarButton& button, int tabDepth)
     return jlimit (tabDepth * 2, tabDepth * 8, width);
 }
 
-Rectangle<int> LookAndFeel_V2::getTabButtonExtraComponentBounds (const TabBarButton& button, Rectangle<int>& textArea, Component& comp)
+Rectangle<int> CamoLookAndFeel::getTabButtonExtraComponentBounds (const TabBarButton& button, Rectangle<int>& textArea, Component& comp)
 {
     Rectangle<int> extraComp;
 
@@ -2055,7 +2031,7 @@ Rectangle<int> LookAndFeel_V2::getTabButtonExtraComponentBounds (const TabBarBut
     return extraComp;
 }
 
-void LookAndFeel_V2::createTabButtonShape (TabBarButton& button, Path& p, bool /*isMouseOver*/, bool /*isMouseDown*/)
+void CamoLookAndFeel::createTabButtonShape (TabBarButton& button, Path& p, bool /*isMouseOver*/, bool /*isMouseDown*/)
 {
     const Rectangle<int> activeArea (button.getActiveArea());
     const float w = (float) activeArea.getWidth();
@@ -2114,7 +2090,7 @@ void LookAndFeel_V2::createTabButtonShape (TabBarButton& button, Path& p, bool /
     p = p.createPathWithRoundedCorners (3.0f);
 }
 
-void LookAndFeel_V2::fillTabButtonShape (TabBarButton& button, Graphics& g, const Path& path,
+void CamoLookAndFeel::fillTabButtonShape (TabBarButton& button, Graphics& g, const Path& path,
                                          bool /*isMouseOver*/, bool /*isMouseDown*/)
 {
     const Colour tabBackground (button.getTabBackgroundColour());
@@ -2132,7 +2108,7 @@ void LookAndFeel_V2::fillTabButtonShape (TabBarButton& button, Graphics& g, cons
     g.strokePath (path, PathStrokeType (isFrontTab ? 1.0f : 0.5f));
 }
 
-void LookAndFeel_V2::drawTabButtonText (TabBarButton& button, Graphics& g, bool isMouseOver, bool isMouseDown)
+void CamoLookAndFeel::drawTabButtonText (TabBarButton& button, Graphics& g, bool isMouseOver, bool isMouseDown)
 {
     const Rectangle<float> area (button.getTextArea().toFloat());
 
@@ -2179,7 +2155,7 @@ void LookAndFeel_V2::drawTabButtonText (TabBarButton& button, Graphics& g, bool 
                       jmax (1, ((int) depth) / 12));
 }
 
-void LookAndFeel_V2::drawTabButton (TabBarButton& button, Graphics& g, bool isMouseOver, bool isMouseDown)
+void CamoLookAndFeel::drawTabButton (TabBarButton& button, Graphics& g, bool isMouseOver, bool isMouseDown)
 {
     Path tabShape;
     createTabButtonShape (button, tabShape, isMouseOver, isMouseDown);
@@ -2194,9 +2170,9 @@ void LookAndFeel_V2::drawTabButton (TabBarButton& button, Graphics& g, bool isMo
     drawTabButtonText (button, g, isMouseOver, isMouseDown);
 }
 
-void LookAndFeel_V2::drawTabbedButtonBarBackground (TabbedButtonBar&, Graphics&) {}
+void CamoLookAndFeel::drawTabbedButtonBarBackground (TabbedButtonBar&, Graphics&) {}
 
-void LookAndFeel_V2::drawTabAreaBehindFrontButton (TabbedButtonBar& bar, Graphics& g, const int w, const int h)
+void CamoLookAndFeel::drawTabAreaBehindFrontButton (TabbedButtonBar& bar, Graphics& g, const int w, const int h)
 {
     const float shadowSize = 0.2f;
 
@@ -2242,7 +2218,7 @@ void LookAndFeel_V2::drawTabAreaBehindFrontButton (TabbedButtonBar& bar, Graphic
     g.fillRect (line);
 }
 
-Button* LookAndFeel_V2::createTabBarExtrasButton()
+Button* CamoLookAndFeel::createTabBarExtrasButton()
 {
     const float thickness = 7.0f;
     const float indent = 22.0f;
@@ -2282,7 +2258,7 @@ Button* LookAndFeel_V2::createTabBarExtrasButton()
 
 
 //==============================================================================
-void LookAndFeel_V2::drawTableHeaderBackground (Graphics& g, TableHeaderComponent& header)
+void CamoLookAndFeel::drawTableHeaderBackground (Graphics& g, TableHeaderComponent& header)
 {
     g.fillAll (Colours::white);
 
@@ -2301,7 +2277,7 @@ void LookAndFeel_V2::drawTableHeaderBackground (Graphics& g, TableHeaderComponen
         g.fillRect (header.getColumnPosition (i).removeFromRight (1));
 }
 
-void LookAndFeel_V2::drawTableHeaderColumn (Graphics& g, const String& columnName, int /*columnId*/,
+void CamoLookAndFeel::drawTableHeaderColumn (Graphics& g, const String& columnName, int /*columnId*/,
                                             int width, int height, bool isMouseOver, bool isMouseDown,
                                             int columnFlags)
 {
@@ -2330,7 +2306,7 @@ void LookAndFeel_V2::drawTableHeaderColumn (Graphics& g, const String& columnNam
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawLasso (Graphics& g, Component& lassoComp)
+void CamoLookAndFeel::drawLasso (Graphics& g, Component& lassoComp)
 {
     const int outlineThickness = 1;
 
@@ -2341,7 +2317,7 @@ void LookAndFeel_V2::drawLasso (Graphics& g, Component& lassoComp)
 }
 
 //==============================================================================
-void LookAndFeel_V2::paintToolbarBackground (Graphics& g, int w, int h, Toolbar& toolbar)
+void CamoLookAndFeel::paintToolbarBackground (Graphics& g, int w, int h, Toolbar& toolbar)
 {
     const Colour background (toolbar.findColour (Toolbar::backgroundColourId));
 
@@ -2353,12 +2329,12 @@ void LookAndFeel_V2::paintToolbarBackground (Graphics& g, int w, int h, Toolbar&
     g.fillAll();
 }
 
-Button* LookAndFeel_V2::createToolbarMissingItemsButton (Toolbar& /*toolbar*/)
+Button* CamoLookAndFeel::createToolbarMissingItemsButton (Toolbar& /*toolbar*/)
 {
     return createTabBarExtrasButton();
 }
 
-void LookAndFeel_V2::paintToolbarButtonBackground (Graphics& g, int /*width*/, int /*height*/,
+void CamoLookAndFeel::paintToolbarButtonBackground (Graphics& g, int /*width*/, int /*height*/,
                                                    bool isMouseOver, bool isMouseDown,
                                                    ToolbarItemComponent& component)
 {
@@ -2368,7 +2344,7 @@ void LookAndFeel_V2::paintToolbarButtonBackground (Graphics& g, int /*width*/, i
         g.fillAll (component.findColour (Toolbar::buttonMouseOverBackgroundColourId, true));
 }
 
-void LookAndFeel_V2::paintToolbarButtonLabel (Graphics& g, int x, int y, int width, int height,
+void CamoLookAndFeel::paintToolbarButtonLabel (Graphics& g, int x, int y, int width, int height,
                                               const String& text, ToolbarItemComponent& component)
 {
     g.setColour (component.findColour (Toolbar::labelTextColourId, true)
@@ -2384,7 +2360,7 @@ void LookAndFeel_V2::paintToolbarButtonLabel (Graphics& g, int x, int y, int wid
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawPropertyPanelSectionHeader (Graphics& g, const String& name,
+void CamoLookAndFeel::drawPropertyPanelSectionHeader (Graphics& g, const String& name,
                                                      bool isOpen, int width, int height)
 {
     const float buttonSize = height * 0.75f;
@@ -2399,13 +2375,13 @@ void LookAndFeel_V2::drawPropertyPanelSectionHeader (Graphics& g, const String& 
     g.drawText (name, textX, 0, width - textX - 4, height, Justification::centredLeft, true);
 }
 
-void LookAndFeel_V2::drawPropertyComponentBackground (Graphics& g, int width, int height, PropertyComponent& component)
+void CamoLookAndFeel::drawPropertyComponentBackground (Graphics& g, int width, int height, PropertyComponent& component)
 {
     g.setColour (component.findColour (PropertyComponent::backgroundColourId));
     g.fillRect (0, 0, width, height - 1);
 }
 
-void LookAndFeel_V2::drawPropertyComponentLabel (Graphics& g, int, int height, PropertyComponent& component)
+void CamoLookAndFeel::drawPropertyComponentLabel (Graphics& g, int, int height, PropertyComponent& component)
 {
     g.setColour (component.findColour (PropertyComponent::labelTextColourId)
                     .withMultipliedAlpha (component.isEnabled() ? 1.0f : 0.6f));
@@ -2419,14 +2395,14 @@ void LookAndFeel_V2::drawPropertyComponentLabel (Graphics& g, int, int height, P
                       Justification::centredLeft, 2);
 }
 
-Rectangle<int> LookAndFeel_V2::getPropertyComponentContentPosition (PropertyComponent& component)
+Rectangle<int> CamoLookAndFeel::getPropertyComponentContentPosition (PropertyComponent& component)
 {
     const int textW = jmin (200, component.getWidth() / 3);
     return Rectangle<int> (textW, 1, component.getWidth() - textW - 1, component.getHeight() - 3);
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawCallOutBoxBackground (CallOutBox& box, Graphics& g,
+void CamoLookAndFeel::drawCallOutBoxBackground (CallOutBox& box, Graphics& g,
                                                const Path& path, Image& cachedImage)
 {
     if (cachedImage.isNull())
@@ -2447,13 +2423,13 @@ void LookAndFeel_V2::drawCallOutBoxBackground (CallOutBox& box, Graphics& g,
     g.strokePath (path, PathStrokeType (2.0f));
 }
 
-int LookAndFeel_V2::getCallOutBoxBorderSize (const CallOutBox&)
+int CamoLookAndFeel::getCallOutBoxBorderSize (const CallOutBox&)
 {
     return 20;
 }
 
 //==============================================================================
-AttributedString LookAndFeel_V2::createFileChooserHeaderText (const String& title,
+AttributedString CamoLookAndFeel::createFileChooserHeaderText (const String& title,
                                                            const String& instructions)
 {
     AttributedString s;
@@ -2466,7 +2442,7 @@ AttributedString LookAndFeel_V2::createFileChooserHeaderText (const String& titl
     return s;
 }
 
-void LookAndFeel_V2::drawFileBrowserRow (Graphics& g, int width, int height,
+void CamoLookAndFeel::drawFileBrowserRow (Graphics& g, int width, int height,
                                          const String& filename, Image* icon,
                                          const String& fileSizeDescription,
                                          const String& fileTimeDescription,
@@ -2532,7 +2508,7 @@ void LookAndFeel_V2::drawFileBrowserRow (Graphics& g, int width, int height,
     }
 }
 
-Button* LookAndFeel_V2::createFileBrowserGoUpButton()
+Button* CamoLookAndFeel::createFileBrowserGoUpButton()
 {
     DrawableButton* goUpButton = new DrawableButton ("up", DrawableButton::ImageOnButtonBackground);
 
@@ -2548,11 +2524,11 @@ Button* LookAndFeel_V2::createFileBrowserGoUpButton()
     return goUpButton;
 }
 
-void LookAndFeel_V2::layoutFileBrowserComponent (FileBrowserComponent& browserComp,
+void CamoLookAndFeel::layoutFileBrowserComponent (FileBrowserComponent& browserComp,
                                                  DirectoryContentsDisplayComponent* fileListComponent,
                                                  FilePreviewComponent* previewComp,
                                                  ComboBox* currentPathBox,
-                                                 TextEditor* filenameBox,
+                                                 juce::TextEditor* filenameBox,
                                                  Button* goUpButton)
 {
     const int x = 8;
@@ -2595,7 +2571,7 @@ static Drawable* loadDrawableFromData (const void* data, size_t numBytes)
     return Drawable::createFromValueTree (drawable.getChild (0), nullptr);
 }
 
-const Drawable* LookAndFeel_V2::getDefaultFolderImage()
+const Drawable* CamoLookAndFeel::getDefaultFolderImage()
 {
     if (folderImage == nullptr)
     {
@@ -2622,7 +2598,7 @@ const Drawable* LookAndFeel_V2::getDefaultFolderImage()
     return folderImage;
 }
 
-const Drawable* LookAndFeel_V2::getDefaultDocumentFileImage()
+const Drawable* CamoLookAndFeel::getDefaultDocumentFileImage()
 {
     if (documentImage == nullptr)
     {
@@ -2658,7 +2634,7 @@ const Drawable* LookAndFeel_V2::getDefaultDocumentFileImage()
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawLevelMeter (Graphics& g, int width, int height, float level)
+void CamoLookAndFeel::drawLevelMeter (Graphics& g, int width, int height, float level)
 {
     g.setColour (Colours::white.withAlpha (0.7f));
     g.fillRoundedRectangle (0.0f, 0.0f, (float) width, (float) height, 3.0f);
@@ -2682,7 +2658,7 @@ void LookAndFeel_V2::drawLevelMeter (Graphics& g, int width, int height, float l
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawKeymapChangeButton (Graphics& g, int width, int height, Button& button, const String& keyDescription)
+void CamoLookAndFeel::drawKeymapChangeButton (Graphics& g, int width, int height, Button& button, const String& keyDescription)
 {
     const Colour textColour (button.findColour (0x100ad01 /*KeyMappingEditorComponent::textColourId*/, true));
 
@@ -2727,7 +2703,7 @@ void LookAndFeel_V2::drawKeymapChangeButton (Graphics& g, int width, int height,
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawBevel (Graphics& g, const int x, const int y, const int width, const int height,
+void CamoLookAndFeel::drawBevel (Graphics& g, const int x, const int y, const int width, const int height,
                                 const int bevelThickness, const Colour& topLeftColour, const Colour& bottomRightColour,
                                 const bool useGradient, const bool sharpEdgeOnOutside)
 {
@@ -2756,7 +2732,7 @@ void LookAndFeel_V2::drawBevel (Graphics& g, const int x, const int y, const int
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawShinyButtonShape (Graphics& g,
+void CamoLookAndFeel::drawShinyButtonShape (Graphics& g,
                                         float x, float y, float w, float h,
                                         float maxCornerSize,
                                         const Colour& baseColour,
@@ -2793,7 +2769,7 @@ void LookAndFeel_V2::drawShinyButtonShape (Graphics& g,
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawGlassSphere (Graphics& g, const float x, const float y,
+void CamoLookAndFeel::drawGlassSphere (Graphics& g, const float x, const float y,
                                       const float diameter, const Colour& colour,
                                       const float outlineThickness) noexcept
 {
@@ -2833,7 +2809,7 @@ void LookAndFeel_V2::drawGlassSphere (Graphics& g, const float x, const float y,
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawGlassPointer (Graphics& g,
+void CamoLookAndFeel::drawGlassPointer (Graphics& g,
                                        const float x, const float y, const float diameter,
                                        const Colour& colour, const float outlineThickness,
                                        const int direction) noexcept
@@ -2877,7 +2853,7 @@ void LookAndFeel_V2::drawGlassPointer (Graphics& g,
 }
 
 //==============================================================================
-void LookAndFeel_V2::drawGlassLozenge (Graphics& g,
+void CamoLookAndFeel::drawGlassLozenge (Graphics& g,
                                        const float x, const float y, const float width, const float height,
                                        const Colour& colour, const float outlineThickness, const float cornerSize,
                                        const bool flatOnLeft,

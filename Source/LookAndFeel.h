@@ -22,21 +22,21 @@
   ==============================================================================
 */
 
-#ifndef JUCE_LOOKANDFEEL_V2_H_INCLUDED
-#define JUCE_LOOKANDFEEL_V2_H_INCLUDED
+#ifndef CAMO_LOOK_AND_FEEL
+#define CAMO_LOOK_AND_FEEL
 
-
+#include "../JuceLibraryCode/JuceHeader.h"
 //==============================================================================
 /**
     This LookAndFeel subclass implements the juce style from around 2008-12.
 
     @see LookAndFeel, LookAndFeel_V1, LookAndFeel_V3
 */
-class JUCE_API  LookAndFeel_V2  : public LookAndFeel
+class JUCE_API  CamoLookAndFeel  : public LookAndFeel
 {
 public:
-    LookAndFeel_V2();
-    ~LookAndFeel_V2();
+    CamoLookAndFeel();
+    ~CamoLookAndFeel();
 
     //==============================================================================
     void drawButtonBackground (Graphics&, Button&, const Colour& backgroundColour,
@@ -114,8 +114,8 @@ public:
     int getTreeViewIndentSize (TreeView&) override;
 
     //==============================================================================
-    void fillTextEditorBackground (Graphics&, int width, int height, TextEditor&) override;
-    void drawTextEditorOutline (Graphics&, int width, int height, TextEditor&) override;
+    void fillTextEditorBackground (Graphics&, int width, int height, juce::TextEditor&) override;
+    void drawTextEditorOutline (Graphics&, int width, int height, juce::TextEditor&) override;
     CaretComponent* createCaretComponent (Component* keyFocusOwner) override;
 
     //==============================================================================
@@ -136,7 +136,7 @@ public:
                                      DirectoryContentsDisplayComponent*,
                                      FilePreviewComponent*,
                                      ComboBox* currentPathBox,
-                                     TextEditor* filenameBox,
+                                     juce::TextEditor* filenameBox,
                                      Button* goUpButton) override;
 
     //==============================================================================
@@ -359,7 +359,7 @@ private:
     class GlassWindowButton;
     class SliderLabelComp;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LookAndFeel_V2)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamoLookAndFeel)
 };
 
 
