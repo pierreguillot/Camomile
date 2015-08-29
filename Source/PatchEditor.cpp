@@ -128,6 +128,7 @@ m_window(nullptr),
 m_color_bg(Colours::lightgrey),
 m_color_bd(Colours::darkgrey)
 {
+    
     DrawableImage image;
     image.setImage(ImageCache::getFromMemory(BinaryData::flowerM_png, BinaryData::flowerM_pngSize));
     DrawableImage image2(image);
@@ -135,16 +136,16 @@ m_color_bd(Colours::darkgrey)
     DrawableImage image3(image);
     image3.setOverlayColour(Colours::grey.withAlpha(0.5f));
     
+    const Colour overcolor = Colours::white.overlaidWith(Colours::grey.withAlpha(0.2f));
     DrawableButton* d = new DrawableButton("CamomileButton",DrawableButton::ImageStretched);
     d->addListener(this);
     d->setClickingTogglesState(false);
     d->setAlwaysOnTop(true);
     d->setRadioGroupId(1);
     d->setImages(&image, &image2, &image3);
-    d->setBounds(2, 2, 16, 16);
-    d->setColour(TextButton::buttonColourId, Colours::transparentBlack);
-    d->setColour(TextButton::buttonOnColourId, Colours::black);
+    d->setBounds(3, 3, 15, 15);
     d->setColour(TextButton::textColourOffId, Colours::white);
+    d->setColour(TextButton::textColourOnId, overcolor);
     d->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     m_buttons.add(d);
 
@@ -152,10 +153,9 @@ m_color_bd(Colours::darkgrey)
     t->addListener(this);
     t->setClickingTogglesState(false);
     t->setRadioGroupId(2);
-    t->setColour(TextButton::buttonColourId, Colours::transparentBlack);
-    t->setColour(TextButton::buttonOnColourId, Colours::grey);
     t->setColour(TextButton::textColourOffId, Colours::white);
-    t->setBounds(20, 1, 40, 19);
+    t->setColour(TextButton::textColourOnId, overcolor);
+    t->setBounds(22, 1, 40, 19);
     t->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     m_buttons.add(t);
     
@@ -163,39 +163,46 @@ m_color_bd(Colours::darkgrey)
     t->addListener(this);
     t->setClickingTogglesState(false);
     t->setRadioGroupId(3);
-    t->setColour(TextButton::buttonColourId, Colours::transparentBlack);
-    t->setColour(TextButton::buttonOnColourId, Colours::grey);
     t->setColour(TextButton::textColourOffId, Colours::white);
-    t->setBounds(60, 1, 40, 19);
+    t->setColour(TextButton::textColourOnId, overcolor);
+    t->setBounds(62, 1, 40, 19);
+    t->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
+    m_buttons.add(t);
+    
+    t = new TextButton("Reload");
+    t->addListener(this);
+    t->setClickingTogglesState(false);
+    t->setRadioGroupId(4);
+    t->setColour(TextButton::textColourOffId, Colours::white);
+    t->setColour(TextButton::textColourOnId, overcolor);
+    t->setBounds(102, 1, 50, 19);
     t->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     m_buttons.add(t);
     
     t = new TextButton("Console");
     t->addListener(this);
     t->setClickingTogglesState(false);
-    t->setRadioGroupId(4);
-    t->setColour(TextButton::buttonColourId, Colours::transparentBlack);
-    t->setColour(TextButton::buttonOnColourId, Colours::grey);
+    t->setRadioGroupId(5);
     t->setColour(TextButton::textColourOffId, Colours::white);
-    t->setBounds(100, 1, 55, 19);
+    t->setColour(TextButton::textColourOnId, overcolor);
+    t->setBounds(152, 1, 55, 19);
     t->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     m_buttons.add(t);
 
     t = new TextButton("Help");
     t->addListener(this);
     t->setClickingTogglesState(false);
-    t->setRadioGroupId(5);
-    t->setColour(TextButton::buttonColourId, Colours::transparentBlack);
-    t->setColour(TextButton::buttonOnColourId, Colours::grey);
+    t->setRadioGroupId(6);
     t->setColour(TextButton::textColourOffId, Colours::white);
-    t->setBounds(155, 1, 35, 19);
+    t->setColour(TextButton::textColourOnId, overcolor);
+    t->setBounds(207, 1, 35, 19);
     t->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     m_buttons.add(t);
     
     Component::setWantsKeyboardFocus(true);
     m_processor.addListener(this);
-    patchChanged();
     setSize(600, 420);
+    patchChanged();
 }
 
 PatchEditor::~PatchEditor()
@@ -298,12 +305,13 @@ void PatchEditor::patchChanged()
                     ObjectEditor* inte = m_objects.add(new ObjectEditor(*this, it));
                     const std::array<int,2> pos = it.getPosition();
                     const int offset = it.getBorderSize();
-                    inte->setTopLeftPosition(pos[0] - ref[0] - offset, pos[1] - ref[1] - offset + 20.);
+                    inte->setTopLeftPosition(pos[0] - ref[0] - offset + 2, pos[1] - ref[1] - offset + 24);
                     addChildComponent(inte);
                 }
             }
             m_color_bg = tojColor(camo.getBackgroundColor());
             m_color_bd = tojColor(camo.getBorderColor());
+            setSize(std::max(camo.getWidth() + 4, 242), std::max(camo.getHeight() + 26, 100));
         }
     }
     AsyncUpdater::triggerAsyncUpdate();
@@ -345,7 +353,6 @@ void PatchEditor::buttonClicked(Button* button)
             if(file.getFileExtension() == juce::String(".pd"))
             {
                 m_processor.loadPatch(file);
-                return;
             }
         }
     }
@@ -359,6 +366,18 @@ void PatchEditor::buttonClicked(Button* button)
     }
     else if(button->getRadioGroupId() == 4)
     {
+        const Patch patch = m_processor.getPatch();
+        if(patch)
+        {
+            File file(patch.getPath() + "/" + patch.getName());
+            if(file.exists())
+            {
+                m_processor.loadPatch(file);
+            }
+        }
+    }
+    else if(button->getRadioGroupId() == 5)
+    {
         if(!m_window || (m_window && m_window->getName() != String("Camomile Console")))
         {
             m_window = new ConsoleWindow();
@@ -367,7 +386,7 @@ void PatchEditor::buttonClicked(Button* button)
         m_window->centreAroundComponent(this, m_window->getWidth(), m_window->getHeight());
         m_window->setBackgroundColour(m_color_bg.brighter(0.75));
     }
-    else if(button->getRadioGroupId() == 5)
+    else if(button->getRadioGroupId() == 6)
     {
         if(m_window)
         {

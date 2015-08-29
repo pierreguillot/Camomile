@@ -6,11 +6,14 @@
 
 #include "InstanceProcessor.h"
 #include "PatchEditor.h"
+#include "LookAndFeel.h"
 
 InstanceProcessor::InstanceProcessor() : Instance(string("camomile")),
 m_patch(Patch(*this, "Test2.pd", "/Users/Pierre/Desktop/"))
 {
+    static CamoLookAndFeel lookAndFeel;
     m_parameters.resize(32);
+    LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
 }
 
 InstanceProcessor::~InstanceProcessor()
