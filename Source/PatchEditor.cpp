@@ -18,7 +18,7 @@ private:
     public:
         Content()
         {
-            m_image.setImage(ImageCache::getFromMemory(BinaryData::flowerM_png, BinaryData::flowerM_pngSize));
+            m_image.setImage(ImageCache::getFromMemory(BinaryData::flowerG_png, BinaryData::flowerG_pngSize));
             m_image.setBoundingBox(RelativeParallelogram(Rectangle<float>(300.f - 128.f, 320.f - 128.f, 128.f, 128.f)));
             m_image.setOpacity(0.5f);
             addAndMakeVisible(&m_image, 0);
@@ -304,7 +304,7 @@ void PatchEditor::patchChanged()
     }
     
     DrawableImage image;
-    image.setImage(ImageCache::getFromMemory(BinaryData::flowerM_png, BinaryData::flowerM_pngSize));
+    image.setImage(ImageCache::getFromMemory(BinaryData::flowerG_png, BinaryData::flowerG_pngSize));
     DrawableImage image2(image);
     image2.setOverlayColour(m_color_bd);
     DrawableImage image3(image);

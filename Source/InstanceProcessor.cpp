@@ -68,6 +68,12 @@ String InstanceProcessor::getParameterText(int index, int size)
     return String(m_parameters[index].getTextForValue(m_parameters[index].getNormalizedValue()).c_str(), size);
 }
 
+String InstanceProcessor::getParameterLabel(int index) const
+{
+    lock_guard<mutex> guard(m_mutex);
+    return String(m_parameters[index].getLabel());
+}
+
 int InstanceProcessor::getParameterNumSteps(int index)
 {
     lock_guard<mutex> guard(m_mutex);

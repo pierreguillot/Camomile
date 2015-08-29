@@ -41,6 +41,7 @@ public:
     const String getParameterName(int index) override;
     const String getParameterText(int index) override;
     String getParameterText(int index, int size) override;
+    String getParameterLabel (int index) const override;
     int getParameterNumSteps(int index) override;
     bool isParameterAutomatable(int index) const;
     bool isParameterOrientationInverted (int index) const;
