@@ -11,9 +11,14 @@
 InstanceProcessor::InstanceProcessor() : Instance(string("camomile")),
 m_patch(Patch(*this, "Test2.pd", "/Users/Pierre/Desktop/"))
 {
-    static CamoLookAndFeel lookAndFeel;
+    static bool init = false;
+    if(!init)
+    {
+        static CamoLookAndFeel lookAndFeel;
+        LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
+        init = true;
+    }
     m_parameters.resize(32);
-    LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
 }
 
 InstanceProcessor::~InstanceProcessor()
@@ -142,7 +147,7 @@ void InstanceProcessor::setStateInformation (const void* data, int sizeInBytes)
             String name = xml->getStringAttribute("name");
             String path = xml->getStringAttribute("path");
             
-            File file(path + "/" + name);
+            File file(path + File::separatorString + name);
             loadPatch(file);
         }
     }

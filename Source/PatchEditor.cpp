@@ -31,11 +31,12 @@ private:
             m_text.setColour(juce::TextEditor::backgroundColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
             m_text.setColour(juce::TextEditor::outlineColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
             m_text.setColour(juce::TextEditor::shadowColourId,Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
-            m_text.setText("Camomile v" + String(JucePlugin_VersionString) + "\n\n"
-                           "Camomile is a dynamic Plugin that allows to load and control Pure Data patches "
-                           "inside a Digital Audio Work Station. Camomile uses the Cream library as framework "
-                           "for the graphical user interfaces.\n\n"
-                           "Author :\n"+JucePlugin_Manufacturer+"\n\n"
+            m_text.setText("Camomile is a dynamic Plugin that allows to load and control Pure Data patches "
+                           "inside a digital audio workstation. Camomile translates the Cream library's user"
+                           " graphical interfaces into Juce component for creating a modular plugin editor. "
+                           "The plugin retrieves the parameters of this graphical objects in order to associate"
+                           "them with the host.\n\n"
+                           "Author :\n"+ String(JucePlugin_Manufacturer) + "\n\n"
                            "Organizations :\nCICM | Université Paris 8 | Labex Arts H2H\n\n"
                            "Contacts :\n"+String(JucePlugin_ManufacturerEmail)+"\n"+ String(JucePlugin_ManufacturerWebsite)+"\n\n"
                            "Credits :\nPure Data by Miller Puckette\nJuce by ROLI Ltd.");
@@ -45,7 +46,7 @@ private:
     };
     Content m_content;
 public:
-    AboutWindow() : DocumentWindow("About Camomile", Colours::lightgrey, closeButton, false)
+    AboutWindow() : DocumentWindow("About Camomile v" + String(JucePlugin_VersionString), Colours::lightgrey, closeButton, false)
     {
         setUsingNativeTitleBar(true);
         setBounds(20, 20, 300, 320);
@@ -128,34 +129,21 @@ m_window(nullptr),
 m_color_bg(Colours::lightgrey),
 m_color_bd(Colours::darkgrey)
 {
+    m_button_infos = new DrawableButton("CamomileButton", DrawableButton::ImageStretched);
+    m_button_infos->addListener(this);
+    m_button_infos->setClickingTogglesState(false);
+    m_button_infos->setAlwaysOnTop(true);
+    m_button_infos->setRadioGroupId(1);
+    m_button_infos->setBounds(3, 3, 15, 15);
+    m_button_infos->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
+    addAndMakeVisible(m_button_infos);
     
-    DrawableImage image;
-    image.setImage(ImageCache::getFromMemory(BinaryData::flowerM_png, BinaryData::flowerM_pngSize));
-    DrawableImage image2(image);
-    image2.setOverlayColour(Colours::grey.withAlpha(0.2f));
-    DrawableImage image3(image);
-    image3.setOverlayColour(Colours::grey.withAlpha(0.5f));
-    
-    const Colour overcolor = Colours::white.overlaidWith(Colours::grey.withAlpha(0.2f));
-    DrawableButton* d = new DrawableButton("CamomileButton",DrawableButton::ImageStretched);
-    d->addListener(this);
-    d->setClickingTogglesState(false);
-    d->setAlwaysOnTop(true);
-    d->setRadioGroupId(1);
-    d->setImages(&image, &image2, &image3);
-    d->setBounds(3, 3, 15, 15);
-    d->setColour(TextButton::textColourOffId, Colours::white);
-    d->setColour(TextButton::textColourOnId, overcolor);
-    d->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
-    m_buttons.add(d);
-
     TextButton* t = new TextButton("Open");
     t->addListener(this);
     t->setClickingTogglesState(false);
     t->setRadioGroupId(2);
     t->setColour(TextButton::textColourOffId, Colours::white);
-    t->setColour(TextButton::textColourOnId, overcolor);
-    t->setBounds(22, 1, 40, 19);
+    t->setBounds(22, 0, 40, 20);
     t->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     m_buttons.add(t);
     
@@ -164,8 +152,7 @@ m_color_bd(Colours::darkgrey)
     t->setClickingTogglesState(false);
     t->setRadioGroupId(3);
     t->setColour(TextButton::textColourOffId, Colours::white);
-    t->setColour(TextButton::textColourOnId, overcolor);
-    t->setBounds(62, 1, 40, 19);
+    t->setBounds(62, 0, 40, 20);
     t->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     m_buttons.add(t);
     
@@ -174,8 +161,7 @@ m_color_bd(Colours::darkgrey)
     t->setClickingTogglesState(false);
     t->setRadioGroupId(4);
     t->setColour(TextButton::textColourOffId, Colours::white);
-    t->setColour(TextButton::textColourOnId, overcolor);
-    t->setBounds(102, 1, 50, 19);
+    t->setBounds(102, 0, 50, 20);
     t->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     m_buttons.add(t);
     
@@ -184,8 +170,7 @@ m_color_bd(Colours::darkgrey)
     t->setClickingTogglesState(false);
     t->setRadioGroupId(5);
     t->setColour(TextButton::textColourOffId, Colours::white);
-    t->setColour(TextButton::textColourOnId, overcolor);
-    t->setBounds(152, 1, 55, 19);
+    t->setBounds(152, 0, 55, 20);
     t->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     m_buttons.add(t);
 
@@ -194,8 +179,7 @@ m_color_bd(Colours::darkgrey)
     t->setClickingTogglesState(false);
     t->setRadioGroupId(6);
     t->setColour(TextButton::textColourOffId, Colours::white);
-    t->setColour(TextButton::textColourOnId, overcolor);
-    t->setBounds(207, 1, 35, 19);
+    t->setBounds(207, 0, 35, 20);
     t->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     m_buttons.add(t);
     
@@ -214,22 +198,28 @@ void PatchEditor::paint(Graphics& g)
 {
     g.fillAll(m_color_bg);
     g.setColour(m_color_bd);
-    g.drawRect(getBounds().withZeroOrigin());
-    g.drawLine(0.f, 20.f, getWidth(), 20.f);
+    g.drawRect(getBounds().withZeroOrigin(), 1.f);
+    g.drawLine(0.f, 20.f, getWidth(), 20.f, 1.f);
     const Patch patch = m_processor.getPatch();
     if(patch)
     {
         Gui camo = patch.getCamomile();
         if(!camo)
         {
-            g.setFont(15.0f);
-            g.drawText(juce::String("The patch is not valid !"), getBounds().withZeroOrigin(), juce::Justification::centred);
+            juce::Font f(Typeface::createSystemTypefaceFor(BinaryData::Font_ttf, BinaryData::Font_ttfSize));
+            f.setHeight(22.f);
+            g.setFont(f);
+            g.setColour(Colours::white);
+            g.drawText(juce::String("The patch has no interfaces !"), 0, 21, getWidth(), getHeight() - 21, juce::Justification::centred);
         }
     }
     else
     {
-        g.setFont (15.0f);
-        g.drawText(juce::String("Drag & Drop your patch..."), getBounds().withZeroOrigin(), juce::Justification::centred);
+        juce::Font f(Typeface::createSystemTypefaceFor(BinaryData::Font_ttf, BinaryData::Font_ttfSize));
+        f.setHeight(22.f);
+        g.setFont(f);
+        g.setColour(Colours::white);
+        g.drawText(juce::String("Drag & Drop your patch..."), 0, 21, getWidth(), getHeight() - 21, juce::Justification::centred);
     }
     
     if(m_dropping)
@@ -244,10 +234,6 @@ void PatchEditor::handleAsyncUpdate()
     if(mml.lockWasGained())
     {
         repaint();
-        if(m_window)
-        {
-            m_window->setBackgroundColour(m_color_bg.brighter(0.75));
-        }
     }
 }
 
@@ -289,6 +275,7 @@ void PatchEditor::patchChanged()
     {
         addAndMakeVisible(m_buttons[i]);
     }
+    addAndMakeVisible(m_button_infos);
     m_objects.clear(true);
     const Patch patch = m_processor.getPatch();
     if(patch)
@@ -311,8 +298,27 @@ void PatchEditor::patchChanged()
             }
             m_color_bg = tojColor(camo.getBackgroundColor());
             m_color_bd = tojColor(camo.getBorderColor());
-            setSize(std::max(camo.getWidth() + 4, 242), std::max(camo.getHeight() + 26, 100));
+            setSize(std::max(camo.getWidth() + 4, 250), std::max(camo.getHeight() + 26, 100));
         }
+        m_last_path = patch.getPath() + File::separatorString + patch.getName();
+    }
+    
+    DrawableImage image;
+    image.setImage(ImageCache::getFromMemory(BinaryData::flowerM_png, BinaryData::flowerM_pngSize));
+    DrawableImage image2(image);
+    image2.setOverlayColour(m_color_bd);
+    DrawableImage image3(image);
+    image3.setOverlayColour(m_color_bd);
+    m_button_infos->setImages(&image, &image2, &image3);
+    
+    const Colour overcolor = Colours::white.overlaidWith(m_color_bd);
+    for(int i = 0; i < m_buttons.size(); i++)
+    {
+        m_buttons[i]->setColour(TextButton::textColourOnId, overcolor);
+    }
+    if(m_window)
+    {
+        m_window->setBackgroundColour(m_color_bg.brighter(0.75));
     }
     AsyncUpdater::triggerAsyncUpdate();
 }
@@ -366,14 +372,10 @@ void PatchEditor::buttonClicked(Button* button)
     }
     else if(button->getRadioGroupId() == 4)
     {
-        const Patch patch = m_processor.getPatch();
-        if(patch)
+        File file(m_last_path);
+        if(file.exists())
         {
-            File file(patch.getPath() + "/" + patch.getName());
-            if(file.exists())
-            {
-                m_processor.loadPatch(file);
-            }
+            m_processor.loadPatch(file);
         }
     }
     else if(button->getRadioGroupId() == 5)

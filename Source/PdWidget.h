@@ -130,13 +130,40 @@ namespace pd
         inline size_t getNumberOfStep() const{
             return 100;}
         
-        inline std::string getName() const {
-            return isValid() ? std::string(m_parameter->p_name->s_name) : std::string();}
+        inline std::string getName() const
+        {
+            if(isValid() && is_valid_symbol(m_parameter->p_name))
+            {
+                return std::string(m_parameter->p_name->s_name);
+            }
+            return std::string();
+        }
         
-        inline std::string getObjectName() const {
-            return isValid() ? std::string(m_parameter->p_owner->b_preset_id->s_name) : std::string();}
+        inline std::string getObjectName() const
+        {
+            if(isValid() && is_valid_symbol(m_parameter->p_owner->b_preset_id))
+            {
+                return std::string(m_parameter->p_owner->b_preset_id->s_name);
+            }
+            return std::string();
+        }
         
-        inline std::string getFullName() const {return isValid() ? getObjectName() + " : " + getName() : std::string();}
+        inline std::string getFullName() const
+        {
+            if(isValid())
+            {
+                const std::string name(getName());
+                if(name.empty())
+                {
+                    return getObjectName();
+                }
+                else
+                {
+                    getObjectName() + " : " + getName();
+                }
+            }
+            return std::string();
+        }
         
         inline std::string getLabel() const {
             return isValid() ? std::string(m_parameter->p_label->s_name) : std::string();}

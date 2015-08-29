@@ -28,10 +28,12 @@ private:
     InstanceProcessor&              m_processor;
     OwnedArray<ObjectEditor>        m_objects;
     bool                            m_dropping;
+    ScopedPointer<DrawableButton>   m_button_infos;
     OwnedArray<Component>           m_buttons;
     ScopedPointer<DocumentWindow>   m_window;
     Colour                          m_color_bg;
     Colour                          m_color_bd;
+    String                          m_last_path;
 public:
     PatchEditor(InstanceProcessor&);
     ~PatchEditor();

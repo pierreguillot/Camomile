@@ -9,8 +9,8 @@
               pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="1"
               pluginAUExportPrefix="CamomileAU" pluginRTASCategory="" aaxIdentifier="com.cicm.Camomile"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="3.2.0"
-              companyName="CICM" companyEmail="guillotpierre6@gmail.com" companyWebsite="http://cicm.mshparisnord.org/"
-              defines="PD=1&#10;HAVE_UNISTD_H=1&#10;USEAPI_DUMMY=1&#10;HAVE_ALLOCA_H=1&#10;LIBPD_EXTRA=1&#10;DHAVE_LIBDL=1">
+              companyName="CICM" companyEmail="https://github.com/pierreguillot/Camomile"
+              companyWebsite="http://cicm.mshparisnord.org/" defines="PD=1&#10;HAVE_UNISTD_H=1&#10;USEAPI_DUMMY=1&#10;HAVE_ALLOCA_H=1&#10;LIBPD_EXTRA=1&#10;DHAVE_LIBDL=1">
   <MAINGROUP id="Lkdhlo" name="Camomile">
     <GROUP id="{6858D652-D432-5FB6-C946-D9F3FA76E6E9}" name="Source">
       <FILE id="BUNrem" name="InstanceProcessor.cpp" compile="1" resource="0"
@@ -218,6 +218,7 @@
     <GROUP id="{8DE6AA0C-11D5-0E76-0B00-0843C90E25ED}" name="Ressources">
       <FILE id="yrAyQZ" name="flowerG.png" compile="0" resource="1" file="Ressources/flowerG.png"/>
       <FILE id="sGIoTl" name="flowerM.png" compile="0" resource="1" file="Ressources/flowerM.png"/>
+      <FILE id="AjVl7T" name="Font.ttf" compile="0" resource="1" file="Ressources/Font.ttf"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
