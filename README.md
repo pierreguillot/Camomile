@@ -7,4 +7,4 @@ with the plugin host.
 
 Author : Pierre Guillot    
 Organizations : CICM | Université Paris 8 | Labex Arts H2H  
-Credits : Pure Data by Miller Puckette & Juce by ROLI Ltd.
+Credits : Pure Data by Miller Puckette | Juce by ROLI Ltd.
