@@ -1,3 +1,4 @@
+<body bgcolor="#D8D8D8">
 # ![](https://raw.githubusercontent.com/pierreguillot/Camomile/master/Ressources/flowerP.png)Camomile 
   
 Camomile is a dynamic Plugin that allows to load and control [Pure Data](http://msp.ucsd.edu/software.html) patches  
@@ -9,3 +10,4 @@ with the plugin host.
 Author : Pierre Guillot  
 Organizations : CICM | Université Paris 8 | Labex Arts H2H  
 Credits : Pure Data by Miller Puckette | Juce by ROLI Ltd.
+</body>
