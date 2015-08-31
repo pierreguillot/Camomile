@@ -1,4 +1,4 @@
-# ![](https://raw.githubusercontent.com/pierreguillot/Camomile/master/Ressources/flowerP.png)Camomile 
+# ![](https://raw.githubusercontent.com/pierreguillot/Camomile/master/Ressources/flowerP.png)Camomile
   
 Camomile is a dynamic Plugin that allows to load and control [Pure Data](http://msp.ucsd.edu/software.html) patches  
 inside a digital audio workstation. Camomile translates the [Cream](https://github.com/CICM/CreamLibrary) library's user  
