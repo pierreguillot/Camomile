@@ -32,10 +32,10 @@ int InstanceProcessor::getNumParameters()
 const String InstanceProcessor::getParameterName(int index)
 {
     lock_guard<mutex> guard(m_mutex);
-    if(m_parameters[index].isValid())
-        return String(m_parameters[index].getFullName());
+    if(m_parameters[index])
+        return String(m_parameters[index].getName());
     else
-        return String("Param ") + String(to_string(index));
+        return String("Dummy ") + String(to_string(index + 1));
 }
 
 float InstanceProcessor::getParameter(int index)
@@ -53,19 +53,19 @@ void InstanceProcessor::setParameter(int index, float newValue)
 float InstanceProcessor::getParameterDefaultValue(int index)
 {
     lock_guard<mutex> guard(m_mutex);
-    return m_parameters[index].getDefaultNormalizedValue();
+    return 0.;
 }
 
 const String InstanceProcessor::getParameterText(int index)
 {
     lock_guard<mutex> guard(m_mutex);
-    return String(m_parameters[index].getTextForValue(m_parameters[index].getNormalizedValue()));
+    return String(m_parameters[index].getTextValue().c_str());
 }
 
 String InstanceProcessor::getParameterText(int index, int size)
 {
     lock_guard<mutex> guard(m_mutex);
-    return String(m_parameters[index].getTextForValue(m_parameters[index].getNormalizedValue()).c_str(), size);
+    return String(m_parameters[index].getTextValue().c_str(), size);
 }
 
 String InstanceProcessor::getParameterLabel(int index) const
@@ -88,13 +88,19 @@ bool InstanceProcessor::isParameterAutomatable(int index) const
 
 bool InstanceProcessor::isParameterOrientationInverted(int index) const
 {
-    return false;
+    lock_guard<mutex> guard(m_mutex);
+    return m_parameters[index].isInverted();
 }
 
 bool InstanceProcessor::isMetaParameter(int index) const
 {
     lock_guard<mutex> guard(m_mutex);
     return m_parameters[index].isMetaParameter();
+}
+
+void InstanceProcessor::receive(std::string const& dest, std::string const& s, std::vector<Atom> const& atoms)
+{
+    ;
 }
 
 void InstanceProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
@@ -108,7 +114,6 @@ void InstanceProcessor::releaseResources()
     lock_guard<mutex> guard(m_mutex);
     releaseDsp();
 }
-
 
 void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
@@ -162,6 +167,13 @@ void InstanceProcessor::loadPatch(const juce::File& file)
         {
             releaseDsp();
             lock_guard<mutex> guard(m_mutex);
+            
+            vector<Gui> objects(m_patch.getGuis());
+            for(auto it : objects)
+            {
+                unbind(it.getBindingName());
+            }
+            
             for(size_t i = 0; i < m_parameters.size(); i++)
             {
                  m_parameters[i] = Parameter();
@@ -183,6 +195,7 @@ void InstanceProcessor::loadPatch(const juce::File& file)
                 vector<Gui> objects(m_patch.getGuis());
                 for(auto it : objects)
                 {
+                    bind(it.getBindingName());
                     vector<Parameter> params = it.getParameters();
                     for(auto it2 : params)
                     {

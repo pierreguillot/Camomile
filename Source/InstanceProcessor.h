@@ -12,7 +12,7 @@
 using namespace std;
 using namespace pd;
 
-class InstanceProcessor : public AudioProcessor, public Instance
+class InstanceProcessor : public AudioProcessor, public Instance, public Messenger
 {
 public:
     class Listener;
@@ -69,6 +69,7 @@ public:
     void loadPatch(const juce::File& file);
     inline const Patch getPatch() const noexcept {return m_patch;}
     inline Patch getPatch() noexcept {return m_patch;}
+    void receive(std::string const& dest, std::string const& s, std::vector<Atom> const& atoms) override;
     
     void addListener(Listener* listener);
     void removeListener(Listener* listener);
