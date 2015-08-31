@@ -31,11 +31,12 @@ private:
             m_text.setColour(juce::TextEditor::backgroundColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
             m_text.setColour(juce::TextEditor::outlineColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
             m_text.setColour(juce::TextEditor::shadowColourId,Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
+            m_text.setColour(juce::TextEditor::textColourId, Colour::fromFloatRGBA(1.f, 1.f, 1.f, 1.f));
             m_text.setText("Camomile is a dynamic Plugin that allows to load and control Pure Data patches "
                            "inside a digital audio workstation. Camomile translates the Cream library's user"
-                           " graphical interfaces into Juce component for creating a modular plugin editor. "
-                           "The plugin retrieves the parameters of this graphical objects in order to associate"
-                           "them with the host.\n\n"
+                           " graphical interfaces into Juce component for creating a modular plugin editor "
+                           "and retrieves the parameters of this graphical objects in order to associate"
+                           " them with the plugin host.\n\n"
                            "Author :\n"+ String(JucePlugin_Manufacturer) + "\n\n"
                            "Organizations :\nCICM | Université Paris 8 | Labex Arts H2H\n\n"
                            "Contacts :\n"+String(JucePlugin_ManufacturerEmail)+"\n"+ String(JucePlugin_ManufacturerWebsite)+"\n\n"
@@ -318,7 +319,7 @@ void PatchEditor::patchChanged()
     }
     if(m_window)
     {
-        m_window->setBackgroundColour(m_color_bg.brighter(0.75));
+        m_window->setBackgroundColour(m_color_bg);
     }
     AsyncUpdater::triggerAsyncUpdate();
 }
@@ -344,7 +345,7 @@ void PatchEditor::buttonClicked(Button* button)
         }
         m_window->addToDesktop();
         m_window->centreAroundComponent(this, m_window->getWidth(), m_window->getHeight());
-        m_window->setBackgroundColour(m_color_bg.brighter(0.75));
+        m_window->setBackgroundColour(m_color_bg);
     }
     else if(button->getRadioGroupId() == 2)
     {

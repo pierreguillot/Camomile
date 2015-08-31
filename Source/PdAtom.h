@@ -25,13 +25,14 @@ namespace pd
     class Patch;
     class Object;
     class Gui;
+    class Parameter;
     
     // ==================================================================================== //
     //                                      ATOM                                            //
     // ==================================================================================== //
     
     //! @brief The container for typed messages.
-    //! @details The Instance is a wrapper for the pd's native t_atom.
+    //! @details The Atom is a wrapper for the pd's native t_atom.
     class Atom
     {
     private:
