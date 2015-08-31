@@ -310,7 +310,7 @@ namespace pd
             std::vector<Parameter> params(x->b_nparams);
             for(size_t i = 0; i < x->b_nparams; i++)
             {
-                params[i] = Parameter(x->b_params+i);
+                params[i] = Parameter(*this, std::string(x->b_params[i]->p_bind->s_name));
             }
             return params;
         }

@@ -7,7 +7,7 @@
 #ifndef __CAMOMILE_PD_WIDGET__
 #define __CAMOMILE_PD_WIDGET__
 
-#include "PdAtom.h"
+#include "PdInstance.h"
 
 namespace pd
 {
@@ -89,106 +89,82 @@ namespace pd
     };
     
     // ==================================================================================== //
-    //                                      POPUP MENU                                      //
+    //                                      PARAMETER                                       //
     // ==================================================================================== //
     
+    //! @brief The plugin Parameter class.
+    //! @details The Parameter is a wrapper for the cream's t_eparam.
     class Parameter
     {
     private:
-        friend class Gui;
+        Instance    m_instance;
         t_eparam*   m_parameter;
     public:
+        //! @brief The default constructor for an empty Parameter.
+        //! @details Creates an empty Parameter.
+        Parameter() noexcept;
         
-        Parameter() noexcept : m_parameter(nullptr) {}
+        //! @brief The constructor for a new Parameter.
+        //! @details Creates new valid Parameter. You should never have to use it. Use the
+        //! @details Gui to retrieve a Parameter.
+        Parameter(Gui const& gui, const std::string& name) noexcept;
         
-        Parameter(Parameter const& other) noexcept : m_parameter(other.m_parameter) {}
+        //! @brief The copy constructor.
+        //! @details Creates a copy of another Parameter.
+        Parameter(Parameter const& other) noexcept;
         
-        Parameter(t_eparam* param) noexcept : m_parameter(param) {}
+        //! @brief The destructor.
+        //! @details Does not do anything.
+        ~Parameter();
         
-        ~Parameter() {}
+        //! @brief The copy operator.
+        //! @details Copies the Parameter and increments his counter.
+        Parameter& operator=(Parameter const& other);
         
-        Parameter& operator=(Parameter const& other)
-        {
-            m_parameter = other.m_parameter;
-            return *this;
-        }
+        //! @brief Gets if the Parameter is valid.
+        inline operator bool() const noexcept {return bool(m_parameter);}
         
-        inline bool isValid() const noexcept {return bool(m_parameter);}
+        //! @brief Gets the name of the Parameter.
+        std::string getName() const;
         
-        inline float getNormalizedValue() const {
-            return isValid() ? ebox_parameter_get(m_parameter->p_owner, m_parameter->p_name) : 0.f;}
+        //! @brief Gets the label of the Parameter.
+        std::string getLabel() const;
         
-        void setNormalizedValue(const float value) {
-            if(isValid()) {ebox_parameter_set(m_parameter->p_owner, m_parameter->p_name, value);}}
+        //! @brief Gets the Parameter is automatable.
+        bool isAutomatable() const;
         
-        inline float getDefaultNormalizedValue() const{
-            return isValid() ? ebox_parameter_getdefault(m_parameter->p_owner, m_parameter->p_name) : 0.f;}
+        //! @brief Gets the Parameter controls other  Parameter.
+        bool isMetaParameter() const;
         
-        inline float getNormalizedStep() const{
-            return 0.1;}
+        //! @brief Gets the step between two states of the  Parameter.
+        float getStep() const;
         
-        inline size_t getNumberOfStep() const{
-            return 100;}
+        //! @brief Gets the normalized step between two states of the  Parameter.
+        float getNormalizedStep() const;
         
-        inline std::string getName() const
-        {
-            if(isValid() && is_valid_symbol(m_parameter->p_name))
-            {
-                return std::string(m_parameter->p_name->s_name);
-            }
-            return std::string();
-        }
+        //! @brief Gets the number of steps of the  Parameter.
+        size_t getNumberOfStep() const;
         
-        inline std::string getObjectName() const
-        {
-            if(isValid() && is_valid_symbol(m_parameter->p_owner->b_preset_id))
-            {
-                return std::string(m_parameter->p_owner->b_preset_id->s_name);
-            }
-            return std::string();
-        }
+        //! @brief Gets id the boundaries of Parameter are inverted.
+        bool isInverted() const;
         
-        inline std::string getFullName() const
-        {
-            if(isValid())
-            {
-                const std::string name(getName());
-                if(name.empty())
-                {
-                    return getObjectName();
-                }
-                else
-                {
-                    getObjectName() + " : " + getName();
-                }
-            }
-            return std::string();
-        }
+        //! @brief Gets the current value of the Parameter.
+        float getValue() const;
         
-        inline std::string getLabel() const {
-            return isValid() ? std::string(m_parameter->p_label->s_name) : std::string();}
+        //! @brief Gets the current normalized value of the Parameter.
+        float getNormalizedValue() const;
         
-        std::string getTextForValue(float value) const {
-            std::string text;
-            if(isValid())
-            {
-                char* ntext = NULL;
-                ebox_parameter_gettextforvalue(m_parameter->p_owner, m_parameter->p_name, &ntext, value);
-                if(ntext)
-                {
-                    text = ntext;
-                    free(ntext);
-                }
-            }
-            return text;
-        }
+        //! @brief Sets the current value of the Parameter.
+        void setValue(const float value);
         
-        float getValueForText(const std::string& text) const {
-            return isValid() ? ebox_parameter_getvaluefortext(m_parameter->p_owner, m_parameter->p_name, text.c_str()) : 0.f;}
+        //! @brief Sets the current normalized value of the Parameter.
+        void setNormalizedValue(const float value);
         
-        inline bool isAutomatable() const {return isValid() ? bool(m_parameter->p_auto) : true;}
+        //! @brief Gets the current value of the Parameter as a string.
+        std::string getTextValue() const;
         
-        inline bool isMetaParameter() const {return isValid() ? bool(m_parameter->p_meta) : false;}
+        //! @brief Sets the current value of the Parameter with a string.
+        void setTextValue(const std::string& text) const;
     };
 }
 
