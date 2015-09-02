@@ -59,7 +59,7 @@ namespace pd
         inline int witdh() const noexcept {return int(obj->e_width);}
         inline std::string text() const noexcept {return std::string(obj->e_text);}
         inline Justification justification() const noexcept {return Justification(obj->e_justify);}
-        inline float fontSize() const noexcept {return obj->e_font.c_size;}
+        inline float fontSize() const noexcept {return obj->e_font.size;}
         inline bool wrapText() const noexcept {return false;}
         inline std::vector<t_pt> points() const noexcept {
             return std::vector<t_pt>(obj->e_points, obj->e_points+obj->e_npoints);}

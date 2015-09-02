@@ -197,18 +197,29 @@ void InstanceProcessor::loadPatch(const juce::File& file)
                 {
                     bind(it.getBindingName());
                     vector<Parameter> params = it.getParameters();
-                    for(auto it2 : params)
+                    for(size_t i = 0; i < params.size(); i++)
                     {
                         if(index < m_parameters.size())
                         {
-                            m_parameters[index] = it2;
-                            //setParameterNotifyingHost(index+1, m_parameters[index].getDefaultNormalizedValue());
+                            m_parameters[index] = params[i];
                             index++;
                         }
                     }
                 }
+                for(; index < m_parameters.size(); index++)
+                {
+                    m_parameters[index] = Parameter();
+                }
             }
             
+        }
+        
+        for(size_t i = 0; i < m_parameters.size(); i++)
+        {
+            if(bool(m_parameters[i]))
+            {
+                setParameterNotifyingHost(i+1, m_parameters[i].getNormalizedValue());
+            }
         }
         
         vector<Listener*> listeners = getListeners();

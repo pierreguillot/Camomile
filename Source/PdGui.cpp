@@ -305,12 +305,15 @@ namespace pd
     std::vector<Parameter> Gui::getParameters() const noexcept
     {
         t_ebox* x = ((t_ebox *)getObject());
-        if(is_valid_symbol(x->b_preset_id))
+        if(x->b_nparams)
         {
             std::vector<Parameter> params(x->b_nparams);
             for(size_t i = 0; i < x->b_nparams; i++)
             {
-                params[i] = Parameter(*this, std::string(x->b_params[i]->p_bind->s_name));
+                if(x->b_params[i] && is_valid_symbol(x->b_params[i]->p_name))
+                {
+                    params[i] = Parameter(*this, std::string(x->b_params[i]->p_bind->s_name));
+                }
             }
             return params;
         }

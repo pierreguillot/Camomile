@@ -43,7 +43,7 @@ namespace pd
         {return std::array<float,4>({m_editor->c_bgcolor.red, m_editor->c_bgcolor.green, m_editor->c_bgcolor.blue, m_editor->c_bgcolor.alpha});}
         inline std::array<float,4> getTextColor() const noexcept
         {return std::array<float,4>({m_editor->c_txtcolor.red, m_editor->c_txtcolor.green, m_editor->c_txtcolor.blue, m_editor->c_txtcolor.alpha});}
-        inline float getFontSize() const noexcept {return m_editor->c_font.c_size;}
+        inline float getFontSize() const noexcept {return m_editor->c_font.size;}
         
         inline void setText(std::string const& text) const noexcept {etexteditor_settext(m_editor, text.c_str());}
     };
@@ -85,7 +85,7 @@ namespace pd
         {return std::array<float,4>({m_popup->c_bgcolor.red, m_popup->c_bgcolor.green, m_popup->c_bgcolor.blue, m_popup->c_bgcolor.alpha});}
         inline std::array<float,4> getTextColor() const noexcept
         {return std::array<float,4>({m_popup->c_txtcolor.red, m_popup->c_txtcolor.green, m_popup->c_txtcolor.blue, m_popup->c_txtcolor.alpha});}
-        inline float getFontSize() const noexcept {return m_popup->c_font.c_size;}
+        inline float getFontSize() const noexcept {return m_popup->c_font.size;}
     };
     
     // ==================================================================================== //
@@ -122,7 +122,7 @@ namespace pd
         Parameter& operator=(Parameter const& other);
         
         //! @brief Gets if the Parameter is valid.
-        inline operator bool() const noexcept {return bool(m_parameter);}
+        inline operator bool() const noexcept {return bool(m_parameter) && bool(m_instance);}
         
         //! @brief Gets the name of the Parameter.
         std::string getName() const;
@@ -135,12 +135,6 @@ namespace pd
         
         //! @brief Gets the Parameter controls other  Parameter.
         bool isMetaParameter() const;
-        
-        //! @brief Gets the step between two states of the  Parameter.
-        float getStep() const;
-        
-        //! @brief Gets the normalized step between two states of the  Parameter.
-        float getNormalizedStep() const;
         
         //! @brief Gets the number of steps of the  Parameter.
         size_t getNumberOfStep() const;

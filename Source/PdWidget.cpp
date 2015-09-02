@@ -39,6 +39,7 @@ namespace pd
     Parameter& Parameter::operator=(Parameter const& other)
     {
         m_parameter = other.m_parameter;
+        m_instance = other.m_instance;
         return *this;
     }
     
@@ -70,47 +71,11 @@ namespace pd
         return bool(*this) ? bool(m_parameter->p_meta) : false;
     }
     
-    float Parameter::getStep() const
-    {
-        return bool(*this) ? m_parameter->p_step : std::numeric_limits<float>::epsilon();
-    }
-    
-    float Parameter::getNormalizedStep() const
-    {
-        if(bool(*this))
-        {
-            if(m_parameter->p_max == m_parameter->p_min)
-            {
-                return 1.f;
-            }
-            else if(m_parameter->p_max > m_parameter->p_min)
-            {
-                return m_parameter->p_step / (m_parameter->p_max - m_parameter->p_min);
-            }
-            else
-            {
-                return m_parameter->p_step / (m_parameter->p_min - m_parameter->p_max);
-            }
-        }
-        return std::numeric_limits<float>::epsilon();
-    }
-    
     size_t Parameter::getNumberOfStep() const
     {
         if(bool(*this))
         {
-            if(m_parameter->p_max == m_parameter->p_min)
-            {
-                return 1;
-            }
-            else if(m_parameter->p_max > m_parameter->p_min)
-            {
-                return (m_parameter->p_max - m_parameter->p_min) / m_parameter->p_step + 1;
-            }
-            else
-            {
-                return (m_parameter->p_min - m_parameter->p_max) / m_parameter->p_step + 1;
-            }
+            return m_parameter->p_nstep;
         }
         return 1.f / std::numeric_limits<float>::epsilon();
     }
@@ -136,6 +101,7 @@ namespace pd
         {
             std::lock_guard<std::mutex> guard2(m_instance.m_internal->mutex);
             std::lock_guard<std::mutex> guard(m_instance.s_mutex);
+            pd_setinstance(m_instance.m_internal->instance);
             eparameter_setvalue(m_parameter, value);
         }
     }
@@ -146,6 +112,7 @@ namespace pd
         {
             std::lock_guard<std::mutex> guard2(m_instance.m_internal->mutex);
             std::lock_guard<std::mutex> guard(m_instance.s_mutex);
+            pd_setinstance(m_instance.m_internal->instance);
             eparameter_setvalue_normalized(m_parameter, value);
         }
     }
@@ -167,6 +134,7 @@ namespace pd
         {
             std::lock_guard<std::mutex> guard2(m_instance.m_internal->mutex);
             std::lock_guard<std::mutex> guard(m_instance.s_mutex);
+            pd_setinstance(m_instance.m_internal->instance);
             eparameter_setvalue_text(m_parameter, text.c_str());
         }
     }
