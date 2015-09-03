@@ -97,6 +97,10 @@ namespace pd
         //! @details Returns the float content of the Atom.
         inline operator float() const noexcept {return m_float;}
         
+        //! @brief The int operator.
+        //! @details Returns the float content of the Atom.
+        inline operator int() const noexcept {return int(m_float);}
+        
         //! @brief The string operator.
         //! @details Returns the string content of the Atom.
         inline operator std::string() const noexcept {return m_symbol;}

@@ -130,6 +130,9 @@ namespace pd
         //! @brief Gets the label of the Parameter.
         std::string getLabel() const;
         
+        //! @brief Gets the binding name of the Parameter.
+        std::string getBindingName() const;
+        
         //! @brief Gets the Parameter is automatable.
         bool isAutomatable() const;
         
@@ -159,6 +162,9 @@ namespace pd
         
         //! @brief Sets the current value of the Parameter with a string.
         void setTextValue(const std::string& text) const;
+        
+        //! @brief Sets the index of parameter.
+        void setIndex(size_t index) const;
     };
 }
 

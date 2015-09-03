@@ -61,6 +61,15 @@ namespace pd
         return std::string();
     }
     
+    std::string Parameter::getBindingName() const
+    {
+        if(bool(*this) && is_valid_symbol(m_parameter->p_bind))
+        {
+            return std::string(m_parameter->p_bind->s_name);
+        }
+        return std::string();
+    }
+    
     bool Parameter::isAutomatable() const
     {
         return bool(*this) ? bool(m_parameter->p_auto) : true;
@@ -136,6 +145,15 @@ namespace pd
             std::lock_guard<std::mutex> guard(m_instance.s_mutex);
             pd_setinstance(m_instance.m_internal->instance);
             eparameter_setvalue_text(m_parameter, text.c_str());
+        }
+    }
+    
+    void Parameter::setIndex(size_t index) const
+    {
+        if(bool(*this))
+        {
+            pd_setinstance(m_instance.m_internal->instance);
+            eparameter_setindex(m_parameter, (int)index);
         }
     }
 }

@@ -100,7 +100,28 @@ bool InstanceProcessor::isMetaParameter(int index) const
 
 void InstanceProcessor::receive(std::string const& dest, std::string const& s, std::vector<Atom> const& atoms)
 {
-    ;
+    if(s == "parameter")
+    {
+        if(atoms.size() == 3 && atoms[1].isSymbol() && atoms[2].isFloat())
+        {
+            if(atoms[1] == "beginchanges")
+            {
+                beginParameterChangeGesture(int(atoms[2]));
+            }
+            else if(atoms[1] == "endchanges")
+            {
+                endParameterChangeGesture(int(atoms[2]));
+            }
+            else if(atoms[1] == "value_changed")
+            {
+                sendParamChangeMessageToListeners(int(atoms[2]), m_parameters[int(atoms[2])].getNormalizedValue());
+            }
+            else if(atoms[1] == "attr_modified")
+            {
+                ;
+            }
+        }
+    }
 }
 
 void InstanceProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
@@ -167,17 +188,12 @@ void InstanceProcessor::loadPatch(const juce::File& file)
         {
             releaseDsp();
             lock_guard<mutex> guard(m_mutex);
-            
             vector<Gui> objects(m_patch.getGuis());
             for(auto it : objects)
             {
                 unbind(it.getBindingName());
             }
             
-            for(size_t i = 0; i < m_parameters.size(); i++)
-            {
-                 m_parameters[i] = Parameter();
-            }
             if(file.exists() && file.getFileExtension() == String(".pd"))
             {
                 m_patch = Patch(*this,
@@ -197,12 +213,17 @@ void InstanceProcessor::loadPatch(const juce::File& file)
                 {
                     bind(it.getBindingName());
                     vector<Parameter> params = it.getParameters();
-                    for(size_t i = 0; i < params.size(); i++)
+                    if(!params.empty())
                     {
-                        if(index < m_parameters.size())
+                        bind(it.getBindingName());
+                        for(size_t i = 0; i < params.size(); i++)
                         {
-                            m_parameters[index] = params[i];
-                            index++;
+                            if(index < m_parameters.size())
+                            {
+                                m_parameters[index] = params[i];
+                                m_parameters[index].setIndex(index);
+                                index++;
+                            }
                         }
                     }
                 }
