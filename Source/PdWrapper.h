@@ -88,6 +88,49 @@ namespace pd
         }
         return juce::Path();
     }
+    
+    static inline int toCicmMod(int flags)
+    {
+        if(flags & juce::ModifierKeys::leftButtonModifier)
+        {
+            flags  -= juce::ModifierKeys::leftButtonModifier;
+        }
+        if(flags & juce::ModifierKeys::middleButtonModifier)
+        {
+            flags  -= juce::ModifierKeys::middleButtonModifier;
+        }
+        if(flags & juce::ModifierKeys::noModifiers)
+        {
+            flags  -= juce::ModifierKeys::noModifiers;
+            flags  += EMOD_NONE;
+        }
+        if(flags & juce::ModifierKeys::shiftModifier)
+        {
+            flags  -= juce::ModifierKeys::shiftModifier;
+            flags  += EMOD_SHIFT;
+        }
+        if(flags & juce::ModifierKeys::ctrlModifier)
+        {
+            flags  -= juce::ModifierKeys::ctrlModifier;
+            flags  += EMOD_CTRL;
+        }
+        if(flags & juce::ModifierKeys::commandModifier)
+        {
+            flags  -= juce::ModifierKeys::commandModifier;
+            flags  += EMOD_CMD;
+        }
+        if(flags & juce::ModifierKeys::altModifier)
+        {
+            flags  -= juce::ModifierKeys::commandModifier;
+            flags  += EMOD_ALT;
+        }
+        if(flags & juce::ModifierKeys::rightButtonModifier)
+        {
+            flags  -= juce::ModifierKeys::rightButtonModifier;
+            flags  += EMOD_ALT;
+        }
+        return flags;
+    }
 }
 
 #endif

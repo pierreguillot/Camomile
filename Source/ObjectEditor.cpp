@@ -82,43 +82,43 @@ void ObjectEditor::paint(Graphics& g)
 
 void ObjectEditor::mouseMove(const MouseEvent& event)
 {
-    m_object.mouseMove({float(event.x), float(event.y)}, event.mods.getRawFlags());
+    m_object.mouseMove({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()));
 }
 
 void ObjectEditor::mouseEnter(const MouseEvent& event)
 {
     setMouseCursor(juce::MouseCursor::NormalCursor);
-    m_object.mouseEnter({float(event.x), float(event.y)}, event.mods.getRawFlags());
+    m_object.mouseEnter({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()));
 }
 
 void ObjectEditor::mouseExit(const MouseEvent& event)
 {
-    m_object.mouseExit({float(event.x), float(event.y)}, event.mods.getRawFlags());
+    m_object.mouseExit({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()));
 }
 
 void ObjectEditor::mouseDown(const MouseEvent& event)
 {
-    m_object.mouseDown({float(event.x), float(event.y)}, event.mods.getRawFlags());
+    m_object.mouseDown({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()));
 }
 
 void ObjectEditor::mouseDrag(const MouseEvent& event)
 {
-    m_object.mouseDrag({float(event.x), float(event.y)}, event.mods.getRawFlags());
+    m_object.mouseDrag({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()));
 }
 
 void ObjectEditor::mouseUp(const MouseEvent& event)
 {
-     m_object.mouseUp({float(event.x), float(event.y)}, event.mods.getRawFlags());
+     m_object.mouseUp({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()));
 }
 
 void ObjectEditor::mouseDoubleClick(const MouseEvent& event)
 {
-    m_object.mouseDoubleClick({float(event.x), float(event.y)}, event.mods.getRawFlags());
+    m_object.mouseDoubleClick({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()));
 }
 
 void ObjectEditor::mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel)
 {
-     m_object.mouseWheelMove({float(event.x), float(event.y)}, event.mods.getRawFlags(), {wheel.deltaX, wheel.deltaY});
+     m_object.mouseWheelMove({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()), {wheel.deltaX, wheel.deltaY});
 }
 
 bool ObjectEditor::keyPressed(const KeyPress& key)
