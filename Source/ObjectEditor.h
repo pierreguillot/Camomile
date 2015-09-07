@@ -22,17 +22,19 @@ public AsyncUpdater,
 public Component,
 public Messenger,
 public juce::TextEditor::Listener,
-public juce::TextEditor::InputFilter
+public juce::TextEditor::InputFilter,
+public ModalComponentManager::Callback
 {
 private:
     class ObjectText;
-    PatchEditor&            m_interface;
-    Gui                     m_object;
-    OwnedArray<ObjectText>  m_editors;
-    juce::PopupMenu         m_popup;
-    atomic_bool             m_popup_active;
-    bool                    m_attached;
-    char                    m_last_input;
+    class ObjectPopup;
+    PatchEditor&                    m_interface;
+    Gui                             m_object;
+    ScopedPointer<ObjectText>       m_editor;
+    ScopedPointer<ObjectPopup>      m_popup;
+    atomic_int                      m_popup_item;
+    bool                            m_attached;
+    char                            m_last_input;
 public:
     
     // ==================================================================================== //
@@ -46,6 +48,7 @@ public:
     //                                        PAINT                                         //
     // ==================================================================================== //
     
+    void modalStateFinished(int returnValue) override;
     void handleAsyncUpdate() override;
     void paint(Graphics& g) override;
     
@@ -84,6 +87,19 @@ public:
     
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ObjectEditor)
+    
+    class ObjectPopup : public juce::PopupMenu
+    {
+    private:
+        const pd::PopupMenu m_popup;
+    public:
+        ObjectPopup(pd::PopupMenu const& popup) : juce::PopupMenu(), m_popup(popup)
+        {
+            ;
+        }
+        inline std::string getBindingName() const noexcept {return m_popup.getName();}
+        inline pd::PopupMenu getPopup() const noexcept {return m_popup;}
+    };
     
     class ObjectText : public juce::TextEditor
     {

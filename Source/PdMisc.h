@@ -28,11 +28,13 @@ namespace pd
     template <class T> class LeakDetector
     {
     public:
-        inline LeakDetector() noexcept {++(getCounter().nobjects); }
+        inline LeakDetector() noexcept{
+            ++(getCounter().nobjects);
+        }
         
         inline ~LeakDetector() {
             if(--(getCounter().nobjects) < 0)
-                 std::cout << "Leak Detected\n";
+                 std::cout << "An error Detected " << typeid(T).name() << "\n";
         }
         
     private:
@@ -43,7 +45,7 @@ namespace pd
             inline LeakCounter() noexcept : nobjects(0) {}
             inline ~LeakCounter() noexcept {
                 if(nobjects > 0)
-                    std::cout << "Leak Detected\n";
+                    std::cout << "Leak Detected " << typeid(T).name() << "\n";
             }
             
             std::atomic_int nobjects;

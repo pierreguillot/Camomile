@@ -15,7 +15,7 @@ ObjectEditor::ObjectEditor(PatchEditor& camo, Gui const& object) :
 Messenger(object.getBindingName()),
 m_interface(camo),
 m_object(object),
-m_popup_active(false),
+m_popup_item(0),
 m_attached(false)
 {
     const std::array<int,2> bounds = m_object.getSize();
@@ -26,11 +26,13 @@ m_attached(false)
     Component::setMouseClickGrabsKeyboardFocus(m_object.wantKeyboard());
     Component::setWantsKeyboardFocus(m_object.wantKeyboard());
     Component::setFocusContainer(m_object.hasTextEditor());
+    m_editor = nullptr;
+    m_popup  = nullptr;
 }
 
 ObjectEditor::~ObjectEditor()
 {
-    m_editors.clear();
+    ;
 }
 
 // ==================================================================================== //
@@ -168,61 +170,47 @@ void ObjectEditor::textEditorAction(pd::TextEditor& editor, std::string const& a
         {
             if(action == "create")
             {
-                m_editors.add(new ObjectText(editor));
+                exitModalState(0);
+                m_editor = nullptr;
+                m_editor = new ObjectText(editor);
             }
-            else if(action == "destroy")
+            else if(m_editor && action == "destroy")
             {
-                for(int i = 0; i < m_editors.size(); i++)
+                if(m_editor->getBindingName() == editor.getName())
                 {
-                    if(m_editors[i]->getBindingName() == editor.getName())
-                    {
-                        m_editors.remove(i);
-                        exitModalState(0);
-                        break;
-                    }
+                    exitModalState(0);
+                    m_editor = nullptr;
                 }
             }
-            else if(action == "attr_modified")
+            else if(m_editor && action == "attr_modified")
             {
-                for(int i = 0; i < m_editors.size(); i++)
+                if(m_editor->getBindingName() == editor.getName())
                 {
-                    if(m_editors[i]->getBindingName() == editor.getName())
-                    {
-                        m_editors[i]->setFont(juce::Font(editor.getFontSize()));
-                        m_editors[i]->setText(editor.getText());
-                        m_editors[i]->setColour(juce::TextEditor::backgroundColourId, tojColor(editor.getBackgroundColor()));
-                        m_editors[i]->setColour(juce::TextEditor::textColourId, tojColor(editor.getTextColor()));
-                        m_editors[i]->setMultiLine(editor.shouldWrap(), editor.shouldWrap());
-                        break;
-                    }
+                    m_editor->setFont(juce::Font(editor.getFontSize()));
+                    m_editor->setText(editor.getText());
+                    m_editor->setColour(juce::TextEditor::backgroundColourId, tojColor(editor.getBackgroundColor()));
+                    m_editor->setColour(juce::TextEditor::textColourId, tojColor(editor.getTextColor()));
+                    m_editor->setMultiLine(editor.shouldWrap(), editor.shouldWrap());
                 }
             }
-            else if(action == "popup")
+            else if(m_editor && action == "popup")
             {
                 const int offset = m_object.getBorderSize();
-                for(int i = 0; i < m_editors.size(); i++)
+                if(m_editor->getBindingName() == editor.getName())
                 {
-                    if(m_editors[i]->getBindingName() == editor.getName())
-                    {
-                        const std::array<int, 4> bounds(editor.getBounds());
-                        m_editors[i]->addListener(this);
-                        m_editors[i]->setInputFilter(this, false);
-                        m_editors[i]->setBounds(bounds[0] + offset, bounds[1] + offset, bounds[2], bounds[3]);
-                        enterModalState(false);
-                        addAndMakeVisible(m_editors[i]);
-                        break;
-                    }
+                    const std::array<int, 4> bounds(editor.getBounds());
+                    m_editor->addListener(this);
+                    m_editor->setInputFilter(this, false);
+                    m_editor->setBounds(bounds[0] + offset, bounds[1] + offset, bounds[2], bounds[3]);
+                    enterModalState(false);
+                    addAndMakeVisible(m_editor);
                 }
             }
-            else if(action == "grabfocus")
+            else if(m_editor && action == "grabfocus")
             {
-                for(int i = 0; i < m_editors.size(); i++)
+                if(m_editor->getBindingName() == editor.getName())
                 {
-                    if(m_editors[i]->getBindingName() == editor.getName())
-                    {
-                        m_editors[i]->grabKeyboardFocus();
-                        break;
-                    }
+                    m_editor->grabKeyboardFocus();
                 }
             }
         }
@@ -231,37 +219,56 @@ void ObjectEditor::textEditorAction(pd::TextEditor& editor, std::string const& a
 
 void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, std::string const& action)
 {
-    if(menu && !m_popup_active)
+    if(menu && !m_popup_item)
     {
         const MessageManagerLock thread(Thread::getCurrentThread());
         if(thread.lockWasGained())
         {
-            if(action == "attr_modified")
+            if(action == "create")
             {
-                m_popup.clear();
+                //exitModalState(0);
+                m_popup = nullptr;
+                m_popup = new ObjectPopup(menu);
+            }
+            else if(m_popup && action == "destroy")
+            {
+                //exitModalState(0);
+                m_popup = nullptr;
+            }
+            else if(m_popup && action == "attr_modified")
+            {
+                m_popup->clear();
                 for(int i = 0; i < menu.getNumberOfItems(); i++)
                 {
                     if(menu.isItemSeparator(i))
                     {
-                        m_popup.addSeparator();
+                        m_popup->addSeparator();
                     }
                     else
                     {
-                        m_popup.addItem(menu.getItemId(i) + 1, menu.getItemLabel(i), !menu.isItemDisable(i), menu.isItemChecked(i), nullptr);
+                        m_popup->addItem(menu.getItemId(i) + 1, menu.getItemLabel(i), !menu.isItemDisable(i), menu.isItemChecked(i), nullptr);
                     }
                 }
             }
-            else if(action == "popup")
+            else if(m_popup && action == "popup")
             {
-                m_popup_active = true;
-                int i = m_popup.show();
-                if(i)
-                {
-                    m_object.popup(menu, i-1);
-                }
-                m_popup_active = false;
+                //enterModalState(false);
+                m_popup->showMenuAsync(juce::PopupMenu::Options(), this);
+                //m_popup->show();
             }
         }
+    }
+}
+
+void ObjectEditor::modalStateFinished(int returnValue)
+{
+    if(m_popup)
+    {
+        post("modalStateFinished %i", returnValue);
+        pd::PopupMenu popup = m_popup->getPopup();
+        m_object.popup(popup, returnValue - 1);
+        m_popup->clear();
+        m_popup = nullptr;
     }
 }
 
@@ -351,9 +358,9 @@ String ObjectEditor::filterNewText(juce::TextEditor& editor, const String& newIn
 
 void ObjectEditor::inputAttemptWhenModal()
 {
-    for(int i = 0; i < m_editors.size(); i++)
+    if(m_editor)
     {
-        textEditorReturnKeyPressed(*m_editors[i]);
+        textEditorReturnKeyPressed(*m_editor);
     }
 }
 
