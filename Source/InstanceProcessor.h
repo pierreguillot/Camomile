@@ -49,8 +49,8 @@ public:
      
     const String getInputChannelName(int index) const override {return String(index + 1);}
     const String getOutputChannelName(int index) const override {return String(index + 1);}
-    bool isInputChannelStereoPair(int index) const override {return false;}
-    bool isOutputChannelStereoPair(int index) const override {return false;}
+    bool isInputChannelStereoPair(int index) const override {return true;}
+    bool isOutputChannelStereoPair(int index) const override {return true;}
 
     bool acceptsMidi() const override {return bool(JucePlugin_WantsMidiInput);}
     bool producesMidi() const override {return bool(JucePlugin_ProducesMidiOutput);}
