@@ -39,7 +39,7 @@ public:
     ~PatchEditor();
     void handleAsyncUpdate() override;
     void paint(Graphics&) override;
-    void resized() override;
+
     bool isInterestedInFileDrag(const StringArray& files) override;
     void filesDropped(const StringArray& files, int x, int y) override;
     void fileDragEnter(const StringArray& files, int x, int y) override;

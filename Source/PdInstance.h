@@ -11,7 +11,7 @@
 #include "PdMisc.h"
 
 namespace pd
-{    
+{
     // ==================================================================================== //
     //                                          INSTANCE                                    //
     // ==================================================================================== //
@@ -26,22 +26,23 @@ namespace pd
     //! @details all specifics Instances.
     class Instance
     {
-        friend class Patch;
-        friend class Object;
-        friend class Gui;
-        friend class Parameter;
     private:
+        friend Messenger;
+        
         struct Internal : public LeakDetector<Internal>
         {
-            t_pdinstance*       instance;
-            std::mutex          mutex;
-            std::atomic<size_t> counter;
-            std::string         name;
+            t_pdinstance*        instance;
+            std::atomic<size_t>  counter;
+            std::string          name;
+            std::set<Messenger*> messengers;
             
             Internal(std::string const& _name);
             ~Internal();
         };
         Internal*   m_internal;
+        
+        void addMessenger(Messenger* messenger);
+        void removeMessenger(Messenger* messenger);
     public:
         
         //! @brief The constructor for an empty Instance.
@@ -78,6 +79,8 @@ namespace pd
         //! @brief Retrieves if the Instance is valid.
         inline operator bool() const noexcept {return bool(m_internal) && bool(m_internal->instance);}
         
+    protected:
+        
         //! @brief Retrieves if the name of the Instance.
         inline std::string getName() const noexcept {return bool(m_internal) ? m_internal->name : std::string();}
         
@@ -89,6 +92,22 @@ namespace pd
         
         //! @brief Releases the digital signal processing chain of the Instance.
         void releaseDsp() noexcept;
+
+        //! @brief Trigger the messages.
+        void trigger() const noexcept;
+        
+    public:
+        
+        //! @brief Locks the Instance.
+        inline void lock() const noexcept {
+            s_mutex.lock();
+            pd_setinstance(m_internal->instance);
+        }
+        
+        //! @brief Locks the Instance.
+        inline void unlock() const noexcept {
+            s_mutex.unlock();
+        }
         
         //! @brief Adds a path the global search path.
         static void addToSearchPath(std::string const& path) noexcept;

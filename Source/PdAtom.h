@@ -26,6 +26,7 @@ namespace pd
     class Object;
     class Gui;
     class Parameter;
+    class Messenger;
     
     // ==================================================================================== //
     //                                      ATOM                                            //

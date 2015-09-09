@@ -21,7 +21,6 @@ private:
     set<Listener*>      m_listeners;
     mutable mutex       m_mutex_list;
     vector<Parameter>   m_parameters;
-    mutable mutex       m_mutex;
 public:
     InstanceProcessor();
     ~InstanceProcessor();
@@ -69,7 +68,7 @@ public:
     void loadPatch(const juce::File& file);
     inline const Patch getPatch() const noexcept {return m_patch;}
     inline Patch getPatch() noexcept {return m_patch;}
-    void receive(std::string const& dest, std::string const& s, std::vector<Atom> const& atoms) override;
+    void receive(Message const& message) override;
     
     void addListener(Listener* listener);
     void removeListener(Listener* listener);

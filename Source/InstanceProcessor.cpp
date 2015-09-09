@@ -8,7 +8,7 @@
 #include "PatchEditor.h"
 #include "LookAndFeel.h"
 
-InstanceProcessor::InstanceProcessor() : Instance(string("camomile"))
+InstanceProcessor::InstanceProcessor() : Instance(string("camomile")), Messenger(Instance(*this))
 {
     static CamoLookAndFeel lookAndFeel;
     LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
@@ -19,19 +19,16 @@ InstanceProcessor::~InstanceProcessor()
 {
     lock_guard<mutex> guard(m_mutex_list);
     m_listeners.clear();
-    lock_guard<mutex> guard2(m_mutex);
     m_parameters.clear();
 }
 
 int InstanceProcessor::getNumParameters()
 {
-    lock_guard<mutex> guard(m_mutex);
     return int(m_parameters.size());
 }
 
 const String InstanceProcessor::getParameterName(int index)
 {
-    lock_guard<mutex> guard(m_mutex);
     if(m_parameters[index])
         return String(m_parameters[index].getName());
     else
@@ -40,83 +37,73 @@ const String InstanceProcessor::getParameterName(int index)
 
 float InstanceProcessor::getParameter(int index)
 {
-    lock_guard<mutex> guard(m_mutex);
     return m_parameters[index].getNormalizedValue();
 }
 
 void InstanceProcessor::setParameter(int index, float newValue)
 {
-    lock_guard<mutex> guard(m_mutex);
     m_parameters[index].setNormalizedValue(newValue);
 }
 
 float InstanceProcessor::getParameterDefaultValue(int index)
 {
-    lock_guard<mutex> guard(m_mutex);
     return 0.;
 }
 
 const String InstanceProcessor::getParameterText(int index)
 {
-    lock_guard<mutex> guard(m_mutex);
     return String(m_parameters[index].getTextValue().c_str());
 }
 
 String InstanceProcessor::getParameterText(int index, int size)
 {
-    lock_guard<mutex> guard(m_mutex);
     return String(m_parameters[index].getTextValue().c_str(), size);
 }
 
 String InstanceProcessor::getParameterLabel(int index) const
 {
-    lock_guard<mutex> guard(m_mutex);
     return String(m_parameters[index].getLabel());
 }
 
 int InstanceProcessor::getParameterNumSteps(int index)
 {
-    lock_guard<mutex> guard(m_mutex);
     return m_parameters[index].getNumberOfStep();
 }
 
 bool InstanceProcessor::isParameterAutomatable(int index) const
 {
-    lock_guard<mutex> guard(m_mutex);
     return m_parameters[index].isAutomatable();
 }
 
 bool InstanceProcessor::isParameterOrientationInverted(int index) const
 {
-    lock_guard<mutex> guard(m_mutex);
     return m_parameters[index].isInverted();
 }
 
 bool InstanceProcessor::isMetaParameter(int index) const
 {
-    lock_guard<mutex> guard(m_mutex);
     return m_parameters[index].isMetaParameter();
 }
 
-void InstanceProcessor::receive(std::string const& dest, std::string const& s, std::vector<Atom> const& atoms)
+void InstanceProcessor::receive(Message const& message)
 {
-    if(s == "parameter")
+    if(message.selector == "parameter")
     {
-        if(atoms.size() == 3 && atoms[1].isSymbol() && atoms[2].isFloat())
+        if(message.atoms.size() == 3 && message.atoms[1].isSymbol() && message.atoms[2].isFloat())
         {
-            if(atoms[1] == "beginchanges")
+            if(message.atoms[1] == "beginchanges")
             {
-                beginParameterChangeGesture(int(atoms[2]));
+                beginParameterChangeGesture(int(message.atoms[2]));
             }
-            else if(atoms[1] == "endchanges")
+            else if(message.atoms[1] == "endchanges")
             {
-                endParameterChangeGesture(int(atoms[2]));
+                endParameterChangeGesture(int(message.atoms[2]));
             }
-            else if(atoms[1] == "value_changed")
+            else if(message.atoms[1] == "value_changed")
             {
-                sendParamChangeMessageToListeners(int(atoms[2]), m_parameters[int(atoms[2])].getNormalizedValue());
+                sendParamChangeMessageToListeners(int(message.atoms[2]), m_parameters[int(message.atoms[2])].getNormalizedValue());
             }
-            else if(atoms[1] == "attr_modified")
+            else if(message.atoms[1] == "attr_modified")
             {
                 ;
             }
@@ -126,19 +113,17 @@ void InstanceProcessor::receive(std::string const& dest, std::string const& s, s
 
 void InstanceProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    lock_guard<mutex> guard(m_mutex);
     prepareDsp(getNumInputChannels(), getNumOutputChannels(), sampleRate, samplesPerBlock);
 }
 
 void InstanceProcessor::releaseResources()
 {
-    lock_guard<mutex> guard(m_mutex);
     releaseDsp();
 }
 
 void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
-    lock_guard<mutex> guard(m_mutex);
+    Instance::trigger();
     for(int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
     {
         buffer.clear(i, 0, buffer.getNumSamples());
@@ -150,13 +135,11 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
 
 AudioProcessorEditor* InstanceProcessor::createEditor()
 {
-    lock_guard<mutex> guard(m_mutex);
     return new PatchEditor(*this);
 }
 
 void InstanceProcessor::getStateInformation(MemoryBlock& destData)
 {
-    lock_guard<mutex> guard(m_mutex);
     XmlElement xml("CamomileSettings");
     xml.setAttribute("name", m_patch.getName());
     xml.setAttribute("path", m_patch.getPath());
@@ -187,11 +170,10 @@ void InstanceProcessor::loadPatch(const juce::File& file)
         if(true)
         {
             releaseDsp();
-            lock_guard<mutex> guard(m_mutex);
             vector<Gui> objects(m_patch.getGuis());
             for(auto it : objects)
             {
-                unbind(it.getBindingName());
+               // unbind(it.getBindingName());
             }
             
             if(file.exists() && file.getFileExtension() == String(".pd"))
@@ -215,7 +197,7 @@ void InstanceProcessor::loadPatch(const juce::File& file)
                     vector<Parameter> params = it.getParameters();
                     if(!params.empty())
                     {
-                        bind(it.getBindingName());
+                       // bind(it.getBindingName());
                         for(size_t i = 0; i < params.size(); i++)
                         {
                             if(index < m_parameters.size())
@@ -232,7 +214,6 @@ void InstanceProcessor::loadPatch(const juce::File& file)
                     m_parameters[index] = Parameter();
                 }
             }
-            
         }
         
         for(size_t i = 0; i < m_parameters.size(); i++)
@@ -242,7 +223,7 @@ void InstanceProcessor::loadPatch(const juce::File& file)
                 setParameterNotifyingHost(i+1, m_parameters[i].getNormalizedValue());
             }
         }
-        
+    
         vector<Listener*> listeners = getListeners();
         for(auto it : listeners)
         {

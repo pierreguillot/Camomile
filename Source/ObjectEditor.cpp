@@ -12,7 +12,7 @@
 // ==================================================================================== //
 
 ObjectEditor::ObjectEditor(PatchEditor& camo, Gui const& object) :
-Messenger(object.getBindingName()),
+Messenger(object.getInstance(), object.getBindingName()),
 m_interface(camo),
 m_object(object),
 m_popup_item(0),
@@ -281,26 +281,26 @@ void ObjectEditor::handleAsyncUpdate()
     }
 }
 
-void ObjectEditor::receive(std::string const& dest, std::string const& s, std::vector<Atom> const& atoms)
+void ObjectEditor::receive(Message const& message)
 {
-    if(s == string("symbol") && !atoms.empty() && atoms[0] == string("repaint"))
+    if(message.selector == string("symbol") && !message.atoms.empty() && message.atoms[0] == string("repaint"))
     {
         AsyncUpdater::triggerAsyncUpdate();
     }
-    else if(s == string("texteditor"))
+    else if(message.selector == string("texteditor"))
     {
-        if(atoms.size() == 2 && atoms[0].isSymbol() && atoms[1].isSymbol())
+        if(message.atoms.size() == 2 && message.atoms[0].isSymbol() && message.atoms[1].isSymbol())
         {
-            pd::TextEditor editor(atoms[0]);
-            textEditorAction(editor, std::string(atoms[1]));
+            pd::TextEditor editor(message.atoms[0]);
+            textEditorAction(editor, std::string(message.atoms[1]));
         }
     }
-    else if(s == string("popup"))
+    else if(message.selector == string("popup"))
     {
-        if(atoms.size() == 2 && atoms[0].isSymbol() && atoms[1].isSymbol())
+        if(message.atoms.size() == 2 && message.atoms[0].isSymbol() && message.atoms[1].isSymbol())
         {
-            pd::PopupMenu menu(atoms[0]);
-            popupMenuAction(menu, std::string(atoms[1]));
+            pd::PopupMenu menu(message.atoms[0]);
+            popupMenuAction(menu, std::string(message.atoms[1]));
         }
     }
 }

@@ -63,6 +63,33 @@ namespace pd
         ;
     }
     
+    Gui& Gui::operator=(Gui const& other) noexcept
+    {
+        m_background_color  = other.m_background_color;
+        m_border_color      = other.m_border_color;
+        m_border_size       = other.m_border_size;
+        m_corner_roundness  = other.m_corner_roundness;
+        if(other.m_internal)
+        {
+            other.m_internal->counter++;
+            m_internal = other.m_internal;
+        }
+        else
+        {
+            m_internal = nullptr;
+        }
+        return *this;
+    }
+    
+    Gui& Gui::operator=(Gui&& other) noexcept
+    {
+        std::swap(m_internal, other.m_internal);
+        std::swap(m_background_color, other.m_background_color);
+        std::swap(m_border_color, other.m_border_color);
+        m_border_size       = other.m_border_size;
+        m_corner_roundness  = other.m_corner_roundness;
+        return *this;
+    }
     
     bool Gui::hasPresetName() const noexcept
     {
@@ -111,10 +138,9 @@ namespace pd
         Instance instance(getInstance());
         if(instance && c && c->c_widget.w_mousemove)
         {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
+            instance.lock();
             c->c_widget.w_mousemove(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            instance.unlock();
         }
     }
     
@@ -124,10 +150,9 @@ namespace pd
         Instance instance(getInstance());
         if(instance && c && c->c_widget.w_mouseenter)
         {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
+            instance.lock();
             c->c_widget.w_mouseenter(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            instance.unlock();
         }
     }
     
@@ -137,10 +162,9 @@ namespace pd
         Instance instance(getInstance());
         if(instance && c && c->c_widget.w_mouseleave)
         {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
+            instance.lock();
             c->c_widget.w_mouseleave(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            instance.unlock();
         }
     }
     
@@ -150,10 +174,9 @@ namespace pd
         Instance instance(getInstance());
         if(instance && c && c->c_widget.w_mousedown)
         {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
+            instance.lock();
             c->c_widget.w_mousedown(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            instance.unlock();
         }
     }
     
@@ -163,10 +186,9 @@ namespace pd
         Instance instance(getInstance());
         if(instance && c && c->c_widget.w_mousedrag)
         {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
+            instance.lock();
             c->c_widget.w_mousedrag(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            instance.unlock();
         }
     }
     
@@ -176,10 +198,9 @@ namespace pd
         Instance instance(getInstance());
         if(instance && c && c->c_widget.w_mouseup)
         {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
+            instance.lock();
             c->c_widget.w_mouseup(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            instance.unlock();
         }
     }
     
@@ -189,10 +210,9 @@ namespace pd
         Instance instance(getInstance());
         if(instance && c && c->c_widget.w_dblclick)
         {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
+            instance.lock();
             c->c_widget.w_dblclick(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
+            instance.unlock();
         }
     }
     
@@ -202,10 +222,9 @@ namespace pd
         Instance instance(getInstance());
         if(instance && c && c->c_widget.w_mousewheel)
         {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
+            instance.lock();
             c->c_widget.w_mousewheel(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod, delta[0], delta[1]);
+            instance.unlock();
         }
     }
     
@@ -215,10 +234,9 @@ namespace pd
         Instance instance(getInstance());
         if(instance && c && c->c_widget.w_texteditor_keypress)
         {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
+            instance.lock();
             c->c_widget.w_texteditor_keypress(getObject(), editor.m_editor, (int)ch);
+            instance.unlock();
         }
     }
     
@@ -228,10 +246,9 @@ namespace pd
         Instance instance(getInstance());
         if(instance && c && c->c_widget.w_texteditor_keyfilter)
         {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
+            instance.lock();
             c->c_widget.w_texteditor_keyfilter(getObject(), editor.m_editor, (ekey_flags)filter);
+            instance.unlock();
         }
     }
     
@@ -241,9 +258,9 @@ namespace pd
         Instance instance(getInstance());
         if(instance && c && c->c_widget.w_popup)
         {
-            int tocheck_recursion;
-            //std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
+            instance.lock();
             c->c_widget.w_popup(getObject(), menu.m_popup, item);
+            instance.unlock();
         }
     }
     
@@ -253,10 +270,9 @@ namespace pd
         Instance instance(getInstance());
         if(instance && c && c->c_widget.w_key)
         {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
+            instance.lock();
             c->c_widget.w_key(getObject(), NULL, key, mod);
+            instance.unlock();
         }
     }
     
@@ -266,10 +282,9 @@ namespace pd
         Instance instance(getInstance());
         if(instance && c && c->c_widget.w_keyfilter)
         {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
+            instance.lock();
             c->c_widget.w_keyfilter(getObject(), NULL, key, mod);
+            instance.unlock();
         }
     }
     
@@ -281,9 +296,7 @@ namespace pd
         Instance instance(getInstance());
         if(instance && c && c->c_widget.w_paint && x->b_ready_to_draw)
         {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
+            instance.lock();
             if(x->b_layers)
             {
                 for(int i = 0; i < x->b_number_of_layers; i++)
@@ -297,6 +310,7 @@ namespace pd
             {
                 objs[i] = ((t_ebox *)(getObject()))->b_layers+i;
             }
+            instance.unlock();
         }
         
         return objs;

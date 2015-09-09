@@ -70,7 +70,7 @@ public:
     //                                      NOTIFICATIONS                                   //
     // ==================================================================================== //
 
-    void receive(std::string const& dest, std::string const& s, std::vector<Atom> const& atoms) override;
+    void receive(Message const& message) override;
     void textEditorAction(pd::TextEditor& editor, std::string const& action);
     void popupMenuAction(pd::PopupMenu& menu, std::string const& action);
     // ==================================================================================== //

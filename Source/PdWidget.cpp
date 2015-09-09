@@ -104,28 +104,6 @@ namespace pd
         return bool(*this) ? eparameter_getvalue_normalized(m_parameter) : 0.f;
     }
     
-    void Parameter::setValue(const float value)
-    {
-        if(bool(*this))
-        {
-            std::lock_guard<std::mutex> guard2(m_instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(m_instance.s_mutex);
-            pd_setinstance(m_instance.m_internal->instance);
-            eparameter_setvalue(m_parameter, value);
-        }
-    }
-    
-    void Parameter::setNormalizedValue(const float value)
-    {
-        if(bool(*this))
-        {
-            std::lock_guard<std::mutex> guard2(m_instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(m_instance.s_mutex);
-            pd_setinstance(m_instance.m_internal->instance);
-            eparameter_setvalue_normalized(m_parameter, value);
-        }
-    }
-    
     std::string Parameter::getTextValue() const
     {
         if(bool(*this))
@@ -137,14 +115,33 @@ namespace pd
         return std::string();
     }
     
+    void Parameter::setValue(const float value)
+    {
+        if(bool(*this))
+        {
+            m_instance.lock();
+            eparameter_setvalue(m_parameter, value);
+            m_instance.unlock();
+        }
+    }
+    
+    void Parameter::setNormalizedValue(const float value)
+    {
+        if(bool(*this))
+        {
+            m_instance.lock();
+            eparameter_setvalue_normalized(m_parameter, value);
+            m_instance.unlock();
+        }
+    }
+    
     void Parameter::setTextValue(const std::string& text) const
     {
         if(bool(*this))
         {
-            std::lock_guard<std::mutex> guard2(m_instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(m_instance.s_mutex);
-            pd_setinstance(m_instance.m_internal->instance);
+            m_instance.lock();
             eparameter_setvalue_text(m_parameter, text.c_str());
+            m_instance.unlock();
         }
     }
     
@@ -152,8 +149,9 @@ namespace pd
     {
         if(bool(*this))
         {
-            pd_setinstance(m_instance.m_internal->instance);
+            m_instance.lock();
             eparameter_setindex(m_parameter, (int)index);
+            m_instance.unlock();
         }
     }
 }

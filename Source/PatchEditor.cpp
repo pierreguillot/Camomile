@@ -72,7 +72,7 @@ private:
     private:
         juce::TextEditor m_text;
     public:
-        Content() : Messenger("camo_console")
+        Content(Instance const& instance) : Messenger(instance, "camo_console")
         {
             m_text.setMultiLine(true);
             m_text.setReadOnly(false);
@@ -93,14 +93,15 @@ private:
             Instance::setConsole(ed.getText().toStdString());
         }
         
-        void receive(std::string const& dest, std::string const& s, std::vector<Atom> const& atoms) override
+        void receive(Message const& message) override
         {
             m_text.setText(Instance::getConsole());
         }
     };
     Content m_content;
 public:
-    ConsoleWindow() : DocumentWindow("Camomile Console", Colours::lightgrey, closeButton, false)
+    ConsoleWindow(Instance const& instance) : DocumentWindow("Camomile Console", Colours::lightgrey, closeButton, false),
+    m_content(instance)
     {
         setUsingNativeTitleBar(true);
         setBounds(20, 20, 300, 320);
@@ -277,6 +278,7 @@ void PatchEditor::patchChanged()
         addAndMakeVisible(m_buttons[i]);
     }
     addAndMakeVisible(m_button_infos);
+    
     m_objects.clear(true);
     const Patch patch = m_processor.getPatch();
     if(patch)
@@ -383,7 +385,7 @@ void PatchEditor::buttonClicked(Button* button)
     {
         if(!m_window || (m_window && m_window->getName() != String("Camomile Console")))
         {
-            m_window = new ConsoleWindow();
+            m_window = new ConsoleWindow(m_processor);
         }
         m_window->addToDesktop();
         m_window->centreAroundComponent(this, m_window->getWidth(), m_window->getHeight());
@@ -397,11 +399,9 @@ void PatchEditor::buttonClicked(Button* button)
         }
         juce::URL url("https://github.com/pierreguillot/Camomile/wiki");
         if(url.isWellFormed())
+        {
             url.launchInDefaultBrowser();
+        }
     }
 }
 
-void PatchEditor::resized()
-{
-    
-}

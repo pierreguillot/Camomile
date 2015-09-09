@@ -13,63 +13,77 @@ namespace pd
     //                                      MESSENGER                                       //
     // ==================================================================================== //
 
-
-    void Messenger::_messenger::messenger_bang(Messenger::t_messenger* x)
+    struct Messenger::t_messenger
     {
-        x->messenger->receive(x->name, std::string("bang"), std::vector<Atom>());
-    }
-    
-    void Messenger::_messenger::messenger_float(Messenger::t_messenger* x, float f)
-    {
-        x->messenger->receive(x->name, std::string("float"), std::vector<Atom>({Atom(f)}));
-    }
-    
-    void Messenger::_messenger::messenger_symbol(Messenger::t_messenger* x, t_symbol* s)
-    {
-        x->messenger->receive(x->name, std::string("symbol"), std::vector<Atom>({Atom(std::string(s->s_name))}));
-    }
-    
-    void Messenger::_messenger::messenger_list(Messenger::t_messenger* x, t_symbol* s, int argc, t_atom* argv)
-    {
-        std::vector<Atom> vec(argc);
-        for(size_t i = 0; i < vec.size(); i++)
+        t_eobj      obj;
+        std::string name;
+        Messenger*  messenger;
+        
+    public:
+        static void messenger_bang(t_messenger* x)
         {
-            if(atom_gettype(argv+i) == A_FLOAT)
-            {
-                vec[i] = atom_getfloat(argv+i);
-            }
-            if(atom_gettype(argv+i) == A_SYMBOL)
-            {
-                vec[i] = std::string(atom_getsymbol(argv+i)->s_name);
-            }
+            x->messenger->add(Message(std::string(x->name), std::string("bang"), std::vector<Atom>()));
         }
-        x->messenger->receive(x->name, std::string("list"), vec);
-    }
-    
-    void Messenger::_messenger::messenger_anything(Messenger::t_messenger* x, t_symbol* s, int argc, t_atom* argv)
-    {
-        std::vector<Atom> vec(argc);
-        for(size_t i = 0; i < vec.size(); i++)
+        
+        static void messenger_float(t_messenger* x, float f)
         {
-            if(atom_gettype(argv+i) == A_FLOAT)
-            {
-                vec[i] = atom_getfloat(argv+i);
-            }
-            if(atom_gettype(argv+i) == A_SYMBOL)
-            {
-                vec[i] = std::string(atom_getsymbol(argv+i)->s_name);
-            }
+            x->messenger->add(Message(std::string(x->name), std::string("float"), {Atom(f)}));
         }
-        x->messenger->receive(x->name, std::string(s->s_name), vec);
+        
+        static void messenger_symbol(t_messenger* x, t_symbol* s)
+        {
+            x->messenger->add(Message(std::string(x->name), std::string("symbol"), {Atom(std::string(s->s_name))}));
+        }
+        
+        static void messenger_list(t_messenger* x, t_symbol* s, int argc, t_atom* argv)
+        {
+            std::vector<Atom> vec(argc);
+            for(size_t i = 0; i < vec.size(); i++)
+            {
+                if(atom_gettype(argv+i) == A_FLOAT)
+                {
+                    vec[i] = atom_getfloat(argv+i);
+                }
+                if(atom_gettype(argv+i) == A_SYMBOL)
+                {
+                    vec[i] = std::string(atom_getsymbol(argv+i)->s_name);
+                }
+            }
+            x->messenger->add(Message(std::string(x->name), std::string("list"), std::move(vec)));
+        }
+        
+        static void messenger_anything(t_messenger* x, t_symbol* s, int argc, t_atom* argv)
+        {
+            std::vector<Atom> vec(argc);
+            for(size_t i = 0; i < vec.size(); i++)
+            {
+                if(atom_gettype(argv+i) == A_FLOAT)
+                {
+                    vec[i] = atom_getfloat(argv+i);
+                }
+                if(atom_gettype(argv+i) == A_SYMBOL)
+                {
+                    vec[i] = std::string(atom_getsymbol(argv+i)->s_name);
+                }
+            }
+            x->messenger->add(Message(std::string(x->name), std::string(s->s_name), std::move(vec)));
+        }
+    };
+    
+    Messenger::Messenger(Instance const& instance) : m_instance(instance)
+    {
+        if(m_instance)
+        {
+            m_instance.addMessenger(this);
+        }
     }
     
-    Messenger::Messenger()
+    Messenger::Messenger(Instance const& instance, std::string const& name) : m_instance(instance)
     {
-        ;
-    }
-    
-    Messenger::Messenger(std::string const& name)
-    {
+        if(m_instance)
+        {
+            m_instance.addMessenger(this);
+        }
         bind(name);
     }
     
@@ -79,6 +93,10 @@ namespace pd
         {
             pd_unbind((t_pd *)(it.second), gensym(it.first.c_str()));
             eobj_free(it.second);
+        }
+        if(m_instance)
+        {
+            m_instance.removeMessenger(this);
         }
     }
     
@@ -91,11 +109,11 @@ namespace pd
             if(!c)
             {
                 c = eclass_new("c.messenger", (method)NULL, (method)NULL, (short)sizeof(t_messenger), CLASS_PD, A_GIMME, 0);
-                eclass_addmethod(c, (method) _messenger::messenger_bang,      "bang",             A_NULL,  0);
-                eclass_addmethod(c, (method) _messenger::messenger_float,     "float",            A_FLOAT, 0);
-                eclass_addmethod(c, (method) _messenger::messenger_symbol,    "symbol",           A_SYMBOL,0);
-                eclass_addmethod(c, (method) _messenger::messenger_list,      "list",             A_GIMME, 0);
-                eclass_addmethod(c, (method) _messenger::messenger_anything,  "anything",         A_GIMME, 0);
+                eclass_addmethod(c, (method) t_messenger::messenger_bang,      "bang",             A_NULL,  0);
+                eclass_addmethod(c, (method) t_messenger::messenger_float,     "float",            A_FLOAT, 0);
+                eclass_addmethod(c, (method) t_messenger::messenger_symbol,    "symbol",           A_SYMBOL,0);
+                eclass_addmethod(c, (method) t_messenger::messenger_list,      "list",             A_GIMME, 0);
+                eclass_addmethod(c, (method) t_messenger::messenger_anything,  "anything",         A_GIMME, 0);
                 eclass_register(CLASS_OBJ, c);
             }
             if(c)
@@ -118,6 +136,25 @@ namespace pd
             eobj_free(it->second);
             m_messengers.erase(it);
         }
+    }
+    
+    void Messenger::add(Message const& message)
+    {
+        m_messages.push_back(message);
+    }
+    
+    void Messenger::add(Message&& message)
+    {
+        m_messages.push_back(std::move(message));
+    }
+    
+    void Messenger::trigger() noexcept
+    {
+        for(size_t i = 0; i < m_messages.size(); i++)
+        {
+            receive(m_messages[i]);
+        }
+        m_messages.clear();
     }
 }
 

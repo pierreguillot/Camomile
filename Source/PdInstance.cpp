@@ -6,6 +6,7 @@
 
 #include "PdInstance.h"
 #include "PdPatch.h"
+#include "PdMessenger.h"
 
 extern "C"
 {
@@ -139,11 +140,8 @@ namespace pd
     void Instance::prepareDsp(const int nins, const int nouts, const int samplerate, const int nsamples) noexcept
     {
         releaseDsp();
-        std::lock_guard<std::mutex> guard(m_internal->mutex);
-        std::lock_guard<std::mutex> guard2(s_mutex);
-        pd_setinstance(m_internal->instance);
+        lock();
         t_atom av;
-        
         if(s_sample_rate != samplerate)
         {
             int indev[MAXAUDIOINDEV], inch[MAXAUDIOINDEV],
@@ -160,14 +158,12 @@ namespace pd
         
         atom_setfloat(&av, 1);
         pd_typedmess((t_pd *)gensym("pd")->s_thing, gensym("dsp"), 1, &av);
+        unlock();
     }
     
     void Instance::performDsp(int nsamples, const int nins, const float** inputs, const int nouts, float** outputs) noexcept
     {
-
-        std::lock_guard<std::mutex> guard(m_internal->mutex);
-        std::lock_guard<std::mutex> guard2(s_mutex);
-        pd_setinstance(m_internal->instance);
+        lock();
         for(int i = 0; i < nsamples; i += DEFDACBLKSIZE)
         {
             for(int j = 0; j < nins; j++)
@@ -181,11 +177,45 @@ namespace pd
                 memcpy(outputs[j]+i, sys_soundout+j*DEFDACBLKSIZE, DEFDACBLKSIZE * sizeof(t_sample));
             }
         }
+        unlock();
     }
     
     void Instance::releaseDsp() noexcept
     {
         ;
+    }
+    
+    void Instance::trigger() const noexcept
+    {
+        lock();
+        if(m_internal)
+        {
+            for(auto it : m_internal->messengers)
+            {
+                it->trigger();
+            }
+        }
+        unlock();
+    }
+    
+    void Instance::addMessenger(Messenger* messenger)
+    {
+        lock();
+        if(m_internal)
+        {
+            m_internal->messengers.insert(messenger);
+        }
+        unlock();
+    }
+    
+    void Instance::removeMessenger(Messenger* messenger)
+    {
+        lock();
+        if(m_internal)
+        {
+            m_internal->messengers.erase(messenger);
+        }
+        unlock();
     }
     
     void Instance::addToSearchPath(std::string const& path) noexcept

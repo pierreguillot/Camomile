@@ -23,29 +23,29 @@ namespace pd
     name(_name),
     path(_path)
     {
-        std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
-        if(!name.empty() && !path.empty())
+        if(instance)
         {
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
-            canvas = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym(path.c_str())));
+            instance.lock();
+            if(!name.empty() && !path.empty())
+            {
+                canvas = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym(path.c_str())));
+            }
+            else if(!name.empty())
+            {
+                canvas = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym("")));
+            }
+            instance.unlock();
         }
-        else if(!name.empty())
-        {
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
-            canvas = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym("")));
-        }
+        
     }
     
     Patch::Internal::~Internal()
     {
-        if(canvas)
+        if(canvas && instance)
         {
-            std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard2(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
+            instance.lock();
             canvas_free(const_cast<t_canvas*>(canvas));
+            instance.unlock();
         }
     }
     
@@ -110,7 +110,7 @@ namespace pd
         std::vector<Object> objects;
         if(bool(*this))
         {
-            std::lock_guard<std::mutex> guard3(m_internal->instance.s_mutex);
+            m_internal->instance.lock();
             for(t_gobj *y = m_internal->canvas->gl_list; y; y = y->g_next)
             {
                 if(eobj_iscicm(y))
@@ -118,6 +118,7 @@ namespace pd
                     objects.push_back(Object(*this, reinterpret_cast<t_object *>(y)));
                 }
             }
+            m_internal->instance.unlock();
         }
         return objects;
     }
@@ -127,7 +128,7 @@ namespace pd
         std::vector<Gui> objects;
         if(bool(*this))
         {
-            std::lock_guard<std::mutex> guard3(m_internal->instance.s_mutex);
+            m_internal->instance.lock();
             for(t_gobj *y = m_internal->canvas->gl_list; y; y = y->g_next)
             {
                 if(eobj_iscicm(y) && eobj_isbox(y))
@@ -135,28 +136,30 @@ namespace pd
                     objects.push_back(Gui(*this, reinterpret_cast<t_object *>(y)));
                 }
             }
+            m_internal->instance.unlock();
         }
         return objects;
     }
     
     Gui Patch::getCamomile() const noexcept
     {
-        std::string camo("c.camomile");
+        const std::string camostring("c.camomile");
+        Gui camo;
         if(bool(*this))
         {
-            std::lock_guard<std::mutex> guard3(m_internal->instance.s_mutex);
+            m_internal->instance.lock();
             for(t_gobj *y = m_internal->canvas->gl_list; y; y = y->g_next)
             {
-                if(eobj_iscicm(y) && eobj_isbox(y) && std::string(eobj_getclassname(y)->s_name) == camo)
+                if(eobj_iscicm(y) && eobj_isbox(y) && std::string(eobj_getclassname(y)->s_name) == camostring)
                 {
-                    return Gui(*this, reinterpret_cast<t_object *>(y));
+                    camo = Gui(*this, reinterpret_cast<t_object *>(y));
                 }
             }
+            m_internal->instance.unlock();
         }
-        return Gui();
+        return camo;
     }
-    
-    }
+}
 
 
 
