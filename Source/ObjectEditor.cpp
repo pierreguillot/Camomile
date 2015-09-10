@@ -226,13 +226,13 @@ void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, std::string const& actio
         {
             if(action == "create")
             {
-                //exitModalState(0);
+                exitModalState(0);
                 m_popup = nullptr;
                 m_popup = new ObjectPopup(menu);
             }
             else if(m_popup && action == "destroy")
             {
-                //exitModalState(0);
+                exitModalState(0);
                 m_popup = nullptr;
             }
             else if(m_popup && action == "attr_modified")
@@ -252,9 +252,9 @@ void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, std::string const& actio
             }
             else if(m_popup && action == "popup")
             {
-                //enterModalState(false);
-                m_popup->showMenuAsync(juce::PopupMenu::Options(), this);
-                //m_popup->show();
+                enterModalState(false);
+                //m_popup->showMenuAsync(juce::PopupMenu::Options(), this);
+                m_popup->show();
             }
         }
     }

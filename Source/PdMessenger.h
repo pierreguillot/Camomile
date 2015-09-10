@@ -59,6 +59,9 @@ namespace pd
         //! @brief Unbinds a Messenger from a name.
         void unbind(std::string const& name);
         
+        //! @brief Unbinds a Messenger from a all names.
+        void unbind();
+        
         //! @brief Triggers the messenger to send its messages.
         void trigger() noexcept;
         

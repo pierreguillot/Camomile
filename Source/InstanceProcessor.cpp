@@ -91,21 +91,24 @@ void InstanceProcessor::receive(Message const& message)
     {
         if(message.atoms.size() == 3 && message.atoms[1].isSymbol() && message.atoms[2].isFloat())
         {
-            if(message.atoms[1] == "beginchanges")
+            const string mess = message.atoms[1];
+            const int index = message.atoms[2];
+            
+            if(mess == "beginchanges")
             {
-                beginParameterChangeGesture(int(message.atoms[2]));
+                beginParameterChangeGesture(index);
             }
-            else if(message.atoms[1] == "endchanges")
+            else if(mess == "endchanges")
             {
-                endParameterChangeGesture(int(message.atoms[2]));
+                endParameterChangeGesture(index);
             }
-            else if(message.atoms[1] == "value_changed")
+            else if(mess == "value_changed")
             {
-                sendParamChangeMessageToListeners(int(message.atoms[2]), m_parameters[int(message.atoms[2])].getNormalizedValue());
+                sendParamChangeMessageToListeners(index, m_parameters[index].getNormalizedValue());
             }
-            else if(message.atoms[1] == "attr_modified")
+            else if(mess == "attr_modified" || mess == "create" || mess == "destroy")
             {
-                ;
+                updateHostDisplay();
             }
         }
     }
@@ -138,28 +141,44 @@ AudioProcessorEditor* InstanceProcessor::createEditor()
     return new PatchEditor(*this);
 }
 
-void InstanceProcessor::getStateInformation(MemoryBlock& destData)
+void InstanceProcessor::parametersChanged()
 {
-    XmlElement xml("CamomileSettings");
-    xml.setAttribute("name", m_patch.getName());
-    xml.setAttribute("path", m_patch.getPath());
-    copyXmlToBinary(xml, destData);
-}
-
-void InstanceProcessor::setStateInformation (const void* data, int sizeInBytes)
-{
-    ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
-    if(xml != nullptr)
+    unbind();
+    size_t index = 0;
+    if(m_patch)
     {
-        if(xml->hasTagName("CamomileSettings"))
+        vector<Gui> objects(m_patch.getGuis());
+        for(auto it : objects)
         {
-            String name = xml->getStringAttribute("name");
-            String path = xml->getStringAttribute("path");
-            
-            File file(path + File::separatorString + name);
-            loadPatch(file);
+            vector<Parameter> params = it.getParameters();
+            if(!params.empty())
+            {
+                bind(it.getBindingName());
+                for(size_t i = 0; i < params.size(); i++)
+                {
+                    if(index < m_parameters.size())
+                    {
+                        m_parameters[index] = params[i];
+                        m_parameters[index].setIndex(index);
+                        index++;
+                    }
+                }
+            }
+        }
+        for(; index < m_parameters.size(); index++)
+        {
+            m_parameters[index] = Parameter();
         }
     }
+    
+    for(size_t i = 0; i < m_parameters.size(); i++)
+    {
+        if(bool(m_parameters[i]))
+        {
+            setParameterNotifyingHost(i+1, m_parameters[i].getNormalizedValue());
+        }
+    }
+    updateHostDisplay();
 }
 
 void InstanceProcessor::loadPatch(const juce::File& file)
@@ -173,54 +192,16 @@ void InstanceProcessor::loadPatch(const juce::File& file)
             vector<Gui> objects(m_patch.getGuis());
             for(auto it : objects)
             {
-               // unbind(it.getBindingName());
+                unbind(it.getBindingName());
             }
             
             if(file.exists() && file.getFileExtension() == String(".pd"))
             {
-                m_patch = Patch(*this,
-                                file.getFileName().toStdString(),
-                                file.getParentDirectory().getFullPathName().toStdString());
+                m_patch = Patch(*this, file.getFileName().toStdString(), file.getParentDirectory().getFullPathName().toStdString());
             }
             else
             {
                 m_patch = Patch();
-            }
-            
-            size_t index = 0;
-            if(m_patch)
-            {
-                vector<Gui> objects(m_patch.getGuis());
-                for(auto it : objects)
-                {
-                    bind(it.getBindingName());
-                    vector<Parameter> params = it.getParameters();
-                    if(!params.empty())
-                    {
-                       // bind(it.getBindingName());
-                        for(size_t i = 0; i < params.size(); i++)
-                        {
-                            if(index < m_parameters.size())
-                            {
-                                m_parameters[index] = params[i];
-                                m_parameters[index].setIndex(index);
-                                index++;
-                            }
-                        }
-                    }
-                }
-                for(; index < m_parameters.size(); index++)
-                {
-                    m_parameters[index] = Parameter();
-                }
-            }
-        }
-        
-        for(size_t i = 0; i < m_parameters.size(); i++)
-        {
-            if(bool(m_parameters[i]))
-            {
-                setParameterNotifyingHost(i+1, m_parameters[i].getNormalizedValue());
             }
         }
     
@@ -229,7 +210,7 @@ void InstanceProcessor::loadPatch(const juce::File& file)
         {
             it->patchChanged();
         }
-        updateHostDisplay();
+        parametersChanged();
         prepareDsp(getNumInputChannels(), getNumOutputChannels(), getSampleRate(), getBlockSize());
     }
     
@@ -258,6 +239,44 @@ vector<InstanceProcessor::Listener*> InstanceProcessor::getListeners() const noe
 {
     lock_guard<mutex> guard(m_mutex_list);
     return vector<Listener*>(m_listeners.begin(), m_listeners.end());
+}
+
+void InstanceProcessor::getStateInformation(MemoryBlock& destData)
+{
+    XmlElement xml(String("CamomileSettings"));
+    xml.setAttribute(String("name"), m_patch.getName());
+    xml.setAttribute(String("path"), m_patch.getPath());
+    for(size_t i = 0; i < m_parameters.size(); i++)
+    {
+        if(bool(m_parameters[i]))
+        {
+            xml.setAttribute(String(string("name") + to_string(i)), double(m_parameters[i].getNormalizedValue()));
+        }
+    }
+    copyXmlToBinary(xml, destData);
+}
+
+void InstanceProcessor::setStateInformation (const void* data, int sizeInBytes)
+{
+    ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
+    if(xml != nullptr)
+    {
+        if(xml->hasTagName("CamomileSettings"))
+        {
+            String name = xml->getStringAttribute("name");
+            String path = xml->getStringAttribute("path");
+            
+            File file(path + File::separatorString + name);
+            loadPatch(file);
+            for(size_t i = 0; i < m_parameters.size(); i++)
+            {
+                if(bool(m_parameters[i]))
+                {
+                    setParameterNotifyingHost(i, xml->getDoubleAttribute(String(string("name") + to_string(i))));
+                }
+            }
+        }
+    }
 }
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()

@@ -150,12 +150,6 @@ namespace pd
         //! @brief Gets if the Object is valid.
         inline virtual operator bool() const noexcept {return bool(m_internal) && bool(m_internal->object) && bool(m_internal->patch) && eobj_iscicm(m_internal->object) && eobj_isbox(m_internal->object);};
         
-        //! @brief Gets the preset name.
-        bool hasPresetName() const noexcept;
-        
-        //! @brief Gets the preset name.
-        std::string getPresetName() const noexcept;
-        
         //! @brief Gets if the GUI wants the mouse events.
         bool wantMouse() const noexcept;
         
@@ -226,14 +220,6 @@ namespace pd
         
         //! @brief Calls the paint method and return a set of object to paint.
         std::vector<Layer> paint() const noexcept;
-        
-        //! @brief Gets if the Gui has parameters.
-        inline int hasParameters() const noexcept {
-            return bool(is_valid_symbol(reinterpret_cast<t_ebox *>(getObject())->b_preset_id)) ? bool(reinterpret_cast<t_ebox *>(getObject())->b_nparams) : 0;}
-        
-        //! @brief Gets the number of parameters.
-        inline int getNumberOfParameters() const noexcept {
-            return bool(is_valid_symbol(reinterpret_cast<t_ebox *>(getObject())->b_preset_id)) ? int(reinterpret_cast<t_ebox *>(getObject())->b_nparams) : 0;}
         
         //! @brief Gets the parameters.
         std::vector<Parameter> getParameters() const noexcept;

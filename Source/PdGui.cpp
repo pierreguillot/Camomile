@@ -91,21 +91,6 @@ namespace pd
         return *this;
     }
     
-    bool Gui::hasPresetName() const noexcept
-    {
-        return is_valid_symbol(reinterpret_cast<t_ebox *>(getObject())->b_preset_id);
-    }
-    
-    std::string Gui::getPresetName() const noexcept
-    {
-        if(hasPresetName())
-        {
-            t_ebox* box = reinterpret_cast<t_ebox *>(getObject());
-            return std::string(box->b_preset_id->s_name);
-        }
-        return std::string();
-    }
-    
     bool Gui::wantMouse() const noexcept
     {
         t_eclass* c = getClass();

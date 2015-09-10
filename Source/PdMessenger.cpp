@@ -89,11 +89,7 @@ namespace pd
     
     Messenger::~Messenger()
     {
-        for(auto it : m_messengers)
-        {
-            pd_unbind((t_pd *)(it.second), gensym(it.first.c_str()));
-            eobj_free(it.second);
-        }
+        unbind();
         if(m_instance)
         {
             m_instance.removeMessenger(this);
@@ -135,6 +131,15 @@ namespace pd
             pd_unbind((t_pd *)(it->second), gensym(it->first.c_str()));
             eobj_free(it->second);
             m_messengers.erase(it);
+        }
+    }
+    
+    void Messenger::unbind()
+    {
+        for(auto it : m_messengers)
+        {
+            pd_unbind((t_pd *)(it.second), gensym(it.first.c_str()));
+            eobj_free(it.second);
         }
     }
     
