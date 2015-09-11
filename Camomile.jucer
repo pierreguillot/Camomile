@@ -72,6 +72,7 @@
         <FILE id="Co81Ss" name="c.camomile.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.camomile.cpp"/>
         <FILE id="eAR2ph" name="c.colorpanel.cpp" compile="1" resource="0"
               file="ThirdParty/Cream/Sources/c.colorpanel.cpp"/>
+        <FILE id="eRmpJH" name="c.comment.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.comment.cpp"/>
         <FILE id="FZ4kAa" name="c.dsp_tilde.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.dsp_tilde.cpp"/>
         <FILE id="QhnTSK" name="c.gain_tilde.cpp" compile="1" resource="0"
               file="ThirdParty/Cream/Sources/c.gain_tilde.cpp"/>
