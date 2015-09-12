@@ -17,6 +17,8 @@
 #include <iostream>
 #include <memory>
 
+
+#pragma ignored "-Wunused-variable"
 #include "../ThirdParty/Cream/c.library.hpp"
 
 namespace pd

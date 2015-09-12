@@ -219,9 +219,7 @@ void CamoLookAndFeel::drawButtonBackground (Graphics& g,
 
 Font CamoLookAndFeel::getTextButtonFont (TextButton&, int buttonHeight)
 {
-    juce::Font f(Typeface::createSystemTypefaceFor(BinaryData::Font_ttf, BinaryData::Font_ttfSize));
-    f.setHeight(18.f);//jmin(15.0f, (float)buttonHeight));
-    return f;//juce::Font(jmin(15.0f, (float)buttonHeight * 0.6f));
+    return juce::Font(jmin(15.0f, (float)buttonHeight * 0.6f));
 }
 
 int CamoLookAndFeel::getTextButtonWidthToFitText (TextButton& b, int buttonHeight)

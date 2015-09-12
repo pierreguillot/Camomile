@@ -159,7 +159,6 @@ void InstanceProcessor::parametersChanged()
                     if(index < m_parameters.size())
                     {
                         m_parameters[index] = params[i];
-                        m_parameters[index].setIndex(index);
                         index++;
                     }
                 }
@@ -168,6 +167,17 @@ void InstanceProcessor::parametersChanged()
         for(; index < m_parameters.size(); index++)
         {
             m_parameters[index] = Parameter();
+        }
+        std::sort(m_parameters.begin(), m_parameters.end(), [] (Parameter const& p1, Parameter const& p2)
+                  {
+                      return p1.getIndex() < p2.getIndex();
+                  });
+    }
+    else
+    {
+        for(size_t i = 0; i < m_parameters.size(); i++)
+        {
+            m_parameters[i] = Parameter();
         }
     }
     

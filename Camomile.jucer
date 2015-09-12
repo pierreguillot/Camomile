@@ -219,7 +219,6 @@
     <GROUP id="{8DE6AA0C-11D5-0E76-0B00-0843C90E25ED}" name="Ressources">
       <FILE id="yrAyQZ" name="flowerG.png" compile="0" resource="1" file="Ressources/flowerG.png"/>
       <FILE id="sGIoTl" name="flowerM.png" compile="0" resource="1" file="Ressources/flowerM.png"/>
-      <FILE id="AjVl7T" name="Font.ttf" compile="0" resource="1" file="Ressources/Font.ttf"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

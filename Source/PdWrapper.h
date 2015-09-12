@@ -18,6 +18,22 @@ namespace pd
         return juce::Colour::fromFloatRGBA(color[0], color[1], color[2], color[3]);
     }
     
+    static inline juce::Font tojFont(std::tuple<std::string, float, bool, bool> const& font)
+    {
+        const juce::String name(std::get<0>(font));
+        const float size = std::get<1>(font);
+        int   flags = juce::Font::plain;
+        if(std::get<2>(font))
+        {
+            flags = flags | juce::Font::bold;
+        }
+        if(std::get<3>(font))
+        {
+            flags = flags | juce::Font::italic;
+        }
+        return juce::Font(name, size, flags);
+    }
+    
     static inline juce::Path fromPath(std::vector<t_pt> const& points)
     {
         juce::Path path;

@@ -7,9 +7,44 @@
 #include "InstanceProcessor.h"
 #include "PatchEditor.h"
 
-class PatchEditor::AboutWindow : public DocumentWindow
+
+class PatchEditor::TxtButton  : public Button
 {
 private:
+    juce::Font m_font;
+public:
+    TxtButton (const String& name) : Button (name)
+    {
+        setClickingTogglesState(false);
+        setClickingTogglesState(false);
+    }
+    ~TxtButton() {}
+    
+    void paintButton(Graphics& g, bool over, bool down)
+    {
+        g.setColour(findColour((over || down) ? TextButton::textColourOnId : TextButton::textColourOffId));
+        g.setFont(m_font);
+        g.drawFittedText(getButtonText(), 0, 0, getWidth(), getHeight(),Justification::centred, 1);
+    }
+    void colourChanged() {repaint();}
+    void setFont(juce::Font const& font) {m_font = font.withHeight(14.f); repaint();}
+};
+
+class PatchEditor::PatchWindow : public DocumentWindow
+{
+public:
+    PatchWindow(const juce::String& name, Colour backgroundColour, int requiredButtons, bool addToDesktop = true) :
+    DocumentWindow(name, backgroundColour, requiredButtons, addToDesktop) {}
+    
+    virtual ~PatchWindow() {}
+    virtual void setTextFont(juce::Font const& font) = 0;
+    virtual void setTextColor(juce::Colour const& colour) = 0;
+};
+
+class PatchEditor::AboutWindow : public PatchWindow
+{
+private:
+    
     class Content : public Component
     {
     private:
@@ -32,9 +67,9 @@ private:
             m_text.setColour(juce::TextEditor::outlineColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
             m_text.setColour(juce::TextEditor::shadowColourId,Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
             m_text.setColour(juce::TextEditor::textColourId, Colour::fromFloatRGBA(1.f, 1.f, 1.f, 1.f));
-            m_text.setText("Camomile is a dynamic Plugin that allows to load and control Pure Data patches "
+            m_text.setText("Camomile is a dynamic plugin that allows to load and control Pure Data patches "
                            "inside a digital audio workstation. Camomile translates the Cream library's user"
-                           " graphical interfaces into Juce component for creating a modular plugin editor "
+                           " graphical interfaces into Juce components for creating a modular plugin editor "
                            "and retrieves the parameters of this graphical objects in order to associate"
                            " them with the plugin host.\n\n"
                            "Author :\n"+ String(JucePlugin_Manufacturer) + "\n\n"
@@ -44,10 +79,21 @@ private:
             m_text.setBounds(0, 0, 300, 320);
             addAndMakeVisible(&m_text, 1);
         }
+        
+        void setTextFont(juce::Font const& font)
+        {
+            m_text.setFont(font);
+        }
+        
+        void setTextColor(juce::Colour const& colour)
+        {
+            m_text.setColour(juce::TextEditor::textColourId, colour);
+        }
     };
+    
     Content m_content;
 public:
-    AboutWindow() : DocumentWindow("About Camomile v" + String(JucePlugin_VersionString), Colours::lightgrey, closeButton, false)
+    AboutWindow() : PatchWindow("About Camomile v" + String(JucePlugin_VersionString), Colours::lightgrey, closeButton, false)
     {
         setUsingNativeTitleBar(true);
         setBounds(20, 20, 300, 320);
@@ -58,13 +104,23 @@ public:
         setContentNonOwned(&m_content, false);
     }
     
+    void setTextFont(juce::Font const& font) override
+    {
+        m_content.setTextFont(font.withHeight(12.f));
+    }
+    
+    void setTextColor(juce::Colour const& colour) override
+    {
+        m_content.setTextColor(colour);
+    }
+    
     void closeButtonPressed() override
     {
         removeFromDesktop();
     }
 };
 
-class PatchEditor::ConsoleWindow : public DocumentWindow
+class PatchEditor::ConsoleWindow : public PatchWindow
 {
 private:
     class Content : public Component, public Messenger, public juce::TextEditor::Listener
@@ -82,6 +138,7 @@ private:
             m_text.setColour(juce::TextEditor::backgroundColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
             m_text.setColour(juce::TextEditor::outlineColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
             m_text.setColour(juce::TextEditor::shadowColourId,Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
+            m_text.setColour(juce::TextEditor::textColourId, Colour::fromFloatRGBA(1.f, 1.f, 1.f, 1.f));
             m_text.setText(Instance::getConsole());
             
             m_text.setBounds(0, 0, 300, 320);
@@ -97,10 +154,20 @@ private:
         {
             m_text.setText(Instance::getConsole());
         }
+        
+        void setTextFont(juce::Font const& font)
+        {
+            m_text.setFont(font.withHeight(12.f));
+        }
+        
+        void setTextColor(juce::Colour const& colour)
+        {
+            m_text.setColour(juce::TextEditor::textColourId, colour);
+        }
     };
     Content m_content;
 public:
-    ConsoleWindow(Instance const& instance) : DocumentWindow("Camomile Console", Colours::lightgrey, closeButton, false),
+    ConsoleWindow(Instance const& instance) : PatchWindow("Camomile Console", Colours::lightgrey, closeButton, false),
     m_content(instance)
     {
         setUsingNativeTitleBar(true);
@@ -111,6 +178,16 @@ public:
         setVisible(true);
         setContentNonOwned(&m_content, false);
         
+    }
+    
+    void setTextFont(juce::Font const& font) override
+    {
+        m_content.setTextFont(font);
+    }
+    
+    void setTextColor(juce::Colour const& colour) override
+    {
+        m_content.setTextColor(colour);
     }
     
     void closeButtonPressed() override
@@ -129,7 +206,10 @@ m_processor(p),
 m_dropping(false),
 m_window(nullptr),
 m_color_bg(Colours::lightgrey),
-m_color_bd(Colours::darkgrey)
+m_color_bd(Colours::darkgrey),
+m_color_txt(Colours::white),
+m_bd_size(2),
+m_font(22)
 {
     m_button_infos = new DrawableButton("CamomileButton", DrawableButton::ImageStretched);
     m_button_infos->addListener(this);
@@ -140,49 +220,34 @@ m_color_bd(Colours::darkgrey)
     m_button_infos->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     addAndMakeVisible(m_button_infos);
     
-    TextButton* t = new TextButton("Open");
+    TxtButton* t = new TxtButton("Open");
     t->addListener(this);
-    t->setClickingTogglesState(false);
     t->setRadioGroupId(2);
-    t->setColour(TextButton::textColourOffId, Colours::white);
     t->setBounds(22, 0, 40, 20);
-    t->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     m_buttons.add(t);
     
-    t = new TextButton("Close");
+    t = new TxtButton("Close");
     t->addListener(this);
-    t->setClickingTogglesState(false);
     t->setRadioGroupId(3);
-    t->setColour(TextButton::textColourOffId, Colours::white);
     t->setBounds(62, 0, 40, 20);
-    t->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     m_buttons.add(t);
     
-    t = new TextButton("Reload");
+    t = new TxtButton("Reload");
     t->addListener(this);
-    t->setClickingTogglesState(false);
     t->setRadioGroupId(4);
-    t->setColour(TextButton::textColourOffId, Colours::white);
     t->setBounds(102, 0, 50, 20);
-    t->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     m_buttons.add(t);
     
-    t = new TextButton("Console");
+    t = new TxtButton("Console");
     t->addListener(this);
-    t->setClickingTogglesState(false);
     t->setRadioGroupId(5);
-    t->setColour(TextButton::textColourOffId, Colours::white);
     t->setBounds(152, 0, 55, 20);
-    t->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     m_buttons.add(t);
 
-    t = new TextButton("Help");
+    t = new TxtButton("Help");
     t->addListener(this);
-    t->setClickingTogglesState(false);
     t->setRadioGroupId(6);
-    t->setColour(TextButton::textColourOffId, Colours::white);
     t->setBounds(207, 0, 35, 20);
-    t->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     m_buttons.add(t);
     
     Component::setWantsKeyboardFocus(true);
@@ -200,33 +265,33 @@ void PatchEditor::paint(Graphics& g)
 {
     g.fillAll(m_color_bg);
     g.setColour(m_color_bd);
-    g.drawRect(getBounds().withZeroOrigin(), 1.f);
-    g.drawLine(0.f, 20.f, getWidth(), 20.f, 1.f);
+    g.drawRect(getBounds().withZeroOrigin(), m_bd_size);
+    g.drawLine(0.f, 20.f, getWidth(), 20.f, m_bd_size);
     const Patch patch = m_processor.getPatch();
     if(patch)
     {
         Gui camo = patch.getCamomile();
         if(!camo)
         {
-            juce::Font f(Typeface::createSystemTypefaceFor(BinaryData::Font_ttf, BinaryData::Font_ttfSize));
-            f.setHeight(22.f);
-            g.setFont(f);
-            g.setColour(Colours::white);
+            g.setFont(m_font);
+            g.setColour(m_color_txt);
             g.drawText(juce::String("The patch has no interfaces !"), 0, 21, getWidth(), getHeight() - 21, juce::Justification::centred);
+        }
+        else
+        {
+            
         }
     }
     else
     {
-        juce::Font f(Typeface::createSystemTypefaceFor(BinaryData::Font_ttf, BinaryData::Font_ttfSize));
-        f.setHeight(22.f);
-        g.setFont(f);
-        g.setColour(Colours::white);
+        juce::Font(m_font);
+        g.setColour(m_color_txt);
         g.drawText(juce::String("Drag & Drop your patch..."), 0, 21, getWidth(), getHeight() - 21, juce::Justification::centred);
     }
     
     if(m_dropping)
     {
-        g.fillAll(Colours::lightblue.withAlpha(0.2f));
+        g.fillAll(Colours::white.withAlpha(0.2f));
     }
 }
 
@@ -295,13 +360,16 @@ void PatchEditor::patchChanged()
                     ObjectEditor* inte = m_objects.add(new ObjectEditor(*this, it));
                     const std::array<int,2> pos = it.getPosition();
                     const int offset = it.getBorderSize();
-                    inte->setTopLeftPosition(pos[0] - ref[0] - offset + 2, pos[1] - ref[1] - offset + 24);
+                    inte->setTopLeftPosition(pos[0] - ref[0] - offset + 2, pos[1] - ref[1] - offset + 4);
                     addChildComponent(inte);
                 }
             }
             m_color_bg = tojColor(camo.getBackgroundColor());
             m_color_bd = tojColor(camo.getBorderColor());
-            setSize(std::max(camo.getWidth() + 4, 250), std::max(camo.getHeight() + 26, 100));
+            m_color_txt= tojColor(camo.getTextColor());
+            m_font     = tojFont(camo.getFont());
+            m_bd_size  = camo.getBorderSize();
+            setSize(std::max(camo.getWidth() + 4, 250), std::max(camo.getHeight() + 4, 100));
         }
         m_last_path = patch.getPath() + File::separatorString + patch.getName();
     }
@@ -309,19 +377,21 @@ void PatchEditor::patchChanged()
     DrawableImage image;
     image.setImage(ImageCache::getFromMemory(BinaryData::flowerG_png, BinaryData::flowerG_pngSize));
     DrawableImage image2(image);
-    image2.setOverlayColour(m_color_bd);
-    DrawableImage image3(image);
-    image3.setOverlayColour(m_color_bd);
-    m_button_infos->setImages(&image, &image2, &image3);
+    image2.setOpacity(0.5f);
+    m_button_infos->setImages(&image, &image2, &image2);
     
-    const Colour overcolor = Colours::white.overlaidWith(m_color_bd);
+    const Colour overcolor = m_color_txt.interpolatedWith(m_color_bg, 0.5f);
     for(int i = 0; i < m_buttons.size(); i++)
     {
+        m_buttons[i]->setColour(TextButton::textColourOffId, m_color_txt);
         m_buttons[i]->setColour(TextButton::textColourOnId, overcolor);
+        m_buttons[i]->setFont(m_font);
     }
     if(m_window)
     {
         m_window->setBackgroundColour(m_color_bg);
+        m_window->setTextColor(m_color_txt);
+        m_window->setTextFont(m_font);
     }
     AsyncUpdater::triggerAsyncUpdate();
 }
@@ -345,9 +415,11 @@ void PatchEditor::buttonClicked(Button* button)
         {
             m_window = new AboutWindow();
         }
-        m_window->addToDesktop();
         m_window->centreAroundComponent(this, m_window->getWidth(), m_window->getHeight());
         m_window->setBackgroundColour(m_color_bg);
+        m_window->setTextColor(m_color_txt);
+        m_window->setTextFont(m_font);
+        m_window->addToDesktop();
     }
     else if(button->getRadioGroupId() == 2)
     {
@@ -387,9 +459,11 @@ void PatchEditor::buttonClicked(Button* button)
         {
             m_window = new ConsoleWindow(m_processor);
         }
-        m_window->addToDesktop();
         m_window->centreAroundComponent(this, m_window->getWidth(), m_window->getHeight());
-        m_window->setBackgroundColour(m_color_bg.brighter(0.75));
+        m_window->setBackgroundColour(m_color_bg);
+        m_window->setTextColor(m_color_txt);
+        m_window->setTextFont(m_font);
+        m_window->addToDesktop();
     }
     else if(button->getRadioGroupId() == 6)
     {

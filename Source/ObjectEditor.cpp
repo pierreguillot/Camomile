@@ -56,8 +56,7 @@ void ObjectEditor::paint(Graphics& g)
                 if(obj.type() == Gobj::Text)
                 {
                     vector<t_pt> const points(obj.points());
-                    const Font f(obj.fontSize());
-                    g.setFont(f);
+                    g.setFont(tojFont(obj.getFont()));
                     g.drawText(juce::String(obj.text()),
                                points[0].x + offset, points[0].y + offset, points[1].x, points[1].y,
                                juce::Justification(obj.justification()), obj.wrapText());

@@ -26,7 +26,7 @@ namespace pd
         
     }
     
-    Parameter::Parameter(Parameter const& other) noexcept : m_parameter(other.m_parameter)
+    Parameter::Parameter(Parameter const& other) noexcept : m_instance(other.m_instance), m_parameter(other.m_parameter)
     {
         
     }
@@ -145,14 +145,13 @@ namespace pd
         }
     }
     
-    void Parameter::setIndex(size_t index) const
+    int Parameter::getIndex() const
     {
         if(bool(*this))
         {
-            m_instance.lock();
-            eparameter_setindex(m_parameter, (int)index);
-            m_instance.unlock();
+            return m_parameter->p_index;
         }
+        return 1024;
     }
 }
 

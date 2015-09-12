@@ -163,8 +163,8 @@ namespace pd
         //! @brief Sets the current value of the Parameter with a string.
         void setTextValue(const std::string& text) const;
         
-        //! @brief Sets the index of parameter.
-        void setIndex(size_t index) const;
+        //! @brief Gets the index of parameter.
+        int getIndex() const;
     };
 }
 

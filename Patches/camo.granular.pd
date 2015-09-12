@@ -1,27 +1,24 @@
 #N canvas 309 89 1032 534 10;
-#X obj 1 2 c.camomile @size 600 400 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "" @send "" @pinned
-1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X obj 1 2 c.camomile @size 401 191 @pinned 1 @font "Trattatello" 14
+"roman" "normal" @bgcolor 0.138331 0.16995 0.16995 1 @bdcolor 0.869512
+0.233187 0.142284 1 @txtcolor 0.869512 0.233187 0.142284 1;
 #X text 688 136 Size delay feedback array;
-#X obj 647 197 c.slider @size 15 120 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "" @send "" @pinned
-0 @presetname "" @mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor
-0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
-#X obj 636 348 adc~ 1;
-#X obj 636 478 dac~ 1;
-#X obj 678 60 c.menu @size 100 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "" @send "" @pinned
-0 @presetname "" @hover 0 @bgcolor 0.75 0.75 0.75 0.75 @bdcolor 0.5
-0.5 0.5 0.5 @textcolor 0 0 0 0;
-#X obj 725 330 noise~;
+#X obj 22 55 c.slider @size 15 120 @pinned 0 @minmax 0 1000 @bgcolor
+0.138331 0.16995 0.16995 1 @bdcolor 0.501945 0.501945 0.501945 1 @kncolor
+0.501945 0.501945 0.501945 1 @param0 "Size" "ms" 1;
+#X obj 293 30 c.menu @size 100 18 @pinned 0 @hover 0 @items "Hanning"
+"Poisson" "Triangle" "Sync" @states 0 0 0 0 @font "Chalkboard" 14 "roman"
+"normal" @bgcolor 0.138331 0.16995 0.16995 0.75 @bdcolor 0.869512 0.241092
+0.142284 0.5 @textcolor 0.869512 0.241092 0.142284 0 @param0 "" ""
+1;
 #X obj 696 278 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 15.17 256;
+-262144 -1 -1 629.31 256;
 #X obj 757 278 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 5000 256;
+-262144 -1 -1 0 256;
 #X obj 816 278 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 1.48 256;
+-262144 -1 -1 0 256;
 #X obj 875 281 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0.99 256;
+-262144 -1 -1 0 256;
 #X obj 619 10 table \$0-array 512;
 #N canvas 257 105 728 632 grain 0;
 #X obj 564 175 clip~ 0 1;
@@ -511,27 +508,93 @@
 #X connect 27 0 24 0;
 #X connect 27 0 2 0;
 #X restore 866 416 pd grain;
-#X connect 6 0 12 0;
-#X connect 6 0 14 0;
-#X connect 6 0 15 0;
-#X connect 6 0 16 0;
-#X connect 7 0 12 1;
-#X connect 7 0 14 1;
-#X connect 7 0 15 1;
-#X connect 7 0 16 1;
-#X connect 8 0 12 2;
-#X connect 8 0 14 2;
-#X connect 8 0 15 2;
-#X connect 8 0 16 2;
-#X connect 9 0 12 3;
-#X connect 9 0 14 3;
-#X connect 9 0 15 3;
-#X connect 9 0 16 3;
-#X connect 10 0 12 4;
-#X connect 10 0 14 4;
-#X connect 10 0 15 4;
-#X connect 10 0 16 4;
-#X connect 12 0 4 0;
-#X connect 14 0 4 0;
-#X connect 15 0 4 0;
-#X connect 16 0 4 0;
+#X obj 110 54 c.slider @size 15 120 @pinned 0 @minmax 0 5000 @bgcolor
+0.138331 0.16995 0.16995 1 @bdcolor 0.501945 0.501945 0.501945 1 @kncolor
+0.501945 0.501945 0.501945 1 @param0 "Delay" "ms" 2;
+#X obj 188 55 c.slider @size 15 120 @pinned 0 @minmax 0 100 @bgcolor
+0.138331 0.16995 0.16995 1 @bdcolor 0.501945 0.501945 0.501945 1 @kncolor
+0.501945 0.501945 0.501945 1 @param0 "Feedback" "%" 3;
+#X obj 267 56 c.slider @size 15 120 @pinned 0 @minmax 0 100 @bgcolor
+0.138331 0.16995 0.16995 1 @bdcolor 0.501945 0.501945 0.501945 1 @kncolor
+0.501945 0.501945 0.501945 1 @param0 "Rarefaction" "%" 4;
+#X obj -8 317 loadbang;
+#X obj 2 337 f 100;
+#X obj 16 292 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 107 248 set \$1;
+#X obj 18 30 c.comment @size 53 18 @pinned 0 @font "Chalkduster" 14
+"roman" "normal" @bgcolor 0.138331 0.16995 0.16995 1 @bdcolor 0.138331
+0.16995 0.16995 1 @textcolor 0.869512 0.241092 0.142284 1 @text "Size :"
+;
+#X obj 46 157 c.number @size 40 18 @pinned 0 @decimal 4 @minmax 0 1000
+@font "Chalkboard" 14 "roman" "normal" @bgcolor 0.138331 0.16995 0.16995
+1 @bdcolor 0.501945 0.501945 0.501945 1 @textcolor 0.501945 0.501945
+0.501945 1 @param0 "" "" 1;
+#X obj 135 157 c.number @size 40 18 @pinned 0 @decimal 4 @minmax 0
+1000 @font "Chalkboard" 14 "roman" "normal" @bgcolor 0.138331 0.16995
+0.16995 1 @bdcolor 0.501945 0.501945 0.501945 1 @textcolor 0.501945
+0.501945 0.501945 1 @param0 "" "" 1;
+#X obj 215 157 c.number @size 40 18 @pinned 0 @decimal 4 @minmax 0
+1000 @font "Chalkboard" 14 "roman" "normal" @bgcolor 0.138331 0.16995
+0.16995 1 @bdcolor 0.501945 0.501945 0.501945 1 @textcolor 0.501945
+0.501945 0.501945 1 @param0 "" "" 1;
+#X obj 295 157 c.number @size 40 18 @pinned 0 @decimal 4 @minmax 0
+1000 @font "Chalkboard" 14 "roman" "normal" @bgcolor 0.138331 0.16995
+0.16995 1 @bdcolor 0.501945 0.501945 0.501945 1 @textcolor 0.501945
+0.501945 0.501945 1 @param0 "" "" 1;
+#X obj 108 30 c.comment @size 71 18 @pinned 0 @font "Chalkduster" 14
+"roman" "normal" @bgcolor 0.138331 0.16995 0.16995 1 @bdcolor 0.138331
+0.16995 0.16995 1 @textcolor 0.869512 0.241092 0.142284 1 @text "Delay :"
+;
+#X obj 188 30 c.comment @size 93 18 @pinned 0 @font "Chalkduster" 14
+"roman" "normal" @bgcolor 0.138331 0.16995 0.16995 1 @bdcolor 0.138331
+0.16995 0.16995 1 @textcolor 0.869512 0.241092 0.142284 1 @text "Feedback :"
+;
+#X obj 725 330 adc~ 1 2;
+#X obj 636 478 dac~ 1 2;
+#X obj 861 242 / 100;
+#X obj 804 246 / 100;
+#X connect 2 0 22 0;
+#X connect 2 0 4 0;
+#X connect 4 0 9 1;
+#X connect 4 0 11 1;
+#X connect 4 0 12 1;
+#X connect 4 0 13 1;
+#X connect 5 0 9 2;
+#X connect 5 0 11 2;
+#X connect 5 0 12 2;
+#X connect 5 0 13 2;
+#X connect 6 0 9 3;
+#X connect 6 0 11 3;
+#X connect 6 0 12 3;
+#X connect 6 0 13 3;
+#X connect 7 0 9 4;
+#X connect 7 0 11 4;
+#X connect 7 0 12 4;
+#X connect 7 0 13 4;
+#X connect 9 0 29 0;
+#X connect 9 0 29 1;
+#X connect 11 0 29 0;
+#X connect 11 0 29 1;
+#X connect 12 0 29 0;
+#X connect 12 0 29 1;
+#X connect 13 0 29 0;
+#X connect 13 0 29 1;
+#X connect 14 0 5 0;
+#X connect 15 0 31 0;
+#X connect 16 0 30 0;
+#X connect 17 0 18 0;
+#X connect 18 0 2 0;
+#X connect 19 0 18 0;
+#X connect 20 0 2 0;
+#X connect 22 0 20 0;
+#X connect 28 0 9 0;
+#X connect 28 0 11 0;
+#X connect 28 0 12 0;
+#X connect 28 0 13 0;
+#X connect 28 1 9 0;
+#X connect 28 1 11 0;
+#X connect 28 1 12 0;
+#X connect 28 1 13 0;
+#X connect 30 0 7 0;
+#X connect 31 0 6 0;

@@ -273,6 +273,66 @@ namespace pd
         }
     }
     
+    std::tuple<std::string, float, bool, bool> Gui::getFont() const noexcept
+    {
+        int argc;
+        t_atom* argv;
+        std::string name;
+        float size = 12.f;
+        bool bold = false, italic = false;
+        eobj_attr_getvalueof(getObject(), gensym("font"), &argc, &argv);
+        if(argc && argv)
+        {
+            if(atom_gettype(argv) == A_SYMBOL)
+            {
+                name = std::string(atom_getsymbol(argv)->s_name);
+            }
+            if(argc > 1 && atom_gettype(argv+1) == A_FLOAT)
+            {
+                size = atom_getfloat(argv+1);
+            }
+            if(argc > 2 && atom_gettype(argv+2) == A_FLOAT)
+            {
+                bold = bool(atom_getfloat(argv+2));
+            }
+            if(argc > 3 && atom_gettype(argv+3) == A_FLOAT)
+            {
+                italic = bool(atom_getfloat(argv+3));
+            }
+            free(argv);
+        }
+        return std::make_tuple(name, size, bold, italic);
+    }
+    
+    std::array<float, 4> Gui::getTextColor() const noexcept
+    {
+        int argc;
+        t_atom* argv;
+        std::array<float, 4> color({1.f, 1.f, 1.f, 1.f});
+        eobj_attr_getvalueof(getObject(), gensym("txtcolor"), &argc, &argv);
+        if(argc && argv)
+        {
+            if(atom_gettype(argv)  == A_FLOAT)
+            {
+                color[0] = atom_getfloat(argv);
+            }
+            if(argc > 1 && atom_gettype(argv+1) == A_FLOAT)
+            {
+                color[1] = atom_getfloat(argv+1);
+            }
+            if(argc > 2 && atom_gettype(argv+2) == A_FLOAT)
+            {
+                color[2] = atom_getfloat(argv+2);
+            }
+            if(argc > 3 && atom_gettype(argv+3) == A_FLOAT)
+            {
+                color[3] = atom_getfloat(argv+3);
+            }
+            free(argv);
+        }
+        return color;
+    }
+    
     std::vector<Layer> Gui::paint() const noexcept
     {
         t_eclass* c = getClass();

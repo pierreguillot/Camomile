@@ -59,7 +59,12 @@ namespace pd
         inline int witdh() const noexcept {return int(obj->e_width);}
         inline std::string text() const noexcept {return std::string(obj->e_text);}
         inline Justification justification() const noexcept {return Justification(obj->e_justify);}
-        inline float fontSize() const noexcept {return obj->e_font.size;}
+        inline std::tuple<std::string, float, bool, bool> getFont() const noexcept {
+            return make_tuple(std::string(obj->e_font.family->s_name),
+                              obj->e_font.size,
+                              bool(obj->e_font.weight == gensym("bold")),
+                              bool(obj->e_font.slant == gensym("italic")));
+        }
         inline bool wrapText() const noexcept {return false;}
         inline std::vector<t_pt> points() const noexcept {
             return std::vector<t_pt>(obj->e_points, obj->e_points+obj->e_npoints);}
@@ -217,6 +222,12 @@ namespace pd
         
         //! @brief Gets the border size.
         inline int getCornerRoundness() const noexcept {return m_corner_roundness;}
+        
+        //! @brief Gets the font of the GUI if exists.
+        std::tuple<std::string, float, bool, bool> getFont() const noexcept;
+        
+        //! @brief Gets the text color of the GUI if exist.
+        std::array<float, 4> getTextColor() const noexcept;
         
         //! @brief Calls the paint method and return a set of object to paint.
         std::vector<Layer> paint() const noexcept;
