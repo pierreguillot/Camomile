@@ -11,23 +11,35 @@
 class PatchEditor::TxtButton  : public Button
 {
 private:
-    juce::Font m_font;
+    PatchEditor* m_editor;
 public:
-    TxtButton (const String& name) : Button (name)
+    TxtButton(PatchEditor* editor, const String& name, int rid) : Button(name), m_editor(editor)
     {
         setClickingTogglesState(false);
-        setClickingTogglesState(false);
+        addListener(editor);
+        setRadioGroupId(rid);
+        setTopLeftPosition(22, 0);
     }
-    ~TxtButton() {}
-    
     void paintButton(Graphics& g, bool over, bool down)
     {
-        g.setColour(findColour((over || down) ? TextButton::textColourOnId : TextButton::textColourOffId));
-        g.setFont(m_font);
+        if(over || down)
+            g.setColour(m_editor->m_color_txt.interpolatedWith(m_editor->m_color_bg, 0.5f));
+        else
+            g.setColour(m_editor->m_color_txt);
+        
+        g.setFont(m_editor->m_font.withHeight(14.f));
         g.drawFittedText(getButtonText(), 0, 0, getWidth(), getHeight(),Justification::centred, 1);
     }
-    void colourChanged() {repaint();}
-    void setFont(juce::Font const& font) {m_font = font.withHeight(14.f); repaint();}
+    void editorChanged()
+    {
+        const juce::Font font = m_editor->getFont().withHeight(14.f);
+        if(getRadioGroupId() != 2)
+        {
+            const TxtButton* prev = m_editor->m_buttons[getRadioGroupId()-3];
+            setTopLeftPosition(prev->getX() + prev->getWidth(), 0);
+        }
+        setSize(font.getStringWidth(getButtonText()) + 14, 20);
+    }
 };
 
 class PatchEditor::PatchWindow : public DocumentWindow
@@ -217,38 +229,13 @@ m_font(22)
     m_button_infos->setAlwaysOnTop(true);
     m_button_infos->setRadioGroupId(1);
     m_button_infos->setBounds(3, 3, 15, 15);
-    m_button_infos->setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     addAndMakeVisible(m_button_infos);
     
-    TxtButton* t = new TxtButton("Open");
-    t->addListener(this);
-    t->setRadioGroupId(2);
-    t->setBounds(22, 0, 40, 20);
-    m_buttons.add(t);
-    
-    t = new TxtButton("Close");
-    t->addListener(this);
-    t->setRadioGroupId(3);
-    t->setBounds(62, 0, 40, 20);
-    m_buttons.add(t);
-    
-    t = new TxtButton("Reload");
-    t->addListener(this);
-    t->setRadioGroupId(4);
-    t->setBounds(102, 0, 50, 20);
-    m_buttons.add(t);
-    
-    t = new TxtButton("Console");
-    t->addListener(this);
-    t->setRadioGroupId(5);
-    t->setBounds(152, 0, 55, 20);
-    m_buttons.add(t);
-
-    t = new TxtButton("Help");
-    t->addListener(this);
-    t->setRadioGroupId(6);
-    t->setBounds(207, 0, 35, 20);
-    m_buttons.add(t);
+    m_buttons.add(new TxtButton(this, "Open", 2));
+    m_buttons.add(new TxtButton(this, "Close", 3));
+    m_buttons.add(new TxtButton(this, "Reload", 4));
+    m_buttons.add(new TxtButton(this, "Console", 5));
+    m_buttons.add(new TxtButton(this, "Help", 6));
     
     Component::setWantsKeyboardFocus(true);
     m_processor.addListener(this);
@@ -379,13 +366,9 @@ void PatchEditor::patchChanged()
     DrawableImage image2(image);
     image2.setOpacity(0.5f);
     m_button_infos->setImages(&image, &image2, &image2);
-    
-    const Colour overcolor = m_color_txt.interpolatedWith(m_color_bg, 0.5f);
     for(int i = 0; i < m_buttons.size(); i++)
     {
-        m_buttons[i]->setColour(TextButton::textColourOffId, m_color_txt);
-        m_buttons[i]->setColour(TextButton::textColourOnId, overcolor);
-        m_buttons[i]->setFont(m_font);
+        m_buttons[i]->editorChanged();
     }
     if(m_window)
     {
@@ -393,6 +376,7 @@ void PatchEditor::patchChanged()
         m_window->setTextColor(m_color_txt);
         m_window->setTextFont(m_font);
     }
+    
     AsyncUpdater::triggerAsyncUpdate();
 }
 

@@ -51,6 +51,8 @@ public:
     void fileDragExit(const StringArray& files) override;
     void buttonClicked(Button* button) override;
     void patchChanged() override;
+    
+    inline juce::Font const& getFont() const noexcept {return m_font;}
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PatchEditor)
 };
