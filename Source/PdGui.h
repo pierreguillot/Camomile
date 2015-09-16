@@ -229,6 +229,9 @@ namespace pd
         //! @brief Gets the text color of the GUI if exist.
         std::array<float, 4> getTextColor() const noexcept;
         
+        //! @brief Gets an attribute.
+        std::vector<Atom> getAttr(std::string const& name) const noexcept;
+        
         //! @brief Calls the paint method and return a set of object to paint.
         std::vector<Layer> paint() const noexcept;
         

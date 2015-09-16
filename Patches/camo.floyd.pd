@@ -1,7 +1,8 @@
 #N canvas 272 51 792 573 10;
-#X obj 5 4 c.camomile @size 263 115 @pinned 1 @font "Futura" 12 "roman"
-"normal" @bdsize 1 @bgcolor 0.134379 0.162045 0.189712 1 @bdcolor 0.308281
-0.703514 0.739085 1 @txtcolor 0.920892 0.920892 0.920892 1;
+#X obj 5 4 c.camomile @size 249 110 @pinned 1 @name "Floyd - On The Run"
+@font "Futura" 12 "roman" "normal" @bdsize 1 @bgcolor 0.134379 0.162045
+0.189712 1 @bdcolor 0.308281 0.703514 0.739085 1 @txtcolor 0.920892
+0.920892 0.920892 1;
 #X obj 309 331 line~;
 #X obj 294 432 vcf~;
 #X text 359 381 <-- Q (selectivity);
@@ -34,32 +35,32 @@
 #X text 357 429 Put two vcf objects in series for better;
 #X text 355 465 to make the passband excessively narrow.;
 #X obj 294 526 dac~;
-#X obj 17 90 c.slider @size 193 16 @pinned 0 @minmax 3 12 @bdsize 1
+#X obj 11 84 c.slider @size 193 16 @pinned 0 @minmax 3 12 @bdsize 1
 @bgcolor 0.134379 0.162045 0.189712 1 @bdcolor 0.308281 0.703514 0.739085
 1 @kncolor 0.920892 0.920892 0.920892 1 @param0 "Selectivity" "Q" 2
 ;
 #X obj 50 -18 c.loadmess 5;
-#X obj 17 47 c.slider @size 193 16 @pinned 0 @minmax 61 90 @bdsize
+#X obj 11 46 c.slider @size 193 16 @pinned 0 @minmax 61 90 @bdsize
 1 @bgcolor 0.134379 0.162045 0.189712 1 @bdcolor 0.308281 0.703514
 0.739085 1 @kncolor 0.920892 0.920892 0.920892 1 @param0 "Frequency"
 "Hz" 1;
 #X obj 292 492 *~ 1.5;
-#X obj 216 47 c.number @size 36 16 @pinned 0 @decimal 4 @minmax 61
+#X obj 211 46 c.number @size 36 16 @pinned 0 @decimal 4 @minmax 61
 200 @font "Futura" 12 "roman" "normal" @bdsize 1 @bgcolor 0.134379
 0.162045 0.189712 1 @bdcolor 0.308281 0.703514 0.739085 1 @textcolor
 0.920892 0.920892 0.920892 1 @param0 "" "" 1;
 #X msg 200 31 set \$1;
-#X obj 216 90 c.number @size 36 16 @pinned 0 @decimal 4 @minmax 3 20
+#X obj 211 84 c.number @size 36 16 @pinned 0 @decimal 4 @minmax 3 20
 @font "Futura" 12 "roman" "normal" @bdsize 1 @bgcolor 0.134379 0.162045
 0.189712 1 @bdcolor 0.308281 0.703514 0.739085 1 @textcolor 0.920892
 0.920892 0.920892 1 @param0 "" "" 1;
 #X msg 204 84 set \$1;
 #X obj 309 307 pack 0 5;
-#X obj 19 26 c.comment @size 81 18 @pinned 0 @font "Futura" 14 "roman"
+#X obj 19 27 c.comment @size 81 16 @pinned 0 @font "Futura" 12 "roman"
 "normal" @bgcolor 0.134379 0.162045 0.189712 1 @bdcolor 0.134379 0.162045
 0.189712 1 @textcolor 0.920892 0.920892 0.920892 1 @text "Frequency :"
 ;
-#X obj 19 69 c.comment @size 79 18 @pinned 0 @font "Futura" 14 "roman"
+#X obj 19 65 c.comment @size 79 16 @pinned 0 @font "Futura" 12 "roman"
 "normal" @bgcolor 0.134379 0.162045 0.189712 1 @bdcolor 0.134379 0.162045
 0.189712 1 @textcolor 0.920892 0.920892 0.920892 1 @text "Selectivity :"
 ;

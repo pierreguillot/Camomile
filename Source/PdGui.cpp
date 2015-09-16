@@ -333,6 +333,26 @@ namespace pd
         return color;
     }
     
+    std::vector<Atom> Gui::getAttr(std::string const& name) const noexcept
+    {
+        int argc;
+        t_atom* argv;
+        eobj_attr_getvalueof(getObject(), gensym(name.c_str()), &argc, &argv);
+        std::vector<Atom> vec(argc);
+        for(size_t i = 0; i < vec.size(); i++)
+        {
+            if(atom_gettype(argv+i) == A_FLOAT)
+            {
+                vec[i] = atom_getfloat(argv+i);
+            }
+            if(atom_gettype(argv+i) == A_SYMBOL)
+            {
+                vec[i] = std::string(atom_getsymbol(argv+i)->s_name);
+            }
+        }
+        return vec;
+    }
+    
     std::vector<Layer> Gui::paint() const noexcept
     {
         t_eclass* c = getClass();

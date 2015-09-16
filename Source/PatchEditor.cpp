@@ -247,25 +247,27 @@ void PatchEditor::paint(Graphics& g)
     g.setColour(m_color_bd);
     g.drawRect(getBounds().withZeroOrigin(), m_bd_size);
     g.drawLine(0.f, 20.f + round(m_bd_size * 0.5f), getWidth(), 20.f, m_bd_size);
+    g.setFont(m_font);
+    g.setColour(m_color_txt);
     const Patch patch = m_processor.getPatch();
     if(patch)
     {
         Gui camo = patch.getCamomile();
         if(!camo)
         {
-            g.setFont(m_font);
-            g.setColour(m_color_txt);
             g.drawText(juce::String("The patch has no interfaces !"), 0, 21, getWidth(), getHeight() - 21, juce::Justification::centred);
         }
         else
         {
-            
+            const vector<Atom> name(camo.getAttr("name"));
+            if(!name.empty() && name[0].isSymbol())
+            {
+                g.drawText(String(std::string(name[0])), 20, 0, getWidth() - 20, 20, juce::Justification::centred);
+            }
         }
     }
     else
     {
-        juce::Font(m_font);
-        g.setColour(m_color_txt);
         g.drawText(juce::String("Drag & Drop your patch..."), 0, 21, getWidth(), getHeight() - 21, juce::Justification::centred);
     }
     
