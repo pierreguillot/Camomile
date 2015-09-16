@@ -23,15 +23,16 @@ public FileDragAndDropTarget,
 public Button::Listener
 {
 private:
-    class TxtButton;
+    class ImgButton;
     class PatchWindow;
     class AboutWindow;
     class ConsoleWindow;
+    
     InstanceProcessor&              m_processor;
     OwnedArray<ObjectEditor>        m_objects;
     bool                            m_dropping;
-    ScopedPointer<DrawableButton>   m_button_infos;
-    OwnedArray<TxtButton>           m_buttons;
+    Toolbar                         m_menu;
+    ScopedPointer<ImgButton>        m_button;
     ScopedPointer<PatchWindow>      m_window;
     Colour                          m_color_bg;
     Colour                          m_color_bd;
@@ -51,8 +52,7 @@ public:
     void fileDragExit(const StringArray& files) override;
     void buttonClicked(Button* button) override;
     void patchChanged() override;
-    
-    inline juce::Font const& getFont() const noexcept {return m_font;}
+    void triggerChanges() override;
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PatchEditor)
 };

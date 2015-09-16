@@ -217,8 +217,9 @@
       </GROUP>
     </GROUP>
     <GROUP id="{8DE6AA0C-11D5-0E76-0B00-0843C90E25ED}" name="Ressources">
-      <FILE id="yrAyQZ" name="flowerG.png" compile="0" resource="1" file="Ressources/flowerG.png"/>
-      <FILE id="sGIoTl" name="flowerM.png" compile="0" resource="1" file="Ressources/flowerM.png"/>
+      <FILE id="pAFpl1" name="flower1.png" compile="0" resource="1" file="Ressources/flower1.png"/>
+      <FILE id="aZl9d4" name="flower2.png" compile="0" resource="1" file="Ressources/flower2.png"/>
+      <FILE id="ABes24" name="flowerG.png" compile="0" resource="1" file="Ressources/flowerG.png"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

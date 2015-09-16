@@ -70,35 +70,25 @@ namespace pd
         }
     };
     
-    Messenger::Messenger(Instance const& instance) : m_instance(instance)
+    Messenger::Messenger()
     {
-        if(m_instance)
-        {
-            m_instance.addMessenger(this);
-        }
+        
     }
     
-    Messenger::Messenger(Instance const& instance, std::string const& name) : m_instance(instance)
+    Messenger::Messenger(std::string const& name)
     {
-        if(m_instance)
-        {
-            m_instance.addMessenger(this);
-        }
         bind(name);
     }
     
     Messenger::~Messenger()
     {
         unbind();
-        if(m_instance)
-        {
-            m_instance.removeMessenger(this);
-        }
     }
     
     void Messenger::bind(std::string const& name)
     {
         static t_eclass *c = NULL;
+        std::lock_guard<std::mutex> guard(m_mutex);
         auto it = m_messengers.find(name);
         if(it == m_messengers.end())
         {
@@ -125,6 +115,7 @@ namespace pd
     
     void Messenger::unbind(std::string const& name)
     {
+        std::lock_guard<std::mutex> guard(m_mutex);
         auto it = m_messengers.find(name);
         if(it != m_messengers.end())
         {
@@ -136,6 +127,7 @@ namespace pd
     
     void Messenger::unbind()
     {
+        std::lock_guard<std::mutex> guard(m_mutex);
         for(auto it : m_messengers)
         {
             pd_unbind((t_pd *)(it.second), gensym(it.first.c_str()));
@@ -145,16 +137,19 @@ namespace pd
     
     void Messenger::add(Message const& message)
     {
+        std::lock_guard<std::mutex> guard(m_mutex);
         m_messages.push_back(message);
     }
     
     void Messenger::add(Message&& message)
     {
+        std::lock_guard<std::mutex> guard(m_mutex);
         m_messages.push_back(std::move(message));
     }
     
     void Messenger::trigger() noexcept
     {
+        std::lock_guard<std::mutex> guard(m_mutex);
         for(size_t i = 0; i < m_messages.size(); i++)
         {
             receive(m_messages[i]);

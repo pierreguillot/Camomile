@@ -7,50 +7,75 @@
 #include "InstanceProcessor.h"
 #include "PatchEditor.h"
 
+// ==================================================================================== //
+//                                      IMAGE BUTTON                                    //
+// ==================================================================================== //
 
-class PatchEditor::TxtButton  : public Button
+class PatchEditor::ImgButton : public Button
 {
 private:
-    PatchEditor* m_editor;
+    DrawableImage   m_image1;
+    DrawableImage   m_image2;
+    DrawableImage   m_image3;
+    PatchEditor*    m_editor;
 public:
-    TxtButton(PatchEditor* editor, const String& name, int rid) : Button(name), m_editor(editor)
+    ImgButton(PatchEditor* editor, const String& name, int rid) : Button(name), m_editor(editor)
     {
-        setClickingTogglesState(false);
         addListener(editor);
+        setClickingTogglesState(false);
+        setAlwaysOnTop(true);
         setRadioGroupId(rid);
-        setTopLeftPosition(22, 0);
+        m_image1.setImage(ImageCache::getFromMemory(BinaryData::flower1_png, BinaryData::flower1_pngSize));
+        m_image2.setImage(ImageCache::getFromMemory(BinaryData::flower1_png, BinaryData::flower1_pngSize));
+        m_image3.setImage(ImageCache::getFromMemory(BinaryData::flower2_png, BinaryData::flower2_pngSize));
+        m_image1.setTransformToFit(Rectangle<float>(0.f, 0.f, 15.f, 15.f), RectanglePlacement::stretchToFit);
+        m_image2.setTransformToFit(Rectangle<float>(0.f, 0.f, 15.f, 15.f), RectanglePlacement::stretchToFit);
+        m_image3.setTransformToFit(Rectangle<float>(0.f, 0.f, 15.f, 15.f), RectanglePlacement::stretchToFit);
+        m_image1.setOverlayColour(m_editor->m_color_txt);
+        m_image2.setOverlayColour(m_editor->m_color_txt.interpolatedWith(m_editor->m_color_bg, 0.5f));
+        addAndMakeVisible(m_image1, 0);
+        addChildComponent(m_image2, 0);
+        addAndMakeVisible(m_image3, -1);
+        m_image3.setAlwaysOnTop(true);
     }
-    void paintButton(Graphics& g, bool over, bool down)
-    {
-        if(over || down)
-            g.setColour(m_editor->m_color_txt.interpolatedWith(m_editor->m_color_bg, 0.5f));
-        else
-            g.setColour(m_editor->m_color_txt);
-        
-        g.setFont(m_editor->m_font.withHeight(14.f));
-        g.drawFittedText(getButtonText(), 0, 0, getWidth(), getHeight(),Justification::centred, 1);
-    }
+    void paintButton(Graphics& g, bool over, bool down) override {}
+    
     void editorChanged()
     {
-        const juce::Font font = m_editor->getFont().withHeight(14.f);
-        if(getRadioGroupId() != 2)
+        const int size = 2 + ceil(m_editor->m_bd_size * 0.5f);
+        setBounds(size, size, 15, 15);
+        m_image1.setOverlayColour(m_editor->m_color_txt);
+        m_image2.setOverlayColour(m_editor->m_color_txt.interpolatedWith(m_editor->m_color_bg, 0.5f));
+    }
+    
+    void buttonStateChanged()
+    {
+        if(isDown() || isOver())
         {
-            const TxtButton* prev = m_editor->m_buttons[getRadioGroupId()-3];
-            setTopLeftPosition(prev->getX() + prev->getWidth(), 0);
+            m_image1.setVisible(false);
+            m_image2.setVisible(true);
         }
-        setSize(font.getStringWidth(getButtonText()) + 14, 20);
+        else
+        {
+            m_image1.setVisible(true);
+            m_image2.setVisible(false);
+        }
     }
 };
 
+// ==================================================================================== //
+//                                          WINDOW                                      //
+// ==================================================================================== //
+
 class PatchEditor::PatchWindow : public DocumentWindow
 {
+protected:
+    PatchEditor*    m_editor;
 public:
-    PatchWindow(const juce::String& name, Colour backgroundColour, int requiredButtons, bool addToDesktop = true) :
-    DocumentWindow(name, backgroundColour, requiredButtons, addToDesktop) {}
-    
+    PatchWindow(PatchEditor* editor, const juce::String& name) :
+    DocumentWindow(name, Colours::lightgrey, DocumentWindow::closeButton, false), m_editor(editor)  {}
     virtual ~PatchWindow() {}
-    virtual void setTextFont(juce::Font const& font) = 0;
-    virtual void setTextColor(juce::Colour const& colour) = 0;
+    virtual void editorChanged() = 0;
 };
 
 class PatchEditor::AboutWindow : public PatchWindow
@@ -60,25 +85,26 @@ private:
     class Content : public Component
     {
     private:
-        DrawableImage m_image;
+        DrawableImage    m_image1;
         juce::TextEditor m_text;
     public:
         Content()
         {
-            m_image.setImage(ImageCache::getFromMemory(BinaryData::flowerG_png, BinaryData::flowerG_pngSize));
-            m_image.setBoundingBox(RelativeParallelogram(Rectangle<float>(300.f - 128.f, 320.f - 128.f, 128.f, 128.f)));
-            m_image.setOpacity(0.5f);
-            addAndMakeVisible(&m_image, 0);
+            m_image1.setImage(ImageCache::getFromMemory(BinaryData::flowerG_png, BinaryData::flowerG_pngSize));
+            m_image1.setBoundingBox(RelativeParallelogram(Rectangle<float>(300.f - 128.f, 370.f - 128.f, 128.f, 128.f)));
+            m_image1.setOpacity(0.5f);
+            addAndMakeVisible(&m_image1);
             
             m_text.setMultiLine(true);
             m_text.setReadOnly(true);
             m_text.setScrollbarsShown(false);
             m_text.setCaretVisible(false);
-            m_text.setPopupMenuEnabled (true);
+            m_text.setPopupMenuEnabled(true);
             m_text.setColour(juce::TextEditor::backgroundColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
             m_text.setColour(juce::TextEditor::outlineColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
             m_text.setColour(juce::TextEditor::shadowColourId,Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
-            m_text.setColour(juce::TextEditor::textColourId, Colour::fromFloatRGBA(1.f, 1.f, 1.f, 1.f));
+            m_text.setColour(juce::TextEditor::textColourId, Colours::darkgrey);
+            m_text.setFont(juce::Font(String("Futura"), 16.f, juce::Font::plain));
             m_text.setText("Camomile is a dynamic plugin that allows to load and control Pure Data patches "
                            "inside a digital audio workstation. Camomile translates the Cream library's user"
                            " graphical interfaces into Juce components for creating a modular plugin editor "
@@ -88,44 +114,29 @@ private:
                            "Organizations :\nCICM | Université Paris 8 | Labex Arts H2H\n\n"
                            "Contacts :\n"+String(JucePlugin_ManufacturerEmail)+"\n"+ String(JucePlugin_ManufacturerWebsite)+"\n\n"
                            "Credits :\nPure Data by Miller Puckette\nJuce by ROLI Ltd.");
-            m_text.setBounds(0, 0, 300, 320);
-            addAndMakeVisible(&m_text, 1);
-        }
-        
-        void setTextFont(juce::Font const& font)
-        {
-            m_text.setFont(font);
-        }
-        
-        void setTextColor(juce::Colour const& colour)
-        {
-            m_text.setColour(juce::TextEditor::textColourId, colour);
+            m_text.setBounds(0, 0, 300, 370);
+            
+            addAndMakeVisible(&m_text, -1);
         }
     };
     
     Content m_content;
 public:
-    AboutWindow() : PatchWindow("About Camomile v" + String(JucePlugin_VersionString), Colours::lightgrey, closeButton, false)
+    AboutWindow(PatchEditor* editor) : PatchWindow(editor, "About Camomile v" + String(JucePlugin_VersionString))
     {
         setUsingNativeTitleBar(true);
-        setBounds(20, 20, 300, 320);
+        setBounds(20, 20, 300, 370);
         setResizable(false, false);
         setAlwaysOnTop(true);
         setDropShadowEnabled(true);
         setVisible(true);
         setContentNonOwned(&m_content, false);
+        setBackgroundColour(Colours::lightgrey);
     }
-    
-    void setTextFont(juce::Font const& font) override
+    void editorChanged() override
     {
-        m_content.setTextFont(font.withHeight(12.f));
+        ;
     }
-    
-    void setTextColor(juce::Colour const& colour) override
-    {
-        m_content.setTextColor(colour);
-    }
-    
     void closeButtonPressed() override
     {
         removeFromDesktop();
@@ -140,7 +151,7 @@ private:
     private:
         juce::TextEditor m_text;
     public:
-        Content(Instance const& instance) : Messenger(instance, "camo_console")
+        Content(Instance const& instance) : Messenger("camo_console")
         {
             m_text.setMultiLine(true);
             m_text.setReadOnly(false);
@@ -169,7 +180,7 @@ private:
         
         void setTextFont(juce::Font const& font)
         {
-            m_text.setFont(font.withHeight(12.f));
+            m_text.applyFontToAllText(font.withHeight(14.f));
         }
         
         void setTextColor(juce::Colour const& colour)
@@ -179,7 +190,7 @@ private:
     };
     Content m_content;
 public:
-    ConsoleWindow(Instance const& instance) : PatchWindow("Camomile Console", Colours::lightgrey, closeButton, false),
+    ConsoleWindow(PatchEditor* editor, Instance const& instance) : PatchWindow(editor, "Camomile Console"),
     m_content(instance)
     {
         setUsingNativeTitleBar(true);
@@ -189,17 +200,13 @@ public:
         setDropShadowEnabled(true);
         setVisible(true);
         setContentNonOwned(&m_content, false);
-        
     }
     
-    void setTextFont(juce::Font const& font) override
+    void editorChanged() override
     {
-        m_content.setTextFont(font);
-    }
-    
-    void setTextColor(juce::Colour const& colour) override
-    {
-        m_content.setTextColor(colour);
+        m_content.setTextColor(m_editor->m_color_txt);
+        m_content.setTextFont(m_editor->m_font.withHeight(12.f));
+        setBackgroundColour(m_editor->m_color_bg);
     }
     
     void closeButtonPressed() override
@@ -209,36 +216,22 @@ public:
 };
 
 // ==================================================================================== //
-//                                  CAMOMILE INTERFACE                                  //
+//                                  PATCHER EDITOR                                  //
 // ==================================================================================== //
 
 PatchEditor::PatchEditor(InstanceProcessor& p) :
-AudioProcessorEditor(&p),
-m_processor(p),
-m_dropping(false),
-m_window(nullptr),
+AudioProcessorEditor(&p), m_processor(p),
+m_dropping(false), m_window(nullptr),
 m_color_bg(Colours::lightgrey),
 m_color_bd(Colours::darkgrey),
-m_color_txt(Colours::white),
-m_bd_size(2),
-m_font(22)
+m_color_txt(Colours::darkgrey),
+m_bd_size(2), m_font(22)
 {
-    m_button_infos = new DrawableButton("CamomileButton", DrawableButton::ImageStretched);
-    m_button_infos->addListener(this);
-    m_button_infos->setClickingTogglesState(false);
-    m_button_infos->setAlwaysOnTop(true);
-    m_button_infos->setRadioGroupId(1);
-    m_button_infos->setBounds(3, 3, 15, 15);
-    addAndMakeVisible(m_button_infos);
-    
-    m_buttons.add(new TxtButton(this, "Open", 2));
-    m_buttons.add(new TxtButton(this, "Close", 3));
-    m_buttons.add(new TxtButton(this, "Reload", 4));
-    m_buttons.add(new TxtButton(this, "Console", 5));
-    m_buttons.add(new TxtButton(this, "Help", 6));
-    
     Component::setWantsKeyboardFocus(true);
     m_processor.addListener(this);
+    m_button = new ImgButton(this, "CamomileButton", 1);
+    addAndMakeVisible(m_button);
+    
     setSize(600, 420);
     patchChanged();
 }
@@ -253,7 +246,7 @@ void PatchEditor::paint(Graphics& g)
     g.fillAll(m_color_bg);
     g.setColour(m_color_bd);
     g.drawRect(getBounds().withZeroOrigin(), m_bd_size);
-    g.drawLine(0.f, 20.f, getWidth(), 20.f, m_bd_size);
+    g.drawLine(0.f, 20.f + round(m_bd_size * 0.5f), getWidth(), 20.f, m_bd_size);
     const Patch patch = m_processor.getPatch();
     if(patch)
     {
@@ -322,16 +315,22 @@ void PatchEditor::filesDropped(const StringArray& files, int x, int y)
     }
 }
 
+void PatchEditor::triggerChanges()
+{
+    for(int i = 0; i < m_objects.size(); i++)
+    {
+        m_objects[i]->trigger();
+    }
+}
+
 void PatchEditor::patchChanged()
 {
-    removeAllChildren();
-    for(int i = 0; i < m_buttons.size(); i++)
+    for(int i = 0; i < m_objects.size(); i++)
     {
-        addAndMakeVisible(m_buttons[i]);
+        removeChildComponent(m_objects[i]);
     }
-    addAndMakeVisible(m_button_infos);
-    
     m_objects.clear(true);
+    
     const Patch patch = m_processor.getPatch();
     if(patch)
     {
@@ -356,25 +355,19 @@ void PatchEditor::patchChanged()
             m_color_txt= tojColor(camo.getTextColor());
             m_font     = tojFont(camo.getFont());
             m_bd_size  = camo.getBorderSize();
-            setSize(std::max(camo.getWidth() + 4, 250), std::max(camo.getHeight() + 4, 100));
+            setSize(std::max(camo.getWidth() + m_bd_size * 2, 20),
+                    std::max(camo.getHeight()  + m_bd_size * 2, 40));
         }
         m_last_path = patch.getPath() + File::separatorString + patch.getName();
     }
     
-    DrawableImage image;
-    image.setImage(ImageCache::getFromMemory(BinaryData::flowerG_png, BinaryData::flowerG_pngSize));
-    DrawableImage image2(image);
-    image2.setOpacity(0.5f);
-    m_button_infos->setImages(&image, &image2, &image2);
-    for(int i = 0; i < m_buttons.size(); i++)
+    if(m_button)
     {
-        m_buttons[i]->editorChanged();
+        m_button->editorChanged();
     }
     if(m_window)
     {
-        m_window->setBackgroundColour(m_color_bg);
-        m_window->setTextColor(m_color_txt);
-        m_window->setTextFont(m_font);
+        m_window->editorChanged();
     }
     
     AsyncUpdater::triggerAsyncUpdate();
@@ -395,70 +388,78 @@ void PatchEditor::buttonClicked(Button* button)
 {
     if(button->getRadioGroupId() == 1)
     {
-        if(!m_window || (m_window && m_window->getName() != String("About Camomile")))
+        juce::PopupMenu m;
+        m.addItem(1, "About");
+        m.addItem(2, "Open");
+        m.addItem(3, "Close");
+        m.addItem(4, "Reload");
+        m.addItem(5, "Console");
+        m.addItem(6, "Help");
+        const int result = m.showAt(button->getScreenBounds().translated(-2, 2));
+        if(result == 1)
         {
-            m_window = new AboutWindow();
+            if(!m_window || (m_window && m_window->getName() != String("About Camomile")))
+            {
+                m_window = new AboutWindow(this);
+            }
+            m_window->setTopLeftPosition(button->getScreenPosition());
+            m_window->editorChanged();
+            m_window->addToDesktop();
         }
-        m_window->centreAroundComponent(this, m_window->getWidth(), m_window->getHeight());
-        m_window->setBackgroundColour(m_color_bg);
-        m_window->setTextColor(m_color_txt);
-        m_window->setTextFont(m_font);
-        m_window->addToDesktop();
-    }
-    else if(button->getRadioGroupId() == 2)
-    {
-        if(m_window)
+        else if(result == 2)
         {
-            m_window = nullptr;
+            if(m_window)
+            {
+                m_window = nullptr;
+            }
+            FileChooser fc("Open a patch...", File::getSpecialLocation(File::userDocumentsDirectory), "*.pd", true);
+            if(fc.browseForFileToOpen())
+            {
+                juce::File file(fc.getResult());
+                if(file.getFileExtension() == juce::String(".pd"))
+                {
+                    m_processor.loadPatch(file);
+                }
+            }
         }
-        FileChooser fc("Open a patch...", File::getSpecialLocation(File::userDocumentsDirectory), "*.pd", true);
-        if(fc.browseForFileToOpen())
+        else if(result == 3)
         {
-            juce::File file(fc.getResult());
-            if(file.getFileExtension() == juce::String(".pd"))
+            if(m_window)
+            {
+                m_window = nullptr;
+            }
+            m_processor.loadPatch(juce::File());
+        }
+        else if(result == 4)
+        {
+            File file(m_last_path);
+            if(file.exists())
             {
                 m_processor.loadPatch(file);
             }
         }
-    }
-    else if(button->getRadioGroupId() == 3)
-    {
-        if(m_window)
+        else if(result == 5)
         {
-            m_window = nullptr;
+            if(!m_window || (m_window && m_window->getName() != String("Camomile Console")))
+            {
+                m_window = new ConsoleWindow(this, m_processor);
+            }
+            m_window->setTopLeftPosition(button->getScreenPosition());
+            m_window->setBackgroundColour(m_color_bg);
+            m_window->editorChanged();
+            m_window->addToDesktop();
         }
-        m_processor.loadPatch(juce::File());
-    }
-    else if(button->getRadioGroupId() == 4)
-    {
-        File file(m_last_path);
-        if(file.exists())
+        else if(result == 6)
         {
-            m_processor.loadPatch(file);
-        }
-    }
-    else if(button->getRadioGroupId() == 5)
-    {
-        if(!m_window || (m_window && m_window->getName() != String("Camomile Console")))
-        {
-            m_window = new ConsoleWindow(m_processor);
-        }
-        m_window->centreAroundComponent(this, m_window->getWidth(), m_window->getHeight());
-        m_window->setBackgroundColour(m_color_bg);
-        m_window->setTextColor(m_color_txt);
-        m_window->setTextFont(m_font);
-        m_window->addToDesktop();
-    }
-    else if(button->getRadioGroupId() == 6)
-    {
-        if(m_window)
-        {
-            m_window = nullptr;
-        }
-        juce::URL url("https://github.com/pierreguillot/Camomile/wiki");
-        if(url.isWellFormed())
-        {
-            url.launchInDefaultBrowser();
+            if(m_window)
+            {
+                m_window = nullptr;
+            }
+            juce::URL url("https://github.com/pierreguillot/Camomile/wiki");
+            if(url.isWellFormed())
+            {
+                url.launchInDefaultBrowser();
+            }
         }
     }
 }

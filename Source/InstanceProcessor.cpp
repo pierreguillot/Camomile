@@ -8,7 +8,7 @@
 #include "PatchEditor.h"
 #include "LookAndFeel.h"
 
-InstanceProcessor::InstanceProcessor() : Instance(string("camomile")), Messenger(Instance(*this))
+InstanceProcessor::InstanceProcessor() : Instance(string("camomile")), Messenger()
 {
     static CamoLookAndFeel lookAndFeel;
     LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
@@ -126,7 +126,7 @@ void InstanceProcessor::releaseResources()
 
 void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
-    Instance::trigger();
+    Messenger::trigger();
     for(int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
     {
         buffer.clear(i, 0, buffer.getNumSamples());

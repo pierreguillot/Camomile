@@ -1,0 +1,12 @@
+#N canvas 670 295 768 527 10;
+#X obj 2 2 c.camomile @size 200 163 @pinned 1 @font "Courier" 11 "roman"
+"normal" @bdsize 2 @bgcolor 0.754894 0.735133 0.715371 1 @bdcolor 0.501945
+0.501945 0.501945 1 @txtcolor 0.501945 0.501945 0.501945 1;
+#X obj 82 30 c.comment @size 87 15 @pinned 0 @font "Courier" 11 "roman"
+"normal" @bgcolor 0.754894 0.735133 0.715371 1 @bdcolor 0.754894 0.735133
+0.715371 1 @textcolor 0.501945 0.501945 0.501945 1 @text "Zazie de"
+;
+#X obj 48 86 c.menu @size 100 15 @pinned 0 @hover 0 @items "le metro"
+"le tram" "le bus" @states 0 0 0 @font "Helvetica" 11 "roman" "normal"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1
+@param0 "" "" 1;

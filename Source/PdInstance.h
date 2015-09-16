@@ -34,15 +34,11 @@ namespace pd
             t_pdinstance*        instance;
             std::atomic<size_t>  counter;
             std::string          name;
-            std::set<Messenger*> messengers;
             
             Internal(std::string const& _name);
             ~Internal();
         };
         Internal*   m_internal;
-        
-        void addMessenger(Messenger* messenger);
-        void removeMessenger(Messenger* messenger);
     public:
         
         //! @brief The constructor for an empty Instance.
@@ -91,11 +87,7 @@ namespace pd
         void performDsp(int nsamples, const int nins, const float** inputs, const int nouts, float** outputs) noexcept;
         
         //! @brief Releases the digital signal processing chain of the Instance.
-        void releaseDsp() noexcept;
-
-        //! @brief Trigger the messages.
-        void trigger() const noexcept;
-        
+        void releaseDsp() noexcept;        
     public:
         
         //! @brief Locks the Instance.

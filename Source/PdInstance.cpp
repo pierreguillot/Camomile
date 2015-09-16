@@ -185,39 +185,6 @@ namespace pd
         ;
     }
     
-    void Instance::trigger() const noexcept
-    {
-        lock();
-        if(m_internal)
-        {
-            for(auto it : m_internal->messengers)
-            {
-                it->trigger();
-            }
-        }
-        unlock();
-    }
-    
-    void Instance::addMessenger(Messenger* messenger)
-    {
-        lock();
-        if(m_internal)
-        {
-            m_internal->messengers.insert(messenger);
-        }
-        unlock();
-    }
-    
-    void Instance::removeMessenger(Messenger* messenger)
-    {
-        lock();
-        if(m_internal)
-        {
-            m_internal->messengers.erase(messenger);
-        }
-        unlock();
-    }
-    
     void Instance::addToSearchPath(std::string const& path) noexcept
     {
         std::lock_guard<std::mutex> guard(s_mutex);

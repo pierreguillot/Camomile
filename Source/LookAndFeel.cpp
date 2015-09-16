@@ -829,7 +829,7 @@ void CamoLookAndFeel::drawBubble (Graphics& g, BubbleComponent& comp,
 //==============================================================================
 Font CamoLookAndFeel::getPopupMenuFont()
 {
-    return Font (17.0f);
+    return Font(String("Futura"), 14.f, Font::plain);
 }
 
 void CamoLookAndFeel::getIdealPopupMenuItemSize (const String& text, const bool isSeparator,
@@ -855,17 +855,7 @@ void CamoLookAndFeel::getIdealPopupMenuItemSize (const String& text, const bool 
 void CamoLookAndFeel::drawPopupMenuBackground (Graphics& g, int width, int height)
 {
     const Colour background (findColour (juce::PopupMenu::backgroundColourId));
-
     g.fillAll (background);
-    g.setColour (background.overlaidWith (Colour (0x2badd8e6)));
-
-    for (int i = 0; i < height; i += 3)
-        g.fillRect (0, i, width, 1);
-
-   #if ! JUCE_MAC
-    g.setColour (findColour (juce::PopupMenu::textColourId).withAlpha (0.6f));
-    g.drawRect (0, 0, width, height);
-   #endif
 }
 
 void CamoLookAndFeel::drawPopupMenuUpDownArrow (Graphics& g, int width, int height, bool isScrollUpArrow)

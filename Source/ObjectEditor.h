@@ -21,6 +21,7 @@ class ObjectEditor :
 public AsyncUpdater,
 public Component,
 public Messenger,
+public juce::Timer,
 public juce::TextEditor::Listener,
 public juce::TextEditor::InputFilter,
 public ModalComponentManager::Callback
@@ -32,8 +33,6 @@ private:
     Gui                             m_object;
     ScopedPointer<ObjectText>       m_editor;
     ScopedPointer<ObjectPopup>      m_popup;
-    atomic_int                      m_popup_item;
-    bool                            m_attached;
     char                            m_last_input;
 public:
     
@@ -70,6 +69,7 @@ public:
     //                                      NOTIFICATIONS                                   //
     // ==================================================================================== //
 
+    void timerCallback() override {Messenger::trigger();}
     void receive(Message const& message) override;
     void textEditorAction(pd::TextEditor& editor, std::string const& action);
     void popupMenuAction(pd::PopupMenu& menu, std::string const& action);

@@ -1,27 +1,41 @@
-#N canvas 548 94 768 527 10;
-#X obj 115 181 adc~;
-#X obj 36 182 dac~;
-#X obj 2 2 c.camomile @size 200 121 @pinned 1 @font "Helvetica" 11
-"roman" "normal" @bdsize 2 @bgcolor 0.750942 0.73118 0.711419 1 @bdcolor
-0.5 0.5 0.5 1 @txtcolor 0 0 0 1;
-#X obj 80 29 c.meter~ @size 13 86 @pinned 0 @interval 50 @bgcolor 0.75
+#N canvas 670 295 768 527 10;
+#X obj 413 188 adc~;
+#X obj 334 189 dac~;
+#X obj 2 2 c.camomile @size 200 163 @pinned 1 @font "Courier" 11 "roman"
+"normal" @bdsize 2 @bgcolor 0.754894 0.735133 0.715371 1 @bdcolor 0.501945
+0.501945 0.501945 1 @txtcolor 0.501945 0.501945 0.501945 1;
+#X obj 94 72 c.meter~ @size 13 86 @pinned 0 @interval 50 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6 0 0.8 @tepidcolor
 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor
 1 0 0 0.8;
-#X obj 62 29 c.gain~ @size 13 86 @pinned 0 @ramp 20 @bgcolor 0.75 0.75
+#X obj 76 72 c.gain~ @size 13 86 @pinned 0 @ramp 20 @bgcolor 0.75 0.75
 0.75 1 @bdcolor 0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1 @param0 "GainLeft"
 "dB" 1;
-#X obj 155 29 c.meter~ @size 13 86 @pinned 0 @interval 50 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6 0 0.8 @tepidcolor
-0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor
-1 0 0 0.8;
-#X obj 137 29 c.gain~ @size 13 86 @pinned 0 @ramp 20 @bgcolor 0.75
+#X obj 169 72 c.meter~ @size 13 86 @pinned 0 @interval 50 @bgcolor
+0.754894 0.754894 0.754894 1 @bdcolor 0.501945 0.501945 0.501945 1
+@coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85
+0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8;
+#X obj 151 72 c.gain~ @size 13 86 @pinned 0 @ramp 20 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1 @param0 "GainRight"
 "dB" 1;
-#X obj 7 29 c.gain~ @size 13 86 @pinned 0 @ramp 20 @bgcolor 0.75 0.75
+#X obj 12 72 c.gain~ @size 13 86 @pinned 0 @ramp 20 @bgcolor 0.75 0.75
 0.75 1 @bdcolor 0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1 @param0 "" ""
 1;
-#X msg 215 28 pos 2 2;
+#X obj 10 51 c.comment @size 66 15 @pinned 0 @font "Courier" 11 "roman"
+"normal" @bgcolor 0.754894 0.735133 0.715371 1 @bdcolor 0.754894 0.735133
+0.715371 1 @textcolor 0.501945 0.501945 0.501945 1 @text "Master :"
+;
+#X obj 72 51 c.comment @size 53 15 @pinned 0 @font "Courier" 11 "roman"
+"normal" @bgcolor 0.754894 0.735133 0.715371 1 @bdcolor 0.754894 0.735133
+0.715371 1 @textcolor 0.501945 0.501945 0.501945 1 @text "Left :";
+#X obj 148 51 c.comment @size 53 15 @pinned 0 @font "Courier" 11 "roman"
+"normal" @bgcolor 0.754894 0.735133 0.715371 1 @bdcolor 0.754894 0.735133
+0.715371 1 @textcolor 0.501945 0.501945 0.501945 1 @text "Right :"
+;
+#X obj 82 30 c.comment @size 87 15 @pinned 0 @font "Courier" 11 "roman"
+"normal" @bgcolor 0.754894 0.735133 0.715371 1 @bdcolor 0.754894 0.735133
+0.715371 1 @textcolor 0.501945 0.501945 0.501945 1 @text "Stereo Gain"
+;
 #X connect 0 0 4 0;
 #X connect 0 1 6 0;
 #X connect 4 0 3 0;
@@ -30,4 +44,3 @@
 #X connect 6 0 1 1;
 #X connect 7 1 4 0;
 #X connect 7 1 6 0;
-#X connect 8 0 2 0;

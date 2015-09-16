@@ -12,11 +12,9 @@
 // ==================================================================================== //
 
 ObjectEditor::ObjectEditor(PatchEditor& camo, Gui const& object) :
-Messenger(object.getInstance(), object.getBindingName()),
+Messenger(object.getBindingName()),
 m_interface(camo),
-m_object(object),
-m_popup_item(0),
-m_attached(false)
+m_object(object)
 {
     const std::array<int,2> bounds = m_object.getSize();
     const int offset = m_object.getBorderSize() * 2;
@@ -28,11 +26,12 @@ m_attached(false)
     Component::setFocusContainer(m_object.hasTextEditor());
     m_editor = nullptr;
     m_popup  = nullptr;
+    startTimer(20);
 }
 
 ObjectEditor::~ObjectEditor()
 {
-    ;
+    stopTimer();
 }
 
 // ==================================================================================== //
@@ -88,7 +87,6 @@ void ObjectEditor::mouseMove(const MouseEvent& event)
 
 void ObjectEditor::mouseEnter(const MouseEvent& event)
 {
-    setMouseCursor(juce::MouseCursor::NormalCursor);
     m_object.mouseEnter({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()));
 }
 
@@ -218,23 +216,29 @@ void ObjectEditor::textEditorAction(pd::TextEditor& editor, std::string const& a
 
 void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, std::string const& action)
 {
-    if(menu && !m_popup_item)
+    if(menu)
     {
-        const MessageManagerLock thread(Thread::getCurrentThread());
-        if(thread.lockWasGained())
+        if(action == "create")
         {
-            if(action == "create")
+            const MessageManagerLock thread(Thread::getCurrentThread());
+            if(thread.lockWasGained())
             {
-                exitModalState(0);
                 m_popup = nullptr;
                 m_popup = new ObjectPopup(menu);
             }
-            else if(m_popup && action == "destroy")
+        }
+        else if(m_popup && action == "destroy")
+        {
+            const MessageManagerLock thread(Thread::getCurrentThread());
+            if(thread.lockWasGained())
             {
-                exitModalState(0);
                 m_popup = nullptr;
             }
-            else if(m_popup && action == "attr_modified")
+        }
+        else if(m_popup && action == "attr_modified")
+        {
+            const MessageManagerLock thread(Thread::getCurrentThread());
+            if(thread.lockWasGained() && m_popup)
             {
                 m_popup->clear();
                 for(int i = 0; i < menu.getNumberOfItems(); i++)
@@ -249,11 +253,22 @@ void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, std::string const& actio
                     }
                 }
             }
-            else if(m_popup && action == "popup")
+            
+        }
+        else if(m_popup && action == "popup")
+        {
+            int item = 0;
             {
-                enterModalState(false);
-                //m_popup->showMenuAsync(juce::PopupMenu::Options(), this);
-                m_popup->show();
+                const MessageManagerLock thread(Thread::getCurrentThread());
+                if(thread.lockWasGained() && m_popup)
+                {
+                    item = m_popup->show();
+                    
+                }
+            }
+            if(item)
+            {
+                m_object.popup(menu, item - 1);
             }
         }
     }
@@ -263,11 +278,13 @@ void ObjectEditor::modalStateFinished(int returnValue)
 {
     if(m_popup)
     {
+        /*
         post("modalStateFinished %i", returnValue);
         pd::PopupMenu popup = m_popup->getPopup();
         m_object.popup(popup, returnValue - 1);
         m_popup->clear();
         m_popup = nullptr;
+         */
     }
 }
 

@@ -34,7 +34,7 @@ namespace pd
         };
     private:
         struct t_messenger;
-        Instance                            m_instance;
+        std::mutex                          m_mutex;
         std::map<std::string, t_messenger*> m_messengers;
         std::vector<Message>                m_messages;
         void add(Message const& message);
@@ -43,11 +43,11 @@ namespace pd
     public:
         //! @brief The constructor for a new Messenger.
         //! @details Creates a Messenger.
-        Messenger(Instance const& instance);
+        Messenger();
         
         //! @brief The constructor for a new Messenger.
         //! @details Creates a Messenger and bind it to name.
-        Messenger(Instance const& instance, std::string const& name);
+        Messenger(std::string const& name);
         
         //! @brief The destructor for a Messenger.
         //! @details Deletes a Messenger and removes all the bindings.
@@ -65,7 +65,7 @@ namespace pd
         //! @brief Triggers the messenger to send its messages.
         void trigger() noexcept;
         
-        //! @brief Virutal method that receive the messages.
+        //! @brief Virtual method that receives the messages.
         virtual void receive(Message const& message) = 0;
     };
 }
