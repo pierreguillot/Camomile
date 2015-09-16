@@ -16,6 +16,7 @@
 #include <tuple>
 #include <iostream>
 #include <memory>
+#include <cassert>
 
 namespace pd
 {
@@ -45,7 +46,9 @@ namespace pd
             inline LeakCounter() noexcept : nobjects(0) {}
             inline ~LeakCounter() noexcept {
                 if(nobjects > 0)
+                {
                     std::cout << "Leak Detected " << typeid(T).name() << "\n";
+                }
             }
             
             std::atomic_int nobjects;

@@ -243,7 +243,9 @@ namespace pd
         Instance instance(getInstance());
         if(instance && c && c->c_widget.w_popup)
         {
+            instance.lock();
             c->c_widget.w_popup(getObject(), menu.m_popup, item);
+            instance.unlock();
         }
     }
     

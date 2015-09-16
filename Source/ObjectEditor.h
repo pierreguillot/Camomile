@@ -29,6 +29,7 @@ public ModalComponentManager::Callback
 private:
     class ObjectText;
     class ObjectPopup;
+    class ObjectCallBack;
     PatchEditor&                    m_interface;
     Gui                             m_object;
     ScopedPointer<ObjectText>       m_editor;
@@ -46,8 +47,7 @@ public:
     // ==================================================================================== //
     //                                        PAINT                                         //
     // ==================================================================================== //
-    
-    void modalStateFinished(int returnValue) override;
+
     void handleAsyncUpdate() override;
     void paint(Graphics& g) override;
     
@@ -85,37 +85,10 @@ public:
     String filterNewText(juce::TextEditor& editor, const String& newInput) override;
     void inputAttemptWhenModal() override;
     
+    void modalStateFinished(int returnValue) override;
+    
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ObjectEditor)
-    
-    class ObjectPopup : public juce::PopupMenu
-    {
-    private:
-        const pd::PopupMenu m_popup;
-    public:
-        ObjectPopup(pd::PopupMenu const& popup) : juce::PopupMenu(), m_popup(popup)
-        {
-            ;
-        }
-        inline std::string getBindingName() const noexcept {return m_popup.getName();}
-        inline pd::PopupMenu getPopup() const noexcept {return m_popup;}
-    };
-    
-    class ObjectText : public juce::TextEditor
-    {
-    private:
-        const pd::TextEditor m_editor;
-    public:
-        ObjectText(pd::TextEditor const& editor) : juce::TextEditor(), m_editor(editor)
-        {
-            setBorder(BorderSize<int>(0));
-            setReturnKeyStartsNewLine(true);
-            setTabKeyUsedAsCharacter(true);
-            setKeyboardType(juce::TextEditor::textKeyboard);
-        }
-        inline std::string getBindingName() const noexcept {return m_editor.getName();}
-        inline pd::TextEditor getEditor() const noexcept {return m_editor;}
-    };
 };
 
 #endif

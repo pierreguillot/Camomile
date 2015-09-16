@@ -79,7 +79,6 @@ public:
         inline constexpr Listener() {}
         inline virtual ~Listener() {}
         virtual void patchChanged() = 0;
-        virtual void triggerChanges() = 0;
     };
 
 private:

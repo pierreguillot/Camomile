@@ -52,7 +52,6 @@ public:
     void fileDragExit(const StringArray& files) override;
     void buttonClicked(Button* button) override;
     void patchChanged() override;
-    void triggerChanges() override;
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PatchEditor)
 };

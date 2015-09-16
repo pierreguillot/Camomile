@@ -7,6 +7,51 @@
 #include "ObjectEditor.h"
 #include "PatchEditor.h"
 
+class ObjectEditor::ObjectCallBack : public ModalComponentManager::Callback
+{
+private:
+    ObjectEditor* m_editor;
+public:
+    ObjectCallBack(ObjectEditor* editor) : m_editor(editor)
+    {
+        ;
+    }
+    
+    void modalStateFinished(int returnValue)
+    {
+        m_editor->modalStateFinished(returnValue);
+    }
+};
+
+class ObjectEditor::ObjectPopup : public juce::PopupMenu
+{
+private:
+    const pd::PopupMenu m_popup;
+public:
+    ObjectPopup(pd::PopupMenu const& popup) : juce::PopupMenu(), m_popup(popup)
+    {
+        ;
+    }
+    inline std::string getBindingName() const noexcept {return m_popup.getName();}
+    inline pd::PopupMenu getPopup() const noexcept {return m_popup;}
+};
+
+class ObjectEditor::ObjectText : public juce::TextEditor
+{
+private:
+    const pd::TextEditor m_editor;
+public:
+    ObjectText(pd::TextEditor const& editor) : juce::TextEditor(), m_editor(editor)
+    {
+        setBorder(BorderSize<int>(0));
+        setReturnKeyStartsNewLine(true);
+        setTabKeyUsedAsCharacter(true);
+        setKeyboardType(juce::TextEditor::textKeyboard);
+    }
+    inline std::string getBindingName() const noexcept {return m_editor.getName();}
+    inline pd::TextEditor getEditor() const noexcept {return m_editor;}
+};
+
 // ==================================================================================== //
 //                                  OBJECT EDITOR                                       //
 // ==================================================================================== //
@@ -83,41 +128,49 @@ void ObjectEditor::paint(Graphics& g)
 void ObjectEditor::mouseMove(const MouseEvent& event)
 {
     m_object.mouseMove({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()));
+    Messenger::trigger();
 }
 
 void ObjectEditor::mouseEnter(const MouseEvent& event)
 {
     m_object.mouseEnter({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()));
+    Messenger::trigger();
 }
 
 void ObjectEditor::mouseExit(const MouseEvent& event)
 {
     m_object.mouseExit({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()));
+    Messenger::trigger();
 }
 
 void ObjectEditor::mouseDown(const MouseEvent& event)
 {
     m_object.mouseDown({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()));
+    Messenger::trigger();
 }
 
 void ObjectEditor::mouseDrag(const MouseEvent& event)
 {
     m_object.mouseDrag({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()));
+    Messenger::trigger();
 }
 
 void ObjectEditor::mouseUp(const MouseEvent& event)
 {
-     m_object.mouseUp({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()));
+    m_object.mouseUp({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()));
+    Messenger::trigger();
 }
 
 void ObjectEditor::mouseDoubleClick(const MouseEvent& event)
 {
     m_object.mouseDoubleClick({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()));
+    Messenger::trigger();
 }
 
 void ObjectEditor::mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel)
 {
-     m_object.mouseWheelMove({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()), {wheel.deltaX, wheel.deltaY});
+    m_object.mouseWheelMove({float(event.x), float(event.y)}, toCicmMod(event.mods.getRawFlags()), {wheel.deltaX, wheel.deltaY});
+    Messenger::trigger();
 }
 
 bool ObjectEditor::keyPressed(const KeyPress& key)
@@ -151,6 +204,7 @@ bool ObjectEditor::keyPressed(const KeyPress& key)
     {
         m_object.keyPressed(buffer[0], key.getModifiers().getRawFlags());
     }
+    Messenger::trigger();
     return true;
 }
 
@@ -160,55 +214,64 @@ bool ObjectEditor::keyPressed(const KeyPress& key)
 
 void ObjectEditor::textEditorAction(pd::TextEditor& editor, std::string const& action)
 {
-    if(editor)
+    if(editor && action == "create")
     {
+        exitModalState(0);
         const MessageManagerLock thread(Thread::getCurrentThread());
         if(thread.lockWasGained())
         {
-            if(action == "create")
+            if(m_editor)
+            {
+                removeChildComponent(m_editor);
+                m_editor = nullptr;
+            }
+            m_editor = new ObjectText(editor);
+        }
+    }
+    else if(m_editor)
+    {
+        if(action == "destroy")
+        {
+            const MessageManagerLock thread(Thread::getCurrentThread());
+            if(thread.lockWasGained())
             {
                 exitModalState(0);
+                removeChildComponent(m_editor);
                 m_editor = nullptr;
-                m_editor = new ObjectText(editor);
             }
-            else if(m_editor && action == "destroy")
+        }
+        else if(m_editor && action == "attr_modified")
+        {
+            const MessageManagerLock thread(Thread::getCurrentThread());
+            if(thread.lockWasGained())
             {
-                if(m_editor->getBindingName() == editor.getName())
-                {
-                    exitModalState(0);
-                    m_editor = nullptr;
-                }
+                m_editor->setFont(juce::Font(editor.getFontSize()));
+                m_editor->setText(editor.getText());
+                m_editor->setColour(juce::TextEditor::backgroundColourId, tojColor(editor.getBackgroundColor()));
+                m_editor->setColour(juce::TextEditor::textColourId, tojColor(editor.getTextColor()));
+                m_editor->setMultiLine(editor.shouldWrap(), editor.shouldWrap());
             }
-            else if(m_editor && action == "attr_modified")
+        }
+        else if(m_editor && action == "popup")
+        {
+            const int offset = m_object.getBorderSize();
+            const MessageManagerLock thread(Thread::getCurrentThread());
+            if(thread.lockWasGained())
             {
-                if(m_editor->getBindingName() == editor.getName())
-                {
-                    m_editor->setFont(juce::Font(editor.getFontSize()));
-                    m_editor->setText(editor.getText());
-                    m_editor->setColour(juce::TextEditor::backgroundColourId, tojColor(editor.getBackgroundColor()));
-                    m_editor->setColour(juce::TextEditor::textColourId, tojColor(editor.getTextColor()));
-                    m_editor->setMultiLine(editor.shouldWrap(), editor.shouldWrap());
-                }
+                const std::array<int, 4> bounds(editor.getBounds());
+                m_editor->addListener(this);
+                m_editor->setInputFilter(this, false);
+                m_editor->setBounds(bounds[0] + offset, bounds[1] + offset, bounds[2], bounds[3]);
+                enterModalState(false);
+                addAndMakeVisible(m_editor);
             }
-            else if(m_editor && action == "popup")
+        }
+        else if(m_editor && action == "grabfocus")
+        {
+            const MessageManagerLock thread(Thread::getCurrentThread());
+            if(thread.lockWasGained())
             {
-                const int offset = m_object.getBorderSize();
-                if(m_editor->getBindingName() == editor.getName())
-                {
-                    const std::array<int, 4> bounds(editor.getBounds());
-                    m_editor->addListener(this);
-                    m_editor->setInputFilter(this, false);
-                    m_editor->setBounds(bounds[0] + offset, bounds[1] + offset, bounds[2], bounds[3]);
-                    enterModalState(false);
-                    addAndMakeVisible(m_editor);
-                }
-            }
-            else if(m_editor && action == "grabfocus")
-            {
-                if(m_editor->getBindingName() == editor.getName())
-                {
-                    m_editor->grabKeyboardFocus();
-                }
+                m_editor->grabKeyboardFocus();
             }
         }
     }
@@ -216,29 +279,29 @@ void ObjectEditor::textEditorAction(pd::TextEditor& editor, std::string const& a
 
 void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, std::string const& action)
 {
-    if(menu)
+    if(menu && action == "create")
     {
-        if(action == "create")
+        const MessageManagerLock thread(Thread::getCurrentThread());
+        if(thread.lockWasGained())
+        {
+            m_popup = nullptr;
+            m_popup = new ObjectPopup(menu);
+        }
+    }
+    if(m_popup)
+    {
+        if(action == "destroy")
         {
             const MessageManagerLock thread(Thread::getCurrentThread());
             if(thread.lockWasGained())
             {
                 m_popup = nullptr;
-                m_popup = new ObjectPopup(menu);
             }
         }
-        else if(m_popup && action == "destroy")
+        else if(action == "attr_modified")
         {
             const MessageManagerLock thread(Thread::getCurrentThread());
             if(thread.lockWasGained())
-            {
-                m_popup = nullptr;
-            }
-        }
-        else if(m_popup && action == "attr_modified")
-        {
-            const MessageManagerLock thread(Thread::getCurrentThread());
-            if(thread.lockWasGained() && m_popup)
             {
                 m_popup->clear();
                 for(int i = 0; i < menu.getNumberOfItems(); i++)
@@ -255,36 +318,27 @@ void ObjectEditor::popupMenuAction(pd::PopupMenu& menu, std::string const& actio
             }
             
         }
-        else if(m_popup && action == "popup")
+        else if(action == "popup")
         {
-            int item = 0;
-            {
-                const MessageManagerLock thread(Thread::getCurrentThread());
-                if(thread.lockWasGained() && m_popup)
-                {
-                    item = m_popup->show();
-                    
-                }
-            }
-            if(item)
-            {
-                m_object.popup(menu, item - 1);
-            }
+            m_popup->showMenuAsync(juce::PopupMenu::Options().withTargetComponent(this), new ObjectCallBack(this));
         }
     }
 }
 
 void ObjectEditor::modalStateFinished(int returnValue)
 {
-    if(m_popup)
+    if(m_popup && returnValue)
     {
-        /*
-        post("modalStateFinished %i", returnValue);
-        pd::PopupMenu popup = m_popup->getPopup();
-        m_object.popup(popup, returnValue - 1);
-        m_popup->clear();
-        m_popup = nullptr;
-         */
+        pd::PopupMenu menu(m_popup->getPopup());
+        m_object.popup(menu, returnValue - 1);
+    }
+    else
+    {
+        const MessageManagerLock thread(Thread::getCurrentThread());
+        if(thread.lockWasGained())
+        {
+            m_popup = nullptr;
+        }
     }
 }
 
@@ -332,29 +386,32 @@ void ObjectEditor::textEditorTextChanged(juce::TextEditor& ed)
         textEditorReturnKeyPressed(ed);
         return;
     }
-    pd::TextEditor editor(reinterpret_cast<ObjectText&>(ed).getEditor());
-    if(editor)
+    else if(m_editor)
     {
-        editor.setText(ed.getText().toStdString());
+        pd::TextEditor editor = m_editor->getEditor();
+        editor.setText(m_editor->getText().toStdString());
         m_object.textEditorKeyPress(editor, m_last_input);
+        Messenger::trigger();
     }
 }
 
 void ObjectEditor::textEditorReturnKeyPressed(juce::TextEditor& ed)
 {
-    pd::TextEditor editor(reinterpret_cast<ObjectText&>(ed).getEditor());
-    if(editor)
+    if(m_editor)
     {
+        pd::TextEditor editor = m_editor->getEditor();
         m_object.textEditorKeyFilter(editor, EKEY_RETURN);
+        Messenger::trigger();
     }
 }
 
 void ObjectEditor::textEditorEscapeKeyPressed(juce::TextEditor& ed)
 {
-    pd::TextEditor editor(reinterpret_cast<ObjectText&>(ed).getEditor());
-    if(editor)
+    if(m_editor)
     {
+        pd::TextEditor editor = m_editor->getEditor();
         m_object.textEditorKeyFilter(editor, EKEY_ESC);
+        Messenger::trigger();
     }
 }
 

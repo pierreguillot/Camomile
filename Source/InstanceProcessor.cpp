@@ -92,8 +92,7 @@ void InstanceProcessor::receive(Message const& message)
         if(message.atoms.size() == 3 && message.atoms[1].isSymbol() && message.atoms[2].isFloat())
         {
             const string mess = message.atoms[1];
-            const int index = message.atoms[2];
-            
+            const int index = std::max((int)message.atoms[2], 0);
             if(mess == "beginchanges")
             {
                 beginParameterChangeGesture(index);
@@ -185,6 +184,7 @@ void InstanceProcessor::parametersChanged()
     {
         if(bool(m_parameters[i]))
         {
+            m_parameters[i].setIndex(i);
             setParameterNotifyingHost(i+1, m_parameters[i].getNormalizedValue());
         }
     }

@@ -153,6 +153,14 @@ namespace pd
         }
         return 1024;
     }
+    
+    void Parameter::setIndex(int index)
+    {
+        if(bool(*this))
+        {
+            m_parameter->p_index = index;
+        }
+    }
 }
 
 

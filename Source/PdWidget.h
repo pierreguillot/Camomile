@@ -25,6 +25,7 @@ namespace pd
         inline TextEditor(std::string const& name) noexcept : m_editor(etexteditor_getfromsymbol(gensym(name.c_str()))) {}
         inline TextEditor(TextEditor const& other) noexcept : m_editor(other.m_editor) {}
         inline operator bool() const noexcept {return bool(m_editor);}
+        inline TextEditor& operator=(TextEditor const& other) noexcept {m_editor = other.m_editor; return *this;}
         
         inline std::string getName() const noexcept {return m_editor->c_name->s_name;}
         inline bool isEmpty() const noexcept {return !m_editor->c_text || !m_editor->c_size;}
@@ -163,8 +164,11 @@ namespace pd
         //! @brief Sets the current value of the Parameter with a string.
         void setTextValue(const std::string& text) const;
         
-        //! @brief Gets the index of parameter.
+        //! @brief Gets the index of the Parameter.
         int getIndex() const;
+        
+        //! @brief Sets the index of the Parameter.
+        void setIndex(int index);
     };
 }
 
