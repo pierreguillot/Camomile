@@ -1,8 +1,4 @@
-#N canvas 272 51 792 573 10;
-#X obj 5 4 c.camomile @size 249 110 @pinned 1 @name "Floyd - On The Run"
-@font "Futura" 12 "roman" "normal" @bdsize 1 @bgcolor 0.134379 0.162045
-0.189712 1 @bdcolor 0.308281 0.703514 0.739085 1 @txtcolor 0.920892
-0.920892 0.920892 1;
+#N canvas 272 51 832 581 10;
 #X obj 309 331 line~;
 #X obj 294 432 vcf~;
 #X text 359 381 <-- Q (selectivity);
@@ -12,20 +8,20 @@
 #X text 397 188 trick to;
 #X text 398 205 make symmetric;
 #X text 396 222 triangle wave;
-#X obj 300 67 f;
-#X obj 333 65 + 1;
-#X obj 300 137 mtof;
-#X obj 333 89 mod 8;
+#X obj 290 67 f;
+#X obj 323 65 + 1;
+#X obj 290 137 mtof;
+#X obj 323 89 mod 8;
 #X text 351 256 <-- center frequency;
-#X obj 300 43 metro 85;
-#X text 385 67 sequencer for;
-#X text 400 84 8 note loop;
-#X obj 300 18 tgl 15 0 empty \$0-metro empty 0 -6 0 8 -262144 -1 -1
+#X obj 290 43 metro 85;
+#X text 375 67 sequencer for;
+#X text 390 84 8 note loop;
+#X obj 290 18 tgl 15 0 empty \$0-metro empty 0 -6 0 8 -262144 -1 -1
 1 1;
 #X text 374 284 at least 61;
-#X obj 300 161 phasor~;
+#X obj 290 161 phasor~;
 #X text 572 536 updated for Pd version 0.39;
-#X obj 300 113 tabread \$0-array1;
+#X obj 290 113 tabread \$0-array1;
 #X obj 294 460 vcf~;
 #X obj 309 282 max 61;
 #X text 360 329 smooth & convert to Hz.;
@@ -35,36 +31,8 @@
 #X text 357 429 Put two vcf objects in series for better;
 #X text 355 465 to make the passband excessively narrow.;
 #X obj 294 526 dac~;
-#X obj 11 84 c.slider @size 193 16 @pinned 0 @minmax 3 12 @bdsize 1
-@bgcolor 0.134379 0.162045 0.189712 1 @bdcolor 0.308281 0.703514 0.739085
-1 @kncolor 0.920892 0.920892 0.920892 1 @param0 "Selectivity" "Q" 2
-;
-#X obj 50 -18 c.loadmess 5;
-#X obj 11 46 c.slider @size 193 16 @pinned 0 @minmax 61 90 @bdsize
-1 @bgcolor 0.134379 0.162045 0.189712 1 @bdcolor 0.308281 0.703514
-0.739085 1 @kncolor 0.920892 0.920892 0.920892 1 @param0 "Frequency"
-"Hz" 1;
 #X obj 294 492 *~ 1.5;
-#X obj 211 46 c.number @size 36 16 @pinned 0 @decimal 4 @minmax 61
-200 @font "Futura" 12 "roman" "normal" @bdsize 1 @bgcolor 0.134379
-0.162045 0.189712 1 @bdcolor 0.308281 0.703514 0.739085 1 @textcolor
-0.920892 0.920892 0.920892 1 @param0 "" "" 1;
-#X msg 200 31 set \$1;
-#X obj 211 84 c.number @size 36 16 @pinned 0 @decimal 4 @minmax 3 20
-@font "Futura" 12 "roman" "normal" @bdsize 1 @bgcolor 0.134379 0.162045
-0.189712 1 @bdcolor 0.308281 0.703514 0.739085 1 @textcolor 0.920892
-0.920892 0.920892 1 @param0 "" "" 1;
-#X msg 204 84 set \$1;
 #X obj 309 307 pack 0 5;
-#X obj 19 27 c.comment @size 81 16 @pinned 0 @font "Futura" 12 "roman"
-"normal" @bgcolor 0.134379 0.162045 0.189712 1 @bdcolor 0.134379 0.162045
-0.189712 1 @textcolor 0.920892 0.920892 0.920892 1 @text "Frequency :"
-;
-#X obj 19 65 c.comment @size 79 16 @pinned 0 @font "Futura" 12 "roman"
-"normal" @bgcolor 0.134379 0.162045 0.189712 1 @bdcolor 0.134379 0.162045
-0.189712 1 @textcolor 0.920892 0.920892 0.920892 1 @text "Selectivity :"
-;
-#X obj 19 -33 c.loadmess 80;
 #X obj 309 356 tabread4~ \$0-mtof;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array \$0-array1 8 float 2;
@@ -95,41 +63,31 @@
 #X obj 563 111 f \$0;
 #X msg 563 135 \; \$1-metro 1 \; \$1-array1 0 45 48 50 48 55 53 55
 57;
-#X connect 1 0 44 0;
-#X connect 2 0 23 0;
+#X connect 0 0 33 0;
+#X connect 1 0 22 0;
+#X connect 3 0 4 0;
 #X connect 4 0 5 0;
-#X connect 5 0 6 0;
-#X connect 6 0 2 0;
-#X connect 10 0 11 0;
-#X connect 10 0 22 0;
-#X connect 11 0 13 0;
-#X connect 12 0 20 0;
-#X connect 13 0 10 1;
-#X connect 15 0 10 0;
-#X connect 18 0 15 0;
-#X connect 20 0 4 0;
-#X connect 20 0 6 1;
-#X connect 22 0 12 0;
-#X connect 23 0 35 0;
-#X connect 23 1 35 0;
-#X connect 24 0 40 0;
-#X connect 26 0 2 2;
-#X connect 26 0 23 2;
-#X connect 32 0 26 0;
-#X connect 32 0 39 0;
-#X connect 33 0 32 0;
-#X connect 34 0 24 0;
-#X connect 34 0 37 0;
-#X connect 35 0 31 0;
-#X connect 35 0 31 1;
-#X connect 36 0 34 0;
-#X connect 37 0 36 0;
-#X connect 38 0 32 0;
-#X connect 39 0 38 0;
-#X connect 40 0 1 0;
-#X connect 43 0 34 0;
-#X connect 44 0 2 1;
-#X connect 44 0 23 1;
-#X connect 47 0 48 0;
-#X connect 48 0 49 0;
-#X connect 49 0 50 0;
+#X connect 5 0 1 0;
+#X connect 9 0 10 0;
+#X connect 9 0 21 0;
+#X connect 10 0 12 0;
+#X connect 11 0 19 0;
+#X connect 12 0 9 1;
+#X connect 14 0 9 0;
+#X connect 17 0 14 0;
+#X connect 19 0 3 0;
+#X connect 19 0 5 1;
+#X connect 21 0 11 0;
+#X connect 22 0 31 0;
+#X connect 22 1 31 0;
+#X connect 23 0 32 0;
+#X connect 25 0 1 2;
+#X connect 25 0 22 2;
+#X connect 31 0 30 0;
+#X connect 31 0 30 1;
+#X connect 32 0 0 0;
+#X connect 33 0 1 1;
+#X connect 33 0 22 1;
+#X connect 36 0 37 0;
+#X connect 37 0 38 0;
+#X connect 38 0 39 0;

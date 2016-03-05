@@ -4,21 +4,36 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "PdPatch.h"
-
-#include <iomanip>
+#include "PdPatch.hpp"
+#include "PdInstance.hpp"
+#include "Pd.hpp"
 
 extern "C"
 {
+#include "../ThirdParty/PureData/src/m_pd.h"
 #include "../ThirdParty/PureData/src/g_canvas.h"
 #include "../ThirdParty/PureData/src/s_stuff.h"
 #include "../ThirdParty/PureData/src/m_imp.h"
 }
+
 namespace pd
 {    
     // ==================================================================================== //
     //                                          PATCHER                                     //
     // ==================================================================================== //
+    
+    class Patch::Internal : public LeakDetector<Internal>
+    {
+    public:
+        Instance            instance;
+        t_canvas*           canvas;
+        std::atomic<size_t> counter;
+        const std::string   name;
+        const std::string   path;
+        
+        Internal(Instance const& _instance, std::string const& _name, std::string const& _path);
+        ~Internal();
+    };
     
     Patch::Internal::Internal(Instance const& _instance, std::string const& _name, std::string const& _path) :
     instance(_instance),
@@ -27,31 +42,18 @@ namespace pd
     name(_name),
     path(_path)
     {
-        if(instance)
+        if(instance.isValid())
         {
-            instance.lock();
-            if(!name.empty() && !path.empty())
-            {
-                canvas = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym(path.c_str())));
-                canvas->gl_edit = 0;
-            }
-            else if(!name.empty())
-            {
-                canvas = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym("")));
-                canvas->gl_edit = 0;
-            }
-            instance.unlock();
+            canvas = reinterpret_cast<t_canvas*>(instance.createCanvas(_name, _path));
         }
         
     }
     
     Patch::Internal::~Internal()
     {
-        if(canvas && instance)
+        if(canvas && instance.isValid())
         {
-            instance.lock();
-            canvas_free(const_cast<t_canvas*>(canvas));
-            instance.unlock();
+            instance.freeCanvas(canvas);
         }
     }
     
@@ -109,6 +111,53 @@ namespace pd
                 delete m_internal;
             }
         }
+    }
+    
+    bool Patch::isValid() const noexcept
+    {
+        return bool(m_internal) && bool(m_internal->canvas);
+    }
+    
+    Instance Patch::getInstance() const noexcept
+    {
+        return bool(m_internal) ? m_internal->instance : Instance();
+    }
+    
+    std::string Patch::getName() const
+    {
+        return bool(m_internal) ? m_internal->name : std::string();
+    }
+    
+    std::string Patch::getPath() const
+    {
+        return bool(m_internal) ? m_internal->path : std::string();
+    }
+    
+    std::array<float, 2> Patch::getSize() const noexcept
+    {
+        if(isValid())
+        {
+            return {static_cast<float>(m_internal->canvas->gl_pixwidth), static_cast<float>(m_internal->canvas->gl_pixheight)};
+        }
+        return {0.f, 0.f};
+    }
+    
+    std::vector<Object> Patch::getGuis() const noexcept
+    {
+        std::vector<Object> objects;
+        if(isValid())
+        {
+            t_symbol* hsl = gensym("hsl");
+            t_symbol* vsl = gensym("vsl");
+            for(t_gobj *y = m_internal->canvas->gl_list; y; y = y->g_next)
+            {
+                if(y->g_pd->c_name == hsl || y->g_pd->c_name ==  vsl)
+                {
+                    objects.push_back(Object(*this, reinterpret_cast<void *>(y)));
+                }
+            }
+        }
+        return objects;
     }
 }
 

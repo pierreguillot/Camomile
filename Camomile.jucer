@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="0.0.1"
+<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="0.0.2"
               bundleIdentifier="com.cicm.Camomile" includeBinaryInAppConfig="1"
               buildVST="1" buildVST3="1" buildAU="1" buildRTAS="0" buildAAX="0"
               pluginName="Camomile" pluginDesc="Camomile" pluginManufacturer="Pierre Guillot"
@@ -22,13 +22,16 @@
       <FILE id="tLvOP3" name="PatchEditor.h" compile="0" resource="0" file="Source/PatchEditor.h"/>
       <FILE id="HhHZI4" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
       <FILE id="EJAZHs" name="LookAndFeel.h" compile="0" resource="0" file="Source/LookAndFeel.h"/>
-      <FILE id="Bnr3EF" name="PdPatch.cpp" compile="1" resource="0" file="Source/PdPatch.cpp"/>
-      <FILE id="rVZtQm" name="PdPatch.h" compile="0" resource="0" file="Source/PdPatch.h"/>
+      <FILE id="c7oMcM" name="Pd.cpp" compile="1" resource="0" file="Source/Pd.cpp"/>
+      <FILE id="o0Va6F" name="Pd.hpp" compile="0" resource="0" file="Source/Pd.hpp"/>
       <FILE id="DEM9eo" name="PdInstance.cpp" compile="1" resource="0" file="Source/PdInstance.cpp"/>
-      <FILE id="uDVGhm" name="PdInstance.h" compile="0" resource="0" file="Source/PdInstance.h"/>
-      <FILE id="kKrmh6" name="PdAtom.h" compile="0" resource="0" file="Source/PdAtom.h"/>
-      <FILE id="RBYVhL" name="PdMisc.cpp" compile="1" resource="0" file="Source/PdMisc.cpp"/>
-      <FILE id="Bs5kZF" name="PdMisc.h" compile="0" resource="0" file="Source/PdMisc.h"/>
+      <FILE id="mGAVYz" name="PdInstance.hpp" compile="0" resource="0" file="Source/PdInstance.hpp"/>
+      <FILE id="Bnr3EF" name="PdPatch.cpp" compile="1" resource="0" file="Source/PdPatch.cpp"/>
+      <FILE id="axFnWc" name="PdPatch.hpp" compile="0" resource="0" file="Source/PdPatch.hpp"/>
+      <FILE id="Aueh3x" name="PdObject.cpp" compile="1" resource="0" file="Source/PdObject.cpp"/>
+      <FILE id="ck8DGd" name="PdObject.hpp" compile="0" resource="0" file="Source/PdObject.hpp"/>
+      <FILE id="ZjkT4z" name="PdAtom.hpp" compile="0" resource="0" file="Source/PdAtom.hpp"/>
+      <FILE id="g1VP3D" name="PdMisc.hpp" compile="0" resource="0" file="Source/PdMisc.hpp"/>
     </GROUP>
     <GROUP id="{13D75516-E697-ECB1-605C-FB3746C267F8}" name="PureData">
       <GROUP id="{E169D560-E0FD-D9AB-34FF-826654976AD0}" name="extra">

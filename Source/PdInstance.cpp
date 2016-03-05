@@ -4,17 +4,15 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "PdInstance.h"
-#include "PdPatch.h"
+#include "PdInstance.hpp"
+#include "Pd.hpp"
 
 extern "C"
 {
-#pragma warning(push, 0)
+#include "../ThirdParty/PureData/src/m_pd.h"
 #include "../ThirdParty/PureData/src/g_canvas.h"
 #include "../ThirdParty/PureData/src/s_stuff.h"
 #include "../ThirdParty/PureData/src/m_imp.h"
-EXTERN  void pd_init(void);
-#pragma warning(pop)
 }
 
 namespace pd
@@ -23,75 +21,40 @@ namespace pd
     //                                          INSTANCE                                    //
     // ==================================================================================== //
     
-    int Instance::s_sample_rate;
-    std::mutex Instance::s_mutex;
-    std::string Instance::s_console;
-    t_symbol* Instance::s_cbind;
+    class Instance::Internal : public LeakDetector<Internal>
+    {
+    public:
+        t_pdinstance*        instance;
+        std::atomic<size_t>  counter;
+        std::string          name;
+        
+        Internal(std::string const& _name);
+        ~Internal();
+    };
+    
+    Instance::Instance() noexcept : m_internal(nullptr)
+    {
+        
+    }
     
     Instance::Internal::Internal(std::string const& _name) :
     instance(nullptr),
     counter(1),
     name(_name)
     {
-        std::lock_guard<std::mutex> guard(s_mutex);
-        static int initialized = 0;
-        if(!initialized)
-        {
-            signal(SIGFPE, SIG_IGN);
-            s_cbind       = gensym("camo-console");
-            sys_printhook = (t_printhook)print;
-            sys_soundin = NULL;
-            sys_soundout = NULL;
-            // are all these settings necessary?
-            sys_schedblocksize = DEFDACBLKSIZE;
-            sys_externalschedlib = 0;
-            sys_printtostderr = 0;
-            sys_usestdpath = 0;
-            sys_debuglevel = 1;
-            sys_verbose = 1;
-            sys_noloadbang = 0;
-            sys_nogui = 1;
-            sys_hipriority = 0;
-            sys_nmidiin = 0;
-            sys_nmidiout = 0;
-            sys_init_fdpoll();
-#ifdef HAVE_SCHED_TICK_ARG
-            sys_time = 0;
-#endif
-            pd_init();
-            sys_set_audio_api(API_DUMMY);
-            sys_searchpath = NULL;
-            s_sample_rate  = 0;
-            initialized = 1;
-            
-            int indev[MAXAUDIOINDEV], inch[MAXAUDIOINDEV],
-            outdev[MAXAUDIOOUTDEV], outch[MAXAUDIOOUTDEV];
-            indev[0] = outdev[0] = DEFAULTAUDIODEV;
-            inch[0] = s_max_channels;
-            outch[0] = s_max_channels;
-            sys_set_audio_settings(1, indev, 1, inch,
-                                   1, outdev, 1, outch, 44100, -1, 1, DEFDACBLKSIZE);
-            sched_set_using_audio(SCHED_AUDIO_CALLBACK);
-            sys_reopen_audio();
-            s_sample_rate = sys_getsr();
-            s_console.clear();
-            s_console.append("Camomile v0.0.1 for Pure Data 0.46.7\n");
-        }
+        Pd::lock();
         instance = pdinstance_new();
+        Pd::unlock();
     }
     
     Instance::Internal::~Internal()
     {
-        std::lock_guard<std::mutex> guard(s_mutex);
+        Pd::lock();
         if(instance)
         {
             pdinstance_free(instance);
         }
-    }
-    
-    Instance::Instance() noexcept : m_internal(nullptr)
-    {
-        
+        Pd::unlock();
     }
     
     Instance::Instance(std::string const& name) noexcept : m_internal(new Internal(name))
@@ -147,31 +110,19 @@ namespace pd
     void Instance::prepareDsp(const int nins, const int nouts, const int samplerate, const int nsamples) noexcept
     {
         releaseDsp();
-        lock();
+        Pd::lock();
+        pd_setinstance(m_internal->instance);
         t_atom av;
-        if(s_sample_rate != samplerate)
-        {
-            int indev[MAXAUDIOINDEV], inch[MAXAUDIOINDEV],
-            outdev[MAXAUDIOOUTDEV], outch[MAXAUDIOOUTDEV];
-            indev[0] = outdev[0] = DEFAULTAUDIODEV;
-            inch[0] = s_max_channels;
-            outch[0] = s_max_channels;
-            sys_set_audio_settings(1, indev, 1, inch,
-                                   1, outdev, 1, outch, samplerate, -1, 1, DEFDACBLKSIZE);
-            sched_set_using_audio(SCHED_AUDIO_CALLBACK);
-            sys_reopen_audio();
-            s_sample_rate = sys_getsr();
-        }
-    
         av.a_type = A_FLOAT;
         av.a_w.w_float = 1;
         pd_typedmess((t_pd *)gensym("pd")->s_thing, gensym("dsp"), 1, &av);
-        unlock();
+        Pd::unlock();
     }
     
     void Instance::performDsp(int nsamples, const int nins, const float** inputs, const int nouts, float** outputs) noexcept
     {
-        lock();
+        Pd::lock();
+        pd_setinstance(m_internal->instance);
         for(int i = 0; i < nsamples; i += DEFDACBLKSIZE)
         {
             for(int j = 0; j < nins; j++)
@@ -185,7 +136,7 @@ namespace pd
                 memcpy(outputs[j]+i, sys_soundout+j*DEFDACBLKSIZE, DEFDACBLKSIZE * sizeof(t_sample));
             }
         }
-        unlock();
+        Pd::unlock();
     }
     
     void Instance::releaseDsp() noexcept
@@ -193,42 +144,41 @@ namespace pd
         ;
     }
     
-    void Instance::addToSearchPath(std::string const& path) noexcept
+    bool Instance::isValid() const noexcept
     {
-        std::lock_guard<std::mutex> guard(s_mutex);
-        sys_searchpath = namelist_append(sys_searchpath, path.c_str(), 0);
+        return bool(m_internal) && bool(m_internal->instance);
     }
     
-    
-    void Instance::clearSearchPath() noexcept
+    std::string Instance::getName() const noexcept
     {
-        std::lock_guard<std::mutex> guard(s_mutex);
-        namelist_free(sys_searchpath);
-        sys_searchpath = NULL;
+        return bool(m_internal) ? m_internal->name : std::string();
     }
     
-    void Instance::setConsole(std::string const& text) noexcept
+    void* Instance::createCanvas(std::string const& name, std::string const& path)
     {
-        s_console = text;
-    }
-    
-    std::string Instance::getConsole() noexcept
-    {
-        if(s_console.size() > 1000)
+        t_canvas* cnv = nullptr;
+        Pd::lock();
+        pd_setinstance(m_internal->instance);
+        if(!name.empty() && !path.empty())
         {
-            s_console.erase(s_console.begin(), s_console.end()-1000);
+            cnv = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym(path.c_str())));
+            cnv->gl_edit = 0;
         }
-        return s_console;
+        else if(!name.empty())
+        {
+            cnv = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym("")));
+            cnv->gl_edit = 0;
+        }
+        Pd::unlock();
+        return cnv;
     }
     
-    void Instance::print(const char* s)
+    void Instance::freeCanvas(void* cnv)
     {
-        s_console.append(s);
-        if(s_cbind->s_thing)
-        {
-            pd_bang(s_cbind->s_thing);
-        }
-        std::cout << s;
+        Pd::lock();
+        pd_setinstance(m_internal->instance);
+        canvas_free(reinterpret_cast<t_canvas*>(cnv));
+        Pd::unlock();
     }
 }
 

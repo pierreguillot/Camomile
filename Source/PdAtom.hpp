@@ -8,17 +8,6 @@
 #define __CAMOMILE_PD_TYPES__
 
 #include <string>
-#include <array>
-#include <vector>
-#include <set>
-#include <map>
-#include <mutex>
-#include <tuple>
-#include <iostream>
-#include <memory>
-
-
-#pragma ignored "-Wunused-variable"
 
 namespace pd
 {

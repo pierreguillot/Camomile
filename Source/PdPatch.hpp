@@ -4,13 +4,14 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef __CAMOMILE_PD_PATCHER__
-#define __CAMOMILE_PD_PATCHER__
+#ifndef __CAMOMILE_PD_PATCH__
+#define __CAMOMILE_PD_PATCH__
 
-#include "PdInstance.h"
+#include "PdObject.hpp"
 
 namespace pd
 {
+    class Instance;
     // ==================================================================================== //
     //                                          PATCHER                                     //
     // ==================================================================================== //
@@ -23,20 +24,6 @@ namespace pd
     //! @details t_canvas is deleted.
     class Patch
     {
-    private:
-        struct Internal : public LeakDetector<Internal>
-        {
-            Instance            instance;
-            t_canvas*           canvas;
-            std::atomic<size_t> counter;
-            const std::string   name;
-            const std::string   path;
-        
-            Internal(Instance const& _instance, std::string const& _name, std::string const& _path);
-            ~Internal();
-        };
-        Internal* m_internal;
-        
     public:
         
         //! @brief The constructor for an empty Patch.
@@ -71,18 +58,26 @@ namespace pd
         ~Patch() noexcept;
         
         //! @brief Gets if the Patch is valid.
-        inline operator bool() const noexcept {
-            return bool(m_internal) && bool(m_internal->canvas);};
+        bool isValid() const noexcept;
         
         //! @brief Gets the Instance that owns the Path.
-        inline Instance getInstance() const noexcept {
-            return bool(m_internal) ? m_internal->instance : Instance();};
+        Instance getInstance() const noexcept;
         
         //! @brief Gets the file's name.
-        inline std::string getName() const {return bool(m_internal) ? m_internal->name : std::string();}
+        std::string getName() const;
         
         //! @brief Gets the file's path.
-        inline std::string getPath() const {return bool(m_internal) ? m_internal->path : std::string();}
+        std::string getPath() const;
+        
+        //! @brief Gets the Path size.
+        std::array<float, 2> getSize() const noexcept;
+        
+        //! @brief Gets the patch GUI objects.
+        std::vector<Object> getGuis() const noexcept;
+        
+    private:
+        class Internal;
+        Internal* m_internal;
     };
 }
 

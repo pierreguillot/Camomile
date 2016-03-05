@@ -35,7 +35,6 @@ private:
     Colour                          m_color_bd;
     Colour                          m_color_txt;
     int                             m_bd_size;
-    Font                            m_font;
     String                          m_last_path;
 public:
     PatchEditor(InstanceProcessor&);

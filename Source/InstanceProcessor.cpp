@@ -8,15 +8,20 @@
 #include "PatchEditor.h"
 #include "LookAndFeel.h"
 
-InstanceProcessor::InstanceProcessor() : Instance(string("camomile"))
+InstanceProcessor::InstanceProcessor() : pd::Instance(std::string("camomile"))
 {
     static CamoLookAndFeel lookAndFeel;
+    static int init = 0;
+    if(!init)
+    {
+        
+    }
     LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
 }
 
 InstanceProcessor::~InstanceProcessor()
 {
-    lock_guard<mutex> guard(m_mutex_list);
+    std::lock_guard<std::mutex> guard(m_mutex_list);
     m_listeners.clear();
 }
 
@@ -27,7 +32,7 @@ int InstanceProcessor::getNumParameters()
 
 const String InstanceProcessor::getParameterName(int index)
 {
-    return String("Dummy ") + String(to_string(index + 1));
+    return String("Dummy ") + String(std::to_string(index + 1));
 }
 
 float InstanceProcessor::getParameter(int index)
@@ -121,15 +126,15 @@ void InstanceProcessor::loadPatch(const juce::File& file)
             releaseDsp();
             if(file.exists() && file.getFileExtension() == String(".pd"))
             {
-                m_patch = Patch(*this, file.getFileName().toStdString(), file.getParentDirectory().getFullPathName().toStdString());
+                m_patch = pd::Patch(*this, file.getFileName().toStdString(), file.getParentDirectory().getFullPathName().toStdString());
             }
             else
             {
-                m_patch = Patch();
+                m_patch = pd::Patch();
             }
         }
     
-        vector<Listener*> listeners = getListeners();
+        std::vector<Listener*> listeners = getListeners();
         for(auto it : listeners)
         {
             it->patchChanged();
@@ -145,7 +150,7 @@ void InstanceProcessor::addListener(Listener* listener)
 {
     if(listener)
     {
-        lock_guard<mutex> guard(m_mutex_list);
+        std::lock_guard<std::mutex> guard(m_mutex_list);
         m_listeners.insert(listener);
     }
 }
@@ -154,15 +159,15 @@ void InstanceProcessor::removeListener(Listener* listener)
 {
     if(listener)
     {
-        lock_guard<mutex> guard(m_mutex_list);
+        std::lock_guard<std::mutex> guard(m_mutex_list);
         m_listeners.erase(listener);
     }
 }
 
-vector<InstanceProcessor::Listener*> InstanceProcessor::getListeners() const noexcept
+std::vector<InstanceProcessor::Listener*> InstanceProcessor::getListeners() const noexcept
 {
-    lock_guard<mutex> guard(m_mutex_list);
-    return vector<Listener*>(m_listeners.begin(), m_listeners.end());
+    std::lock_guard<std::mutex> guard(m_mutex_list);
+    return std::vector<Listener*>(m_listeners.begin(), m_listeners.end());
 }
 
 void InstanceProcessor::getStateInformation(MemoryBlock& destData)

@@ -125,7 +125,7 @@ public:
         m_text.setColour(juce::TextEditor::shadowColourId,Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
         m_text.setColour(juce::TextEditor::textColourId, Colours::darkgrey);
         m_text.setFont(juce::Font(String("Futura"), 16.f, juce::Font::plain));
-        m_text.setText(Instance::getConsole());
+        m_text.setText(pd::Pd::getConsole());
         m_text.setBounds(0, 0, 300, 370);
         addAndMakeVisible(&m_text, 1);
         startTimer(20);
@@ -133,7 +133,7 @@ public:
     
     void textEditorTextChanged(juce::TextEditor& ed) override
     {
-        Instance::setConsole(ed.getText().toStdString());
+        pd::Pd::setConsole(ed.getText().toStdString());
     }
     
     void timerCallback() override
@@ -177,7 +177,7 @@ m_dropping(false), m_window(nullptr),
 m_color_bg(Colours::lightgrey),
 m_color_bd(Colours::darkgrey),
 m_color_txt(Colours::darkgrey),
-m_bd_size(2), m_font(22)
+m_bd_size(2)
 {
     Component::setWantsKeyboardFocus(true);
     m_processor.addListener(this);
@@ -200,10 +200,17 @@ void PatchEditor::paint(Graphics& g)
     g.setColour(m_color_bd);
     g.drawRect(getBounds().withZeroOrigin(), m_bd_size);
     g.drawLine(0.f, 20.f + round(m_bd_size * 0.5f), getWidth(), 20.f, m_bd_size);
-    g.setFont(m_font);
+    g.setFont(juce::Font(String("Futura"), 16.f, juce::Font::plain));
     g.setColour(m_color_txt);
-    const Patch patch = m_processor.getPatch();
-    g.drawText(text, 20, 0, getWidth() - 20, 20, juce::Justification::centred);
+    const pd::Patch patch = m_processor.getPatch();
+    if(patch.isValid())
+    {
+        g.drawText(String(patch.getName()).trimCharactersAtEnd(".pd"), 0, 0, getWidth(), 20, juce::Justification::centred);
+    }
+    else
+    {
+        g.drawText(String("No Patch"), 0, 0, getWidth(), 20, juce::Justification::centred);
+    }
     if(m_dropping)
     {
         g.fillAll(Colours::white.withAlpha(0.2f));
@@ -224,6 +231,24 @@ void PatchEditor::patchChanged()
     if(m_button)
     {
         m_button->editorChanged();
+    }
+    
+    const pd::Patch patch = m_processor.getPatch();
+    if(patch.isValid())
+    {
+        std::array<float, 2> size(patch.getSize());
+        setSize(size[0] > 0.f ? std::max(size[0], 20.f) : 600, size[1] > 0.f ? std::max(size[1], 40.f) : 420);
+        m_last_path = patch.getPath() + File::separatorString + patch.getName();
+        
+        std::vector<pd::Object> guis(patch.getGuis());
+        for(auto const& gui : guis)
+        {
+            ;
+        }
+    }
+    else
+    {
+        ;
     }
     AsyncUpdater::triggerAsyncUpdate();
 }

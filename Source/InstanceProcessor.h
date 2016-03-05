@@ -7,20 +7,17 @@
 #ifndef __CAMOMILE_INTANCE_PROCESSOR__
 #define __CAMOMILE_INTANCE_PROCESSOR__
 
-#include "PdPatch.h"
+#include "Pd.hpp"
 #include "../JuceLibraryCode/JuceHeader.h"
 
-using namespace std;
-using namespace pd;
-
-class InstanceProcessor : public AudioProcessor, public Instance
+class InstanceProcessor : public AudioProcessor, public pd::Instance
 {
 public:
     class Listener;
 private:
-    Patch               m_patch;
-    set<Listener*>      m_listeners;
-    mutable mutex       m_mutex_list;
+    pd::Patch           m_patch;
+    std::set<Listener*> m_listeners;
+    mutable std::mutex  m_mutex_list;
 public:
     InstanceProcessor();
     ~InstanceProcessor();
@@ -66,8 +63,8 @@ public:
     void setStateInformation(const void* data, int sizeInBytes) override;
     
     void loadPatch(const juce::File& file);
-    inline const Patch getPatch() const noexcept {return m_patch;}
-    inline Patch getPatch() noexcept {return m_patch;}
+    inline const pd::Patch getPatch() const noexcept {return m_patch;}
+    inline pd::Patch getPatch() noexcept {return m_patch;}
     
     void addListener(Listener* listener);
     void removeListener(Listener* listener);
@@ -82,7 +79,7 @@ public:
 
 private:
     void parametersChanged();
-    vector<Listener*> getListeners() const noexcept;
+    std::vector<Listener*> getListeners() const noexcept;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (InstanceProcessor)
 };
