@@ -78,15 +78,6 @@ namespace pd
         inline Instance getInstance() const noexcept {
             return bool(m_internal) ? m_internal->instance : Instance();};
         
-        //! @brief Gets the objects.
-        std::vector<Object> getObjects() const noexcept;
-        
-        //! @brief Gets the Guis.
-        std::vector<Gui> getGuis() const noexcept;
-        
-        //! @brief Gets the camomile object.
-        Gui getCamomile() const noexcept;
-        
         //! @brief Gets the file's name.
         inline std::string getName() const {return bool(m_internal) ? m_internal->name : std::string();}
         

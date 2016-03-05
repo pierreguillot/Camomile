@@ -19,17 +19,9 @@
 
 
 #pragma ignored "-Wunused-variable"
-#include "../ThirdParty/Cream/c.library.hpp"
 
 namespace pd
 {
-    class Instance;
-    class Patch;
-    class Object;
-    class Gui;
-    class Parameter;
-    class Messenger;
-    
     // ==================================================================================== //
     //                                      ATOM                                            //
     // ==================================================================================== //

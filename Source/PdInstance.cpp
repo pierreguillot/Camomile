@@ -6,11 +6,15 @@
 
 #include "PdInstance.h"
 #include "PdPatch.h"
-#include "PdMessenger.h"
 
 extern "C"
 {
-    EXTERN  void pd_init(void);
+#pragma warning(push, 0)
+#include "../ThirdParty/PureData/src/g_canvas.h"
+#include "../ThirdParty/PureData/src/s_stuff.h"
+#include "../ThirdParty/PureData/src/m_imp.h"
+EXTERN  void pd_init(void);
+#pragma warning(pop)
 }
 
 namespace pd
@@ -59,7 +63,6 @@ namespace pd
             sys_searchpath = NULL;
             s_sample_rate  = 0;
             initialized = 1;
-            libpd_loadcream();
             
             int indev[MAXAUDIOINDEV], inch[MAXAUDIOINDEV],
             outdev[MAXAUDIOOUTDEV], outch[MAXAUDIOOUTDEV];
@@ -159,8 +162,9 @@ namespace pd
             sys_reopen_audio();
             s_sample_rate = sys_getsr();
         }
-        
-        atom_setfloat(&av, 1);
+    
+        av.a_type = A_FLOAT;
+        av.a_w.w_float = 1;
         pd_typedmess((t_pd *)gensym("pd")->s_thing, gensym("dsp"), 1, &av);
         unlock();
     }

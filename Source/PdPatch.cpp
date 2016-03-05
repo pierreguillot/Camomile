@@ -5,11 +5,15 @@
 */
 
 #include "PdPatch.h"
-#include "PdObject.h"
-#include "PdGui.h"
 
 #include <iomanip>
 
+extern "C"
+{
+#include "../ThirdParty/PureData/src/g_canvas.h"
+#include "../ThirdParty/PureData/src/s_stuff.h"
+#include "../ThirdParty/PureData/src/m_imp.h"
+}
 namespace pd
 {    
     // ==================================================================================== //
@@ -105,61 +109,6 @@ namespace pd
                 delete m_internal;
             }
         }
-    }
-    
-    std::vector<Object> Patch::getObjects() const noexcept
-    {
-        std::vector<Object> objects;
-        if(bool(*this))
-        {
-            m_internal->instance.lock();
-            for(t_gobj *y = m_internal->canvas->gl_list; y; y = y->g_next)
-            {
-                if(eobj_iscicm(y))
-                {
-                    objects.push_back(Object(*this, reinterpret_cast<t_object *>(y)));
-                }
-            }
-            m_internal->instance.unlock();
-        }
-        return objects;
-    }
-    
-    std::vector<Gui> Patch::getGuis() const noexcept
-    {
-        std::vector<Gui> objects;
-        if(bool(*this))
-        {
-            m_internal->instance.lock();
-            for(t_gobj *y = m_internal->canvas->gl_list; y; y = y->g_next)
-            {
-                if(eobj_iscicm(y) && eobj_isbox(y))
-                {
-                    objects.push_back(Gui(*this, reinterpret_cast<t_object *>(y)));
-                }
-            }
-            m_internal->instance.unlock();
-        }
-        return objects;
-    }
-    
-    Gui Patch::getCamomile() const noexcept
-    {
-        const std::string camostring("c.camomile");
-        Gui camo;
-        if(bool(*this))
-        {
-            m_internal->instance.lock();
-            for(t_gobj *y = m_internal->canvas->gl_list; y; y = y->g_next)
-            {
-                if(eobj_iscicm(y) && eobj_isbox(y) && std::string(eobj_getclassname(y)->s_name) == camostring)
-                {
-                    camo = Gui(*this, reinterpret_cast<t_object *>(y));
-                }
-            }
-            m_internal->instance.unlock();
-        }
-        return camo;
     }
 }
 

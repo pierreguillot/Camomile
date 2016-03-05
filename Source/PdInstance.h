@@ -10,6 +10,12 @@
 #include "PdAtom.h"
 #include "PdMisc.h"
 
+extern "C"
+{
+#pragma warning(push, 0)
+#include "../ThirdParty/PureData/src/m_pd.h"
+#pragma warning(pop)
+}
 namespace pd
 {
     // ==================================================================================== //
@@ -27,8 +33,6 @@ namespace pd
     class Instance
     {
     private:
-        friend Messenger;
-        
         struct Internal : public LeakDetector<Internal>
         {
             t_pdinstance*        instance;

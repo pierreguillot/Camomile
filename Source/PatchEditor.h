@@ -9,7 +9,6 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "InstanceProcessor.h"
-#include "ObjectEditor.h"
 
 // ==================================================================================== //
 //                                  CAMOMILE INTERFACE                                  //
@@ -28,7 +27,6 @@ private:
     class Console;
     
     InstanceProcessor&              m_processor;
-    OwnedArray<ObjectEditor>        m_objects;
     bool                            m_dropping;
     Toolbar                         m_menu;
     ScopedPointer<ImgButton>        m_button;

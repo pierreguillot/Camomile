@@ -108,12 +108,12 @@ public:
 //                                          CONSOLE                                     //
 // ==================================================================================== //
 
-class PatchEditor::Console : public Component, public Messenger, public juce::Timer, public juce::TextEditor::Listener
+class PatchEditor::Console : public Component, public juce::Timer, public juce::TextEditor::Listener
 {
 private:
     juce::TextEditor m_text;
 public:
-    Console() : Messenger("camo-console")
+    Console()
     {
         m_text.setMultiLine(true);
         m_text.setReadOnly(false);
@@ -136,14 +136,9 @@ public:
         Instance::setConsole(ed.getText().toStdString());
     }
     
-    void receive(Message const& message) override
-    {
-        m_text.setText(Instance::getConsole());
-    }
-    
     void timerCallback() override
     {
-        Messenger::trigger();
+        ;
     }
 };
 
@@ -208,26 +203,6 @@ void PatchEditor::paint(Graphics& g)
     g.setFont(m_font);
     g.setColour(m_color_txt);
     const Patch patch = m_processor.getPatch();
-    if(patch)
-    {
-        Gui camo = patch.getCamomile();
-        if(!camo)
-        {
-            text = "Invalid patch.";
-        }
-        else
-        {
-            const vector<Atom> name(camo.getAttr("name"));
-            if(!name.empty() && name[0].isSymbol())
-            {
-                text = String(std::string(name[0]));
-            }
-        }
-    }
-    else
-    {
-        text = "No patch.";
-    }
     g.drawText(text, 20, 0, getWidth() - 20, 20, juce::Justification::centred);
     if(m_dropping)
     {
@@ -246,41 +221,6 @@ void PatchEditor::handleAsyncUpdate()
 
 void PatchEditor::patchChanged()
 {
-    for(int i = 0; i < m_objects.size(); i++)
-    {
-        removeChildComponent(m_objects[i]);
-    }
-    m_objects.clear(true);
-    
-    const Patch patch = m_processor.getPatch();
-    if(patch)
-    {
-        const Gui camo = patch.getCamomile();
-        if(camo)
-        {
-            const std::vector<Gui> objects = patch.getGuis();
-            const std::array<int,2> ref = camo.getPosition();
-            for(auto it : objects)
-            {
-                if(it != camo)
-                {
-                    ObjectEditor* inte = m_objects.add(new ObjectEditor(*this, it));
-                    const std::array<int,2> pos = it.getPosition();
-                    const int offset = it.getBorderSize();
-                    inte->setTopLeftPosition(pos[0] - ref[0] - offset + 2, pos[1] - ref[1] - offset + 4);
-                    addChildComponent(inte);
-                }
-            }
-            m_color_bg = tojColor(camo.getBackgroundColor());
-            m_color_bd = tojColor(camo.getBorderColor());
-            m_color_txt= tojColor(camo.getTextColor());
-            m_font     = tojFont(camo.getFont());
-            m_bd_size  = camo.getBorderSize();
-            setSize(std::max(camo.getWidth() + m_bd_size * 2, 20), std::max(camo.getHeight()  + m_bd_size * 2, 40));
-        }
-        m_last_path = patch.getPath() + File::separatorString + patch.getName();
-    }
-    
     if(m_button)
     {
         m_button->editorChanged();

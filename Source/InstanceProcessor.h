@@ -7,12 +7,13 @@
 #ifndef __CAMOMILE_INTANCE_PROCESSOR__
 #define __CAMOMILE_INTANCE_PROCESSOR__
 
-#include "PdWrapper.h"
+#include "PdPatch.h"
+#include "../JuceLibraryCode/JuceHeader.h"
 
 using namespace std;
 using namespace pd;
 
-class InstanceProcessor : public AudioProcessor, public Instance, public Messenger
+class InstanceProcessor : public AudioProcessor, public Instance
 {
 public:
     class Listener;
@@ -20,7 +21,6 @@ private:
     Patch               m_patch;
     set<Listener*>      m_listeners;
     mutable mutex       m_mutex_list;
-    vector<Parameter>   m_parameters;
 public:
     InstanceProcessor();
     ~InstanceProcessor();
@@ -68,7 +68,6 @@ public:
     void loadPatch(const juce::File& file);
     inline const Patch getPatch() const noexcept {return m_patch;}
     inline Patch getPatch() noexcept {return m_patch;}
-    void receive(Message const& message) override;
     
     void addListener(Listener* listener);
     void removeListener(Listener* listener);
