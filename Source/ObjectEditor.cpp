@@ -240,7 +240,7 @@ void ObjectEditor::textEditorAction(pd::TextEditor& editor, std::string const& a
                 m_editor = nullptr;
             }
         }
-        else if(m_editor && action == "attr_modified")
+        else if(editor && m_editor && action == "attr_modified")
         {
             const MessageManagerLock thread(Thread::getCurrentThread());
             if(thread.lockWasGained())
@@ -252,7 +252,7 @@ void ObjectEditor::textEditorAction(pd::TextEditor& editor, std::string const& a
                 m_editor->setMultiLine(editor.shouldWrap(), editor.shouldWrap());
             }
         }
-        else if(m_editor && action == "popup")
+        else if(editor && m_editor && action == "popup")
         {
             const int offset = m_object.getBorderSize();
             const MessageManagerLock thread(Thread::getCurrentThread());
@@ -266,7 +266,7 @@ void ObjectEditor::textEditorAction(pd::TextEditor& editor, std::string const& a
                 addAndMakeVisible(m_editor);
             }
         }
-        else if(m_editor && action == "grabfocus")
+        else if(editor && m_editor && action == "grabfocus")
         {
             const MessageManagerLock thread(Thread::getCurrentThread());
             if(thread.lockWasGained())

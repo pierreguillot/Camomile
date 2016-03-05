@@ -10,3 +10,5 @@
 "le tram" "le bus" @states 0 0 0 @font "Helvetica" 11 "roman" "normal"
 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1
 @param0 "" "" 1;
+#X obj 104 218 print zaza;
+#X connect 2 0 3 0;

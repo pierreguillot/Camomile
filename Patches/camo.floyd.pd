@@ -44,7 +44,7 @@
 1 @bgcolor 0.134379 0.162045 0.189712 1 @bdcolor 0.308281 0.703514
 0.739085 1 @kncolor 0.920892 0.920892 0.920892 1 @param0 "Frequency"
 "Hz" 1;
-#X obj 292 492 *~ 1.5;
+#X obj 294 492 *~ 1.5;
 #X obj 211 46 c.number @size 36 16 @pinned 0 @decimal 4 @minmax 61
 200 @font "Futura" 12 "roman" "normal" @bdsize 1 @bgcolor 0.134379
 0.162045 0.189712 1 @bdcolor 0.308281 0.703514 0.739085 1 @textcolor
@@ -95,8 +95,6 @@
 #X obj 563 111 f \$0;
 #X msg 563 135 \; \$1-metro 1 \; \$1-array1 0 45 48 50 48 55 53 55
 57;
-#N canvas 0 22 450 300 process 0;
-#X restore 548 301 pd process;
 #X connect 1 0 44 0;
 #X connect 2 0 23 0;
 #X connect 4 0 5 0;

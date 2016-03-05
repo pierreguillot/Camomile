@@ -48,7 +48,7 @@ public:
         m_image2.setOverlayColour(m_editor->m_color_txt.interpolatedWith(m_editor->m_color_bg, 0.5f));
     }
     
-    void buttonStateChanged()
+    void buttonStateChanged() override
     {
         if(isDown() || isOver())
         {
@@ -64,151 +64,108 @@ public:
 };
 
 // ==================================================================================== //
+//                                          ABOUT                                       //
+// ==================================================================================== //
+
+class PatchEditor::About : public Component
+{
+private:
+    DrawableImage    m_image1;
+    juce::TextEditor m_text;
+public:
+    About()
+    {
+        m_image1.setImage(ImageCache::getFromMemory(BinaryData::flowerG_png, BinaryData::flowerG_pngSize));
+        m_image1.setBoundingBox(RelativeParallelogram(Rectangle<float>(300.f - 128.f, 370.f - 128.f, 128.f, 128.f)));
+        m_image1.setOpacity(0.5f);
+        addAndMakeVisible(&m_image1);
+        
+        m_text.setMultiLine(true);
+        m_text.setReadOnly(true);
+        m_text.setScrollbarsShown(false);
+        m_text.setCaretVisible(false);
+        m_text.setPopupMenuEnabled(true);
+        m_text.setColour(juce::TextEditor::backgroundColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
+        m_text.setColour(juce::TextEditor::outlineColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
+        m_text.setColour(juce::TextEditor::shadowColourId,Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
+        m_text.setColour(juce::TextEditor::textColourId, Colours::darkgrey);
+        m_text.setFont(juce::Font(String("Futura"), 16.f, juce::Font::plain));
+        m_text.setText("Camomile is a dynamic plugin that allows to load and control Pure Data patches "
+                       "inside a digital audio workstation. Camomile translates the Cream library's user"
+                       " graphical interfaces into Juce components for creating a modular plugin editor "
+                       "and retrieves the parameters of this graphical objects in order to associate"
+                       " them with the plugin host.\n\n"
+                       "Author :\n"+ String(JucePlugin_Manufacturer) + "\n\n"
+                       "Organizations :\nCICM | Université Paris 8 | Labex Arts H2H\n\n"
+                       "Contacts :\n"+String(JucePlugin_ManufacturerEmail)+"\n"+ String(JucePlugin_ManufacturerWebsite)+"\n\n"
+                       "Credits :\nPure Data by Miller Puckette\nJuce by ROLI Ltd.");
+        m_text.setBounds(0, 0, 300, 370);
+        addAndMakeVisible(&m_text, -1);
+    }
+};
+
+// ==================================================================================== //
+//                                          CONSOLE                                     //
+// ==================================================================================== //
+
+class PatchEditor::Console : public Component, public Messenger, public juce::Timer, public juce::TextEditor::Listener
+{
+private:
+    juce::TextEditor m_text;
+public:
+    Console() : Messenger("camo-console")
+    {
+        m_text.setMultiLine(true);
+        m_text.setReadOnly(false);
+        m_text.setScrollbarsShown(true);
+        m_text.setCaretVisible(false);
+        m_text.setPopupMenuEnabled (true);
+        m_text.setColour(juce::TextEditor::backgroundColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
+        m_text.setColour(juce::TextEditor::outlineColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
+        m_text.setColour(juce::TextEditor::shadowColourId,Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
+        m_text.setColour(juce::TextEditor::textColourId, Colours::darkgrey);
+        m_text.setFont(juce::Font(String("Futura"), 16.f, juce::Font::plain));
+        m_text.setText(Instance::getConsole());
+        m_text.setBounds(0, 0, 300, 370);
+        addAndMakeVisible(&m_text, 1);
+        startTimer(20);
+    }
+    
+    void textEditorTextChanged(juce::TextEditor& ed) override
+    {
+        Instance::setConsole(ed.getText().toStdString());
+    }
+    
+    void receive(Message const& message) override
+    {
+        m_text.setText(Instance::getConsole());
+    }
+    
+    void timerCallback() override
+    {
+        Messenger::trigger();
+    }
+};
+
+// ==================================================================================== //
 //                                          WINDOW                                      //
 // ==================================================================================== //
 
-class PatchEditor::PatchWindow : public DocumentWindow
+class PatchEditor::PatchWin : public DocumentWindow
 {
-protected:
-    PatchEditor*    m_editor;
 public:
-    PatchWindow(PatchEditor* editor, const juce::String& name) :
-    DocumentWindow(name, Colours::lightgrey, DocumentWindow::closeButton, false), m_editor(editor)  {}
-    virtual ~PatchWindow() {}
-    virtual void editorChanged() = 0;
-};
-
-class PatchEditor::AboutWindow : public PatchWindow
-{
-private:
-    
-    class Content : public Component
-    {
-    private:
-        DrawableImage    m_image1;
-        juce::TextEditor m_text;
-    public:
-        Content()
-        {
-            m_image1.setImage(ImageCache::getFromMemory(BinaryData::flowerG_png, BinaryData::flowerG_pngSize));
-            m_image1.setBoundingBox(RelativeParallelogram(Rectangle<float>(300.f - 128.f, 370.f - 128.f, 128.f, 128.f)));
-            m_image1.setOpacity(0.5f);
-            addAndMakeVisible(&m_image1);
-            
-            m_text.setMultiLine(true);
-            m_text.setReadOnly(true);
-            m_text.setScrollbarsShown(false);
-            m_text.setCaretVisible(false);
-            m_text.setPopupMenuEnabled(true);
-            m_text.setColour(juce::TextEditor::backgroundColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
-            m_text.setColour(juce::TextEditor::outlineColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
-            m_text.setColour(juce::TextEditor::shadowColourId,Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
-            m_text.setColour(juce::TextEditor::textColourId, Colours::darkgrey);
-            m_text.setFont(juce::Font(String("Futura"), 16.f, juce::Font::plain));
-            m_text.setText("Camomile is a dynamic plugin that allows to load and control Pure Data patches "
-                           "inside a digital audio workstation. Camomile translates the Cream library's user"
-                           " graphical interfaces into Juce components for creating a modular plugin editor "
-                           "and retrieves the parameters of this graphical objects in order to associate"
-                           " them with the plugin host.\n\n"
-                           "Author :\n"+ String(JucePlugin_Manufacturer) + "\n\n"
-                           "Organizations :\nCICM | Université Paris 8 | Labex Arts H2H\n\n"
-                           "Contacts :\n"+String(JucePlugin_ManufacturerEmail)+"\n"+ String(JucePlugin_ManufacturerWebsite)+"\n\n"
-                           "Credits :\nPure Data by Miller Puckette\nJuce by ROLI Ltd.");
-            m_text.setBounds(0, 0, 300, 370);
-            
-            addAndMakeVisible(&m_text, -1);
-        }
-    };
-    
-    Content m_content;
-public:
-    AboutWindow(PatchEditor* editor) : PatchWindow(editor, "About Camomile v" + String(JucePlugin_VersionString))
+    PatchWin(String const& name) :
+    DocumentWindow(name, Colours::lightgrey, DocumentWindow::closeButton, false)
     {
         setUsingNativeTitleBar(true);
-        setBounds(20, 20, 300, 370);
+        setBounds(50, 50, 300, 370);
         setResizable(false, false);
         setAlwaysOnTop(true);
         setDropShadowEnabled(true);
         setVisible(true);
-        setContentNonOwned(&m_content, false);
         setBackgroundColour(Colours::lightgrey);
     }
-    void editorChanged() override
-    {
-        ;
-    }
-    void closeButtonPressed() override
-    {
-        removeFromDesktop();
-    }
-};
 
-class PatchEditor::ConsoleWindow : public PatchWindow
-{
-private:
-    class Content : public Component, public Messenger, public juce::TextEditor::Listener
-    {
-    private:
-        juce::TextEditor m_text;
-    public:
-        Content(Instance const& instance) : Messenger("camo_console")
-        {
-            m_text.setMultiLine(true);
-            m_text.setReadOnly(false);
-            m_text.setScrollbarsShown(true);
-            m_text.setCaretVisible(false);
-            m_text.setPopupMenuEnabled (true);
-            m_text.setColour(juce::TextEditor::backgroundColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
-            m_text.setColour(juce::TextEditor::outlineColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
-            m_text.setColour(juce::TextEditor::shadowColourId,Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
-            m_text.setColour(juce::TextEditor::textColourId, Colour::fromFloatRGBA(1.f, 1.f, 1.f, 1.f));
-            m_text.setText(Instance::getConsole());
-            
-            m_text.setBounds(0, 0, 300, 320);
-            addAndMakeVisible(&m_text, 1);
-        }
-        
-        void textEditorTextChanged(juce::TextEditor& ed) override
-        {
-            Instance::setConsole(ed.getText().toStdString());
-        }
-        
-        void receive(Message const& message) override
-        {
-            m_text.setText(Instance::getConsole());
-        }
-        
-        void setTextFont(juce::Font const& font)
-        {
-            m_text.applyFontToAllText(font.withHeight(14.f));
-        }
-        
-        void setTextColor(juce::Colour const& colour)
-        {
-            m_text.setColour(juce::TextEditor::textColourId, colour);
-        }
-    };
-    Content m_content;
-public:
-    ConsoleWindow(PatchEditor* editor, Instance const& instance) : PatchWindow(editor, "Camomile Console"),
-    m_content(instance)
-    {
-        setUsingNativeTitleBar(true);
-        setBounds(20, 20, 300, 320);
-        setResizable(false, false);
-        setAlwaysOnTop(true);
-        setDropShadowEnabled(true);
-        setVisible(true);
-        setContentNonOwned(&m_content, false);
-    }
-    
-    void editorChanged() override
-    {
-        m_content.setTextColor(m_editor->m_color_txt);
-        m_content.setTextFont(m_editor->m_font.withHeight(12.f));
-        setBackgroundColour(m_editor->m_color_bg);
-    }
-    
     void closeButtonPressed() override
     {
         removeFromDesktop();
@@ -230,8 +187,8 @@ m_bd_size(2), m_font(22)
     Component::setWantsKeyboardFocus(true);
     m_processor.addListener(this);
     m_button = new ImgButton(this, "CamomileButton", 1);
+    m_window = new PatchWin("");
     addAndMakeVisible(m_button);
-    
     setSize(600, 420);
     patchChanged();
 }
@@ -243,6 +200,7 @@ PatchEditor::~PatchEditor()
 
 void PatchEditor::paint(Graphics& g)
 {
+    String text;
     g.fillAll(m_color_bg);
     g.setColour(m_color_bd);
     g.drawRect(getBounds().withZeroOrigin(), m_bd_size);
@@ -255,22 +213,22 @@ void PatchEditor::paint(Graphics& g)
         Gui camo = patch.getCamomile();
         if(!camo)
         {
-            g.drawText(juce::String("The patch has no interfaces !"), 0, 21, getWidth(), getHeight() - 21, juce::Justification::centred);
+            text = "Invalid patch.";
         }
         else
         {
             const vector<Atom> name(camo.getAttr("name"));
             if(!name.empty() && name[0].isSymbol())
             {
-                g.drawText(String(std::string(name[0])), 20, 0, getWidth() - 20, 20, juce::Justification::centred);
+                text = String(std::string(name[0]));
             }
         }
     }
     else
     {
-        g.drawText(juce::String("Drag & Drop your patch..."), 0, 21, getWidth(), getHeight() - 21, juce::Justification::centred);
+        text = "No patch.";
     }
-    
+    g.drawText(text, 20, 0, getWidth() - 20, 20, juce::Justification::centred);
     if(m_dropping)
     {
         g.fillAll(Colours::white.withAlpha(0.2f));
@@ -283,37 +241,6 @@ void PatchEditor::handleAsyncUpdate()
     if(mml.lockWasGained())
     {
         repaint();
-    }
-}
-
-bool PatchEditor::isInterestedInFileDrag(const StringArray& files)
-{
-    if(files.size())
-    {
-        for(int i = 0; i < files.size(); i++)
-        {
-            if(files[i].endsWith(juce::StringRef(".pd")))
-            {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-void PatchEditor::filesDropped(const StringArray& files, int x, int y)
-{
-    if(files.size())
-    {
-        for(int i = 0; i < files.size(); i++)
-        {
-            juce::File file(files[i]);
-            if(file.getFileExtension() == juce::String(".pd"))
-            {
-                m_processor.loadPatch(file);
-                return;
-            }
-        }
     }
 }
 
@@ -349,8 +276,7 @@ void PatchEditor::patchChanged()
             m_color_txt= tojColor(camo.getTextColor());
             m_font     = tojFont(camo.getFont());
             m_bd_size  = camo.getBorderSize();
-            setSize(std::max(camo.getWidth() + m_bd_size * 2, 20),
-                    std::max(camo.getHeight()  + m_bd_size * 2, 40));
+            setSize(std::max(camo.getWidth() + m_bd_size * 2, 20), std::max(camo.getHeight()  + m_bd_size * 2, 40));
         }
         m_last_path = patch.getPath() + File::separatorString + patch.getName();
     }
@@ -359,22 +285,6 @@ void PatchEditor::patchChanged()
     {
         m_button->editorChanged();
     }
-    if(m_window)
-    {
-        m_window->editorChanged();
-    }
-    
-    AsyncUpdater::triggerAsyncUpdate();
-}
-
-void PatchEditor::fileDragEnter(const StringArray& files, int x, int y)
-{
-    AsyncUpdater::triggerAsyncUpdate();
-}
-
-void PatchEditor::fileDragExit(const StringArray& files)
-{
-    m_dropping = false;
     AsyncUpdater::triggerAsyncUpdate();
 }
 
@@ -392,12 +302,8 @@ void PatchEditor::buttonClicked(Button* button)
         const int result = m.showAt(button->getScreenBounds().translated(-2, 2));
         if(result == 1)
         {
-            if(!m_window || (m_window && m_window->getName() != String("About Camomile")))
-            {
-                m_window = new AboutWindow(this);
-            }
-            m_window->setTopLeftPosition(button->getScreenPosition());
-            m_window->editorChanged();
+            m_window->setContentOwned(new About(), false);
+            m_window->setName("About Camomile v" + String(JucePlugin_VersionString));
             m_window->addToDesktop();
         }
         else if(result == 2)
@@ -434,13 +340,8 @@ void PatchEditor::buttonClicked(Button* button)
         }
         else if(result == 5)
         {
-            if(!m_window || (m_window && m_window->getName() != String("Camomile Console")))
-            {
-                m_window = new ConsoleWindow(this, m_processor);
-            }
-            m_window->setTopLeftPosition(button->getScreenPosition());
-            m_window->setBackgroundColour(m_color_bg);
-            m_window->editorChanged();
+            m_window->setContentOwned(new Console(), false);
+            m_window->setName("Camomile Console");
             m_window->addToDesktop();
         }
         else if(result == 6)

@@ -29,10 +29,12 @@ namespace pd
             if(!name.empty() && !path.empty())
             {
                 canvas = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym(path.c_str())));
+                canvas->gl_edit = 0;
             }
             else if(!name.empty())
             {
                 canvas = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym("")));
+                canvas->gl_edit = 0;
             }
             instance.unlock();
         }

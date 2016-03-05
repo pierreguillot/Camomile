@@ -22,6 +22,7 @@ namespace pd
     int Instance::s_sample_rate;
     std::mutex Instance::s_mutex;
     std::string Instance::s_console;
+    t_symbol* Instance::s_cbind;
     
     Instance::Internal::Internal(std::string const& _name) :
     instance(nullptr),
@@ -33,6 +34,7 @@ namespace pd
         if(!initialized)
         {
             signal(SIGFPE, SIG_IGN);
+            s_cbind       = gensym("camo-console");
             sys_printhook = (t_printhook)print;
             sys_soundin = NULL;
             sys_soundout = NULL;
@@ -69,6 +71,8 @@ namespace pd
             sched_set_using_audio(SCHED_AUDIO_CALLBACK);
             sys_reopen_audio();
             s_sample_rate = sys_getsr();
+            s_console.clear();
+            s_console.append("Camomile v0.0.1 for Pure Data 0.46.7\n");
         }
         instance = pdinstance_new();
     }
@@ -216,10 +220,9 @@ namespace pd
     void Instance::print(const char* s)
     {
         s_console.append(s);
-        t_symbol* send = gensym("camo-console");
-        if(send->s_thing)
+        if(s_cbind->s_thing)
         {
-            pd_bang(send->s_thing);
+            pd_bang(s_cbind->s_thing);
         }
         std::cout << s;
     }

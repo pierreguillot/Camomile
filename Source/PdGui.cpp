@@ -191,9 +191,10 @@ namespace pd
     
     void Gui::mouseDoubleClick(std::array<float, 2> const& pos, const long mod) noexcept
     {
-        t_eclass* c = getClass();
         Instance instance(getInstance());
-        if(instance && c && c->c_widget.w_dblclick)
+        t_eclass const* c = getClass();
+        t_ebox const* x = ((t_ebox *)getObject());
+        if(instance && c && c->c_widget.w_dblclick && x->b_flags & EBOX_DBLCLICK_EDIT)
         {
             instance.lock();
             c->c_widget.w_dblclick(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);

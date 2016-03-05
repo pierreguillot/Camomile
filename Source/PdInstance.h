@@ -118,6 +118,7 @@ namespace pd
         static int                              s_sample_rate;
         static const int                        s_max_channels = 16;
         static std::string                      s_console;
+        static t_symbol*                        s_cbind;
         static void print(const char* s);
     };
 

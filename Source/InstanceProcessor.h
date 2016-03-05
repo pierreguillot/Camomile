@@ -42,9 +42,9 @@ public:
     String getParameterText(int index, int size) override;
     String getParameterLabel (int index) const override;
     int getParameterNumSteps(int index) override;
-    bool isParameterAutomatable(int index) const;
-    bool isParameterOrientationInverted (int index) const;
-    bool isMetaParameter(int index) const;
+    bool isParameterAutomatable(int index) const override;
+    bool isParameterOrientationInverted (int index) const override;
+    bool isMetaParameter(int index) const override;
      
     const String getInputChannelName(int index) const override {return String(index + 1);}
     const String getOutputChannelName(int index) const override {return String(index + 1);}

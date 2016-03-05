@@ -4,7 +4,7 @@
 0.16995 0.16995 1 @bdcolor 0.790465 0.802322 0.818132 1 @txtcolor 0.790465
 0.802322 0.818132 1;
 #X text 688 136 Size delay feedback array;
-#X obj 11 52 c.slider @size 15 120 @pinned 0 @minmax 0 1000 @bdsize
+#X obj 11 47 c.slider @size 15 120 @pinned 0 @minmax 0 1000 @bdsize
 2 @bgcolor 0.138331 0.16995 0.16995 1 @bdcolor 0.786513 0.79837 0.814179
 1 @kncolor 0.786513 0.79837 0.814179 1 @param0 "Size" "ms" 1;
 #X obj 476 37 c.menu @size 100 16 @pinned 0 @hover 0 @items "Hanning"
@@ -509,13 +509,13 @@
 #X connect 27 0 24 0;
 #X connect 27 0 2 0;
 #X restore 866 416 pd grain;
-#X obj 94 52 c.slider @size 15 120 @pinned 0 @minmax 0 5000 @bdsize
+#X obj 94 47 c.slider @size 15 120 @pinned 0 @minmax 0 5000 @bdsize
 2 @bgcolor 0.138331 0.16995 0.16995 1 @bdcolor 0.786513 0.79837 0.814179
 1 @kncolor 0.786513 0.79837 0.814179 1 @param0 "Delay" "ms" 2;
-#X obj 177 52 c.slider @size 15 120 @pinned 0 @minmax 0 100 @bdsize
+#X obj 177 47 c.slider @size 15 120 @pinned 0 @minmax 0 100 @bdsize
 2 @bgcolor 0.138331 0.16995 0.16995 1 @bdcolor 0.786513 0.79837 0.814179
 1 @kncolor 0.786513 0.79837 0.814179 1 @param0 "Feedback" "%" 3;
-#X obj 260 52 c.slider @size 15 120 @pinned 0 @minmax 0 100 @bdsize
+#X obj 260 47 c.slider @size 15 120 @pinned 0 @minmax 0 100 @bdsize
 2 @bgcolor 0.138331 0.16995 0.16995 1 @bdcolor 0.786513 0.79837 0.814179
 1 @kncolor 0.786513 0.79837 0.814179 1 @param0 "Rarefaction" "%" 4
 ;
@@ -524,31 +524,31 @@
 #X obj 16 292 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X msg 107 248 set \$1;
-#X obj 9 30 c.comment @size 53 18 @pinned 0 @font "Chalkduster" 12
+#X obj 7 25 c.comment @size 53 18 @pinned 0 @font "Chalkduster" 12
 "roman" "normal" @bgcolor 0.138331 0.16995 0.16995 1 @bdcolor 0.138331
 0.16995 0.16995 1 @textcolor 0.786513 0.79837 0.814179 1 @text "Size :"
 ;
-#X obj 34 156 c.number @size 40 16 @pinned 0 @decimal 4 @minmax 0 1000
+#X obj 34 151 c.number @size 40 16 @pinned 0 @decimal 4 @minmax 0 1000
 @font "Chalkduster" 12 "roman" "normal" @bdsize 2 @bgcolor 0.138331
 0.16995 0.16995 1 @bdcolor 0.786513 0.79837 0.814179 1 @textcolor 0.786513
 0.79837 0.814179 1 @param0 "" "" 1;
-#X obj 117 156 c.number @size 40 16 @pinned 0 @decimal 4 @minmax 0
+#X obj 117 151 c.number @size 40 16 @pinned 0 @decimal 4 @minmax 0
 5000 @font "Chalkduster" 12 "roman" "normal" @bdsize 2 @bgcolor 0.138331
 0.16995 0.16995 1 @bdcolor 0.786513 0.79837 0.814179 1 @textcolor 0.786513
 0.79837 0.814179 1 @param0 "" "" 1;
-#X obj 200 156 c.number @size 40 16 @pinned 0 @decimal 4 @minmax 0
+#X obj 200 151 c.number @size 40 16 @pinned 0 @decimal 4 @minmax 0
 100 @font "Chalkduster" 12 "roman" "normal" @bdsize 2 @bgcolor 0.138331
 0.16995 0.16995 1 @bdcolor 0.786513 0.79837 0.814179 1 @textcolor 0.786513
 0.79837 0.814179 1 @param0 "" "" 1;
-#X obj 283 156 c.number @size 40 16 @pinned 0 @decimal 4 @minmax 0
+#X obj 283 151 c.number @size 40 16 @pinned 0 @decimal 4 @minmax 0
 100 @font "Chalkduster" 12 "roman" "normal" @bdsize 2 @bgcolor 0.138331
 0.16995 0.16995 1 @bdcolor 0.786513 0.79837 0.814179 1 @textcolor 0.786513
 0.79837 0.814179 1 @param0 "" "" 1;
-#X obj 92 30 c.comment @size 71 18 @pinned 0 @font "Chalkduster" 12
+#X obj 89 25 c.comment @size 71 18 @pinned 0 @font "Chalkduster" 12
 "roman" "normal" @bgcolor 0.138331 0.16995 0.16995 1 @bdcolor 0.138331
 0.16995 0.16995 1 @textcolor 0.786513 0.79837 0.814179 1 @text "Delay :"
 ;
-#X obj 175 30 c.comment @size 93 18 @pinned 0 @font "Chalkduster" 12
+#X obj 173 25 c.comment @size 93 18 @pinned 0 @font "Chalkduster" 12
 "roman" "normal" @bgcolor 0.138331 0.16995 0.16995 1 @bdcolor 0.138331
 0.16995 0.16995 1 @textcolor 0.786513 0.79837 0.814179 1 @text "Feedback :"
 ;
@@ -556,7 +556,7 @@
 #X obj 636 478 dac~ 1 2;
 #X obj 861 242 / 100;
 #X obj 804 246 / 100;
-#X obj 257 30 c.comment @size 123 18 @pinned 0 @font "Chalkduster"
+#X obj 256 25 c.comment @size 123 18 @pinned 0 @font "Chalkduster"
 12 "roman" "normal" @bgcolor 0.138331 0.16995 0.16995 1 @bdcolor 0.138331
 0.16995 0.16995 1 @textcolor 0.786513 0.79837 0.814179 1 @text "Rarefaction :"
 ;

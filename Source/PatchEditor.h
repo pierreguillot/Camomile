@@ -19,21 +19,20 @@ class PatchEditor  :
 public AsyncUpdater,
 public AudioProcessorEditor,
 public InstanceProcessor::Listener,
-public FileDragAndDropTarget,
 public Button::Listener
 {
 private:
     class ImgButton;
-    class PatchWindow;
-    class AboutWindow;
-    class ConsoleWindow;
+    class PatchWin;
+    class About;
+    class Console;
     
     InstanceProcessor&              m_processor;
     OwnedArray<ObjectEditor>        m_objects;
     bool                            m_dropping;
     Toolbar                         m_menu;
     ScopedPointer<ImgButton>        m_button;
-    ScopedPointer<PatchWindow>      m_window;
+    ScopedPointer<DocumentWindow>   m_window;
     Colour                          m_color_bg;
     Colour                          m_color_bd;
     Colour                          m_color_txt;
@@ -45,11 +44,6 @@ public:
     ~PatchEditor();
     void handleAsyncUpdate() override;
     void paint(Graphics&) override;
-
-    bool isInterestedInFileDrag(const StringArray& files) override;
-    void filesDropped(const StringArray& files, int x, int y) override;
-    void fileDragEnter(const StringArray& files, int x, int y) override;
-    void fileDragExit(const StringArray& files) override;
     void buttonClicked(Button* button) override;
     void patchChanged() override;
 private:

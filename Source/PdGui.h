@@ -153,7 +153,7 @@ namespace pd
         virtual ~Gui() noexcept {};
         
         //! @brief Gets if the Object is valid.
-        inline virtual operator bool() const noexcept {return bool(m_internal) && bool(m_internal->object) && bool(m_internal->patch) && eobj_iscicm(m_internal->object) && eobj_isbox(m_internal->object);};
+        inline virtual operator bool() const noexcept override {return bool(m_internal) && bool(m_internal->object) && bool(m_internal->patch) && eobj_iscicm(m_internal->object) && eobj_isbox(m_internal->object);};
         
         //! @brief Gets if the GUI wants the mouse events.
         bool wantMouse() const noexcept;

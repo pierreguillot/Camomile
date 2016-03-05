@@ -185,7 +185,7 @@ void InstanceProcessor::parametersChanged()
         if(bool(m_parameters[i]))
         {
             m_parameters[i].setIndex(i);
-            setParameterNotifyingHost(i+1, m_parameters[i].getNormalizedValue());
+            setParameterNotifyingHost(i, m_parameters[i].getNormalizedValue());
         }
     }
     updateHostDisplay();
