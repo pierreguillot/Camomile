@@ -126,6 +126,7 @@ namespace pd
     
     std::vector<Gui> Patch::getGuis() const noexcept
     {
+        int index = 0;
         std::vector<Gui> objects;
         if(isValid())
         {
@@ -138,20 +139,20 @@ namespace pd
             {
                 if(y->g_pd->c_name == hsl)
                 {
-                    objects.push_back(Gui(*this, Gui::Type::HorizontalSlider, reinterpret_cast<void *>(y)));
+                    objects.push_back(Gui(*this, Gui::Type::HorizontalSlider, reinterpret_cast<void *>(y), index));
                 }
                 else if(y->g_pd->c_name == vsl)
                 {
-                    objects.push_back(Gui(*this, Gui::Type::VecticalSlider, reinterpret_cast<void *>(y)));
-                }
+                    objects.push_back(Gui(*this, Gui::Type::VecticalSlider, reinterpret_cast<void *>(y), index));
+                }/*
                 else if(y->g_pd->c_name == tgl)
                 {
-                    objects.push_back(Gui(*this, Gui::Type::Toggle, reinterpret_cast<void *>(y)));
+                    objects.push_back(Gui(*this, Gui::Type::Toggle, reinterpret_cast<void *>(y), index));
                 }
                 else if(y->g_pd->c_name == nbx)
                 {
-                    objects.push_back(Gui(*this, Gui::Type::Number, reinterpret_cast<void *>(y)));
-                }
+                    objects.push_back(Gui(*this, Gui::Type::Number, reinterpret_cast<void *>(y), index));
+                }*/
             }
         }
         return objects;

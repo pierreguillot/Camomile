@@ -61,7 +61,6 @@ namespace pd
         int                         m_sample_rate;
         const int                   m_max_channels = 16;
         std::string                 m_console;
-        void*                       m_binding_name;
         static void print(const char* s);
         
         friend class Instance;

@@ -25,7 +25,6 @@ namespace pd
     Pd::Pd() noexcept
     {
         signal(SIGFPE, SIG_IGN);
-        m_binding_name = reinterpret_cast<void*>(gensym("camo-console"));
         sys_printhook = NULL;
         sys_soundin = NULL;
         sys_soundout = NULL;
@@ -75,10 +74,6 @@ namespace pd
     {
         Pd& pd = Pd::get();
         pd.m_console.append(s);
-        if(reinterpret_cast<t_symbol *>(pd.m_binding_name)->s_thing)
-        {
-            pd_bang(reinterpret_cast<t_symbol *>(pd.m_binding_name)->s_thing);
-        }
         std::cout << s;
     }
     
@@ -145,7 +140,6 @@ namespace pd
     
     Instance Pd::createInstance() noexcept
     {
-        
         Pd& pd = Pd::get();
         pd.m_mutex.unlock();
         Instance instance(pdinstance_new());

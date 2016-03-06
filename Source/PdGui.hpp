@@ -68,6 +68,9 @@ namespace pd
         Type getType() const noexcept;
         
         //! @brief The class name of the Object.
+        int getIndex() const noexcept;
+        
+        //! @brief The class name of the Object.
         std::string getName() const;
         
         std::string getLabel() const;
@@ -93,11 +96,12 @@ namespace pd
         //! @brief The constructor for a new Object.
         //! @details Creates a new valid Object. You should never have to use it. Use the
         //! Patch to retrieve an Object.
-        Gui(Patch const& patch, Type type, void* ptr) noexcept;
+        Gui(Patch const& patch, Type type, void* ptr, int& index) noexcept;
         
         void*       m_ptr;
         Type        m_type;
         Patch       m_patch;
+        int         m_index;
         
         friend class Patch;
     };    

@@ -84,11 +84,13 @@ public:
     
     void timerCallback() final
     {
+        if(m_index >= 0)
         m_slider->setValue(m_processor.getParameter(m_index), NotificationType::dontSendNotification);
     }
     
     void sliderValueChanged(Slider* slider) final
     {
+        if(m_index >= 0)
         m_processor.setParameterNotifyingHost(m_index, slider->getValue());
     }
 private:
@@ -177,11 +179,7 @@ public:
         m_text.setColour(juce::TextEditor::shadowColourId,PatchEditor::color_invisible);
         m_text.setColour(juce::TextEditor::textColourId, PatchEditor::color_txt);
         m_text.setFont(PatchEditor::font);
-        m_text.setText("Camomile is a dynamic plugin that allows to load and control Pure Data patches "
-                       "inside a digital audio workstation. Camomile translates the Cream library's user"
-                       " graphical interfaces into Juce components for creating a modular plugin editor "
-                       "and retrieves the parameters of this graphical objects in order to associate"
-                       " them with the plugin host.\n\n"
+        m_text.setText("Camomile is a dynamic plugin made with Juce that allows to load and control Pure Data patches inside a digital audio workstation.\n\n"
                        "Author :\n"+ String(JucePlugin_Manufacturer) + "\n\n"
                        "Organizations :\nCICM | Université Paris 8 | Labex Arts H2H\n\n"
                        "Contacts :\n"+String(JucePlugin_ManufacturerEmail)+"\n"+ String(JucePlugin_ManufacturerWebsite)+"\n\n"
@@ -226,7 +224,7 @@ public:
     
     void timerCallback() override
     {
-        ;
+        m_text.setText(pd::Pd::getConsole());
     }
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Console)
 };
@@ -271,6 +269,7 @@ m_dropping(false), m_window(nullptr)
     PatchEditor::color_bd   = Colours::darkgrey;
     PatchEditor::color_txt  = Colours::darkgrey;
     PatchEditor::color_invisible = Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f);
+    
     
     Component::setWantsKeyboardFocus(true);
     m_processor.addListener(this);
@@ -352,7 +351,7 @@ void PatchEditor::buttonClicked(Button* button)
         m.addItem(4, "Reload");
         m.addItem(5, "Console");
         m.addItem(6, "Help");
-        const int result = m.showAt(button->getScreenBounds().translated(-2, 2));
+        const int result = m.showAt(button->getScreenBounds().translated(-2, 3));
         if(result == 1)
         {
             m_window->setContentOwned(new About(), false);

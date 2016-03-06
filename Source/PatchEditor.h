@@ -9,7 +9,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "InstanceProcessor.h"
-
+#include "LookAndFeel.h"
 
 // ==================================================================================== //
 //                                  CAMOMILE INTERFACE                                  //

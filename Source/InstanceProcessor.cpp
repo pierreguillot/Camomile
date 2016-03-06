@@ -129,20 +129,20 @@ void InstanceProcessor::parametersChanged()
         {
             if(gui.isParameter())
             {
-                m_parameters[index] = InstanceParameter(gui);
+                m_parameters[index] = Parameter(gui);
                 index++;
             }
         }
         for(; index < m_parameters.size(); index++)
         {
-            m_parameters[index] = InstanceParameter();
+            m_parameters[index] = Parameter();
         }
     }
     else
     {
         for(size_t i = 0; i < m_parameters.size(); i++)
         {
-            m_parameters[i] = InstanceParameter();
+            m_parameters[i] = Parameter();
         }
     }
     

@@ -854,8 +854,7 @@ void CamoLookAndFeel::getIdealPopupMenuItemSize (const String& text, const bool 
 
 void CamoLookAndFeel::drawPopupMenuBackground (Graphics& g, int width, int height)
 {
-    const Colour background (findColour (juce::PopupMenu::backgroundColourId));
-    g.fillAll (background);
+    g.fillAll (Colours::lightgrey);
 }
 
 void CamoLookAndFeel::drawPopupMenuUpDownArrow (Graphics& g, int width, int height, bool isScrollUpArrow)
@@ -903,7 +902,7 @@ void CamoLookAndFeel::drawPopupMenuItem (Graphics& g, const Rectangle<int>& area
     }
     else
     {
-        Colour textColour (findColour (juce::PopupMenu::textColourId));
+        Colour textColour (Colours::darkgrey);
 
         if (textColourToUse != nullptr)
             textColour = *textColourToUse;
@@ -912,10 +911,7 @@ void CamoLookAndFeel::drawPopupMenuItem (Graphics& g, const Rectangle<int>& area
 
         if (isHighlighted)
         {
-            g.setColour (findColour (juce::PopupMenu::highlightedBackgroundColourId));
-            g.fillRect (r);
-
-            g.setColour (findColour (juce::PopupMenu::highlightedTextColourId));
+            g.setColour (Colours::darkgrey.interpolatedWith(Colours::lightgrey, 0.5f));
         }
         else
         {
@@ -925,7 +921,7 @@ void CamoLookAndFeel::drawPopupMenuItem (Graphics& g, const Rectangle<int>& area
         if (! isActive)
             g.setOpacity (0.3f);
 
-        Font font (getPopupMenuFont());
+        Font font (Font(String("Monaco"), 13.f, juce::Font::plain));
 
         const float maxFontHeight = area.getHeight() / 1.3f;
 
@@ -1192,7 +1188,7 @@ void CamoLookAndFeel::drawLinearSlider (Graphics& g, int x, int y, int width, in
     g.drawRect(0, 0, width, height, 1);
     if(style == Slider::LinearHorizontal)
     {
-        g.drawLine(pos, 0, pos, height, 1.f);
+        g.drawLine(pos - min, 0, pos - min, height, 1.f);
     }
     else
     {
