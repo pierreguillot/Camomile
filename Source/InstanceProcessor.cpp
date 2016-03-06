@@ -10,39 +10,36 @@
 
 InstanceProcessor::InstanceProcessor() : pd::Instance(std::string("camomile"))
 {
-    static CamoLookAndFeel lookAndFeel;
-    static int init = 0;
-    if(!init)
-    {
-        
-    }
-    LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
+    m_parameters.resize(32);
 }
 
 InstanceProcessor::~InstanceProcessor()
 {
-    std::lock_guard<std::mutex> guard(m_mutex_list);
+    std::lock_guard<std::mutex> guard(m_mutex);
     m_listeners.clear();
 }
 
 int InstanceProcessor::getNumParameters()
 {
-    return 0;
+    return int(m_parameters.size());
 }
 
 const String InstanceProcessor::getParameterName(int index)
 {
-    return String("Dummy ") + String(std::to_string(index + 1));
+    if(m_parameters[index].isValid())
+        return m_parameters[index].getName(512);
+    else
+        return String("Dummy ") + String(std::to_string(index + 1));
 }
 
 float InstanceProcessor::getParameter(int index)
 {
-    return 0.f;
+    return m_parameters[index].getValue();
 }
 
 void InstanceProcessor::setParameter(int index, float newValue)
 {
-    ;
+    m_parameters[index].setValue(newValue);
 }
 
 float InstanceProcessor::getParameterDefaultValue(int index)
@@ -52,37 +49,37 @@ float InstanceProcessor::getParameterDefaultValue(int index)
 
 const String InstanceProcessor::getParameterText(int index)
 {
-    return String("");
+    return m_parameters[index].getText(index, 512);
 }
 
 String InstanceProcessor::getParameterText(int index, int size)
 {
-    return String("");
+    return m_parameters[index].getText(index, size);
 }
 
 String InstanceProcessor::getParameterLabel(int index) const
 {
-    return String("");
+    return m_parameters[index].getLabel();
 }
 
 int InstanceProcessor::getParameterNumSteps(int index)
 {
-    return 1.f;
+    return m_parameters[index].getNumSteps();
 }
 
 bool InstanceProcessor::isParameterAutomatable(int index) const
 {
-    return false;
+    return m_parameters[index].isAutomatable();
 }
 
 bool InstanceProcessor::isParameterOrientationInverted(int index) const
 {
-    return false;
+    return m_parameters[index].isOrientationInverted();
 }
 
 bool InstanceProcessor::isMetaParameter(int index) const
 {
-    return false;
+    return m_parameters[index].isMetaParameter();
 }
 
 void InstanceProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
@@ -101,6 +98,12 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     {
         buffer.clear(i, 0, buffer.getNumSamples());
     }
+    lock();
+    for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); i++)
+    {
+        send(m_parameters[i].getBindingPtr(), m_parameters[i].getValueUnormalized());
+    }
+    unlock();
     performDsp(buffer.getNumSamples(),
                getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
                getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
@@ -113,6 +116,36 @@ AudioProcessorEditor* InstanceProcessor::createEditor()
 
 void InstanceProcessor::parametersChanged()
 {
+    size_t index = 0;
+    if(m_patch.isValid())
+    {
+        std::vector<pd::Slider> sliders(m_patch.getSliders());
+        for(auto const& sld : sliders)
+        {
+            m_parameters[index] = SliderParameter(sld);
+            index++;
+        }
+        for(; index < m_parameters.size(); index++)
+        {
+            m_parameters[index] = SliderParameter();
+        }
+    }
+    else
+    {
+        for(size_t i = 0; i < m_parameters.size(); i++)
+        {
+            m_parameters[i] = SliderParameter();
+        }
+    }
+    
+    for(size_t i = 0; i < m_parameters.size(); i++)
+    {
+        if(m_parameters[i].isValid())
+        {
+            setParameterNotifyingHost(i, m_parameters[i].getValue());
+        }
+    }
+    
     updateHostDisplay();
 }
 
@@ -150,7 +183,7 @@ void InstanceProcessor::addListener(Listener* listener)
 {
     if(listener)
     {
-        std::lock_guard<std::mutex> guard(m_mutex_list);
+        std::lock_guard<std::mutex> guard(m_mutex);
         m_listeners.insert(listener);
     }
 }
@@ -159,14 +192,14 @@ void InstanceProcessor::removeListener(Listener* listener)
 {
     if(listener)
     {
-        std::lock_guard<std::mutex> guard(m_mutex_list);
+        std::lock_guard<std::mutex> guard(m_mutex);
         m_listeners.erase(listener);
     }
 }
 
 std::vector<InstanceProcessor::Listener*> InstanceProcessor::getListeners() const noexcept
 {
-    std::lock_guard<std::mutex> guard(m_mutex_list);
+    std::lock_guard<std::mutex> guard(m_mutex);
     return std::vector<Listener*>(m_listeners.begin(), m_listeners.end());
 }
 
@@ -195,6 +228,8 @@ void InstanceProcessor::setStateInformation (const void* data, int sizeInBytes)
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
+    static CamoLookAndFeel lookAndFeel;
+    LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
     return new InstanceProcessor();
 }
 

@@ -1182,158 +1182,21 @@ void CamoLookAndFeel::drawLabel (Graphics& g, Label& label)
 }
 
 //==============================================================================
-void CamoLookAndFeel::drawLinearSliderBackground (Graphics& g, int x, int y, int width, int height,
-                                                 float /*sliderPos*/,
-                                                 float /*minSliderPos*/,
-                                                 float /*maxSliderPos*/,
-                                                 const Slider::SliderStyle /*style*/, Slider& slider)
-{
-    const float sliderRadius = (float) (getSliderThumbRadius (slider) - 2);
-
-    const Colour trackColour (slider.findColour (Slider::trackColourId));
-    const Colour gradCol1 (trackColour.overlaidWith (Colours::black.withAlpha (slider.isEnabled() ? 0.25f : 0.13f)));
-    const Colour gradCol2 (trackColour.overlaidWith (Colour (0x14000000)));
-    Path indent;
-
-    if (slider.isHorizontal())
-    {
-        const float iy = y + height * 0.5f - sliderRadius * 0.5f;
-        const float ih = sliderRadius;
-
-        g.setGradientFill (ColourGradient (gradCol1, 0.0f, iy,
-                                           gradCol2, 0.0f, iy + ih, false));
-
-        indent.addRoundedRectangle (x - sliderRadius * 0.5f, iy,
-                                    width + sliderRadius, ih,
-                                    5.0f);
-    }
-    else
-    {
-        const float ix = x + width * 0.5f - sliderRadius * 0.5f;
-        const float iw = sliderRadius;
-
-        g.setGradientFill (ColourGradient (gradCol1, ix, 0.0f,
-                                           gradCol2, ix + iw, 0.0f, false));
-
-        indent.addRoundedRectangle (ix, y - sliderRadius * 0.5f,
-                                    iw, height + sliderRadius,
-                                    5.0f);
-    }
-
-    g.fillPath (indent);
-
-    g.setColour (Colour (0x4c000000));
-    g.strokePath (indent, PathStrokeType (0.5f));
-}
-
-void CamoLookAndFeel::drawLinearSliderThumb (Graphics& g, int x, int y, int width, int height,
-                                            float sliderPos, float minSliderPos, float maxSliderPos,
-                                            const Slider::SliderStyle style, Slider& slider)
-{
-    const float sliderRadius = (float) (getSliderThumbRadius (slider) - 2);
-
-    Colour knobColour (LookAndFeelHelpers::createBaseColour (slider.findColour (Slider::thumbColourId),
-                                                             slider.hasKeyboardFocus (false) && slider.isEnabled(),
-                                                             slider.isMouseOverOrDragging() && slider.isEnabled(),
-                                                             slider.isMouseButtonDown() && slider.isEnabled()));
-
-    const float outlineThickness = slider.isEnabled() ? 0.8f : 0.3f;
-
-    if (style == Slider::LinearHorizontal || style == Slider::LinearVertical)
-    {
-        float kx, ky;
-
-        if (style == Slider::LinearVertical)
-        {
-            kx = x + width * 0.5f;
-            ky = sliderPos;
-        }
-        else
-        {
-            kx = sliderPos;
-            ky = y + height * 0.5f;
-        }
-
-        drawGlassSphere (g,
-                         kx - sliderRadius,
-                         ky - sliderRadius,
-                         sliderRadius * 2.0f,
-                         knobColour, outlineThickness);
-    }
-    else
-    {
-        if (style == Slider::ThreeValueVertical)
-        {
-            drawGlassSphere (g, x + width * 0.5f - sliderRadius,
-                             sliderPos - sliderRadius,
-                             sliderRadius * 2.0f,
-                             knobColour, outlineThickness);
-        }
-        else if (style == Slider::ThreeValueHorizontal)
-        {
-            drawGlassSphere (g,sliderPos - sliderRadius,
-                             y + height * 0.5f - sliderRadius,
-                             sliderRadius * 2.0f,
-                             knobColour, outlineThickness);
-        }
-
-        if (style == Slider::TwoValueVertical || style == Slider::ThreeValueVertical)
-        {
-            const float sr = jmin (sliderRadius, width * 0.4f);
-
-            drawGlassPointer (g, jmax (0.0f, x + width * 0.5f - sliderRadius * 2.0f),
-                              minSliderPos - sliderRadius,
-                              sliderRadius * 2.0f, knobColour, outlineThickness, 1);
-
-            drawGlassPointer (g, jmin (x + width - sliderRadius * 2.0f, x + width * 0.5f), maxSliderPos - sr,
-                              sliderRadius * 2.0f, knobColour, outlineThickness, 3);
-        }
-        else if (style == Slider::TwoValueHorizontal || style == Slider::ThreeValueHorizontal)
-        {
-            const float sr = jmin (sliderRadius, height * 0.4f);
-
-            drawGlassPointer (g, minSliderPos - sr,
-                              jmax (0.0f, y + height * 0.5f - sliderRadius * 2.0f),
-                              sliderRadius * 2.0f, knobColour, outlineThickness, 2);
-
-            drawGlassPointer (g, maxSliderPos - sliderRadius,
-                              jmin (y + height - sliderRadius * 2.0f, y + height * 0.5f),
-                              sliderRadius * 2.0f, knobColour, outlineThickness, 4);
-        }
-    }
-}
 
 void CamoLookAndFeel::drawLinearSlider (Graphics& g, int x, int y, int width, int height,
-                                       float sliderPos, float minSliderPos, float maxSliderPos,
+                                       float pos, float min, float max,
                                        const Slider::SliderStyle style, Slider& slider)
 {
-    g.fillAll (slider.findColour (Slider::backgroundColourId));
-
-    if (style == Slider::LinearBar || style == Slider::LinearBarVertical)
+    g.fillAll(slider.findColour(Slider::backgroundColourId));
+    g.setColour(slider.findColour(Slider::thumbColourId));
+    g.drawRect(x, y, width, height, 1);
+    if(style == Slider::LinearHorizontal)
     {
-        const bool isMouseOver = slider.isMouseOverOrDragging() && slider.isEnabled();
-
-        Colour baseColour (LookAndFeelHelpers::createBaseColour (slider.findColour (Slider::thumbColourId)
-                                                                       .withMultipliedSaturation (slider.isEnabled() ? 1.0f : 0.5f),
-                                                                 false, isMouseOver,
-                                                                 isMouseOver || slider.isMouseButtonDown()));
-
-        drawShinyButtonShape (g,
-                              (float) x,
-                              style == Slider::LinearBarVertical ? sliderPos
-                                                                 : (float) y,
-                              style == Slider::LinearBarVertical ? (float) width
-                                                                 : (sliderPos - x),
-                              style == Slider::LinearBarVertical ? (height - sliderPos)
-                                                                 : (float) height, 0.0f,
-                              baseColour,
-                              slider.isEnabled() ? 0.9f : 0.3f,
-                              true, true, true, true);
+        g.drawLine(pos, 0, pos, height, 1.f);
     }
     else
     {
-        drawLinearSliderBackground (g, x, y, width, height, sliderPos, minSliderPos, maxSliderPos, style, slider);
-        drawLinearSliderThumb (g, x, y, width, height, sliderPos, minSliderPos, maxSliderPos, style, slider);
+        g.drawLine(0, pos, width, pos, 1.f);
     }
 }
 
@@ -1342,73 +1205,6 @@ int CamoLookAndFeel::getSliderThumbRadius (Slider& slider)
     return jmin (7,
                  slider.getHeight() / 2,
                  slider.getWidth() / 2) + 2;
-}
-
-void CamoLookAndFeel::drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
-                                       const float rotaryStartAngle, const float rotaryEndAngle, Slider& slider)
-{
-    const float radius = jmin (width / 2, height / 2) - 2.0f;
-    const float centreX = x + width * 0.5f;
-    const float centreY = y + height * 0.5f;
-    const float rx = centreX - radius;
-    const float ry = centreY - radius;
-    const float rw = radius * 2.0f;
-    const float angle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
-    const bool isMouseOver = slider.isMouseOverOrDragging() && slider.isEnabled();
-
-    if (radius > 12.0f)
-    {
-        if (slider.isEnabled())
-            g.setColour (slider.findColour (Slider::rotarySliderFillColourId).withAlpha (isMouseOver ? 1.0f : 0.7f));
-        else
-            g.setColour (Colour (0x80808080));
-
-        const float thickness = 0.7f;
-
-        {
-            Path filledArc;
-            filledArc.addPieSegment (rx, ry, rw, rw, rotaryStartAngle, angle, thickness);
-            g.fillPath (filledArc);
-        }
-
-        {
-            const float innerRadius = radius * 0.2f;
-            Path p;
-            p.addTriangle (-innerRadius, 0.0f,
-                           0.0f, -radius * thickness * 1.1f,
-                           innerRadius, 0.0f);
-
-            p.addEllipse (-innerRadius, -innerRadius, innerRadius * 2.0f, innerRadius * 2.0f);
-
-            g.fillPath (p, AffineTransform::rotation (angle).translated (centreX, centreY));
-        }
-
-        if (slider.isEnabled())
-            g.setColour (slider.findColour (Slider::rotarySliderOutlineColourId));
-        else
-            g.setColour (Colour (0x80808080));
-
-        Path outlineArc;
-        outlineArc.addPieSegment (rx, ry, rw, rw, rotaryStartAngle, rotaryEndAngle, thickness);
-        outlineArc.closeSubPath();
-
-        g.strokePath (outlineArc, PathStrokeType (slider.isEnabled() ? (isMouseOver ? 2.0f : 1.2f) : 0.3f));
-    }
-    else
-    {
-        if (slider.isEnabled())
-            g.setColour (slider.findColour (Slider::rotarySliderFillColourId).withAlpha (isMouseOver ? 1.0f : 0.7f));
-        else
-            g.setColour (Colour (0x80808080));
-
-        Path p;
-        p.addEllipse (-0.4f * rw, -0.4f * rw, rw * 0.8f, rw * 0.8f);
-        PathStrokeType (rw * 0.1f).createStrokedPath (p, p);
-
-        p.addLineSegment (Line<float> (0.0f, 0.0f, 0.0f, -radius), rw * 0.2f);
-
-        g.fillPath (p, AffineTransform::rotation (angle).translated (centreX, centreY));
-    }
 }
 
 Button* CamoLookAndFeel::createSliderButton (Slider&, const bool isIncrement)

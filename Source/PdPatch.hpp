@@ -72,8 +72,11 @@ namespace pd
         //! @brief Gets the Path size.
         std::array<float, 2> getSize() const noexcept;
         
-        //! @brief Gets the patch GUI objects.
-        std::vector<Object> getGuis() const noexcept;
+        //! @brief Gets the Slider objects from the patch.
+        std::vector<Slider> getSliders() const noexcept;
+        
+        //! @brief Gets the Slider objects from the patch.
+        void* getPtr() const noexcept;
         
     private:
         class Internal;

@@ -66,6 +66,12 @@ namespace pd
         
     protected:
         
+        void send(void* s, float val) const noexcept;
+        
+        void lock() noexcept;
+        
+        void unlock();
+        
         //! @brief Prepares the digital signal processing chain of the Instance.
         void prepareDsp(const int nins, const int nouts, const int samplerate, const int nsamples) noexcept;
         

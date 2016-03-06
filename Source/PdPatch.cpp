@@ -142,22 +142,31 @@ namespace pd
         return {0.f, 0.f};
     }
     
-    std::vector<Object> Patch::getGuis() const noexcept
+    std::vector<Slider> Patch::getSliders() const noexcept
     {
-        std::vector<Object> objects;
+        std::vector<Slider> objects;
         if(isValid())
         {
             t_symbol* hsl = gensym("hsl");
-            t_symbol* vsl = gensym("vsl");
+            //t_symbol* vsl = gensym("vsl");
             for(t_gobj *y = m_internal->canvas->gl_list; y; y = y->g_next)
             {
-                if(y->g_pd->c_name == hsl || y->g_pd->c_name ==  vsl)
+                if(y->g_pd->c_name == hsl)// || y->g_pd->c_name ==  vsl)
                 {
-                    objects.push_back(Object(*this, reinterpret_cast<void *>(y)));
+                    objects.push_back(Slider(*this, reinterpret_cast<void *>(y)));
                 }
             }
         }
         return objects;
+    }
+    
+    void* Patch::getPtr() const noexcept
+    {
+        if(isValid())
+        {
+            return m_internal->canvas;
+        }
+        return nullptr;
     }
 }
 

@@ -118,7 +118,7 @@ namespace pd
         pd_typedmess((t_pd *)gensym("pd")->s_thing, gensym("dsp"), 1, &av);
         Pd::unlock();
     }
-    
+
     void Instance::performDsp(int nsamples, const int nins, const float** inputs, const int nouts, float** outputs) noexcept
     {
         Pd::lock();
@@ -141,7 +141,27 @@ namespace pd
     
     void Instance::releaseDsp() noexcept
     {
-        ;
+        
+    }
+    
+    void Instance::send(void* s, float val) const noexcept
+    {
+        t_symbol* sy = reinterpret_cast<t_symbol*>(s);
+        if(sy && sy->s_thing)
+        {
+            pd_float((t_pd *)sy->s_thing, val);
+        }
+    }
+    
+    void Instance::lock() noexcept
+    {
+        Pd::lock();
+        pd_setinstance(m_internal->instance);
+    }
+    
+    void Instance::unlock()
+    {
+        Pd::unlock();
     }
     
     bool Instance::isValid() const noexcept

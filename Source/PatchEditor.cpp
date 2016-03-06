@@ -7,6 +7,68 @@
 #include "InstanceProcessor.h"
 #include "PatchEditor.h"
 
+Font    PatchEditor::font;
+int     PatchEditor::bordersize;
+Colour  PatchEditor::color_bg;
+Colour  PatchEditor::color_bd;
+Colour  PatchEditor::color_txt;
+Colour  PatchEditor::color_invisible;
+
+class PatchEditor::GuiSlider : public Component, public Timer, public SliderListener
+{
+public:
+    GuiSlider(int index, InstanceProcessor& processor, pd::Slider const& slider) :
+    m_index(index), m_processor(processor)
+    {
+        std::array<float, 4> bounds(slider.getBounds());
+        std::array<float, 2> labelpos(slider.getLabelPosition());
+        setBounds(bounds[0] - 20.f, bounds[1] + 2.f, bounds[2] + 20.f, bounds[3] + 20.f);
+        
+        m_slider = new Slider(Slider::LinearHorizontal, Slider::NoTextBox);
+        m_slider->setRange(0.f, 1.f);
+        m_slider->setBounds(20.f, 20.f, bounds[2], bounds[3]);
+        m_slider->setValue(m_processor.getParameter(m_index));
+        m_slider->setColour(Slider::backgroundColourId, PatchEditor::color_invisible);
+        m_slider->setColour(Slider::thumbColourId, PatchEditor::color_txt);
+        addAndMakeVisible(m_slider);
+        m_slider->addListener(this);
+        
+        std::string name = slider.getName();
+        if(!name.empty())
+        {
+            m_label = new Label("label", String(slider.getName()) + " " + slider.getLabel());
+            m_label->setFont(PatchEditor::font);
+            m_label->setJustificationType(Justification::centredLeft);
+            m_label->setColour(Label::backgroundColourId, PatchEditor::color_invisible);
+            m_label->setColour(Label::textColourId, PatchEditor::color_txt);
+            m_label->setBounds(28.f + labelpos[0], 20.f + labelpos[1] * 2, bounds[2], bounds[3]);
+            addAndMakeVisible(m_label);
+        }
+        Timer::startTimer(100);
+    }
+    
+    ~GuiSlider()
+    {
+        Timer::stopTimer();
+    }
+    
+    void timerCallback() final
+    {
+        m_slider->setValue(m_processor.getParameter(m_index), NotificationType::dontSendNotification);
+    }
+    
+    void sliderValueChanged(Slider* slider) final
+    {
+        m_processor.setParameterNotifyingHost(m_index, slider->getValue());
+    }
+private:
+    const int               m_index;
+    InstanceProcessor&      m_processor;
+    ScopedPointer<Slider>   m_slider;
+    ScopedPointer<Label>    m_label;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiSlider)
+};
+
 // ==================================================================================== //
 //                                      IMAGE BUTTON                                    //
 // ==================================================================================== //
@@ -31,22 +93,16 @@ public:
         m_image1.setTransformToFit(Rectangle<float>(0.f, 0.f, 15.f, 15.f), RectanglePlacement::stretchToFit);
         m_image2.setTransformToFit(Rectangle<float>(0.f, 0.f, 15.f, 15.f), RectanglePlacement::stretchToFit);
         m_image3.setTransformToFit(Rectangle<float>(0.f, 0.f, 15.f, 15.f), RectanglePlacement::stretchToFit);
-        m_image1.setOverlayColour(m_editor->m_color_txt);
-        m_image2.setOverlayColour(m_editor->m_color_txt.interpolatedWith(m_editor->m_color_bg, 0.5f));
+        m_image1.setOverlayColour(PatchEditor::color_txt);
+        m_image2.setOverlayColour(PatchEditor::color_txt.interpolatedWith(PatchEditor::color_bg, 0.5f));
         addAndMakeVisible(m_image1, 0);
         addChildComponent(m_image2, 0);
         addAndMakeVisible(m_image3, -1);
         m_image3.setAlwaysOnTop(true);
+        setBounds(3, 3, 15, 15);
     }
-    void paintButton(Graphics& g, bool over, bool down) override {}
     
-    void editorChanged()
-    {
-        const int size = 2 + ceil(m_editor->m_bd_size * 0.5f);
-        setBounds(size, size, 15, 15);
-        m_image1.setOverlayColour(m_editor->m_color_txt);
-        m_image2.setOverlayColour(m_editor->m_color_txt.interpolatedWith(m_editor->m_color_bg, 0.5f));
-    }
+    void paintButton(Graphics& g, bool over, bool down) override {}
     
     void buttonStateChanged() override
     {
@@ -61,6 +117,7 @@ public:
             m_image2.setVisible(false);
         }
     }
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ImgButton)
 };
 
 // ==================================================================================== //
@@ -85,11 +142,11 @@ public:
         m_text.setScrollbarsShown(false);
         m_text.setCaretVisible(false);
         m_text.setPopupMenuEnabled(true);
-        m_text.setColour(juce::TextEditor::backgroundColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
-        m_text.setColour(juce::TextEditor::outlineColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
-        m_text.setColour(juce::TextEditor::shadowColourId,Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
-        m_text.setColour(juce::TextEditor::textColourId, Colours::darkgrey);
-        m_text.setFont(juce::Font(String("Futura"), 16.f, juce::Font::plain));
+        m_text.setColour(juce::TextEditor::backgroundColourId, PatchEditor::color_invisible);
+        m_text.setColour(juce::TextEditor::outlineColourId, PatchEditor::color_invisible);
+        m_text.setColour(juce::TextEditor::shadowColourId,PatchEditor::color_invisible);
+        m_text.setColour(juce::TextEditor::textColourId, PatchEditor::color_txt);
+        m_text.setFont(PatchEditor::font);
         m_text.setText("Camomile is a dynamic plugin that allows to load and control Pure Data patches "
                        "inside a digital audio workstation. Camomile translates the Cream library's user"
                        " graphical interfaces into Juce components for creating a modular plugin editor "
@@ -102,6 +159,7 @@ public:
         m_text.setBounds(0, 0, 300, 370);
         addAndMakeVisible(&m_text, -1);
     }
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(About)
 };
 
 // ==================================================================================== //
@@ -120,11 +178,11 @@ public:
         m_text.setScrollbarsShown(true);
         m_text.setCaretVisible(false);
         m_text.setPopupMenuEnabled (true);
-        m_text.setColour(juce::TextEditor::backgroundColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
-        m_text.setColour(juce::TextEditor::outlineColourId, Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
-        m_text.setColour(juce::TextEditor::shadowColourId,Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
-        m_text.setColour(juce::TextEditor::textColourId, Colours::darkgrey);
-        m_text.setFont(juce::Font(String("Futura"), 16.f, juce::Font::plain));
+        m_text.setColour(juce::TextEditor::backgroundColourId, PatchEditor::color_invisible);
+        m_text.setColour(juce::TextEditor::outlineColourId, PatchEditor::color_invisible);
+        m_text.setColour(juce::TextEditor::shadowColourId,PatchEditor::color_invisible);
+        m_text.setColour(juce::TextEditor::textColourId, PatchEditor::color_txt);
+        m_text.setFont(PatchEditor::font);
         m_text.setText(pd::Pd::getConsole());
         m_text.setBounds(0, 0, 300, 370);
         addAndMakeVisible(&m_text, 1);
@@ -140,6 +198,7 @@ public:
     {
         ;
     }
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Console)
 };
 
 // ==================================================================================== //
@@ -165,6 +224,7 @@ public:
     {
         removeFromDesktop();
     }
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PatchWin)
 };
 
 // ==================================================================================== //
@@ -173,12 +233,15 @@ public:
 
 PatchEditor::PatchEditor(InstanceProcessor& p) :
 AudioProcessorEditor(&p), m_processor(p),
-m_dropping(false), m_window(nullptr),
-m_color_bg(Colours::lightgrey),
-m_color_bd(Colours::darkgrey),
-m_color_txt(Colours::darkgrey),
-m_bd_size(2)
+m_dropping(false), m_window(nullptr)
 {
+    PatchEditor::font       = Font(String("Monaco"), 12.f, juce::Font::plain);
+    PatchEditor::bordersize = 1;
+    PatchEditor::color_bg   = Colours::lightgrey;
+    PatchEditor::color_bd   = Colours::darkgrey;
+    PatchEditor::color_txt  = Colours::darkgrey;
+    PatchEditor::color_invisible = Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f);
+    
     Component::setWantsKeyboardFocus(true);
     m_processor.addListener(this);
     m_button = new ImgButton(this, "CamomileButton", 1);
@@ -196,12 +259,12 @@ PatchEditor::~PatchEditor()
 void PatchEditor::paint(Graphics& g)
 {
     String text;
-    g.fillAll(m_color_bg);
-    g.setColour(m_color_bd);
-    g.drawRect(getBounds().withZeroOrigin(), m_bd_size);
-    g.drawLine(0.f, 20.f + round(m_bd_size * 0.5f), getWidth(), 20.f, m_bd_size);
-    g.setFont(juce::Font(String("Futura"), 16.f, juce::Font::plain));
-    g.setColour(m_color_txt);
+    g.fillAll(PatchEditor::color_bg);
+    g.setColour(PatchEditor::color_bd);
+    g.drawRect(getBounds().withZeroOrigin(), PatchEditor::bordersize);
+    g.drawLine(0.f, 20.f, getWidth(), 20.f, PatchEditor::bordersize);
+    g.setFont(PatchEditor::font);
+    g.setColour(PatchEditor::color_txt);
     const pd::Patch patch = m_processor.getPatch();
     if(patch.isValid())
     {
@@ -228,11 +291,7 @@ void PatchEditor::handleAsyncUpdate()
 
 void PatchEditor::patchChanged()
 {
-    if(m_button)
-    {
-        m_button->editorChanged();
-    }
-    
+    m_sliders.clear();
     const pd::Patch patch = m_processor.getPatch();
     if(patch.isValid())
     {
@@ -240,15 +299,13 @@ void PatchEditor::patchChanged()
         setSize(size[0] > 0.f ? std::max(size[0], 20.f) : 600, size[1] > 0.f ? std::max(size[1], 40.f) : 420);
         m_last_path = patch.getPath() + File::separatorString + patch.getName();
         
-        std::vector<pd::Object> guis(patch.getGuis());
-        for(auto const& gui : guis)
+        
+        std::vector<pd::Slider> sliders(patch.getSliders());
+        for(size_t i = 0; i < sliders.size(); i++)
         {
-            ;
+            m_sliders.add(new GuiSlider(i, m_processor, sliders[i]));
+            addAndMakeVisible(m_sliders[i]);
         }
-    }
-    else
-    {
-        ;
     }
     AsyncUpdater::triggerAsyncUpdate();
 }

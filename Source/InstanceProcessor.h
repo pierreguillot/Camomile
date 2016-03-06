@@ -10,15 +10,110 @@
 #include "Pd.hpp"
 #include "../JuceLibraryCode/JuceHeader.h"
 
+class SliderParameter : public AudioProcessorParameter
+{
+public:
+    SliderParameter()
+    : m_valid(false), m_value (0.f), m_min(0.f), m_max(0.f),
+    m_name (""), m_label(""), m_ptr(nullptr) {}
+    
+    SliderParameter(SliderParameter const& other)
+    : m_valid(other.m_valid), m_value (other.m_value),
+    m_min(other.m_min), m_max(other.m_max),
+    m_name (other.m_name), m_label(other.m_label),
+    m_ptr(other.m_ptr) {}
+    
+    SliderParameter(pd::Slider const& slider)
+    :
+    m_valid(true), m_value (0.f),
+    m_min(slider.getMinimum()),
+    m_max(slider.getMaximum()),
+    m_name(slider.getName()),
+    m_label(slider.getLabel()),
+    m_ptr(slider.getBindingPtr())
+    {setValueUnormalized(slider.getValue());}
+    
+    ~SliderParameter() {}
+    
+    SliderParameter& operator=(SliderParameter const& other)
+    {
+        m_valid = other.m_valid;
+        m_value = other.m_value;
+        m_min   = other.m_min;
+        m_max   = other.m_max;
+        m_name  = other.m_name;
+        m_label = other.m_label;
+        m_ptr   = other.m_ptr;
+        return *this;
+    }
+    
+    SliderParameter& operator=(SliderParameter&& other)
+    {
+        m_valid = other.m_valid;
+        m_value = other.m_value;
+        m_min   = other.m_min;
+        m_max   = other.m_max;
+        std::swap(m_name, other.m_name);
+        std::swap(m_label, other.m_label);
+        m_ptr   = other.m_ptr;
+        return *this;
+    }
+    
+    bool isValid() const noexcept {return m_valid;}
+    
+    float getValue() const final {return m_value;}
+    
+    float getValueUnormalized() const
+    {
+        if(m_min < m_max)
+        {
+            return m_value * (m_max - m_min) + m_min;
+        }
+        return m_value * (m_min - m_max) + m_max;
+    }
+    
+    void setValue (float newValue) final {m_value = newValue;}
+    
+    void setValueUnormalized (float newValue)
+    {
+        if(m_min < m_max)
+        {
+            m_value = (newValue - m_min) / (m_max - m_min);
+        }
+        else
+        {
+            m_value = (newValue - m_max) / (m_min - m_max);
+        }
+    }
+    
+    float getDefaultValue() const final {return 0.f;}
+    
+    String getName(int maximumStringLength) const final {return m_name;}
+    
+    String getLabel() const final {return m_label;}
+    
+    String getText (float value, int size) const final {return String(getValueUnormalized());}
+    
+    float getValueForText (const String& text) const final {return text.getFloatValue();}
+    
+    bool isOrientationInverted() const final {return m_max < m_min;}
+
+    inline void* getBindingPtr() const noexcept {return m_ptr;}
+
+private:
+    bool   m_valid;
+    float  m_value;
+    float  m_min;
+    float  m_max;
+    String m_name;
+    String m_label;
+    void*  m_ptr;
+};
+
 class InstanceProcessor : public AudioProcessor, public pd::Instance
 {
 public:
     class Listener;
-private:
-    pd::Patch           m_patch;
-    std::set<Listener*> m_listeners;
-    mutable std::mutex  m_mutex_list;
-public:
     InstanceProcessor();
     ~InstanceProcessor();
 
@@ -78,6 +173,11 @@ public:
     };
 
 private:
+    pd::Patch                       m_patch;
+    std::set<Listener*>             m_listeners;
+    std::vector<SliderParameter>    m_parameters;
+    mutable std::mutex              m_mutex;
+    
     void parametersChanged();
     std::vector<Listener*> getListeners() const noexcept;
     

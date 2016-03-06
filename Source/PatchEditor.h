@@ -10,6 +10,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "InstanceProcessor.h"
 
+
 // ==================================================================================== //
 //                                  CAMOMILE INTERFACE                                  //
 // ==================================================================================== //
@@ -20,22 +21,6 @@ public AudioProcessorEditor,
 public InstanceProcessor::Listener,
 public Button::Listener
 {
-private:
-    class ImgButton;
-    class PatchWin;
-    class About;
-    class Console;
-    
-    InstanceProcessor&              m_processor;
-    bool                            m_dropping;
-    Toolbar                         m_menu;
-    ScopedPointer<ImgButton>        m_button;
-    ScopedPointer<DocumentWindow>   m_window;
-    Colour                          m_color_bg;
-    Colour                          m_color_bd;
-    Colour                          m_color_txt;
-    int                             m_bd_size;
-    String                          m_last_path;
 public:
     PatchEditor(InstanceProcessor&);
     ~PatchEditor();
@@ -43,7 +28,28 @@ public:
     void paint(Graphics&) override;
     void buttonClicked(Button* button) override;
     void patchChanged() override;
+    
 private:
+    class ImgButton;
+    class PatchWin;
+    class About;
+    class Console;
+    class GuiSlider;
+    
+    InstanceProcessor&                      m_processor;
+    bool                                    m_dropping;
+    Toolbar                                 m_menu;
+    ScopedPointer<ImgButton>                m_button;
+    ScopedPointer<DocumentWindow>           m_window;
+    String                                  m_last_path;
+    OwnedArray<GuiSlider>                   m_sliders;
+    
+    static  Font    font;
+    static  int     bordersize;
+    static  Colour  color_bg;
+    static  Colour  color_bd;
+    static  Colour  color_txt;
+    static  Colour  color_invisible;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PatchEditor)
 };
 
