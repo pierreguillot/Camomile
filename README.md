@@ -9,7 +9,7 @@ Features :
  - Up to 8 channels
  - Up to 32 parameters
 
-![](https://cloud.githubusercontent.com/assets/1409918/13555845/66eab134-e3cb-11e5-95fc-fbeb614cc0c7.png)
+![](https://cloud.githubusercontent.com/assets/1409918/13555996/c8851a84-e3cf-11e5-854f-77e31ad9279c.png)
 
 > The Camomile plugin is only available for Mac.  
 > The Windows version should come soon.  
@@ -33,7 +33,7 @@ How to create a patch for the Camomile plugin:
 
 > You should always ensure that the send and receive symbols are specifics to the patch instance by using *$0*.
 
-![](https://cloud.githubusercontent.com/assets/1409918/13555980/3a274eec-e3cf-11e5-910d-d7b05922070c.png)
+![](https://cloud.githubusercontent.com/assets/1409918/13555997/c8862ee2-e3cf-11e5-825a-0a169668791a.png)
 
 Author : Pierre Guillot  
 Organizations : CICM | Université Paris 8 | Labex Arts H2H  
