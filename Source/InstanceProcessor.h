@@ -37,7 +37,9 @@ public:
     bool isParameterAutomatable(int index) const override;
     bool isParameterOrientationInverted (int index) const override;
     bool isMetaParameter(int index) const override;
-     
+    float getParameterNonNormalized(int index) const;
+    void setParameterNonNormalized(int index, float newValue);
+    
     const String getInputChannelName(int index) const override {return String(index + 1);}
     const String getOutputChannelName(int index) const override {return String(index + 1);}
     bool isInputChannelStereoPair(int index) const override {return true;}

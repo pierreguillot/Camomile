@@ -67,7 +67,7 @@ public:
             lbl->setColour(Label::outlineWhenEditingColourId, PatchEditor::getColorTxt());
             
             lbl->setBorderSize(BorderSize<int>(1));
-            lbl->setText(String(m_processor.getParameter(m_index)), NotificationType::dontSendNotification);
+            lbl->setText(String(m_processor.getParameterNonNormalized(m_index)), NotificationType::dontSendNotification);
             lbl->setEditable(true);
             addAndMakeVisible(lbl);
             lbl->addListener(this);
@@ -114,7 +114,7 @@ public:
             }
             else if(m_number && !m_number->isBeingEdited())
             {
-                m_number->setText(String(m_processor.getParameter(m_index)), NotificationType::dontSendNotification);
+                m_number->setText(String(m_processor.getParameterNonNormalized(m_index)), NotificationType::dontSendNotification);
             }
         }
     }
@@ -132,8 +132,9 @@ public:
         double value = label->getText().getDoubleValue();
         if(m_index >= 0)
         {
-            m_processor.setParameterNotifyingHost(m_index, value);
-            m_number->setText(String(m_processor.getParameter(m_index)), NotificationType::dontSendNotification);
+            m_processor.setParameterNonNormalized(m_index, value);
+            m_processor.setParameterNotifyingHost(m_index, m_processor.getParameter(m_index));
+            m_number->setText(String(m_processor.getParameterNonNormalized(m_index)), NotificationType::dontSendNotification);
         }
         else
         {
@@ -379,7 +380,7 @@ void PatchEditor::patchChanged()
     if(patch.isValid())
     {
         std::array<float, 2> size(patch.getSize());
-        setSize(size[0] > 0.f ? std::max(size[0], 20.f) : 600, size[1] > 0.f ? std::max(size[1], 20.f) + 20.f : 420);
+        setSize(size[0] > 0.f ? std::max(size[0], 120.f) : 600, size[1] > 0.f ? std::max(size[1], 20.f) + 20.f : 420);
         m_last_path = patch.getPath() + File::separatorString + patch.getName();
         
         

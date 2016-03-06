@@ -37,6 +37,16 @@ float InstanceProcessor::getParameter(int index)
     return m_parameters[index].getValue();
 }
 
+float InstanceProcessor:: getParameterNonNormalized(int index) const
+{
+    return m_parameters[index].getValueNonNormalized();
+}
+
+void InstanceProcessor::setParameterNonNormalized(int index, float newValue)
+{
+    m_parameters[index].setValueNonNormalized(newValue);
+}
+
 void InstanceProcessor::setParameter(int index, float newValue)
 {
     m_parameters[index].setValue(newValue);
