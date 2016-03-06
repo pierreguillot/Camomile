@@ -2,8 +2,8 @@
 
 Camomile is a dynamic plugin made with [Juce](http://www.juce.com) that allows to load and control [Pure Data](http://msp.ucsd.edu/software.html) patches inside a digital audio workstation.
 
-Features :
- - Multiple plugin instances
+Feature :
+ - Support for Multiple plugin instances
  - Automatic creation of GUIs (toggle, slider and numbox)
  - Automatic recognition of parameters (name, label, range, etc.)
  - Up to 8 channels
