@@ -34,7 +34,7 @@ private:
     class PatchWin;
     class About;
     class Console;
-    class GuiSlider;
+    class GuiParameter;
     
     InstanceProcessor&                      m_processor;
     bool                                    m_dropping;
@@ -42,7 +42,7 @@ private:
     ScopedPointer<ImgButton>                m_button;
     ScopedPointer<DocumentWindow>           m_window;
     String                                  m_last_path;
-    OwnedArray<GuiSlider>                   m_sliders;
+    OwnedArray<GuiParameter>                m_parameters;
     
     static  Font    font;
     static  int     bordersize;

@@ -1,10 +1,10 @@
-#N canvas 580 146 832 581 10;
+#N canvas 734 94 832 581 10;
 #X obj 93 335 dac~, f 9;
 #X obj 94 272 osc~ 220;
-#X obj 22 26 hsl 128 15 0 5000 0 0 empty \$0-frequency Frequency_Hz
--2 -8 0 10 -262144 -1 -1 559 1;
-#X obj 22 76 hsl 128 15 0 100 0 0 empty \$0-amplitude Amplitude_dB
--2 -8 0 10 -262144 -1 -1 11430 1;
+#X obj 15 22 hsl 128 15 0 5000 0 0 empty \$0-frequency Frequency_Hz
+-4 -8 0 10 -262144 -1 -1 559 1;
+#X obj 15 72 hsl 128 15 0 100 0 0 empty \$0-amplitude Amplitude_dB
+-4 -8 0 10 -262144 -1 -1 11430 1;
 #X obj 187 225 dbtorms;
 #X msg 187 247 \$1 20;
 #X obj 187 269 line~;
@@ -12,10 +12,6 @@
 #X obj 278 64 loadbang;
 #X msg 278 86 220;
 #X msg 319 87 90;
-#X obj 20 130 tgl 15 0 empty \$0-toggle empty 17 7 0 10 -262144 -1
--1 0 1;
-#X obj 158 76 nbx 5 14 -1e+37 1e+37 0 0 empty \$0-number empty 0 -8
-0 10 -262144 -1 -1 0 256;
 #X connect 1 0 7 0;
 #X connect 2 0 1 0;
 #X connect 3 0 4 0;
@@ -28,4 +24,4 @@
 #X connect 8 0 10 0;
 #X connect 9 0 2 0;
 #X connect 10 0 3 0;
-#X coords 0 -1 1 1 200 150 2 10 10;
+#X coords 0 -1 1 1 200 150 2 5 5;

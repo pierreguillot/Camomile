@@ -14,40 +14,70 @@ Colour  PatchEditor::color_bd;
 Colour  PatchEditor::color_txt;
 Colour  PatchEditor::color_invisible;
 
-class PatchEditor::GuiSlider : public Component, public Timer, public SliderListener
+class PatchEditor::GuiParameter : public Component, public Timer, public SliderListener
 {
 public:
-    GuiSlider(int index, InstanceProcessor& processor, pd::Gui const& slider) :
+    GuiParameter(int index, InstanceProcessor& processor, pd::Gui const& gui) :
     m_index(index), m_processor(processor)
     {
-        std::array<float, 4> bounds(slider.getBounds());
-        std::array<float, 2> labelpos(slider.getLabelPosition());
-        setBounds(bounds[0] - 20.f, bounds[1] + 2.f, bounds[2] + 20.f, bounds[3] + 20.f);
+        std::array<float, 4> bounds(gui.getBounds());
+        std::array<float, 2> labelpos(gui.getLabelPosition());
         
-        m_slider = new Slider(Slider::LinearHorizontal, Slider::NoTextBox);
-        m_slider->setRange(0.f, 1.f);
-        m_slider->setBounds(20.f, 20.f, bounds[2], bounds[3]);
-        m_slider->setValue(m_processor.getParameter(m_index));
-        m_slider->setColour(Slider::backgroundColourId, PatchEditor::color_invisible);
-        m_slider->setColour(Slider::thumbColourId, PatchEditor::color_txt);
-        addAndMakeVisible(m_slider);
-        m_slider->addListener(this);
+        if(gui.getType() == pd::Gui::Type::HorizontalSlider)
+        {
+            Slider* sld = new Slider(Slider::LinearHorizontal, Slider::NoTextBox);
+            sld->setRange(0.f, 1.f);
+            sld->setBounds(int(bounds[0]), int(bounds[1]), int(bounds[2]), int(bounds[3]));
+            sld->setValue(m_processor.getParameter(m_index));
+            sld->setColour(Slider::backgroundColourId, PatchEditor::color_invisible);
+            sld->setColour(Slider::thumbColourId, PatchEditor::color_txt);
+            addAndMakeVisible(sld);
+            sld->addListener(this);
+            m_slider = sld;
+        }
+        else if(gui.getType() == pd::Gui::Type::VecticalSlider)
+        {
+            Slider* sld = new Slider(Slider::LinearVertical, Slider::NoTextBox);
+            sld->setRange(0.f, 1.f);
+            sld->setBounds(int(bounds[0]), int(bounds[1]), int(bounds[2]), int(bounds[3]));
+            sld->setValue(m_processor.getParameter(m_index));
+            sld->setColour(Slider::backgroundColourId, PatchEditor::color_invisible);
+            sld->setColour(Slider::thumbColourId, PatchEditor::color_txt);
+            addAndMakeVisible(sld);
+            sld->addListener(this);
+            m_slider = sld;
+        }
+        else if(gui.getType() == pd::Gui::Type::Toggle)
+        {
+            ;
+        }
+        else if(gui.getType() == pd::Gui::Type::Number)
+        {
+            ;
+        }
+       
         
-        std::string name = slider.getName();
+        std::string name = gui.getName();
         if(!name.empty())
         {
-            m_label = new Label("label", String(slider.getName()) + " " + slider.getLabel());
+            m_label = new Label("label", String(gui.getName()) + " " + gui.getLabel());
             m_label->setFont(PatchEditor::font);
-            m_label->setJustificationType(Justification::centredLeft);
+            m_label->setJustificationType(Justification::topLeft);
             m_label->setColour(Label::backgroundColourId, PatchEditor::color_invisible);
             m_label->setColour(Label::textColourId, PatchEditor::color_txt);
-            m_label->setBounds(28.f + labelpos[0], 20.f + labelpos[1] * 2, bounds[2], bounds[3]);
+            m_label->setBorderSize(BorderSize<int>());
+            m_label->setBounds(labelpos[0],
+                               labelpos[1] - PatchEditor::font.getHeight() * 0.5,
+                               1000,
+                               200);
+            m_label->setInterceptsMouseClicks(false, false);
             addAndMakeVisible(m_label);
         }
+        setInterceptsMouseClicks(false, true);
         Timer::startTimer(100);
     }
     
-    ~GuiSlider()
+    ~GuiParameter()
     {
         Timer::stopTimer();
     }
@@ -66,7 +96,7 @@ private:
     InstanceProcessor&      m_processor;
     ScopedPointer<Slider>   m_slider;
     ScopedPointer<Label>    m_label;
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiSlider)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiParameter)
 };
 
 // ==================================================================================== //
@@ -235,7 +265,7 @@ PatchEditor::PatchEditor(InstanceProcessor& p) :
 AudioProcessorEditor(&p), m_processor(p),
 m_dropping(false), m_window(nullptr)
 {
-    PatchEditor::font       = Font(String("Monaco"), 12.f, juce::Font::plain);
+    PatchEditor::font       = Font(String("Monaco"), 13.f, juce::Font::plain);
     PatchEditor::bordersize = 1;
     PatchEditor::color_bg   = Colours::lightgrey;
     PatchEditor::color_bd   = Colours::darkgrey;
@@ -291,20 +321,21 @@ void PatchEditor::handleAsyncUpdate()
 
 void PatchEditor::patchChanged()
 {
-    m_sliders.clear();
+    m_parameters.clear();
     const pd::Patch patch = m_processor.getPatch();
     if(patch.isValid())
     {
         std::array<float, 2> size(patch.getSize());
-        setSize(size[0] > 0.f ? std::max(size[0], 20.f) : 600, size[1] > 0.f ? std::max(size[1], 40.f) : 420);
+        setSize(size[0] > 0.f ? std::max(size[0], 20.f) : 600, size[1] > 0.f ? std::max(size[1], 20.f) + 20.f : 420);
         m_last_path = patch.getPath() + File::separatorString + patch.getName();
         
         
         std::vector<pd::Gui> guis(patch.getGuis());
         for(size_t i = 0; i < guis.size(); i++)
         {
-            m_sliders.add(new GuiSlider(i, m_processor, guis[i]));
-            addAndMakeVisible(m_sliders[i]);
+            m_parameters.add(new GuiParameter(i, m_processor, guis[i]));
+            m_parameters[i]->setBounds(getBounds().reduced(0, 10).withPosition(0, 20));
+            addAndMakeVisible(m_parameters[i]);
         }
     }
     AsyncUpdater::triggerAsyncUpdate();

@@ -81,6 +81,11 @@ namespace pd
         return m_type;
     }
     
+    bool Gui::isParameter() const noexcept
+    {
+        return isValid() && !getName().empty() && getBindingName() != nullptr;
+    }
+    
     std::string Gui::getName() const
     {
         if(isValid())
@@ -89,12 +94,15 @@ namespace pd
             if(s)
             {
                 std::string name(s->s_name);
-                auto pos = name.find("_");
-                if(pos != std::string::npos)
+                if(!name.empty() && name != "empty")
                 {
-                    name.erase(name.begin()+pos, name.end());
+                    auto pos = name.find("_");
+                    if(pos != std::string::npos)
+                    {
+                        name.erase(name.begin()+pos, name.end());
+                    }
+                    return name;
                 }
-                return name;
             }
         }
         return std::string();
@@ -106,24 +114,53 @@ namespace pd
         if(s)
         {
             std::string name(s->s_name);
-            auto pos = name.find("_");
-            if(pos != std::string::npos)
+            if(!name.empty() && name != "empty")
             {
-                name.erase(name.begin(), name.begin()+pos+1);
+                auto pos = name.find("_");
+                if(pos != std::string::npos)
+                {
+                    name.erase(name.begin(), name.begin()+pos+1);
+                    return name;
+                }
             }
-            return name;
         }
         return std::string();
     }
     
-    void* Gui::getBindingPtr() const
+    BindingName Gui::getBindingName() const
     {
-        int to_wrap;
         if(isValid())
         {
-            return reinterpret_cast<t_iemgui *>(m_ptr)->x_rcv;
+            if(reinterpret_cast<t_iemgui *>(m_ptr)->x_rcv != gensym("empty"))
+            {
+                return BindingName(reinterpret_cast<t_iemgui *>(m_ptr)->x_rcv);
+            }
         }
-        return nullptr;
+        return BindingName(nullptr);
+    }
+    
+    size_t Gui::getNumberOfSteps() const noexcept
+    {
+        if(isValid())
+        {
+            if(m_type == Type::HorizontalSlider)
+            {
+                return 0;
+            }
+            else if(m_type == Type::VecticalSlider)
+            {
+                return 0;
+            }
+            else if(m_type == Type::Number)
+            {
+                return 0;
+            }
+            else if(m_type == Type::Toggle)
+            {
+                return 2;
+            }
+        }
+        return 0.f;
     }
     
     float Gui::getMinimum() const noexcept
@@ -137,6 +174,14 @@ namespace pd
             else if(m_type == Type::VecticalSlider)
             {
                 return reinterpret_cast<t_vslider *>(m_ptr)->x_min;
+            }
+            else if(m_type == Type::Number)
+            {
+                return reinterpret_cast<t_my_numbox *>(m_ptr)->x_min;
+            }
+            else if(m_type == Type::Toggle)
+            {
+                return 0;
             }
         }
         return 0.f;
@@ -154,6 +199,14 @@ namespace pd
             {
                 return reinterpret_cast<t_vslider *>(m_ptr)->x_max;
             }
+            else if(m_type == Type::Number)
+            {
+                return reinterpret_cast<t_my_numbox *>(m_ptr)->x_max;
+            }
+            else if(m_type == Type::Toggle)
+            {
+                return 1;
+            }
         }
         return 1.f;
     }
@@ -170,21 +223,23 @@ namespace pd
             {
                 return reinterpret_cast<t_vslider *>(m_ptr)->x_fval;
             }
+            else if(m_type == Type::Number)
+            {
+                return reinterpret_cast<t_my_numbox *>(m_ptr)->x_val;
+            }
+            else if(m_type == Type::Toggle)
+            {
+                return reinterpret_cast<t_toggle *>(m_ptr)->x_on;
+            }
         }
         return 0.f;
     }
     
     std::array<float, 4> Gui::getBounds() const noexcept
     {
-        int to_clean;
         if(isValid())
         {
-            t_object* obj = reinterpret_cast<t_object *>(m_ptr);
-            int x1, x2, y1, y2;
-            obj->te_g.g_pd->c_wb->w_getrectfn(reinterpret_cast<t_gobj *>(m_ptr),
-                                              reinterpret_cast<struct _glist *>(m_patch.getRawPtr()),
-                                              &x1, &y1, &x2, &y2);
-            return {float(x1), float(y1), float(x2 - x1), float(y2 - y1)};
+            return m_patch.getGuiBounds(*this);
         }
         return {0.f, 0.f, 0.f, 0.f};
     }
@@ -193,7 +248,7 @@ namespace pd
     {
         if(isValid())
         {
-            return {float(reinterpret_cast<t_iemgui *>(m_ptr)->x_ldx), float(reinterpret_cast<t_iemgui *>(m_ptr)->x_ldy)};
+            return m_patch.getGuiLabelPosition(*this);
         }
         return {0.f, 0.f};
     }

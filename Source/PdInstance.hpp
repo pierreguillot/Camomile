@@ -7,12 +7,36 @@
 #ifndef __CAMOMILE_PD_INSTANCE__
 #define __CAMOMILE_PD_INSTANCE__
 
-#include "PdMisc.hpp"
+#include <string>
+#include <array>
+#include <vector>
+#include <set>
+#include <map>
+#include <mutex>
+#include <tuple>
+#include <iostream>
+#include <memory>
+#include <cassert>
 
 namespace pd
 {
+    class Instance;
     class Patch;
     class Pd;
+    
+    class BindingName
+    {
+    public:
+        BindingName(void *_ptr) : ptr(_ptr) {}
+        BindingName(BindingName const& other) : ptr(other.ptr) {}
+        BindingName& operator=(BindingName const& other) {ptr = other.ptr; return *this;}
+        bool operator!=(void* _ptr) {return _ptr != ptr;}
+        bool operator==(void* _ptr) {return _ptr == ptr;}
+    private:
+        void* ptr;
+        friend class Instance;
+    };
+    
     // ==================================================================================== //
     //                                          INSTANCE                                    //
     // ==================================================================================== //
@@ -62,7 +86,7 @@ namespace pd
         void lock() noexcept;
         
         //! @brief Unlocks Instance.
-        void unlock();
+        void unlock() noexcept;
         
         //! @brief Prepares the digital signal processing chain of the Instance.
         //! @details You should locks the Instance to ensure thread safety.
@@ -78,7 +102,7 @@ namespace pd
         
         //! @brief Sends a float to Pure Data.
         //! @details You should locks the Instance to ensure thread safety.
-        void send(void* s, float val) const noexcept;
+        void send(BindingName const& name, float val) const noexcept;
         
         //! @brief Creates a Patch.
         Patch createPatch(std::string const& name, std::string const& path);

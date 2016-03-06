@@ -120,9 +120,9 @@ namespace pd
         
     }
     
-    void Instance::send(void* s, float val) const noexcept
+    void Instance::send(BindingName const& name, float val) const noexcept
     {
-        t_symbol* sy = reinterpret_cast<t_symbol*>(s);
+        t_symbol* sy = reinterpret_cast<t_symbol*>(name.ptr);
         if(sy && sy->s_thing)
         {
             pd_float((t_pd *)sy->s_thing, val);
@@ -135,7 +135,7 @@ namespace pd
         pd_setinstance(reinterpret_cast<t_pdinstance *>(m_ptr));
     }
     
-    void Instance::unlock()
+    void Instance::unlock() noexcept
     {
         Pd::unlock();
     }

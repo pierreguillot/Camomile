@@ -29,7 +29,9 @@ namespace pd
         {
             Invalid          = 0,
             HorizontalSlider = 1,
-            VecticalSlider   = 2
+            VecticalSlider   = 2,
+            Toggle           = 3,
+            Number           = 4
         };
         
         //! @brief The constructor for an empty Object.
@@ -70,13 +72,17 @@ namespace pd
         
         std::string getLabel() const;
         
-        void* getBindingPtr() const;
+        BindingName getBindingName() const;
+        
+        bool isParameter() const noexcept;
         
         float getMinimum() const noexcept;
         
         float getMaximum() const noexcept;
         
         float getValue() const noexcept;
+        
+        size_t getNumberOfSteps() const noexcept;
         
         std::array<float, 4> getBounds() const noexcept;
         

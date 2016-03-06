@@ -12,6 +12,7 @@ extern "C"
 #include "../ThirdParty/PureData/src/g_canvas.h"
 #include "../ThirdParty/PureData/src/s_stuff.h"
 #include "../ThirdParty/PureData/src/m_imp.h"
+#include "../ThirdParty/PureData/src/g_all_guis.h"
 }
 
 namespace pd
@@ -131,6 +132,8 @@ namespace pd
             t_canvas* cnv = reinterpret_cast<t_canvas*>(m_ptr);
             t_symbol* hsl = gensym("hsl");
             t_symbol* vsl = gensym("vsl");
+            t_symbol* tgl = gensym("tgl");
+            t_symbol* nbx = gensym("nbx");
             for(t_gobj *y = cnv->gl_list; y; y = y->g_next)
             {
                 if(y->g_pd->c_name == hsl)
@@ -141,18 +144,44 @@ namespace pd
                 {
                     objects.push_back(Gui(*this, Gui::Type::VecticalSlider, reinterpret_cast<void *>(y)));
                 }
+                else if(y->g_pd->c_name == tgl)
+                {
+                    objects.push_back(Gui(*this, Gui::Type::Toggle, reinterpret_cast<void *>(y)));
+                }
+                else if(y->g_pd->c_name == nbx)
+                {
+                    objects.push_back(Gui(*this, Gui::Type::Number, reinterpret_cast<void *>(y)));
+                }
             }
         }
         return objects;
     }
     
-    void* Patch::getRawPtr() const noexcept
+    std::array<float, 4> Patch::getGuiBounds(Gui const& gui) const noexcept
     {
         if(isValid())
         {
-            return m_ptr;
+            t_canvas* cnv = reinterpret_cast<t_canvas*>(m_ptr);
+            t_object* obj = reinterpret_cast<t_object *>(gui.m_ptr);
+            int x1, x2, y1, y2;
+            obj->te_g.g_pd->c_wb->w_getrectfn(reinterpret_cast<t_gobj *>(gui.m_ptr),
+                                              reinterpret_cast<struct _glist *>(m_ptr),
+                                              &x1, &y1, &x2, &y2);
+            return {float(x1) - cnv->gl_xmargin, float(y1) - cnv->gl_ymargin, float(x2 - x1), float(y2 - y1)};
         }
-        return nullptr;
+        return {0.f, 0.f, 0.f, 0.f};
+    }
+    
+    std::array<float, 2> Patch::getGuiLabelPosition(Gui const& gui) const noexcept
+    {
+        if(isValid())
+        {
+            t_canvas* cnv = reinterpret_cast<t_canvas*>(m_ptr);
+            t_text* obj = reinterpret_cast<t_text *>(gui.m_ptr);
+            t_iemgui* gi = reinterpret_cast<t_iemgui *>(gui.m_ptr);
+            return {float(obj->te_xpix) - cnv->gl_xmargin + gi->x_ldx, float(obj->te_ypix) - cnv->gl_ymargin +  + gi->x_ldy};
+        }
+        return {0.f, 0.f};
     }
 }
 

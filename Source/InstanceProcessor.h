@@ -10,32 +10,32 @@
 #include "Pd.hpp"
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class SliderParameter : public AudioProcessorParameter
+class InstanceParameter : public AudioProcessorParameter
 {
 public:
-    SliderParameter()
+    InstanceParameter()
     : m_valid(false), m_value (0.f), m_min(0.f), m_max(0.f),
-    m_name (""), m_label(""), m_ptr(nullptr) {}
+    m_name (""), m_label(""), m_bname(nullptr), m_nsteps(0) {}
     
-    SliderParameter(SliderParameter const& other)
+    InstanceParameter(InstanceParameter const& other)
     : m_valid(other.m_valid), m_value (other.m_value),
     m_min(other.m_min), m_max(other.m_max),
     m_name (other.m_name), m_label(other.m_label),
-    m_ptr(other.m_ptr) {}
+    m_bname(other.m_bname), m_nsteps(other.m_nsteps) {}
     
-    SliderParameter(pd::Gui const& slider)
-    :
-    m_valid(true), m_value (0.f),
-    m_min(slider.getMinimum()),
-    m_max(slider.getMaximum()),
-    m_name(slider.getName()),
-    m_label(slider.getLabel()),
-    m_ptr(slider.getBindingPtr())
-    {setValueNonNormalized(slider.getValue());}
+    InstanceParameter(pd::Gui const& gui)
+    : m_valid(true), m_value (0.f),
+    m_min(gui.getMinimum()),
+    m_max(gui.getMaximum()),
+    m_name(gui.getName()),
+    m_label(gui.getLabel()),
+    m_bname(gui.getBindingName()),
+    m_nsteps(gui.getNumberOfSteps())
+    {setValueNonNormalized(gui.getValue());}
     
-    ~SliderParameter() {}
+    ~InstanceParameter() {}
     
-    SliderParameter& operator=(SliderParameter const& other)
+    InstanceParameter& operator=(InstanceParameter const& other)
     {
         m_valid = other.m_valid;
         m_value = other.m_value;
@@ -43,11 +43,12 @@ public:
         m_max   = other.m_max;
         m_name  = other.m_name;
         m_label = other.m_label;
-        m_ptr   = other.m_ptr;
+        m_bname = other.m_bname;
+        m_nsteps= other.m_nsteps;
         return *this;
     }
     
-    SliderParameter& operator=(SliderParameter&& other)
+    InstanceParameter& operator=(InstanceParameter&& other)
     {
         m_valid = other.m_valid;
         m_value = other.m_value;
@@ -55,7 +56,8 @@ public:
         m_max   = other.m_max;
         std::swap(m_name, other.m_name);
         std::swap(m_label, other.m_label);
-        m_ptr   = other.m_ptr;
+        m_bname = other.m_bname;
+        m_nsteps= other.m_nsteps;
         return *this;
     }
     
@@ -97,8 +99,10 @@ public:
     float getValueForText (const String& text) const final {return text.getFloatValue();}
     
     bool isOrientationInverted() const final {return m_max < m_min;}
+    
+    int getNumSteps() const final {return m_nsteps != 0 ? m_nsteps : AudioProcessor::getDefaultNumParameterSteps();}
 
-    inline void* getBindingPtr() const noexcept {return m_ptr;}
+    inline pd::BindingName const& getBindingName() const noexcept {return m_bname;}
 
 private:
     bool   m_valid;
@@ -107,7 +111,8 @@ private:
     float  m_max;
     String m_name;
     String m_label;
-    void*  m_ptr;
+    pd::BindingName m_bname;
+    int    m_nsteps;
 };
 
 class InstanceProcessor : public AudioProcessor, public pd::Instance
@@ -175,7 +180,7 @@ public:
 private:
     pd::Patch                    m_patch;
     std::set<Listener*>          m_listeners;
-    std::vector<SliderParameter> m_parameters;
+    std::vector<InstanceParameter> m_parameters;
     mutable std::mutex           m_mutex;
     
     void parametersChanged();

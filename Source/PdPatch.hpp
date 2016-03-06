@@ -75,8 +75,11 @@ namespace pd
         //! @details Creates a new valid Patch.
         Patch(Instance& instance, void* ptr, std::string const& name, std::string const& path) noexcept;
         
-        //! @brief Retrieves the raw pointer of the canvas.
-        void* getRawPtr() const noexcept;
+        //! @brief Gets the relative bounds of a GUI.
+        std::array<float, 4> getGuiBounds(Gui const& gui) const noexcept;
+        
+        //! @brief Gets the relative bounds of a GUI.
+        std::array<float, 2> getGuiLabelPosition(Gui const& gui) const noexcept;
         
         void*                   m_ptr;
         std::atomic<size_t>*    m_count;

@@ -105,7 +105,7 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     lock();
     for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); i++)
     {
-        send(m_parameters[i].getBindingPtr(), m_parameters[i].getValueNonNormalized());
+        send(m_parameters[i].getBindingName(), m_parameters[i].getValueNonNormalized());
     }
     
     performDsp(buffer.getNumSamples(),
@@ -127,19 +127,22 @@ void InstanceProcessor::parametersChanged()
         std::vector<pd::Gui> guis(m_patch.getGuis());
         for(auto const& gui : guis)
         {
-            m_parameters[index] = SliderParameter(gui);
-            index++;
+            if(gui.isParameter())
+            {
+                m_parameters[index] = InstanceParameter(gui);
+                index++;
+            }
         }
         for(; index < m_parameters.size(); index++)
         {
-            m_parameters[index] = SliderParameter();
+            m_parameters[index] = InstanceParameter();
         }
     }
     else
     {
         for(size_t i = 0; i < m_parameters.size(); i++)
         {
-            m_parameters[i] = SliderParameter();
+            m_parameters[i] = InstanceParameter();
         }
     }
     
