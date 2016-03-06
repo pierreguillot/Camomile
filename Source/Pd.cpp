@@ -98,6 +98,12 @@ namespace pd
         pd.m_console = text;
     }
     
+    void Pd::addConsole(std::string const& text) noexcept
+    {
+        Pd& pd = Pd::get();
+        pd.m_console += text;
+    }
+    
     std::string Pd::getConsole() noexcept
     {
         Pd& pd = Pd::get();

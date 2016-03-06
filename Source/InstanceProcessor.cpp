@@ -82,6 +82,77 @@ bool InstanceProcessor::isMetaParameter(int index) const
     return m_parameters[index].isMetaParameter();
 }
 
+int InstanceProcessor::getParameterIndex(pd::BindingName const& name)
+{
+    if(name != nullptr)
+    {
+        for(size_t i = 0; i < m_parameters.size(); i++)
+        {
+            if(m_parameters[i].getBindingName() == name)
+            {
+                return i;
+            }
+        }
+    }
+    return -1;
+}
+
+int InstanceProcessor::getParameterIndex(String const& name)
+{
+    for(size_t i = 0; i < m_parameters.size(); i++)
+    {
+        if(m_parameters[i].getName(512) == name)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void InstanceProcessor::parametersChanged()
+{
+    size_t index = 0;
+    
+    for(size_t i = 0; i < m_parameters.size(); i++)
+    {
+        m_parameters[i] = Parameter();
+    }
+    if(m_patch.isValid())
+    {
+        std::vector<pd::Gui> guis(m_patch.getGuis());
+        for(auto const& gui : guis)
+        {
+            if(gui.isParameter())
+            {
+                bool ok = true;
+                for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); i++)
+                {
+                    if(gui.getName() == m_parameters[i].getName(512))
+                    {
+                        pd::Pd::addConsole("Warning in patch " + m_patch.getName() + ": "  + gui.getName() + " parameter is duplicated !");
+                        ok = false;
+                        break;
+                    }
+                }
+                if(ok)
+                {
+                    m_parameters[index] = Parameter(gui);
+                    index++;
+                }
+            }
+        }
+    }
+    for(size_t i = 0; i < m_parameters.size(); i++)
+    {
+        if(m_parameters[i].isValid())
+        {
+            setParameterNotifyingHost(i, m_parameters[i].getValue());
+        }
+    }
+    
+    updateHostDisplay();
+}
+
 void InstanceProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     lock();
@@ -117,44 +188,6 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
 AudioProcessorEditor* InstanceProcessor::createEditor()
 {
     return new PatchEditor(*this);
-}
-
-void InstanceProcessor::parametersChanged()
-{
-    size_t index = 0;
-    if(m_patch.isValid())
-    {
-        std::vector<pd::Gui> guis(m_patch.getGuis());
-        for(auto const& gui : guis)
-        {
-            if(gui.isParameter())
-            {
-                m_parameters[index] = Parameter(gui);
-                index++;
-            }
-        }
-        for(; index < m_parameters.size(); index++)
-        {
-            m_parameters[index] = Parameter();
-        }
-    }
-    else
-    {
-        for(size_t i = 0; i < m_parameters.size(); i++)
-        {
-            m_parameters[i] = Parameter();
-        }
-    }
-    
-    for(size_t i = 0; i < m_parameters.size(); i++)
-    {
-        if(m_parameters[i].isValid())
-        {
-            setParameterNotifyingHost(i, m_parameters[i].getValue());
-        }
-    }
-    
-    updateHostDisplay();
 }
 
 void InstanceProcessor::loadPatch(const juce::File& file)
@@ -216,6 +249,14 @@ void InstanceProcessor::getStateInformation(MemoryBlock& destData)
     XmlElement xml(String("CamomileSettings"));
     xml.setAttribute(String("name"), m_patch.getName());
     xml.setAttribute(String("path"), m_patch.getPath());
+    XmlElement* params = xml.createNewChildElement("params");
+    for(size_t i = 0; i < m_parameters.size(); i++)
+    {
+        if(m_parameters[i].isValid())
+        {
+            params->setAttribute(String(m_parameters[i].getName(512)), double(m_parameters[i].getValue()));
+        }
+    }
     copyXmlToBinary(xml, destData);
 }
 
@@ -230,6 +271,19 @@ void InstanceProcessor::setStateInformation (const void* data, int sizeInBytes)
             String path = xml->getStringAttribute("path");
             File file(path + File::separatorString + name);
             loadPatch(file);
+            
+            XmlElement* params = xml->getChildByName(juce::StringRef("params"));
+            if(params)
+            {
+                for(int i = 0; i < params->getNumAttributes(); i++)
+                {
+                    int index = getParameterIndex(params->getAttributeName(i));
+                    if(index >= 0)
+                    {
+                        setParameterNotifyingHost(index, params->getAttributeValue(i).getDoubleValue());
+                    }
+                }
+            }
         }
     }
 }
@@ -240,5 +294,124 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
     LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
     return new InstanceProcessor();
 }
+
+
+// ==================================================================================== //
+//                                  PARAMETERS                                          //
+// ==================================================================================== //
+
+
+InstanceProcessor::Parameter::Parameter()
+: m_valid(false), m_value (0.f), m_min(0.f), m_max(0.f),
+m_name (""), m_label(""), m_bname(nullptr), m_nsteps(0)
+{
+    
+}
+
+InstanceProcessor::Parameter::Parameter(Parameter const& other)
+: m_valid(other.m_valid), m_value (other.m_value),
+m_min(other.m_min), m_max(other.m_max),
+m_name (other.m_name), m_label(other.m_label),
+m_bname(other.m_bname), m_nsteps(other.m_nsteps)
+{
+    
+}
+
+InstanceProcessor::Parameter::Parameter(pd::Gui const& gui)
+: m_valid(true), m_value (0.f),
+m_min(gui.getMinimum()),
+m_max(gui.getMaximum()),
+m_name(gui.getName()),
+m_label(gui.getLabel()),
+m_bname(gui.getBindingName()),
+m_nsteps(gui.getNumberOfSteps())
+{
+    setValueNonNormalized(gui.getValue());
+}
+
+InstanceProcessor::Parameter::~Parameter()
+{
+    
+}
+
+InstanceProcessor::Parameter& InstanceProcessor::Parameter::operator=(InstanceProcessor::Parameter const& other)
+{
+    m_valid = other.m_valid;
+    m_value = other.m_value;
+    m_min   = other.m_min;
+    m_max   = other.m_max;
+    m_name  = other.m_name;
+    m_label = other.m_label;
+    m_bname = other.m_bname;
+    m_nsteps= other.m_nsteps;
+    return *this;
+}
+
+InstanceProcessor::Parameter& InstanceProcessor::Parameter::operator=(InstanceProcessor::Parameter&& other)
+{
+    m_valid = other.m_valid;
+    m_value = other.m_value;
+    m_min   = other.m_min;
+    m_max   = other.m_max;
+    std::swap(m_name, other.m_name);
+    std::swap(m_label, other.m_label);
+    m_bname = other.m_bname;
+    m_nsteps= other.m_nsteps;
+    return *this;
+}
+
+bool InstanceProcessor::Parameter::isValid() const noexcept
+{
+    return m_valid;
+}
+
+float InstanceProcessor::Parameter::getValue() const
+{
+    return m_value;
+}
+
+float InstanceProcessor::Parameter::getValueNonNormalized() const
+{
+    if(m_min < m_max)
+    {
+        return m_value * (m_max - m_min) + m_min;
+    }
+    return m_value * (m_min - m_max) + m_max;
+}
+
+void InstanceProcessor::Parameter::setValue (float newValue)
+{
+    m_value = newValue;
+}
+
+void InstanceProcessor::Parameter::setValueNonNormalized (float newValue)
+{
+    if(m_min < m_max)
+    {
+        m_value = (newValue - m_min) / (m_max - m_min);
+    }
+    else
+    {
+        m_value = (newValue - m_max) / (m_min - m_max);
+    }
+}
+
+float InstanceProcessor::Parameter::getDefaultValue() const {return 0.f;}
+
+String InstanceProcessor::Parameter::getName(int maximumStringLength) const {return m_name;}
+
+String InstanceProcessor::Parameter::getLabel() const {return m_label;}
+
+String InstanceProcessor::Parameter::getText (float value, int size) const {return String(getValueNonNormalized());}
+
+float InstanceProcessor::Parameter::getValueForText (const String& text) const {return text.getFloatValue();}
+
+bool InstanceProcessor::Parameter::isOrientationInverted() const {return m_max < m_min;}
+
+int InstanceProcessor::Parameter::getNumSteps() const
+{
+    return m_nsteps != 0 ? m_nsteps : AudioProcessor::getDefaultNumParameterSteps();
+}
+
 
 

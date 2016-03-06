@@ -74,7 +74,7 @@ CamoLookAndFeel::CamoLookAndFeel()
 
         juce::TextEditor::backgroundColourId,             0xffffffff,
         juce::TextEditor::textColourId,                   0xff000000,
-        juce::TextEditor::highlightColourId,              textHighlightColour,
+        juce::TextEditor::highlightColourId,              0xff999999,
         juce::TextEditor::highlightedTextColourId,        0xff000000,
         juce::TextEditor::outlineColourId,                0x00000000,
         juce::TextEditor::focusedOutlineColourId,         textButtonColour,
@@ -284,34 +284,14 @@ void CamoLookAndFeel::drawTickBox (Graphics& g, Component& component,
 void CamoLookAndFeel::drawToggleButton (Graphics& g, ToggleButton& button,
                                        bool isMouseOverButton, bool isButtonDown)
 {
-    if (button.hasKeyboardFocus (true))
+    g.fillAll(Colours::lightgrey);
+    g.setColour(Colours::darkgrey);
+    g.drawRect(button.getBounds().withZeroOrigin(), 1);
+    if(button.getToggleState())
     {
-        g.setColour (button.findColour (juce::TextEditor::focusedOutlineColourId));
-        g.drawRect (0, 0, button.getWidth(), button.getHeight());
+        g.drawLine(0, 0, button.getWidth(), button.getHeight());
+        g.drawLine(button.getWidth(), 0, 0, button.getHeight());
     }
-
-    float fontSize = jmin (15.0f, button.getHeight() * 0.75f);
-    const float tickWidth = fontSize * 1.1f;
-
-    drawTickBox (g, button, 4.0f, (button.getHeight() - tickWidth) * 0.5f,
-                 tickWidth, tickWidth,
-                 button.getToggleState(),
-                 button.isEnabled(),
-                 isMouseOverButton,
-                 isButtonDown);
-
-    g.setColour (button.findColour (ToggleButton::textColourId));
-    g.setFont (fontSize);
-
-    if (! button.isEnabled())
-        g.setOpacity (0.5f);
-
-    const int textX = (int) tickWidth + 5;
-
-    g.drawFittedText (button.getButtonText(),
-                      textX, 0,
-                      button.getWidth() - textX - 2, button.getHeight(),
-                      Justification::centredLeft, 10);
 }
 
 void CamoLookAndFeel::changeToggleButtonWidthToFitText (ToggleButton& button)
@@ -1161,7 +1141,7 @@ void CamoLookAndFeel::drawLabel (Graphics& g, Label& label)
         g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
         g.setFont (font);
 
-        Rectangle<int> textArea (label.getBorderSize().subtractedFrom (label.getLocalBounds()));
+        Rectangle<int> textArea (label.getBorderSize().subtractedFrom (label.getLocalBounds().withX(4)));
 
         g.drawFittedText (label.getText(), textArea, label.getJustificationType(),
                           jmax (1, (int) (textArea.getHeight() / font.getHeight())),
@@ -1262,7 +1242,7 @@ int CamoLookAndFeel::getSliderPopupPlacement (Slider&)
 Slider::SliderLayout CamoLookAndFeel::getSliderLayout (Slider& slider)
 {
     Slider::SliderLayout layout;
-    layout.sliderBounds = slider.getBounds();
+    layout.sliderBounds = slider.getBounds().withZeroOrigin();
     layout.textBoxBounds = Rectangle<int>(0, 0, 0, 0);
     return layout;
 }

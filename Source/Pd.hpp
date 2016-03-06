@@ -31,6 +31,9 @@ namespace pd
         //! @brief Sets the text of the console.
         static void setConsole(std::string const& text) noexcept;
         
+        //! @brief Sets the text of the console.
+        static void addConsole(std::string const& text) noexcept;
+        
         //! @brief Retrieves the text of the console.
         static std::string getConsole() noexcept;
         

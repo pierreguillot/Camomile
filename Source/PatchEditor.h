@@ -11,6 +11,7 @@
 #include "InstanceProcessor.h"
 #include "LookAndFeel.h"
 
+
 // ==================================================================================== //
 //                                  CAMOMILE INTERFACE                                  //
 // ==================================================================================== //
@@ -44,12 +45,15 @@ private:
     String                                  m_last_path;
     OwnedArray<GuiParameter>                m_parameters;
     
-    static  Font    font;
-    static  int     bordersize;
-    static  Colour  color_bg;
-    static  Colour  color_bd;
-    static  Colour  color_txt;
-    static  Colour  color_invisible;
+    static Font getFont(){return Font(String("Monaco"), 13.f, juce::Font::plain);}
+    static int getBordersize() noexcept {return 1;}
+    static Colour const& getColorBg() noexcept {return Colours::lightgrey;}
+    static Colour const& getColorBd() noexcept {return Colours::darkgrey;}
+    static Colour const& getColorTxt() noexcept {return Colours::darkgrey;}
+    static Colour const& getColorInv() noexcept {
+        static Colour c(Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
+        return c;}
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PatchEditor)
 };
 

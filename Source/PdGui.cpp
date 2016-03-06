@@ -24,33 +24,29 @@ namespace pd
     //                                      OBJECT                                          //
     // ==================================================================================== //
     
-    Gui::Gui() noexcept : m_ptr(nullptr), m_type(Type::Invalid), m_patch(), m_index(-1)
+    Gui::Gui() noexcept : m_ptr(nullptr), m_type(Type::Invalid), m_patch()
     {
         
     }
     
-    Gui::Gui(Patch const& patch, Type type, void* ptr, int& index) noexcept :
-    m_ptr(ptr), m_type(type), m_patch(patch), m_index(-1)
+    Gui::Gui(Patch const& patch, Type type, void* ptr) noexcept :
+    m_ptr(ptr), m_type(type), m_patch(patch)
     {
-        if(isParameter())
-        {
-            m_index = ++index;
-        }
+        ;
     }
     
     Gui::Gui(Gui const& other) noexcept :
-    m_ptr(other.m_ptr), m_type(other.m_type), m_patch(other.m_patch), m_index(other.m_index)
+    m_ptr(other.m_ptr), m_type(other.m_type), m_patch(other.m_patch)
     {
         ;
     }
     
     Gui::Gui(Gui&& other) noexcept :
-    m_ptr(other.m_ptr), m_type(other.m_type), m_patch(other.m_patch), m_index(other.m_index)
+    m_ptr(other.m_ptr), m_type(other.m_type), m_patch(other.m_patch)
     {
         other.m_ptr   = nullptr;
         other.m_type  = Type::Invalid;
         other.m_patch = Patch();
-        other.m_index = -1;
     }
     
     Gui& Gui::operator=(Gui const& other) noexcept
@@ -58,7 +54,6 @@ namespace pd
         m_ptr   = other.m_ptr;
         m_type  = other.m_type;
         m_patch = other.m_patch;
-        m_index = other.m_index;
         return *this;
     }
     
@@ -67,7 +62,6 @@ namespace pd
         std::swap(m_ptr, other.m_ptr);
         std::swap(m_type, other.m_type);
         std::swap(m_patch, other.m_patch);
-        std::swap(m_index, other.m_index);
         return *this;
     }
     
@@ -85,11 +79,6 @@ namespace pd
     Gui::Type Gui::getType() const noexcept
     {
         return m_type;
-    }
-    
-    int Gui::getIndex() const noexcept
-    {
-        return m_index;
     }
     
     bool Gui::isParameter() const noexcept

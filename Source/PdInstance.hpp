@@ -30,8 +30,10 @@ namespace pd
         BindingName(void *_ptr) : ptr(_ptr) {}
         BindingName(BindingName const& other) : ptr(other.ptr) {}
         BindingName& operator=(BindingName const& other) {ptr = other.ptr; return *this;}
-        bool operator!=(void* _ptr) {return _ptr != ptr;}
-        bool operator==(void* _ptr) {return _ptr == ptr;}
+        bool operator!=(void* _ptr) const noexcept {return _ptr != ptr;}
+        bool operator==(void* _ptr) const noexcept {return _ptr == ptr;}
+        bool operator!=(BindingName const& other)const noexcept {return other.ptr != ptr;}
+        bool operator==(BindingName const& other) const noexcept{return other.ptr == ptr;}
     private:
         void* ptr;
         friend class Instance;
