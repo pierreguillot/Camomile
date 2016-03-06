@@ -21,6 +21,11 @@ namespace pd
     class Pd
     {
     public:
+        //! @brief Gets the current version of the program.
+        static std::string getVersion() {return std::string("0.0.3");}
+        
+        //! @brief Adds a path the global search path.
+        static std::string getPdVersion();
         
         //! @brief Adds a path the global search path.
         static void addToSearchPath(std::string const& path) noexcept;

@@ -36,6 +36,7 @@ private:
     class About;
     class Console;
     class GuiParameter;
+    class Radio;
     
     InstanceProcessor&                      m_processor;
     bool                                    m_dropping;

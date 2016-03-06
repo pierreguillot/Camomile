@@ -29,9 +29,11 @@ namespace pd
         {
             Invalid          = 0,
             HorizontalSlider = 1,
-            VecticalSlider   = 2,
+            VerticalSlider   = 2,
             Toggle           = 3,
-            Number           = 4
+            Number           = 4,
+            HorizontalRadio  = 5,
+            VerticalRadio    = 6
         };
         
         //! @brief The constructor for an empty Object.

@@ -60,7 +60,7 @@ namespace pd
         sys_reopen_audio();
         m_sample_rate = sys_getsr();
         m_console.clear();
-        m_console.append("Camomile v0.0.2 for Pure Data 0.46.7\n");
+        m_console.append("Camomile " + getVersion() + " for Pure Data " + getPdVersion());
         sys_printhook = reinterpret_cast<t_printhook>(print);
     }
     
@@ -75,6 +75,13 @@ namespace pd
         Pd& pd = Pd::get();
         pd.m_console.append(s);
         std::cout << s;
+    }
+    
+    std::string Pd::getPdVersion()
+    {
+        return std::to_string(PD_MAJOR_VERSION) + "." +
+        std::to_string(PD_MINOR_VERSION) + "." +
+        std::to_string(PD_BUGFIX_VERSION);
     }
     
     void Pd::addToSearchPath(std::string const& path) noexcept

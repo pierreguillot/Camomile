@@ -7,6 +7,86 @@
 #include "InstanceProcessor.h"
 #include "PatchEditor.h"
 
+// ==================================================================================== //
+//                                      RADIO GUI                                       //
+// ==================================================================================== //
+
+class PatchEditor::Radio : public Component, public Timer
+{
+public:
+    Radio(InstanceProcessor& processor, pd::Gui const& gui) :
+    m_processor(processor),
+    m_type(gui.getType()),
+    m_size(gui.getNumberOfSteps()),
+    m_index(processor.getParameterIndex(gui.getBindingName())+1),
+    m_selected(gui.getValue())
+    {
+        std::array<float, 4> bounds(gui.getBounds());
+        setBounds(int(bounds[0]), int(bounds[1]), int(bounds[2]), int(bounds[3]));
+        if(m_index)
+        {
+            startTimer(25);
+        }
+    }
+    
+    void paint(Graphics& g) final
+    {
+        g.fillAll(PatchEditor::getColorBg());
+        g.setColour(PatchEditor::getColorBd());
+        g.drawRect(getLocalBounds(), PatchEditor::getBordersize());
+        if(m_type == pd::Gui::Type::HorizontalRadio)
+        {
+            const float width = float(getWidth() - int(m_size)) / float(m_size);
+            for(size_t i = 1; i < m_size; ++i)
+            {
+                g.drawLine(width * float(i) + float(i), 0.f, width * float(i) + float(i), float(getHeight()));
+            }
+            const float ratio = float(getWidth()) / float(m_size);
+            g.fillRect(ratio * float(m_selected) + ratio * 0.125f, ratio * 0.125f,
+                       ratio * 0.75f, ratio * 0.75f);
+        }
+        else
+        {
+            const float height = float(getHeight() - int(m_size)) / float(m_size);
+            for(size_t i = 1; i < m_size; ++i)
+            {
+                g.drawLine(0.f, height * float(i) + float(i), float(getWidth()), height * float(i) + float(i));
+            }
+            const float ratio = float(getHeight()) / float(m_size);
+            g.fillRect(ratio * 0.125f, ratio * float(m_selected) + ratio * 0.125f,
+                       ratio * 0.75f, ratio * 0.75f);
+        }
+    }
+    
+    void mouseDown(const MouseEvent& event) final
+    {
+        if(m_type == pd::Gui::Type::HorizontalRadio)
+        {
+            m_selected = size_t(event.getMouseDownX() / (getWidth() / float(m_size)));
+        }
+        else
+        {
+            m_selected = size_t(event.getMouseDownY() / (getHeight() / float(m_size)));
+        }
+        if(m_index)
+        {
+            m_processor.setParameterNotifyingHost(m_index-1, float(m_selected) / float(m_size - 1));
+        }
+        repaint();
+    }
+    
+    void timerCallback() final
+    {
+        m_selected = size_t(m_processor.getParameter(m_index-1) * float(m_size - 1));
+    }
+private:
+    InstanceProcessor&  m_processor;
+    const pd::Gui::Type m_type;
+    const size_t        m_size;
+    const size_t        m_index;
+    size_t              m_selected;
+};
+
 class PatchEditor::GuiParameter : public Component, public Timer,
 public Slider::Listener, public Button::Listener, public Label::Listener
 {
@@ -29,7 +109,7 @@ public:
             sld->addListener(this);
             m_slider = sld;
         }
-        else if(gui.getType() == pd::Gui::Type::VecticalSlider)
+        else if(gui.getType() == pd::Gui::Type::VerticalSlider)
         {
             Slider* sld = new Slider(Slider::LinearVertical, Slider::NoTextBox);
             sld->setRange(0.f, 1.f);
@@ -72,6 +152,12 @@ public:
             addAndMakeVisible(lbl);
             lbl->addListener(this);
             m_number = lbl;
+        }
+        else if(gui.getType() == pd::Gui::Type::HorizontalRadio ||
+                gui.getType() == pd::Gui::Type::VerticalRadio)
+        {
+            m_radio = new Radio(processor, gui);
+            addAndMakeVisible(m_radio);
         }
        
         
@@ -160,6 +246,8 @@ private:
     ScopedPointer<Slider>       m_slider;
     ScopedPointer<Button>       m_button;
     ScopedPointer<Label>        m_number;
+    ScopedPointer<Radio>        m_radio;
+    
     ScopedPointer<Label>        m_label;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiParameter)
 };
@@ -406,11 +494,11 @@ void PatchEditor::buttonClicked(Button* button)
         m.addItem(4, "Reload");
         m.addItem(5, "Console");
         m.addItem(6, "Help");
-        const int result = m.showAt(button->getScreenBounds().translated(-2, 3));
+        const int result = m.showAt(button->getScreenBounds().translated(-3, 1));
         if(result == 1)
         {
             m_window->setContentOwned(new About(), false);
-            m_window->setName("About Camomile v" + String(JucePlugin_VersionString));
+            m_window->setName("About Camomile " + String(JucePlugin_VersionString));
             m_window->addToDesktop();
         }
         else if(result == 2)

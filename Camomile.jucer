@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="0.0.2"
+<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="0.0.3"
               bundleIdentifier="com.cicm.Camomile" includeBinaryInAppConfig="1"
               buildVST="1" buildVST3="1" buildAU="1" buildRTAS="0" buildAAX="0"
               pluginName="Camomile" pluginDesc="Camomile" pluginManufacturer="Pierre Guillot"
               pluginManufacturerCode="CICM" pluginCode="PGCA" pluginChannelConfigs=""
-              pluginIsSynth="0" pluginWantsMidiIn="0" pluginProducesMidiOut="0"
+              pluginIsSynth="0" pluginWantsMidiIn="1" pluginProducesMidiOut="1"
               pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="1"
               pluginAUExportPrefix="CamomileAU" pluginRTASCategory="" aaxIdentifier="com.cicm.Camomile"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.1.0"
@@ -22,16 +22,14 @@
       <FILE id="tLvOP3" name="PatchEditor.h" compile="0" resource="0" file="Source/PatchEditor.h"/>
       <FILE id="HhHZI4" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
       <FILE id="EJAZHs" name="LookAndFeel.h" compile="0" resource="0" file="Source/LookAndFeel.h"/>
-      <FILE id="c7oMcM" name="Pd.cpp" compile="1" resource="0" file="Source/Pd.cpp"/>
-      <FILE id="o0Va6F" name="Pd.hpp" compile="0" resource="0" file="Source/Pd.hpp"/>
+      <FILE id="yk5hRN" name="PdGui.cpp" compile="1" resource="0" file="Source/PdGui.cpp"/>
+      <FILE id="qAbzUL" name="PdGui.hpp" compile="0" resource="0" file="Source/PdGui.hpp"/>
       <FILE id="DEM9eo" name="PdInstance.cpp" compile="1" resource="0" file="Source/PdInstance.cpp"/>
       <FILE id="mGAVYz" name="PdInstance.hpp" compile="0" resource="0" file="Source/PdInstance.hpp"/>
       <FILE id="Bnr3EF" name="PdPatch.cpp" compile="1" resource="0" file="Source/PdPatch.cpp"/>
       <FILE id="axFnWc" name="PdPatch.hpp" compile="0" resource="0" file="Source/PdPatch.hpp"/>
-      <FILE id="Aueh3x" name="PdObject.cpp" compile="1" resource="0" file="Source/PdObject.cpp"/>
-      <FILE id="ck8DGd" name="PdObject.hpp" compile="0" resource="0" file="Source/PdObject.hpp"/>
-      <FILE id="ZjkT4z" name="PdAtom.hpp" compile="0" resource="0" file="Source/PdAtom.hpp"/>
-      <FILE id="g1VP3D" name="PdMisc.hpp" compile="0" resource="0" file="Source/PdMisc.hpp"/>
+      <FILE id="c7oMcM" name="Pd.cpp" compile="1" resource="0" file="Source/Pd.cpp"/>
+      <FILE id="o0Va6F" name="Pd.hpp" compile="0" resource="0" file="Source/Pd.hpp"/>
     </GROUP>
     <GROUP id="{13D75516-E697-ECB1-605C-FB3746C267F8}" name="PureData">
       <GROUP id="{E169D560-E0FD-D9AB-34FF-826654976AD0}" name="extra">
@@ -145,39 +143,36 @@
                        isDebug="1" optimisation="1" targetName="Camomile" headerPath="../../ThirdParty/PureData/src"
                        libraryPath="" defines="" binaryPath="/Library/Audio/Plug-Ins"/>
         <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="64BitUniversal"
-                       isDebug="0" optimisation="3" targetName="Camomile" headerPath="../../ThirdParty/PureData/src"
+                       isDebug="0" optimisation="6" targetName="Camomile" headerPath="../../ThirdParty/PureData/src"
                        libraryPath="" defines="" binaryPath="/Library/Audio/Plug-Ins"
                        linkTimeOptimisation="1"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_events" path="ThirdParty/Juce/modules"/>
         <MODULEPATH id="juce_graphics" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_data_structures" path="ThirdParty/Juce/modules"/>
         <MODULEPATH id="juce_gui_basics" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_cryptography" path="ThirdParty/Juce/modules"/>
         <MODULEPATH id="juce_audio_basics" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="ThirdParty/Juce/modules"/>
         <MODULEPATH id="juce_audio_processors" path="ThirdParty/Juce/modules"/>
         <MODULEPATH id="juce_audio_plugin_client" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_events" path="ThirdParty/Juce/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
   <MODULES>
     <MODULES id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_core" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
   </MODULES>
   <JUCEOPTIONS JUCE_QUICKTIME="disabled"/>
+  <LIVE_SETTINGS>
+    <OSX/>
+  </LIVE_SETTINGS>
 </JUCERPROJECT>
