@@ -9,7 +9,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "InstanceProcessor.h"
-#include "ObjectEditor.h"
+#include "LookAndFeel.h"
+
 
 // ==================================================================================== //
 //                                  CAMOMILE INTERFACE                                  //
@@ -19,34 +20,40 @@ class PatchEditor  :
 public AsyncUpdater,
 public AudioProcessorEditor,
 public InstanceProcessor::Listener,
-public FileDragAndDropTarget,
 public Button::Listener
 {
-private:
-    class AboutWindow;
-    class ConsoleWindow;
-    InstanceProcessor&              m_processor;
-    OwnedArray<ObjectEditor>        m_objects;
-    bool                            m_dropping;
-    ScopedPointer<DrawableButton>   m_button_infos;
-    OwnedArray<Component>           m_buttons;
-    ScopedPointer<DocumentWindow>   m_window;
-    Colour                          m_color_bg;
-    Colour                          m_color_bd;
-    String                          m_last_path;
 public:
     PatchEditor(InstanceProcessor&);
     ~PatchEditor();
     void handleAsyncUpdate() override;
     void paint(Graphics&) override;
-    void resized() override;
-    bool isInterestedInFileDrag(const StringArray& files) override;
-    void filesDropped(const StringArray& files, int x, int y) override;
-    void fileDragEnter(const StringArray& files, int x, int y) override;
-    void fileDragExit(const StringArray& files) override;
     void buttonClicked(Button* button) override;
     void patchChanged() override;
+    
 private:
+    class ImgButton;
+    class PatchWin;
+    class About;
+    class Console;
+    class GuiParameter;
+    
+    InstanceProcessor&                      m_processor;
+    bool                                    m_dropping;
+    Toolbar                                 m_menu;
+    ScopedPointer<ImgButton>                m_button;
+    ScopedPointer<DocumentWindow>           m_window;
+    String                                  m_last_path;
+    OwnedArray<GuiParameter>                m_parameters;
+    
+    static Font getFont(){return Font(String("Monaco"), 13.f, juce::Font::plain);}
+    static int getBordersize() noexcept {return 1;}
+    static Colour const& getColorBg() noexcept {return Colours::lightgrey;}
+    static Colour const& getColorBd() noexcept {return Colours::darkgrey;}
+    static Colour const& getColorTxt() noexcept {return Colours::darkgrey;}
+    static Colour const& getColorInv() noexcept {
+        static Colour c(Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
+        return c;}
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PatchEditor)
 };
 

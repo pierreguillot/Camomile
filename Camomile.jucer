@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="0.0.1"
+<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="0.0.2"
               bundleIdentifier="com.cicm.Camomile" includeBinaryInAppConfig="1"
               buildVST="1" buildVST3="1" buildAU="1" buildRTAS="0" buildAAX="0"
               pluginName="Camomile" pluginDesc="Camomile" pluginManufacturer="Pierre Guillot"
@@ -8,116 +8,30 @@
               pluginIsSynth="0" pluginWantsMidiIn="0" pluginProducesMidiOut="0"
               pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="1"
               pluginAUExportPrefix="CamomileAU" pluginRTASCategory="" aaxIdentifier="com.cicm.Camomile"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="3.2.0"
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.1.0"
               companyName="CICM" companyEmail="https://github.com/pierreguillot/Camomile"
-              companyWebsite="http://cicm.mshparisnord.org/" defines="PD=1&#10;HAVE_UNISTD_H=1&#10;USEAPI_DUMMY=1&#10;HAVE_ALLOCA_H=1&#10;LIBPD_EXTRA=1&#10;DHAVE_LIBDL=1">
+              companyWebsite="http://cicm.mshparisnord.org/" defines="PD=1&#10;HAVE_UNISTD_H=1&#10;USEAPI_DUMMY=1&#10;HAVE_ALLOCA_H=1&#10;LIBPD_EXTRA=1&#10;DHAVE_LIBDL=1"
+              pluginIsMidiEffectPlugin="0">
   <MAINGROUP id="Lkdhlo" name="Camomile">
     <GROUP id="{6858D652-D432-5FB6-C946-D9F3FA76E6E9}" name="Source">
       <FILE id="BUNrem" name="InstanceProcessor.cpp" compile="1" resource="0"
             file="Source/InstanceProcessor.cpp"/>
       <FILE id="shFm3X" name="InstanceProcessor.h" compile="0" resource="0"
             file="Source/InstanceProcessor.h"/>
-      <FILE id="vbIZqm" name="ObjectEditor.cpp" compile="1" resource="0"
-            file="Source/ObjectEditor.cpp"/>
-      <FILE id="QYHk7C" name="ObjectEditor.h" compile="0" resource="0" file="Source/ObjectEditor.h"/>
       <FILE id="dCEF9M" name="PatchEditor.cpp" compile="1" resource="0" file="Source/PatchEditor.cpp"/>
       <FILE id="tLvOP3" name="PatchEditor.h" compile="0" resource="0" file="Source/PatchEditor.h"/>
       <FILE id="HhHZI4" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
       <FILE id="EJAZHs" name="LookAndFeel.h" compile="0" resource="0" file="Source/LookAndFeel.h"/>
-      <FILE id="TedkIq" name="PdWrapper.cpp" compile="1" resource="0" file="Source/PdWrapper.cpp"/>
-      <FILE id="NXnE2q" name="PdWrapper.h" compile="0" resource="0" file="Source/PdWrapper.h"/>
-      <FILE id="hkojgj" name="PdGui.cpp" compile="1" resource="0" file="Source/PdGui.cpp"/>
-      <FILE id="UhsxVE" name="PdGui.h" compile="0" resource="0" file="Source/PdGui.h"/>
-      <FILE id="vIWNPv" name="PdObject.cpp" compile="1" resource="0" file="Source/PdObject.cpp"/>
-      <FILE id="UaZGl6" name="PdObject.h" compile="0" resource="0" file="Source/PdObject.h"/>
-      <FILE id="Bnr3EF" name="PdPatch.cpp" compile="1" resource="0" file="Source/PdPatch.cpp"/>
-      <FILE id="rVZtQm" name="PdPatch.h" compile="0" resource="0" file="Source/PdPatch.h"/>
+      <FILE id="c7oMcM" name="Pd.cpp" compile="1" resource="0" file="Source/Pd.cpp"/>
+      <FILE id="o0Va6F" name="Pd.hpp" compile="0" resource="0" file="Source/Pd.hpp"/>
       <FILE id="DEM9eo" name="PdInstance.cpp" compile="1" resource="0" file="Source/PdInstance.cpp"/>
-      <FILE id="uDVGhm" name="PdInstance.h" compile="0" resource="0" file="Source/PdInstance.h"/>
-      <FILE id="RTjZOJ" name="PdWidget.cpp" compile="1" resource="0" file="Source/PdWidget.cpp"/>
-      <FILE id="aXJ8qi" name="PdWidget.h" compile="0" resource="0" file="Source/PdWidget.h"/>
-      <FILE id="Yc14cw" name="PdMessenger.cpp" compile="1" resource="0" file="Source/PdMessenger.cpp"/>
-      <FILE id="DodMxJ" name="PdMessenger.h" compile="0" resource="0" file="Source/PdMessenger.h"/>
-      <FILE id="DTSwb9" name="PdAtom.cpp" compile="1" resource="0" file="Source/PdAtom.cpp"/>
-      <FILE id="kKrmh6" name="PdAtom.h" compile="0" resource="0" file="Source/PdAtom.h"/>
-      <FILE id="RBYVhL" name="PdMisc.cpp" compile="1" resource="0" file="Source/PdMisc.cpp"/>
-      <FILE id="Bs5kZF" name="PdMisc.h" compile="0" resource="0" file="Source/PdMisc.h"/>
-    </GROUP>
-    <GROUP id="{219DB9C7-7A3A-0A0B-CC0D-A3924A13804E}" name="Cream">
-      <FILE id="MfBIJd" name="c.library.cpp" compile="1" resource="0" file="ThirdParty/Cream/c.library.cpp"/>
-      <FILE id="NL1dWN" name="c.library.hpp" compile="0" resource="0" file="ThirdParty/Cream/c.library.hpp"/>
-      <GROUP id="{EEE92DE8-391A-6127-C38B-CE87A425D953}" name="CicmWrapper">
-        <FILE id="rRVQdI" name="cicm_wrapper.h" compile="0" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/cicm_wrapper.h"/>
-        <FILE id="XTxPtM" name="ebox.c" compile="1" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/ebox.c"/>
-        <FILE id="XSCYHP" name="ebox.h" compile="0" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/ebox.h"/>
-        <FILE id="YKxDQj" name="eclass.c" compile="1" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/eclass.c"/>
-        <FILE id="I5b66E" name="eclass.h" compile="0" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/eclass.h"/>
-        <FILE id="E7svSI" name="ecommon.c" compile="1" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/ecommon.c"/>
-        <FILE id="AIICRF" name="ecommon.h" compile="0" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/ecommon.h"/>
-        <FILE id="E0GVYp" name="edefine.h" compile="0" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/edefine.h"/>
-        <FILE id="va97av" name="egraphics.c" compile="1" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/egraphics.c"/>
-        <FILE id="vfZrpP" name="egraphics.h" compile="0" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/egraphics.h"/>
-        <FILE id="YxDzV9" name="eobj.c" compile="1" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/eobj.c"/>
-        <FILE id="L8we5D" name="eobj.h" compile="0" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/eobj.h"/>
-        <FILE id="KfpWRX" name="epdmax.h" compile="0" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/epdmax.h"/>
-        <FILE id="fnBUX5" name="epopup.c" compile="1" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/epopup.c"/>
-        <FILE id="vkN8vN" name="epopup.h" compile="0" resource="0" file="ThirdParty/Cream/ThirdParty/CicmWrapper/Sources/epopup.h"/>
-      </GROUP>
-      <GROUP id="{374A4B91-58F8-29B5-31DC-892ABB2B5249}" name="Sources">
-        <FILE id="T7IW6z" name="c.bang.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.bang.cpp"/>
-        <FILE id="QLbJnO" name="c.blackboard.cpp" compile="1" resource="0"
-              file="ThirdParty/Cream/Sources/c.blackboard.cpp"/>
-        <FILE id="Gm22DX" name="c.breakpoints.cpp" compile="1" resource="0"
-              file="ThirdParty/Cream/Sources/c.breakpoints.cpp"/>
-        <FILE id="Co81Ss" name="c.camomile.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.camomile.cpp"/>
-        <FILE id="eAR2ph" name="c.colorpanel.cpp" compile="1" resource="0"
-              file="ThirdParty/Cream/Sources/c.colorpanel.cpp"/>
-        <FILE id="FZ4kAa" name="c.dsp_tilde.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.dsp_tilde.cpp"/>
-        <FILE id="QhnTSK" name="c.gain_tilde.cpp" compile="1" resource="0"
-              file="ThirdParty/Cream/Sources/c.gain_tilde.cpp"/>
-        <FILE id="eOQ5OE" name="c.incdec.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.incdec.cpp"/>
-        <FILE id="QUvFoa" name="c.keyboard.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.keyboard.cpp"/>
-        <FILE id="SpHdHx" name="c.knob.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.knob.cpp"/>
-        <FILE id="UyY0qB" name="c.matrix.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.matrix.cpp"/>
-        <FILE id="ouMWJX" name="c.menu.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.menu.cpp"/>
-        <FILE id="oydQ72" name="c.meter_tilde.cpp" compile="1" resource="0"
-              file="ThirdParty/Cream/Sources/c.meter_tilde.cpp"/>
-        <FILE id="brJWwl" name="c.number_tilde.cpp" compile="1" resource="0"
-              file="ThirdParty/Cream/Sources/c.number_tilde.cpp"/>
-        <FILE id="GKjblu" name="c.number.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.number.cpp"/>
-        <FILE id="uii23x" name="c.plane.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.plane.cpp"/>
-        <FILE id="yibrGT" name="c.preset.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.preset.cpp"/>
-        <FILE id="AWsDAy" name="c.radio.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.radio.cpp"/>
-        <FILE id="MG6qZc" name="c.rslider.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.rslider.cpp"/>
-        <FILE id="bZt9zX" name="c.scope_tilde.cpp" compile="1" resource="0"
-              file="ThirdParty/Cream/Sources/c.scope_tilde.cpp"/>
-        <FILE id="My0Wwy" name="c.slider.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.slider.cpp"/>
-        <FILE id="PCTlN4" name="c.tab.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.tab.cpp"/>
-        <FILE id="UvkYIM" name="c.toggle.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.toggle.cpp"/>
-        <FILE id="t5jKgs" name="c.wavesel.cpp" compile="1" resource="0" file="ThirdParty/Cream/Sources/c.wavesel.cpp"/>
-      </GROUP>
-      <GROUP id="{1EDA2F75-6F42-54B2-E78D-2C7629C9E9F4}" name="Deprecated">
-        <FILE id="nfkSp2" name="AudioFFT.cpp" compile="1" resource="0" file="ThirdParty/Cream/Deprecated/AudioFFT.cpp"/>
-        <FILE id="VVohg6" name="AudioFFT.h" compile="0" resource="0" file="ThirdParty/Cream/Deprecated/AudioFFT.h"/>
-        <FILE id="z5LrMt" name="c.convolve_tilde.cpp" compile="1" resource="0"
-              file="ThirdParty/Cream/Deprecated/c.convolve_tilde.cpp"/>
-        <FILE id="oQf5Wd" name="c.freeverb_tilde.cpp" compile="1" resource="0"
-              file="ThirdParty/Cream/Deprecated/c.freeverb_tilde.cpp"/>
-        <FILE id="iAL6iB" name="c.loadmess.cpp" compile="1" resource="0" file="ThirdParty/Cream/Deprecated/c.loadmess.cpp"/>
-        <FILE id="HSMaFh" name="c.pak.cpp" compile="1" resource="0" file="ThirdParty/Cream/Deprecated/c.pak.cpp"/>
-        <FILE id="QHMEyn" name="c.patcherargs.cpp" compile="1" resource="0"
-              file="ThirdParty/Cream/Deprecated/c.patcherargs.cpp"/>
-        <FILE id="n86KDX" name="c.patcherinfos.cpp" compile="1" resource="0"
-              file="ThirdParty/Cream/Deprecated/c.patcherinfos.cpp"/>
-        <FILE id="fDrUWX" name="c.patchermess.cpp" compile="1" resource="0"
-              file="ThirdParty/Cream/Deprecated/c.patchermess.cpp"/>
-        <FILE id="iYCoAb" name="c.prepend.cpp" compile="1" resource="0" file="ThirdParty/Cream/Deprecated/c.prepend.cpp"/>
-        <FILE id="dPCHep" name="FFTConvolver.cpp" compile="1" resource="0"
-              file="ThirdParty/Cream/Deprecated/FFTConvolver.cpp"/>
-        <FILE id="EkTDp7" name="FFTConvolver.h" compile="0" resource="0" file="ThirdParty/Cream/Deprecated/FFTConvolver.h"/>
-        <FILE id="cNcn0J" name="Utilities.cpp" compile="1" resource="0" file="ThirdParty/Cream/Deprecated/Utilities.cpp"/>
-        <FILE id="gMG7CA" name="Utilities.h" compile="0" resource="0" file="ThirdParty/Cream/Deprecated/Utilities.h"/>
-      </GROUP>
+      <FILE id="mGAVYz" name="PdInstance.hpp" compile="0" resource="0" file="Source/PdInstance.hpp"/>
+      <FILE id="Bnr3EF" name="PdPatch.cpp" compile="1" resource="0" file="Source/PdPatch.cpp"/>
+      <FILE id="axFnWc" name="PdPatch.hpp" compile="0" resource="0" file="Source/PdPatch.hpp"/>
+      <FILE id="Aueh3x" name="PdObject.cpp" compile="1" resource="0" file="Source/PdObject.cpp"/>
+      <FILE id="ck8DGd" name="PdObject.hpp" compile="0" resource="0" file="Source/PdObject.hpp"/>
+      <FILE id="ZjkT4z" name="PdAtom.hpp" compile="0" resource="0" file="Source/PdAtom.hpp"/>
+      <FILE id="g1VP3D" name="PdMisc.hpp" compile="0" resource="0" file="Source/PdMisc.hpp"/>
     </GROUP>
     <GROUP id="{13D75516-E697-ECB1-605C-FB3746C267F8}" name="PureData">
       <GROUP id="{E169D560-E0FD-D9AB-34FF-826654976AD0}" name="extra">
@@ -216,9 +130,9 @@
       </GROUP>
     </GROUP>
     <GROUP id="{8DE6AA0C-11D5-0E76-0B00-0843C90E25ED}" name="Ressources">
-      <FILE id="yrAyQZ" name="flowerG.png" compile="0" resource="1" file="Ressources/flowerG.png"/>
-      <FILE id="sGIoTl" name="flowerM.png" compile="0" resource="1" file="Ressources/flowerM.png"/>
-      <FILE id="AjVl7T" name="Font.ttf" compile="0" resource="1" file="Ressources/Font.ttf"/>
+      <FILE id="pAFpl1" name="flower1.png" compile="0" resource="1" file="Ressources/flower1.png"/>
+      <FILE id="aZl9d4" name="flower2.png" compile="0" resource="1" file="Ressources/flower2.png"/>
+      <FILE id="ABes24" name="flowerG.png" compile="0" resource="1" file="Ressources/flowerG.png"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

@@ -74,7 +74,7 @@ CamoLookAndFeel::CamoLookAndFeel()
 
         juce::TextEditor::backgroundColourId,             0xffffffff,
         juce::TextEditor::textColourId,                   0xff000000,
-        juce::TextEditor::highlightColourId,              textHighlightColour,
+        juce::TextEditor::highlightColourId,              0xff999999,
         juce::TextEditor::highlightedTextColourId,        0xff000000,
         juce::TextEditor::outlineColourId,                0x00000000,
         juce::TextEditor::focusedOutlineColourId,         textButtonColour,
@@ -219,9 +219,7 @@ void CamoLookAndFeel::drawButtonBackground (Graphics& g,
 
 Font CamoLookAndFeel::getTextButtonFont (TextButton&, int buttonHeight)
 {
-    juce::Font f(Typeface::createSystemTypefaceFor(BinaryData::Font_ttf, BinaryData::Font_ttfSize));
-    f.setHeight(18.f);//jmin(15.0f, (float)buttonHeight));
-    return f;//juce::Font(jmin(15.0f, (float)buttonHeight * 0.6f));
+    return juce::Font(jmin(15.0f, (float)buttonHeight * 0.6f));
 }
 
 int CamoLookAndFeel::getTextButtonWidthToFitText (TextButton& b, int buttonHeight)
@@ -286,34 +284,14 @@ void CamoLookAndFeel::drawTickBox (Graphics& g, Component& component,
 void CamoLookAndFeel::drawToggleButton (Graphics& g, ToggleButton& button,
                                        bool isMouseOverButton, bool isButtonDown)
 {
-    if (button.hasKeyboardFocus (true))
+    g.fillAll(Colours::lightgrey);
+    g.setColour(Colours::darkgrey);
+    g.drawRect(button.getBounds().withZeroOrigin(), 1);
+    if(button.getToggleState())
     {
-        g.setColour (button.findColour (juce::TextEditor::focusedOutlineColourId));
-        g.drawRect (0, 0, button.getWidth(), button.getHeight());
+        g.drawLine(0, 0, button.getWidth(), button.getHeight());
+        g.drawLine(button.getWidth(), 0, 0, button.getHeight());
     }
-
-    float fontSize = jmin (15.0f, button.getHeight() * 0.75f);
-    const float tickWidth = fontSize * 1.1f;
-
-    drawTickBox (g, button, 4.0f, (button.getHeight() - tickWidth) * 0.5f,
-                 tickWidth, tickWidth,
-                 button.getToggleState(),
-                 button.isEnabled(),
-                 isMouseOverButton,
-                 isButtonDown);
-
-    g.setColour (button.findColour (ToggleButton::textColourId));
-    g.setFont (fontSize);
-
-    if (! button.isEnabled())
-        g.setOpacity (0.5f);
-
-    const int textX = (int) tickWidth + 5;
-
-    g.drawFittedText (button.getButtonText(),
-                      textX, 0,
-                      button.getWidth() - textX - 2, button.getHeight(),
-                      Justification::centredLeft, 10);
 }
 
 void CamoLookAndFeel::changeToggleButtonWidthToFitText (ToggleButton& button)
@@ -831,7 +809,7 @@ void CamoLookAndFeel::drawBubble (Graphics& g, BubbleComponent& comp,
 //==============================================================================
 Font CamoLookAndFeel::getPopupMenuFont()
 {
-    return Font (17.0f);
+    return Font(String("Futura"), 14.f, Font::plain);
 }
 
 void CamoLookAndFeel::getIdealPopupMenuItemSize (const String& text, const bool isSeparator,
@@ -856,18 +834,7 @@ void CamoLookAndFeel::getIdealPopupMenuItemSize (const String& text, const bool 
 
 void CamoLookAndFeel::drawPopupMenuBackground (Graphics& g, int width, int height)
 {
-    const Colour background (findColour (juce::PopupMenu::backgroundColourId));
-
-    g.fillAll (background);
-    g.setColour (background.overlaidWith (Colour (0x2badd8e6)));
-
-    for (int i = 0; i < height; i += 3)
-        g.fillRect (0, i, width, 1);
-
-   #if ! JUCE_MAC
-    g.setColour (findColour (juce::PopupMenu::textColourId).withAlpha (0.6f));
-    g.drawRect (0, 0, width, height);
-   #endif
+    g.fillAll (Colours::lightgrey);
 }
 
 void CamoLookAndFeel::drawPopupMenuUpDownArrow (Graphics& g, int width, int height, bool isScrollUpArrow)
@@ -915,7 +882,7 @@ void CamoLookAndFeel::drawPopupMenuItem (Graphics& g, const Rectangle<int>& area
     }
     else
     {
-        Colour textColour (findColour (juce::PopupMenu::textColourId));
+        Colour textColour (Colours::darkgrey);
 
         if (textColourToUse != nullptr)
             textColour = *textColourToUse;
@@ -924,10 +891,7 @@ void CamoLookAndFeel::drawPopupMenuItem (Graphics& g, const Rectangle<int>& area
 
         if (isHighlighted)
         {
-            g.setColour (findColour (juce::PopupMenu::highlightedBackgroundColourId));
-            g.fillRect (r);
-
-            g.setColour (findColour (juce::PopupMenu::highlightedTextColourId));
+            g.setColour (Colours::darkgrey.interpolatedWith(Colours::lightgrey, 0.5f));
         }
         else
         {
@@ -937,7 +901,7 @@ void CamoLookAndFeel::drawPopupMenuItem (Graphics& g, const Rectangle<int>& area
         if (! isActive)
             g.setOpacity (0.3f);
 
-        Font font (getPopupMenuFont());
+        Font font (Font(String("Monaco"), 13.f, juce::Font::plain));
 
         const float maxFontHeight = area.getHeight() / 1.3f;
 
@@ -1177,7 +1141,7 @@ void CamoLookAndFeel::drawLabel (Graphics& g, Label& label)
         g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
         g.setFont (font);
 
-        Rectangle<int> textArea (label.getBorderSize().subtractedFrom (label.getLocalBounds()));
+        Rectangle<int> textArea (label.getBorderSize().subtractedFrom (label.getLocalBounds().withX(4)));
 
         g.drawFittedText (label.getText(), textArea, label.getJustificationType(),
                           jmax (1, (int) (textArea.getHeight() / font.getHeight())),
@@ -1194,158 +1158,21 @@ void CamoLookAndFeel::drawLabel (Graphics& g, Label& label)
 }
 
 //==============================================================================
-void CamoLookAndFeel::drawLinearSliderBackground (Graphics& g, int x, int y, int width, int height,
-                                                 float /*sliderPos*/,
-                                                 float /*minSliderPos*/,
-                                                 float /*maxSliderPos*/,
-                                                 const Slider::SliderStyle /*style*/, Slider& slider)
-{
-    const float sliderRadius = (float) (getSliderThumbRadius (slider) - 2);
-
-    const Colour trackColour (slider.findColour (Slider::trackColourId));
-    const Colour gradCol1 (trackColour.overlaidWith (Colours::black.withAlpha (slider.isEnabled() ? 0.25f : 0.13f)));
-    const Colour gradCol2 (trackColour.overlaidWith (Colour (0x14000000)));
-    Path indent;
-
-    if (slider.isHorizontal())
-    {
-        const float iy = y + height * 0.5f - sliderRadius * 0.5f;
-        const float ih = sliderRadius;
-
-        g.setGradientFill (ColourGradient (gradCol1, 0.0f, iy,
-                                           gradCol2, 0.0f, iy + ih, false));
-
-        indent.addRoundedRectangle (x - sliderRadius * 0.5f, iy,
-                                    width + sliderRadius, ih,
-                                    5.0f);
-    }
-    else
-    {
-        const float ix = x + width * 0.5f - sliderRadius * 0.5f;
-        const float iw = sliderRadius;
-
-        g.setGradientFill (ColourGradient (gradCol1, ix, 0.0f,
-                                           gradCol2, ix + iw, 0.0f, false));
-
-        indent.addRoundedRectangle (ix, y - sliderRadius * 0.5f,
-                                    iw, height + sliderRadius,
-                                    5.0f);
-    }
-
-    g.fillPath (indent);
-
-    g.setColour (Colour (0x4c000000));
-    g.strokePath (indent, PathStrokeType (0.5f));
-}
-
-void CamoLookAndFeel::drawLinearSliderThumb (Graphics& g, int x, int y, int width, int height,
-                                            float sliderPos, float minSliderPos, float maxSliderPos,
-                                            const Slider::SliderStyle style, Slider& slider)
-{
-    const float sliderRadius = (float) (getSliderThumbRadius (slider) - 2);
-
-    Colour knobColour (LookAndFeelHelpers::createBaseColour (slider.findColour (Slider::thumbColourId),
-                                                             slider.hasKeyboardFocus (false) && slider.isEnabled(),
-                                                             slider.isMouseOverOrDragging() && slider.isEnabled(),
-                                                             slider.isMouseButtonDown() && slider.isEnabled()));
-
-    const float outlineThickness = slider.isEnabled() ? 0.8f : 0.3f;
-
-    if (style == Slider::LinearHorizontal || style == Slider::LinearVertical)
-    {
-        float kx, ky;
-
-        if (style == Slider::LinearVertical)
-        {
-            kx = x + width * 0.5f;
-            ky = sliderPos;
-        }
-        else
-        {
-            kx = sliderPos;
-            ky = y + height * 0.5f;
-        }
-
-        drawGlassSphere (g,
-                         kx - sliderRadius,
-                         ky - sliderRadius,
-                         sliderRadius * 2.0f,
-                         knobColour, outlineThickness);
-    }
-    else
-    {
-        if (style == Slider::ThreeValueVertical)
-        {
-            drawGlassSphere (g, x + width * 0.5f - sliderRadius,
-                             sliderPos - sliderRadius,
-                             sliderRadius * 2.0f,
-                             knobColour, outlineThickness);
-        }
-        else if (style == Slider::ThreeValueHorizontal)
-        {
-            drawGlassSphere (g,sliderPos - sliderRadius,
-                             y + height * 0.5f - sliderRadius,
-                             sliderRadius * 2.0f,
-                             knobColour, outlineThickness);
-        }
-
-        if (style == Slider::TwoValueVertical || style == Slider::ThreeValueVertical)
-        {
-            const float sr = jmin (sliderRadius, width * 0.4f);
-
-            drawGlassPointer (g, jmax (0.0f, x + width * 0.5f - sliderRadius * 2.0f),
-                              minSliderPos - sliderRadius,
-                              sliderRadius * 2.0f, knobColour, outlineThickness, 1);
-
-            drawGlassPointer (g, jmin (x + width - sliderRadius * 2.0f, x + width * 0.5f), maxSliderPos - sr,
-                              sliderRadius * 2.0f, knobColour, outlineThickness, 3);
-        }
-        else if (style == Slider::TwoValueHorizontal || style == Slider::ThreeValueHorizontal)
-        {
-            const float sr = jmin (sliderRadius, height * 0.4f);
-
-            drawGlassPointer (g, minSliderPos - sr,
-                              jmax (0.0f, y + height * 0.5f - sliderRadius * 2.0f),
-                              sliderRadius * 2.0f, knobColour, outlineThickness, 2);
-
-            drawGlassPointer (g, maxSliderPos - sliderRadius,
-                              jmin (y + height - sliderRadius * 2.0f, y + height * 0.5f),
-                              sliderRadius * 2.0f, knobColour, outlineThickness, 4);
-        }
-    }
-}
 
 void CamoLookAndFeel::drawLinearSlider (Graphics& g, int x, int y, int width, int height,
-                                       float sliderPos, float minSliderPos, float maxSliderPos,
+                                       float pos, float min, float max,
                                        const Slider::SliderStyle style, Slider& slider)
 {
-    g.fillAll (slider.findColour (Slider::backgroundColourId));
-
-    if (style == Slider::LinearBar || style == Slider::LinearBarVertical)
+    g.fillAll(slider.findColour(Slider::backgroundColourId));
+    g.setColour(slider.findColour(Slider::thumbColourId));
+    g.drawRect(0, 0, width, height, 1);
+    if(style == Slider::LinearHorizontal)
     {
-        const bool isMouseOver = slider.isMouseOverOrDragging() && slider.isEnabled();
-
-        Colour baseColour (LookAndFeelHelpers::createBaseColour (slider.findColour (Slider::thumbColourId)
-                                                                       .withMultipliedSaturation (slider.isEnabled() ? 1.0f : 0.5f),
-                                                                 false, isMouseOver,
-                                                                 isMouseOver || slider.isMouseButtonDown()));
-
-        drawShinyButtonShape (g,
-                              (float) x,
-                              style == Slider::LinearBarVertical ? sliderPos
-                                                                 : (float) y,
-                              style == Slider::LinearBarVertical ? (float) width
-                                                                 : (sliderPos - x),
-                              style == Slider::LinearBarVertical ? (height - sliderPos)
-                                                                 : (float) height, 0.0f,
-                              baseColour,
-                              slider.isEnabled() ? 0.9f : 0.3f,
-                              true, true, true, true);
+        g.drawLine(pos - min, 0, pos - min, height, 1.f);
     }
     else
     {
-        drawLinearSliderBackground (g, x, y, width, height, sliderPos, minSliderPos, maxSliderPos, style, slider);
-        drawLinearSliderThumb (g, x, y, width, height, sliderPos, minSliderPos, maxSliderPos, style, slider);
+        g.drawLine(0, pos, width, pos, 1.f);
     }
 }
 
@@ -1354,73 +1181,6 @@ int CamoLookAndFeel::getSliderThumbRadius (Slider& slider)
     return jmin (7,
                  slider.getHeight() / 2,
                  slider.getWidth() / 2) + 2;
-}
-
-void CamoLookAndFeel::drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
-                                       const float rotaryStartAngle, const float rotaryEndAngle, Slider& slider)
-{
-    const float radius = jmin (width / 2, height / 2) - 2.0f;
-    const float centreX = x + width * 0.5f;
-    const float centreY = y + height * 0.5f;
-    const float rx = centreX - radius;
-    const float ry = centreY - radius;
-    const float rw = radius * 2.0f;
-    const float angle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
-    const bool isMouseOver = slider.isMouseOverOrDragging() && slider.isEnabled();
-
-    if (radius > 12.0f)
-    {
-        if (slider.isEnabled())
-            g.setColour (slider.findColour (Slider::rotarySliderFillColourId).withAlpha (isMouseOver ? 1.0f : 0.7f));
-        else
-            g.setColour (Colour (0x80808080));
-
-        const float thickness = 0.7f;
-
-        {
-            Path filledArc;
-            filledArc.addPieSegment (rx, ry, rw, rw, rotaryStartAngle, angle, thickness);
-            g.fillPath (filledArc);
-        }
-
-        {
-            const float innerRadius = radius * 0.2f;
-            Path p;
-            p.addTriangle (-innerRadius, 0.0f,
-                           0.0f, -radius * thickness * 1.1f,
-                           innerRadius, 0.0f);
-
-            p.addEllipse (-innerRadius, -innerRadius, innerRadius * 2.0f, innerRadius * 2.0f);
-
-            g.fillPath (p, AffineTransform::rotation (angle).translated (centreX, centreY));
-        }
-
-        if (slider.isEnabled())
-            g.setColour (slider.findColour (Slider::rotarySliderOutlineColourId));
-        else
-            g.setColour (Colour (0x80808080));
-
-        Path outlineArc;
-        outlineArc.addPieSegment (rx, ry, rw, rw, rotaryStartAngle, rotaryEndAngle, thickness);
-        outlineArc.closeSubPath();
-
-        g.strokePath (outlineArc, PathStrokeType (slider.isEnabled() ? (isMouseOver ? 2.0f : 1.2f) : 0.3f));
-    }
-    else
-    {
-        if (slider.isEnabled())
-            g.setColour (slider.findColour (Slider::rotarySliderFillColourId).withAlpha (isMouseOver ? 1.0f : 0.7f));
-        else
-            g.setColour (Colour (0x80808080));
-
-        Path p;
-        p.addEllipse (-0.4f * rw, -0.4f * rw, rw * 0.8f, rw * 0.8f);
-        PathStrokeType (rw * 0.1f).createStrokedPath (p, p);
-
-        p.addLineSegment (Line<float> (0.0f, 0.0f, 0.0f, -radius), rw * 0.2f);
-
-        g.fillPath (p, AffineTransform::rotation (angle).translated (centreX, centreY));
-    }
 }
 
 Button* CamoLookAndFeel::createSliderButton (Slider&, const bool isIncrement)
@@ -1481,69 +1241,9 @@ int CamoLookAndFeel::getSliderPopupPlacement (Slider&)
 //==============================================================================
 Slider::SliderLayout CamoLookAndFeel::getSliderLayout (Slider& slider)
 {
-    // 1. compute the actually visible textBox size from the slider textBox size and some additional constraints
-
-    int minXSpace = 0;
-    int minYSpace = 0;
-
-    Slider::TextEntryBoxPosition textBoxPos = slider.getTextBoxPosition();
-
-    if (textBoxPos == Slider::TextBoxLeft || textBoxPos == Slider::TextBoxRight)
-        minXSpace = 30;
-    else
-        minYSpace = 15;
-
-    Rectangle<int> localBounds = slider.getLocalBounds();
-
-    const int textBoxWidth = jmax (0, jmin (slider.getTextBoxWidth(),  localBounds.getWidth() - minXSpace));
-    const int textBoxHeight = jmax (0, jmin (slider.getTextBoxHeight(), localBounds.getHeight() - minYSpace));
-
     Slider::SliderLayout layout;
-
-    // 2. set the textBox bounds
-
-    if (textBoxPos != Slider::NoTextBox)
-    {
-        if (slider.isBar())
-        {
-            layout.textBoxBounds = localBounds;
-        }
-        else
-        {
-            layout.textBoxBounds.setWidth (textBoxWidth);
-            layout.textBoxBounds.setHeight (textBoxHeight);
-
-            if (textBoxPos == Slider::TextBoxLeft)           layout.textBoxBounds.setX (0);
-            else if (textBoxPos == Slider::TextBoxRight)     layout.textBoxBounds.setX (localBounds.getWidth() - textBoxWidth);
-            else /* above or below -> centre horizontally */ layout.textBoxBounds.setX ((localBounds.getWidth() - textBoxWidth) / 2);
-
-            if (textBoxPos == Slider::TextBoxAbove)          layout.textBoxBounds.setY (0);
-            else if (textBoxPos == Slider::TextBoxBelow)     layout.textBoxBounds.setY (localBounds.getHeight() - textBoxHeight);
-            else /* left or right -> centre vertically */    layout.textBoxBounds.setY ((localBounds.getHeight() - textBoxHeight) / 2);
-        }
-    }
-
-    // 3. set the slider bounds
-
-    layout.sliderBounds = localBounds;
-
-    if (slider.isBar())
-    {
-        layout.sliderBounds.reduce (1, 1);   // bar border
-    }
-    else
-    {
-        if (textBoxPos == Slider::TextBoxLeft)       layout.sliderBounds.removeFromLeft (textBoxWidth);
-        else if (textBoxPos == Slider::TextBoxRight) layout.sliderBounds.removeFromRight (textBoxWidth);
-        else if (textBoxPos == Slider::TextBoxAbove) layout.sliderBounds.removeFromTop (textBoxHeight);
-        else if (textBoxPos == Slider::TextBoxBelow) layout.sliderBounds.removeFromBottom (textBoxHeight);
-
-        const int thumbIndent = getSliderThumbRadius (slider);
-
-        if (slider.isHorizontal())    layout.sliderBounds.reduce (thumbIndent, 0);
-        else if (slider.isVertical()) layout.sliderBounds.reduce (0, thumbIndent);
-    }
-
+    layout.sliderBounds = slider.getBounds().withZeroOrigin();
+    layout.textBoxBounds = Rectangle<int>(0, 0, 0, 0);
     return layout;
 }
 

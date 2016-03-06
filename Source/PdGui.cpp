@@ -4,322 +4,254 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "PdGui.h"
+#include "PdGui.hpp"
+#include "PdPatch.hpp"
+#include "PdInstance.hpp"
+#include "Pd.hpp"
+
+extern "C"
+{
+#include "../ThirdParty/PureData/src/m_pd.h"
+#include "../ThirdParty/PureData/src/g_canvas.h"
+#include "../ThirdParty/PureData/src/s_stuff.h"
+#include "../ThirdParty/PureData/src/m_imp.h"
+#include "../ThirdParty/PureData/src/g_all_guis.h"
+}
 
 namespace pd
 {
     // ==================================================================================== //
-    //                                          GUI                                         //
+    //                                      OBJECT                                          //
     // ==================================================================================== //
     
-    Gui::Gui() noexcept : Object(),
-    m_background_color({0.f, 0.f, 0.f, 0.f}),
-    m_border_color({0.f, 0.f, 0.f, 0.f}),
-    m_border_size(0),
-    m_corner_roundness(0)
+    Gui::Gui() noexcept : m_ptr(nullptr), m_type(Type::Invalid), m_patch()
     {
         
     }
     
-    Gui::Gui(Patch const& patch, t_object* object) noexcept : Object(patch, object),
-    m_background_color({0.f, 0.f, 0.f, 0.f}),
-    m_border_color({0.f, 0.f, 0.f, 0.f}),
-    m_border_size(0),
-    m_corner_roundness(0)
-    {
-        t_eclass* c = getClass();
-        if(isGui() && c->c_widget.w_getdrawparameters)
-        {
-            t_edrawparams params;
-            c->c_widget.w_getdrawparameters(getObject(), NULL, &params);
-            m_background_color = {params.d_boxfillcolor.red,
-                params.d_boxfillcolor.green,
-                params.d_boxfillcolor.blue,
-                params.d_boxfillcolor.alpha};
-            m_border_color = {params.d_bordercolor.red,
-                params.d_bordercolor.green,
-                params.d_bordercolor.blue,
-                params.d_bordercolor.alpha};
-            m_border_size = params.d_borderthickness;
-            m_corner_roundness = params.d_cornersize;
-        }
-    }
-    
-    Gui::Gui(Gui const& other) noexcept : Object(other),
-    m_background_color(other.m_background_color),
-    m_border_color(other.m_border_color),
-    m_border_size(other.m_border_size),
-    m_corner_roundness(other.m_corner_roundness)
-    {
-        
-    }
-    
-    Gui::Gui(Gui&& other) noexcept : Object(std::move(other)),
-    m_background_color(other.m_background_color),
-    m_border_color(other.m_border_color),
-    m_border_size(other.m_border_size),
-    m_corner_roundness(other.m_corner_roundness)
+    Gui::Gui(Patch const& patch, Type type, void* ptr) noexcept :
+    m_ptr(ptr), m_type(type), m_patch(patch)
     {
         ;
     }
     
-    
-    bool Gui::hasPresetName() const noexcept
+    Gui::Gui(Gui const& other) noexcept :
+    m_ptr(other.m_ptr), m_type(other.m_type), m_patch(other.m_patch)
     {
-        return is_valid_symbol(reinterpret_cast<t_ebox *>(getObject())->b_preset_id);
+        ;
     }
     
-    std::string Gui::getPresetName() const noexcept
+    Gui::Gui(Gui&& other) noexcept :
+    m_ptr(other.m_ptr), m_type(other.m_type), m_patch(other.m_patch)
     {
-        if(hasPresetName())
+        other.m_ptr   = nullptr;
+        other.m_type  = Type::Invalid;
+        other.m_patch = Patch();
+    }
+    
+    Gui& Gui::operator=(Gui const& other) noexcept
+    {
+        m_ptr   = other.m_ptr;
+        m_type  = other.m_type;
+        m_patch = other.m_patch;
+        return *this;
+    }
+    
+    Gui& Gui::operator=(Gui&& other) noexcept
+    {
+        std::swap(m_ptr, other.m_ptr);
+        std::swap(m_type, other.m_type);
+        std::swap(m_patch, other.m_patch);
+        return *this;
+    }
+    
+    Gui::~Gui() noexcept
+    {
+        m_ptr = nullptr;
+        m_patch = Patch();
+    }
+    
+    bool Gui::isValid() const noexcept
+    {
+        return bool(m_ptr) && m_patch.isValid();
+    }
+    
+    Gui::Type Gui::getType() const noexcept
+    {
+        return m_type;
+    }
+    
+    bool Gui::isParameter() const noexcept
+    {
+        return isValid() && !getName().empty() && getBindingName() != nullptr;
+    }
+    
+    std::string Gui::getName() const
+    {
+        if(isValid())
         {
-            t_ebox* box = reinterpret_cast<t_ebox *>(getObject());
-            return std::string(box->b_preset_id->s_name);
+            t_symbol* s = reinterpret_cast<t_iemgui *>(m_ptr)->x_lab;
+            if(s)
+            {
+                std::string name(s->s_name);
+                if(!name.empty() && name != "empty")
+                {
+                    auto pos = name.find("_");
+                    if(pos != std::string::npos)
+                    {
+                        name.erase(name.begin()+pos, name.end());
+                    }
+                    return name;
+                }
+            }
         }
         return std::string();
     }
     
-    bool Gui::wantMouse() const noexcept
+    std::string Gui::getLabel() const
     {
-        t_eclass* c = getClass();
-        return c && !(reinterpret_cast<t_ebox *>(getObject())->b_flags & EBOX_IGNORELOCKCLICK) &&
-        (c->c_widget.w_mousedown ||
-         c->c_widget.w_mousedrag ||
-         c->c_widget.w_mouseenter ||
-         c->c_widget.w_mouseleave ||
-         c->c_widget.w_mousemove ||
-         c->c_widget.w_mouseup ||
-         c->c_widget.w_mousewheel ||
-         c->c_widget.w_dblclick);
-    }
-    
-    bool Gui::wantKeyboard() const noexcept
-    {
-        t_eclass* c = getClass();
-        return c && (c->c_widget.w_key || c->c_widget.w_keyfilter);
-    }
-    
-    bool Gui::hasTextEditor() const noexcept
-    {
-        t_eclass* c = getClass();
-        return c && (c->c_widget.w_texteditor_keyfilter || c->c_widget.w_texteditor_keypress);
-    }
-    
-    void Gui::mouseMove(std::array<float, 2> const& pos, const long mod) noexcept
-    {
-        t_eclass* c = getClass();
-        Instance instance(getInstance());
-        if(instance && c && c->c_widget.w_mousemove)
+        t_symbol* s = reinterpret_cast<t_iemgui *>(m_ptr)->x_lab;
+        if(s)
         {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
-            c->c_widget.w_mousemove(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
-        }
-    }
-    
-    void Gui::mouseEnter(std::array<float, 2> const& pos, const long mod) noexcept
-    {
-        t_eclass* c = getClass();
-        Instance instance(getInstance());
-        if(instance && c && c->c_widget.w_mouseenter)
-        {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
-            c->c_widget.w_mouseenter(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
-        }
-    }
-    
-    void Gui::mouseExit(std::array<float, 2> const& pos, const long mod) noexcept
-    {
-        t_eclass* c = getClass();
-        Instance instance(getInstance());
-        if(instance && c && c->c_widget.w_mouseleave)
-        {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
-            c->c_widget.w_mouseleave(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
-        }
-    }
-    
-    void Gui::mouseDown(std::array<float, 2> const& pos, const long mod) noexcept
-    {
-        t_eclass* c = getClass();
-        Instance instance(getInstance());
-        if(instance && c && c->c_widget.w_mousedown)
-        {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
-            c->c_widget.w_mousedown(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
-        }
-    }
-    
-    void Gui::mouseDrag(std::array<float, 2> const& pos, const long mod) noexcept
-    {
-        t_eclass* c = getClass();
-        Instance instance(getInstance());
-        if(instance && c && c->c_widget.w_mousedrag)
-        {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
-            c->c_widget.w_mousedrag(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
-        }
-    }
-    
-    void Gui::mouseUp(std::array<float, 2> const& pos, const long mod) noexcept
-    {
-        t_eclass* c = getClass();
-        Instance instance(getInstance());
-        if(instance && c && c->c_widget.w_mouseup)
-        {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
-            c->c_widget.w_mouseup(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
-        }
-    }
-    
-    void Gui::mouseDoubleClick(std::array<float, 2> const& pos, const long mod) noexcept
-    {
-        t_eclass* c = getClass();
-        Instance instance(getInstance());
-        if(instance && c && c->c_widget.w_dblclick)
-        {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
-            c->c_widget.w_dblclick(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod);
-        }
-    }
-    
-    void Gui::mouseWheelMove(std::array<float, 2> const& pos, const long mod, std::array<float, 2> const& delta) noexcept
-    {
-        t_eclass* c = getClass();
-        Instance instance(getInstance());
-        if(instance && c && c->c_widget.w_mousewheel)
-        {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
-            c->c_widget.w_mousewheel(getObject(), NULL, t_pt({pos[0], pos[1]}), (long)mod, delta[0], delta[1]);
-        }
-    }
-    
-    void Gui::textEditorKeyPress(TextEditor& editor, char ch) noexcept
-    {
-        t_eclass* c = getClass();
-        Instance instance(getInstance());
-        if(instance && c && c->c_widget.w_texteditor_keypress)
-        {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
-            c->c_widget.w_texteditor_keypress(getObject(), editor.m_editor, (int)ch);
-        }
-    }
-    
-    void Gui::textEditorKeyFilter(TextEditor& editor, int filter) noexcept
-    {
-        t_eclass* c = getClass();
-        Instance instance(getInstance());
-        if(instance && c && c->c_widget.w_texteditor_keyfilter)
-        {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
-            c->c_widget.w_texteditor_keyfilter(getObject(), editor.m_editor, (ekey_flags)filter);
-        }
-    }
-    
-    void Gui::popup(PopupMenu& menu, int item) noexcept
-    {
-        t_eclass* c = getClass();
-        Instance instance(getInstance());
-        if(instance && c && c->c_widget.w_popup)
-        {
-            int tocheck_recursion;
-            //std::lock_guard<std::mutex> guard(instance.m_internal->mutex);
-            c->c_widget.w_popup(getObject(), menu.m_popup, item);
-        }
-    }
-    
-    void Gui::keyPressed(const char key, const long mod) noexcept
-    {
-        t_eclass* c = getClass();
-        Instance instance(getInstance());
-        if(instance && c && c->c_widget.w_key)
-        {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
-            c->c_widget.w_key(getObject(), NULL, key, mod);
-        }
-    }
-    
-    void Gui::keyFilter(const char key, const long mod) noexcept
-    {
-        t_eclass* c = getClass();
-        Instance instance(getInstance());
-        if(instance && c && c->c_widget.w_keyfilter)
-        {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
-            c->c_widget.w_keyfilter(getObject(), NULL, key, mod);
-        }
-    }
-    
-    std::vector<Layer> Gui::paint() const noexcept
-    {
-        t_eclass* c = getClass();
-        std::vector<Layer> objs;
-        t_ebox* x = ((t_ebox *)getObject());
-        Instance instance(getInstance());
-        if(instance && c && c->c_widget.w_paint && x->b_ready_to_draw)
-        {
-            std::lock_guard<std::mutex> guard2(instance.m_internal->mutex);
-            std::lock_guard<std::mutex> guard(instance.s_mutex);
-            pd_setinstance(instance.m_internal->instance);
-            if(x->b_layers)
+            std::string name(s->s_name);
+            if(!name.empty() && name != "empty")
             {
-                for(int i = 0; i < x->b_number_of_layers; i++)
+                auto pos = name.find("_");
+                if(pos != std::string::npos)
                 {
-                    x->b_layers[i].e_state = EGRAPHICS_INVALID;
+                    name.erase(name.begin(), name.begin()+pos+1);
+                    return name;
                 }
             }
-            c->c_widget.w_paint(getObject(), NULL);
-            objs.resize(x->b_number_of_layers);
-            for(size_t i = 0; i < objs.size(); i++)
-            {
-                objs[i] = ((t_ebox *)(getObject()))->b_layers+i;
-            }
         }
-        
-        return objs;
+        return std::string();
     }
     
-    std::vector<Parameter> Gui::getParameters() const noexcept
+    BindingName Gui::getBindingName() const
     {
-        t_ebox* x = ((t_ebox *)getObject());
-        if(x->b_nparams)
+        if(isValid())
         {
-            std::vector<Parameter> params(x->b_nparams);
-            for(size_t i = 0; i < x->b_nparams; i++)
+            if(reinterpret_cast<t_iemgui *>(m_ptr)->x_rcv != gensym("empty"))
             {
-                if(x->b_params[i] && is_valid_symbol(x->b_params[i]->p_name))
-                {
-                    params[i] = Parameter(*this, std::string(x->b_params[i]->p_bind->s_name));
-                }
+                return BindingName(reinterpret_cast<t_iemgui *>(m_ptr)->x_rcv);
             }
-            return params;
         }
-        return std::vector<Parameter>();
+        return BindingName(nullptr);
     }
-
+    
+    size_t Gui::getNumberOfSteps() const noexcept
+    {
+        if(isValid())
+        {
+            if(m_type == Type::HorizontalSlider)
+            {
+                return 0;
+            }
+            else if(m_type == Type::VecticalSlider)
+            {
+                return 0;
+            }
+            else if(m_type == Type::Number)
+            {
+                return 0;
+            }
+            else if(m_type == Type::Toggle)
+            {
+                return 2;
+            }
+        }
+        return 0.f;
+    }
+    
+    float Gui::getMinimum() const noexcept
+    {
+        if(isValid())
+        {
+            if(m_type == Type::HorizontalSlider)
+            {
+                return reinterpret_cast<t_hslider *>(m_ptr)->x_min;
+            }
+            else if(m_type == Type::VecticalSlider)
+            {
+                return reinterpret_cast<t_vslider *>(m_ptr)->x_min;
+            }
+            else if(m_type == Type::Number)
+            {
+                return reinterpret_cast<t_my_numbox *>(m_ptr)->x_min;
+            }
+            else if(m_type == Type::Toggle)
+            {
+                return 0;
+            }
+        }
+        return 0.f;
+    }
+    
+    float Gui::getMaximum() const noexcept
+    {
+        if(isValid())
+        {
+            if(m_type == Type::HorizontalSlider)
+            {
+                return reinterpret_cast<t_hslider *>(m_ptr)->x_max;
+            }
+            else if(m_type == Type::VecticalSlider)
+            {
+                return reinterpret_cast<t_vslider *>(m_ptr)->x_max;
+            }
+            else if(m_type == Type::Number)
+            {
+                return reinterpret_cast<t_my_numbox *>(m_ptr)->x_max;
+            }
+            else if(m_type == Type::Toggle)
+            {
+                return 1;
+            }
+        }
+        return 1.f;
+    }
+    
+    float Gui::getValue() const noexcept
+    {
+        if(isValid())
+        {
+            if(m_type == Type::HorizontalSlider)
+            {
+                return reinterpret_cast<t_hslider *>(m_ptr)->x_fval;
+            }
+            else if(m_type == Type::VecticalSlider)
+            {
+                return reinterpret_cast<t_vslider *>(m_ptr)->x_fval;
+            }
+            else if(m_type == Type::Number)
+            {
+                return reinterpret_cast<t_my_numbox *>(m_ptr)->x_val;
+            }
+            else if(m_type == Type::Toggle)
+            {
+                return reinterpret_cast<t_toggle *>(m_ptr)->x_on;
+            }
+        }
+        return 0.f;
+    }
+    
+    std::array<float, 4> Gui::getBounds() const noexcept
+    {
+        if(isValid())
+        {
+            return m_patch.getGuiBounds(*this);
+        }
+        return {0.f, 0.f, 0.f, 0.f};
+    }
+    
+    std::array<float, 2> Gui::getLabelPosition() const noexcept
+    {
+        if(isValid())
+        {
+            return m_patch.getGuiLabelPosition(*this);
+        }
+        return {0.f, 0.f};
+    }
 }
 
 

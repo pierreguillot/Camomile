@@ -4,12 +4,16 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "PdInstance.h"
-#include "PdPatch.h"
+#include "PdInstance.hpp"
+#include "PdPatch.hpp"
+#include "Pd.hpp"
 
 extern "C"
 {
-    EXTERN  void pd_init(void);
+#include "../ThirdParty/PureData/src/m_pd.h"
+#include "../ThirdParty/PureData/src/g_canvas.h"
+#include "../ThirdParty/PureData/src/s_stuff.h"
+#include "../ThirdParty/PureData/src/m_imp.h"
 }
 
 namespace pd
@@ -18,156 +22,84 @@ namespace pd
     //                                          INSTANCE                                    //
     // ==================================================================================== //
     
-    int Instance::s_sample_rate;
-    std::mutex Instance::s_mutex;
-    std::string Instance::s_console;
-    
-    Instance::Internal::Internal(std::string const& _name) :
-    instance(nullptr),
-    counter(1),
-    name(_name)
-    {
-        std::lock_guard<std::mutex> guard(s_mutex);
-        static int initialized = 0;
-        if(!initialized)
-        {
-            signal(SIGFPE, SIG_IGN);
-            sys_printhook = (t_printhook)print;
-            sys_soundin = NULL;
-            sys_soundout = NULL;
-            // are all these settings necessary?
-            sys_schedblocksize = DEFDACBLKSIZE;
-            sys_externalschedlib = 0;
-            sys_printtostderr = 0;
-            sys_usestdpath = 0;
-            sys_debuglevel = 1;
-            sys_verbose = 1;
-            sys_noloadbang = 0;
-            sys_nogui = 1;
-            sys_hipriority = 0;
-            sys_nmidiin = 0;
-            sys_nmidiout = 0;
-            sys_init_fdpoll();
-#ifdef HAVE_SCHED_TICK_ARG
-            sys_time = 0;
-#endif
-            pd_init();
-            sys_set_audio_api(API_DUMMY);
-            sys_searchpath = NULL;
-            s_sample_rate  = 0;
-            initialized = 1;
-            libpd_loadcream();
-            
-            int indev[MAXAUDIOINDEV], inch[MAXAUDIOINDEV],
-            outdev[MAXAUDIOOUTDEV], outch[MAXAUDIOOUTDEV];
-            indev[0] = outdev[0] = DEFAULTAUDIODEV;
-            inch[0] = s_max_channels;
-            outch[0] = s_max_channels;
-            sys_set_audio_settings(1, indev, 1, inch,
-                                   1, outdev, 1, outch, 44100, -1, 1, DEFDACBLKSIZE);
-            sched_set_using_audio(SCHED_AUDIO_CALLBACK);
-            sys_reopen_audio();
-            s_sample_rate = sys_getsr();
-        }
-        instance = pdinstance_new();
-    }
-    
-    Instance::Internal::~Internal()
-    {
-        std::lock_guard<std::mutex> guard(s_mutex);
-        if(instance)
-        {
-            pdinstance_free(instance);
-        }
-    }
-    
-    Instance::Instance() noexcept : m_internal(nullptr)
+    Instance::Instance() noexcept : m_ptr(nullptr), m_count(nullptr)
     {
         
     }
     
-    Instance::Instance(std::string const& name) noexcept : m_internal(new Internal(name))
+    Instance::Instance(void* ptr) noexcept : m_ptr(ptr), m_count(new std::atomic<size_t>(1))
     {
         
     }
     
-    Instance::Instance(Instance const& other) noexcept : m_internal(other.m_internal)
+    Instance::Instance(Instance const& other) noexcept : m_ptr(other.m_ptr), m_count(other.m_count)
     {
-        if(m_internal)
+        if(m_ptr && m_count)
         {
-            ++m_internal->counter;
+            ++(*m_count);
         }
     }
     
-    Instance::Instance(Instance&& other) noexcept : m_internal(other.m_internal)
+    Instance::Instance(Instance&& other) noexcept : m_ptr(other.m_ptr), m_count(other.m_count)
     {
-        other.m_internal = nullptr;
+        other.m_ptr     = nullptr;
+        other.m_count   = nullptr;
     }
     
     Instance& Instance::operator=(Instance const& other) noexcept
     {
-        if(other.m_internal)
+        if(m_ptr && m_count && --(*m_count) == 0)
         {
-            other.m_internal->counter++;
-            m_internal = other.m_internal;
+            Pd::lock();
+            releaseDsp();
+            delete m_count;
+            pdinstance_free(reinterpret_cast<t_pdinstance *>(m_ptr));
+            Pd::unlock();
+            
+            m_ptr   = nullptr;
+            m_count =nullptr;
         }
-        else
+        if(other.m_ptr && other.m_count)
         {
-            m_internal = nullptr;
+            ++(*m_count);
+            m_ptr   = other.m_ptr;
+            m_count = other.m_count;
         }
         return *this;
     }
     
     Instance& Instance::operator=(Instance&& other) noexcept
     {
-        std::swap(m_internal, other.m_internal);
+        std::swap(m_count, other.m_count);
+        std::swap(m_ptr, other.m_ptr);
         return *this;
     }
     
     Instance::~Instance() noexcept
     {
-        if(m_internal && m_internal->counter)
+        if(m_ptr && m_count && --(*m_count) == 0)
         {
-            if(!(--m_internal->counter))
-            {
-                releaseDsp();
-                delete m_internal;
-            }
+            Pd::lock();
+            releaseDsp();
+            delete m_count;
+            pdinstance_free(reinterpret_cast<t_pdinstance *>(m_ptr));
+            Pd::unlock();
+            
+            m_ptr   = nullptr;
+            m_count =nullptr;
         }
     }
     
     void Instance::prepareDsp(const int nins, const int nouts, const int samplerate, const int nsamples) noexcept
     {
-        releaseDsp();
-        std::lock_guard<std::mutex> guard(m_internal->mutex);
-        std::lock_guard<std::mutex> guard2(s_mutex);
-        pd_setinstance(m_internal->instance);
         t_atom av;
-        
-        if(s_sample_rate != samplerate)
-        {
-            int indev[MAXAUDIOINDEV], inch[MAXAUDIOINDEV],
-            outdev[MAXAUDIOOUTDEV], outch[MAXAUDIOOUTDEV];
-            indev[0] = outdev[0] = DEFAULTAUDIODEV;
-            inch[0] = s_max_channels;
-            outch[0] = s_max_channels;
-            sys_set_audio_settings(1, indev, 1, inch,
-                                   1, outdev, 1, outch, samplerate, -1, 1, DEFDACBLKSIZE);
-            sched_set_using_audio(SCHED_AUDIO_CALLBACK);
-            sys_reopen_audio();
-            s_sample_rate = sys_getsr();
-        }
-        
-        atom_setfloat(&av, 1);
+        av.a_type = A_FLOAT;
+        av.a_w.w_float = 1;
         pd_typedmess((t_pd *)gensym("pd")->s_thing, gensym("dsp"), 1, &av);
     }
-    
+
     void Instance::performDsp(int nsamples, const int nins, const float** inputs, const int nouts, float** outputs) noexcept
     {
-
-        std::lock_guard<std::mutex> guard(m_internal->mutex);
-        std::lock_guard<std::mutex> guard2(s_mutex);
-        pd_setinstance(m_internal->instance);
         for(int i = 0; i < nsamples; i += DEFDACBLKSIZE)
         {
             for(int j = 0; j < nins; j++)
@@ -185,46 +117,64 @@ namespace pd
     
     void Instance::releaseDsp() noexcept
     {
-        ;
+        
     }
     
-    void Instance::addToSearchPath(std::string const& path) noexcept
+    void Instance::send(BindingName const& name, float val) const noexcept
     {
-        std::lock_guard<std::mutex> guard(s_mutex);
-        sys_searchpath = namelist_append(sys_searchpath, path.c_str(), 0);
-    }
-    
-    
-    void Instance::clearSearchPath() noexcept
-    {
-        std::lock_guard<std::mutex> guard(s_mutex);
-        namelist_free(sys_searchpath);
-        sys_searchpath = NULL;
-    }
-    
-    void Instance::setConsole(std::string const& text) noexcept
-    {
-        s_console = text;
-    }
-    
-    std::string Instance::getConsole() noexcept
-    {
-        if(s_console.size() > 1000)
+        t_symbol* sy = reinterpret_cast<t_symbol*>(name.ptr);
+        if(sy && sy->s_thing)
         {
-            s_console.erase(s_console.begin(), s_console.end()-1000);
+            pd_float((t_pd *)sy->s_thing, val);
         }
-        return s_console;
     }
     
-    void Instance::print(const char* s)
+    void Instance::lock() noexcept
     {
-        s_console.append(s);
-        t_symbol* send = gensym("camo-console");
-        if(send->s_thing)
+        Pd::lock();
+        pd_setinstance(reinterpret_cast<t_pdinstance *>(m_ptr));
+    }
+    
+    void Instance::unlock() noexcept
+    {
+        Pd::unlock();
+    }
+    
+    bool Instance::isValid() const noexcept
+    {
+        return bool(m_ptr) && bool(m_count);
+    }
+    
+    Patch Instance::createPatch(std::string const& name, std::string const& path)
+    {
+        Patch patch;
+        t_canvas* cnv = nullptr;
+        Pd::lock();
+        pd_setinstance(reinterpret_cast<t_pdinstance *>(m_ptr));
+        if(!name.empty() && !path.empty())
         {
-            pd_bang(send->s_thing);
+            cnv = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym(path.c_str())));
+            cnv->gl_edit = 0;
         }
-        std::cout << s;
+        else if(!name.empty())
+        {
+            cnv = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym("")));
+            cnv->gl_edit = 0;
+        }
+        if(cnv)
+        {
+            patch = Patch(*this, cnv, name, path);
+        }
+        Pd::unlock();
+        return patch;
+    }
+    
+    void Instance::freePatch(Patch &patch)
+    {
+        Pd::lock();
+        pd_setinstance(reinterpret_cast<t_pdinstance *>(m_ptr));
+        canvas_free(reinterpret_cast<t_canvas*>(patch.m_ptr));
+        Pd::unlock();
     }
 }
 

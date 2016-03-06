@@ -7,22 +7,13 @@
 #ifndef __CAMOMILE_INTANCE_PROCESSOR__
 #define __CAMOMILE_INTANCE_PROCESSOR__
 
-#include "PdWrapper.h"
+#include "Pd.hpp"
+#include "../JuceLibraryCode/JuceHeader.h"
 
-using namespace std;
-using namespace pd;
-
-class InstanceProcessor : public AudioProcessor, public Instance, public Messenger
+class InstanceProcessor : public AudioProcessor, public pd::Instance
 {
 public:
     class Listener;
-private:
-    Patch               m_patch;
-    set<Listener*>      m_listeners;
-    mutable mutex       m_mutex_list;
-    vector<Parameter>   m_parameters;
-    mutable mutex       m_mutex;
-public:
     InstanceProcessor();
     ~InstanceProcessor();
 
@@ -43,10 +34,12 @@ public:
     String getParameterText(int index, int size) override;
     String getParameterLabel (int index) const override;
     int getParameterNumSteps(int index) override;
-    bool isParameterAutomatable(int index) const;
-    bool isParameterOrientationInverted (int index) const;
-    bool isMetaParameter(int index) const;
-     
+    bool isParameterAutomatable(int index) const override;
+    bool isParameterOrientationInverted (int index) const override;
+    bool isMetaParameter(int index) const override;
+    float getParameterNonNormalized(int index) const;
+    void setParameterNonNormalized(int index, float newValue);
+    
     const String getInputChannelName(int index) const override {return String(index + 1);}
     const String getOutputChannelName(int index) const override {return String(index + 1);}
     bool isInputChannelStereoPair(int index) const override {return true;}
@@ -67,9 +60,10 @@ public:
     void setStateInformation(const void* data, int sizeInBytes) override;
     
     void loadPatch(const juce::File& file);
-    inline const Patch getPatch() const noexcept {return m_patch;}
-    inline Patch getPatch() noexcept {return m_patch;}
-    void receive(std::string const& dest, std::string const& s, std::vector<Atom> const& atoms) override;
+    inline const pd::Patch getPatch() const noexcept {return m_patch;}
+    inline pd::Patch getPatch() noexcept {return m_patch;}
+    int getParameterIndex(pd::BindingName const& name);
+    int getParameterIndex(String const& name);
     
     void addListener(Listener* listener);
     void removeListener(Listener* listener);
@@ -83,7 +77,48 @@ public:
     };
 
 private:
-    vector<Listener*> getListeners() const noexcept;
+    
+    class Parameter : public AudioProcessorParameter
+    {
+    public:
+        Parameter();
+        Parameter(Parameter const& other);
+        Parameter(pd::Gui const& gui);
+        ~Parameter();
+        Parameter& operator=(Parameter const& other);
+        Parameter& operator=(Parameter&& other);
+        bool isValid() const noexcept;
+        float getValue() const final;
+        float getValueNonNormalized() const;
+        void setValue(float newValue) final;
+        void setValueNonNormalized(float newValue);
+        float getDefaultValue() const final;
+        String getName(int maximumStringLength) const final;
+        String getLabel() const final;
+        String getText (float value, int size) const final;
+        float getValueForText (const String& text) const final;
+        bool isOrientationInverted() const final;
+        int getNumSteps() const final;
+        inline pd::BindingName const& getBindingName() const noexcept {return m_bname;}
+        
+    private:
+        bool   m_valid;
+        float  m_value;
+        float  m_min;
+        float  m_max;
+        String m_name;
+        String m_label;
+        pd::BindingName m_bname;
+        int    m_nsteps;
+    };
+    
+    pd::Patch              m_patch;
+    std::set<Listener*>    m_listeners;
+    std::vector<Parameter> m_parameters;
+    mutable std::mutex     m_mutex;
+    
+    void parametersChanged();
+    std::vector<Listener*> getListeners() const noexcept;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (InstanceProcessor)
 };

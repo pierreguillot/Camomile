@@ -1,0 +1,161 @@
+#N canvas 91 80 832 581 10;
+#X obj 29 65 hsl 128 15 0 10 0 0 empty \$0-depth Depth_ms -3 -6 0 10
+-262144 -1 -1 127 1;
+#X obj 258 6 loadbang;
+#X obj 29 35 hsl 128 15 0 5 0 0 empty \$0-rate Rate_Hz -3 -6 0 10 -262144
+-1 -1 2540 1;
+#N canvas 0 22 934 703 flanger 0;
+#X obj 120 275 +~ 1;
+#X obj 120 302 *~ 0.5;
+#X text 164 132 Low Frequency Oscillator;
+#X obj 91 615 +~, f 4;
+#X obj 360 615 +~, f 4;
+#X obj 361 275 +~ 1;
+#X obj 361 302 *~ 0.5;
+#X obj 224 185 phasor~ 1;
+#X obj 120 248 cos~;
+#X obj 361 248 cos~;
+#X obj 228 285 line~;
+#X msg 228 261 \$1 20;
+#X obj 120 351 *~;
+#X obj 361 351 *~;
+#X obj 228 375 line~;
+#X msg 228 350 \$1 20;
+#X obj 120 411 +~;
+#X obj 361 411 +~;
+#X obj 382 195 line~;
+#X msg 382 171 \$1 20;
+#X obj 361 222 +~;
+#X obj 258 545 line~;
+#X msg 258 513 \$1 20;
+#X obj 360 583 *~;
+#X obj 120 583 *~;
+#X obj 464 183 nbx 5 14 -1e+37 1e+37 0 0 \$0-rate \$0-ratei empty 0
+-8 0 10 -262144 -1 -1 0 256;
+#X obj 464 218 nbx 5 14 0 1e+37 0 0 \$0-depth \$0-depthi empty 0 -8
+0 10 -262144 -1 -1 0 256;
+#X obj 464 253 nbx 5 14 0 1e+37 0 0 \$0-shift \$0-shifti empty 0 -8
+0 10 -262144 -1 -1 0 256;
+#X obj 464 288 nbx 5 14 -1e+37 1e+37 0 0 \$0-spread \$0-spreadi empty
+0 -8 0 10 -262144 -1 -1 0 256;
+#X obj 464 323 nbx 5 14 0 1 0 0 \$0-feedback \$0-feedbacki empty 0
+-8 0 10 -262144 -1 -1 0 256;
+#X obj 382 102 r \$0-spread;
+#X obj 382 147 * 0.5;
+#X obj 228 233 r \$0-depth;
+#X obj 228 323 r \$0-shift;
+#X obj 258 462 r \$0-feedback;
+#X text 152 41 Input 1;
+#X text 450 39 Input 2;
+#X obj 109 98 delwrite~ \$0-delay-1 5000;
+#X obj 399 98 delwrite~ \$0-delay-2 5000;
+#X text 123 74 Tête d'enregistrement 1;
+#X text 403 74 Tête d'enregistrement 2;
+#X obj 120 458 vd~ \$0-delay-1, f 16;
+#X obj 361 458 vd~ \$0-delay-2, f 16;
+#X text 123 434 Tête de lecture 1;
+#X text 403 434 Tête de lecture 2;
+#X text 440 653 Output 2;
+#X text 20 653 Output 1;
+#X text 220 6 Stereo Flanger;
+#X obj 92 41 inlet~;
+#X obj 389 39 inlet~;
+#X obj 91 653 outlet~;
+#X obj 360 653 outlet~;
+#X obj 668 37 inlet;
+#X obj 668 62 route rate depth shift spread feedback;
+#X text 536 179 Rate (Hz);
+#X text 535 214 Depth (ms);
+#X text 533 249 Shift (ms);
+#X text 536 286 Spread (0-1);
+#X text 536 321 Feedback (0-1);
+#X obj 225 159 r \$0-rate;
+#X obj 258 484 / 100;
+#X obj 382 124 / 100, f 16;
+#X connect 0 0 1 0;
+#X connect 1 0 12 0;
+#X connect 3 0 50 0;
+#X connect 4 0 51 0;
+#X connect 5 0 6 0;
+#X connect 6 0 13 0;
+#X connect 7 0 8 0;
+#X connect 7 0 20 0;
+#X connect 8 0 0 0;
+#X connect 9 0 5 0;
+#X connect 10 0 12 1;
+#X connect 10 0 13 1;
+#X connect 11 0 10 0;
+#X connect 12 0 16 0;
+#X connect 13 0 17 0;
+#X connect 14 0 16 1;
+#X connect 14 0 17 1;
+#X connect 15 0 14 0;
+#X connect 16 0 41 0;
+#X connect 17 0 42 0;
+#X connect 18 0 20 1;
+#X connect 19 0 18 0;
+#X connect 20 0 9 0;
+#X connect 21 0 24 1;
+#X connect 21 0 23 1;
+#X connect 22 0 21 0;
+#X connect 23 0 4 0;
+#X connect 24 0 3 1;
+#X connect 30 0 61 0;
+#X connect 31 0 19 0;
+#X connect 32 0 11 0;
+#X connect 33 0 15 0;
+#X connect 34 0 60 0;
+#X connect 41 0 24 0;
+#X connect 42 0 23 0;
+#X connect 48 0 3 0;
+#X connect 48 0 37 0;
+#X connect 49 0 4 1;
+#X connect 49 0 38 0;
+#X connect 52 0 53 0;
+#X connect 53 0 25 0;
+#X connect 53 1 26 0;
+#X connect 53 2 27 0;
+#X connect 53 3 28 0;
+#X connect 53 4 29 0;
+#X connect 59 0 7 0;
+#X connect 60 0 22 0;
+#X connect 61 0 31 0;
+#X restore 32 241 pd flanger;
+#X obj 32 203 adc~ 1 2;
+#X obj 32 263 dac~ 1 2, f 16;
+#X obj 165 35 nbx 5 15 0 5 0 0 empty \$0-rate empty 0 -8 0 10 -262144
+-1 -1 0 256;
+#X msg 258 28 1;
+#X obj 165 65 nbx 5 15 0 10 0 0 empty \$0-depth empty 0 -8 0 10 -262144
+-1 -1 0 256;
+#X obj 29 96 hsl 128 15 0 10 0 0 empty \$0-shift Shift_ms -3 -6 0 10
+-262144 -1 -1 127 1;
+#X obj 165 96 nbx 5 15 0 10 0 0 empty \$0-shift empty 0 -8 0 10 -262144
+-1 -1 0 256;
+#X obj 29 126 hsl 128 15 0 100 0 0 empty \$0-feedback Feeback_% -3
+-6 0 10 -262144 -1 -1 12700 1;
+#X obj 165 126 nbx 5 15 0 10 0 0 empty \$0-feedback empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 29 156 hsl 128 15 0 100 0 0 empty \$0-spread Spread_% -3 -6
+0 10 -262144 -1 -1 12700 1;
+#X obj 165 156 nbx 5 15 0 10 0 0 empty \$0-spread empty 0 -8 0 10 -262144
+-1 -1 0 256;
+#X msg 249 59 0.1;
+#X msg 289 59 100;
+#X msg 289 89 100;
+#X msg 299 29 0.1;
+#X connect 1 0 7 0;
+#X connect 1 0 18 0;
+#X connect 1 0 15 0;
+#X connect 1 0 16 0;
+#X connect 1 0 17 0;
+#X connect 3 0 5 0;
+#X connect 3 1 5 1;
+#X connect 4 0 3 0;
+#X connect 4 1 3 1;
+#X connect 7 0 2 0;
+#X connect 15 0 9 0;
+#X connect 16 0 11 0;
+#X connect 17 0 13 0;
+#X connect 18 0 0 0;
+#X coords 0 -1 1 1 206 160 2 20 20;
