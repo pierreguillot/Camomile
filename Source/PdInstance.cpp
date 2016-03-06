@@ -5,6 +5,7 @@
 */
 
 #include "PdInstance.hpp"
+#include "PdPatch.hpp"
 #include "Pd.hpp"
 
 extern "C"
@@ -21,108 +22,84 @@ namespace pd
     //                                          INSTANCE                                    //
     // ==================================================================================== //
     
-    class Instance::Internal : public LeakDetector<Internal>
-    {
-    public:
-        t_pdinstance*        instance;
-        std::atomic<size_t>  counter;
-        std::string          name;
-        
-        Internal(std::string const& _name);
-        ~Internal();
-    };
-    
-    Instance::Instance() noexcept : m_internal(nullptr)
+    Instance::Instance() noexcept : m_ptr(nullptr), m_count(nullptr)
     {
         
     }
     
-    Instance::Internal::Internal(std::string const& _name) :
-    instance(nullptr),
-    counter(1),
-    name(_name)
+    Instance::Instance(void* ptr) noexcept : m_ptr(ptr), m_count(new std::atomic<size_t>(1))
     {
-        Pd::lock();
-        instance = pdinstance_new();
-        Pd::unlock();
+        
     }
     
-    Instance::Internal::~Internal()
+    Instance::Instance(Instance const& other) noexcept : m_ptr(other.m_ptr), m_count(other.m_count)
     {
-        Pd::lock();
-        if(instance)
+        if(m_ptr && m_count)
         {
-            pdinstance_free(instance);
-        }
-        Pd::unlock();
-    }
-    
-    Instance::Instance(std::string const& name) noexcept : m_internal(new Internal(name))
-    {
-        
-    }
-    
-    Instance::Instance(Instance const& other) noexcept : m_internal(other.m_internal)
-    {
-        if(m_internal)
-        {
-            ++m_internal->counter;
+            ++(*m_count);
         }
     }
     
-    Instance::Instance(Instance&& other) noexcept : m_internal(other.m_internal)
+    Instance::Instance(Instance&& other) noexcept : m_ptr(other.m_ptr), m_count(other.m_count)
     {
-        other.m_internal = nullptr;
+        other.m_ptr     = nullptr;
+        other.m_count   = nullptr;
     }
     
     Instance& Instance::operator=(Instance const& other) noexcept
     {
-        if(other.m_internal)
+        if(m_ptr && m_count && --(*m_count) == 0)
         {
-            other.m_internal->counter++;
-            m_internal = other.m_internal;
+            Pd::lock();
+            releaseDsp();
+            delete m_count;
+            pdinstance_free(reinterpret_cast<t_pdinstance *>(m_ptr));
+            Pd::unlock();
+            
+            m_ptr   = nullptr;
+            m_count =nullptr;
         }
-        else
+        if(other.m_ptr && other.m_count)
         {
-            m_internal = nullptr;
+            ++(*m_count);
+            m_ptr   = other.m_ptr;
+            m_count = other.m_count;
         }
         return *this;
     }
     
     Instance& Instance::operator=(Instance&& other) noexcept
     {
-        std::swap(m_internal, other.m_internal);
+        std::swap(m_count, other.m_count);
+        std::swap(m_ptr, other.m_ptr);
         return *this;
     }
     
     Instance::~Instance() noexcept
     {
-        if(m_internal && m_internal->counter)
+        if(m_ptr && m_count && --(*m_count) == 0)
         {
-            if(!(--m_internal->counter))
-            {
-                releaseDsp();
-                delete m_internal;
-            }
+            Pd::lock();
+            releaseDsp();
+            delete m_count;
+            pdinstance_free(reinterpret_cast<t_pdinstance *>(m_ptr));
+            Pd::unlock();
+            
+            m_ptr   = nullptr;
+            m_count =nullptr;
         }
     }
     
     void Instance::prepareDsp(const int nins, const int nouts, const int samplerate, const int nsamples) noexcept
     {
-        releaseDsp();
-        Pd::lock();
-        pd_setinstance(m_internal->instance);
         t_atom av;
         av.a_type = A_FLOAT;
         av.a_w.w_float = 1;
         pd_typedmess((t_pd *)gensym("pd")->s_thing, gensym("dsp"), 1, &av);
-        Pd::unlock();
     }
 
     void Instance::performDsp(int nsamples, const int nins, const float** inputs, const int nouts, float** outputs) noexcept
     {
-        Pd::lock();
-        pd_setinstance(m_internal->instance);
         for(int i = 0; i < nsamples; i += DEFDACBLKSIZE)
         {
             for(int j = 0; j < nins; j++)
@@ -136,7 +113,6 @@ namespace pd
                 memcpy(outputs[j]+i, sys_soundout+j*DEFDACBLKSIZE, DEFDACBLKSIZE * sizeof(t_sample));
             }
         }
-        Pd::unlock();
     }
     
     void Instance::releaseDsp() noexcept
@@ -156,7 +132,7 @@ namespace pd
     void Instance::lock() noexcept
     {
         Pd::lock();
-        pd_setinstance(m_internal->instance);
+        pd_setinstance(reinterpret_cast<t_pdinstance *>(m_ptr));
     }
     
     void Instance::unlock()
@@ -166,19 +142,15 @@ namespace pd
     
     bool Instance::isValid() const noexcept
     {
-        return bool(m_internal) && bool(m_internal->instance);
+        return bool(m_ptr) && bool(m_count);
     }
     
-    std::string Instance::getName() const noexcept
+    Patch Instance::createPatch(std::string const& name, std::string const& path)
     {
-        return bool(m_internal) ? m_internal->name : std::string();
-    }
-    
-    void* Instance::createCanvas(std::string const& name, std::string const& path)
-    {
+        Patch patch;
         t_canvas* cnv = nullptr;
         Pd::lock();
-        pd_setinstance(m_internal->instance);
+        pd_setinstance(reinterpret_cast<t_pdinstance *>(m_ptr));
         if(!name.empty() && !path.empty())
         {
             cnv = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym(path.c_str())));
@@ -189,15 +161,19 @@ namespace pd
             cnv = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym("")));
             cnv->gl_edit = 0;
         }
+        if(cnv)
+        {
+            patch = Patch(*this, cnv, name, path);
+        }
         Pd::unlock();
-        return cnv;
+        return patch;
     }
     
-    void Instance::freeCanvas(void* cnv)
+    void Instance::freePatch(Patch &patch)
     {
         Pd::lock();
-        pd_setinstance(m_internal->instance);
-        canvas_free(reinterpret_cast<t_canvas*>(cnv));
+        pd_setinstance(reinterpret_cast<t_pdinstance *>(m_ptr));
+        canvas_free(reinterpret_cast<t_canvas*>(patch.m_ptr));
         Pd::unlock();
     }
 }

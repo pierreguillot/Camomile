@@ -8,7 +8,7 @@
 #include "PatchEditor.h"
 #include "LookAndFeel.h"
 
-InstanceProcessor::InstanceProcessor() : pd::Instance(std::string("camomile"))
+InstanceProcessor::InstanceProcessor() : pd::Instance(pd::Pd::createInstance())
 {
     m_parameters.resize(32);
 }
@@ -84,12 +84,16 @@ bool InstanceProcessor::isMetaParameter(int index) const
 
 void InstanceProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
+    lock();
     prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(), sampleRate, samplesPerBlock);
+    unlock();
 }
 
 void InstanceProcessor::releaseResources()
 {
+    lock();
     releaseDsp();
+    unlock();
 }
 
 void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
@@ -101,12 +105,13 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     lock();
     for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); i++)
     {
-        send(m_parameters[i].getBindingPtr(), m_parameters[i].getValueUnormalized());
+        send(m_parameters[i].getBindingPtr(), m_parameters[i].getValueNonNormalized());
     }
-    unlock();
+    
     performDsp(buffer.getNumSamples(),
                getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
                getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
+    unlock();
 }
 
 AudioProcessorEditor* InstanceProcessor::createEditor()
@@ -119,10 +124,10 @@ void InstanceProcessor::parametersChanged()
     size_t index = 0;
     if(m_patch.isValid())
     {
-        std::vector<pd::Slider> sliders(m_patch.getSliders());
-        for(auto const& sld : sliders)
+        std::vector<pd::Gui> guis(m_patch.getGuis());
+        for(auto const& gui : guis)
         {
-            m_parameters[index] = SliderParameter(sld);
+            m_parameters[index] = SliderParameter(gui);
             index++;
         }
         for(; index < m_parameters.size(); index++)
@@ -159,7 +164,7 @@ void InstanceProcessor::loadPatch(const juce::File& file)
             releaseDsp();
             if(file.exists() && file.getFileExtension() == String(".pd"))
             {
-                m_patch = pd::Patch(*this, file.getFileName().toStdString(), file.getParentDirectory().getFullPathName().toStdString());
+                m_patch = createPatch(file.getFileName().toStdString(), file.getParentDirectory().getFullPathName().toStdString());
             }
             else
             {

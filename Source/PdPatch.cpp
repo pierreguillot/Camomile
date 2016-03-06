@@ -4,9 +4,7 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "PdPatch.hpp"
-#include "PdInstance.hpp"
-#include "Pd.hpp"
+#include "PdGui.hpp"
 
 extern "C"
 {
@@ -22,149 +20,137 @@ namespace pd
     //                                          PATCHER                                     //
     // ==================================================================================== //
     
-    class Patch::Internal : public LeakDetector<Internal>
+    Patch::Patch() noexcept : m_ptr(nullptr), m_count(nullptr), m_instance()
     {
-    public:
-        Instance            instance;
-        t_canvas*           canvas;
-        std::atomic<size_t> counter;
-        const std::string   name;
-        const std::string   path;
-        
-        Internal(Instance const& _instance, std::string const& _name, std::string const& _path);
-        ~Internal();
-    };
-    
-    Patch::Internal::Internal(Instance const& _instance, std::string const& _name, std::string const& _path) :
-    instance(_instance),
-    canvas(nullptr),
-    counter(1),
-    name(_name),
-    path(_path)
-    {
-        if(instance.isValid())
-        {
-            canvas = reinterpret_cast<t_canvas*>(instance.createCanvas(_name, _path));
-        }
         
     }
     
-    Patch::Internal::~Internal()
+    Patch::Patch(Instance& instance, void* ptr, std::string const& name, std::string const& path) noexcept :
+    m_ptr(ptr), m_count(new std::atomic<size_t>(1)), m_name(name), m_path(path), m_instance(instance)
     {
-        if(canvas && instance.isValid())
+    }
+    
+    Patch::Patch(Patch const& other) noexcept :
+    m_ptr(other.m_ptr), m_count(other.m_count), m_name(other.m_name), m_path(other.m_path), m_instance(other.m_instance)
+    {
+        if(m_ptr && m_count)
         {
-            instance.freeCanvas(canvas);
+            ++(*m_count);
         }
     }
     
-    Patch::Patch() noexcept : m_internal(nullptr)
+    Patch::Patch(Patch&& other) noexcept :
+    m_ptr(other.m_ptr), m_count(other.m_count), m_name(other.m_name), m_path(other.m_path), m_instance(other.m_instance)
     {
-        
-    }
-    
-    Patch::Patch(Instance const& istance, std::string const& name, std::string const& path) noexcept :
-    m_internal(new Internal(istance, name, path))
-    {
-        
-    }
-    
-    Patch::Patch(Patch const& other) noexcept : m_internal(other.m_internal)
-    {
-        if(m_internal)
-        {
-            m_internal->counter++;
-        }
-    }
-    
-    Patch::Patch(Patch&& other) noexcept : m_internal(other.m_internal)
-    {
-        other.m_internal = nullptr;
+        other.m_ptr     = nullptr;
+        other.m_count   = nullptr;
+        other.m_instance = Instance();
     }
     
     Patch& Patch::operator=(Patch const& other) noexcept
     {
-        if(other.m_internal)
+        if(m_ptr && m_count && --(*m_count) == 0)
         {
-            other.m_internal->counter++;
-            m_internal = other.m_internal;
+            if(m_instance.isValid())
+            {
+                m_instance.freePatch(*this);
+                m_instance  = Instance();
+            }
+            m_ptr       = nullptr;
+            m_count     = nullptr;
         }
-        else
+        if(other.m_ptr && other.m_count)
         {
-            m_internal = nullptr;
+            ++(*m_count);
+            m_ptr       = other.m_ptr;
+            m_count     = other.m_count;
+            m_instance  = other.m_instance;
         }
         return *this;
     }
     
     Patch& Patch::operator=(Patch&& other) noexcept
     {
-        std::swap(m_internal, other.m_internal);
+        std::swap(m_count, other.m_count);
+        std::swap(m_ptr, other.m_ptr);
+        std::swap(m_name, other.m_name);
+        std::swap(m_path, other.m_path);
+        std::swap(m_instance, other.m_instance);
         return *this;
     }
     
     Patch::~Patch() noexcept
     {
-        if(m_internal && m_internal->counter)
+        if(m_ptr && m_count && --(*m_count) == 0)
         {
-            --m_internal->counter;
-            if(!m_internal->counter)
+            if(m_instance.isValid())
             {
-                delete m_internal;
+                m_instance.freePatch(*this);
+                m_instance  = Instance();
             }
+            m_ptr       = nullptr;
+            m_count     = nullptr;
         }
     }
     
     bool Patch::isValid() const noexcept
     {
-        return bool(m_internal) && bool(m_internal->canvas);
+        return bool(m_ptr) && bool(m_count) && m_instance.isValid();
     }
     
     Instance Patch::getInstance() const noexcept
     {
-        return bool(m_internal) ? m_internal->instance : Instance();
+        return m_instance;
     }
     
     std::string Patch::getName() const
     {
-        return bool(m_internal) ? m_internal->name : std::string();
+        return m_name;
     }
     
     std::string Patch::getPath() const
     {
-        return bool(m_internal) ? m_internal->path : std::string();
+        return m_path;
     }
     
     std::array<float, 2> Patch::getSize() const noexcept
     {
         if(isValid())
         {
-            return {static_cast<float>(m_internal->canvas->gl_pixwidth), static_cast<float>(m_internal->canvas->gl_pixheight)};
+            t_canvas* cnv = reinterpret_cast<t_canvas*>(m_ptr);
+            return {static_cast<float>(cnv->gl_pixwidth), static_cast<float>(cnv->gl_pixheight)};
         }
         return {0.f, 0.f};
     }
     
-    std::vector<Slider> Patch::getSliders() const noexcept
+    std::vector<Gui> Patch::getGuis() const noexcept
     {
-        std::vector<Slider> objects;
+        std::vector<Gui> objects;
         if(isValid())
         {
+            t_canvas* cnv = reinterpret_cast<t_canvas*>(m_ptr);
             t_symbol* hsl = gensym("hsl");
-            //t_symbol* vsl = gensym("vsl");
-            for(t_gobj *y = m_internal->canvas->gl_list; y; y = y->g_next)
+            t_symbol* vsl = gensym("vsl");
+            for(t_gobj *y = cnv->gl_list; y; y = y->g_next)
             {
-                if(y->g_pd->c_name == hsl)// || y->g_pd->c_name ==  vsl)
+                if(y->g_pd->c_name == hsl)
                 {
-                    objects.push_back(Slider(*this, reinterpret_cast<void *>(y)));
+                    objects.push_back(Gui(*this, Gui::Type::HorizontalSlider, reinterpret_cast<void *>(y)));
+                }
+                else if(y->g_pd->c_name == vsl)
+                {
+                    objects.push_back(Gui(*this, Gui::Type::VecticalSlider, reinterpret_cast<void *>(y)));
                 }
             }
         }
         return objects;
     }
     
-    void* Patch::getPtr() const noexcept
+    void* Patch::getRawPtr() const noexcept
     {
         if(isValid())
         {
-            return m_internal->canvas;
+            return m_ptr;
         }
         return nullptr;
     }

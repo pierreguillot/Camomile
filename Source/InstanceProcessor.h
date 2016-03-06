@@ -23,7 +23,7 @@ public:
     m_name (other.m_name), m_label(other.m_label),
     m_ptr(other.m_ptr) {}
     
-    SliderParameter(pd::Slider const& slider)
+    SliderParameter(pd::Gui const& slider)
     :
     m_valid(true), m_value (0.f),
     m_min(slider.getMinimum()),
@@ -31,7 +31,7 @@ public:
     m_name(slider.getName()),
     m_label(slider.getLabel()),
     m_ptr(slider.getBindingPtr())
-    {setValueUnormalized(slider.getValue());}
+    {setValueNonNormalized(slider.getValue());}
     
     ~SliderParameter() {}
     
@@ -63,7 +63,7 @@ public:
     
     float getValue() const final {return m_value;}
     
-    float getValueUnormalized() const
+    float getValueNonNormalized() const
     {
         if(m_min < m_max)
         {
@@ -74,7 +74,7 @@ public:
     
     void setValue (float newValue) final {m_value = newValue;}
     
-    void setValueUnormalized (float newValue)
+    void setValueNonNormalized (float newValue)
     {
         if(m_min < m_max)
         {
@@ -92,7 +92,7 @@ public:
     
     String getLabel() const final {return m_label;}
     
-    String getText (float value, int size) const final {return String(getValueUnormalized());}
+    String getText (float value, int size) const final {return String(getValueNonNormalized());}
     
     float getValueForText (const String& text) const final {return text.getFloatValue();}
     
@@ -173,10 +173,10 @@ public:
     };
 
 private:
-    pd::Patch                       m_patch;
-    std::set<Listener*>             m_listeners;
-    std::vector<SliderParameter>    m_parameters;
-    mutable std::mutex              m_mutex;
+    pd::Patch                    m_patch;
+    std::set<Listener*>          m_listeners;
+    std::vector<SliderParameter> m_parameters;
+    mutable std::mutex           m_mutex;
     
     void parametersChanged();
     std::vector<Listener*> getListeners() const noexcept;

@@ -17,7 +17,7 @@ Colour  PatchEditor::color_invisible;
 class PatchEditor::GuiSlider : public Component, public Timer, public SliderListener
 {
 public:
-    GuiSlider(int index, InstanceProcessor& processor, pd::Slider const& slider) :
+    GuiSlider(int index, InstanceProcessor& processor, pd::Gui const& slider) :
     m_index(index), m_processor(processor)
     {
         std::array<float, 4> bounds(slider.getBounds());
@@ -300,10 +300,10 @@ void PatchEditor::patchChanged()
         m_last_path = patch.getPath() + File::separatorString + patch.getName();
         
         
-        std::vector<pd::Slider> sliders(patch.getSliders());
-        for(size_t i = 0; i < sliders.size(); i++)
+        std::vector<pd::Gui> guis(patch.getGuis());
+        for(size_t i = 0; i < guis.size(); i++)
         {
-            m_sliders.add(new GuiSlider(i, m_processor, sliders[i]));
+            m_sliders.add(new GuiSlider(i, m_processor, guis[i]));
             addAndMakeVisible(m_sliders[i]);
         }
     }

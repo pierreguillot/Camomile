@@ -7,10 +7,11 @@
 #ifndef __CAMOMILE_PD__
 #define __CAMOMILE_PD__
 
-#include "PdInstance.hpp"
+#include "PdGui.hpp"
 
 namespace pd
 {
+    class Instance;
     // ==================================================================================== //
     //                                      PD                                              //
     // ==================================================================================== //
@@ -32,6 +33,9 @@ namespace pd
         
         //! @brief Retrieves the text of the console.
         static std::string getConsole() noexcept;
+        
+        //! @brief Creates a new Instance object.
+        static Instance createInstance() noexcept;
         
     private:
         

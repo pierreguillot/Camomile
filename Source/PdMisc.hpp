@@ -19,7 +19,7 @@
 #include <cassert>
 
 namespace pd
-{
+{    
     // ==================================================================================== //
     //                                      LEAK DETECTOR                                   //
     // ==================================================================================== //
@@ -44,11 +44,13 @@ namespace pd
         {
         public:
             inline LeakCounter() noexcept : nobjects(0) {}
-            inline ~LeakCounter() noexcept {
+            inline ~LeakCounter() noexcept
+            {
                 if(nobjects > 0)
                 {
                     std::cout << "Leak Detected " << typeid(T).name() << "\n";
                 }
+                    
             }
             
             std::atomic_int nobjects;
@@ -60,6 +62,8 @@ namespace pd
             return counter;
         }
     };
+       
+    
 }
 
 #endif

@@ -7,33 +7,28 @@
 #ifndef __CAMOMILE_PD_PATCH__
 #define __CAMOMILE_PD_PATCH__
 
-#include "PdObject.hpp"
+#include "PdInstance.hpp"
 
 namespace pd
 {
-    class Instance;
+    class Gui;
     // ==================================================================================== //
     //                                          PATCHER                                     //
     // ==================================================================================== //
     
-    //! @brief The manager for Object objects.
-    //! @details The Patch is a wrapper for the pd's native t_canvas.
-    //! @details With the default constructor, the Patch won't be initialized. A valid
-    //! @details Patch should be created with a Instance and a name. The Patch has some kind
-    //! @details of smart pointer behavior so when no Patch uses a t_canvas anymore the
-    //! @details t_canvas is deleted.
+    //! @brief The Pure Data patch.
+    //! @details The Instance is a wrapper for the Pure Data's native patch.
+    //! With the default constructor, the Patch won't be initialized. A valid
+    //! Patch should be created via an Instance. The Patch has some kind of smart
+    //! pointer behavior so when an Patch object is no more useful the object is deleted.
     class Patch
     {
     public:
         
         //! @brief The constructor for an empty Patch.
         //! @details Creates an Patch that can be used as an empty reference inside
-        //! @details another class.
+        //! another class.
         Patch() noexcept;
-        
-        //! @brief The constructor for a new Patch.
-        //! @details Creates a new valid Patch.
-        Patch(Instance const& instance, std::string const& name, std::string const& path) noexcept;
         
         //! @brief The copy constructor.
         //! @details Creates a copy of a Patch and increments his counter.
@@ -41,7 +36,7 @@ namespace pd
         
         //! @brief The move constructor.
         //! @details Creates a copy of a Patch without incrementing his counter. The
-        //! @details other Patch will be useless.
+        //! other Patch will be useless.
         Patch(Patch&& other) noexcept;
         
         //! @brief The copy operator.
@@ -50,7 +45,7 @@ namespace pd
         
         //! @brief The move operator.
         //! @details Copies the Patch without incrementing his counter. The other
-        //! @details Patch will be destroyed if needed.
+        //! Patch will be destroyed if needed.
         Patch& operator=(Patch&& other) noexcept;
         
         //! @brief The destructor.
@@ -73,14 +68,24 @@ namespace pd
         std::array<float, 2> getSize() const noexcept;
         
         //! @brief Gets the Slider objects from the patch.
-        std::vector<Slider> getSliders() const noexcept;
-        
-        //! @brief Gets the Slider objects from the patch.
-        void* getPtr() const noexcept;
-        
+        std::vector<Gui> getGuis() const noexcept;
     private:
-        class Internal;
-        Internal* m_internal;
+        
+        //! @brief The constructor for a new Patch.
+        //! @details Creates a new valid Patch.
+        Patch(Instance& instance, void* ptr, std::string const& name, std::string const& path) noexcept;
+        
+        //! @brief Retrieves the raw pointer of the canvas.
+        void* getRawPtr() const noexcept;
+        
+        void*                   m_ptr;
+        std::atomic<size_t>*    m_count;
+        std::string             m_name;
+        std::string             m_path;
+        Instance                m_instance;
+        
+        friend class Instance;
+        friend class Gui;
     };
 }
 

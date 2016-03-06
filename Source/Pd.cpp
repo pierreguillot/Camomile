@@ -5,6 +5,7 @@
 */
 
 #include "Pd.hpp"
+#include "PdInstance.hpp"
 
 extern "C"
 {
@@ -140,6 +141,16 @@ namespace pd
     {
         Pd& pd = Pd::get();
         pd.m_mutex.unlock();
+    }
+    
+    Instance Pd::createInstance() noexcept
+    {
+        
+        Pd& pd = Pd::get();
+        pd.m_mutex.unlock();
+        Instance instance(pdinstance_new());
+        Pd::unlock();
+        return instance;
     }
 }
 
