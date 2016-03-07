@@ -4,8 +4,8 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef __CAMOMILE_PD_OBJECT__
-#define __CAMOMILE_PD_OBJECT__
+#ifndef __CAMOMILE_PD_GUI__
+#define __CAMOMILE_PD_GUI__
 
 #include "PdPatch.hpp"
 

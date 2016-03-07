@@ -39,6 +39,7 @@ public:
     bool isMetaParameter(int index) const override;
     float getParameterNonNormalized(int index) const;
     void setParameterNonNormalized(int index, float newValue);
+    void setParameterNonNormalizedNotifyingHost(int index, float newValue);
     
     const String getInputChannelName(int index) const override {return String(index + 1);}
     const String getOutputChannelName(int index) const override {return String(index + 1);}
@@ -92,6 +93,7 @@ private:
         float getValueNonNormalized() const;
         void setValue(float newValue) final;
         void setValueNonNormalized(float newValue);
+        float getValueNormalized(float newValue);
         float getDefaultValue() const final;
         String getName(int maximumStringLength) const final;
         String getLabel() const final;

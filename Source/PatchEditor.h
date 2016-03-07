@@ -30,22 +30,6 @@ public:
     void buttonClicked(Button* button) override;
     void patchChanged() override;
     
-private:
-    class ImgButton;
-    class PatchWin;
-    class About;
-    class Console;
-    class GuiParameter;
-    class Radio;
-    
-    InstanceProcessor&                      m_processor;
-    bool                                    m_dropping;
-    Toolbar                                 m_menu;
-    ScopedPointer<ImgButton>                m_button;
-    ScopedPointer<DocumentWindow>           m_window;
-    String                                  m_last_path;
-    OwnedArray<GuiParameter>                m_parameters;
-    
     static Font getFont(){return Font(String("Monaco"), 13.f, juce::Font::plain);}
     static int getBordersize() noexcept {return 1;}
     static Colour const& getColorBg() noexcept {return Colours::lightgrey;}
@@ -54,6 +38,22 @@ private:
     static Colour const& getColorInv() noexcept {
         static Colour c(Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
         return c;}
+    
+private:
+    class ImgButton;
+    class PatchWin;
+    class About;
+    class Console;
+    class GuiWrapper;
+    class Radio;
+    
+    InstanceProcessor&                      m_processor;
+    bool                                    m_dropping;
+    Toolbar                                 m_menu;
+    ScopedPointer<ImgButton>                m_button;
+    ScopedPointer<DocumentWindow>           m_window;
+    String                                  m_last_path;
+    OwnedArray<GuiWrapper>                  m_parameters;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PatchEditor)
 };

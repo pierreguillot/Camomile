@@ -6,6 +6,8 @@
 
 #include "InstanceProcessor.h"
 #include "PatchEditor.h"
+#include "GuiRadio.hpp"
+#include "GuiSlider.hpp"
 
 // ==================================================================================== //
 //                                      RADIO GUI                                       //
@@ -87,41 +89,17 @@ private:
     size_t              m_selected;
 };
 
-class PatchEditor::GuiParameter : public Component, public Timer,
+class PatchEditor::GuiWrapper : public Component, public Timer,
 public Slider::Listener, public Button::Listener, public Label::Listener
 {
 public:
-    GuiParameter(InstanceProcessor& processor, pd::Gui const& gui) :
+    GuiWrapper(InstanceProcessor& processor, pd::Gui const& gui) :
     m_index(processor.getParameterIndex(gui.getBindingName())), m_processor(processor)
     {
         std::array<float, 4> bounds(gui.getBounds());
         std::array<float, 2> labelpos(gui.getLabelPosition());
         
-        if(gui.getType() == pd::Gui::Type::HorizontalSlider)
-        {
-            Slider* sld = new Slider(Slider::LinearHorizontal, Slider::NoTextBox);
-            sld->setRange(0.f, 1.f);
-            sld->setBounds(int(bounds[0]), int(bounds[1]), int(bounds[2]), int(bounds[3]));
-            sld->setValue(m_processor.getParameter(m_index));
-            sld->setColour(Slider::backgroundColourId, PatchEditor::getColorInv());
-            sld->setColour(Slider::thumbColourId, PatchEditor::getColorTxt());
-            addAndMakeVisible(sld);
-            sld->addListener(this);
-            m_slider = sld;
-        }
-        else if(gui.getType() == pd::Gui::Type::VerticalSlider)
-        {
-            Slider* sld = new Slider(Slider::LinearVertical, Slider::NoTextBox);
-            sld->setRange(0.f, 1.f);
-            sld->setBounds(int(bounds[0]), int(bounds[1]), int(bounds[2]), int(bounds[3]));
-            sld->setValue(m_processor.getParameter(m_index));
-            sld->setColour(Slider::backgroundColourId, PatchEditor::getColorInv());
-            sld->setColour(Slider::thumbColourId, PatchEditor::getColorTxt());
-            addAndMakeVisible(sld);
-            sld->addListener(this);
-            m_slider = sld;
-        }
-        else if(gui.getType() == pd::Gui::Type::Toggle)
+        if(gui.getType() == pd::Gui::Type::Toggle)
         {
             ToggleButton *btn = new ToggleButton();
             btn->setBounds(int(bounds[0]), int(bounds[1]), int(bounds[2]), int(bounds[3]));
@@ -156,8 +134,14 @@ public:
         else if(gui.getType() == pd::Gui::Type::HorizontalRadio ||
                 gui.getType() == pd::Gui::Type::VerticalRadio)
         {
-            m_radio = new Radio(processor, gui);
-            addAndMakeVisible(m_radio);
+            m_parameter = new GuiRadio(processor, gui);
+            addAndMakeVisible(m_parameter);
+        }
+        else if(gui.getType() == pd::Gui::Type::HorizontalSlider ||
+                gui.getType() == pd::Gui::Type::VerticalSlider)
+        {
+            m_parameter = new GuiSlider(processor, gui);
+            addAndMakeVisible(m_parameter);
         }
        
         
@@ -181,7 +165,7 @@ public:
         Timer::startTimer(25);
     }
     
-    ~GuiParameter()
+    ~GuiWrapper()
     {
         Timer::stopTimer();
     }
@@ -190,11 +174,7 @@ public:
     {
         if(m_index >= 0)
         {
-            if(m_slider)
-            {
-                m_slider->setValue(m_processor.getParameter(m_index), NotificationType::dontSendNotification);
-            }
-            else if(m_button)
+            if(m_button)
             {
                 m_button->setToggleState(m_processor.getParameter(m_index), NotificationType::dontSendNotification);
             }
@@ -243,13 +223,12 @@ public:
 private:
     const int                   m_index;
     InstanceProcessor&          m_processor;
-    ScopedPointer<Slider>       m_slider;
     ScopedPointer<Button>       m_button;
     ScopedPointer<Label>        m_number;
-    ScopedPointer<Radio>        m_radio;
+    ScopedPointer<GuiParameter> m_parameter;
     
     ScopedPointer<Label>        m_label;
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiParameter)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiWrapper)
 };
 
 // ==================================================================================== //
@@ -475,7 +454,7 @@ void PatchEditor::patchChanged()
         std::vector<pd::Gui> guis(patch.getGuis());
         for(size_t i = 0; i < guis.size(); i++)
         {
-            m_parameters.add(new GuiParameter(m_processor, guis[i]));
+            m_parameters.add(new GuiWrapper(m_processor, guis[i]));
             m_parameters[i]->setBounds(getBounds().reduced(0, 10).withPosition(0, 20));
             addAndMakeVisible(m_parameters[i]);
         }

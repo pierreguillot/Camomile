@@ -22,12 +22,14 @@
       <FILE id="tLvOP3" name="PatchEditor.h" compile="0" resource="0" file="Source/PatchEditor.h"/>
       <FILE id="HhHZI4" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
       <FILE id="EJAZHs" name="LookAndFeel.h" compile="0" resource="0" file="Source/LookAndFeel.h"/>
+      <FILE id="fgenxt" name="GuiRadio.cpp" compile="1" resource="0" file="Source/GuiRadio.cpp"/>
+      <FILE id="Bwy3TJ" name="GuiRadio.hpp" compile="0" resource="0" file="Source/GuiRadio.hpp"/>
       <FILE id="yk5hRN" name="PdGui.cpp" compile="1" resource="0" file="Source/PdGui.cpp"/>
       <FILE id="qAbzUL" name="PdGui.hpp" compile="0" resource="0" file="Source/PdGui.hpp"/>
-      <FILE id="DEM9eo" name="PdInstance.cpp" compile="1" resource="0" file="Source/PdInstance.cpp"/>
-      <FILE id="mGAVYz" name="PdInstance.hpp" compile="0" resource="0" file="Source/PdInstance.hpp"/>
       <FILE id="Bnr3EF" name="PdPatch.cpp" compile="1" resource="0" file="Source/PdPatch.cpp"/>
       <FILE id="axFnWc" name="PdPatch.hpp" compile="0" resource="0" file="Source/PdPatch.hpp"/>
+      <FILE id="DEM9eo" name="PdInstance.cpp" compile="1" resource="0" file="Source/PdInstance.cpp"/>
+      <FILE id="mGAVYz" name="PdInstance.hpp" compile="0" resource="0" file="Source/PdInstance.hpp"/>
       <FILE id="c7oMcM" name="Pd.cpp" compile="1" resource="0" file="Source/Pd.cpp"/>
       <FILE id="o0Va6F" name="Pd.hpp" compile="0" resource="0" file="Source/Pd.hpp"/>
     </GROUP>

@@ -47,6 +47,12 @@ void InstanceProcessor::setParameterNonNormalized(int index, float newValue)
     m_parameters[index].setValueNonNormalized(newValue);
 }
 
+void InstanceProcessor::setParameterNonNormalizedNotifyingHost(int index, float newValue)
+{
+    setParameterNotifyingHost(index, m_parameters[index].getValueNormalized(newValue));
+}
+
+
 void InstanceProcessor::setParameter(int index, float newValue)
 {
     m_parameters[index].setValue(newValue);
@@ -386,7 +392,7 @@ float InstanceProcessor::Parameter::getValueNonNormalized() const
     {
         return m_value * (m_max - m_min) + m_min;
     }
-    return m_value * (m_min - m_max) + m_max;
+    return 1.f - (m_value * (m_min - m_max) + m_max);
 }
 
 void InstanceProcessor::Parameter::setValue (float newValue)
@@ -396,14 +402,16 @@ void InstanceProcessor::Parameter::setValue (float newValue)
 
 void InstanceProcessor::Parameter::setValueNonNormalized (float newValue)
 {
+    m_value = getValueNormalized(newValue);
+}
+
+float InstanceProcessor::Parameter::getValueNormalized(float newValue)
+{
     if(m_min < m_max)
     {
-        m_value = (newValue - m_min) / (m_max - m_min);
+        return (newValue - m_min) / (m_max - m_min);
     }
-    else
-    {
-        m_value = (newValue - m_max) / (m_min - m_max);
-    }
+    return 1.f - ((newValue - m_max) / (m_min - m_max));
 }
 
 float InstanceProcessor::Parameter::getDefaultValue() const {return 0.f;}
