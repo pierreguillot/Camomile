@@ -33,6 +33,8 @@ public:
         return c;}
 protected:
     
+    void startEdition() noexcept;
+    void stopEdition() noexcept;
     float getValue() const noexcept;
     float getValueNormalized() const noexcept;
     void setValue(float value, bool redraw = true);
@@ -47,6 +49,7 @@ private:
     const float         m_maximum;
     const size_t        m_index;
     float               m_value;
+    bool                m_edited;
 };
 
 

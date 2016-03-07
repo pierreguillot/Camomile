@@ -392,15 +392,15 @@ float InstanceProcessor::Parameter::getValueNonNormalized() const
     {
         return m_value * (m_max - m_min) + m_min;
     }
-    return 1.f - (m_value * (m_min - m_max) + m_max);
+    return (1.f - m_value) * (m_min - m_max) + m_max;
 }
 
-void InstanceProcessor::Parameter::setValue (float newValue)
+void InstanceProcessor::Parameter::setValue(float newValue)
 {
-    m_value = newValue;
+    m_value = std::min(std::max(newValue, 0.f), 1.f);
 }
 
-void InstanceProcessor::Parameter::setValueNonNormalized (float newValue)
+void InstanceProcessor::Parameter::setValueNonNormalized(float newValue)
 {
     m_value = getValueNormalized(newValue);
 }
@@ -409,9 +409,9 @@ float InstanceProcessor::Parameter::getValueNormalized(float newValue)
 {
     if(m_min < m_max)
     {
-        return (newValue - m_min) / (m_max - m_min);
+        return std::min(std::max((newValue - m_min) / (m_max - m_min), 0.f), 1.f);
     }
-    return 1.f - ((newValue - m_max) / (m_min - m_max));
+    return std::min(std::max(1.f  - ((newValue - m_max) / (m_min - m_max)), 0.f), 1.f);
 }
 
 float InstanceProcessor::Parameter::getDefaultValue() const {return 0.f;}
@@ -424,7 +424,7 @@ String InstanceProcessor::Parameter::getText (float value, int size) const {retu
 
 float InstanceProcessor::Parameter::getValueForText (const String& text) const {return text.getFloatValue();}
 
-bool InstanceProcessor::Parameter::isOrientationInverted() const {return m_max < m_min;}
+bool InstanceProcessor::Parameter::isOrientationInverted() const {return false;}
 
 int InstanceProcessor::Parameter::getNumSteps() const
 {

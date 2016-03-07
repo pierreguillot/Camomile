@@ -54,11 +54,11 @@ float GuiParameter::getValue() const noexcept
 
 void GuiParameter::setValue(float value, bool redraw)
 {
+    m_value = value;
     if(m_index)
     {
         m_processor.setParameterNonNormalizedNotifyingHost(m_index-1, m_value);
     }
-    
     if(redraw)
     {
         repaint();
@@ -69,23 +69,48 @@ float GuiParameter::getValueNormalized() const noexcept
 {
     if(getMinimum() < getMaximum())
     {
-        return (getValue() - getMinimum()) / (getMaximum() / getMinimum());
+        return (getValue() - getMinimum()) / (getMaximum() - getMinimum());
     }
-    return 1.f - (getValue() - getMaximum() / (getMinimum() / getMaximum()));
+    return 1.f - (getValue() - getMaximum()) / (getMinimum() - getMaximum());
 }
 
 void GuiParameter::setValueNormalized(float value, bool redraw)
 {
     if(getMinimum() < getMaximum())
     {
-        setValue(value * (getMaximum() / getMinimum()) + getMinimum());
+        setValue(value * (getMaximum() - getMinimum()) + getMinimum());
     }
-    setValue((1.f - value) * (getMinimum() / getMaximum()) + getMaximum());
+    else
+    {
+        setValue((1.f - value) * (getMinimum() - getMaximum()) + getMaximum());
+    }
+}
+
+void GuiParameter::startEdition() noexcept
+{
+    m_edited = true;
+    if(m_index)
+    {
+        stopTimer();
+    }
+}
+
+void GuiParameter::stopEdition() noexcept
+{
+    m_edited = false;
+    if(m_index)
+    {
+        startTimer(25);
+    }
 }
 
 void GuiParameter::timerCallback()
 {
-    m_value = m_processor.getParameterNonNormalized(m_index-1);
-    repaint();
+    float value = m_processor.getParameterNonNormalized(m_index-1);
+    if(m_edited == false && value != m_value)
+    {
+        m_value = value;
+        repaint();
+    }
 }
 

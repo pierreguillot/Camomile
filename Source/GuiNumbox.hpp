@@ -4,25 +4,32 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef __CAMOMILE_GUI_SLIDER__
-#define __CAMOMILE_GUI_SLIDER__
+#ifndef __CAMOMILE_GUI_NUMBOX__
+#define __CAMOMILE_GUI_NUMBOX__
 
 #include "GuiParameter.hpp"
 
 // ==================================================================================== //
-//                                      GUI SLIDER                                      //
+//                                      GUI NUMBOX                                      //
 // ==================================================================================== //
 
-class GuiSlider : public GuiParameter
+class GuiNumbox : public GuiParameter, public Label::Listener
 {
 public:
-    static const pd::Gui::Type Horizontal = pd::Gui::Type::HorizontalSlider;
-    static const pd::Gui::Type Vertical   = pd::Gui::Type::VerticalSlider;
-    GuiSlider(InstanceProcessor& processor, pd::Gui const& gui);
+    GuiNumbox(InstanceProcessor& processor, pd::Gui const& gui);
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& event) final;
     void mouseDrag(const MouseEvent& event) final;
     void mouseUp(const MouseEvent& event) final;
+    void mouseDoubleClick(const MouseEvent&) final;
+    
+    void labelTextChanged(Label* label);
+    void editorShown(Label*, TextEditor&) final;
+    void editorHidden(Label*, TextEditor&) final;
+private:
+    bool  m_shift;
+    float m_value;
+    ScopedPointer<Label> m_label;
 };
 
 

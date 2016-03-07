@@ -45,7 +45,6 @@ private:
     class About;
     class Console;
     class GuiWrapper;
-    class Radio;
     
     InstanceProcessor&                      m_processor;
     bool                                    m_dropping;

@@ -1,13 +1,13 @@
-#N canvas 600 109 647 577 10;
+#N canvas 1011 127 647 577 10;
 #X obj 185 168 nbx 5 15 0 20 0 0 empty \$0-zaza empty 0 -8 0 10 -262144
 -1 -1 0 256;
 #X obj 54 168 hradio 15 1 0 8 empty \$0-zaza zaza 0 -8 0 10 -262144
 -1 -1 0;
-#X obj 56 100 hsl 128 15 0 20 0 0 empty \$0-rate Rate_Hz -3 -6 0 10
+#X obj 56 76 hsl 128 15 0 20 0 0 empty \$0-rate Rate_Hz -3 -6 0 10
 -262144 -1 -1 0 1;
 #X obj 192 100 nbx 5 15 0 20 0 0 empty \$0-rate empty 0 -8 0 10 -262144
 -1 -1 0 256;
-#X obj 56 130 hsl 128 15 0 100 0 0 empty \$0-depth Depth_% -3 -6 0
+#X obj 54 106 hsl 128 15 100 0 0 0 empty \$0-depth Depth_% -3 -6 0
 10 -262144 -1 -1 0 1;
 #X obj 192 130 nbx 5 15 0 100 0 0 empty \$0-depth empty 0 -8 0 10 -262144
 -1 -1 0 256;
@@ -15,8 +15,17 @@
 -1 -1 0 256;
 #X obj 54 198 hradio 15 1 0 8 empty \$0-zozo zozo 0 -8 0 10 -262144
 -1 -1 3;
-#X obj 276 77 vsl 15 128 0 127 0 0 empty \$0-rate empty 0 -9 0 10 -262144
+#X obj 276 77 vsl 15 128 0 80 0 0 empty \$0-rate empty 0 -9 0 10 -262144
 -1 -1 0 1;
-#X obj 306 77 vsl 15 128 127 0 0 0 empty \$0-rate empty 0 -9 0 10 -262144
--1 -1 0 1;
+#X obj 306 77 vsl 15 128 40 0 0 0 empty \$0-rate empty 0 -9 0 10 -262144
+-1 -1 12700 1;
+#X obj 77 246 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 77 266 tgl 20 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 130 225 vradio 8 1 0 8 empty empty empty 0 -8 0 10 -262144 -1
+-1 0;
+#X obj 181 269 vradio 15 1 0 4 empty empty empty 0 -8 0 10 -262144
+-1 -1 0;
+#X connect 10 0 11 0;
 #X coords 0 -1 1 1 300 300 2 50 50;

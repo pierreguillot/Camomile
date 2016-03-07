@@ -5,7 +5,6 @@
 */
 
 #include "GuiRadio.hpp"
-#include "PatchEditor.h"
 
 // ==================================================================================== //
 //                                      GUI RADIO                                       //
@@ -18,43 +17,43 @@ GuiRadio::GuiRadio(InstanceProcessor& processor, pd::Gui const& gui) : GuiParame
 
 void GuiRadio::paint(Graphics& g)
 {
-    g.fillAll(PatchEditor::getColorBg());
-    g.setColour(PatchEditor::getColorBd());
-    g.drawRect(getLocalBounds(), PatchEditor::getBordersize());
+    g.fillAll(GuiParameter::getColorBg());
+    g.setColour(GuiParameter::getColorBd());
+    g.drawRect(getLocalBounds(), GuiParameter::getBordersize());
     if(getType() == Horizontal)
     {
-        const float width = (float(getWidth()) - getMaximum()) / getMaximum();
+        const float width = float(getWidth()) / getMaximum();
         for(size_t i = 1; i < size_t(getMaximum()); ++i)
         {
-            g.drawLine(width * float(i) + float(i), 0.f, width * float(i) + float(i), float(getHeight()));
+            g.drawLine(width * float(i), 0.f, width * float(i), float(getHeight()), getBordersize());
         }
-        const float ratio = float(getWidth()) / getMaximum();
-        g.fillRect(ratio * getValueNormalized() + ratio * 0.125f, ratio * 0.125f,
-                   ratio * 0.75f, ratio * 0.75f);
+        g.fillRect(width * getValue() + width * 0.125f, float(getHeight()) * 0.125f, width * 0.75f, float(getHeight()) * 0.75f);
     }
     else
     {
-        const float height = (float(getHeight()) - getMaximum()) / getMaximum();
+        const float height = float(getHeight()) / getMaximum();
         for(size_t i = 1; i < size_t(getMaximum()); ++i)
         {
-            g.drawLine(0.f, height * float(i) + float(i), float(getWidth()), height * float(i) + float(i));
+            g.drawLine(0.f, height * float(i), float(getWidth()), height * float(i), getBordersize());
         }
-        const float ratio = float(getHeight()) / float(getMaximum());
-        g.fillRect(ratio * 0.125f, ratio * getValueNormalized() + ratio * 0.125f,
-                   ratio * 0.75f, ratio * 0.75f);
+        g.fillRect(float(getWidth()) * 0.125f, height * getValue() + height * 0.125f, float(getWidth()) * 0.75f, height  * 0.75f);
     }
 }
 
 void GuiRadio::mouseDown(const MouseEvent& event)
 {
+    startEdition();
     if(getType() == Horizontal)
     {
-        setValueNormalized(std::round((float(event.x) * getMaximum()) / getWidth()));
+        const float width = float(getWidth()) / getMaximum();
+        setValue(std::floor(float(event.x) / width));
     }
     else
     {
-        setValueNormalized(std::round((float(event.y) * getMaximum()) / getHeight()));
+        const float width = float(getHeight()) / getMaximum();
+        setValue(std::floor(float(event.y) / width));
     }
+    stopEdition();
 }
 
 

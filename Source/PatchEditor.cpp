@@ -8,128 +8,24 @@
 #include "PatchEditor.h"
 #include "GuiRadio.hpp"
 #include "GuiSlider.hpp"
+#include "GuiToggle.hpp"
+#include "GuiNumbox.hpp"
 
 // ==================================================================================== //
 //                                      RADIO GUI                                       //
 // ==================================================================================== //
 
-class PatchEditor::Radio : public Component, public Timer
-{
-public:
-    Radio(InstanceProcessor& processor, pd::Gui const& gui) :
-    m_processor(processor),
-    m_type(gui.getType()),
-    m_size(gui.getNumberOfSteps()),
-    m_index(processor.getParameterIndex(gui.getBindingName())+1),
-    m_selected(gui.getValue())
-    {
-        std::array<float, 4> bounds(gui.getBounds());
-        setBounds(int(bounds[0]), int(bounds[1]), int(bounds[2]), int(bounds[3]));
-        if(m_index)
-        {
-            startTimer(25);
-        }
-    }
-    
-    void paint(Graphics& g) final
-    {
-        g.fillAll(PatchEditor::getColorBg());
-        g.setColour(PatchEditor::getColorBd());
-        g.drawRect(getLocalBounds(), PatchEditor::getBordersize());
-        if(m_type == pd::Gui::Type::HorizontalRadio)
-        {
-            const float width = float(getWidth() - int(m_size)) / float(m_size);
-            for(size_t i = 1; i < m_size; ++i)
-            {
-                g.drawLine(width * float(i) + float(i), 0.f, width * float(i) + float(i), float(getHeight()));
-            }
-            const float ratio = float(getWidth()) / float(m_size);
-            g.fillRect(ratio * float(m_selected) + ratio * 0.125f, ratio * 0.125f,
-                       ratio * 0.75f, ratio * 0.75f);
-        }
-        else
-        {
-            const float height = float(getHeight() - int(m_size)) / float(m_size);
-            for(size_t i = 1; i < m_size; ++i)
-            {
-                g.drawLine(0.f, height * float(i) + float(i), float(getWidth()), height * float(i) + float(i));
-            }
-            const float ratio = float(getHeight()) / float(m_size);
-            g.fillRect(ratio * 0.125f, ratio * float(m_selected) + ratio * 0.125f,
-                       ratio * 0.75f, ratio * 0.75f);
-        }
-    }
-    
-    void mouseDown(const MouseEvent& event) final
-    {
-        if(m_type == pd::Gui::Type::HorizontalRadio)
-        {
-            m_selected = size_t(event.getMouseDownX() / (getWidth() / float(m_size)));
-        }
-        else
-        {
-            m_selected = size_t(event.getMouseDownY() / (getHeight() / float(m_size)));
-        }
-        if(m_index)
-        {
-            m_processor.setParameterNotifyingHost(m_index-1, float(m_selected) / float(m_size - 1));
-        }
-        repaint();
-    }
-    
-    void timerCallback() final
-    {
-        m_selected = size_t(m_processor.getParameter(m_index-1) * float(m_size - 1));
-    }
-private:
-    InstanceProcessor&  m_processor;
-    const pd::Gui::Type m_type;
-    const size_t        m_size;
-    const size_t        m_index;
-    size_t              m_selected;
-};
-
-class PatchEditor::GuiWrapper : public Component, public Timer,
-public Slider::Listener, public Button::Listener, public Label::Listener
+class PatchEditor::GuiWrapper : public Component
 {
 public:
     GuiWrapper(InstanceProcessor& processor, pd::Gui const& gui) :
     m_index(processor.getParameterIndex(gui.getBindingName())), m_processor(processor)
     {
-        std::array<float, 4> bounds(gui.getBounds());
         std::array<float, 2> labelpos(gui.getLabelPosition());
-        
-        if(gui.getType() == pd::Gui::Type::Toggle)
+        if(gui.getType() == pd::Gui::Type::Number)
         {
-            ToggleButton *btn = new ToggleButton();
-            btn->setBounds(int(bounds[0]), int(bounds[1]), int(bounds[2]), int(bounds[3]));
-            btn->setToggleState(m_processor.getParameter(m_index), NotificationType::dontSendNotification);
-            btn->setTriggeredOnMouseDown(true);
-            btn->setClickingTogglesState(true);
-            btn->setColour(ToggleButton::textColourId, PatchEditor::getColorTxt());
-            addAndMakeVisible(btn);
-            btn->addListener(this);
-            m_button = btn;
-        }
-        else if(gui.getType() == pd::Gui::Type::Number)
-        {
-            Label* lbl = new Label(String());
-            lbl->setBounds(int(bounds[0]), int(bounds[1]), int(bounds[2]), int(bounds[3]));
-            lbl->setFont(PatchEditor::getFont());
-            lbl->setColour(Label::textColourId, PatchEditor::getColorTxt());
-            lbl->setColour(Label::backgroundColourId, PatchEditor::getColorInv());
-            lbl->setColour(Label::outlineColourId, PatchEditor::getColorTxt());
-            
-            lbl->setColour(Label::textWhenEditingColourId, PatchEditor::getColorTxt());
-            lbl->setColour(Label::backgroundWhenEditingColourId, PatchEditor::getColorInv());
-            lbl->setColour(Label::outlineWhenEditingColourId, PatchEditor::getColorTxt());
-            
-            lbl->setBorderSize(BorderSize<int>(1));
-            lbl->setText(String(m_processor.getParameterNonNormalized(m_index)), NotificationType::dontSendNotification);
-            lbl->setEditable(true);
-            addAndMakeVisible(lbl);
-            lbl->addListener(this);
-            m_number = lbl;
+            m_parameter = new GuiNumbox(processor, gui);
+            addAndMakeVisible(m_parameter);
         }
         else if(gui.getType() == pd::Gui::Type::HorizontalRadio ||
                 gui.getType() == pd::Gui::Type::VerticalRadio)
@@ -141,6 +37,11 @@ public:
                 gui.getType() == pd::Gui::Type::VerticalSlider)
         {
             m_parameter = new GuiSlider(processor, gui);
+            addAndMakeVisible(m_parameter);
+        }
+        if(gui.getType() == pd::Gui::Type::Toggle)
+        {
+            m_parameter = new GuiToggle(processor, gui);
             addAndMakeVisible(m_parameter);
         }
        
@@ -162,71 +63,17 @@ public:
             addAndMakeVisible(m_label);
         }
         setInterceptsMouseClicks(false, true);
-        Timer::startTimer(25);
     }
     
     ~GuiWrapper()
     {
-        Timer::stopTimer();
+        ;
     }
     
-    void timerCallback() final
-    {
-        if(m_index >= 0)
-        {
-            if(m_button)
-            {
-                m_button->setToggleState(m_processor.getParameter(m_index), NotificationType::dontSendNotification);
-            }
-            else if(m_number && !m_number->isBeingEdited())
-            {
-                m_number->setText(String(m_processor.getParameterNonNormalized(m_index)), NotificationType::dontSendNotification);
-            }
-        }
-    }
-    
-    void sliderValueChanged(Slider* slider) final
-    {
-        if(m_index >= 0)
-        {
-            m_processor.setParameterNotifyingHost(m_index, slider->getValue());
-        }
-    }
-    
-    void labelTextChanged (Label* label) final
-    {
-        double value = label->getText().getDoubleValue();
-        if(m_index >= 0)
-        {
-            m_processor.setParameterNonNormalized(m_index, value);
-            m_processor.setParameterNotifyingHost(m_index, m_processor.getParameter(m_index));
-            m_number->setText(String(m_processor.getParameterNonNormalized(m_index)), NotificationType::dontSendNotification);
-        }
-        else
-        {
-            m_number->setText(String(value), NotificationType::dontSendNotification);
-        }
-    }
-    
-    void buttonClicked(Button*)
-    {
-        
-    }
-    
-    void buttonStateChanged(Button* button) final
-    {
-        if(m_index >= 0)
-        {
-            m_processor.setParameterNotifyingHost(m_index, button->getToggleState());
-        }
-    }
 private:
     const int                   m_index;
     InstanceProcessor&          m_processor;
-    ScopedPointer<Button>       m_button;
-    ScopedPointer<Label>        m_number;
     ScopedPointer<GuiParameter> m_parameter;
-    
     ScopedPointer<Label>        m_label;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiWrapper)
 };

@@ -22,8 +22,18 @@
       <FILE id="tLvOP3" name="PatchEditor.h" compile="0" resource="0" file="Source/PatchEditor.h"/>
       <FILE id="HhHZI4" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
       <FILE id="EJAZHs" name="LookAndFeel.h" compile="0" resource="0" file="Source/LookAndFeel.h"/>
+      <FILE id="QxJ9WH" name="GuiNumbox.cpp" compile="1" resource="0" file="Source/GuiNumbox.cpp"/>
+      <FILE id="RMNfIv" name="GuiNumbox.hpp" compile="0" resource="0" file="Source/GuiNumbox.hpp"/>
+      <FILE id="OeUGMN" name="GuiSlider.cpp" compile="1" resource="0" file="Source/GuiSlider.cpp"/>
+      <FILE id="X3S9do" name="GuiSlider.hpp" compile="0" resource="0" file="Source/GuiSlider.hpp"/>
+      <FILE id="RSGKI0" name="GuiToggle.cpp" compile="1" resource="0" file="Source/GuiToggle.cpp"/>
+      <FILE id="C9xs6Z" name="GuiToggle.hpp" compile="0" resource="0" file="Source/GuiToggle.hpp"/>
       <FILE id="fgenxt" name="GuiRadio.cpp" compile="1" resource="0" file="Source/GuiRadio.cpp"/>
       <FILE id="Bwy3TJ" name="GuiRadio.hpp" compile="0" resource="0" file="Source/GuiRadio.hpp"/>
+      <FILE id="yg4Nuq" name="GuiParameter.cpp" compile="1" resource="0"
+            file="Source/GuiParameter.cpp"/>
+      <FILE id="cuSyHc" name="GuiParameter.hpp" compile="0" resource="0"
+            file="Source/GuiParameter.hpp"/>
       <FILE id="yk5hRN" name="PdGui.cpp" compile="1" resource="0" file="Source/PdGui.cpp"/>
       <FILE id="qAbzUL" name="PdGui.hpp" compile="0" resource="0" file="Source/PdGui.hpp"/>
       <FILE id="Bnr3EF" name="PdPatch.cpp" compile="1" resource="0" file="Source/PdPatch.cpp"/>

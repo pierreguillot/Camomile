@@ -4,25 +4,21 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef __CAMOMILE_GUI_SLIDER__
-#define __CAMOMILE_GUI_SLIDER__
+#ifndef __CAMOMILE_GUI_TOGGLE__
+#define __CAMOMILE_GUI_TOGGLE__
 
 #include "GuiParameter.hpp"
 
 // ==================================================================================== //
-//                                      GUI SLIDER                                      //
+//                                      GUI TOGGLE                                      //
 // ==================================================================================== //
 
-class GuiSlider : public GuiParameter
+class GuiToggle : public GuiParameter
 {
 public:
-    static const pd::Gui::Type Horizontal = pd::Gui::Type::HorizontalSlider;
-    static const pd::Gui::Type Vertical   = pd::Gui::Type::VerticalSlider;
-    GuiSlider(InstanceProcessor& processor, pd::Gui const& gui);
+    GuiToggle(InstanceProcessor& processor, pd::Gui const& gui);
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& event) final;
-    void mouseDrag(const MouseEvent& event) final;
-    void mouseUp(const MouseEvent& event) final;
 };
 
 
