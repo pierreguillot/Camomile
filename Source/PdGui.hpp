@@ -69,7 +69,7 @@ namespace pd
         //! @brief The class name of the Object.
         Type getType() const noexcept;
         
-        //! @brief The class name of the Object.
+        //! @brief The Name of the Object.
         std::string getName() const;
         
         std::string getLabel() const;

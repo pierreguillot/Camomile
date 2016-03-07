@@ -6,77 +6,6 @@
 
 #include "InstanceProcessor.h"
 #include "PatchEditor.h"
-#include "GuiRadio.hpp"
-#include "GuiSlider.hpp"
-#include "GuiToggle.hpp"
-#include "GuiNumbox.hpp"
-
-// ==================================================================================== //
-//                                      RADIO GUI                                       //
-// ==================================================================================== //
-
-class PatchEditor::GuiWrapper : public Component
-{
-public:
-    GuiWrapper(InstanceProcessor& processor, pd::Gui const& gui) :
-    m_index(processor.getParameterIndex(gui.getBindingName())), m_processor(processor)
-    {
-        std::array<float, 2> labelpos(gui.getLabelPosition());
-        if(gui.getType() == pd::Gui::Type::Number)
-        {
-            m_parameter = new GuiNumbox(processor, gui);
-            addAndMakeVisible(m_parameter);
-        }
-        else if(gui.getType() == pd::Gui::Type::HorizontalRadio ||
-                gui.getType() == pd::Gui::Type::VerticalRadio)
-        {
-            m_parameter = new GuiRadio(processor, gui);
-            addAndMakeVisible(m_parameter);
-        }
-        else if(gui.getType() == pd::Gui::Type::HorizontalSlider ||
-                gui.getType() == pd::Gui::Type::VerticalSlider)
-        {
-            m_parameter = new GuiSlider(processor, gui);
-            addAndMakeVisible(m_parameter);
-        }
-        if(gui.getType() == pd::Gui::Type::Toggle)
-        {
-            m_parameter = new GuiToggle(processor, gui);
-            addAndMakeVisible(m_parameter);
-        }
-       
-        
-        std::string name = gui.getName();
-        if(!name.empty())
-        {
-            m_label = new Label("label", String(gui.getName()) + " " + gui.getLabel());
-            m_label->setFont(PatchEditor::getFont());
-            m_label->setJustificationType(Justification::topLeft);
-            m_label->setColour(Label::backgroundColourId, PatchEditor::getColorInv());
-            m_label->setColour(Label::textColourId, PatchEditor::getColorTxt());
-            m_label->setBorderSize(BorderSize<int>());
-            m_label->setBounds(labelpos[0],
-                               labelpos[1] - PatchEditor::getFont().getHeight() * 0.5,
-                               1000,
-                               200);
-            m_label->setInterceptsMouseClicks(false, false);
-            addAndMakeVisible(m_label);
-        }
-        setInterceptsMouseClicks(false, true);
-    }
-    
-    ~GuiWrapper()
-    {
-        ;
-    }
-    
-private:
-    const int                   m_index;
-    InstanceProcessor&          m_processor;
-    ScopedPointer<GuiParameter> m_parameter;
-    ScopedPointer<Label>        m_label;
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiWrapper)
-};
 
 // ==================================================================================== //
 //                                      IMAGE BUTTON                                    //
@@ -244,6 +173,8 @@ m_dropping(false), m_window(nullptr)
     m_processor.addListener(this);
     m_button = new ImgButton(this, "CamomileButton", 1);
     m_window = new PatchWin("");
+    m_patcher= new GuiPatcher(p);
+    addAndMakeVisible(m_patcher);
     addAndMakeVisible(m_button);
     setSize(600, 420);
     patchChanged();
@@ -278,35 +209,14 @@ void PatchEditor::paint(Graphics& g)
     }
 }
 
-void PatchEditor::handleAsyncUpdate()
-{
-    const MessageManagerLock mml(Thread::getCurrentThread());
-    if(mml.lockWasGained())
-    {
-        repaint();
-    }
-}
-
 void PatchEditor::patchChanged()
 {
-    m_parameters.clear();
     const pd::Patch patch = m_processor.getPatch();
     if(patch.isValid())
     {
-        std::array<float, 2> size(patch.getSize());
-        setSize(size[0] > 0.f ? std::max(size[0], 120.f) : 600, size[1] > 0.f ? std::max(size[1], 20.f) + 20.f : 420);
-        m_last_path = patch.getPath() + File::separatorString + patch.getName();
-        
-        
-        std::vector<pd::Gui> guis(patch.getGuis());
-        for(size_t i = 0; i < guis.size(); i++)
-        {
-            m_parameters.add(new GuiWrapper(m_processor, guis[i]));
-            m_parameters[i]->setBounds(getBounds().reduced(0, 10).withPosition(0, 20));
-            addAndMakeVisible(m_parameters[i]);
-        }
+        m_patcher->setPatch(patch);
+        setSize(m_patcher->getWidth(), m_patcher->getHeight() + 20);
     }
-    AsyncUpdater::triggerAsyncUpdate();
 }
 
 void PatchEditor::buttonClicked(Button* button)
@@ -370,10 +280,14 @@ void PatchEditor::buttonClicked(Button* button)
         }
         else if(result == 4)
         {
-            File file(m_last_path);
-            if(file.exists())
+            const pd::Patch patch = m_processor.getPatch();
+            if(patch.isValid())
             {
-                m_processor.loadPatch(file);
+                File file(patch.getPath() + File::separatorString.toStdString() + patch.getName());
+                if(file.exists())
+                {
+                    m_processor.loadPatch(file);
+                }
             }
         }
         else if(result == 5)

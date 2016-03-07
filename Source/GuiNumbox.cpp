@@ -38,6 +38,7 @@ void GuiNumbox::paint(Graphics& g)
     g.drawRect(getLocalBounds(), GuiParameter::getBordersize());
     g.drawLine(0.f, 0.f, float(getHeight()) * 0.5f, float(getHeight()) * 0.5f, GuiParameter::getBordersize());
     g.drawLine(0.f, float(getHeight()), float(getHeight()) * 0.5f, float(getHeight()) * 0.5f, GuiParameter::getBordersize());
+    m_label->setText(String(getValue()), NotificationType::dontSendNotification);
 }
 
 void GuiNumbox::mouseDown(const MouseEvent& event)

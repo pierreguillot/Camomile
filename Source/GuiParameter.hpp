@@ -50,6 +50,8 @@ private:
     const size_t        m_index;
     float               m_value;
     bool                m_edited;
+private:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiParameter)
 };
 
 

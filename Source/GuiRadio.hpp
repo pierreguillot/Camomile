@@ -21,6 +21,8 @@ public:
     GuiRadio(InstanceProcessor& processor, pd::Gui const& gui);
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& event) final;
+private:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiRadio)
 };
 
 

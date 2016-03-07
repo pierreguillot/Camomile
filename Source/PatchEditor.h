@@ -10,22 +10,17 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "InstanceProcessor.h"
 #include "LookAndFeel.h"
-
+#include "GuiPatcher.hpp"
 
 // ==================================================================================== //
 //                                  CAMOMILE INTERFACE                                  //
 // ==================================================================================== //
 
-class PatchEditor  :
-public AsyncUpdater,
-public AudioProcessorEditor,
-public InstanceProcessor::Listener,
-public Button::Listener
+class PatchEditor : public AudioProcessorEditor, public InstanceProcessor::Listener, public Button::Listener
 {
 public:
     PatchEditor(InstanceProcessor&);
     ~PatchEditor();
-    void handleAsyncUpdate() override;
     void paint(Graphics&) override;
     void buttonClicked(Button* button) override;
     void patchChanged() override;
@@ -44,15 +39,13 @@ private:
     class PatchWin;
     class About;
     class Console;
-    class GuiWrapper;
     
     InstanceProcessor&                      m_processor;
     bool                                    m_dropping;
     Toolbar                                 m_menu;
     ScopedPointer<ImgButton>                m_button;
     ScopedPointer<DocumentWindow>           m_window;
-    String                                  m_last_path;
-    OwnedArray<GuiWrapper>                  m_parameters;
+    ScopedPointer<GuiPatcher>               m_patcher;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PatchEditor)
 };

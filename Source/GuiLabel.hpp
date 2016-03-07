@@ -4,23 +4,20 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef __CAMOMILE_GUI_TOGGLE__
-#define __CAMOMILE_GUI_TOGGLE__
+#ifndef __CAMOMILE_GUI_LABEL__
+#define __CAMOMILE_GUI_LABEL__
 
 #include "GuiParameter.hpp"
 
 // ==================================================================================== //
-//                                      GUI TOGGLE                                      //
+//                                      GUI LABEL                                       //
 // ==================================================================================== //
 
-class GuiToggle : public GuiParameter
+class GuiLabel : public Label
 {
 public:
-    GuiToggle(InstanceProcessor& processor, pd::Gui const& gui);
-    void paint(Graphics& g) final;
-    void mouseDown(const MouseEvent& event) final;
-private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiToggle)
+    GuiLabel(InstanceProcessor& processor, pd::Gui const& gui);
+    ~GuiLabel();
 };
 
 

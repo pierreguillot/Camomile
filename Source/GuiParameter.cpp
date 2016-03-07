@@ -17,10 +17,12 @@ m_type(gui.getType()),
 m_minimum(gui.getMinimum()),
 m_maximum(gui.getMaximum()),
 m_index(processor.getParameterIndex(gui.getBindingName())+1),
-m_value(gui.getValue())
+m_value(gui.getValue()),
+m_edited(false)
 {
     std::array<float, 4> bounds(gui.getBounds());
     setBounds(int(bounds[0]), int(bounds[1]), int(bounds[2]), int(bounds[3]));
+    setOpaque(true);
     if(m_index)
     {
         startTimer(25);

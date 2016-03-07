@@ -23,6 +23,8 @@ public:
     void mouseDown(const MouseEvent& event) final;
     void mouseDrag(const MouseEvent& event) final;
     void mouseUp(const MouseEvent& event) final;
+private:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiSlider)
 };
 
 

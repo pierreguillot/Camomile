@@ -22,6 +22,10 @@
       <FILE id="tLvOP3" name="PatchEditor.h" compile="0" resource="0" file="Source/PatchEditor.h"/>
       <FILE id="HhHZI4" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
       <FILE id="EJAZHs" name="LookAndFeel.h" compile="0" resource="0" file="Source/LookAndFeel.h"/>
+      <FILE id="hTEaiz" name="GuiPatcher.cpp" compile="1" resource="0" file="Source/GuiPatcher.cpp"/>
+      <FILE id="DcI7Ep" name="GuiPatcher.hpp" compile="0" resource="0" file="Source/GuiPatcher.hpp"/>
+      <FILE id="gR2NvP" name="GuiLabel.cpp" compile="1" resource="0" file="Source/GuiLabel.cpp"/>
+      <FILE id="pO9tUK" name="GuiLabel.hpp" compile="0" resource="0" file="Source/GuiLabel.hpp"/>
       <FILE id="QxJ9WH" name="GuiNumbox.cpp" compile="1" resource="0" file="Source/GuiNumbox.cpp"/>
       <FILE id="RMNfIv" name="GuiNumbox.hpp" compile="0" resource="0" file="Source/GuiNumbox.hpp"/>
       <FILE id="OeUGMN" name="GuiSlider.cpp" compile="1" resource="0" file="Source/GuiSlider.cpp"/>
