@@ -7,7 +7,7 @@
 #ifndef __CAMOMILE_GUI_PARAMETER__
 #define __CAMOMILE_GUI_PARAMETER__
 
-#include "InstanceProcessor.h"
+#include "InstanceProcessor.hpp"
 
 // ==================================================================================== //
 //                                      GUI PARAMETER                                   //
@@ -22,24 +22,15 @@ public:
     pd::Gui::Type getType() const noexcept;
     float getMaximum() const noexcept;
     float getMinimum() const noexcept;
+    float getValue() const noexcept;
+    float getValueNormalized() const noexcept;
     
-    static Font getFont(){return Font(String("Monaco"), 13.f, juce::Font::plain);}
-    static int getBordersize() noexcept {return 1;}
-    static Colour const& getColorBg() noexcept {return Colours::lightgrey;}
-    static Colour const& getColorBd() noexcept {return Colours::darkgrey;}
-    static Colour const& getColorTxt() noexcept {return Colours::darkgrey;}
-    static Colour const& getColorInv() noexcept {
-        static Colour c(Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
-        return c;}
 protected:
     
     void startEdition() noexcept;
     void stopEdition() noexcept;
-    float getValue() const noexcept;
-    float getValueNormalized() const noexcept;
     void setValue(float value, bool redraw = true);
     void setValueNormalized(float value, bool redraw = true);
-    
 private:
     void timerCallback() final;
     

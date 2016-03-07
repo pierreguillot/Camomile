@@ -34,6 +34,9 @@ namespace pd
         static void clearSearchPath() noexcept;
         
         //! @brief Sets the text of the console.
+        static void clearConsole() noexcept;
+        
+        //! @brief Sets the text of the console.
         static void setConsole(std::string const& text) noexcept;
         
         //! @brief Sets the text of the console.

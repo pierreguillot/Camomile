@@ -5,13 +5,18 @@
 */
 
 #include "GuiPatcher.hpp"
+#include "GuiRadio.hpp"
+#include "GuiSlider.hpp"
+#include "GuiToggle.hpp"
+#include "GuiNumbox.hpp"
+#include "GuiLabel.hpp"
 
 // ==================================================================================== //
 //                                      GUI LABEL                                       //
 // ==================================================================================== //
 
 
-GuiPatcher::GuiPatcher(InstanceProcessor& processor) : m_processor(processor)
+GuiPatcher::GuiPatcher()
 {
     setBounds(0, 20, 600, 400);
     setInterceptsMouseClicks(false, true);
@@ -22,7 +27,7 @@ GuiPatcher::~GuiPatcher()
     
 }
 
-void GuiPatcher::setPatch(pd::Patch const& patch)
+void GuiPatcher::setPatch(InstanceProcessor& processor, pd::Patch const& patch)
 {
     m_parameters.clear();
     m_labels.clear();
@@ -35,30 +40,30 @@ void GuiPatcher::setPatch(pd::Patch const& patch)
         {
             if(guis[i].getType() == pd::Gui::Type::Number)
             {
-                m_parameters.add(new GuiNumbox(m_processor, guis[i]));
+                m_parameters.add(new GuiNumbox(processor, guis[i]));
                 addAndMakeVisible(m_parameters.getLast());
             }
             else if(guis[i].getType() == pd::Gui::Type::HorizontalRadio ||
                     guis[i].getType() == pd::Gui::Type::VerticalRadio)
             {
-                m_parameters.add(new GuiRadio(m_processor, guis[i]));
+                m_parameters.add(new GuiRadio(processor, guis[i]));
                 addAndMakeVisible(m_parameters.getLast());
             }
             else if(guis[i].getType() == pd::Gui::Type::HorizontalSlider ||
                     guis[i].getType() == pd::Gui::Type::VerticalSlider)
             {
-                m_parameters.add(new GuiSlider(m_processor, guis[i]));
+                m_parameters.add(new GuiSlider(processor, guis[i]));
                 addAndMakeVisible(m_parameters.getLast());
             }
             if(guis[i].getType() == pd::Gui::Type::Toggle)
             {
-                m_parameters.add(new GuiToggle(m_processor, guis[i]));
+                m_parameters.add(new GuiToggle(processor, guis[i]));
                 addAndMakeVisible(m_parameters.getLast());
             }
             
             if(guis[i].isParameter())
             {
-                m_labels.add(new GuiLabel(m_processor, guis[i]));
+                m_labels.add(new GuiLabel(processor, guis[i]));
                 addAndMakeVisible(m_labels.getLast());
             }
         }

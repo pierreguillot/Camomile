@@ -5,6 +5,7 @@
 */
 
 #include "GuiNumbox.hpp"
+#include "Gui.hpp"
 
 // ==================================================================================== //
 //                                      GUI TOGGLE                                      //
@@ -15,14 +16,14 @@ GuiNumbox::GuiNumbox(InstanceProcessor& processor, pd::Gui const& gui) : GuiPara
     Rectangle<int> bounds(getLocalBounds());
     m_label = new Label(String());
     m_label->setBounds(bounds.getHeight() / 2, 0, bounds.getWidth() - bounds.getHeight() / 2, bounds.getHeight());
-    m_label->setFont(GuiParameter::getFont());
-    m_label->setColour(Label::textColourId, GuiParameter::getColorTxt());
-    m_label->setColour(Label::backgroundColourId, GuiParameter::getColorInv());
-    m_label->setColour(Label::outlineColourId, GuiParameter::getColorInv());
-    m_label->setColour(Label::textWhenEditingColourId, GuiParameter::getColorTxt());
-    m_label->setColour(Label::backgroundWhenEditingColourId, GuiParameter::getColorInv());
-    m_label->setColour(Label::outlineWhenEditingColourId, GuiParameter::getColorInv());
-    m_label->setBorderSize(BorderSize<int>(GuiParameter::getBordersize()+1, GuiParameter::getBordersize(), GuiParameter::getBordersize(), GuiParameter::getBordersize()));
+    m_label->setFont(Gui::getFont());
+    m_label->setColour(Label::textColourId, Gui::getColorTxt());
+    m_label->setColour(Label::backgroundColourId, Gui::getColorInv());
+    m_label->setColour(Label::outlineColourId, Gui::getColorInv());
+    m_label->setColour(Label::textWhenEditingColourId, Gui::getColorTxt());
+    m_label->setColour(Label::backgroundWhenEditingColourId, Gui::getColorInv());
+    m_label->setColour(Label::outlineWhenEditingColourId, Gui::getColorInv());
+    m_label->setBorderSize(BorderSize<int>(Gui::getBordersize()+1, Gui::getBordersize(), Gui::getBordersize(), Gui::getBordersize()));
     m_label->setText(String(getValue()), NotificationType::dontSendNotification);
     m_label->setEditable(false, false);
     m_label->setInterceptsMouseClicks(false, false);
@@ -33,11 +34,11 @@ GuiNumbox::GuiNumbox(InstanceProcessor& processor, pd::Gui const& gui) : GuiPara
 
 void GuiNumbox::paint(Graphics& g)
 {
-    g.fillAll(GuiParameter::getColorBg());
-    g.setColour(GuiParameter::getColorBd());
-    g.drawRect(getLocalBounds(), GuiParameter::getBordersize());
-    g.drawLine(0.f, 0.f, float(getHeight()) * 0.5f, float(getHeight()) * 0.5f, GuiParameter::getBordersize());
-    g.drawLine(0.f, float(getHeight()), float(getHeight()) * 0.5f, float(getHeight()) * 0.5f, GuiParameter::getBordersize());
+    g.fillAll(Gui::getColorBg());
+    g.setColour(Gui::getColorBd());
+    g.drawRect(getLocalBounds(), Gui::getBordersize());
+    g.drawLine(0.f, 0.f, float(getHeight()) * 0.5f, float(getHeight()) * 0.5f, Gui::getBordersize());
+    g.drawLine(0.f, float(getHeight()), float(getHeight()) * 0.5f, float(getHeight()) * 0.5f, Gui::getBordersize());
     m_label->setText(String(getValue()), NotificationType::dontSendNotification);
 }
 

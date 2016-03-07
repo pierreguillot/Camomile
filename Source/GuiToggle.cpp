@@ -5,6 +5,7 @@
 */
 
 #include "GuiToggle.hpp"
+#include "Gui.hpp"
 
 // ==================================================================================== //
 //                                      GUI TOGGLE                                      //
@@ -17,13 +18,13 @@ GuiToggle::GuiToggle(InstanceProcessor& processor, pd::Gui const& gui) : GuiPara
 
 void GuiToggle::paint(Graphics& g)
 {
-    g.fillAll(GuiParameter::getColorBg());
-    g.setColour(GuiParameter::getColorBd());
-    g.drawRect(getLocalBounds(), GuiParameter::getBordersize());
+    g.fillAll(Gui::getColorBg());
+    g.setColour(Gui::getColorBd());
+    g.drawRect(getLocalBounds(), Gui::getBordersize());
     if(getValue() != 0.f)
     {
-        g.drawLine(0, 0, getWidth(), float(getHeight()), getBordersize());
-        g.drawLine(getWidth(), 0, 0, getHeight(), getBordersize());
+        g.drawLine(0, 0, getWidth(), float(getHeight()), Gui::getBordersize());
+        g.drawLine(getWidth(), 0, 0, getHeight(), Gui::getBordersize());
     }
 }
 

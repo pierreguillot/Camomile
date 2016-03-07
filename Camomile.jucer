@@ -14,14 +14,28 @@
               pluginIsMidiEffectPlugin="0">
   <MAINGROUP id="Lkdhlo" name="Camomile">
     <GROUP id="{6858D652-D432-5FB6-C946-D9F3FA76E6E9}" name="Source">
-      <FILE id="BUNrem" name="InstanceProcessor.cpp" compile="1" resource="0"
-            file="Source/InstanceProcessor.cpp"/>
-      <FILE id="shFm3X" name="InstanceProcessor.h" compile="0" resource="0"
-            file="Source/InstanceProcessor.h"/>
-      <FILE id="dCEF9M" name="PatchEditor.cpp" compile="1" resource="0" file="Source/PatchEditor.cpp"/>
-      <FILE id="tLvOP3" name="PatchEditor.h" compile="0" resource="0" file="Source/PatchEditor.h"/>
       <FILE id="HhHZI4" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
       <FILE id="EJAZHs" name="LookAndFeel.h" compile="0" resource="0" file="Source/LookAndFeel.h"/>
+      <FILE id="BUNrem" name="InstanceProcessor.cpp" compile="1" resource="0"
+            file="Source/InstanceProcessor.cpp"/>
+      <FILE id="shFm3X" name="InstanceProcessor.hpp" compile="0" resource="0"
+            file="Source/InstanceProcessor.hpp"/>
+      <FILE id="dCEF9M" name="InstanceEditor.cpp" compile="1" resource="0"
+            file="Source/InstanceEditor.cpp"/>
+      <FILE id="tLvOP3" name="InstanceEditor.hpp" compile="0" resource="0"
+            file="Source/InstanceEditor.hpp"/>
+      <FILE id="mfu9aW" name="Gui.cpp" compile="1" resource="0" file="Source/Gui.cpp"/>
+      <FILE id="ahFT2V" name="Gui.hpp" compile="0" resource="0" file="Source/Gui.hpp"/>
+      <FILE id="ZAeAE7" name="GuiWindow.cpp" compile="1" resource="0" file="Source/GuiWindow.cpp"/>
+      <FILE id="d9Vjmd" name="GuiWindow.hpp" compile="0" resource="0" file="Source/GuiWindow.hpp"/>
+      <FILE id="OvL3wk" name="GuiAbout.cpp" compile="1" resource="0" file="Source/GuiAbout.cpp"/>
+      <FILE id="YEALPb" name="GuiAbout.hpp" compile="0" resource="0" file="Source/GuiAbout.hpp"/>
+      <FILE id="pQxITl" name="GuiConsole.cpp" compile="1" resource="0" file="Source/GuiConsole.cpp"/>
+      <FILE id="bFJbE9" name="GuiConsole.hpp" compile="0" resource="0" file="Source/GuiConsole.hpp"/>
+      <FILE id="VqmKdm" name="GuiFlowerButton.cpp" compile="1" resource="0"
+            file="Source/GuiFlowerButton.cpp"/>
+      <FILE id="HpCvwb" name="GuiFlowerButton.hpp" compile="0" resource="0"
+            file="Source/GuiFlowerButton.hpp"/>
       <FILE id="hTEaiz" name="GuiPatcher.cpp" compile="1" resource="0" file="Source/GuiPatcher.cpp"/>
       <FILE id="DcI7Ep" name="GuiPatcher.hpp" compile="0" resource="0" file="Source/GuiPatcher.hpp"/>
       <FILE id="gR2NvP" name="GuiLabel.cpp" compile="1" resource="0" file="Source/GuiLabel.cpp"/>
@@ -38,14 +52,14 @@
             file="Source/GuiParameter.cpp"/>
       <FILE id="cuSyHc" name="GuiParameter.hpp" compile="0" resource="0"
             file="Source/GuiParameter.hpp"/>
+      <FILE id="c7oMcM" name="Pd.cpp" compile="1" resource="0" file="Source/Pd.cpp"/>
+      <FILE id="o0Va6F" name="Pd.hpp" compile="0" resource="0" file="Source/Pd.hpp"/>
       <FILE id="yk5hRN" name="PdGui.cpp" compile="1" resource="0" file="Source/PdGui.cpp"/>
       <FILE id="qAbzUL" name="PdGui.hpp" compile="0" resource="0" file="Source/PdGui.hpp"/>
       <FILE id="Bnr3EF" name="PdPatch.cpp" compile="1" resource="0" file="Source/PdPatch.cpp"/>
       <FILE id="axFnWc" name="PdPatch.hpp" compile="0" resource="0" file="Source/PdPatch.hpp"/>
       <FILE id="DEM9eo" name="PdInstance.cpp" compile="1" resource="0" file="Source/PdInstance.cpp"/>
       <FILE id="mGAVYz" name="PdInstance.hpp" compile="0" resource="0" file="Source/PdInstance.hpp"/>
-      <FILE id="c7oMcM" name="Pd.cpp" compile="1" resource="0" file="Source/Pd.cpp"/>
-      <FILE id="o0Va6F" name="Pd.hpp" compile="0" resource="0" file="Source/Pd.hpp"/>
     </GROUP>
     <GROUP id="{13D75516-E697-ECB1-605C-FB3746C267F8}" name="PureData">
       <GROUP id="{E169D560-E0FD-D9AB-34FF-826654976AD0}" name="extra">

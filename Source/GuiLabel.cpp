@@ -5,6 +5,7 @@
 */
 
 #include "GuiLabel.hpp"
+#include "Gui.hpp"
 
 // ==================================================================================== //
 //                                      GUI LABEL                                       //
@@ -15,12 +16,12 @@ GuiLabel::GuiLabel(InstanceProcessor& processor, pd::Gui const& gui) :
 Label("label", String(gui.getName()) + " " + gui.getLabel())
 {
     std::array<float, 2> labelpos(gui.getLabelPosition());
-    setFont(GuiParameter::getFont());
+    setFont(Gui::getFont());
     setJustificationType(Justification::topLeft);
-    setColour(Label::backgroundColourId, GuiParameter::getColorInv());
-    setColour(Label::textColourId, GuiParameter::getColorTxt());
+    setColour(Label::backgroundColourId, Gui::getColorInv());
+    setColour(Label::textColourId, Gui::getColorTxt());
     setBorderSize(BorderSize<int>());
-    setBounds(labelpos[0], labelpos[1] - GuiParameter::getFont().getHeight() * 0.5, 1000, 200);
+    setBounds(labelpos[0], labelpos[1] - Gui::getFont().getHeight() * 0.5, 1000, 200);
     setInterceptsMouseClicks(false, false);
 }
 

@@ -5,7 +5,6 @@
 */
 
 #include "GuiParameter.hpp"
-#include "PatchEditor.h"
 
 // ==================================================================================== //
 //                                      GUI SLIDER                                      //

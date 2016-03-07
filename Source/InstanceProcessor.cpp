@@ -4,8 +4,8 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
-#include "InstanceProcessor.h"
-#include "PatchEditor.h"
+#include "InstanceProcessor.hpp"
+#include "InstanceEditor.hpp"
 #include "LookAndFeel.h"
 
 InstanceProcessor::InstanceProcessor() : pd::Instance(pd::Pd::createInstance())
@@ -203,7 +203,7 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
 
 AudioProcessorEditor* InstanceProcessor::createEditor()
 {
-    return new PatchEditor(*this);
+    return new InstanceEditor(*this);
 }
 
 void InstanceProcessor::loadPatch(const juce::File& file)

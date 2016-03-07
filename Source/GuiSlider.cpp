@@ -5,6 +5,7 @@
 */
 
 #include "GuiSlider.hpp"
+#include "Gui.hpp"
 
 // ==================================================================================== //
 //                                      GUI SLIDER                                      //
@@ -17,18 +18,18 @@ GuiSlider::GuiSlider(InstanceProcessor& processor, pd::Gui const& gui) : GuiPara
 
 void GuiSlider::paint(Graphics& g)
 {
-    g.fillAll(GuiParameter::getColorBg());
-    g.setColour(GuiParameter::getColorBd());
-    g.drawRect(getLocalBounds(), GuiParameter::getBordersize());
+    g.fillAll(Gui::getColorBg());
+    g.setColour(Gui::getColorBd());
+    g.drawRect(getLocalBounds(), Gui::getBordersize());
     if(getType() == Horizontal)
     {
         const float pos = getValueNormalized() * float(getWidth() - 4.) + 2.f;
-        g.drawLine(pos, 0.f, pos, float(getHeight()), getBordersize());
+        g.drawLine(pos, 0.f, pos, float(getHeight()), Gui::getBordersize());
     }
     else
     {
         const float pos = (1.f - getValueNormalized())* float(getHeight() - 4.) + 2.f;
-        g.drawLine(0.f, pos, getWidth(), pos, getBordersize());
+        g.drawLine(0.f, pos, getWidth(), pos, Gui::getBordersize());
     }
 }
 

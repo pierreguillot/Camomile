@@ -60,7 +60,7 @@ namespace pd
         sys_reopen_audio();
         m_sample_rate = sys_getsr();
         m_console.clear();
-        m_console.append("Camomile " + getVersion() + " for Pure Data " + getPdVersion());
+        m_console.append("Camomile " + getVersion() + " for Pure Data " + getPdVersion() + "\n");
         sys_printhook = reinterpret_cast<t_printhook>(print);
     }
     
@@ -99,21 +99,31 @@ namespace pd
         sys_searchpath = NULL;
     }
     
+    void Pd::clearConsole() noexcept
+    {
+        Pd& pd = Pd::get();
+        std::lock_guard<std::mutex> guard(pd.m_mutex);
+        pd.m_console.clear();
+    }
+    
     void Pd::setConsole(std::string const& text) noexcept
     {
         Pd& pd = Pd::get();
-        pd.m_console = text;
+        std::lock_guard<std::mutex> guard(pd.m_mutex);
+        pd.m_console = text + "\n";
     }
     
     void Pd::addConsole(std::string const& text) noexcept
     {
         Pd& pd = Pd::get();
-        pd.m_console += text;
+        std::lock_guard<std::mutex> guard(pd.m_mutex);
+        pd.m_console += text + "\n";
     }
     
     std::string Pd::getConsole() noexcept
     {
         Pd& pd = Pd::get();
+        std::lock_guard<std::mutex> guard(pd.m_mutex);
         if(pd.m_console.size() > 1000)
         {
             pd.m_console.erase(pd.m_console.begin(), pd.m_console.end()-1000);

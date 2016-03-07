@@ -18,7 +18,7 @@
 #X obj 276 77 vsl 15 128 0 80 0 0 empty \$0-rate empty 0 -9 0 10 -262144
 -1 -1 0 1;
 #X obj 306 77 vsl 15 128 40 0 0 0 empty \$0-rate empty 0 -9 0 10 -262144
--1 -1 12700 1;
+-1 -1 0 1;
 #X obj 77 246 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 77 266 tgl 20 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
@@ -27,5 +27,13 @@
 -1 0;
 #X obj 181 269 vradio 15 1 0 4 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
+#X msg 133 453 100;
+#X obj 133 475 print zaza;
+#X obj 135 357 loadbang;
+#X msg 135 379 1;
+#X obj 133 409 metro 500;
 #X connect 10 0 11 0;
+#X connect 14 0 15 0;
+#X connect 16 0 17 0;
+#X connect 17 0 18 0;
 #X coords 0 -1 1 1 300 300 2 50 50;
