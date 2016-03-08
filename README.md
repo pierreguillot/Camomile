@@ -10,6 +10,10 @@ Feature :
  - Up to 32 parameters
  - Support for Midi
 
+Issues :
+  - VST3 doesn't recognize the names and labels of the parameters
+  - VST3 is limited to 14 channels
+
 ![](https://cloud.githubusercontent.com/assets/1409918/13610631/ebdacae8-e55e-11e5-903c-fb3ad342adb8.png)
 
 > The Camomile plugin is only available for Mac.  
