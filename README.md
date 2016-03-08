@@ -26,14 +26,19 @@ How to use the Camomile plugin:
 
 How to create a patch for the Camomile plugin:
 
-* Use the *adc~* and the *dac~* objects to receive and send the signal from the plugin.
-* Add a label (the first word is the name of the parameter and the second word is the label of the parameter) and a receive symbol to a GUI object (only the *toggle*, the *slider*, the *radio* and the *numbox* are available for the moment) to create a parameter. The minimum and maximum values will be used for the range of the parameter.
-* Add only a receive symbol to a GUI object if you don't want it to be a parameter but want to change its value via the plugin interface. You want use the same receive symbol for a non-parameter object and a parameter object if you want to have two interfaces that control the same parameter.
-* Activate the  "Graph-On-Parent" option in your patch as and use the size and the offset to define the visible area of the patch.
+* Use the *adc~* and the *dac~* objects to receive and send the signal from the plugin.    
+![](https://cloud.githubusercontent.com/assets/1409918/13610984/91081d12-e560-11e5-8abb-f924367ab6eb.png)    
+
+* Add a label (the first word is the name of the parameter and the second word is the label of the parameter) and a receive symbol to a GUI object (only the *toggle*, the *slider*, the *radio* and the *numbox* are available for the moment) to create a parameter. The minimum and maximum values will be used for the range of the parameter.  
+![](https://cloud.githubusercontent.com/assets/1409918/13611062/eb6348a4-e560-11e5-8c62-b41803183783.png)
+
+* Add only a receive symbol to a GUI object if you want to use a second interfaces to control a parameter.  
+![](https://cloud.githubusercontent.com/assets/1409918/13611063/eb74e08c-e560-11e5-8d34-4df8559bbb8d.png)
+
+* Activate the  "Graph-On-Parent" option in your patch as and use the size and the offset to define the visible area of the patch.  
+![](https://cloud.githubusercontent.com/assets/1409918/13611033/c48b69fa-e560-11e5-9ab8-3950adba08f0.png)
 
 > You should always ensure that the send and receive symbols are specifics to the patch instance by using *$0*.
-
-![](https://cloud.githubusercontent.com/assets/1409918/13555997/c8862ee2-e3cf-11e5-825a-0a169668791a.png)
 
 Author : Pierre Guillot  
 Organizations : CICM | Université Paris 8 | Labex Arts H2H  
