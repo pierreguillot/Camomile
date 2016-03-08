@@ -203,6 +203,7 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
                getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
                getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
     unlock();
+    midiMessages.clear();
 }
 
 AudioProcessorEditor* InstanceProcessor::createEditor()
