@@ -1,7 +1,7 @@
-#N canvas 91 80 820 723 10;
+#N canvas 91 80 772 723 10;
 #X obj 59 97 hsl 128 15 0 10 0 0 empty \$0-depth Depth_ms -3 -6 0 10
 -262144 -1 -1 127 1;
-#X obj 6 -4 loadbang;
+#X obj 6 6 loadbang;
 #X obj 59 67 hsl 128 15 0 5 0 0 empty \$0-rate Rate_Hz -3 -6 0 10 -262144
 -1 -1 2540 1;
 #X obj 195 67 nbx 5 15 0 5 0 0 empty \$0-rate empty 0 -8 0 10 -262144

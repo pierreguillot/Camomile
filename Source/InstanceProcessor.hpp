@@ -9,6 +9,7 @@
 
 // TODO VST3 don't change the name and label of parameters
 // TODO VST the number of ioputs seems to be 14 (VST3) ??
+// Adds infos about bpm and position
 
 #include "Pd.hpp"
 #include "../JuceLibraryCode/JuceHeader.h"

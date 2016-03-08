@@ -197,26 +197,11 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
         buffer.clear(i, 0, buffer.getNumSamples());
     }
     
-    {
-        /*
-        AudioPlayHead::CurrentPositionInfo info;
-        getPlayHead()->getCurrentPosition(info);
-        if (positionInfo.isPlaying != info.isPlaying)
-        {
-            pd->sendMessage("hostIsPlaying", info.isPlaying ? "true" : "false");
-        }
-        if(positionInfo.bpm != info.bpm)
-        {
-            pd->sendFloat("hostBpm", (float) info.bpm);
-        }
-        positionInfo = info;
-         */
-    }
     lock();
     MidiMessage message;
     MidiBuffer::Iterator it (midiMessages);
     int samplePosition = buffer.getNumSamples();
-    while (it.getNextEvent (message, samplePosition))
+    while(it.getNextEvent (message, samplePosition))
     {
         if(message.isNoteOn())
         {
