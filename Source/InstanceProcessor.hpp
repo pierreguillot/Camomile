@@ -7,6 +7,10 @@
 #ifndef __CAMOMILE_INTANCE_PROCESSOR__
 #define __CAMOMILE_INTANCE_PROCESSOR__
 
+// TODO VST3 don't change the name and label of parameters
+// TODO VST the number of ioputs seems to be 14 (VST3) ??
+// Adds infos about bpm and position
+
 #include "Pd.hpp"
 #include "../JuceLibraryCode/JuceHeader.h"
 
@@ -39,6 +43,7 @@ public:
     bool isMetaParameter(int index) const override;
     float getParameterNonNormalized(int index) const;
     void setParameterNonNormalized(int index, float newValue);
+    void setParameterNonNormalizedNotifyingHost(int index, float newValue);
     
     const String getInputChannelName(int index) const override {return String(index + 1);}
     const String getOutputChannelName(int index) const override {return String(index + 1);}
@@ -67,7 +72,6 @@ public:
     
     void addListener(Listener* listener);
     void removeListener(Listener* listener);
-    
     class Listener
     {
     public:
@@ -92,6 +96,7 @@ private:
         float getValueNonNormalized() const;
         void setValue(float newValue) final;
         void setValueNonNormalized(float newValue);
+        float getValueNormalized(float newValue);
         float getDefaultValue() const final;
         String getName(int maximumStringLength) const final;
         String getLabel() const final;

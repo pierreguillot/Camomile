@@ -176,6 +176,85 @@ namespace pd
         canvas_free(reinterpret_cast<t_canvas*>(patch.m_ptr));
         Pd::unlock();
     }
+    
+    // From libPD
+#define CHECK_CHANNEL if (channel < 0) return;
+#define CHECK_PORT if (port < 0 || port > 0x0fff) return;
+#define CHECK_RANGE_7BIT(v) if (v < 0 || v > 0x7f) return;
+#define CHECK_RANGE_8BIT(v) if (v < 0 || v > 0xff) return;
+#define MIDI_PORT (channel >> 4)
+#define MIDI_CHANNEL (channel & 0x0f)
+    
+    void Instance::sendNoteOn(int channel, int pitch, int velocity) {
+        CHECK_CHANNEL
+        CHECK_RANGE_7BIT(pitch)
+        CHECK_RANGE_7BIT(velocity)
+        inmidi_noteon(MIDI_PORT, MIDI_CHANNEL, pitch, velocity);
+    }
+    
+    void Instance::sendNoteOff(int channel, int pitch, int velocity) {
+        CHECK_CHANNEL
+        CHECK_RANGE_7BIT(pitch)
+        CHECK_RANGE_7BIT(velocity)
+        inmidi_noteon(MIDI_PORT, MIDI_CHANNEL, pitch, 0);
+    }
+    
+    void Instance::sendControlChange(int channel, int controller, int value) {
+        CHECK_CHANNEL
+        CHECK_RANGE_7BIT(controller)
+        CHECK_RANGE_7BIT(value)
+        inmidi_controlchange(MIDI_PORT, MIDI_CHANNEL, controller, value);
+    }
+    
+    void Instance::sendProgramChange(int channel, int value) {
+        CHECK_CHANNEL
+        CHECK_RANGE_7BIT(value)
+        inmidi_programchange(MIDI_PORT, MIDI_CHANNEL, value);
+    }
+    
+    void Instance::sendPitchBend(int channel, int value) {
+        CHECK_CHANNEL
+        if (value < -8192 || value > 8191) return;
+        inmidi_pitchbend(MIDI_PORT, MIDI_CHANNEL, value + 8192);
+    }
+    
+    void Instance::sendAfterTouch(int channel, int value) {
+        CHECK_CHANNEL
+        CHECK_RANGE_7BIT(value)
+        inmidi_aftertouch(MIDI_PORT, MIDI_CHANNEL, value);
+    }
+    
+    void Instance::sendPolyAfterTouch(int channel, int pitch, int value) {
+        CHECK_CHANNEL
+        CHECK_RANGE_7BIT(pitch)
+        CHECK_RANGE_7BIT(value)
+        inmidi_polyaftertouch(MIDI_PORT, MIDI_CHANNEL, pitch, value);
+    }
+    
+    void Instance::sendMidiByte(int port, int byte) {
+        CHECK_PORT
+        CHECK_RANGE_8BIT(byte)
+        inmidi_byte(port, byte);
+    }
+    
+    void Instance::sendSysEx(int port, int byte) {
+        CHECK_PORT
+        CHECK_RANGE_7BIT(byte)
+        inmidi_sysex(port, byte);
+    }
+    
+    void Instance::sendSysRealtime(int port, int byte) {
+        CHECK_PORT
+        CHECK_RANGE_8BIT(byte)
+        inmidi_realtimein(port, byte);
+    }
+    
+#undef CHECK_CHANNEL
+#undef MIDI_PORT
+#undef MIDI_CHANNEL
+#undef CHECK_PORT
+#undef CHECK_RANGE_7BIT
+#undef CHECK_RANGE_8BIT
 }
 
 

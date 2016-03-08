@@ -4,8 +4,8 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef __CAMOMILE_PD_OBJECT__
-#define __CAMOMILE_PD_OBJECT__
+#ifndef __CAMOMILE_PD_GUI__
+#define __CAMOMILE_PD_GUI__
 
 #include "PdPatch.hpp"
 
@@ -29,9 +29,11 @@ namespace pd
         {
             Invalid          = 0,
             HorizontalSlider = 1,
-            VecticalSlider   = 2,
+            VerticalSlider   = 2,
             Toggle           = 3,
-            Number           = 4
+            Number           = 4,
+            HorizontalRadio  = 5,
+            VerticalRadio    = 6
         };
         
         //! @brief The constructor for an empty Object.
@@ -67,7 +69,7 @@ namespace pd
         //! @brief The class name of the Object.
         Type getType() const noexcept;
         
-        //! @brief The class name of the Object.
+        //! @brief The Name of the Object.
         std::string getName() const;
         
         std::string getLabel() const;

@@ -21,12 +21,20 @@ namespace pd
     class Pd
     {
     public:
+        //! @brief Gets the current version of the program.
+        static std::string getVersion() {return std::string("0.0.3");}
+        
+        //! @brief Adds a path the global search path.
+        static std::string getPdVersion();
         
         //! @brief Adds a path the global search path.
         static void addToSearchPath(std::string const& path) noexcept;
         
         //! @brief Clears all the paths of the global search path.
         static void clearSearchPath() noexcept;
+        
+        //! @brief Sets the text of the console.
+        static void clearConsole() noexcept;
         
         //! @brief Sets the text of the console.
         static void setConsole(std::string const& text) noexcept;
@@ -39,7 +47,7 @@ namespace pd
         
         //! @brief Creates a new Instance object.
         static Instance createInstance() noexcept;
-        
+    
     private:
         
         //! @brief The Pure Data contructor.

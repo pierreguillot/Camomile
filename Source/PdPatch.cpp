@@ -134,6 +134,8 @@ namespace pd
             t_symbol* vsl = gensym("vsl");
             t_symbol* tgl = gensym("tgl");
             t_symbol* nbx = gensym("nbx");
+            t_symbol* vra = gensym("vradio");
+            t_symbol* hra = gensym("hradio");
             for(t_gobj *y = cnv->gl_list; y; y = y->g_next)
             {
                 if(y->g_pd->c_name == hsl)
@@ -142,7 +144,7 @@ namespace pd
                 }
                 else if(y->g_pd->c_name == vsl)
                 {
-                    objects.push_back(Gui(*this, Gui::Type::VecticalSlider, reinterpret_cast<void *>(y)));
+                    objects.push_back(Gui(*this, Gui::Type::VerticalSlider, reinterpret_cast<void *>(y)));
                 }
                 else if(y->g_pd->c_name == tgl)
                 {
@@ -151,6 +153,14 @@ namespace pd
                 else if(y->g_pd->c_name == nbx)
                 {
                     objects.push_back(Gui(*this, Gui::Type::Number, reinterpret_cast<void *>(y)));
+                }
+                else if(y->g_pd->c_name == vra)
+                {
+                    objects.push_back(Gui(*this, Gui::Type::VerticalRadio, reinterpret_cast<void *>(y)));
+                }
+                else if(y->g_pd->c_name == hra)
+                {
+                    objects.push_back(Gui(*this, Gui::Type::HorizontalRadio, reinterpret_cast<void *>(y)));
                 }
             }
         }

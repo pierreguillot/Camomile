@@ -4,17 +4,21 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
-#include "InstanceProcessor.h"
-#include "PatchEditor.h"
+#include "InstanceProcessor.hpp"
+#include "InstanceEditor.hpp"
 #include "LookAndFeel.h"
 
 InstanceProcessor::InstanceProcessor() : pd::Instance(pd::Pd::createInstance())
 {
+    Gui::addInstance();
     m_parameters.resize(32);
+    busArrangement.inputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
+    busArrangement.outputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
 }
 
 InstanceProcessor::~InstanceProcessor()
 {
+    Gui::removeInstance();
     std::lock_guard<std::mutex> guard(m_mutex);
     m_listeners.clear();
 }
@@ -27,9 +31,13 @@ int InstanceProcessor::getNumParameters()
 const String InstanceProcessor::getParameterName(int index)
 {
     if(m_parameters[index].isValid())
+    {
         return m_parameters[index].getName(512);
+    }
     else
+    {
         return String("Dummy ") + String(std::to_string(index + 1));
+    }
 }
 
 float InstanceProcessor::getParameter(int index)
@@ -46,6 +54,12 @@ void InstanceProcessor::setParameterNonNormalized(int index, float newValue)
 {
     m_parameters[index].setValueNonNormalized(newValue);
 }
+
+void InstanceProcessor::setParameterNonNormalizedNotifyingHost(int index, float newValue)
+{
+    setParameterNotifyingHost(index, m_parameters[index].getValueNormalized(newValue));
+}
+
 
 void InstanceProcessor::setParameter(int index, float newValue)
 {
@@ -152,6 +166,7 @@ void InstanceProcessor::parametersChanged()
             }
         }
     }
+    updateHostDisplay();
     for(size_t i = 0; i < m_parameters.size(); i++)
     {
         if(m_parameters[i].isValid())
@@ -159,8 +174,6 @@ void InstanceProcessor::parametersChanged()
             setParameterNotifyingHost(i, m_parameters[i].getValue());
         }
     }
-    
-    updateHostDisplay();
 }
 
 void InstanceProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
@@ -183,21 +196,45 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     {
         buffer.clear(i, 0, buffer.getNumSamples());
     }
+    
     lock();
+    MidiMessage message;
+    MidiBuffer::Iterator it (midiMessages);
+    int samplePosition = buffer.getNumSamples();
+    while(it.getNextEvent (message, samplePosition))
+    {
+        if(message.isNoteOn())
+        {
+            sendNoteOn(message.getChannel(), message.getNoteNumber(), message.getVelocity());
+        }
+        if(message.isNoteOff())
+        {
+            sendNoteOff(message.getChannel(), message.getNoteNumber(), message.getVelocity());
+        }
+        if(message.isPitchWheel())
+        {
+            sendPitchBend(message.getChannel(), message.getPitchWheelValue());
+        }
+        if(message.isAftertouch())
+        {
+            sendAfterTouch(message.getChannel(), message.getAfterTouchValue());
+        }
+    }
+    
     for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); i++)
     {
         send(m_parameters[i].getBindingName(), m_parameters[i].getValueNonNormalized());
     }
-    
     performDsp(buffer.getNumSamples(),
                getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
                getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
     unlock();
+    midiMessages.clear();
 }
 
 AudioProcessorEditor* InstanceProcessor::createEditor()
 {
-    return new PatchEditor(*this);
+    return new InstanceEditor(*this);
 }
 
 void InstanceProcessor::loadPatch(const juce::File& file)
@@ -217,14 +254,14 @@ void InstanceProcessor::loadPatch(const juce::File& file)
                 m_patch = pd::Patch();
             }
         }
-    
+        parametersChanged();
+        prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(), getSampleRate(), getBlockSize());
+        
         std::vector<Listener*> listeners = getListeners();
         for(auto it : listeners)
         {
             it->patchChanged();
         }
-        parametersChanged();
-        prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(), getSampleRate(), getBlockSize());
     }
     
     suspendProcessing(false);
@@ -304,7 +341,6 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
     LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
     return new InstanceProcessor();
 }
-
 
 // ==================================================================================== //
 //                                  PARAMETERS                                          //
@@ -386,24 +422,35 @@ float InstanceProcessor::Parameter::getValueNonNormalized() const
     {
         return m_value * (m_max - m_min) + m_min;
     }
-    return m_value * (m_min - m_max) + m_max;
+    return (1.f - m_value) * (m_min - m_max) + m_max;
 }
 
-void InstanceProcessor::Parameter::setValue (float newValue)
+void InstanceProcessor::Parameter::setValue(float newValue)
 {
-    m_value = newValue;
-}
-
-void InstanceProcessor::Parameter::setValueNonNormalized (float newValue)
-{
-    if(m_min < m_max)
+    newValue = std::min(std::max(newValue, 0.f), 1.f);
+    if(m_nsteps)
     {
-        m_value = (newValue - m_min) / (m_max - m_min);
+        const float step = (1.f/ float(m_nsteps));
+        m_value = std::round(newValue / step) * step;
     }
     else
     {
-        m_value = (newValue - m_max) / (m_min - m_max);
+        m_value = newValue;
     }
+}
+
+void InstanceProcessor::Parameter::setValueNonNormalized(float newValue)
+{
+    m_value = getValueNormalized(newValue);
+}
+
+float InstanceProcessor::Parameter::getValueNormalized(float newValue)
+{
+    if(m_min < m_max)
+    {
+        return std::min(std::max((newValue - m_min) / (m_max - m_min), 0.f), 1.f);
+    }
+    return std::min(std::max(1.f  - ((newValue - m_max) / (m_min - m_max)), 0.f), 1.f);
 }
 
 float InstanceProcessor::Parameter::getDefaultValue() const {return 0.f;}
@@ -416,7 +463,7 @@ String InstanceProcessor::Parameter::getText (float value, int size) const {retu
 
 float InstanceProcessor::Parameter::getValueForText (const String& text) const {return text.getFloatValue();}
 
-bool InstanceProcessor::Parameter::isOrientationInverted() const {return m_max < m_min;}
+bool InstanceProcessor::Parameter::isOrientationInverted() const {return false;}
 
 int InstanceProcessor::Parameter::getNumSteps() const
 {

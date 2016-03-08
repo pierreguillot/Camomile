@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="0.0.2"
+<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="0.0.3"
               bundleIdentifier="com.cicm.Camomile" includeBinaryInAppConfig="1"
-              buildVST="1" buildVST3="1" buildAU="1" buildRTAS="0" buildAAX="0"
+              buildVST="1" buildVST3="1" buildAU="0" buildRTAS="0" buildAAX="0"
               pluginName="Camomile" pluginDesc="Camomile" pluginManufacturer="Pierre Guillot"
               pluginManufacturerCode="CICM" pluginCode="PGCA" pluginChannelConfigs=""
-              pluginIsSynth="0" pluginWantsMidiIn="0" pluginProducesMidiOut="0"
+              pluginIsSynth="0" pluginWantsMidiIn="1" pluginProducesMidiOut="0"
               pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="1"
               pluginAUExportPrefix="CamomileAU" pluginRTASCategory="" aaxIdentifier="com.cicm.Camomile"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.1.0"
@@ -14,24 +14,52 @@
               pluginIsMidiEffectPlugin="0">
   <MAINGROUP id="Lkdhlo" name="Camomile">
     <GROUP id="{6858D652-D432-5FB6-C946-D9F3FA76E6E9}" name="Source">
-      <FILE id="BUNrem" name="InstanceProcessor.cpp" compile="1" resource="0"
-            file="Source/InstanceProcessor.cpp"/>
-      <FILE id="shFm3X" name="InstanceProcessor.h" compile="0" resource="0"
-            file="Source/InstanceProcessor.h"/>
-      <FILE id="dCEF9M" name="PatchEditor.cpp" compile="1" resource="0" file="Source/PatchEditor.cpp"/>
-      <FILE id="tLvOP3" name="PatchEditor.h" compile="0" resource="0" file="Source/PatchEditor.h"/>
       <FILE id="HhHZI4" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
       <FILE id="EJAZHs" name="LookAndFeel.h" compile="0" resource="0" file="Source/LookAndFeel.h"/>
+      <FILE id="BUNrem" name="InstanceProcessor.cpp" compile="1" resource="0"
+            file="Source/InstanceProcessor.cpp"/>
+      <FILE id="shFm3X" name="InstanceProcessor.hpp" compile="0" resource="0"
+            file="Source/InstanceProcessor.hpp"/>
+      <FILE id="dCEF9M" name="InstanceEditor.cpp" compile="1" resource="0"
+            file="Source/InstanceEditor.cpp"/>
+      <FILE id="tLvOP3" name="InstanceEditor.hpp" compile="0" resource="0"
+            file="Source/InstanceEditor.hpp"/>
+      <FILE id="mfu9aW" name="Gui.cpp" compile="1" resource="0" file="Source/Gui.cpp"/>
+      <FILE id="ahFT2V" name="Gui.hpp" compile="0" resource="0" file="Source/Gui.hpp"/>
+      <FILE id="ZAeAE7" name="GuiWindow.cpp" compile="1" resource="0" file="Source/GuiWindow.cpp"/>
+      <FILE id="d9Vjmd" name="GuiWindow.hpp" compile="0" resource="0" file="Source/GuiWindow.hpp"/>
+      <FILE id="OvL3wk" name="GuiAbout.cpp" compile="1" resource="0" file="Source/GuiAbout.cpp"/>
+      <FILE id="YEALPb" name="GuiAbout.hpp" compile="0" resource="0" file="Source/GuiAbout.hpp"/>
+      <FILE id="pQxITl" name="GuiConsole.cpp" compile="1" resource="0" file="Source/GuiConsole.cpp"/>
+      <FILE id="bFJbE9" name="GuiConsole.hpp" compile="0" resource="0" file="Source/GuiConsole.hpp"/>
+      <FILE id="VqmKdm" name="GuiFlowerButton.cpp" compile="1" resource="0"
+            file="Source/GuiFlowerButton.cpp"/>
+      <FILE id="HpCvwb" name="GuiFlowerButton.hpp" compile="0" resource="0"
+            file="Source/GuiFlowerButton.hpp"/>
+      <FILE id="hTEaiz" name="GuiPatcher.cpp" compile="1" resource="0" file="Source/GuiPatcher.cpp"/>
+      <FILE id="DcI7Ep" name="GuiPatcher.hpp" compile="0" resource="0" file="Source/GuiPatcher.hpp"/>
+      <FILE id="gR2NvP" name="GuiLabel.cpp" compile="1" resource="0" file="Source/GuiLabel.cpp"/>
+      <FILE id="pO9tUK" name="GuiLabel.hpp" compile="0" resource="0" file="Source/GuiLabel.hpp"/>
+      <FILE id="QxJ9WH" name="GuiNumbox.cpp" compile="1" resource="0" file="Source/GuiNumbox.cpp"/>
+      <FILE id="RMNfIv" name="GuiNumbox.hpp" compile="0" resource="0" file="Source/GuiNumbox.hpp"/>
+      <FILE id="OeUGMN" name="GuiSlider.cpp" compile="1" resource="0" file="Source/GuiSlider.cpp"/>
+      <FILE id="X3S9do" name="GuiSlider.hpp" compile="0" resource="0" file="Source/GuiSlider.hpp"/>
+      <FILE id="RSGKI0" name="GuiToggle.cpp" compile="1" resource="0" file="Source/GuiToggle.cpp"/>
+      <FILE id="C9xs6Z" name="GuiToggle.hpp" compile="0" resource="0" file="Source/GuiToggle.hpp"/>
+      <FILE id="fgenxt" name="GuiRadio.cpp" compile="1" resource="0" file="Source/GuiRadio.cpp"/>
+      <FILE id="Bwy3TJ" name="GuiRadio.hpp" compile="0" resource="0" file="Source/GuiRadio.hpp"/>
+      <FILE id="yg4Nuq" name="GuiParameter.cpp" compile="1" resource="0"
+            file="Source/GuiParameter.cpp"/>
+      <FILE id="cuSyHc" name="GuiParameter.hpp" compile="0" resource="0"
+            file="Source/GuiParameter.hpp"/>
       <FILE id="c7oMcM" name="Pd.cpp" compile="1" resource="0" file="Source/Pd.cpp"/>
       <FILE id="o0Va6F" name="Pd.hpp" compile="0" resource="0" file="Source/Pd.hpp"/>
-      <FILE id="DEM9eo" name="PdInstance.cpp" compile="1" resource="0" file="Source/PdInstance.cpp"/>
-      <FILE id="mGAVYz" name="PdInstance.hpp" compile="0" resource="0" file="Source/PdInstance.hpp"/>
+      <FILE id="yk5hRN" name="PdGui.cpp" compile="1" resource="0" file="Source/PdGui.cpp"/>
+      <FILE id="qAbzUL" name="PdGui.hpp" compile="0" resource="0" file="Source/PdGui.hpp"/>
       <FILE id="Bnr3EF" name="PdPatch.cpp" compile="1" resource="0" file="Source/PdPatch.cpp"/>
       <FILE id="axFnWc" name="PdPatch.hpp" compile="0" resource="0" file="Source/PdPatch.hpp"/>
-      <FILE id="Aueh3x" name="PdObject.cpp" compile="1" resource="0" file="Source/PdObject.cpp"/>
-      <FILE id="ck8DGd" name="PdObject.hpp" compile="0" resource="0" file="Source/PdObject.hpp"/>
-      <FILE id="ZjkT4z" name="PdAtom.hpp" compile="0" resource="0" file="Source/PdAtom.hpp"/>
-      <FILE id="g1VP3D" name="PdMisc.hpp" compile="0" resource="0" file="Source/PdMisc.hpp"/>
+      <FILE id="DEM9eo" name="PdInstance.cpp" compile="1" resource="0" file="Source/PdInstance.cpp"/>
+      <FILE id="mGAVYz" name="PdInstance.hpp" compile="0" resource="0" file="Source/PdInstance.hpp"/>
     </GROUP>
     <GROUP id="{13D75516-E697-ECB1-605C-FB3746C267F8}" name="PureData">
       <GROUP id="{E169D560-E0FD-D9AB-34FF-826654976AD0}" name="extra">
@@ -137,7 +165,7 @@
   </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" vstFolder="ThirdParty/Vst/vstsdk2.4"
-               postbuildCommand="&#10;# This script takes the build product and copies it to the AU, VST, VST3, RTAS and AAX folders, depending on &#10;# which plugin types you've built&#10;&#10;original=$CONFIGURATION_BUILD_DIR/$FULL_PRODUCT_NAME&#10;&#10;# this looks inside the binary to detect which platforms are needed.. &#10;copyAU=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'AudioUnit' | wc -l&#96;&#10;copyVST=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'VSTPlugin' | wc -l&#96;&#10;copyVST3=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'GetPluginFactory' | wc -l&#96;&#10;copyRTAS=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'CProcess' | wc -l&#96;&#10;copyAAX=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'ACFStartup' | wc -l&#96;&#10;&#10;if [ $copyAU -gt 0 ]; then&#10;  echo &quot;Copying to AudioUnit folder...&quot;&#10;  AU=~/Library/Audio/Plug-Ins/Components/$PRODUCT_NAME.component&#10;  if [ -d &quot;$AU&quot; ]; then &#10;    rm -r &quot;$AU&quot;&#10;  fi&#10;&#10;  cp -r &quot;$original&quot; &quot;$AU&quot;&#10;  sed -i &quot;&quot; -e 's/TDMwPTul/BNDLPTul/g' &quot;$AU/Contents/PkgInfo&quot;&#10;  sed -i &quot;&quot; -e 's/TDMw/BNDL/g' &quot;$AU/Contents/$INFOPLIST_FILE&quot;&#10;&#10;  # Fix info.plist for AUs built with Xcode 3&#10;  if [ -f &quot;$DEVELOPER_DIR/Library/Developer/CoreAudio/AudioUnits/AUPublic/AUBase/AUPlugInDispatch.cpp&quot; ]; then&#10;    echo&#10;  else&#10;    echo &quot;Removing AudioComponents entry from Info.plist because this is not a new-format AU&quot;&#10;    /usr/libexec/PlistBuddy -c &quot;Delete AudioComponents&quot; &quot;$AU/Contents/Info.plist&quot;&#10;  fi&#10;fi&#10;&#10;if [ $copyVST -gt 0 ]; then&#10;  echo &quot;Copying to VST folder...&quot;&#10;  VST=~/Library/Audio/Plug-Ins/VST/$PRODUCT_NAME.vst&#10;  if [ -d &quot;$VST&quot; ]; then &#10;    rm -r &quot;$VST&quot;&#10;  fi&#10;&#10;  cp -r &quot;$original&quot; &quot;$VST&quot;&#10;  sed -i &quot;&quot; -e 's/TDMwPTul/BNDLPTul/g' &quot;$VST/Contents/PkgInfo&quot;&#10;  sed -i &quot;&quot; -e 's/TDMw/BNDL/g' &quot;$VST/Contents/$INFOPLIST_FILE&quot;&#10;fi&#10;&#10;if [ $copyVST3 -gt 0 ]; then&#10;  echo &quot;Copying to VST3 folder...&quot;&#10;  VST3=~/Library/Audio/Plug-Ins/VST3/$PRODUCT_NAME.vst3&#10;  if [ -d &quot;$VST3&quot; ]; then &#10;    rm -r &quot;$VST3&quot;&#10;  fi&#10;&#10;  cp -r &quot;$original&quot; &quot;$VST3&quot;&#10;  sed -i &quot;&quot; -e 's/TDMwPTul/BNDLPTul/g' &quot;$VST3/Contents/PkgInfo&quot;&#10;  sed -i &quot;&quot; -e 's/TDMw/BNDL/g' &quot;$VST3/Contents/$INFOPLIST_FILE&quot;&#10;fi&#10;&#10;if [ $copyRTAS -gt 0 ]; then&#10;  echo &quot;Copying to RTAS folder...&quot;&#10;  RTAS=/Library/Application\ Support/Digidesign/Plug-Ins/$PRODUCT_NAME.dpm&#10;  if [ -d &quot;$RTAS&quot; ]; then&#10;    rm -r &quot;$RTAS&quot;&#10;  fi&#10;&#10;  cp -r &quot;$original&quot; &quot;$RTAS&quot;&#10;fi&#10;&#10;if [ $copyAAX -gt 0 ]; then&#10;  echo &quot;Copying to AAX folder...&quot;&#10;&#10;  if [ -d &quot;/Applications/ProTools_3PDev/Plug-Ins&quot; ]; then&#10;    AAX1=&quot;/Applications/ProTools_3PDev/Plug-Ins/$PRODUCT_NAME.aaxplugin&quot;&#10;&#10;    if [ -d &quot;$AAX1&quot; ]; then&#10;      rm -r &quot;$AAX1&quot;&#10;    fi&#10;&#10;    cp -R -H &quot;$original&quot; &quot;$AAX1&quot;&#10;  fi&#10;&#10;  if [ -d &quot;/Library/Application Support/Avid/Audio/Plug-Ins&quot; ]; then&#10;    AAX2=&quot;/Library/Application Support/Avid/Audio/Plug-Ins/$PRODUCT_NAME.aaxplugin&quot;&#10;&#10;    if [ -d &quot;$AAX2&quot; ]; then&#10;      rm -r &quot;$AAX2&quot;&#10;    fi&#10;&#10;    cp -R -H &quot;$original&quot; &quot;$AAX2&quot;&#10;  fi&#10;fi&#10;"
+               postbuildCommand="&#10;# This script takes the build product and copies it to the AU, VST, VST3, RTAS and AAX folders, depending on &#10;# which plugin types you've built&#10;&#10;original=$CONFIGURATION_BUILD_DIR/$FULL_PRODUCT_NAME&#10;&#10;# this looks inside the binary to detect which platforms are needed.. &#10;copyAU=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'AudioUnit' | wc -l&#96;&#10;copyVST=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'VSTPlugin' | wc -l&#96;&#10;copyVST3=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'GetPluginFactory' | wc -l&#96;&#10;copyRTAS=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'CProcess' | wc -l&#96;&#10;copyAAX=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'ACFStartup' | wc -l&#96;&#10;&#10;if [ $copyAU -gt 0 ]; then&#10;  echo &quot;Copying to AudioUnit folder...&quot;&#10;  AUDir=~/Library/Audio/Plug-Ins/Components&#10;  mkdir -p &quot;$AUDir&quot;&#10;  AU=$AUDir/$PRODUCT_NAME.component&#10;  if [ -d &quot;$AU&quot; ]; then &#10;    rm -r &quot;$AU&quot;&#10;  fi&#10;&#10;  cp -r &quot;$original&quot; &quot;$AU&quot;&#10;  sed -i &quot;&quot; -e 's/TDMwPTul/BNDLPTul/g' &quot;$AU/Contents/PkgInfo&quot;&#10;  sed -i &quot;&quot; -e 's/TDMw/BNDL/g' &quot;$AU/Contents/$INFOPLIST_FILE&quot;&#10;fi&#10;&#10;if [ $copyVST -gt 0 ]; then&#10;  echo &quot;Copying to VST folder...&quot;&#10;  VSTDir=~/Library/Audio/Plug-Ins/VST&#10;  mkdir -p &quot;$VSTDir&quot;&#10;  VST=$VSTDir/$PRODUCT_NAME.vst&#10;  if [ -d &quot;$VST&quot; ]; then &#10;    rm -r &quot;$VST&quot;&#10;  fi&#10;&#10;  cp -r &quot;$original&quot; &quot;$VST&quot;&#10;  sed -i &quot;&quot; -e 's/TDMwPTul/BNDLPTul/g' &quot;$VST/Contents/PkgInfo&quot;&#10;  sed -i &quot;&quot; -e 's/TDMw/BNDL/g' &quot;$VST/Contents/$INFOPLIST_FILE&quot;&#10;fi&#10;&#10;if [ $copyVST3 -gt 0 ]; then&#10;  echo &quot;Copying to VST3 folder...&quot;&#10;  VST3Dir=~/Library/Audio/Plug-Ins/VST3&#10;  mkdir -p &quot;$VST3Dir&quot;&#10;  VST3=$VST3Dir/$PRODUCT_NAME.vst3&#10;  if [ -d &quot;$VST3&quot; ]; then &#10;    rm -r &quot;$VST3&quot;&#10;  fi&#10;&#10;  cp -r &quot;$original&quot; &quot;$VST3&quot;&#10;  sed -i &quot;&quot; -e 's/TDMwPTul/BNDLPTul/g' &quot;$VST3/Contents/PkgInfo&quot;&#10;  sed -i &quot;&quot; -e 's/TDMw/BNDL/g' &quot;$VST3/Contents/$INFOPLIST_FILE&quot;&#10;fi&#10;&#10;if [ $copyRTAS -gt 0 ]; then&#10;  echo &quot;Copying to RTAS folder...&quot;&#10;  RTASDir=/Library/Application\ Support/Digidesign/Plug-Ins&#10;  if [ -d &quot;$RTASDir&quot; ]; then&#10;    RTAS=$RTASDir/$PRODUCT_NAME.dpm&#10;    if [ -d &quot;$RTAS&quot; ]; then&#10;      rm -r &quot;$RTAS&quot;&#10;    fi&#10;&#10;    cp -r &quot;$original&quot; &quot;$RTAS&quot;&#10;  fi&#10;fi&#10;&#10;if [ $copyAAX -gt 0 ]; then&#10;  echo &quot;Copying to AAX folder...&quot;&#10;&#10;  if [ -d &quot;/Applications/ProTools_3PDev/Plug-Ins&quot; ]; then&#10;    AAX1=&quot;/Applications/ProTools_3PDev/Plug-Ins/$PRODUCT_NAME.aaxplugin&quot;&#10;&#10;    if [ -d &quot;$AAX1&quot; ]; then&#10;      rm -r &quot;$AAX1&quot;&#10;    fi&#10;&#10;    cp -R -H &quot;$original&quot; &quot;$AAX1&quot;&#10;  fi&#10;&#10;  if [ -d &quot;/Library/Application Support/Avid/Audio/Plug-Ins&quot; ]; then&#10;    AAX2=&quot;/Library/Application Support/Avid/Audio/Plug-Ins/$PRODUCT_NAME.aaxplugin&quot;&#10;&#10;    if [ -d &quot;$AAX2&quot; ]; then&#10;      rm -r &quot;$AAX2&quot;&#10;    fi&#10;&#10;    cp -R -H &quot;$original&quot; &quot;$AAX2&quot;&#10;  fi&#10;fi&#10;"
                vst3Folder="ThirdParty/Vst/" externalLibraries="" extraDefs=""
                extraLinkerFlags="" extraCompilerFlags="">
       <CONFIGURATIONS>
@@ -145,39 +173,36 @@
                        isDebug="1" optimisation="1" targetName="Camomile" headerPath="../../ThirdParty/PureData/src"
                        libraryPath="" defines="" binaryPath="/Library/Audio/Plug-Ins"/>
         <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="64BitUniversal"
-                       isDebug="0" optimisation="3" targetName="Camomile" headerPath="../../ThirdParty/PureData/src"
+                       isDebug="0" optimisation="6" targetName="Camomile" headerPath="../../ThirdParty/PureData/src"
                        libraryPath="" defines="" binaryPath="/Library/Audio/Plug-Ins"
                        linkTimeOptimisation="1"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_events" path="ThirdParty/Juce/modules"/>
         <MODULEPATH id="juce_graphics" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_data_structures" path="ThirdParty/Juce/modules"/>
         <MODULEPATH id="juce_gui_basics" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_cryptography" path="ThirdParty/Juce/modules"/>
         <MODULEPATH id="juce_audio_basics" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="ThirdParty/Juce/modules"/>
         <MODULEPATH id="juce_audio_processors" path="ThirdParty/Juce/modules"/>
         <MODULEPATH id="juce_audio_plugin_client" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_events" path="ThirdParty/Juce/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
   <MODULES>
     <MODULES id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_core" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
   </MODULES>
   <JUCEOPTIONS JUCE_QUICKTIME="disabled"/>
+  <LIVE_SETTINGS>
+    <OSX/>
+  </LIVE_SETTINGS>
 </JUCERPROJECT>

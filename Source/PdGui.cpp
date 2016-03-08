@@ -147,7 +147,7 @@ namespace pd
             {
                 return 0;
             }
-            else if(m_type == Type::VecticalSlider)
+            else if(m_type == Type::VerticalSlider)
             {
                 return 0;
             }
@@ -158,6 +158,14 @@ namespace pd
             else if(m_type == Type::Toggle)
             {
                 return 2;
+            }
+            else if(m_type == Type::HorizontalRadio)
+            {
+                return reinterpret_cast<t_hradio *>(m_ptr)->x_number - 1;
+            }
+            else if(m_type == Type::VerticalRadio)
+            {
+                return reinterpret_cast<t_vradio *>(m_ptr)->x_number - 1;
             }
         }
         return 0.f;
@@ -171,7 +179,7 @@ namespace pd
             {
                 return reinterpret_cast<t_hslider *>(m_ptr)->x_min;
             }
-            else if(m_type == Type::VecticalSlider)
+            else if(m_type == Type::VerticalSlider)
             {
                 return reinterpret_cast<t_vslider *>(m_ptr)->x_min;
             }
@@ -180,6 +188,14 @@ namespace pd
                 return reinterpret_cast<t_my_numbox *>(m_ptr)->x_min;
             }
             else if(m_type == Type::Toggle)
+            {
+                return 0;
+            }
+            else if(m_type == Type::HorizontalRadio)
+            {
+                return 0;
+            }
+            else if(m_type == Type::VerticalRadio)
             {
                 return 0;
             }
@@ -195,7 +211,7 @@ namespace pd
             {
                 return reinterpret_cast<t_hslider *>(m_ptr)->x_max;
             }
-            else if(m_type == Type::VecticalSlider)
+            else if(m_type == Type::VerticalSlider)
             {
                 return reinterpret_cast<t_vslider *>(m_ptr)->x_max;
             }
@@ -206,6 +222,14 @@ namespace pd
             else if(m_type == Type::Toggle)
             {
                 return 1;
+            }
+            else if(m_type == Type::HorizontalRadio)
+            {
+                return reinterpret_cast<t_hradio *>(m_ptr)->x_number - 1;
+            }
+            else if(m_type == Type::VerticalRadio)
+            {
+                return reinterpret_cast<t_vradio *>(m_ptr)->x_number - 1;
             }
         }
         return 1.f;
@@ -219,7 +243,7 @@ namespace pd
             {
                 return reinterpret_cast<t_hslider *>(m_ptr)->x_fval;
             }
-            else if(m_type == Type::VecticalSlider)
+            else if(m_type == Type::VerticalSlider)
             {
                 return reinterpret_cast<t_vslider *>(m_ptr)->x_fval;
             }
@@ -230,6 +254,14 @@ namespace pd
             else if(m_type == Type::Toggle)
             {
                 return reinterpret_cast<t_toggle *>(m_ptr)->x_on;
+            }
+            else if(m_type == Type::HorizontalRadio)
+            {
+                return reinterpret_cast<t_hradio *>(m_ptr)->x_on;
+            }
+            else if(m_type == Type::VerticalRadio)
+            {
+                return reinterpret_cast<t_vradio *>(m_ptr)->x_on;
             }
         }
         return 0.f;
