@@ -72,13 +72,12 @@ void InstanceEditor::buttonClicked(Button* button)
         const int result = m.showAt(button->getScreenBounds().translated(-3, 1));
         if(result == 1)
         {
-            m_window.setContentOwned(new GuiAbout(), false);
-            m_window.setName("About Camomile " + String(JucePlugin_VersionString));
-            m_window.addToDesktop();
+            Gui::getWindow().setContentOwned(new GuiAbout(), false);
+            Gui::getWindow().setName("About Camomile " + String(JucePlugin_VersionString));
+            Gui::getWindow().addToDesktop();
         }
         else if(result == 2)
         {
-            m_window.removeFromDesktop();
             const pd::Patch patch = m_processor.getPatch();
             if(patch.isValid())
             {
@@ -108,7 +107,6 @@ void InstanceEditor::buttonClicked(Button* button)
         }
         else if(result == 3)
         {
-            m_window.removeFromDesktop();
             m_processor.loadPatch(juce::File());
         }
         else if(result == 4)
@@ -125,13 +123,12 @@ void InstanceEditor::buttonClicked(Button* button)
         }
         else if(result == 5)
         {
-            m_window.setContentOwned(new GuiConsole(), false);
-            m_window.setName("Camomile Console");
-            m_window.addToDesktop();
+            Gui::getWindow().setContentOwned(new GuiConsole(), false);
+            Gui::getWindow().setName("Camomile Console");
+            Gui::getWindow().addToDesktop();
         }
         else if(result == 6)
         {
-            m_window.removeFromDesktop();
             juce::URL url("https://github.com/pierreguillot/Camomile");
             if(url.isWellFormed())
             {

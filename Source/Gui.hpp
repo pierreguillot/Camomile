@@ -27,12 +27,19 @@
 class Gui
 {
 public:
+    static void addInstance() noexcept;
+    static void removeInstance() noexcept;
     static Font getFont();
     static int getBordersize() noexcept;
     static Colour const& getColorBg() noexcept;
     static Colour const& getColorBd() noexcept;
     static Colour const& getColorTxt() noexcept;
     static Colour const& getColorInv() noexcept;
+    static GuiWindow& getWindow() noexcept;
+    
+private:
+    static size_t& getCounter() noexcept;
+    static GuiWindow* m_window;
 };
 
 #endif

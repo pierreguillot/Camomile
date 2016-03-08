@@ -7,8 +7,7 @@
 #ifndef __CAMOMILE_INTANCE_PROCESSOR__
 #define __CAMOMILE_INTANCE_PROCESSOR__
 
-// TODO Numbox don't qhow its editor ???
-// TODO Prameters have no range ???
+// TODO Numbox don't show its editor ???
 // TODO VST3 don't change the name and label of parameters
 
 #include "Pd.hpp"

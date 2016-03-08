@@ -10,6 +10,8 @@
 //                                          GUI                                         //
 // ==================================================================================== //
 
+GuiWindow* Gui::m_window = nullptr;
+
 Font Gui::getFont()
 {
     return Font(String("Monaco"), 13.f, juce::Font::plain);
@@ -41,6 +43,36 @@ Colour const& Gui::getColorInv() noexcept
     return c;
 }
 
+size_t& Gui::getCounter() noexcept
+{
+    static size_t counter;
+    return counter;
+}
+
+void Gui::addInstance() noexcept
+{
+    ++getCounter();
+    if(m_window == nullptr)
+    {
+        m_window = new GuiWindow();
+    }
+}
+
+void Gui::removeInstance() noexcept
+{
+    --getCounter();
+    if(getCounter() == 0 && m_window)
+    {
+        m_window->removeFromDesktop();
+        delete m_window;
+        m_window = nullptr;
+    }
+}
+
+GuiWindow& Gui::getWindow() noexcept
+{
+    return *m_window;
+}
 
 
 

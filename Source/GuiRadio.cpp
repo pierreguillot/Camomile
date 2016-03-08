@@ -48,12 +48,12 @@ void GuiRadio::mouseDown(const MouseEvent& event)
     startEdition();
     if(getType() == Horizontal)
     {
-        const float width = float(getWidth()) / getMaximum();
+        const float width = float(getWidth()) / (getMaximum() + 1.f);
         setValue(std::floor(float(event.x) / width));
     }
     else
     {
-        const float width = float(getHeight()) / getMaximum();
+        const float width = float(getHeight()) / (getMaximum() + 1.f);
         setValue(std::floor(float(event.y) / width));
     }
     stopEdition();

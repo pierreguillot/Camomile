@@ -10,11 +10,13 @@
 
 InstanceProcessor::InstanceProcessor() : pd::Instance(pd::Pd::createInstance())
 {
+    Gui::addInstance();
     m_parameters.resize(32);
 }
 
 InstanceProcessor::~InstanceProcessor()
 {
+    Gui::removeInstance();
     std::lock_guard<std::mutex> guard(m_mutex);
     m_listeners.clear();
 }
@@ -27,9 +29,13 @@ int InstanceProcessor::getNumParameters()
 const String InstanceProcessor::getParameterName(int index)
 {
     if(m_parameters[index].isValid())
+    {
         return m_parameters[index].getName(512);
+    }
     else
+    {
         return String("Dummy ") + String(std::to_string(index + 1));
+    }
 }
 
 float InstanceProcessor::getParameter(int index)
@@ -395,7 +401,16 @@ float InstanceProcessor::Parameter::getValueNonNormalized() const
 
 void InstanceProcessor::Parameter::setValue(float newValue)
 {
-    m_value = std::min(std::max(newValue, 0.f), 1.f);
+    newValue = std::min(std::max(newValue, 0.f), 1.f);
+    if(m_nsteps)
+    {
+        const float step = (1.f/ float(m_nsteps));
+        m_value = std::round(newValue / step) * step;
+    }
+    else
+    {
+        m_value = newValue;
+    }
 }
 
 void InstanceProcessor::Parameter::setValueNonNormalized(float newValue)
