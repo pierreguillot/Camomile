@@ -1,4 +1,4 @@
-# ![](https://raw.githubusercontent.com/pierreguillot/Camomile/master/Ressources/flowerP.png) Camomile
+# ![](https://cloud.githubusercontent.com/assets/1409918/13610634/ed41896c-e55e-11e5-844d-d795e97cfada.png) Camomile
 
 Camomile is a dynamic plugin made with [Juce](http://www.juce.com) that allows to load and control [Pure Data](http://msp.ucsd.edu/software.html) patches inside a digital audio workstation.
 
@@ -10,7 +10,7 @@ Feature :
  - Up to 32 parameters
  - Support for Midi
 
-![](https://cloud.githubusercontent.com/assets/1409918/13610069/376f2434-e55c-11e5-8fea-edd0b05fdc36.png)
+![](https://cloud.githubusercontent.com/assets/1409918/13610631/ebdacae8-e55e-11e5-903c-fb3ad342adb8.png)
 
 > The Camomile plugin is only available for Mac.  
 > The Windows version should come soon.  
