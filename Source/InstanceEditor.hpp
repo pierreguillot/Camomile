@@ -22,12 +22,11 @@ public:
     void buttonClicked(Button* button) final;
     void patchChanged() final;
 private:
-    InstanceProcessor&                      m_processor;
-    bool                                    m_dropping;
-    Toolbar                                 m_menu;
-    ScopedPointer<Button>                   m_button;
-    ScopedPointer<DocumentWindow>           m_window;
-    ScopedPointer<GuiPatcher>               m_patcher;
+    InstanceProcessor&  m_processor;
+    GuiFlowerButton     m_button;
+    GuiPatcher          m_patcher;
+    GuiWindow           m_window;
+    Toolbar             m_menu;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(InstanceEditor)
 };

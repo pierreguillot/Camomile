@@ -55,7 +55,14 @@ float GuiParameter::getValue() const noexcept
 
 void GuiParameter::setValue(float value, bool redraw)
 {
-    m_value = value;
+    if(m_minimum < m_maximum)
+    {
+        m_value = std::max(std::min(value, m_maximum), m_minimum);
+    }
+    else
+    {
+        m_value = std::max(std::min(value, m_minimum), m_maximum);
+    }
     if(m_index)
     {
         m_processor.setParameterNonNormalizedNotifyingHost(m_index-1, m_value);
@@ -77,6 +84,7 @@ float GuiParameter::getValueNormalized() const noexcept
 
 void GuiParameter::setValueNormalized(float value, bool redraw)
 {
+    value = std::max(std::min(value, 1.f), 0.f);
     if(getMinimum() < getMaximum())
     {
         setValue(value * (getMaximum() - getMinimum()) + getMinimum());

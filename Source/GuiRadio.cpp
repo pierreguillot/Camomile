@@ -23,21 +23,23 @@ void GuiRadio::paint(Graphics& g)
     g.drawRect(getLocalBounds(), Gui::getBordersize());
     if(getType() == Horizontal)
     {
-        const float width = float(getWidth()) / getMaximum();
-        for(size_t i = 1; i < size_t(getMaximum()); ++i)
+        const float width = float(getHeight());
+        for(size_t i = 1; i < size_t(getMaximum()) + 1; ++i)
         {
-            g.drawLine(width * float(i), 0.f, width * float(i), float(getHeight()), Gui::getBordersize());
+            g.drawLine(width * float(i), 0.f, width * float(i), width, Gui::getBordersize());
         }
-        g.fillRect(width * getValue() + width * 0.125f, float(getHeight()) * 0.125f, width * 0.75f, float(getHeight()) * 0.75f);
+        const float offset = std::max(float(getHeight()) * 0.125f, Gui::getBordersize() + 1.f);
+        g.fillRect(width * getValue() + offset, offset, width - offset * 2.f, width - offset * 2.f);
     }
     else
     {
-        const float height = float(getHeight()) / getMaximum();
-        for(size_t i = 1; i < size_t(getMaximum()); ++i)
+        const float height = float(getWidth());
+        for(size_t i = 1; i < size_t(getMaximum()) + 1; ++i)
         {
-            g.drawLine(0.f, height * float(i), float(getWidth()), height * float(i), Gui::getBordersize());
+            g.drawLine(0.f, height * float(i), height, height * float(i), Gui::getBordersize());
         }
-        g.fillRect(float(getWidth()) * 0.125f, height * getValue() + height * 0.125f, float(getWidth()) * 0.75f, height  * 0.75f);
+        const float offset = std::max(float(getWidth()) * 0.125f, Gui::getBordersize() + 1.f);
+        g.fillRect(offset, height * getValue() + offset, height - offset * 2.f, height - offset * 2.f);
     }
 }
 

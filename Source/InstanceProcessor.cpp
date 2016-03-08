@@ -158,6 +158,7 @@ void InstanceProcessor::parametersChanged()
             }
         }
     }
+    updateHostDisplay();
     for(size_t i = 0; i < m_parameters.size(); i++)
     {
         if(m_parameters[i].isValid())
@@ -165,8 +166,6 @@ void InstanceProcessor::parametersChanged()
             setParameterNotifyingHost(i, m_parameters[i].getValue());
         }
     }
-    
-    updateHostDisplay();
 }
 
 void InstanceProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
@@ -194,7 +193,6 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     {
         send(m_parameters[i].getBindingName(), m_parameters[i].getValueNonNormalized());
     }
-    
     performDsp(buffer.getNumSamples(),
                getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
                getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
@@ -223,14 +221,14 @@ void InstanceProcessor::loadPatch(const juce::File& file)
                 m_patch = pd::Patch();
             }
         }
-    
+        parametersChanged();
+        prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(), getSampleRate(), getBlockSize());
+        
         std::vector<Listener*> listeners = getListeners();
         for(auto it : listeners)
         {
             it->patchChanged();
         }
-        parametersChanged();
-        prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(), getSampleRate(), getBlockSize());
     }
     
     suspendProcessing(false);

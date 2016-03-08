@@ -8,20 +8,16 @@
 #include "InstanceEditor.hpp"
 
 // ==================================================================================== //
-//                                  PATCHER EDITOR                                  //
+//                                  INSTANCE EDITOR                                     //
 // ==================================================================================== //
 
-InstanceEditor::InstanceEditor(InstanceProcessor& p) :
-AudioProcessorEditor(&p), m_processor(p),
-m_dropping(false), m_window(nullptr)
+InstanceEditor::InstanceEditor(InstanceProcessor& p) : AudioProcessorEditor(&p), m_processor(p)
 {
-    m_button = new GuiFlowerButton();
-    m_window = new GuiWindow();
-    m_patcher= new GuiPatcher();
+    m_button.addListener(this);
+    m_processor.addListener(this);
     addAndMakeVisible(m_patcher);
     addAndMakeVisible(m_button);
-    m_button->addListener(this);
-    m_processor.addListener(this);
+    setOpaque(true);
     setSize(600, 420);
     setWantsKeyboardFocus(true);
     patchChanged();
@@ -50,10 +46,6 @@ void InstanceEditor::paint(Graphics& g)
     {
         g.drawText(String("No Patch"), 0, 0, getWidth(), 20, juce::Justification::centred);
     }
-    if(m_dropping)
-    {
-        g.fillAll(Colours::white.withAlpha(0.2f));
-    }
 }
 
 void InstanceEditor::patchChanged()
@@ -61,8 +53,8 @@ void InstanceEditor::patchChanged()
     const pd::Patch patch = m_processor.getPatch();
     if(patch.isValid())
     {
-        m_patcher->setPatch(m_processor, patch);
-        setSize(m_patcher->getWidth(), m_patcher->getHeight() + 20);
+        m_patcher.setPatch(m_processor, patch);
+        setSize(m_patcher.getWidth(), m_patcher.getHeight() + 20);
     }
 }
 
@@ -80,16 +72,13 @@ void InstanceEditor::buttonClicked(Button* button)
         const int result = m.showAt(button->getScreenBounds().translated(-3, 1));
         if(result == 1)
         {
-            m_window->setContentOwned(new GuiAbout(), false);
-            m_window->setName("About Camomile " + String(JucePlugin_VersionString));
-            m_window->addToDesktop();
+            m_window.setContentOwned(new GuiAbout(), false);
+            m_window.setName("About Camomile " + String(JucePlugin_VersionString));
+            m_window.addToDesktop();
         }
         else if(result == 2)
         {
-            if(m_window)
-            {
-                m_window = nullptr;
-            }
+            m_window.removeFromDesktop();
             const pd::Patch patch = m_processor.getPatch();
             if(patch.isValid())
             {
@@ -119,10 +108,7 @@ void InstanceEditor::buttonClicked(Button* button)
         }
         else if(result == 3)
         {
-            if(m_window)
-            {
-                m_window = nullptr;
-            }
+            m_window.removeFromDesktop();
             m_processor.loadPatch(juce::File());
         }
         else if(result == 4)
@@ -139,16 +125,13 @@ void InstanceEditor::buttonClicked(Button* button)
         }
         else if(result == 5)
         {
-            m_window->setContentOwned(new GuiConsole(), false);
-            m_window->setName("Camomile Console");
-            m_window->addToDesktop();
+            m_window.setContentOwned(new GuiConsole(), false);
+            m_window.setName("Camomile Console");
+            m_window.addToDesktop();
         }
         else if(result == 6)
         {
-            if(m_window)
-            {
-                m_window = nullptr;
-            }
+            m_window.removeFromDesktop();
             juce::URL url("https://github.com/pierreguillot/Camomile");
             if(url.isWellFormed())
             {

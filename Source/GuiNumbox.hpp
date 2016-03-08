@@ -29,7 +29,7 @@ public:
 private:
     bool  m_shift;
     float m_value;
-    ScopedPointer<Label> m_label;
+    Label m_label;
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiNumbox)
 };
