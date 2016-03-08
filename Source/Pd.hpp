@@ -47,7 +47,7 @@ namespace pd
         
         //! @brief Creates a new Instance object.
         static Instance createInstance() noexcept;
-        
+    
     private:
         
         //! @brief The Pure Data contructor.

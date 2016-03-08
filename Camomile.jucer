@@ -5,7 +5,7 @@
               buildVST="1" buildVST3="1" buildAU="0" buildRTAS="0" buildAAX="0"
               pluginName="Camomile" pluginDesc="Camomile" pluginManufacturer="Pierre Guillot"
               pluginManufacturerCode="CICM" pluginCode="PGCA" pluginChannelConfigs=""
-              pluginIsSynth="0" pluginWantsMidiIn="0" pluginProducesMidiOut="0"
+              pluginIsSynth="0" pluginWantsMidiIn="1" pluginProducesMidiOut="1"
               pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="1"
               pluginAUExportPrefix="CamomileAU" pluginRTASCategory="" aaxIdentifier="com.cicm.Camomile"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.1.0"

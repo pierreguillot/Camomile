@@ -12,6 +12,8 @@ InstanceProcessor::InstanceProcessor() : pd::Instance(pd::Pd::createInstance())
 {
     Gui::addInstance();
     m_parameters.resize(32);
+    busArrangement.inputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
+    busArrangement.outputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
 }
 
 InstanceProcessor::~InstanceProcessor()
@@ -194,7 +196,46 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     {
         buffer.clear(i, 0, buffer.getNumSamples());
     }
+    
+    {
+        /*
+        AudioPlayHead::CurrentPositionInfo info;
+        getPlayHead()->getCurrentPosition(info);
+        if (positionInfo.isPlaying != info.isPlaying)
+        {
+            pd->sendMessage("hostIsPlaying", info.isPlaying ? "true" : "false");
+        }
+        if(positionInfo.bpm != info.bpm)
+        {
+            pd->sendFloat("hostBpm", (float) info.bpm);
+        }
+        positionInfo = info;
+         */
+    }
     lock();
+    MidiMessage message;
+    MidiBuffer::Iterator it (midiMessages);
+    int samplePosition = buffer.getNumSamples();
+    while (it.getNextEvent (message, samplePosition))
+    {
+        if(message.isNoteOn())
+        {
+            sendNoteOn(message.getChannel(), message.getNoteNumber(), message.getVelocity());
+        }
+        if(message.isNoteOff())
+        {
+            sendNoteOff(message.getChannel(), message.getNoteNumber(), message.getVelocity());
+        }
+        if(message.isPitchWheel())
+        {
+            sendPitchBend(message.getChannel(), message.getPitchWheelValue());
+        }
+        if(message.isAftertouch())
+        {
+            sendAfterTouch(message.getChannel(), message.getAfterTouchValue());
+        }
+    }
+    
     for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); i++)
     {
         send(m_parameters[i].getBindingName(), m_parameters[i].getValueNonNormalized());
@@ -315,7 +356,6 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
     LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
     return new InstanceProcessor();
 }
-
 
 // ==================================================================================== //
 //                                  PARAMETERS                                          //

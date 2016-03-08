@@ -106,6 +106,26 @@ namespace pd
         //! @details You should locks the Instance to ensure thread safety.
         void send(BindingName const& name, float val) const noexcept;
         
+        static void sendNoteOn(int channel, int pitch, int velocity);
+        
+        static void sendNoteOff(int channel, int pitch, int velocity);
+        
+        static void sendControlChange(int channel, int controller, int value);
+        
+        static void sendProgramChange(int channel, int value);
+        
+        static void sendPitchBend(int channel, int value);
+        
+        static void sendAfterTouch(int channel, int value);
+        
+        static void sendPolyAfterTouch(int channel, int pitch, int value);
+        
+        static void sendMidiByte(int port, int byte);
+        
+        static void sendSysEx(int port, int byte);
+        
+        static void sendSysRealtime(int port, int byte);
+        
         //! @brief Creates a Patch.
         Patch createPatch(std::string const& name, std::string const& path);
         
