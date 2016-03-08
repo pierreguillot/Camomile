@@ -1,4 +1,4 @@
-# ![](https://cloud.githubusercontent.com/assets/1409918/13610634/ed41896c-e55e-11e5-844d-d795e97cfada.png) Camomile
+# ![](https://cloud.githubusercontent.com/assets/1409918/13611206/9433a744-e561-11e5-8b30-7def4dd19cdd.png) Camomile
 
 Camomile is a dynamic plugin made with [Juce](http://www.juce.com) that allows to load and control [Pure Data](http://msp.ucsd.edu/software.html) patches inside a digital audio workstation.
 
