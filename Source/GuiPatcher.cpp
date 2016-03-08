@@ -19,7 +19,7 @@
 GuiPatcher::GuiPatcher()
 {
     setBounds(0, 20, 600, 400);
-    setInterceptsMouseClicks(false, true);
+    setInterceptsMouseClicks(true, true);
 }
 
 GuiPatcher::~GuiPatcher()

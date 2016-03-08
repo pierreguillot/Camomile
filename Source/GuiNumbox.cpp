@@ -38,7 +38,10 @@ void GuiNumbox::paint(Graphics& g)
     g.drawRect(getLocalBounds(), Gui::getBordersize());
     g.drawLine(0.f, 0.f, float(getHeight()) * 0.5f, float(getHeight()) * 0.5f, Gui::getBordersize());
     g.drawLine(0.f, float(getHeight()), float(getHeight()) * 0.5f, float(getHeight()) * 0.5f, Gui::getBordersize());
-    m_label.setText(String(getValue()), NotificationType::dontSendNotification);
+    if(!m_label.hasKeyboardFocus(true))
+    {
+        m_label.setText(String(getValue()), NotificationType::dontSendNotification);        
+    }
 }
 
 void GuiNumbox::mouseDown(const MouseEvent& event)
@@ -64,12 +67,16 @@ void GuiNumbox::mouseDrag(const MouseEvent& event)
 
 void GuiNumbox::mouseUp(const MouseEvent& event)
 {
-    stopEdition();
+    if(!m_label.hasKeyboardFocus(true))
+    {
+        stopEdition();
+    }
 }
 
 void GuiNumbox::mouseDoubleClick(const MouseEvent&)
 {
     startEdition();
+    m_label.grabKeyboardFocus();
     m_label.showEditor();
 }
 
