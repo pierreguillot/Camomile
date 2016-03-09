@@ -37,6 +37,7 @@
 /Builds
 
 # Juce & ThirdParty
-/ThirdParty/Vst
+ThirdParty/Vst/
+!ThirdParty/Vst/README.txt
 /JuceLibraryCode
 /Binaries
