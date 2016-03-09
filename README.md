@@ -51,7 +51,7 @@ Camomile is a dynamic plugin made with [Juce](http://www.juce.com) that allows t
 * Add a label, the first word is the name of the parameter and the second word is the label of the parameter, and a receive symbol to a GUI object to create a parameter. The minimum and maximum values will be used for the range of the parameter.  
 ![](https://cloud.githubusercontent.com/assets/1409918/13611062/eb6348a4-e560-11e5-8c62-b41803183783.png)
 
-* Add only a receive symbol to a GUI object if you want to use it as a second interfaces to control a parameter. It can be useful if you want to associate a slider with a numbox for example.
+* Add only a receive symbol to a GUI object if you want to use it as a second interfaces to control a parameter. It can be useful if you want to associate a slider with a numbox for example.  
 ![](https://cloud.githubusercontent.com/assets/1409918/13611063/eb74e08c-e560-11e5-8d34-4df8559bbb8d.png)
 
 * Activate the  "Graph-On-Parent" option in your patch as and use the size and the offset to define the visible area of the patch. If you want your GUIs or comments to be visible, you must place them in this area.
