@@ -34,10 +34,12 @@
 *.xcworkspacedata
 *.xcuserstate
 *.xcscheme
-/Builds
+*.xcuserdatad
 
 # Juce & ThirdParty
 ThirdParty/Vst/*
 !ThirdParty/Vst/README.txt
 /JuceLibraryCode
 /Binaries
+/Builds/MacOSX/build/
+/Builds/LinuxMakefile/build/
