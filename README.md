@@ -2,24 +2,37 @@
 
 Camomile is a dynamic plugin made with [Juce](http://www.juce.com) that allows to load and control [Pure Data](http://msp.ucsd.edu/software.html) patches inside a digital audio workstation.
 
-Feature :
- - Support for Multiple plugin instances
- - Automatic creation of GUIs (toggle, slider, radio and numbox)
- - Automatic recognition of parameters (name, label, range, etc.)
+![](https://cloud.githubusercontent.com/assets/1409918/13610631/ebdacae8-e55e-11e5-903c-fb3ad342adb8.png)
+
+#### Feature :
+ - Support for multiple plugin instances
+ - Automatic creation of GUIs (toggle, slider, radio, comment and numbox)
+ - Automatic recognition of parameters (name, label, range, size, etc.)
  - Up to 16 channels
  - Up to 32 parameters
  - Support for Midi
 
-Issues :
-  - VST3 doesn't recognize the names and labels of the parameters
-  - VST3 is limited to 14 channels
+#### Operating Systems :
+ - [x] Mac Os support
+ - [ ] Linux support
+ - [ ] Windows support
 
-![](https://cloud.githubusercontent.com/assets/1409918/13610631/ebdacae8-e55e-11e5-903c-fb3ad342adb8.png)
+#### Tested DAW :
+ - [x] Reaper 32-bit v5.16 (Mac Os)
+ - [x] Reaper 64-bit v5.16 (Mac Os)
+ - [x] Ableton Live 9.2.3 32-bit (Mac Os)
+ - [ ] Ableton Live 9 64-bit
+ - [ ] Steinberg Cubase
+ - [ ] Studio One 3
+ - [x] Cycling'74 Max 5 (Mac Os)
+ - [x] Cycling'74 Max 6 (Mac Os)
+ - [x] OhmStudio (Mac Os)
 
-> The Camomile plugin is only available for Mac.  
-> The Windows version should come soon.  
+#### Known Issues :
+ - The VST3 plugin is limited to 14 channels due to the new channel management offered by Juce. We'll try to fix it later, but for the moment we suggest to use the VST2 plugin.
+ - The names and the labels of the parameters shouldn't change after the plugin creation. Since the parameters depend on the patches and that the plugin loads the patches after its creation, some DAW don't display the name and the label in their own GUI.
 
-How to use the Camomile plugin:
+### How to use the Camomile plugin:
 
 1. Download the [plugin](https://github.com/pierreguillot/Camomile/releases/download/v0.0.3-beta/Camomile_v0.0.3.zip) (*vst*, *vst3*) for Mac.
 2. Put the binaries in the folders :  
@@ -28,7 +41,7 @@ How to use the Camomile plugin:
 3. Open your DAW and load the plugin.
 4. Click on the camomile flower. Open one of the Pure Data patches given with the binaries. Create your own Camomile patch is very easy, follow the next section.
 
-How to create a patch for the Camomile plugin:
+### How to create a patch for the Camomile plugin:
 
 * Use the *adc~* and the *dac~* objects to receive and send the signal from the plugin.    
 ![](https://cloud.githubusercontent.com/assets/1409918/13610984/91081d12-e560-11e5-8abb-f924367ab6eb.png)    
@@ -44,6 +57,17 @@ How to create a patch for the Camomile plugin:
 
 > You should always ensure that the send and receive symbols are specifics to the patch instance by using *$0*.
 
-Author : Pierre Guillot  
-Organizations : CICM | Université Paris 8 | Labex Arts H2H  
-Credits : Pure Data by Miller Puckette | Juce by ROLI Ltd.
+#### Author:
+ - Pierre Guillot  
+
+#### Organizations:
+ - CICM
+ - Université Paris 8
+ - Labex Arts H2H  
+
+#### Credits:
+ - Pure Data by Miller Puckette
+ - Juce by ROLI Ltd.
+ - VST PlugIn Technology by Steinberg Media Technologies
+
+> If you want to compile the plugin as a VST, you should put the VST SDK in the *ThirdParty/Vst* folder. VST is a trademark of Steinberg Media Technologies GmbH. Please register the SDK via the 3rd party developper license on Steinberg site.

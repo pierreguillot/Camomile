@@ -33,7 +33,14 @@ GuiAbout::GuiAbout()
                    "Organizations :\nCICM | Université Paris 8 | Labex Arts H2H\n\n"
                    "Contacts :\n" + String(JucePlugin_ManufacturerEmail)+ "\n" +
                    String(JucePlugin_ManufacturerWebsite)+"\n\n"
-                   "Credits :\nPure Data by Miller Puckette\nJuce by ROLI Ltd.");
+                   "Credits :\nPure Data by Miller Puckette\nJuce by ROLI Ltd."
+#ifdef JucePlugin_Build_VST
+                   + "\nVST PlugIn Technology by Steinberg Media Technologies");
+#elif JucePlugin_Build_VST3
+                   +  "\nVST PlugIn Technology by Steinberg Media Technologies");
+#else
+                    );
+#endif
     m_text.setBounds(0, 0, 300, 370);
     addAndMakeVisible(&m_text, -1);
 }
