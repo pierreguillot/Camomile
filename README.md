@@ -27,6 +27,7 @@ Camomile is a dynamic plugin made with [Juce](http://www.juce.com) that allows t
  - [x] Cycling'74 Max 5 (Mac Os)
  - [x] Cycling'74 Max 6 (Mac Os)
  - [x] OhmStudio (Mac Os)
+ - [x] Ardour (Linux)
 
 #### Known Issues :
  - The VST3 plugin is limited to 14 channels due to the new channel management offered by Juce. We'll try to fix it later, but for the moment we suggest to use the VST2 plugin.
@@ -69,5 +70,26 @@ Camomile is a dynamic plugin made with [Juce](http://www.juce.com) that allows t
  - Pure Data by Miller Puckette
  - Juce by ROLI Ltd.
  - VST PlugIn Technology by Steinberg Media Technologies
+
+### Compilation
+ - On Linux:
+  - you should have *x11* installed:
+    - sudo apt-get install libx11-dev
+    - sudo apt-get install libxrandr-dev
+    - sudo apt-get install libxinerama-dev
+    - sudo apt-get install libxcursor-dev
+  - you should have *freetype* installed
+    - sudo apt-get install python-dev libfreetype6-dev
+  - Available architectures:
+    - m32
+    - m64
+    - arm v6
+    - arm v7
+  - Available configurations:
+    - Debug
+    - Release
+  - Instructions example:
+    - cd Builds/LinuxMakefile
+    - make (default) or make TARGET_ARCH=-m64 CONFIG=Release
 
 > If you want to compile the plugin as a VST, you should put the VST SDK in the *ThirdParty/Vst* folder. VST is a trademark of Steinberg Media Technologies GmbH. Please register the SDK via the 3rd party developper license on Steinberg site.
