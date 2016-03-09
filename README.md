@@ -13,8 +13,8 @@ Camomile is a dynamic plugin made with [Juce](http://www.juce.com) that allows t
  - Support for Midi
 
 #### Operating Systems :
- - [x] Mac Os support
- - [ ] Linux support
+ - [x] Mac support
+ - [x] Linux support
  - [ ] Windows support
 
 #### Tested DAW :
@@ -73,12 +73,12 @@ Camomile is a dynamic plugin made with [Juce](http://www.juce.com) that allows t
 
 ### Compilation
  - On Linux:
-  - you should have *x11* installed:
+  - *X11* must be installed:
     - sudo apt-get install libx11-dev
     - sudo apt-get install libxrandr-dev
     - sudo apt-get install libxinerama-dev
     - sudo apt-get install libxcursor-dev
-  - you should have *freetype* installed
+  - *Freetype* must be installed:
     - sudo apt-get install python-dev libfreetype6-dev
   - Available architectures:
     - m32
@@ -91,5 +91,7 @@ Camomile is a dynamic plugin made with [Juce](http://www.juce.com) that allows t
   - Instructions example:
     - cd Builds/LinuxMakefile
     - make (default) or make TARGET_ARCH=-m64 CONFIG=Release
+ - On Mac:
+  - Use the Xcode project.
 
 > If you want to compile the plugin as a VST, you should put the VST SDK in the *ThirdParty/Vst* folder. VST is a trademark of Steinberg Media Technologies GmbH. Please register the SDK via the 3rd party developper license on Steinberg site.
