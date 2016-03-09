@@ -39,7 +39,6 @@
 # Juce & ThirdParty
 ThirdParty/Vst/*
 !ThirdParty/Vst/README.txt
-/JuceLibraryCode
 /Binaries
 /Builds/MacOSX/build/
 /Builds/LinuxMakefile/build/
