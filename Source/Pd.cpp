@@ -6,6 +6,7 @@
 
 #include "Pd.hpp"
 #include "PdInstance.hpp"
+#include <signal.h>
 
 extern "C"
 {
