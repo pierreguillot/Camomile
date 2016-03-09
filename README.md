@@ -35,12 +35,13 @@ Camomile is a dynamic plugin made with [Juce](http://www.juce.com) that allows t
 
 ### How to use the Camomile plugin:
 
-1. Download the [plugin](https://github.com/pierreguillot/Camomile/releases/download/v0.0.3-beta/Camomile_v0.0.3.zip) (*vst*, *vst3*) for Mac.
-2. Put the binaries in the folders :  
- * /Users/"user name"/Library/Audio/Plug-Ins/VST for the vst.
- * /Users/"user name"/Library/Audio/Plug-Ins/VST3 for the vst3.
-3. Open your DAW and load the plugin.
-4. Click on the camomile flower. Open one of the Pure Data patches given with the binaries. Create your own Camomile patch is very easy, follow the next section.
+1. Download the [plugin](https://github.com/pierreguillot/Camomile/releases).
+2. Put the binaries in the standard plugins folder.
+3. Open your DAW (ask to re-scan the plugins if needed).
+4. Load the plugin in a track.
+5. Click on the camomile flower.
+6. Open one of the Pure Data patches given with the binaries.
+7. Create your own Camomile patch... it is very easy, follow the next section.
 
 ### How to create a patch for the Camomile plugin:
 
