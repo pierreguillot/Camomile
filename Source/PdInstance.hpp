@@ -18,6 +18,7 @@
 #include <memory>
 #include <cassert>
 #include <atomic>
+#include <cstring>
 
 namespace pd
 {
