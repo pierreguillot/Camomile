@@ -9,6 +9,11 @@
 
 #include "PdGui.hpp"
 
+extern "C"
+{
+#include "../ThirdParty/PureData/src/m_pd.h"
+}
+
 namespace pd
 {
     class Instance;

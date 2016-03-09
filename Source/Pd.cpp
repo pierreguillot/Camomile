@@ -14,7 +14,7 @@ extern "C"
 #include "../ThirdParty/PureData/src/g_canvas.h"
 #include "../ThirdParty/PureData/src/s_stuff.h"
 #include "../ThirdParty/PureData/src/m_imp.h"
-EXTERN  void pd_init(void);
+EXTERN void pd_init(void);
 }
 
 namespace pd

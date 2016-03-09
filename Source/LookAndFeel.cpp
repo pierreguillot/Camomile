@@ -22,7 +22,7 @@
   ==============================================================================
 */
 
-#include "LookAndFeel.h"
+#include "LookAndFeel.hpp"
 
 namespace LookAndFeelHelpers
 {

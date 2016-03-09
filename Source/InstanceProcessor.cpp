@@ -6,7 +6,7 @@
 
 #include "InstanceProcessor.hpp"
 #include "InstanceEditor.hpp"
-#include "LookAndFeel.h"
+#include "LookAndFeel.hpp"
 
 InstanceProcessor::InstanceProcessor() : pd::Instance(pd::Pd::createInstance())
 {

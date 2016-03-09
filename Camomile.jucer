@@ -10,12 +10,12 @@
               pluginAUExportPrefix="CamomileAU" pluginRTASCategory="" aaxIdentifier="com.cicm.Camomile"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.1.0"
               companyName="CICM" companyEmail="https://github.com/pierreguillot/Camomile"
-              companyWebsite="http://cicm.mshparisnord.org/" defines="PD=1&#10;HAVE_UNISTD_H=1&#10;USEAPI_DUMMY=1&#10;HAVE_ALLOCA_H=1&#10;LIBPD_EXTRA=1&#10;DHAVE_LIBDL=1"
+              companyWebsite="http://cicm.mshparisnord.org/" defines="PD=1&#10;HAVE_UNISTD_H=1&#10;USEAPI_DUMMY=1&#10;HAVE_ALLOCA_H=1&#10;HAVE_LIBDL=1&#10;PD_INTERNAL=1&#10;"
               pluginIsMidiEffectPlugin="0">
   <MAINGROUP id="Lkdhlo" name="Camomile">
     <GROUP id="{6858D652-D432-5FB6-C946-D9F3FA76E6E9}" name="Source">
       <FILE id="HhHZI4" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
-      <FILE id="EJAZHs" name="LookAndFeel.h" compile="0" resource="0" file="Source/LookAndFeel.h"/>
+      <FILE id="C0BhX9" name="LookAndFeel.hpp" compile="0" resource="0" file="Source/LookAndFeel.hpp"/>
       <FILE id="BUNrem" name="InstanceProcessor.cpp" compile="1" resource="0"
             file="Source/InstanceProcessor.cpp"/>
       <FILE id="shFm3X" name="InstanceProcessor.hpp" compile="0" resource="0"
@@ -171,10 +171,10 @@
                vst3Folder="ThirdParty/Vst/" externalLibraries="" extraDefs=""
                extraLinkerFlags="" extraCompilerFlags="">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="64BitUniversal"
+        <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"
                        isDebug="1" optimisation="1" targetName="Camomile" headerPath="../../ThirdParty/PureData/src"
                        libraryPath="" defines="" binaryPath="/Library/Audio/Plug-Ins"/>
-        <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="64BitUniversal"
+        <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"
                        isDebug="0" optimisation="3" targetName="Camomile" headerPath="../../ThirdParty/PureData/src"
                        libraryPath="" defines="" binaryPath="/Library/Audio/Plug-Ins"
                        linkTimeOptimisation="1"/>
