@@ -17,6 +17,7 @@
 #include <iostream>
 #include <memory>
 #include <cassert>
+#include <atomic>
 
 namespace pd
 {
