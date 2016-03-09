@@ -4,6 +4,7 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
+#include "Gui.hpp"
 #include "GuiPatcher.hpp"
 #include "GuiRadio.hpp"
 #include "GuiSlider.hpp"
@@ -15,11 +16,10 @@
 //                                      GUI LABEL                                       //
 // ==================================================================================== //
 
-
 GuiPatcher::GuiPatcher()
 {
     setBounds(0, 20, 600, 400);
-    setInterceptsMouseClicks(true, true);
+    setInterceptsMouseClicks(false, true);
 }
 
 GuiPatcher::~GuiPatcher()
@@ -29,6 +29,7 @@ GuiPatcher::~GuiPatcher()
 
 void GuiPatcher::setPatch(InstanceProcessor& processor, pd::Patch const& patch)
 {
+    m_comment.clear();
     m_parameters.clear();
     m_labels.clear();
     if(patch.isValid())
@@ -36,7 +37,7 @@ void GuiPatcher::setPatch(InstanceProcessor& processor, pd::Patch const& patch)
         std::array<float, 2> size(patch.getSize());
         setSize(std::max(size[0], 120.f), std::max(size[1], 20.f));
         std::vector<pd::Gui> guis(patch.getGuis());
-        for(size_t i = 0; i < guis.size(); i++)
+        for(size_t i = 0; i < guis.size(); ++i)
         {
             if(guis[i].getType() == pd::Gui::Type::Number)
             {
@@ -55,7 +56,7 @@ void GuiPatcher::setPatch(InstanceProcessor& processor, pd::Patch const& patch)
                 m_parameters.add(new GuiSlider(processor, guis[i]));
                 addAndMakeVisible(m_parameters.getLast());
             }
-            if(guis[i].getType() == pd::Gui::Type::Toggle)
+            else if(guis[i].getType() == pd::Gui::Type::Toggle)
             {
                 m_parameters.add(new GuiToggle(processor, guis[i]));
                 addAndMakeVisible(m_parameters.getLast());
@@ -67,5 +68,13 @@ void GuiPatcher::setPatch(InstanceProcessor& processor, pd::Patch const& patch)
                 addAndMakeVisible(m_labels.getLast());
             }
         }
+        
+        std::vector<pd::Comment> cmts(patch.getComments());
+        for(size_t i = 0; i < cmts.size(); ++i)
+        {
+            m_comment.add(new GuiComment(cmts[i]));
+            addAndMakeVisible(m_comment.getLast());
+        }
+        repaint();
     }
 }

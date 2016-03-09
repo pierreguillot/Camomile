@@ -110,22 +110,26 @@ namespace pd
     
     std::string Gui::getLabel() const
     {
-        t_symbol* s = reinterpret_cast<t_iemgui *>(m_ptr)->x_lab;
-        if(s)
+        if(isValid())
         {
-            std::string name(s->s_name);
-            if(!name.empty() && name != "empty")
+            t_symbol* s = reinterpret_cast<t_iemgui *>(m_ptr)->x_lab;
+            if(s)
             {
-                auto pos = name.find("_");
-                if(pos != std::string::npos)
+                std::string name(s->s_name);
+                if(!name.empty() && name != "empty")
                 {
-                    name.erase(name.begin(), name.begin()+pos+1);
-                    return name;
+                    auto pos = name.find("_");
+                    if(pos != std::string::npos)
+                    {
+                        name.erase(name.begin(), name.begin()+pos+1);
+                        return name;
+                    }
                 }
-            }
+            }            
         }
         return std::string();
     }
+    
     
     BindingName Gui::getBindingName() const
     {
@@ -283,6 +287,104 @@ namespace pd
             return m_patch.getGuiLabelPosition(*this);
         }
         return {0.f, 0.f};
+    }
+    
+    // ==================================================================================== //
+    //                                      COMMENT                                         //
+    // ==================================================================================== //
+    
+    
+    Comment::Comment() noexcept : m_ptr(nullptr), m_patch()
+    {
+        
+    }
+    
+    Comment::Comment(Patch const& patch, void* ptr) noexcept :
+    m_ptr(ptr), m_patch(patch)
+    {
+        ;
+    }
+    
+    Comment::Comment(Comment const& other) noexcept :
+    m_ptr(other.m_ptr), m_patch(other.m_patch)
+    {
+        ;
+    }
+    
+    Comment::Comment(Comment&& other) noexcept :
+    m_ptr(other.m_ptr), m_patch(other.m_patch)
+    {
+        other.m_ptr   = nullptr;
+        other.m_patch = Patch();
+    }
+    
+    Comment& Comment::operator=(Comment const& other) noexcept
+    {
+        m_ptr   = other.m_ptr;
+        m_patch = other.m_patch;
+        return *this;
+    }
+    
+    Comment& Comment::operator=(Comment&& other) noexcept
+    {
+        std::swap(m_ptr, other.m_ptr);
+        std::swap(m_patch, other.m_patch);
+        return *this;
+    }
+    
+    Comment::~Comment() noexcept
+    {
+        m_ptr = nullptr;
+        m_patch = Patch();
+    }
+    
+    bool Comment::isValid() const noexcept
+    {
+        return bool(m_ptr) && m_patch.isValid();
+    }
+    
+    std::string Comment::getText() const
+    {
+        if(isValid())
+        {
+            char* text = nullptr;
+            int size = 0;
+            binbuf_gettext(reinterpret_cast<t_text *>(m_ptr)->te_binbuf, &text, &size);
+            if(text && size)
+            {
+                return std::string(text, size);
+            }
+        }
+        return std::string();
+    }
+    
+    float Comment::getX() const noexcept
+    {
+        if(isValid())
+        {
+            std::array<float, 2> margin(m_patch.getMargin());
+            return float(reinterpret_cast<t_text *>(m_ptr)->te_xpix) - margin[0];
+        }
+        return 0;
+    }
+    
+    float Comment::getY() const noexcept
+    {
+        if(isValid())
+        {
+            std::array<float, 2> margin(m_patch.getMargin());
+            return float(reinterpret_cast<t_text *>(m_ptr)->te_ypix) - margin[1];
+        }
+        return 0;
+    }
+    
+    float Comment::getWidth() const noexcept
+    {
+        if(isValid())
+        {
+            return float(reinterpret_cast<t_text *>(m_ptr)->te_width);
+        }
+        return 0;
     }
 }
 

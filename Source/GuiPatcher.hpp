@@ -9,6 +9,7 @@
 
 #include "GuiParameter.hpp"
 #include "GuiLabel.hpp"
+#include "GuiComment.hpp"
 
 // ==================================================================================== //
 //                                      GUI PATCHER                                      //
@@ -22,6 +23,7 @@ public:
     
     void setPatch(InstanceProcessor& processor, pd::Patch const& patch);
 private:
+    OwnedArray<GuiComment>      m_comment;
     OwnedArray<GuiParameter>    m_parameters;
     OwnedArray<GuiLabel>        m_labels;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiPatcher)

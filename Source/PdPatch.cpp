@@ -114,6 +114,16 @@ namespace pd
         return m_path;
     }
     
+    std::array<float, 2> Patch::getMargin() const noexcept
+    {
+        if(isValid())
+        {
+            t_canvas* cnv = reinterpret_cast<t_canvas*>(m_ptr);
+            return {static_cast<float>(cnv->gl_xmargin), static_cast<float>(cnv->gl_ymargin)};
+        }
+        return {0.f, 0.f};
+    }
+    
     std::array<float, 2> Patch::getSize() const noexcept
     {
         if(isValid())
@@ -161,6 +171,25 @@ namespace pd
                 else if(y->g_pd->c_name == hra)
                 {
                     objects.push_back(Gui(*this, Gui::Type::HorizontalRadio, reinterpret_cast<void *>(y)));
+                }
+            }
+        }
+        return objects;
+    }
+    
+    std::vector<Comment> Patch::getComments() const noexcept
+    {
+        std::vector<Comment> objects;
+        if(isValid())
+        {
+            t_canvas* cnv = reinterpret_cast<t_canvas*>(m_ptr);
+            t_symbol* txt = gensym("text");
+            
+            for(t_gobj *y = cnv->gl_list; y; y = y->g_next)
+            {
+                if(y->g_pd->c_name == txt)
+                {
+                    objects.push_back(Comment(*this, reinterpret_cast<void *>(y)));
                 }
             }
         }

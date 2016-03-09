@@ -38,6 +38,8 @@
             file="Source/GuiFlowerButton.hpp"/>
       <FILE id="hTEaiz" name="GuiPatcher.cpp" compile="1" resource="0" file="Source/GuiPatcher.cpp"/>
       <FILE id="DcI7Ep" name="GuiPatcher.hpp" compile="0" resource="0" file="Source/GuiPatcher.hpp"/>
+      <FILE id="Iks2o8" name="GuiComment.cpp" compile="1" resource="0" file="Source/GuiComment.cpp"/>
+      <FILE id="K0Fuxh" name="GuiComment.hpp" compile="0" resource="0" file="Source/GuiComment.hpp"/>
       <FILE id="gR2NvP" name="GuiLabel.cpp" compile="1" resource="0" file="Source/GuiLabel.cpp"/>
       <FILE id="pO9tUK" name="GuiLabel.hpp" compile="0" resource="0" file="Source/GuiLabel.hpp"/>
       <FILE id="QxJ9WH" name="GuiNumbox.cpp" compile="1" resource="0" file="Source/GuiNumbox.cpp"/>
@@ -173,7 +175,7 @@
                        isDebug="1" optimisation="1" targetName="Camomile" headerPath="../../ThirdParty/PureData/src"
                        libraryPath="" defines="" binaryPath="/Library/Audio/Plug-Ins"/>
         <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="64BitUniversal"
-                       isDebug="0" optimisation="6" targetName="Camomile" headerPath="../../ThirdParty/PureData/src"
+                       isDebug="0" optimisation="3" targetName="Camomile" headerPath="../../ThirdParty/PureData/src"
                        libraryPath="" defines="" binaryPath="/Library/Audio/Plug-Ins"
                        linkTimeOptimisation="1"/>
       </CONFIGURATIONS>
@@ -189,6 +191,26 @@
         <MODULEPATH id="juce_events" path="ThirdParty/Juce/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" vstFolder="ThirdParty/Vst/vstsdk2.4"
+                vst3Folder="ThirdParty/Vst/">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
+                       targetName="Camomile" linuxArchitecture="" headerPath="../../ThirdParty/PureData/src"/>
+        <CONFIGURATION name="Release" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="3"
+                       targetName="Camomile" linuxArchitecture="" headerPath="../../ThirdParty/PureData/src"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_gui_extra" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_events" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_core" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="ThirdParty/Juce/modules"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
   </EXPORTFORMATS>
   <MODULES>
     <MODULES id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>

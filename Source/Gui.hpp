@@ -14,6 +14,7 @@
 #include "GuiSlider.hpp"
 #include "GuiNumbox.hpp"
 #include "GuiLabel.hpp"
+#include "GuiComment.hpp"
 #include "GuiPatcher.hpp"
 #include "GuiConsole.hpp"
 #include "GuiAbout.hpp"

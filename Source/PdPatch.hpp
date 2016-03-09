@@ -12,6 +12,7 @@
 namespace pd
 {
     class Gui;
+    class Comment;
     // ==================================================================================== //
     //                                          PATCHER                                     //
     // ==================================================================================== //
@@ -64,11 +65,17 @@ namespace pd
         //! @brief Gets the file's path.
         std::string getPath() const;
         
-        //! @brief Gets the Path size.
+        //! @brief Gets the Patch margin.
+        std::array<float, 2> getMargin() const noexcept;
+        
+        //! @brief Gets the Patch size.
         std::array<float, 2> getSize() const noexcept;
         
-        //! @brief Gets the Slider objects from the patch.
+        //! @brief Gets the Gui objects from the patch.
         std::vector<Gui> getGuis() const noexcept;
+        
+        //! @brief Gets the Comment objects from the patch.
+        std::vector<Comment> getComments() const noexcept;
     private:
         
         //! @brief The constructor for a new Patch.

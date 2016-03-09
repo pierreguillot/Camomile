@@ -14,7 +14,11 @@ GuiWindow* Gui::m_window = nullptr;
 
 Font Gui::getFont()
 {
-    return Font(String("Monaco"), 13.f, juce::Font::plain);
+#ifdef __APPLE__
+    return Font(String("Monaco"), 13.f, juce::Font::plain).withStyle(Font::bold);
+#else
+    return Font(String("DejaVu Sans Mono"), 12.f, juce::Font::plain).withStyle(Font::bold);
+#endif
 }
 
 int Gui::getBordersize() noexcept
