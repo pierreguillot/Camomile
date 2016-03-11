@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="0.0.4"
+<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="0.0.5"
               bundleIdentifier="com.cicm.Camomile" includeBinaryInAppConfig="1"
               buildVST="1" buildVST3="1" buildAU="0" buildRTAS="0" buildAAX="0"
               pluginName="Camomile" pluginDesc="Camomile" pluginManufacturer="Pierre Guillot"

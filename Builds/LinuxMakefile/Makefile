@@ -18,7 +18,7 @@ ifeq ($(CONFIG),Debug)
     TARGET_ARCH := 
   endif
 
-  CPPFLAGS := $(DEPFLAGS) -D "LINUX=1" -D "DEBUG=1" -D "_DEBUG=1" -D "PD=1" -D "HAVE_UNISTD_H=1" -D "USEAPI_DUMMY=1" -D "HAVE_ALLOCA_H=1" -D "HAVE_LIBDL=1" -D "PD_INTERNAL=1" -D "JUCER_LINUX_MAKE_6D53C8B4=1" -D "JUCE_APP_VERSION=0.0.4" -D "JUCE_APP_VERSION_HEX=0x4" -I /usr/include -I /usr/include/freetype2 -I ../../ThirdParty/Vst -I ../../ThirdParty/Vst/vstsdk2.4 -I ../../JuceLibraryCode -I ../../ThirdParty/Juce/modules -I ../../ThirdParty/PureData/src
+  CPPFLAGS := $(DEPFLAGS) -D "LINUX=1" -D "DEBUG=1" -D "_DEBUG=1" -D "PD=1" -D "HAVE_UNISTD_H=1" -D "USEAPI_DUMMY=1" -D "HAVE_ALLOCA_H=1" -D "HAVE_LIBDL=1" -D "PD_INTERNAL=1" -D "JUCER_LINUX_MAKE_6D53C8B4=1" -D "JUCE_APP_VERSION=0.0.5" -D "JUCE_APP_VERSION_HEX=0x5" -I /usr/include -I /usr/include/freetype2 -I ../../ThirdParty/Vst -I ../../ThirdParty/Vst/vstsdk2.4 -I ../../JuceLibraryCode -I ../../ThirdParty/Juce/modules -I ../../ThirdParty/PureData/src
   CFLAGS += $(CPPFLAGS) $(TARGET_ARCH) -g -ggdb -fPIC -O0
   CXXFLAGS += $(CFLAGS) -std=c++11
   LDFLAGS += $(TARGET_ARCH) -L$(BINDIR) -L$(LIBDIR) -Wl,--no-undefined -shared -L/usr/X11R6/lib/ -lX11 -lXext -lXinerama -ldl -lfreetype -lpthread -lrt 
@@ -38,7 +38,7 @@ ifeq ($(CONFIG),Release)
     TARGET_ARCH := 
   endif
 
-  CPPFLAGS := $(DEPFLAGS) -D "LINUX=1" -D "NDEBUG=1" -D "PD=1" -D "HAVE_UNISTD_H=1" -D "USEAPI_DUMMY=1" -D "HAVE_ALLOCA_H=1" -D "HAVE_LIBDL=1" -D "PD_INTERNAL=1" -D "JUCER_LINUX_MAKE_6D53C8B4=1" -D "JUCE_APP_VERSION=0.0.4" -D "JUCE_APP_VERSION_HEX=0x4" -I /usr/include -I /usr/include/freetype2 -I ../../ThirdParty/Vst -I ../../ThirdParty/Vst/vstsdk2.4 -I ../../JuceLibraryCode -I ../../ThirdParty/Juce/modules -I ../../ThirdParty/PureData/src
+  CPPFLAGS := $(DEPFLAGS) -D "LINUX=1" -D "NDEBUG=1" -D "PD=1" -D "HAVE_UNISTD_H=1" -D "USEAPI_DUMMY=1" -D "HAVE_ALLOCA_H=1" -D "HAVE_LIBDL=1" -D "PD_INTERNAL=1" -D "JUCER_LINUX_MAKE_6D53C8B4=1" -D "JUCE_APP_VERSION=0.0.5" -D "JUCE_APP_VERSION_HEX=0x5" -I /usr/include -I /usr/include/freetype2 -I ../../ThirdParty/Vst -I ../../ThirdParty/Vst/vstsdk2.4 -I ../../JuceLibraryCode -I ../../ThirdParty/Juce/modules -I ../../ThirdParty/PureData/src
   CFLAGS += $(CPPFLAGS) $(TARGET_ARCH) -fPIC -O3
   CXXFLAGS += $(CFLAGS) -std=c++11
   LDFLAGS += $(TARGET_ARCH) -L$(BINDIR) -L$(LIBDIR) -Wl,--no-undefined -shared -fvisibility=hidden -L/usr/X11R6/lib/ -lX11 -lXext -lXinerama -ldl -lfreetype -lpthread -lrt 

@@ -35,8 +35,8 @@
 namespace ProjectInfo
 {
     const char* const  projectName    = "Camomile";
-    const char* const  versionString  = "0.0.4";
-    const int          versionNumber  = 0x4;
+    const char* const  versionString  = "0.0.5";
+    const int          versionNumber  = 0x5;
 }
 #endif
 
