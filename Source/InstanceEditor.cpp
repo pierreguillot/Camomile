@@ -131,7 +131,7 @@ void InstanceEditor::buttonClicked(Button* button)
         }
         else if(result == 6)
         {
-            juce::URL url("https://github.com/pierreguillot/Camomile");
+            juce::URL url("https://github.com/pierreguillot/Camomile/wiki");
             if(url.isWellFormed())
             {
                 url.launchInDefaultBrowser();
