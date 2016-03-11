@@ -46,7 +46,7 @@ namespace pd
     {
     public:
         //! @brief Gets the current version of the program.
-        static std::string getVersion() {return std::string("0.0.3");}
+        static std::string getVersion() {return std::string("0.0.4");}
         
         //! @brief Adds a path the global search path.
         static std::string getPdVersion();

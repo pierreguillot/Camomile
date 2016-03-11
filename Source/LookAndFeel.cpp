@@ -557,6 +557,7 @@ void CamoLookAndFeel::drawScrollbarButton (Graphics& g, ScrollBar& scrollbar,
                                           bool /*isMouseOverButton*/,
                                           bool isButtonDown)
 {
+    return;
     Path p;
 
     if (buttonDirection == 0)
@@ -597,6 +598,7 @@ void CamoLookAndFeel::drawScrollbar (Graphics& g,
                                  bool /*isMouseOver*/,
                                  bool /*isMouseDown*/)
 {
+    return;
     g.fillAll (scrollbar.findColour (ScrollBar::backgroundColourId));
 
     Path slotPath, thumbPath;
@@ -643,19 +645,8 @@ void CamoLookAndFeel::drawScrollbar (Graphics& g,
         gy2 = y + height * 0.7f;
     }
 
-    const Colour thumbColour (scrollbar.findColour (ScrollBar::thumbColourId));
-    Colour trackColour1, trackColour2;
-
-    if (scrollbar.isColourSpecified (ScrollBar::trackColourId)
-         || isColourSpecified (ScrollBar::trackColourId))
-    {
-        trackColour1 = trackColour2 = scrollbar.findColour (ScrollBar::trackColourId);
-    }
-    else
-    {
-        trackColour1 = thumbColour.overlaidWith (Colour (0x44000000));
-        trackColour2 = thumbColour.overlaidWith (Colour (0x19000000));
-    }
+    const Colour thumbColour (Gui::getColorTxt());
+    Colour trackColour1(ScrollBar::trackColourId), trackColour2(ScrollBar::trackColourId);
 
     g.setGradientFill (ColourGradient (trackColour1, gx1, gy1,
                                        trackColour2, gx2, gy2, false));
@@ -834,9 +825,7 @@ void CamoLookAndFeel::getIdealPopupMenuItemSize (const String& text, const bool 
 
 void CamoLookAndFeel::drawPopupMenuBackground (Graphics& g, int width, int height)
 {
-    g.fillAll(Colours::lightgrey);
-    g.setColour(Colours::darkgrey);
-    g.drawRect(0, 0, width, height);
+    g.fillAll(Gui::getColorBg());
 }
 
 void CamoLookAndFeel::drawPopupMenuUpDownArrow (Graphics& g, int width, int height, bool isScrollUpArrow)

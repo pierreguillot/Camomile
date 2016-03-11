@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="0.0.3"
+<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="0.0.4"
               bundleIdentifier="com.cicm.Camomile" includeBinaryInAppConfig="1"
               buildVST="1" buildVST3="1" buildAU="0" buildRTAS="0" buildAAX="0"
               pluginName="Camomile" pluginDesc="Camomile" pluginManufacturer="Pierre Guillot"
@@ -9,8 +9,8 @@
               pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="1"
               pluginAUExportPrefix="CamomileAU" pluginRTASCategory="" aaxIdentifier="com.cicm.Camomile"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.1.0"
-              companyName="CICM" companyEmail="https://github.com/pierreguillot/Camomile"
-              companyWebsite="http://cicm.mshparisnord.org/" defines="PD=1&#10;HAVE_UNISTD_H=1&#10;USEAPI_DUMMY=1&#10;HAVE_ALLOCA_H=1&#10;HAVE_LIBDL=1&#10;PD_INTERNAL=1&#10;"
+              companyName="CICM" companyEmail="" companyWebsite="https://github.com/pierreguillot/Camomile"
+              defines="PD=1&#10;HAVE_UNISTD_H=1&#10;USEAPI_DUMMY=1&#10;HAVE_ALLOCA_H=1&#10;HAVE_LIBDL=1&#10;PD_INTERNAL=1&#10;"
               pluginIsMidiEffectPlugin="0">
   <MAINGROUP id="Lkdhlo" name="Camomile">
     <GROUP id="{6858D652-D432-5FB6-C946-D9F3FA76E6E9}" name="Source">
@@ -160,6 +160,8 @@
       </GROUP>
     </GROUP>
     <GROUP id="{8DE6AA0C-11D5-0E76-0B00-0843C90E25ED}" name="Ressources">
+      <FILE id="nAtHON" name="clear0.png" compile="0" resource="1" file="Ressources/clear0.png"/>
+      <FILE id="UvnyC9" name="clear1.png" compile="0" resource="1" file="Ressources/clear1.png"/>
       <FILE id="pAFpl1" name="flower1.png" compile="0" resource="1" file="Ressources/flower1.png"/>
       <FILE id="aZl9d4" name="flower2.png" compile="0" resource="1" file="Ressources/flower2.png"/>
       <FILE id="ABes24" name="flowerG.png" compile="0" resource="1" file="Ressources/flowerG.png"/>

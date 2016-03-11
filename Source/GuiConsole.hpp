@@ -8,7 +8,7 @@
 #define __CAMOMILE_GUI_CONSOLE__
 
 #include "InstanceProcessor.hpp"
-
+#include "GuiFlowerButton.hpp"
 // ==================================================================================== //
 //                                      GUI TOGGLE                                      //
 // ==================================================================================== //
@@ -18,12 +18,11 @@ class GuiConsole : public juce::Component, public juce::Timer, public juce::Butt
 public:
     GuiConsole();
     ~GuiConsole();
-    void paint(Graphics& g) final;
     void timerCallback() final;
     void buttonClicked(Button* button) final;
 private:
-    juce::TextButton    m_button;
-    juce::TextEditor    m_text;
+    GuiClearButton   m_button;
+    juce::TextEditor m_text;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiConsole)
 };
 
