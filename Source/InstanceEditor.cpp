@@ -33,8 +33,8 @@ void InstanceEditor::paint(Graphics& g)
     String text;
     g.fillAll(Gui::getColorBg());
     g.setColour(Gui::getColorBd());
-    g.drawRect(getBounds().withZeroOrigin(), Gui::getBordersize());
-    g.drawLine(0.f, 20.f, getWidth(), 20.f, Gui::getBordersize());
+    g.drawRect(getBounds().withZeroOrigin(), Gui::getBorderSize());
+    g.drawLine(0.f, 20.f, getWidth(), 20.f, Gui::getBorderSize());
     g.setFont(Gui::getFont());
     g.setColour(Gui::getColorTxt());
     const pd::Patch patch = m_processor.getPatch();

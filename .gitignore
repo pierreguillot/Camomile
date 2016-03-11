@@ -12,6 +12,7 @@
 *.so
 *.dylib
 *.dll
+*.pd_darwin
 
 # Fortran module files
 *.mod

@@ -153,7 +153,7 @@ void InstanceProcessor::parametersChanged()
                 {
                     if(gui.getName() == m_parameters[i].getName(512))
                     {
-                        pd::Pd::addConsole("Warning in patch " + m_patch.getName() + ": "  + gui.getName() + " parameter is duplicated !");
+                        pd::Pd::errorToConsole("Warning in patch " + m_patch.getName() + ": "  + gui.getName() + " parameter is duplicated !");
                         ok = false;
                         break;
                     }

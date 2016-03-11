@@ -13,16 +13,17 @@
 //                                      GUI TOGGLE                                      //
 // ==================================================================================== //
 
-class GuiConsole : public juce::Component, public juce::Timer, public juce::TextEditor::Listener
+class GuiConsole : public juce::Component, public juce::Timer, public juce::Button::Listener
 {
 public:
     GuiConsole();
-    void textEditorTextChanged(juce::TextEditor& editor) final;
-    void textEditorFocusLost(juce::TextEditor& editor) final;
+    ~GuiConsole();
+    void paint(Graphics& g) final;
     void timerCallback() final;
-    
+    void buttonClicked(Button* button) final;
 private:
-    juce::TextEditor m_text;
+    juce::TextButton    m_button;
+    juce::TextEditor    m_text;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiConsole)
 };
 

@@ -23,6 +23,7 @@
 */
 
 #include "LookAndFeel.hpp"
+#include "Gui.hpp"
 
 namespace LookAndFeelHelpers
 {
@@ -219,7 +220,7 @@ void CamoLookAndFeel::drawButtonBackground (Graphics& g,
 
 Font CamoLookAndFeel::getTextButtonFont (TextButton&, int buttonHeight)
 {
-    return juce::Font(jmin(15.0f, (float)buttonHeight * 0.6f));
+    return Gui::getFont();
 }
 
 int CamoLookAndFeel::getTextButtonWidthToFitText (TextButton& b, int buttonHeight)
@@ -227,12 +228,11 @@ int CamoLookAndFeel::getTextButtonWidthToFitText (TextButton& b, int buttonHeigh
     return getTextButtonFont (b, buttonHeight).getStringWidth (b.getButtonText()) + buttonHeight;
 }
 
-void CamoLookAndFeel::drawButtonText (Graphics& g, TextButton& button, bool isMouseOverButton, bool /*isButtonDown*/)
+void CamoLookAndFeel::drawButtonText (Graphics& g, TextButton& button, bool isMouseOverButton, bool isButtonDown)
 {
-    Font font (getTextButtonFont (button, button.getHeight()));
-    g.setFont (font);
-    g.setColour (button.findColour (isMouseOverButton ? TextButton::textColourOnId
-                                                            : TextButton::textColourOffId)
+    Font font(Gui::getFont());
+    g.setFont(font);
+    g.setColour(button.findColour((isMouseOverButton || isButtonDown) ? TextButton::textColourOnId : TextButton::textColourOffId)
                        .withMultipliedAlpha (button.isEnabled() ? 1.0f : 0.5f));
 
     const int yIndent = jmin (4, button.proportionOfHeight (0.3f));

@@ -22,7 +22,7 @@ GuiNumbox::GuiNumbox(InstanceProcessor& processor, pd::Gui const& gui) : GuiPara
     m_label.setColour(Label::textWhenEditingColourId, Gui::getColorTxt());
     m_label.setColour(Label::backgroundWhenEditingColourId, Gui::getColorInv());
     m_label.setColour(Label::outlineWhenEditingColourId, Gui::getColorInv());
-    m_label.setBorderSize(BorderSize<int>(Gui::getBordersize()+1,Gui::getBordersize(),Gui::getBordersize(),Gui::getBordersize()));
+    m_label.setBorderSize(BorderSize<int>(Gui::getBorderSize()+1,Gui::getBorderSize(),Gui::getBorderSize(),Gui::getBorderSize()));
     m_label.setText(String(getValue()), NotificationType::dontSendNotification);
     m_label.setEditable(false, false);
     m_label.setInterceptsMouseClicks(false, false);
@@ -35,9 +35,9 @@ void GuiNumbox::paint(Graphics& g)
 {
     g.fillAll(Gui::getColorBg());
     g.setColour(Gui::getColorBd());
-    g.drawRect(getLocalBounds(), Gui::getBordersize());
-    g.drawLine(0.f, 0.f, float(getHeight()) * 0.5f, float(getHeight()) * 0.5f, Gui::getBordersize());
-    g.drawLine(0.f, float(getHeight()), float(getHeight()) * 0.5f, float(getHeight()) * 0.5f, Gui::getBordersize());
+    g.drawRect(getLocalBounds(), Gui::getBorderSize());
+    g.drawLine(0.f, 0.f, float(getHeight()) * 0.5f, float(getHeight()) * 0.5f, Gui::getBorderSize());
+    g.drawLine(0.f, float(getHeight()), float(getHeight()) * 0.5f, float(getHeight()) * 0.5f, Gui::getBorderSize());
     if(!m_label.hasKeyboardFocus(true))
     {
         m_label.setText(String(getValue()), NotificationType::dontSendNotification);        

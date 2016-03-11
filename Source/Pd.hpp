@@ -17,6 +17,25 @@ extern "C"
 namespace pd
 {
     class Instance;
+    
+    // ==================================================================================== //
+    //                                      POST                                            //
+    // ==================================================================================== //
+    //! @brief The post.
+    //! @details The wrapper for post, error and log messages.
+    class Post
+    {
+    public:
+        enum class Type : unsigned char
+        {
+            Post    = 0,
+            Error   = 1,
+            Log     = 2
+        };
+        std::string message;
+        Type        type;
+    };
+    
     // ==================================================================================== //
     //                                      PD                                              //
     // ==================================================================================== //
@@ -42,13 +61,19 @@ namespace pd
         static void clearConsole() noexcept;
         
         //! @brief Sets the text of the console.
-        static void setConsole(std::string const& text) noexcept;
+        static void postToConsole(std::string const& text) noexcept;
         
         //! @brief Sets the text of the console.
-        static void addConsole(std::string const& text) noexcept;
+        static void logToConsole(std::string const& text) noexcept;
+        
+        //! @brief Sets the text of the console.
+        static void errorToConsole(std::string const& text) noexcept;
         
         //! @brief Retrieves the text of the console.
-        static std::string getConsole() noexcept;
+        static std::vector<Post> getConsole(bool state = false) noexcept;
+        
+        //! @brief Retrieves the text of the console.
+        static bool hasConsoleChanged() noexcept;
         
         //! @brief Creates a new Instance object.
         static Instance createInstance() noexcept;
@@ -76,7 +101,10 @@ namespace pd
         std::mutex                  m_mutex;
         int                         m_sample_rate;
         const int                   m_max_channels = 16;
-        std::string                 m_console;
+        
+        std::mutex                  m_console_mutex;
+        bool                        m_console_changed;
+        std::vector<Post>           m_console;
         static void print(const char* s);
         
         friend class Instance;

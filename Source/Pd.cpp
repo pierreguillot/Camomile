@@ -49,7 +49,6 @@ namespace pd
         sys_set_audio_api(API_DUMMY);
         sys_searchpath = NULL;
         m_sample_rate  = 0;
-        
         int indev[MAXAUDIOINDEV], inch[MAXAUDIOINDEV],
         outdev[MAXAUDIOOUTDEV], outch[MAXAUDIOOUTDEV];
         indev[0] = outdev[0] = DEFAULTAUDIODEV;
@@ -61,7 +60,8 @@ namespace pd
         sys_reopen_audio();
         m_sample_rate = sys_getsr();
         m_console.clear();
-        m_console.append("Camomile " + getVersion() + " for Pure Data " + getPdVersion() + "\n");
+        m_console.push_back({"Camomile " + getVersion()+" for Pure Data "+getPdVersion()+"\n", Post::Type::Log});
+        m_console_changed = true;
         sys_printhook = reinterpret_cast<t_printhook>(print);
     }
     
@@ -74,8 +74,25 @@ namespace pd
     void Pd::print(const char* s)
     {
         Pd& pd = Pd::get();
-        pd.m_console.append(s);
+        std::string message(s);
+        if(message.compare(0, 5, "error"))
+        {
+            std::lock_guard<std::mutex> guard(pd.m_console_mutex);
+            pd.m_console.push_back({message, Post::Type::Error});
+        }
+        else if(message.compare(0, 7, "verbose"))
+        {
+            std::lock_guard<std::mutex> guard(pd.m_console_mutex);
+            pd.m_console.push_back({message, Post::Type::Log});
+        }
+        else
+        {
+            std::lock_guard<std::mutex> guard(pd.m_console_mutex);
+            pd.m_console.push_back({message, Post::Type::Post});
+        }
+#ifdef DEBUG
         std::cout << s;
+#endif
     }
     
     std::string Pd::getPdVersion()
@@ -103,33 +120,49 @@ namespace pd
     void Pd::clearConsole() noexcept
     {
         Pd& pd = Pd::get();
-        std::lock_guard<std::mutex> guard(pd.m_mutex);
+        std::lock_guard<std::mutex> guard(pd.m_console_mutex);
+        bool state = !pd.m_console.empty();
         pd.m_console.clear();
+        pd.m_console_changed = state;
     }
     
-    void Pd::setConsole(std::string const& text) noexcept
+    void Pd::postToConsole(std::string const& text) noexcept
     {
         Pd& pd = Pd::get();
-        std::lock_guard<std::mutex> guard(pd.m_mutex);
-        pd.m_console = text + "\n";
+        std::lock_guard<std::mutex> guard(pd.m_console_mutex);
+        pd.m_console.push_back({text, Post::Type::Post});
+        pd.m_console_changed = true;
     }
     
-    void Pd::addConsole(std::string const& text) noexcept
+    void Pd::logToConsole(std::string const& text) noexcept
     {
         Pd& pd = Pd::get();
-        std::lock_guard<std::mutex> guard(pd.m_mutex);
-        pd.m_console += text + "\n";
+        std::lock_guard<std::mutex> guard(pd.m_console_mutex);
+        pd.m_console.push_back({text, Post::Type::Log});
+        pd.m_console_changed = true;
     }
     
-    std::string Pd::getConsole() noexcept
+    void Pd::errorToConsole(std::string const& text) noexcept
     {
         Pd& pd = Pd::get();
-        std::lock_guard<std::mutex> guard(pd.m_mutex);
-        if(pd.m_console.size() > 1000)
-        {
-            pd.m_console.erase(pd.m_console.begin(), pd.m_console.end()-1000);
-        }
+        std::lock_guard<std::mutex> guard(pd.m_console_mutex);
+        pd.m_console.push_back({text, Post::Type::Error});
+        pd.m_console_changed = true;
+    }
+    
+    std::vector<Post> Pd::getConsole(bool state) noexcept
+    {
+        Pd& pd = Pd::get();
+        std::lock_guard<std::mutex> guard(pd.m_console_mutex);
+        pd.m_console_changed = state;
         return pd.m_console;
+    }
+    
+    bool Pd::hasConsoleChanged() noexcept
+    {
+        Pd& pd = Pd::get();
+        std::lock_guard<std::mutex> guard(pd.m_console_mutex);
+        return pd.m_console_changed;
     }
     
     void Pd::setSampleRate(const int samplerate) noexcept
@@ -165,9 +198,9 @@ namespace pd
     Instance Pd::createInstance() noexcept
     {
         Pd& pd = Pd::get();
-        pd.m_mutex.unlock();
+        pd.m_mutex.lock();
         Instance instance(pdinstance_new());
-        Pd::unlock();
+        pd.m_mutex.unlock();
         return instance;
     }
 }

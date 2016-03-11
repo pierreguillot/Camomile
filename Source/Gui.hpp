@@ -31,7 +31,7 @@ public:
     static void addInstance() noexcept;
     static void removeInstance() noexcept;
     static Font getFont();
-    static int getBordersize() noexcept;
+    static int getBorderSize() noexcept;
     static Colour const& getColorBg() noexcept;
     static Colour const& getColorBd() noexcept;
     static Colour const& getColorTxt() noexcept;

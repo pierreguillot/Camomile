@@ -17,7 +17,7 @@ DocumentWindow(String(""), Gui::getColorBg(), DocumentWindow::closeButton, false
     setUsingNativeTitleBar(true);
     setBounds(50, 50, 300, 370);
     setResizable(false, false);
-    setAlwaysOnTop(true);
+    setAlwaysOnTop(false);
     setDropShadowEnabled(true);
     setVisible(true);
     setBackgroundColour(Gui::getColorBg());
