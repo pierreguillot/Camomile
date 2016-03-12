@@ -33,8 +33,8 @@ void InstanceEditor::paint(Graphics& g)
     String text;
     g.fillAll(Gui::getColorBg());
     g.setColour(Gui::getColorBd());
-    g.drawRect(getBounds().withZeroOrigin(), Gui::getBordersize());
-    g.drawLine(0.f, 20.f, getWidth(), 20.f, Gui::getBordersize());
+    g.drawRect(getBounds().withZeroOrigin(), Gui::getBorderSize());
+    g.drawLine(0.f, 20.f, getWidth(), 20.f, Gui::getBorderSize());
     g.setFont(Gui::getFont());
     g.setColour(Gui::getColorTxt());
     const pd::Patch patch = m_processor.getPatch();
@@ -69,12 +69,13 @@ void InstanceEditor::buttonClicked(Button* button)
         m.addItem(4, "Reload");
         m.addItem(5, "Console");
         m.addItem(6, "Help");
-        const int result = m.showAt(button->getScreenBounds().translated(-3, 1));
+        const int result = m.showAt(button->getScreenBounds().translated(-2, 3));
         if(result == 1)
         {
             Gui::getWindow().setContentOwned(new GuiAbout(), false);
             Gui::getWindow().setName("About Camomile " + String(JucePlugin_VersionString));
             Gui::getWindow().addToDesktop();
+            Gui::getWindow().grabKeyboardFocus();
         }
         else if(result == 2)
         {
@@ -126,10 +127,11 @@ void InstanceEditor::buttonClicked(Button* button)
             Gui::getWindow().setContentOwned(new GuiConsole(), false);
             Gui::getWindow().setName("Camomile Console");
             Gui::getWindow().addToDesktop();
+            Gui::getWindow().grabKeyboardFocus();
         }
         else if(result == 6)
         {
-            juce::URL url("https://github.com/pierreguillot/Camomile");
+            juce::URL url("https://github.com/pierreguillot/Camomile/wiki");
             if(url.isWellFormed())
             {
                 url.launchInDefaultBrowser();

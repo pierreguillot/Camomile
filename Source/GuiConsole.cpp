@@ -5,18 +5,19 @@
 */
 
 #include "GuiConsole.hpp"
+#include "GuiFlowerButton.hpp"
 #include "Gui.hpp"
 
 // ==================================================================================== //
 //                                      GUI CONSOLE                                     //
 // ==================================================================================== //
-
+    
 GuiConsole::GuiConsole()
 {
     m_text.setMultiLine(true);
-    m_text.setReadOnly(false);
+    m_text.setReadOnly(true);
     m_text.setScrollbarsShown(true);
-    m_text.setScrollBarThickness(5);
+    m_text.setScrollBarThickness(1);
     m_text.setCaretVisible(false);
     m_text.setPopupMenuEnabled (true);
     m_text.setColour(juce::TextEditor::backgroundColourId, Gui::getColorInv());
@@ -24,30 +25,47 @@ GuiConsole::GuiConsole()
     m_text.setColour(juce::TextEditor::shadowColourId,Gui::getColorInv());
     m_text.setColour(juce::TextEditor::textColourId, Gui::getColorTxt());
     m_text.setFont(Gui::getFont());
-    m_text.setText(pd::Pd::getConsole());
-    m_text.setBounds(0, 0, 300, 370);
+    m_text.setBounds(0, 0, 300, 350);
     m_text.moveCaretToEnd();
+    
+    std::vector<pd::Post> messages(pd::Pd::getConsole());
+    for(size_t i = 0; i < messages.size(); ++i)
+    {
+        m_text.moveCaretToEnd();
+        m_text.setColour(juce::TextEditor::textColourId, Gui::getColorTxt());
+        m_text.insertTextAtCaret(messages[i].message);
+    }
     addAndMakeVisible(&m_text, 1);
-    startTimer(25);
+    
+    m_button.addListener(this);
+    addAndMakeVisible(&m_button);
+
+    startTimer(100);
 }
 
-void GuiConsole::textEditorTextChanged(juce::TextEditor& ed)
+GuiConsole::~GuiConsole()
 {
-    pd::Pd::setConsole(ed.getText().toStdString());
+    stopTimer();
 }
 
-void GuiConsole::textEditorFocusLost(juce::TextEditor& editor)
+void GuiConsole::buttonClicked(Button* button)
 {
-    ;
+     pd::Pd::clearConsole();
 }
 
 void GuiConsole::timerCallback()
 {
-    auto range = m_text.getHighlightedRegion();
-    auto caret = m_text.getCaretPosition();
-    m_text.setText(pd::Pd::getConsole(), false);
-    m_text.setCaretPosition(caret);
-    m_text.setHighlightedRegion(range);
+    if(pd::Pd::hasConsoleChanged())
+    {
+        m_text.clear();
+        std::vector<pd::Post> messages(pd::Pd::getConsole());
+        for(size_t i = 0; i < messages.size(); ++i)
+        {
+            m_text.moveCaretToEnd();
+            m_text.setColour(juce::TextEditor::textColourId, Gui::getColorTxt());
+            m_text.insertTextAtCaret(messages[i].message);
+        }
+    }
 }
 
 

@@ -12,6 +12,7 @@
 *.so
 *.dylib
 *.dll
+*.pd_darwin
 
 # Fortran module files
 *.mod
@@ -39,6 +40,8 @@
 # Juce & ThirdParty
 ThirdParty/Vst/*
 !ThirdParty/Vst/README.txt
+ThirdParty/PthreadWindows/*
+!ThirdParty/PthreadWindows/README.txt
 /Binaries
 /Builds/MacOSX/build/
 /Builds/LinuxMakefile/build/

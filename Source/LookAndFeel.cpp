@@ -22,7 +22,8 @@
   ==============================================================================
 */
 
-#include "LookAndFeel.h"
+#include "LookAndFeel.hpp"
+#include "Gui.hpp"
 
 namespace LookAndFeelHelpers
 {
@@ -219,7 +220,7 @@ void CamoLookAndFeel::drawButtonBackground (Graphics& g,
 
 Font CamoLookAndFeel::getTextButtonFont (TextButton&, int buttonHeight)
 {
-    return juce::Font(jmin(15.0f, (float)buttonHeight * 0.6f));
+    return Gui::getFont();
 }
 
 int CamoLookAndFeel::getTextButtonWidthToFitText (TextButton& b, int buttonHeight)
@@ -227,12 +228,11 @@ int CamoLookAndFeel::getTextButtonWidthToFitText (TextButton& b, int buttonHeigh
     return getTextButtonFont (b, buttonHeight).getStringWidth (b.getButtonText()) + buttonHeight;
 }
 
-void CamoLookAndFeel::drawButtonText (Graphics& g, TextButton& button, bool isMouseOverButton, bool /*isButtonDown*/)
+void CamoLookAndFeel::drawButtonText (Graphics& g, TextButton& button, bool isMouseOverButton, bool isButtonDown)
 {
-    Font font (getTextButtonFont (button, button.getHeight()));
-    g.setFont (font);
-    g.setColour (button.findColour (isMouseOverButton ? TextButton::textColourOnId
-                                                            : TextButton::textColourOffId)
+    Font font(Gui::getFont());
+    g.setFont(font);
+    g.setColour(button.findColour((isMouseOverButton || isButtonDown) ? TextButton::textColourOnId : TextButton::textColourOffId)
                        .withMultipliedAlpha (button.isEnabled() ? 1.0f : 0.5f));
 
     const int yIndent = jmin (4, button.proportionOfHeight (0.3f));
@@ -557,6 +557,7 @@ void CamoLookAndFeel::drawScrollbarButton (Graphics& g, ScrollBar& scrollbar,
                                           bool /*isMouseOverButton*/,
                                           bool isButtonDown)
 {
+    return;
     Path p;
 
     if (buttonDirection == 0)
@@ -597,6 +598,7 @@ void CamoLookAndFeel::drawScrollbar (Graphics& g,
                                  bool /*isMouseOver*/,
                                  bool /*isMouseDown*/)
 {
+    return;
     g.fillAll (scrollbar.findColour (ScrollBar::backgroundColourId));
 
     Path slotPath, thumbPath;
@@ -643,19 +645,8 @@ void CamoLookAndFeel::drawScrollbar (Graphics& g,
         gy2 = y + height * 0.7f;
     }
 
-    const Colour thumbColour (scrollbar.findColour (ScrollBar::thumbColourId));
-    Colour trackColour1, trackColour2;
-
-    if (scrollbar.isColourSpecified (ScrollBar::trackColourId)
-         || isColourSpecified (ScrollBar::trackColourId))
-    {
-        trackColour1 = trackColour2 = scrollbar.findColour (ScrollBar::trackColourId);
-    }
-    else
-    {
-        trackColour1 = thumbColour.overlaidWith (Colour (0x44000000));
-        trackColour2 = thumbColour.overlaidWith (Colour (0x19000000));
-    }
+    const Colour thumbColour (Gui::getColorTxt());
+    Colour trackColour1(ScrollBar::trackColourId), trackColour2(ScrollBar::trackColourId);
 
     g.setGradientFill (ColourGradient (trackColour1, gx1, gy1,
                                        trackColour2, gx2, gy2, false));
@@ -834,9 +825,7 @@ void CamoLookAndFeel::getIdealPopupMenuItemSize (const String& text, const bool 
 
 void CamoLookAndFeel::drawPopupMenuBackground (Graphics& g, int width, int height)
 {
-    g.fillAll(Colours::lightgrey);
-    g.setColour(Colours::darkgrey);
-    g.drawRect(0, 0, width, height);
+    g.fillAll(Gui::getColorBg());
 }
 
 void CamoLookAndFeel::drawPopupMenuUpDownArrow (Graphics& g, int width, int height, bool isScrollUpArrow)

@@ -1,0 +1,25 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2015
+Project("{23411925-3D33-FDB5-BEE5-9EC9BA5C4A81}") = "Camomile", "Camomile.vcxproj", "{9AB5403A-2942-9151-4946-07CB19FDC4B9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug32|Win32 = Debug32|Win32
+		Release32|Win32 = Release32|Win32
+		Debug64|x64 = Debug64|x64
+		Release64|x64 = Release64|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9AB5403A-2942-9151-4946-07CB19FDC4B9}.Debug32|Win32.ActiveCfg = Debug32|Win32
+		{9AB5403A-2942-9151-4946-07CB19FDC4B9}.Debug32|Win32.Build.0 = Debug32|Win32
+		{9AB5403A-2942-9151-4946-07CB19FDC4B9}.Release32|Win32.ActiveCfg = Release32|Win32
+		{9AB5403A-2942-9151-4946-07CB19FDC4B9}.Release32|Win32.Build.0 = Release32|Win32
+		{9AB5403A-2942-9151-4946-07CB19FDC4B9}.Debug64|x64.ActiveCfg = Debug64|x64
+		{9AB5403A-2942-9151-4946-07CB19FDC4B9}.Debug64|x64.Build.0 = Debug64|x64
+		{9AB5403A-2942-9151-4946-07CB19FDC4B9}.Release64|x64.ActiveCfg = Release64|x64
+		{9AB5403A-2942-9151-4946-07CB19FDC4B9}.Release64|x64.Build.0 = Release64|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -6,7 +6,7 @@
 
 #include "InstanceProcessor.hpp"
 #include "InstanceEditor.hpp"
-#include "LookAndFeel.h"
+#include "LookAndFeel.hpp"
 
 InstanceProcessor::InstanceProcessor() : pd::Instance(pd::Pd::createInstance())
 {
@@ -153,7 +153,7 @@ void InstanceProcessor::parametersChanged()
                 {
                     if(gui.getName() == m_parameters[i].getName(512))
                     {
-                        pd::Pd::addConsole("Warning in patch " + m_patch.getName() + ": "  + gui.getName() + " parameter is duplicated !");
+                        pd::Pd::errorToConsole("Warning in patch " + m_patch.getName() + ": "  + gui.getName() + " parameter is duplicated !");
                         ok = false;
                         break;
                     }

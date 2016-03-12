@@ -20,16 +20,16 @@ void GuiSlider::paint(Graphics& g)
 {
     g.fillAll(Gui::getColorBg());
     g.setColour(Gui::getColorBd());
-    g.drawRect(getLocalBounds(), Gui::getBordersize());
+    g.drawRect(getLocalBounds(), Gui::getBorderSize());
     if(getType() == Horizontal)
     {
         const float pos = getValueNormalized() * float(getWidth() - 4.) + 2.f;
-        g.drawLine(pos, 0.f, pos, float(getHeight()), Gui::getBordersize());
+        g.drawLine(pos, 0.f, pos, float(getHeight()), Gui::getBorderSize());
     }
     else
     {
         const float pos = (1.f - getValueNormalized())* float(getHeight() - 4.) + 2.f;
-        g.drawLine(0.f, pos, getWidth(), pos, Gui::getBordersize());
+        g.drawLine(0.f, pos, getWidth(), pos, Gui::getBorderSize());
     }
 }
 

@@ -21,7 +21,7 @@ Font Gui::getFont()
 #endif
 }
 
-int Gui::getBordersize() noexcept
+int Gui::getBorderSize() noexcept
 {
     return 1;
 }

@@ -151,10 +151,10 @@
  #define JucePlugin_Manufacturer           "Pierre Guillot"
 #endif
 #ifndef  JucePlugin_ManufacturerWebsite
- #define JucePlugin_ManufacturerWebsite    "http://cicm.mshparisnord.org/"
+ #define JucePlugin_ManufacturerWebsite    "https://github.com/pierreguillot/Camomile"
 #endif
 #ifndef  JucePlugin_ManufacturerEmail
- #define JucePlugin_ManufacturerEmail      "https://github.com/pierreguillot/Camomile"
+ #define JucePlugin_ManufacturerEmail      ""
 #endif
 #ifndef  JucePlugin_ManufacturerCode
  #define JucePlugin_ManufacturerCode       'CICM'
@@ -181,13 +181,13 @@
  #define JucePlugin_EditorRequiresKeyboardFocus  1
 #endif
 #ifndef  JucePlugin_Version
- #define JucePlugin_Version                0.0.3
+ #define JucePlugin_Version                0.0.5
 #endif
 #ifndef  JucePlugin_VersionCode
- #define JucePlugin_VersionCode            0x3
+ #define JucePlugin_VersionCode            0x5
 #endif
 #ifndef  JucePlugin_VersionString
- #define JucePlugin_VersionString          "0.0.3"
+ #define JucePlugin_VersionString          "0.0.5"
 #endif
 #ifndef  JucePlugin_VSTUniqueID
  #define JucePlugin_VSTUniqueID            JucePlugin_PluginCode

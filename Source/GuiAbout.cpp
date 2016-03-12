@@ -31,8 +31,7 @@ GuiAbout::GuiAbout()
     m_text.setText("Camomile is a dynamic plugin made with Juce that allows to load and to control Pure Data patches inside a digital audio workstation.\n\n"
                    "Author :\n"+ String(JucePlugin_Manufacturer) + "\n\n"
                    "Organizations :\nCICM | Université Paris 8 | Labex Arts H2H\n\n"
-                   "Contacts :\n" + String(JucePlugin_ManufacturerEmail)+ "\n" +
-                   String(JucePlugin_ManufacturerWebsite)+"\n\n"
+                   "Web Site :\n" + String(JucePlugin_ManufacturerWebsite)+"/wiki\n\n"
                    "Credits :\nPure Data by Miller Puckette\nJuce by ROLI Ltd."
 #ifdef JucePlugin_Build_VST
                    + "\nVST PlugIn Technology by Steinberg Media Technologies");

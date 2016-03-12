@@ -27,4 +27,17 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiFlowerButton)
 };
 
+class GuiClearButton : public Button
+{
+public:
+    GuiClearButton();
+    void paintButton(Graphics& g, bool over, bool down) final;
+    void buttonStateChanged() final;
+private:
+    DrawableImage   m_image1;
+    DrawableImage   m_image2;
+    
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiClearButton)
+};
+
 #endif
