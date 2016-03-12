@@ -40,8 +40,10 @@
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Camomile</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(LibraryPath);../../ThirdParty/PthreadWindows/lib/x86</LibraryPath>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Camomile</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(LibraryPath);../../ThirdParty/PthreadWindows/lib/x86</LibraryPath>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -55,9 +57,9 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/PureData/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD=1;HAVE_UNISTD_H=1;USEAPI_DUMMY=1;HAVE_ALLOCA_H=1;HAVE_LIBDL=1;PD_INTERNAL=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.5;JUCE_APP_VERSION_HEX=0x5;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/PureData/src;../../ThirdParty/PthreadWindows/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD=1;USEAPI_DUMMY=1;HAVE_ALLOCA_H=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.5;JUCE_APP_VERSION_HEX=0x5;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
       <AssemblerListingLocation>$(IntDir)\</AssemblerListingLocation>
@@ -79,7 +81,9 @@
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <AdditionalLibraryDirectories>../../ThirdParty/PthreadWindows/lib/x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
+      <AdditionalDependencies>pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/FORCE:multiple %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <Bscmake>
@@ -101,8 +105,8 @@
     <ClCompile>
       <Optimization>Full</Optimization>
       <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/PureData/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD=1;HAVE_UNISTD_H=1;USEAPI_DUMMY=1;HAVE_ALLOCA_H=1;HAVE_LIBDL=1;PD_INTERNAL=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.5;JUCE_APP_VERSION_HEX=0x5;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD=1;USEAPI_DUMMY=1;HAVE_ALLOCA_H=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.5;JUCE_APP_VERSION_HEX=0x5;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
       <AssemblerListingLocation>$(IntDir)\</AssemblerListingLocation>
@@ -125,7 +129,9 @@
       <TargetMachine>MachineX86</TargetMachine>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <AdditionalLibraryDirectories>../../ThirdParty/PthreadWindows/lib/x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
+      <AdditionalDependencies>pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/FORCE:multiple %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <Bscmake>

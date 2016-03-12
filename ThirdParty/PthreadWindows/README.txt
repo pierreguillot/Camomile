@@ -1,0 +1,1 @@
+If you want to compile the plugin for Windows using VSC, you should put the content of the Pre-built folder (with lib and include folders) of the pthreads-win32 library here. The pthreads-win32 can be downloaded at https://www.sourceware.org/pthreads-win32/.
