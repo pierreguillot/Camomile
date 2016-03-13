@@ -15,6 +15,17 @@ extern "C"
 #include "../ThirdParty/PureData/src/s_stuff.h"
 #include "../ThirdParty/PureData/src/m_imp.h"
 EXTERN void pd_init(void);
+    
+void bob_tilde_setup();
+void bonk_tilde_setup();
+void choice_setup();
+void expr_setup();
+void fiddle_tilde_setup();
+void loop_tilde_setup();
+void lrshift_tilde_setup();
+void pique_setup();
+void sigmund_tilde_setup();
+void stdout_setup();
 }
 
 namespace pd
@@ -59,14 +70,28 @@ namespace pd
         sched_set_using_audio(SCHED_AUDIO_CALLBACK);
         sys_reopen_audio();
         m_sample_rate = sys_getsr();
-        m_console.clear();
-        m_console_changed = true;        
-        sys_printhook = reinterpret_cast<t_printhook>(print);
     }
     
     Pd& Pd::get() noexcept
     {
         static Pd pd;
+        static bool initialized = false;
+        if(!initialized)
+        {
+            bob_tilde_setup();
+            bonk_tilde_setup();
+            choice_setup();
+            expr_setup();
+            fiddle_tilde_setup();
+            loop_tilde_setup();
+            lrshift_tilde_setup();
+            pique_setup();
+            sigmund_tilde_setup();
+            stdout_setup();
+            pd.m_console.clear();
+            sys_printhook = reinterpret_cast<t_printhook>(print);
+            initialized = true;
+        }
         return pd;
     }
     

@@ -20,6 +20,7 @@
 #X obj 304 302 *~ 2;
 #X obj 304 324 -~ 1;
 #X obj 207 284 acos;
+#X obj 322 414 bob~;
 #X connect 1 0 3 0;
 #X connect 2 0 4 0;
 #X connect 3 0 2 0;

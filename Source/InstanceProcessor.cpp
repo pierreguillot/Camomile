@@ -316,8 +316,8 @@ void InstanceProcessor::getStateInformation(MemoryBlock& destData)
     juce::XmlElement xml(String("CamomileSettings"));
     if(m_patch.isValid())
     {
-        xml.setAttribute(String("name"), m_patch.getPath());
-        xml.setAttribute(String("path"), m_patch.getName());
+        xml.setAttribute(String("name"), m_patch.getName());
+        xml.setAttribute(String("path"), m_patch.getPath());
     }
     XmlElement* params = xml.createNewChildElement("params");
     for(size_t i = 0; i < m_parameters.size(); i++)
