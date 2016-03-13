@@ -126,4 +126,4 @@ private:
 };
 
 
-#endif  // PLUGINPROCESSOR_H_INCLUDED
+#endif

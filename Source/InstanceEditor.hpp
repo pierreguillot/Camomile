@@ -4,8 +4,8 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef __CAMOMILE_PATCH_EDITOR__
-#define __CAMOMILE_PATCH_EDITOR__
+#ifndef __CAMOMILE_INSTANCE_EDITOR__
+#define __CAMOMILE_INSTANCE_EDITOR__
 
 #include "Gui.hpp"
 
@@ -32,4 +32,4 @@ private:
 
 
 
-#endif  // PLUGINEDITOR_H_INCLUDED
+#endif
