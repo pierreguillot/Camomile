@@ -92,7 +92,8 @@ namespace pd
     
     void Instance::prepareDsp(const int nins, const int nouts, const int samplerate, const int nsamples) noexcept
     {
-        t_atom av;
+        Pd::setSampleRate(samplerate);
+        t_atom av; 
         av.a_type = A_FLOAT;
         av.a_w.w_float = 1;
         pd_typedmess((t_pd *)gensym("pd")->s_thing, gensym("dsp"), 1, &av);

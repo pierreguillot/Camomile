@@ -74,6 +74,9 @@ namespace pd
         
         //! @brief Creates a new Instance object.
         static Instance createInstance() noexcept;
+        
+        //! @brief Gets the global sample rate.
+        static size_t getSampleRate() noexcept;
     
     private:
         
@@ -94,6 +97,7 @@ namespace pd
         
         //! @brief Sets the global sample rate.
         static void setSampleRate(const int samplerate) noexcept;
+        
         
         std::mutex                  m_mutex;
         int                         m_sample_rate;

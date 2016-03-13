@@ -169,6 +169,11 @@ namespace pd
         Pd& pd = Pd::get();
         if(pd.m_sample_rate != samplerate)
         {
+            t_atom av;
+            av.a_type = A_FLOAT;
+            av.a_w.w_float = 0;
+            pd_typedmess((t_pd *)gensym("pd")->s_thing, gensym("dsp"), 1, &av);
+            
             int indev[MAXAUDIOINDEV], inch[MAXAUDIOINDEV],
             outdev[MAXAUDIOOUTDEV], outch[MAXAUDIOOUTDEV];
             indev[0] = outdev[0] = DEFAULTAUDIODEV;
@@ -180,6 +185,12 @@ namespace pd
             sys_reopen_audio();
             pd.m_sample_rate = sys_getsr();
         }
+    }
+    
+    size_t Pd::getSampleRate() noexcept
+    {
+        Pd& pd = Pd::get();
+        return pd.m_sample_rate;
     }
     
     void Pd::lock() noexcept
