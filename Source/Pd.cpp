@@ -169,6 +169,7 @@ namespace pd
         Pd& pd = Pd::get();
         if(pd.m_sample_rate != samplerate)
         {
+            sys_verbose = 0;
             t_atom av;
             av.a_type = A_FLOAT;
             av.a_w.w_float = 0;
@@ -184,6 +185,7 @@ namespace pd
             sched_set_using_audio(SCHED_AUDIO_CALLBACK);
             sys_reopen_audio();
             pd.m_sample_rate = sys_getsr();
+            sys_verbose = 1;
         }
     }
     
