@@ -23,6 +23,15 @@ InstanceProcessor::~InstanceProcessor()
     m_listeners.clear();
 }
 
+const String InstanceProcessor::getName() const
+{
+    if(m_patch.isValid())
+    {
+        return String(JucePlugin_Name + std::string(" ") + m_patch.getName());
+    }
+    return String(JucePlugin_Name);
+}
+
 int InstanceProcessor::getNumParameters()
 {
     return int(m_parameters.size());

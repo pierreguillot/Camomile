@@ -17,48 +17,48 @@ public:
     InstanceProcessor();
     ~InstanceProcessor();
 
-    void prepareToPlay(double sampleRate, int samplesPerBlock) override;
-    void releaseResources() override;
-    void processBlock(AudioSampleBuffer&, MidiBuffer&) override;
+    void prepareToPlay(double sampleRate, int samplesPerBlock) final;
+    void releaseResources() final;
+    void processBlock(AudioSampleBuffer&, MidiBuffer&) final;
 
-    AudioProcessorEditor* createEditor() override;
-    bool hasEditor() const override {return true;};
-    const String getName() const override {return String(JucePlugin_Name);};
+    AudioProcessorEditor* createEditor() final;
+    bool hasEditor() const final {return true;};
+    const String getName() const final ;
     
-    int getNumParameters() override;
-    float getParameter(int index) override;
-    void setParameter(int index, float newValue) override;
-    float getParameterDefaultValue(int index) override;
-    const String getParameterName(int index) override;
-    const String getParameterText(int index) override;
-    String getParameterText(int index, int size) override;
-    String getParameterLabel (int index) const override;
-    int getParameterNumSteps(int index) override;
-    bool isParameterAutomatable(int index) const override;
-    bool isParameterOrientationInverted (int index) const override;
-    bool isMetaParameter(int index) const override;
+    int getNumParameters() final;
+    float getParameter(int index) final;
+    void setParameter(int index, float newValue) final;
+    float getParameterDefaultValue(int index) final;
+    const String getParameterName(int index) final;
+    const String getParameterText(int index) final;
+    String getParameterText(int index, int size) final;
+    String getParameterLabel (int index) const final;
+    int getParameterNumSteps(int index) final;
+    bool isParameterAutomatable(int index) const final;
+    bool isParameterOrientationInverted (int index) const final;
+    bool isMetaParameter(int index) const final;
     float getParameterNonNormalized(int index) const;
     void setParameterNonNormalized(int index, float newValue);
     void setParameterNonNormalizedNotifyingHost(int index, float newValue);
     
-    const String getInputChannelName(int index) const override {return String(index + 1);}
-    const String getOutputChannelName(int index) const override {return String(index + 1);}
-    bool isInputChannelStereoPair(int index) const override {return true;}
-    bool isOutputChannelStereoPair(int index) const override {return true;}
+    const String getInputChannelName(int index) const final {return String(index + 1);}
+    const String getOutputChannelName(int index) const final {return String(index + 1);}
+    bool isInputChannelStereoPair(int index) const final {return true;}
+    bool isOutputChannelStereoPair(int index) const final {return true;}
 
-    bool acceptsMidi() const override {return bool(JucePlugin_WantsMidiInput);}
-    bool producesMidi() const override {return bool(JucePlugin_ProducesMidiOutput);}
-    bool silenceInProducesSilenceOut() const override {return false;}
-    double getTailLengthSeconds() const override {return 0.0;}
+    bool acceptsMidi() const final {return bool(JucePlugin_WantsMidiInput);}
+    bool producesMidi() const final {return bool(JucePlugin_ProducesMidiOutput);}
+    bool silenceInProducesSilenceOut() const final {return false;}
+    double getTailLengthSeconds() const final {return 0.0;}
 
-    int getNumPrograms() override {return 1;}
-    int getCurrentProgram() override {return 0;}
-    void setCurrentProgram(int index) override {}
-    const String getProgramName(int index) override {return String();}
-    void changeProgramName(int index, const String& newName) override {}
+    int getNumPrograms() final {return 1;}
+    int getCurrentProgram() final {return 0;}
+    void setCurrentProgram(int index) final {}
+    const String getProgramName(int index) final {return String();}
+    void changeProgramName(int index, const String& newName) final {}
 
-    void getStateInformation(MemoryBlock& destData) override;
-    void setStateInformation(const void* data, int sizeInBytes) override;
+    void getStateInformation(MemoryBlock& destData) final;
+    void setStateInformation(const void* data, int sizeInBytes) final;
     
     void loadPatch(const juce::File& file);
     inline const pd::Patch getPatch() const noexcept {return m_patch;}
