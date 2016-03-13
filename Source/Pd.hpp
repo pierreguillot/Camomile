@@ -44,10 +44,7 @@ namespace pd
     //! @details The wrapper for Pure Data environment.
     class Pd
     {
-    public:
-        //! @brief Gets the current version of the program.
-        static std::string getVersion() {return std::string("0.0.5");}
-        
+    public:        
         //! @brief Adds a path the global search path.
         static std::string getPdVersion();
         

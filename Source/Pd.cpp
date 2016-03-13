@@ -60,8 +60,7 @@ namespace pd
         sys_reopen_audio();
         m_sample_rate = sys_getsr();
         m_console.clear();
-        m_console.push_back({"Camomile " + getVersion()+" for Pure Data "+getPdVersion()+"\n", Post::Type::Log});
-        m_console_changed = true;
+        m_console_changed = true;        
         sys_printhook = reinterpret_cast<t_printhook>(print);
     }
     

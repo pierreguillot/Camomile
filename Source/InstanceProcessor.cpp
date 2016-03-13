@@ -10,6 +10,15 @@
 
 InstanceProcessor::InstanceProcessor() : pd::Instance(pd::Pd::createInstance())
 {
+    static bool initialzed = false;
+    if(!initialzed)
+    {
+        pd::Pd::logToConsole(std::string("Camomile ") +
+                              std::string(JucePlugin_VersionString) +
+                              std::string(" for Pure Data ") +
+                              pd::Pd::getPdVersion());
+        initialzed = true;
+    }
     Gui::addInstance();
     m_parameters.resize(32);
     busArrangement.inputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
