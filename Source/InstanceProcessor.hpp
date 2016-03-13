@@ -117,7 +117,8 @@ private:
     std::set<Listener*>    m_listeners;
     std::vector<Parameter> m_parameters;
     mutable std::mutex     m_mutex;
-    
+    juce::String           m_path;
+
     void parametersChanged();
     std::vector<Listener*> getListeners() const noexcept;
     

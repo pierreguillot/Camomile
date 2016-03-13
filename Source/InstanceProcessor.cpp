@@ -14,6 +14,7 @@ InstanceProcessor::InstanceProcessor() : pd::Instance(pd::Pd::createInstance())
     m_parameters.resize(32);
     busArrangement.inputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
     busArrangement.outputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
+    m_path = juce::File::getCurrentWorkingDirectory().getFullPathName();
 }
 
 InstanceProcessor::~InstanceProcessor()
@@ -230,7 +231,7 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
         }
     }
     
-    for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); i++)
+    for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); ++i)
     {
         send(m_parameters[i].getBindingName(), m_parameters[i].getValueNonNormalized());
     }
@@ -261,6 +262,7 @@ void InstanceProcessor::loadPatch(const juce::File& file)
             else
             {
                 m_patch = pd::Patch();
+                pd::Pd::errorToConsole("Camomile can't find the patch : " + file.getFullPathName().toStdString());
             }
         }
         parametersChanged();
@@ -302,9 +304,12 @@ std::vector<InstanceProcessor::Listener*> InstanceProcessor::getListeners() cons
 
 void InstanceProcessor::getStateInformation(MemoryBlock& destData)
 {
-    XmlElement xml(String("CamomileSettings"));
-    xml.setAttribute(String("name"), m_patch.getName());
-    xml.setAttribute(String("path"), m_patch.getPath());
+    juce::XmlElement xml(String("CamomileSettings"));
+    if(m_patch.isValid())
+    {
+        xml.setAttribute(String("name"), m_patch.getPath());
+        xml.setAttribute(String("path"), m_patch.getName());
+    }
     XmlElement* params = xml.createNewChildElement("params");
     for(size_t i = 0; i < m_parameters.size(); i++)
     {
@@ -325,8 +330,27 @@ void InstanceProcessor::setStateInformation (const void* data, int sizeInBytes)
         {
             String name = xml->getStringAttribute("name");
             String path = xml->getStringAttribute("path");
-            File file(path + File::separatorString + name);
-            loadPatch(file);
+            if(File::isAbsolutePath(path))
+            {
+                File file(path + File::separatorString + name);
+                if(!file.exists())
+                {
+                    file = File(m_path + File::separatorString + name);
+                    if(!file.exists())
+                    {
+                        file = File(File::getCurrentWorkingDirectory().getFullPathName() + File::separatorString + name);
+                        if(!file.exists())
+                        {
+                            file = File(File::getSpecialLocation(juce::File::SpecialLocationType::userDocumentsDirectory).getFullPathName() + File::separatorString + name);
+                            if(!file.exists())
+                            {
+                                file = File(path + File::separatorString + name);
+                            }
+                        }
+                    }
+                }
+                loadPatch(file);
+            }
             
             XmlElement* params = xml->getChildByName(juce::StringRef("params"));
             if(params)

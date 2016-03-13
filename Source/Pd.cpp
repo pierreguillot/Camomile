@@ -130,7 +130,7 @@ namespace pd
     {
         Pd& pd = Pd::get();
         std::lock_guard<std::mutex> guard(pd.m_console_mutex);
-        pd.m_console.push_back({text, Post::Type::Post});
+        pd.m_console.push_back({text + "\n", Post::Type::Post});
         pd.m_console_changed = true;
     }
     
@@ -138,7 +138,7 @@ namespace pd
     {
         Pd& pd = Pd::get();
         std::lock_guard<std::mutex> guard(pd.m_console_mutex);
-        pd.m_console.push_back({text, Post::Type::Log});
+        pd.m_console.push_back({text + "\n", Post::Type::Log});
         pd.m_console_changed = true;
     }
     
@@ -146,7 +146,7 @@ namespace pd
     {
         Pd& pd = Pd::get();
         std::lock_guard<std::mutex> guard(pd.m_console_mutex);
-        pd.m_console.push_back({text, Post::Type::Error});
+        pd.m_console.push_back({text + "\n", Post::Type::Error});
         pd.m_console_changed = true;
     }
     
