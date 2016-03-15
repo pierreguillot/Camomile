@@ -74,9 +74,6 @@ namespace pd
         
         //! @brief Creates a new Instance object.
         static Instance createInstance() noexcept;
-        
-        //! @brief Gets the global sample rate.
-        static size_t getSampleRate() noexcept;
     
     private:
         
@@ -84,7 +81,7 @@ namespace pd
         Pd() noexcept;
         
         //! @brief The Pure Data destructor.
-        ~Pd() noexcept {}
+        ~Pd() noexcept;
         
         //! @brief Gets the singleton of Pure Data.
         static Pd& get() noexcept;
@@ -95,17 +92,27 @@ namespace pd
         //! @brief Unlocks Pure Data.
         static void unlock() noexcept;
         
-        //! @brief Sets the global sample rate.
-        static void setSampleRate(const int samplerate) noexcept;
+        // For Instance
         
+        //! @brief Releases an Instance.
+        static void free(Instance& instance);
+
+        static void releaseDsp(Instance& instance) noexcept;
         
-        std::mutex                  m_mutex;
-        int                         m_sample_rate;
+        static void prepareDsp(Instance& instance,
+                               const long nins,
+                               const long nouts,
+                               const long samplerate) noexcept;
+        
         const int                   m_max_channels = 16;
+        std::mutex                  m_mutex;
+        void*                       m_sample_ins;
+        void*                       m_sample_outs;
         
         std::mutex                  m_console_mutex;
         bool                        m_console_changed;
         std::vector<Post>           m_console;
+        
         static void print(const char* s);
         
         friend class Instance;

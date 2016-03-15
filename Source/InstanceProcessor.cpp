@@ -197,16 +197,12 @@ void InstanceProcessor::parametersChanged()
 
 void InstanceProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    lock();
     prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(), sampleRate, samplesPerBlock);
-    unlock();
 }
 
 void InstanceProcessor::releaseResources()
 {
-    lock();
     releaseDsp();
-    unlock();
 }
 
 void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
@@ -216,11 +212,11 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
         buffer.clear(i, 0, buffer.getNumSamples());
     }
     
-    lock();
     MidiMessage message;
-    MidiBuffer::Iterator it (midiMessages);
+    MidiBuffer::Iterator it(midiMessages);
     int samplePosition = buffer.getNumSamples();
-    while(it.getNextEvent (message, samplePosition))
+    lock();
+    while(it.getNextEvent(message, samplePosition))
     {
         if(message.isNoteOn())
         {
@@ -275,7 +271,7 @@ void InstanceProcessor::loadPatch(const juce::File& file)
             }
         }
         parametersChanged();
-        prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(), getSampleRate(), getBlockSize());
+        prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(), AudioProcessor::getSampleRate(), getBlockSize());
         
         std::vector<Listener*> listeners = getListeners();
         for(auto it : listeners)

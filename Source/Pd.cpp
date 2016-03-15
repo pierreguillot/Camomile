@@ -59,7 +59,7 @@ namespace pd
         pd_init();
         sys_set_audio_api(API_DUMMY);
         sys_searchpath = NULL;
-        m_sample_rate  = 0;
+        
         int indev[MAXAUDIOINDEV], inch[MAXAUDIOINDEV],
         outdev[MAXAUDIOOUTDEV], outch[MAXAUDIOOUTDEV];
         indev[0] = outdev[0] = DEFAULTAUDIODEV;
@@ -69,7 +69,22 @@ namespace pd
                                1, outdev, 1, outch, 44100, -1, 1, DEFDACBLKSIZE);
         sched_set_using_audio(SCHED_AUDIO_CALLBACK);
         sys_reopen_audio();
-        m_sample_rate = sys_getsr();
+        m_sample_ins    = sys_soundin;
+        m_sample_outs   = sys_soundout;        
+        sys_soundin     = nullptr;
+        sys_soundout    = nullptr;
+    }
+    
+    Pd::~Pd() noexcept
+    {
+        if(m_sample_ins)
+        {
+            freebytes(m_sample_ins, (sys_inchannels ? sys_inchannels : 2) * (DEFDACBLKSIZE*sizeof(t_sample)));
+        }
+        if(m_sample_outs)
+        {
+            freebytes(m_sample_outs, (sys_outchannels ? sys_outchannels : 2) * (DEFDACBLKSIZE*sizeof(t_sample)));
+        }
     }
     
     Pd& Pd::get() noexcept
@@ -189,37 +204,6 @@ namespace pd
         return pd.m_console_changed;
     }
     
-    void Pd::setSampleRate(const int samplerate) noexcept
-    {
-        Pd& pd = Pd::get();
-        if(pd.m_sample_rate != samplerate)
-        {
-            sys_verbose = 0;
-            t_atom av;
-            av.a_type = A_FLOAT;
-            av.a_w.w_float = 0;
-            pd_typedmess((t_pd *)gensym("pd")->s_thing, gensym("dsp"), 1, &av);
-            
-            int indev[MAXAUDIOINDEV], inch[MAXAUDIOINDEV],
-            outdev[MAXAUDIOOUTDEV], outch[MAXAUDIOOUTDEV];
-            indev[0] = outdev[0] = DEFAULTAUDIODEV;
-            inch[0] = pd.m_max_channels;
-            outch[0] = pd.m_max_channels;
-            sys_set_audio_settings(1, indev, 1, inch,
-                                   1, outdev, 1, outch, samplerate, -1, 1, DEFDACBLKSIZE);
-            sched_set_using_audio(SCHED_AUDIO_CALLBACK);
-            sys_reopen_audio();
-            pd.m_sample_rate = sys_getsr();
-            sys_verbose = 1;
-        }
-    }
-    
-    size_t Pd::getSampleRate() noexcept
-    {
-        Pd& pd = Pd::get();
-        return pd.m_sample_rate;
-    }
-    
     void Pd::lock() noexcept
     {
         Pd& pd = Pd::get();
@@ -239,6 +223,26 @@ namespace pd
         Instance instance(pdinstance_new());
         pd.m_mutex.unlock();
         return instance;
+    }
+    
+    void Pd::free(Instance& instance)
+    {
+        Pd& pd = Pd::get();
+        std::lock_guard<std::mutex> guard(pd.m_mutex);
+        pdinstance_free(reinterpret_cast<t_pdinstance *>(instance.m_ptr));
+    }
+    
+    void Pd::releaseDsp(Instance& instance) noexcept
+    {
+        ;
+    }
+    
+    void Pd::prepareDsp(Instance& instance,
+                    const long nins,
+                    const long nouts,
+                    const long samplerate) noexcept
+    {
+        ;
     }
 }
 

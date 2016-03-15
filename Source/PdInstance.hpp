@@ -84,6 +84,9 @@ namespace pd
         //! @brief Retrieves if the Instance is valid.
         bool isValid() const noexcept;
         
+        //! @brief Retrieves the sample rate of the Instance.
+        long getSampleRate() const noexcept;
+        
     protected:
         
         //! @brief Locks Instance.
@@ -93,7 +96,6 @@ namespace pd
         void unlock() noexcept;
         
         //! @brief Prepares the digital signal processing chain of the Instance.
-        //! @details You should locks the Instance to ensure thread safety.
         void prepareDsp(const int nins, const int nouts, const int samplerate, const int nsamples) noexcept;
         
         //! @brief Performs the digital signal processing chain of the Instance.
@@ -101,7 +103,6 @@ namespace pd
         void performDsp(int nsamples, const int nins, const float** inputs, const int nouts, float** outputs) noexcept;
         
         //! @brief Releases the digital signal processing chain of the Instance.
-        //! @details You should locks the Instance to ensure thread safety.
         void releaseDsp() noexcept;
         
         //! @brief Sends a float to Pure Data.
@@ -137,11 +138,17 @@ namespace pd
         //! Creates a new valid Instance.
         Instance(void* ptr) noexcept;
         
+        //! @brief Release the Instance.
+        void release() noexcept;
+        
         //! @brief Free a Patch.
         void freePatch(Patch& patch);
         
-        void*                m_ptr;
-        std::atomic<size_t>* m_count;
+        void*               m_ptr;
+        std::atomic<long>*  m_count;
+        std::atomic<long>*  m_sample_rate;
+        void*               m_sample_ins;
+        void*               m_sample_outs;
         
         friend class Pd;
         friend class Patch;
