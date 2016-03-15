@@ -115,7 +115,6 @@ namespace pd
     void Instance::prepareDsp(const int nins, const int nouts, const int samplerate, const int nsamples) noexcept
     {
         lock();
-        // seize_io_for_the_moment;
         if(samplerate != m_sample_rate->load())
         {
             sys_verbose = 0;
@@ -231,18 +230,11 @@ namespace pd
 #define MIDI_PORT (channel >> 4)
 #define MIDI_CHANNEL (channel & 0x0f)
     
-    void Instance::sendNoteOn(int channel, int pitch, int velocity) {
+    void Instance::sendNote(int channel, int pitch, int velocity) {
         CHECK_CHANNEL
         CHECK_RANGE_7BIT(pitch)
         CHECK_RANGE_7BIT(velocity)
         inmidi_noteon(MIDI_PORT, MIDI_CHANNEL, pitch, velocity);
-    }
-    
-    void Instance::sendNoteOff(int channel, int pitch, int velocity) {
-        CHECK_CHANNEL
-        CHECK_RANGE_7BIT(pitch)
-        CHECK_RANGE_7BIT(velocity)
-        inmidi_noteon(MIDI_PORT, MIDI_CHANNEL, pitch, 0);
     }
     
     void Instance::sendControlChange(int channel, int controller, int value) {

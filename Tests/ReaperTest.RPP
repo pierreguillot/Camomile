@@ -1,4 +1,4 @@
-<REAPER_PROJECT 0.1 "5.16/OSX64" 1457966855
+<REAPER_PROJECT 0.1 "5.16/OSX64" 1458036614
   RIPPLE 0
   GROUPOVERRIDE 0 0 0
   AUTOXFADE 1
@@ -102,7 +102,7 @@
     TRACKHEIGHT 94 0
     INQ 0 0 0 0.5 100 0 0 100
     NCHAN 16
-    FX 1
+    FX 0
     TRACKID {DB6B281B-83C2-9746-B00C-7094AF227785}
     PERF 0
     MIDIOUT -1
@@ -18195,7 +18195,7 @@
     TRACKHEIGHT 103 0
     INQ 0 0 0 0.5 100 0 0 100
     NCHAN 16
-    FX 1
+    FX 0
     TRACKID {F3EF4685-7878-4E4A-AC47-07A4B075DB37}
     PERF 0
     MIDIOUT -1
@@ -18630,6 +18630,43 @@
         PT 50.37569161 1 0
         PT 50.47569161 0.96124029 0
       >
+      WAK 0
+    >
+  >
+  <TRACK {3EC9C74E-5888-BA4B-80E8-6DE0DC65B9EA}
+    NAME ""
+    PEAKCOL 16576
+    BEAT -1
+    AUTOMODE 0
+    VOLPAN 1 0 -1 -1 1
+    MUTESOLO 0 0 0
+    IPHASE 0
+    ISBUS 0 0
+    BUSCOMP 0 0
+    SHOWINMIX 1 0.6667 0.5 1 0.5 0 0 0
+    FREEMODE 0
+    SEL 1
+    REC 0 0 0 0 0 0 0
+    VU 2
+    TRACKHEIGHT 0 0
+    INQ 0 0 0 0.5 100 0 0 100
+    NCHAN 2
+    FX 0
+    TRACKID {3EC9C74E-5888-BA4B-80E8-6DE0DC65B9EA}
+    PERF 0
+    MIDIOUT -1
+    MAINSEND 1 0
+    <FXCHAIN
+      WNDRECT 353 378 785 387
+      SHOW 1
+      LASTSEL 0
+      DOCKED 0
+      BYPASS 1 0 0
+      <JS LOSER/WhiteNoise ""
+        -120.000000 -12.000000 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+      >
+      FLOATPOS 0 0 0 0
+      FXID {BCFF24F4-A4F6-7E49-AE17-8163B5821200}
       WAK 0
     >
   >

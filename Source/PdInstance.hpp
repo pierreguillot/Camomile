@@ -109,9 +109,7 @@ namespace pd
         //! @details You should locks the Instance to ensure thread safety.
         void send(BindingName const& name, float val) const noexcept;
         
-        static void sendNoteOn(int channel, int pitch, int velocity);
-        
-        static void sendNoteOff(int channel, int pitch, int velocity);
+        static void sendNote(int channel, int pitch, int velocity);
         
         static void sendControlChange(int channel, int controller, int value);
         

@@ -218,13 +218,13 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     lock();
     while(it.getNextEvent(message, samplePosition))
     {
-        if(message.isNoteOn())
+        if(message.isNoteOnOrOff())
         {
-            sendNoteOn(message.getChannel(), message.getNoteNumber(), message.getVelocity());
+            sendNote(message.getChannel(), message.getNoteNumber(), message.getVelocity());
         }
-        if(message.isNoteOff())
+        if(message.isController())
         {
-            sendNoteOff(message.getChannel(), message.getNoteNumber(), message.getVelocity());
+            sendControlChange(message.getChannel(), message.getControllerNumber(), message.getControllerValue());
         }
         if(message.isPitchWheel())
         {
@@ -233,6 +233,10 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
         if(message.isAftertouch())
         {
             sendAfterTouch(message.getChannel(), message.getAfterTouchValue());
+        }
+        if(message.isController())
+        {
+            sendControlChange(message.getChannel(), message.getControllerNumber(), message.getControllerValue());
         }
     }
     

@@ -1,4 +1,4 @@
-#N canvas 1011 127 647 577 10;
+#N canvas 488 45 647 577 10;
 #X obj 185 168 nbx 5 15 0 20 0 0 empty \$0-zaza empty 0 -8 0 10 -262144
 -1 -1 0 256;
 #X obj 54 168 hradio 15 1 0 8 empty \$0-zaza zaza 0 -8 0 10 -262144
@@ -32,8 +32,17 @@
 #X obj 135 357 loadbang;
 #X msg 135 379 1;
 #X obj 133 409 metro 500;
+#X obj 406 149 r pd;
+#X obj 406 171 route dsp;
+#X obj 406 213 samplerate~;
+#X obj 406 255 print samplerate;
+#X obj 406 193 bang;
 #X connect 10 0 11 0;
 #X connect 14 0 15 0;
 #X connect 16 0 17 0;
 #X connect 17 0 18 0;
+#X connect 19 0 20 0;
+#X connect 20 0 23 0;
+#X connect 21 0 22 0;
+#X connect 23 0 21 0;
 #X coords 0 -1 1 1 300 300 2 50 50;
