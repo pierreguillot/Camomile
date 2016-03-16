@@ -40,7 +40,8 @@ void InstanceEditor::paint(Graphics& g)
     const pd::Patch patch = m_processor.getPatch();
     if(patch.isValid())
     {
-        g.drawText(String(patch.getName()).trimCharactersAtEnd(".pd"), 0, 0, getWidth(), 20, juce::Justification::centred);
+        g.drawText(String(patch.getName()).upToLastOccurrenceOf(StringRef(".pd"), false, false),
+                   0, 0, getWidth(), 20, juce::Justification::centred);
     }
     else
     {
