@@ -37,6 +37,9 @@
 #X obj 406 213 samplerate~;
 #X obj 406 255 print samplerate;
 #X obj 406 193 bang;
+#X obj 302 401 camo.subpatch;
+#X obj 313 363 adc~;
+#X obj 302 423 dac~, f 13;
 #X connect 10 0 11 0;
 #X connect 14 0 15 0;
 #X connect 16 0 17 0;
@@ -45,4 +48,8 @@
 #X connect 20 0 23 0;
 #X connect 21 0 22 0;
 #X connect 23 0 21 0;
+#X connect 24 0 26 0;
+#X connect 24 1 26 1;
+#X connect 25 0 24 0;
+#X connect 25 1 24 1;
 #X coords 0 -1 1 1 300 300 2 50 50;
