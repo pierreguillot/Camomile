@@ -117,12 +117,10 @@ namespace pd
         lock();
         if(samplerate != m_sample_rate->load())
         {
-            sys_verbose = 0;
             sys_setchsr(16, 16, samplerate);
             m_sample_ins    = sys_soundin;
             m_sample_outs   = sys_soundout;
             m_sample_rate->store(sys_getsr());
-            sys_verbose = 1;
         }
         sys_dacsr = m_sample_rate->load();
         t_atom av;
