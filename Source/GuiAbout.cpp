@@ -32,7 +32,7 @@ GuiAbout::GuiAbout()
                    "Author :\n"+ String(JucePlugin_Manufacturer) + "\n\n"
                    "Organizations :\nCICM | Université Paris 8 | Labex Arts H2H\n\n"
                    "Web Site :\n" + String(JucePlugin_ManufacturerWebsite)+"/wiki\n\n"
-                   "Credits :\nPure Data by Miller Puckette\nJuce by ROLI Ltd."
+                   "Credits :\nPure Data by Miller Puckette\nJuce by ROLI Ltd.\nlibPD by the Pure Data community"
 #ifdef JucePlugin_Build_VST
                    + "\nVST PlugIn Technology by Steinberg Media Technologies");
 #elif JucePlugin_Build_VST3
