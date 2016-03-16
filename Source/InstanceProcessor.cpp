@@ -474,7 +474,7 @@ void InstanceProcessor::Parameter::setValue(float newValue)
     newValue = std::min(std::max(newValue, 0.f), 1.f);
     if(m_nsteps)
     {
-        const float step = (1.f/ float(m_nsteps));
+        const float step = (1.f/ float(m_nsteps - 1));
         m_value = std::round(newValue / step) * step;
     }
     else

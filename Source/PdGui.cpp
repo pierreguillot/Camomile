@@ -165,11 +165,11 @@ namespace pd
             }
             else if(m_type == Type::HorizontalRadio)
             {
-                return reinterpret_cast<t_hradio *>(m_ptr)->x_number - 1;
+                return reinterpret_cast<t_hradio *>(m_ptr)->x_number;
             }
             else if(m_type == Type::VerticalRadio)
             {
-                return reinterpret_cast<t_vradio *>(m_ptr)->x_number - 1;
+                return reinterpret_cast<t_vradio *>(m_ptr)->x_number;
             }
         }
         return 0.f;
