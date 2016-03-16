@@ -222,33 +222,35 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
         {
             sendNote(message.getChannel(), message.getNoteNumber(), message.getVelocity());
         }
-        if(message.isController())
+        else if(message.isController())
         {
             sendControlChange(message.getChannel(), message.getControllerNumber(), message.getControllerValue());
         }
-        if(message.isPitchWheel())
+        else if(message.isPitchWheel())
         {
             sendPitchBend(message.getChannel(), message.getPitchWheelValue());
         }
-        if(message.isAftertouch())
+        else if(message.isAftertouch())
         {
             sendAfterTouch(message.getChannel(), message.getAfterTouchValue());
         }
-        if(message.isController())
+        else if(message.isProgramChange())
         {
-            sendControlChange(message.getChannel(), message.getControllerNumber(), message.getControllerValue());
+            sendProgramChange(message.getChannel(), message.getProgramChangeNumber());
         }
     }
-    
+    midiMessages.clear();
     for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); ++i)
     {
         send(m_parameters[i].getBindingName(), m_parameters[i].getValueNonNormalized());
     }
+    
+    //midiMessages.addEvent(
     performDsp(buffer.getNumSamples(),
                getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
                getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
     unlock();
-    midiMessages.clear();
+    
 }
 
 AudioProcessorEditor* InstanceProcessor::createEditor()
