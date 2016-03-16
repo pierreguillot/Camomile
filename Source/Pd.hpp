@@ -96,13 +96,6 @@ namespace pd
         
         //! @brief Releases an Instance.
         static void free(Instance& instance);
-
-        static void releaseDsp(Instance& instance) noexcept;
-        
-        static void prepareDsp(Instance& instance,
-                               const long nins,
-                               const long nouts,
-                               const long samplerate) noexcept;
         
         const int                   m_max_channels = 16;
         std::mutex                  m_mutex;

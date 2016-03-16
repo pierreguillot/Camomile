@@ -40,7 +40,6 @@ namespace pd
         sys_printhook = NULL;
         sys_soundin = NULL;
         sys_soundout = NULL;
-        // are all these settings necessary?
         sys_schedblocksize = DEFDACBLKSIZE;
         sys_externalschedlib = 0;
         sys_printtostderr = 0;
@@ -230,19 +229,6 @@ namespace pd
         Pd& pd = Pd::get();
         std::lock_guard<std::mutex> guard(pd.m_mutex);
         pdinstance_free(reinterpret_cast<t_pdinstance *>(instance.m_ptr));
-    }
-    
-    void Pd::releaseDsp(Instance& instance) noexcept
-    {
-        ;
-    }
-    
-    void Pd::prepareDsp(Instance& instance,
-                    const long nins,
-                    const long nouts,
-                    const long samplerate) noexcept
-    {
-        ;
     }
 }
 
