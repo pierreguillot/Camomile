@@ -212,40 +212,81 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
         buffer.clear(i, 0, buffer.getNumSamples());
     }
     
-    MidiMessage message;
-    MidiBuffer::Iterator it(midiMessages);
-    int samplePosition = buffer.getNumSamples();
+    
     lock();
-    while(it.getNextEvent(message, samplePosition))
     {
-        if(message.isNoteOnOrOff())
+        MidiMessage message;
+        MidiBuffer::Iterator it(midiMessages);
+        int position = buffer.getNumSamples();
+        while(it.getNextEvent(message, position))
         {
-            sendNote(message.getChannel(), message.getNoteNumber(), message.getVelocity());
-        }
-        else if(message.isController())
-        {
-            sendControlChange(message.getChannel(), message.getControllerNumber(), message.getControllerValue());
-        }
-        else if(message.isPitchWheel())
-        {
-            sendPitchBend(message.getChannel(), message.getPitchWheelValue());
-        }
-        else if(message.isAftertouch())
-        {
-            sendAfterTouch(message.getChannel(), message.getAfterTouchValue());
-        }
-        else if(message.isProgramChange())
-        {
-            sendProgramChange(message.getChannel(), message.getProgramChangeNumber());
+            if(message.isNoteOnOrOff())
+            {
+                pd::Pd::sendNote(message.getChannel(), message.getNoteNumber(), message.getVelocity());
+            }
+            else if(message.isController())
+            {
+                pd::Pd::sendControlChange(message.getChannel(), message.getControllerNumber(), message.getControllerValue());
+            }
+            else if(message.isPitchWheel())
+            {
+                pd::Pd::sendPitchBend(message.getChannel(), message.getPitchWheelValue());
+            }
+            else if(message.isChannelPressure())
+            {
+                pd::Pd::sendAfterTouch(message.getChannel(), message.getChannelPressureValue());
+            }
+            else if(message.isAftertouch())
+            {
+                pd::Pd::sendPolyAfterTouch(message.getChannel(), message.getNoteNumber(), message.getAfterTouchValue());
+            }
+            else if(message.isProgramChange())
+            {
+                pd::Pd::sendProgramChange(message.getChannel(), message.getProgramChangeNumber());
+            }
         }
     }
+   
     midiMessages.clear();
     for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); ++i)
     {
         send(m_parameters[i].getBindingName(), m_parameters[i].getValueNonNormalized());
     }
     
-    //midiMessages.addEvent(
+    {
+        const int position = buffer.getNumSamples();
+        pd::MidiList::const_iterator it = pd::Pd::getMidiBegin();
+        while(it != pd::Pd::getMidiEnd())
+        {
+            if(it->isNoteOn())
+            {
+                midiMessages.addEvent(MidiMessage::noteOn(it->getChannel(), it->getPitch(), it->getVelocity()), position);
+            }
+            else if(it->isNoteOff())
+            {
+                midiMessages.addEvent(MidiMessage::noteOff(it->getChannel(), it->getPitch(), it->getVelocity()), position);
+            }
+            else if(it->isControlChange())
+            {
+                midiMessages.addEvent(MidiMessage::controllerEvent(it->getChannel(), it->getController(), it->getControl()), position);
+            }
+            else if(it->isPitchBend())
+            {
+                midiMessages.addEvent(MidiMessage::pitchWheel(it->getChannel(), it->getPitch()), position);
+            }
+            else if(it->isAfterTouch())
+            {
+                midiMessages.addEvent(MidiMessage::channelPressureChange(it->getChannel(), it->getAfterTouch()), position);
+            }
+            else if(it->isPolyafterTouch())
+            {
+                midiMessages.addEvent(MidiMessage::aftertouchChange(it->getChannel(), it->getPitch(), it->getAfterTouch()), position);
+            }
+            ++it;
+        }
+        pd::Pd::clearMidi();
+    }
+    
     performDsp(buffer.getNumSamples(),
                getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
                getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());

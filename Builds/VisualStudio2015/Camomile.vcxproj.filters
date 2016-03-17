@@ -523,12 +523,6 @@
     <ClCompile Include="..\..\ThirdParty\PureData\src\s_main.c">
       <Filter>Camomile\PureData\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\s_midi.c">
-      <Filter>Camomile\PureData\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\s_midi_dummy.c">
-      <Filter>Camomile\PureData\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\ThirdParty\PureData\src\s_path.c">
       <Filter>Camomile\PureData\src</Filter>
     </ClCompile>

@@ -133,8 +133,6 @@ OBJECTS := \
   $(OBJDIR)/s_inter_106fd5bd.o \
   $(OBJDIR)/s_loader_499588dc.o \
   $(OBJDIR)/s_main_b40a6202.o \
-  $(OBJDIR)/s_midi_b478c56a.o \
-  $(OBJDIR)/s_midi_dummy_723fbb13.o \
   $(OBJDIR)/s_path_b92dd56e.o \
   $(OBJDIR)/s_print_88f7f34e.o \
   $(OBJDIR)/s_utf8_c2babdba.o \
@@ -599,16 +597,6 @@ $(OBJDIR)/s_loader_499588dc.o: ../../ThirdParty/PureData/src/s_loader.c
 $(OBJDIR)/s_main_b40a6202.o: ../../ThirdParty/PureData/src/s_main.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling s_main.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/s_midi_b478c56a.o: ../../ThirdParty/PureData/src/s_midi.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling s_midi.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/s_midi_dummy_723fbb13.o: ../../ThirdParty/PureData/src/s_midi_dummy.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling s_midi_dummy.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/s_path_b92dd56e.o: ../../ThirdParty/PureData/src/s_path.c

@@ -136,8 +136,6 @@
         <FILE id="EQZawY" name="s_inter.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_inter.c"/>
         <FILE id="WsEHMF" name="s_loader.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_loader.c"/>
         <FILE id="Ic6LsD" name="s_main.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_main.c"/>
-        <FILE id="VtfePp" name="s_midi.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_midi.c"/>
-        <FILE id="EFaawO" name="s_midi_dummy.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_midi_dummy.c"/>
         <FILE id="CfZaK0" name="s_path.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_path.c"/>
         <FILE id="PvtjZi" name="s_print.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_print.c"/>
         <FILE id="vIreZA" name="s_stuff.h" compile="0" resource="0" file="ThirdParty/PureData/src/s_stuff.h"/>

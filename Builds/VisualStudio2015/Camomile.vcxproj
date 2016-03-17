@@ -347,8 +347,6 @@
     <ClCompile Include="..\..\ThirdParty\PureData\src\s_inter.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\s_loader.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\s_main.c"/>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\s_midi.c"/>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\s_midi_dummy.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\s_path.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\s_print.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\s_utf8.c"/>
