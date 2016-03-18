@@ -35,11 +35,14 @@ namespace pd
     Instance::Instance(void* ptr) noexcept :
     m_ptr(ptr),
     m_count(new std::atomic<long>(1)),
-    m_sample_rate(new std::atomic<long>(0)),
+    m_sample_rate(new std::atomic<long>(sys_dacsr)),
     m_sample_ins(nullptr),
     m_sample_outs(nullptr)
     {
-        ;
+        sys_setchsr(16, 16, m_sample_rate->load());
+        m_sample_ins    = sys_soundin;
+        m_sample_outs   = sys_soundout;
+        m_sample_rate->store(sys_getsr());
     }
     
     Instance::Instance(Instance const& other) noexcept :
@@ -122,7 +125,6 @@ namespace pd
             m_sample_outs   = sys_soundout;
             m_sample_rate->store(sys_getsr());
         }
-        sys_dacsr = m_sample_rate->load();
         t_atom av;
         av.a_type = A_FLOAT;
         av.a_w.w_float = 1;
@@ -167,6 +169,7 @@ namespace pd
         pd_setinstance(reinterpret_cast<t_pdinstance *>(m_ptr));
         sys_soundin = reinterpret_cast<t_sample *>(m_sample_ins);
         sys_soundout= reinterpret_cast<t_sample *>(m_sample_outs);
+        sys_dacsr   = m_sample_rate->load();
     }
     
     void Instance::unlock() noexcept
@@ -192,8 +195,7 @@ namespace pd
     {
         Patch patch;
         t_canvas* cnv = nullptr;
-        Pd::lock();
-        pd_setinstance(reinterpret_cast<t_pdinstance *>(m_ptr));
+        lock();
         if(!name.empty() && !path.empty())
         {
             cnv = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym(path.c_str())));
@@ -208,7 +210,7 @@ namespace pd
         {
             patch = Patch(*this, cnv, name, path);
         }
-        Pd::unlock();
+        unlock();
         return patch;
     }
     
