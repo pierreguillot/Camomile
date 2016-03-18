@@ -118,6 +118,7 @@ private:
     std::vector<Parameter> m_parameters;
     mutable std::mutex     m_mutex;
     juce::String           m_path;
+    AudioPlayHead::CurrentPositionInfo m_playinfos;
 
     void parametersChanged();
     std::vector<Listener*> getListeners() const noexcept;

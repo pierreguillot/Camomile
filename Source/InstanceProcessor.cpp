@@ -212,6 +212,11 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
         buffer.clear(i, 0, buffer.getNumSamples());
     }
     
+    AudioPlayHead* playhead = getPlayHead();
+    if(playhead && playhead->getCurrentPosition(m_playinfos))
+    {
+        //post to pd
+    }
     
     lock();
     {

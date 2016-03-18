@@ -1,0 +1,15 @@
+#N canvas 482 93 832 581 10;
+#X obj 51 300 noteout;
+#X obj 47 191 random 127;
+#X obj 127 191 random 127;
+#X obj 53 140 metro;
+#X obj 47 44 tgl 15 0 empty \$0-start Start 17 7 0 10 -262144 -1 -1
+0 1;
+#X obj 53 162 t b b;
+#X connect 1 0 0 0;
+#X connect 2 0 0 1;
+#X connect 3 0 5 0;
+#X connect 4 0 3 0;
+#X connect 5 0 1 0;
+#X connect 5 1 2 0;
+#X coords 0 -1 1 1 300 80 2 10 10;
