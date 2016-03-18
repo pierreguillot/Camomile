@@ -88,6 +88,7 @@ namespace pd
         m_sample_ins    = sys_soundin;
         m_sample_outs   = sys_soundout;
         midiout.reserve(1024);
+        m_console.reserve(256);
         sys_soundin     = nullptr;
         sys_soundout    = nullptr;
     }
@@ -131,21 +132,24 @@ namespace pd
     {
         Pd& pd = Pd::get();
         std::string message(s);
+        std::lock_guard<std::mutex> guard(pd.m_console_mutex);
+        if(pd.m_console.size() >= 256)
+        {
+            pd.m_console.clear();
+        }
         if(message.compare(0, 5, "error"))
         {
-            std::lock_guard<std::mutex> guard(pd.m_console_mutex);
             pd.m_console.push_back({message, Post::Type::Error});
         }
         else if(message.compare(0, 7, "verbose"))
         {
-            std::lock_guard<std::mutex> guard(pd.m_console_mutex);
             pd.m_console.push_back({message, Post::Type::Log});
         }
         else
         {
-            std::lock_guard<std::mutex> guard(pd.m_console_mutex);
             pd.m_console.push_back({message, Post::Type::Post});
         }
+        pd.m_console_changed = true;
 #ifdef DEBUG
         std::cout << s;
 #endif
@@ -250,7 +254,7 @@ namespace pd
     }
     
     // From libPD
-#define CHECK_CHANNEL if (channel < 0) return;
+#define CHECK_CHANNEL if (channel < 0 || channel > 16) return;
 #define CHECK_PORT if (port < 0 || port > 0x0fff) return;
 #define CHECK_RANGE_7BIT(v) if (v < 0 || v > 0x7f) return;
 #define CHECK_RANGE_8BIT(v) if (v < 0 || v > 0xff) return;
@@ -314,13 +318,6 @@ namespace pd
         inmidi_realtimein(port, byte);
     }
     
-#undef CHECK_CHANNEL
-#undef MIDI_PORT
-#undef MIDI_CHANNEL
-#undef CHECK_PORT
-#undef CHECK_RANGE_7BIT
-#undef CHECK_RANGE_8BIT
-    
     void Pd::clearMidi()
     {
         midiout.clear();
@@ -337,36 +334,39 @@ namespace pd
     }
 }
 
+
 extern "C"
 {
+#define MIDIMAP_CHANNEL ((channel > 15) ? 16 : ((channel < 0) ? 1 : channel+1))
+    
     void outmidi_noteon(int port, int channel, int pitch, int velo)
     {
-        midiout.push_back(pd::MidiEvent::Note(static_cast<unsigned char>(channel),static_cast<unsigned char>(pitch),static_cast<unsigned char>(velo)));
+        midiout.push_back(pd::MidiEvent::Note(static_cast<unsigned char>(MIDIMAP_CHANNEL),static_cast<unsigned char>(pitch),static_cast<unsigned char>(velo)));
     }
     
     void outmidi_controlchange(int port, int channel, int ctl, int value)
     {
-        midiout.push_back(pd::MidiEvent::ControlChange(static_cast<unsigned char>(channel),static_cast<unsigned char>(ctl),static_cast<unsigned char>(value)));
+        midiout.push_back(pd::MidiEvent::ControlChange(static_cast<unsigned char>(MIDIMAP_CHANNEL),static_cast<unsigned char>(ctl),static_cast<unsigned char>(value)));
     }
     
     void outmidi_programchange(int port, int channel, int value)
     {
-        midiout.push_back(pd::MidiEvent::ProgramChange(static_cast<unsigned char>(channel),static_cast<unsigned char>(value)));
+        midiout.push_back(pd::MidiEvent::ProgramChange(static_cast<unsigned char>(MIDIMAP_CHANNEL),static_cast<unsigned char>(value)));
     }
     
     void outmidi_pitchbend(int port, int channel, int value)
     {
-        midiout.push_back(pd::MidiEvent::PitchBend(static_cast<unsigned char>(channel),value));
+        midiout.push_back(pd::MidiEvent::PitchBend(static_cast<unsigned char>(MIDIMAP_CHANNEL),value));
     }
     
     void outmidi_aftertouch(int port, int channel, int value)
     {
-        midiout.push_back(pd::MidiEvent::AfterTouch(static_cast<unsigned char>(channel),static_cast<unsigned char>(value)));
+        midiout.push_back(pd::MidiEvent::AfterTouch(static_cast<unsigned char>(MIDIMAP_CHANNEL),static_cast<unsigned char>(value)));
     }
     
     void outmidi_polyaftertouch(int port, int channel, int pitch, int value)
     {
-        midiout.push_back(pd::MidiEvent::PolyafterTouch(static_cast<unsigned char>(channel),static_cast<unsigned char>(pitch),static_cast<unsigned char>(value)));
+        midiout.push_back(pd::MidiEvent::PolyafterTouch(static_cast<unsigned char>(MIDIMAP_CHANNEL),static_cast<unsigned char>(pitch),static_cast<unsigned char>(value)));
     }
     
     void outmidi_byte(int port, int value)
@@ -374,6 +374,13 @@ extern "C"
         midiout.push_back(pd::MidiEvent::Byte(static_cast<unsigned char>(port),static_cast<unsigned char>(value)));
     }
 }
+
+#undef CHECK_CHANNEL
+#undef MIDI_PORT
+#undef MIDI_CHANNEL
+#undef CHECK_PORT
+#undef CHECK_RANGE_7BIT
+#undef CHECK_RANGE_8BIT
 
 
 
