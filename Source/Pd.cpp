@@ -8,8 +8,6 @@
 #include "PdInstance.hpp"
 #include <signal.h>
 
-static std::vector<pd::MidiEvent> midiout;
-
 extern "C"
 {
 #include "../ThirdParty/PureData/src/m_pd.h"
@@ -43,6 +41,12 @@ void glob_midi_properties(t_pd *dummy, t_floatarg flongform) {}
 void glob_midi_dialog(t_pd *dummy, t_symbol *s, int argc, t_atom *argv) {}
 int sys_mididevnametonumber(int output, const char *name) { return 0; }
 void sys_mididevnumbertoname(int output, int devno, char *name, int namesize) {}
+}
+
+static std::vector<pd::MidiEvent>& getMidiOut()
+{
+    static std::vector<pd::MidiEvent> midiout;
+    return midiout;
 }
 
 namespace pd
@@ -87,8 +91,8 @@ namespace pd
         sys_reopen_audio();
         m_sample_ins    = sys_soundin;
         m_sample_outs   = sys_soundout;
-        midiout.reserve(1024);
         m_console.reserve(256);
+        getMidiOut().reserve(1024);
         sys_soundin     = nullptr;
         sys_soundout    = nullptr;
     }
@@ -320,17 +324,17 @@ namespace pd
     
     void Pd::clearMidi()
     {
-        midiout.clear();
+        getMidiOut().clear();
     }
     
     std::vector<MidiEvent>::const_iterator Pd::getMidiBegin()
     {
-        return midiout.cbegin();
+        return getMidiOut().cbegin();
     }
     
     std::vector<MidiEvent>::const_iterator Pd::getMidiEnd()
     {
-        return midiout.cend();
+        return getMidiOut().cend();
     }
 }
 
@@ -341,37 +345,37 @@ extern "C"
     
     void outmidi_noteon(int port, int channel, int pitch, int velo)
     {
-        midiout.push_back(pd::MidiEvent::Note(static_cast<unsigned char>(MIDIMAP_CHANNEL),static_cast<unsigned char>(pitch),static_cast<unsigned char>(velo)));
+        getMidiOut().push_back(pd::MidiEvent::Note(static_cast<unsigned char>(MIDIMAP_CHANNEL),static_cast<unsigned char>(pitch),static_cast<unsigned char>(velo)));
     }
     
     void outmidi_controlchange(int port, int channel, int ctl, int value)
     {
-        midiout.push_back(pd::MidiEvent::ControlChange(static_cast<unsigned char>(MIDIMAP_CHANNEL),static_cast<unsigned char>(ctl),static_cast<unsigned char>(value)));
+        getMidiOut().push_back(pd::MidiEvent::ControlChange(static_cast<unsigned char>(MIDIMAP_CHANNEL),static_cast<unsigned char>(ctl),static_cast<unsigned char>(value)));
     }
     
     void outmidi_programchange(int port, int channel, int value)
     {
-        midiout.push_back(pd::MidiEvent::ProgramChange(static_cast<unsigned char>(MIDIMAP_CHANNEL),static_cast<unsigned char>(value)));
+        getMidiOut().push_back(pd::MidiEvent::ProgramChange(static_cast<unsigned char>(MIDIMAP_CHANNEL),static_cast<unsigned char>(value)));
     }
     
     void outmidi_pitchbend(int port, int channel, int value)
     {
-        midiout.push_back(pd::MidiEvent::PitchBend(static_cast<unsigned char>(MIDIMAP_CHANNEL),value));
+        getMidiOut().push_back(pd::MidiEvent::PitchBend(static_cast<unsigned char>(MIDIMAP_CHANNEL),value));
     }
     
     void outmidi_aftertouch(int port, int channel, int value)
     {
-        midiout.push_back(pd::MidiEvent::AfterTouch(static_cast<unsigned char>(MIDIMAP_CHANNEL),static_cast<unsigned char>(value)));
+        getMidiOut().push_back(pd::MidiEvent::AfterTouch(static_cast<unsigned char>(MIDIMAP_CHANNEL),static_cast<unsigned char>(value)));
     }
     
     void outmidi_polyaftertouch(int port, int channel, int pitch, int value)
     {
-        midiout.push_back(pd::MidiEvent::PolyafterTouch(static_cast<unsigned char>(MIDIMAP_CHANNEL),static_cast<unsigned char>(pitch),static_cast<unsigned char>(value)));
+        getMidiOut().push_back(pd::MidiEvent::PolyafterTouch(static_cast<unsigned char>(MIDIMAP_CHANNEL),static_cast<unsigned char>(pitch),static_cast<unsigned char>(value)));
     }
     
     void outmidi_byte(int port, int value)
     {
-        midiout.push_back(pd::MidiEvent::Byte(static_cast<unsigned char>(port),static_cast<unsigned char>(value)));
+        getMidiOut().push_back(pd::MidiEvent::Byte(static_cast<unsigned char>(port),static_cast<unsigned char>(value)));
     }
 }
 

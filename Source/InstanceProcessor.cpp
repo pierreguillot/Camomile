@@ -258,18 +258,22 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
         send(m_parameters[i].getBindingName(), m_parameters[i].getValueNonNormalized());
     }
     
+    performDsp(buffer.getNumSamples(),
+               getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
+               getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
+    
     {
-        const int position = buffer.getNumSamples();
+        const int position = 1;//buffer.getNumSamples();
         pd::MidiList::const_iterator it = pd::Pd::getMidiBegin();
         while(it != pd::Pd::getMidiEnd())
         {
             if(it->isNoteOn())
             {
-                midiMessages.addEvent(MidiMessage::noteOn(it->getChannel(), it->getPitch(), it->getVelocity()), position);
+                midiMessages.addEvent(MidiMessage::noteOn(it->getChannel(), it->getPitch(), uint8(it->getVelocity())), position);
             }
             else if(it->isNoteOff())
             {
-                midiMessages.addEvent(MidiMessage::noteOff(it->getChannel(), it->getPitch(), it->getVelocity()), position);
+                midiMessages.addEvent(MidiMessage::noteOff(it->getChannel(), it->getPitch(), uint8(it->getVelocity())), position);
             }
             else if(it->isControlChange())
             {
@@ -291,12 +295,7 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
         }
         pd::Pd::clearMidi();
     }
-    
-    performDsp(buffer.getNumSamples(),
-               getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
-               getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
     unlock();
-    
 }
 
 AudioProcessorEditor* InstanceProcessor::createEditor()
