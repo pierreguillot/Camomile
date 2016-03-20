@@ -83,7 +83,7 @@ namespace pd
     //! With the default constructor, the Gui won't be initialized. A valid
     //! Gui should be created via a Patch. The Gui should be used as tempory object,
     //! because it locks the Patch.
-    class Gui : public Object
+    class Gui : public Object, public Smuggler
     {
     public:
         

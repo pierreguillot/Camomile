@@ -66,10 +66,5 @@ namespace pd
     {
         Environment::get().m_mutex.unlock();
     }
-    
-    Tie Environment::createTie(std::string const& name) noexcept
-    {
-        return Tie(z_pd_get_tie(name.c_str()));
-    }
 }
 

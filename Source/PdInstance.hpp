@@ -21,7 +21,7 @@ namespace pd
     //! With the default constructor, the Instance won't be initialized. The Instance has some
     //! kind of smart pointer behavior so when an Instance object is no more useful the object
     //! is deleted.
-    class Instance
+    class Instance : public Smuggler
     {
     public:
         

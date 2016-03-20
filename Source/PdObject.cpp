@@ -215,7 +215,7 @@ namespace pd
             z_symbol* s = z_pd_gui_get_receive_symbol(reinterpret_cast<z_gui *>(getPtr()));
             if(s && s != z_pd_get_symbol("empty"))
             {
-                return Tie(s);
+                return Smuggler::createTie(s);
             }
         }
         return Tie();

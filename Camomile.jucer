@@ -54,16 +54,18 @@
       <FILE id="cuSyHc" name="GuiParameter.hpp" compile="0" resource="0"
             file="Source/GuiParameter.hpp"/>
       <FILE id="GhSj7F" name="Pd.hpp" compile="0" resource="0" file="Source/Pd.hpp"/>
-      <FILE id="U4n3Z5" name="PdEnvironment.cpp" compile="1" resource="0"
-            file="Source/PdEnvironment.cpp"/>
-      <FILE id="pNpime" name="PdEnvironment.hpp" compile="0" resource="0"
-            file="Source/PdEnvironment.hpp"/>
-      <FILE id="E8wfIj" name="PdInstance.cpp" compile="1" resource="0" file="Source/PdInstance.cpp"/>
-      <FILE id="hLjEK4" name="PdInstance.hpp" compile="0" resource="0" file="Source/PdInstance.hpp"/>
       <FILE id="KrA7Gf" name="PdObject.cpp" compile="1" resource="0" file="Source/PdObject.cpp"/>
       <FILE id="RhXGNf" name="PdObject.hpp" compile="0" resource="0" file="Source/PdObject.hpp"/>
       <FILE id="F1GPAl" name="PdPatch.cpp" compile="1" resource="0" file="Source/PdPatch.cpp"/>
       <FILE id="ckHDOJ" name="PdPatch.hpp" compile="0" resource="0" file="Source/PdPatch.hpp"/>
+      <FILE id="E8wfIj" name="PdInstance.cpp" compile="1" resource="0" file="Source/PdInstance.cpp"/>
+      <FILE id="hLjEK4" name="PdInstance.hpp" compile="0" resource="0" file="Source/PdInstance.hpp"/>
+      <FILE id="U4n3Z5" name="PdEnvironment.cpp" compile="1" resource="0"
+            file="Source/PdEnvironment.cpp"/>
+      <FILE id="pNpime" name="PdEnvironment.hpp" compile="0" resource="0"
+            file="Source/PdEnvironment.hpp"/>
+      <FILE id="mHvH9J" name="PdTypes.cpp" compile="1" resource="0" file="Source/PdTypes.cpp"/>
+      <FILE id="ZCE0Hn" name="PdTypes.hpp" compile="0" resource="0" file="Source/PdTypes.hpp"/>
       <FILE id="gBpcHt" name="z_pd.c" compile="1" resource="0" file="Source/z_pd.c"/>
       <FILE id="rm2pE6" name="z_pd.h" compile="0" resource="0" file="Source/z_pd.h"/>
     </GROUP>

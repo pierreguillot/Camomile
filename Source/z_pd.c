@@ -769,14 +769,19 @@ z_tie* z_pd_get_tie(const char* name)
     return (z_tie *)gensym(name);
 }
 
+char const* z_pd_tie_get_name(z_tie const* tie)
+{
+    return tie->s_name;
+}
+
 z_symbol* z_pd_get_symbol(const char* symbol)
 {
     return (z_symbol *)gensym(symbol);
 }
 
-char const* z_pd_symbol_get_name(z_symbol const* symnol)
+char const* z_pd_symbol_get_name(z_symbol const* symbol)
 {
-    return symnol->s_name;
+    return symbol->s_name;
 }
 
 z_list* z_pd_get_list()

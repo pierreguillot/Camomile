@@ -15,7 +15,7 @@ extern "C"
 
 namespace pd
 {
-    struct Instance::Internal
+    struct Instance::Internal : public Smuggler
     {
     public:
         z_instance object;
@@ -61,36 +61,39 @@ namespace pd
             instance->ref->receiveMidiByte(port, value);
         }
         
+        
+        
         static void m_bang(Instance::Internal* instance, z_tie* tie)
         {
-            instance->ref->receiveMessageBang(Tie(tie));
+            instance->ref->receiveMessageBang(createTie(tie));
         }
         
         static void m_float(Instance::Internal* instance, z_tie* tie, z_float f)
         {
-            instance->ref->receiveMessageFloat(Tie(tie), f);
+            instance->ref->receiveMessageFloat(createTie(tie), f);
         }
         
         static void m_symbol(Instance::Internal* instance, z_tie* tie, z_symbol* s)
         {
-            instance->ref->receiveMessageSymbol(Tie(tie), Symbol(s));
+            instance->ref->receiveMessageSymbol(createTie(tie), createSymbol(s));
         }
         
         static void m_gpointer(Instance::Internal* instance, z_tie* tie, z_gpointer *g)
         {
-            instance->ref->receiveMessageGpointer(Tie(tie), Gpointer(g));
+            instance->ref->receiveMessageGpointer(createTie(tie), createGpointer(g));
         }
         
         static void m_list(Instance::Internal* instance, z_tie* tie, z_list *list)
         {
-            instance->ref->receiveMessageList(Tie(tie), List(list));
+            instance->ref->receiveMessageList(createTie(tie), List(list));
         }
         
         static void m_anything(Instance::Internal* instance, z_tie* tie, z_symbol *s, z_list *list)
         {
-            instance->ref->receiveMessageAnything(Tie(tie), Symbol(s), List(list));
+            instance->ref->receiveMessageAnything(createTie(tie), createSymbol(s), List(list));
         }
     };
+    
     // ==================================================================================== //
     //                                          INSTANCE                                    //
     // ==================================================================================== //
@@ -194,33 +197,38 @@ namespace pd
         unlock();
     }
     
+    void Instance::sendMessageBang(Tie const& name) const
+    {
+        z_pd_messagesend_bang(reinterpret_cast<z_tie const *>(getTie(name)));
+    }
+    
     void Instance::sendMessageFloat(Tie const& name, float val) const
     {
-        z_pd_messagesend_float(reinterpret_cast<z_tie const *>(name.get()), val);
+        z_pd_messagesend_float(reinterpret_cast<z_tie const *>(getTie(name)), val);
     }
     
     void Instance::sendMessageSymbol(Tie const& name, Symbol const& s) const
     {
-        z_pd_messagesend_symbol(reinterpret_cast<z_tie const *>(name.get()),
-                                reinterpret_cast<z_symbol const *>(s.get()));
+        z_pd_messagesend_symbol(reinterpret_cast<z_tie const *>(getTie(name)),
+                                reinterpret_cast<z_symbol const *>(getSymbol(s)));
     }
     
     void Instance::sendMessageGpointer(Tie const& name, Gpointer const& g) const
     {
-        z_pd_messagesend_gpointer(reinterpret_cast<z_tie const *>(name.get()),
-                                reinterpret_cast<z_gpointer const *>(g.get()));
+        z_pd_messagesend_gpointer(reinterpret_cast<z_tie const *>(getTie(name)),
+                                  reinterpret_cast<z_gpointer const *>(getGpointer(g)));
     }
     
     void Instance::sendMessageList(Tie const& name, List const& list) const
     {
-        z_pd_messagesend_list(reinterpret_cast<z_tie const *>(name.get()),
+        z_pd_messagesend_list(reinterpret_cast<z_tie const *>(getTie(name)),
                               reinterpret_cast<z_list const *>(list.get()));
     }
     
     void Instance::sendMessageAnything(Tie const& name, Symbol const& s, List const& list) const
     {
-        z_pd_messagesend_anything(reinterpret_cast<z_tie const *>(name.get()),
-                                  reinterpret_cast<z_symbol const *>(s.get()),
+        z_pd_messagesend_anything(reinterpret_cast<z_tie const *>(getTie(name)),
+                                  reinterpret_cast<z_symbol const *>(getSymbol(s)),
                                   reinterpret_cast<z_list const *>(list.get()));
     }
     
