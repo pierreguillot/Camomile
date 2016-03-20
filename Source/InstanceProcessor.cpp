@@ -10,13 +10,10 @@
 
 InstanceProcessor::InstanceProcessor() : pd::Instance("Camomile")
 {
-    int todo;
-    /*
-    pd::Environment::logToConsole(std::string("Camomile ") +
+    consoleLog(std::string("Camomile ") +
                          std::string(JucePlugin_VersionString) +
                          std::string(" for Pure Data ") +
                          pd::Environment::getPdVersion());
-     */
     Gui::addInstance();
     m_parameters.resize(32);
     busArrangement.inputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
@@ -170,10 +167,13 @@ void InstanceProcessor::parametersChanged()
                 {
                     if(gui.getName() == m_parameters[i].getName(512))
                     {
-                        int todo;
-                        /*
-                        pd::Environment::errorToConsole("Warning in patch " + m_patch.getName() + ": "  + gui.getName() + " parameter is duplicated !");
-                         */
+                        consoleError("Warning in patch " + m_patch.getName() + ": "  + gui.getName() + " parameter is duplicated !");
+                        ok = false;
+                        break;
+                    }
+                    else if(gui.getReceiveTie() == m_parameters[i].getTie())
+                    {
+                        consoleError("Warning in patch " + m_patch.getName() + ": "  + gui.getName() + " parameter shares the same receive symbol with another parameter !");
                         ok = false;
                         break;
                     }
@@ -338,10 +338,7 @@ void InstanceProcessor::loadPatch(const juce::File& file)
             else
             {
                 m_patch = pd::Patch();
-                int todo;
-                /*
-                pd::Pd::errorToConsole("Camomile can't find the patch : " + file.getFullPathName().toStdString());
-                 */
+                consoleError("Camomile can't find the patch : " + file.getFullPathName().toStdString());
             }
         }
         parametersChanged();

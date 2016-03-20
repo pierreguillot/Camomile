@@ -63,6 +63,7 @@ namespace pd
         
         
         
+        
         static void m_bang(Instance::Internal* instance, z_tie* tie)
         {
             instance->ref->receiveMessageBang(createTie(tie));
@@ -196,6 +197,43 @@ namespace pd
         z_pd_instance_dsp_release(reinterpret_cast<z_instance *>(m_ptr));
         unlock();
     }
+    
+    
+    
+    
+    
+    void Instance::consolePost(std::string const& message) noexcept
+    {
+        lock();
+        z_pd_console_post(message.c_str());
+        unlock();
+    }
+    
+    void Instance::consoleLog(std::string const& message) noexcept
+    {
+        lock();
+        z_pd_console_log(message.c_str());
+        unlock();
+    }
+    
+    void Instance::consoleError(std::string const& message) noexcept
+    {
+        lock();
+        z_pd_console_error(message.c_str());
+        unlock();
+    }
+    
+    void Instance::consoleFatal(std::string const& message) noexcept
+    {
+        lock();
+        z_pd_console_fatal(message.c_str());
+        unlock();
+    }
+    
+    
+    
+    
+    
     
     void Instance::sendMessageBang(Tie const& name) const
     {

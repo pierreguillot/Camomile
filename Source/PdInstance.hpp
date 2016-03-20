@@ -58,6 +58,17 @@ namespace pd
         //! @brief Retrieves the sample rate of the Instance.
         int getSampleRate() const noexcept;
         
+        //! @brief Sends a normal post to the console Pure Data.
+        void consolePost(std::string const& message) noexcept;
+        
+        //! @brief Sends a log post to the console Pure Data.
+        void consoleLog(std::string const& message) noexcept;
+        
+        //! @brief Sends an error to the console Pure Data.
+        void consoleError(std::string const& message) noexcept;
+        
+        //! @brief Sends a fatal error to the console Pure Data.
+        void consoleFatal(std::string const& message) noexcept;
     protected:
         
         //! @brief The real constructor.
@@ -78,11 +89,6 @@ namespace pd
         
         //! @brief Releases the digital signal processing chain of the Instance.
         void releaseDsp() noexcept;
-        
-        
-        
-        //! @brief Sends a post.
-        void sendPost(std::string const& message) const;
         
         //! @brief Receives a post.
         virtual void receivePost(std::string const& message) {};

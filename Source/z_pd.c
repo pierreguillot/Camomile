@@ -300,6 +300,36 @@ void z_pd_searchpath_add(const char* path)
 
 
 
+
+
+
+
+void z_pd_console_post(char const* message)
+{
+    verbose(2, "%s", message);
+}
+
+void z_pd_console_log(char const* message)
+{
+    verbose(3, "%s", message);
+}
+
+void z_pd_console_error(char const* message)
+{
+    verbose(1, "%s", message);
+}
+
+void z_pd_console_fatal(char const* message)
+{
+    verbose(1, "%s", message);
+}
+
+
+
+
+
+
+
 static void z_pd_print(const char* s)
 {
     if(z_current_instance && z_current_instance->z_internal_ptr->z_m_print)

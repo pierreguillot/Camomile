@@ -99,23 +99,6 @@ namespace pd
         inline constexpr Gpointer(void *_ptr) : ptr(_ptr) {}
     };
     
-    
-    //! @brief The smuggler is optimized for internal use.
-    //! @details The class doesn't break the efficiency of creation of some type, but you
-    //! should use it if and only if you know what you do.
-    class Smuggler
-    {
-    public:
-        ~Smuggler() noexcept {}
-    protected:
-        inline static constexpr void const* getTie(Tie const& tie) noexcept {return tie.ptr;}
-        inline static constexpr Tie createTie(void *ptr) noexcept {return Tie(ptr);}
-        inline static constexpr void const* getSymbol(Symbol const& symbol) noexcept {return symbol.ptr;}
-        inline static constexpr Symbol createSymbol(void *ptr) noexcept {return Symbol(ptr);}
-        inline static constexpr void const* getGpointer(Gpointer const& gpointer) noexcept {return gpointer.ptr;}
-        inline static constexpr Gpointer createGpointer(void *ptr) noexcept {return Gpointer(ptr);}
-    };
-    
     // ==================================================================================== //
     //                                      LIST                                          //
     // ==================================================================================== //
@@ -133,6 +116,23 @@ namespace pd
         inline void const* get() const noexcept{return ptr;}
     private:
         void* ptr;
+    };
+    
+    
+    //! @brief The smuggler is optimized for internal use.
+    //! @details The class doesn't break the efficiency of creation of some type, but you
+    //! should use it if and only if you know what you do.
+    class Smuggler
+    {
+    public:
+        ~Smuggler() noexcept {}
+    protected:
+        inline static constexpr void const* getTie(Tie const& tie) noexcept {return tie.ptr;}
+        inline static constexpr Tie createTie(void *ptr) noexcept {return Tie(ptr);}
+        inline static constexpr void const* getSymbol(Symbol const& symbol) noexcept {return symbol.ptr;}
+        inline static constexpr Symbol createSymbol(void *ptr) noexcept {return Symbol(ptr);}
+        inline static constexpr void const* getGpointer(Gpointer const& gpointer) noexcept {return gpointer.ptr;}
+        inline static constexpr Gpointer createGpointer(void *ptr) noexcept {return Gpointer(ptr);}
     };
 }
 

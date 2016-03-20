@@ -114,6 +114,23 @@ Z_PD_EXTERN void z_pd_searchpath_add(const char* path);
 
 
 
+//! @brief Sends a normal post to the console Pure Data.
+Z_PD_EXTERN void z_pd_console_post(char const* message);
+
+//! @brief Sends a log post to the console Pure Data.
+Z_PD_EXTERN void z_pd_console_log(char const* message);
+
+//! @brief Sends an error to the console Pure Data.
+Z_PD_EXTERN void z_pd_console_error(char const* message);
+
+//! @brief Sends a fatal error to the console Pure Data.
+Z_PD_EXTERN void z_pd_console_fatal(char const* message);
+
+
+
+
+
+
 //! @brief Creates a new instance.
 Z_PD_EXTERN z_instance* z_pd_instance_new(size_t size,
                                           z_hook_print mprint,
