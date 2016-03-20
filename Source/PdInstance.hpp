@@ -26,21 +26,6 @@ namespace pd
     class Patch;
     class Pd;
     
-    class BindingName
-    {
-    public:
-        BindingName(void *_ptr) : ptr(_ptr) {}
-        BindingName(BindingName const& other) : ptr(other.ptr) {}
-        BindingName& operator=(BindingName const& other) {ptr = other.ptr; return *this;}
-        bool operator!=(void* _ptr) const noexcept {return _ptr != ptr;}
-        bool operator==(void* _ptr) const noexcept {return _ptr == ptr;}
-        bool operator!=(BindingName const& other)const noexcept {return other.ptr != ptr;}
-        bool operator==(BindingName const& other) const noexcept{return other.ptr == ptr;}
-    private:
-        void* ptr;
-        friend class Instance;
-    };
-    
     // ==================================================================================== //
     //                                          INSTANCE                                    //
     // ==================================================================================== //
@@ -104,10 +89,6 @@ namespace pd
         
         //! @brief Releases the digital signal processing chain of the Instance.
         void releaseDsp() noexcept;
-        
-        //! @brief Sends a float to Pure Data.
-        //! @details You should locks the Instance to ensure thread safety.
-        void send(BindingName const& name, float val) const noexcept;
         
         //! @brief Creates a Patch.
         Patch createPatch(std::string const& name, std::string const& path);

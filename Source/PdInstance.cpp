@@ -151,15 +151,6 @@ namespace pd
         
     }
     
-    void Instance::send(BindingName const& name, float val) const noexcept
-    {
-        t_symbol* sy = reinterpret_cast<t_symbol*>(name.ptr);
-        if(sy && sy->s_thing)
-        {
-            pd_float((t_pd *)sy->s_thing, val);
-        }
-    }
-    
     void Instance::lock() noexcept
     {
         Pd::lock();

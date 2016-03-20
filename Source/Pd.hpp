@@ -97,6 +97,24 @@ namespace pd
     };
     
     // ==================================================================================== //
+    //                                      BINDING NAME                                    //
+    // ==================================================================================== //
+    class BindingName
+    {
+    public:
+        inline constexpr BindingName(void *_ptr) : ptr(_ptr) {}
+        inline BindingName(BindingName const& other) : ptr(other.ptr) {}
+        inline BindingName& operator=(BindingName const& other) {ptr = other.ptr; return *this;}
+        inline bool operator!=(void* _ptr) const noexcept {return _ptr != ptr;}
+        inline bool operator==(void* _ptr) const noexcept {return _ptr == ptr;}
+        inline bool operator!=(BindingName const& other)const noexcept {return other.ptr != ptr;}
+        inline bool operator==(BindingName const& other) const noexcept{return other.ptr == ptr;}
+    private:
+        void* ptr;
+        friend class Pd;
+    };
+    
+    // ==================================================================================== //
     //                                      PD                                              //
     // ==================================================================================== //
     
@@ -136,7 +154,9 @@ namespace pd
         static Instance createInstance() noexcept;
         
         
-        
+        //! @brief Sends a float to Pure Data.
+        //! @details You should locks the Instance to ensure thread safety.
+        static void send(BindingName const& name, float val) noexcept;
         
         static void sendNote(int channel, int pitch, int velocity);
         
@@ -190,14 +210,10 @@ namespace pd
         
         const int                   m_max_channels = 16;
         std::mutex                  m_mutex;
-        void*                       m_sample_ins;
-        void*                       m_sample_outs;
         
         std::mutex                  m_console_mutex;
         bool                        m_console_changed;
         std::vector<Post>           m_console;
-        
-        static void print(const char* s);
         
         friend class Instance;
     };

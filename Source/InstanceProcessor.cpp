@@ -255,7 +255,7 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     midiMessages.clear();
     for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); ++i)
     {
-        send(m_parameters[i].getBindingName(), m_parameters[i].getValueNonNormalized());
+        pd::Pd::send(m_parameters[i].getBindingName(), m_parameters[i].getValueNonNormalized());
     }
     
     performDsp(buffer.getNumSamples(),
@@ -263,7 +263,7 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
                getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
     
     {
-        const int position = 1;//buffer.getNumSamples();
+        const int position = buffer.getNumSamples() - 1;
         pd::MidiList::const_iterator it = pd::Pd::getMidiBegin();
         while(it != pd::Pd::getMidiEnd())
         {
