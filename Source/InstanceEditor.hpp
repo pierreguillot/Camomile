@@ -25,6 +25,7 @@ private:
     InstanceProcessor&  m_processor;
     GuiFlowerButton     m_button;
     GuiPatcher          m_patcher;
+    GuiWindow           m_window;
     Toolbar             m_menu;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(InstanceEditor)

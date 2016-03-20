@@ -73,10 +73,10 @@ void InstanceEditor::buttonClicked(Button* button)
         const int result = m.showAt(button->getScreenBounds().translated(-2, 3));
         if(result == 1)
         {
-            Gui::getWindow().setContentOwned(new GuiAbout(), false);
-            Gui::getWindow().setName("About Camomile " + String(JucePlugin_VersionString));
-            Gui::getWindow().addToDesktop();
-            Gui::getWindow().grabKeyboardFocus();
+            m_window.setContentOwned(new GuiAbout(), false);
+            m_window.setName("About Camomile " + String(JucePlugin_VersionString));
+            m_window.addToDesktop();
+            m_window.grabKeyboardFocus();
         }
         else if(result == 2)
         {
@@ -125,10 +125,10 @@ void InstanceEditor::buttonClicked(Button* button)
         }
         else if(result == 5)
         {
-            Gui::getWindow().setContentOwned(new GuiConsole(), false);
-            Gui::getWindow().setName("Camomile Console");
-            Gui::getWindow().addToDesktop();
-            Gui::getWindow().grabKeyboardFocus();
+            m_window.setContentOwned(new GuiConsole(), false);
+            m_window.setName("Camomile Console");
+            m_window.addToDesktop();
+            m_window.grabKeyboardFocus();
         }
         else if(result == 6)
         {

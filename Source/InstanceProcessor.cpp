@@ -14,7 +14,6 @@ InstanceProcessor::InstanceProcessor() : pd::Instance("Camomile")
                          std::string(JucePlugin_VersionString) +
                          std::string(" for Pure Data ") +
                          pd::Environment::getPdVersion());
-    Gui::addInstance();
     m_parameters.resize(32);
     busArrangement.inputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
     busArrangement.outputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
@@ -23,7 +22,6 @@ InstanceProcessor::InstanceProcessor() : pd::Instance("Camomile")
 
 InstanceProcessor::~InstanceProcessor()
 {
-    Gui::removeInstance();
     std::lock_guard<std::mutex> guard(m_mutex);
     m_listeners.clear();
 }

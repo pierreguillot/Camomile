@@ -10,8 +10,6 @@
 //                                          GUI                                         //
 // ==================================================================================== //
 
-GuiWindow* Gui::m_window = nullptr;
-
 Font Gui::getFont()
 {
 #ifdef __APPLE__
@@ -45,38 +43,6 @@ Colour const& Gui::getColorInv() noexcept
 {
     static Colour c(Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
     return c;
-}
-
-size_t& Gui::getCounter() noexcept
-{
-    static size_t counter;
-    return counter;
-}
-
-void Gui::addInstance() noexcept
-{
-    int tochange;
-    ++getCounter();
-    if(m_window == nullptr)
-    {
-        m_window = new GuiWindow();
-    }
-}
-
-void Gui::removeInstance() noexcept
-{
-    --getCounter();
-    if(getCounter() == 0 && m_window)
-    {
-        m_window->removeFromDesktop();
-        delete m_window;
-        m_window = nullptr;
-    }
-}
-
-GuiWindow& Gui::getWindow() noexcept
-{
-    return *m_window;
 }
 
 
