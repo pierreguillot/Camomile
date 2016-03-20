@@ -459,7 +459,7 @@ void z_pd_instance_dsp_perform(z_instance* instance, int nsamples,
                                const int nouts, z_sample** outputs)
 {
     t_sample *ins = instance->z_internal_ptr->z_inputs;
-    t_sample *outs = instance->z_internal_ptr->z_noutputs;
+    t_sample *outs = instance->z_internal_ptr->z_outputs;
     for(int i = 0; i < nsamples; i += DEFDACBLKSIZE)
     {
         for(int j = 0; j < nins; j++)
@@ -494,15 +494,21 @@ int z_pd_instance_get_samplerate(z_instance* instance)
 z_patch* z_pd_patch_new(const char* name, const char* path)
 {
     t_canvas* cnv = NULL;
-    if(name && !path)
+    if(name && path)
     {
         cnv = (t_canvas *)glob_evalfile(NULL, gensym(name), gensym(path));
-        cnv->gl_edit = 0;
+        if(cnv)
+        {
+            cnv->gl_edit = 0;
+        }
     }
     else if(name)
     {
         cnv = (t_canvas *)glob_evalfile(NULL, gensym(name), gensym(""));
-        cnv->gl_edit = 0;
+        if(cnv)
+        {
+            cnv->gl_edit = 0;
+        }
     }
     return cnv;
 }
@@ -637,7 +643,16 @@ void z_pd_messagesend_float(z_tie const* tie, z_float value)
     }
 }
 
-void z_pd_messagesend_symbol(z_tie const* tie, z_symbol* symbol)
+void z_pd_messagesend_gpointer(z_tie const* tie, z_gpointer const* pointer)
+{
+    t_symbol const* sym = (t_symbol const *)tie;
+    if(sym && sym->s_thing)
+    {
+        pd_pointer((t_pd *)sym->s_thing, (t_gpointer *)pointer);
+    }
+}
+
+void z_pd_messagesend_symbol(z_tie const* tie, z_symbol const* symbol)
 {
     t_symbol const* sym = (t_symbol const *)tie;
     if(sym && sym->s_thing)
@@ -646,7 +661,7 @@ void z_pd_messagesend_symbol(z_tie const* tie, z_symbol* symbol)
     }
 }
 
-void z_pd_messagesend_list(z_tie const* tie, z_list* list)
+void z_pd_messagesend_list(z_tie const* tie, z_list const* list)
 {
     t_symbol const* sym = (t_symbol const *)tie;
     if(sym && sym->s_thing)
@@ -656,7 +671,7 @@ void z_pd_messagesend_list(z_tie const* tie, z_list* list)
     }
 }
 
-void z_pd_messagesend_anything(z_tie const* tie, z_symbol* symbol, z_list* list)
+void z_pd_messagesend_anything(z_tie const* tie, z_symbol const* symbol, z_list const* list)
 {
     t_symbol const* sym = (t_symbol const *)tie;
     if(sym && sym->s_thing)

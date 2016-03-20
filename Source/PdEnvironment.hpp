@@ -22,25 +22,82 @@
 
 namespace pd
 {
-    class Instance;
+    class Environment;
     
     // ==================================================================================== //
-    //                                      ENVIRONMENT                                     //
+    //                                      TIE                                             //
     // ==================================================================================== //
     //! @brief A tie.
     //! @details The wrapper for z_tie struct.
     class Tie
     {
     public:
+        inline constexpr Tie(void *_ptr) : ptr(_ptr) {}
         inline constexpr Tie() : ptr(nullptr) {}
         inline constexpr Tie(Tie const& other) : ptr(other.ptr) {}
         inline Tie& operator=(Tie const& other) {ptr = other.ptr; return *this;}
         inline bool operator!=(Tie const& other)const noexcept {return other.ptr != ptr;}
         inline bool operator==(Tie const& other) const noexcept{return other.ptr == ptr;}
+        inline void const* get() const noexcept{return ptr;}
     private:
-        inline constexpr Tie(void *_ptr) : ptr(_ptr) {}
         void* ptr;
-        friend class Environment;
+    };
+    
+    // ==================================================================================== //
+    //                                      SYMBOL                                          //
+    // ==================================================================================== //
+    //! @brief A symbol.
+    //! @details The wrapper for z_symbol struct.
+    class Symbol
+    {
+    public:
+        inline constexpr Symbol(void *_ptr) : ptr(_ptr) {}
+        inline constexpr Symbol() : ptr(nullptr) {}
+        inline constexpr Symbol(Symbol const& other) : ptr(other.ptr) {}
+        inline Symbol& operator=(Symbol const& other) {ptr = other.ptr; return *this;}
+        inline bool operator!=(Symbol const& other)const noexcept {return other.ptr != ptr;}
+        inline bool operator==(Symbol const& other) const noexcept{return other.ptr == ptr;}
+        inline void const* get() const noexcept{return ptr;}
+    private:
+        void* ptr;
+    };
+    
+    // ==================================================================================== //
+    //                                      SYMBOL                                          //
+    // ==================================================================================== //
+    //! @brief A gpointer.
+    //! @details The wrapper for z_gpointer struct.
+    class Gpointer
+    {
+    public:
+        inline constexpr Gpointer(void *_ptr) : ptr(_ptr) {}
+        inline constexpr Gpointer() : ptr(nullptr) {}
+        inline constexpr Gpointer(Gpointer const& other) : ptr(other.ptr) {}
+        inline Gpointer& operator=(Gpointer const& other) {ptr = other.ptr; return *this;}
+        inline bool operator!=(Gpointer const& other)const noexcept {return other.ptr != ptr;}
+        inline bool operator==(Gpointer const& other) const noexcept{return other.ptr == ptr;}
+        inline void const* get() const noexcept{return ptr;}
+    private:
+        void* ptr;
+    };
+    
+    // ==================================================================================== //
+    //                                      LIST                                          //
+    // ==================================================================================== //
+    //! @brief A gpointer.
+    //! @details The wrapper for z_gpointer struct.
+    class List
+    {
+    public:
+        inline constexpr List(void *_ptr) : ptr(_ptr) {}
+        inline constexpr List() : ptr(nullptr) {}
+        inline constexpr List(List const& other) : ptr(other.ptr) {}
+        inline List& operator=(List const& other) {ptr = other.ptr; return *this;}
+        inline bool operator!=(List const& other)const noexcept {return other.ptr != ptr;}
+        inline bool operator==(List const& other) const noexcept{return other.ptr == ptr;}
+        inline void const* get() const noexcept{return ptr;}
+    private:
+        void* ptr;
     };
     
     // ==================================================================================== //
@@ -61,33 +118,9 @@ namespace pd
         //! @brief Clears all the paths of the global search path.
         static void clearSearchPath() noexcept;
         
-        //! @brief Creates a new Instance object.
-        static Instance createInstance() noexcept;
-        
         //! @brief Creates a new Tie object.
         static Tie createTie(std::string const& name) noexcept;
         
-        //! @brief Sends a float to Pure Data.
-        //! @details You should locks the Instance to ensure thread safety.
-        static void send(Tie const& name, float val) noexcept;
-        
-        static void sendNote(int channel, int pitch, int velocity);
-        
-        static void sendControlChange(int channel, int controller, int value);
-        
-        static void sendProgramChange(int channel, int value);
-        
-        static void sendPitchBend(int channel, int value);
-        
-        static void sendAfterTouch(int channel, int value);
-        
-        static void sendPolyAfterTouch(int channel, int pitch, int value);
-        
-        static void sendMidiByte(int port, int byte);
-        
-        static void sendSysEx(int port, int byte);
-        
-        static void sendSysRealtime(int port, int byte);
     private:
         
         //! @brief The Pure Data contructor.
@@ -104,12 +137,6 @@ namespace pd
         
         //! @brief Unlocks Pure Data.
         static void unlock() noexcept;
-        
-        // For Instance
-        
-        //! @brief Releases an Instance.
-        static void free(Instance& instance);
-        
         
         std::mutex   m_mutex;
         friend class Instance;

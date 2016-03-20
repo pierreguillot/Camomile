@@ -18,9 +18,9 @@ namespace pd
     
     //! @brief The Pure Data instance.
     //! @details The Instance is a wrapper for the Pure Data's native instance.
-    //! With the default constructor, the Instance won't be initialized. A valid
-    //! Instance should be created via Pd. The Instance has some kind of smart
-    //! pointer behavior so when an Instance object is no more useful the object is deleted.
+    //! With the default constructor, the Instance won't be initialized. The Instance has some
+    //! kind of smart pointer behavior so when an Instance object is no more useful the object
+    //! is deleted.
     class Instance
     {
     public:
@@ -50,15 +50,18 @@ namespace pd
         
         //! @brief The destructor.
         //! @details The Instance will be destroyed if no other copy exists.
-        ~Instance() noexcept;
+        virtual ~Instance() noexcept;
         
         //! @brief Retrieves if the Instance is valid.
         bool isValid() const noexcept;
         
         //! @brief Retrieves the sample rate of the Instance.
-        long getSampleRate() const noexcept;
+        int getSampleRate() const noexcept;
         
     protected:
+        
+        //! @brief The real constructor.
+        Instance(const std::string& name) noexcept;
         
         //! @brief Locks Instance.
         void lock() noexcept;
@@ -76,18 +79,112 @@ namespace pd
         //! @brief Releases the digital signal processing chain of the Instance.
         void releaseDsp() noexcept;
         
+        
+        
+        //! @brief Sends a post.
+        void sendPost(std::string const& message) const;
+        
+        //! @brief Receives a post.
+        virtual void receivePost(std::string const& message) {};
+        
+        
+        
+        //! @brief Sends midi note on.
+        void sendMidiNote(int channel, int pitch, int velocity) const;
+        
+        //! @brief Sends midi control change.
+        void sendMidiControlChange(int channel, int controller, int value) const;
+        
+        //! @brief Sends midi program change.
+        void sendMidiProgramChange(int channel, int value) const;
+        
+        //! @brief Sends midi pitch bend.
+        void sendMidiPitchBend(int channel, int value) const;
+        
+        //! @brief Sends midi after touch.
+        void sendMidiAfterTouch(int channel, int value) const;
+        
+        //! @brief Sends midi poly after touch.
+        void sendMidiPolyAfterTouch(int channel, int pitch, int value) const;
+        
+        //! @brief Sends midi byte.
+        void sendMidiByte(int port, int byte) const;
+        
+        //! @brief Sends midi sys ex.
+        void sendMidiSysEx(int port, int byte) const;
+        
+        //! @brief Sends midi sys real time.
+        void sendMidiSysRealtime(int port, int byte) const;
+        
+        //! @brief Receives midi note on.
+        virtual void receiveMidiNoteOn(int port, int channel, int pitch, int velocity) {};
+        
+        //! @brief Receives midi control change.
+        virtual void receiveMidiControlChange(int port, int channel, int control, int value) {}
+        
+        //! @brief Receives midi program change.
+        virtual void receiveMidiProgramChange(int port, int channel, int value) {}
+        
+        //! @brief Receives midi pitch bend.
+        virtual void receiveMidiPitchBend(int port, int channel, int value) {}
+        
+        //! @brief Receives midi after touch.
+        virtual void receiveMidiAfterTouch(int port, int channel, int value) {}
+        
+        //! @brief Receives midi poly after touch.
+        virtual void receiveMidiPolyAfterTouch(int port, int channel, int pitch, int value) {}
+        
+        //! @brief Receives midi byte.
+        virtual void receiveMidiByte(int port, int value) {}
+        
+        
+        
+        
+        //! @brief Sends bang.
+        void sendMessageBang(Tie const& name) const;
+        
+        //! @brief Sends float.
+        void sendMessageFloat(Tie const& name, float f) const;
+        
+        //! @brief Sends symbol.
+        void sendMessageSymbol(Tie const& name, Symbol const& s) const;
+        
+        //! @brief Sends gpointer.
+        void sendMessageGpointer(Tie const& name, Gpointer const& g) const;
+        
+        //! @brief Sends list.
+        void sendMessageList(Tie const& name, List const& list) const;
+        
+        //! @brief Sends anything.
+        void sendMessageAnything(Tie const& name, Symbol const& s, List const& list) const;
+        
+        //! @brief Receives bang.
+        virtual void receiveMessageBang(Tie const& tie) {}
+        
+        //! @brief Receives float.
+        virtual void receiveMessageFloat(Tie const& tie, float f) {}
+        
+        //! @brief Receives symbol.
+        virtual void receiveMessageSymbol(Tie const& tie, Symbol const& s) {}
+        
+        //! @brief Receives gpointer.
+        virtual void receiveMessageGpointer(Tie const& tie, Gpointer const& g) {}
+        
+        //! @brief Receives list.
+        virtual void receiveMessageList(Tie const& tie, List const& list) {}
+        
+        //! @brief Receives anything.
+        virtual void receiveMessageAnything(Tie const& tie, Symbol const& s, List const& list) {}
+        
         //! @brief Creates a Patch.
         Patch createPatch(std::string const& name, std::string const& path);
         
     private:
         
-        //! @brief The constructor for a new Instance.
-        //! Creates a new valid Instance.
-        Instance(void* ptr) noexcept;
+        struct Internal;
         
         //! @brief Release the Instance.
         void release() noexcept;
-        
         //! @brief Free a Patch.
         void freePatch(Patch& patch);
         
@@ -96,6 +193,7 @@ namespace pd
         
         friend class Environment;
         friend class Patch;
+        
     };
 
 }

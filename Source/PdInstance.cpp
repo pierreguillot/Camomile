@@ -10,13 +10,107 @@
 extern "C"
 {
 #include "z_pd.h"
+    
 }
 
 namespace pd
 {
+    struct Instance::Internal
+    {
+    public:
+        z_instance object;
+        Instance*  ref;
+        
+        static void m_print(Instance::Internal* instance, const char *s)
+        {
+            instance->ref->receivePost(s);
+        }
+        
+        static void m_noteon(Instance::Internal* instance, int port, int channel, int pitch, int velocity)
+        {
+            instance->ref->receiveMidiNoteOn(port, channel, pitch, velocity);
+        }
+        
+        static void m_controlchange(Instance::Internal* instance, int port, int channel, int control, int value)
+        {
+            instance->ref->receiveMidiControlChange(port, channel, control, value);
+        }
+        
+        static void m_programchange(Instance::Internal* instance, int port, int channel, int value)
+        {
+            instance->ref->receiveMidiProgramChange(port, channel, value);
+        }
+        
+        static void m_pitchbend(Instance::Internal* instance, int port, int channel, int value)
+        {
+            instance->ref->receiveMidiPitchBend(port, channel, value);
+        }
+        
+        static void m_aftertouch(Instance::Internal* instance, int port, int channel, int value)
+        {
+            instance->ref->receiveMidiAfterTouch(port, channel, value);
+        }
+        
+        static void m_polyaftertouch(Instance::Internal* instance, int port, int channel, int pitch, int value)
+        {
+            instance->ref->receiveMidiPolyAfterTouch(port, channel, pitch, value);
+        }
+        
+        static void m_byte(Instance::Internal* instance, int port, int value)
+        {
+            instance->ref->receiveMidiByte(port, value);
+        }
+        
+        static void m_bang(Instance::Internal* instance, z_tie* tie)
+        {
+            instance->ref->receiveMessageBang(Tie(tie));
+        }
+        
+        static void m_float(Instance::Internal* instance, z_tie* tie, z_float f)
+        {
+            instance->ref->receiveMessageFloat(Tie(tie), f);
+        }
+        
+        static void m_symbol(Instance::Internal* instance, z_tie* tie, z_symbol* s)
+        {
+            instance->ref->receiveMessageSymbol(Tie(tie), Symbol(s));
+        }
+        
+        static void m_gpointer(Instance::Internal* instance, z_tie* tie, z_gpointer *g)
+        {
+            instance->ref->receiveMessageGpointer(Tie(tie), Gpointer(g));
+        }
+        
+        static void m_list(Instance::Internal* instance, z_tie* tie, z_list *list)
+        {
+            instance->ref->receiveMessageList(Tie(tie), List(list));
+        }
+        
+        static void m_anything(Instance::Internal* instance, z_tie* tie, z_symbol *s, z_list *list)
+        {
+            instance->ref->receiveMessageAnything(Tie(tie), Symbol(s), List(list));
+        }
+    };
     // ==================================================================================== //
     //                                          INSTANCE                                    //
     // ==================================================================================== //
+    
+    Instance::Instance(const std::string& name) noexcept
+    {
+        Environment::lock();
+        m_ptr = z_pd_instance_new(sizeof(Instance::Internal),
+                                  (z_hook_print)Instance::Internal::m_print,
+                                  (z_hook_noteon)Instance::Internal::m_noteon,
+                                  (z_hook_controlchange)Instance::Internal::m_controlchange,
+                                  (z_hook_programchange)Instance::Internal::m_programchange,
+                                  (z_hook_pitchbend)Instance::Internal::m_pitchbend,
+                                  (z_hook_aftertouch)Instance::Internal::m_aftertouch,
+                                  (z_hook_polyaftertouch)Instance::Internal::m_polyaftertouch,
+                                  (z_hook_byte)Instance::Internal::m_byte);
+        reinterpret_cast<Instance::Internal*>(m_ptr)->ref = this;
+        m_count = new std::atomic<long>(1);
+        Environment::unlock();
+    }
     
     Instance::Instance() noexcept :
     m_ptr(nullptr),
@@ -25,12 +119,6 @@ namespace pd
         
     }
     
-    Instance::Instance(void* ptr) noexcept :
-    m_ptr(ptr),
-    m_count(new std::atomic<long>(1))
-    {
-        
-    }
     
     Instance::Instance(Instance const& other) noexcept :
     m_ptr(other.m_ptr),
@@ -55,7 +143,9 @@ namespace pd
         if(m_ptr && m_count && m_count->operator--() == 0)
         {
             releaseDsp();
-            Environment::free(*this);
+            lock();
+            z_pd_instance_free(reinterpret_cast<z_instance *>(m_ptr));
+            unlock();
             delete m_count;
             m_ptr           = nullptr;
             m_count         = nullptr;
@@ -104,6 +194,81 @@ namespace pd
         unlock();
     }
     
+    void Instance::sendMessageFloat(Tie const& name, float val) const
+    {
+        z_pd_messagesend_float(reinterpret_cast<z_tie const *>(name.get()), val);
+    }
+    
+    void Instance::sendMessageSymbol(Tie const& name, Symbol const& s) const
+    {
+        z_pd_messagesend_symbol(reinterpret_cast<z_tie const *>(name.get()),
+                                reinterpret_cast<z_symbol const *>(s.get()));
+    }
+    
+    void Instance::sendMessageGpointer(Tie const& name, Gpointer const& g) const
+    {
+        z_pd_messagesend_gpointer(reinterpret_cast<z_tie const *>(name.get()),
+                                reinterpret_cast<z_gpointer const *>(g.get()));
+    }
+    
+    void Instance::sendMessageList(Tie const& name, List const& list) const
+    {
+        z_pd_messagesend_list(reinterpret_cast<z_tie const *>(name.get()),
+                              reinterpret_cast<z_list const *>(list.get()));
+    }
+    
+    void Instance::sendMessageAnything(Tie const& name, Symbol const& s, List const& list) const
+    {
+        z_pd_messagesend_anything(reinterpret_cast<z_tie const *>(name.get()),
+                                  reinterpret_cast<z_symbol const *>(s.get()),
+                                  reinterpret_cast<z_list const *>(list.get()));
+    }
+    
+    void Instance::sendMidiNote(int channel, int pitch, int velocity) const
+    {
+        z_pd_midisend_noteon(channel, pitch, velocity);
+    }
+    
+    void Instance::sendMidiControlChange(int channel, int controller, int value) const
+    {
+        z_pd_midisend_controlchange(channel, controller, value);
+    }
+    
+    void Instance::sendMidiProgramChange(int channel, int value) const
+    {
+        z_pd_midisend_programchange(channel, value);
+    }
+    
+    void Instance::sendMidiPitchBend(int channel, int value) const
+    {
+        z_pd_midisend_pitchbend(channel, value);
+    }
+    
+    void Instance::sendMidiAfterTouch(int channel, int value) const
+    {
+        z_pd_midisend_aftertouch(channel, value);
+    }
+    
+    void Instance::sendMidiPolyAfterTouch(int channel, int pitch, int value) const
+    {
+        z_pd_midisend_polyaftertouch(channel, pitch, value);
+    }
+    
+    void Instance::sendMidiByte(int port, int byte) const
+    {
+        z_pd_midisend_byte(port, byte);
+    }
+    
+    void Instance::sendMidiSysEx(int port, int byte) const
+    {
+        z_pd_midisend_sysex(port, byte);
+    }
+    
+    void Instance::sendMidiSysRealtime(int port, int byte) const
+    {
+        z_pd_midisend_sysrealtimein(port, byte);
+    }
+    
     void Instance::lock() noexcept
     {
         Environment::lock();
@@ -120,7 +285,7 @@ namespace pd
         return bool(m_ptr) && bool(m_count) && bool(m_count->load());
     }
     
-    long Instance::getSampleRate() const noexcept
+    int Instance::getSampleRate() const noexcept
     {
         return z_pd_instance_get_samplerate(reinterpret_cast<z_instance *>(m_ptr));
     }

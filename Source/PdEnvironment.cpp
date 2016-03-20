@@ -67,74 +67,9 @@ namespace pd
         Environment::get().m_mutex.unlock();
     }
     
-    Instance Environment::createInstance() noexcept
-    {
-        lock();
-        Instance instance(z_pd_instance_new(1, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr));
-        unlock();
-        return instance;
-    }
-    
-    void Environment::free(Instance& instance)
-    {
-        lock();
-        z_pd_instance_free(reinterpret_cast<z_instance *>(instance.m_ptr));
-        unlock();
-    }
-    
     Tie Environment::createTie(std::string const& name) noexcept
     {
         return Tie(z_pd_get_tie(name.c_str()));
-    }
-    
-    void Environment::send(Tie const& name, float val) noexcept
-    {
-        z_pd_messagesend_float(reinterpret_cast<z_tie *>(name.ptr), val);
-    }
-    
-    void Environment::sendNote(int channel, int pitch, int velocity)
-    {
-        z_pd_midisend_noteon(channel, pitch, velocity);
-    }
-    
-    void Environment::sendControlChange(int channel, int controller, int value)
-    {
-        z_pd_midisend_controlchange(channel, controller, value);
-    }
-    
-    void Environment::sendProgramChange(int channel, int value)
-    {
-        z_pd_midisend_programchange(channel, value);
-    }
-    
-    void Environment::sendPitchBend(int channel, int value)
-    {
-        z_pd_midisend_pitchbend(channel, value);
-    }
-    
-    void Environment::sendAfterTouch(int channel, int value)
-    {
-        z_pd_midisend_aftertouch(channel, value);
-    }
-    
-    void Environment::sendPolyAfterTouch(int channel, int pitch, int value)
-    {
-        z_pd_midisend_polyaftertouch(channel, pitch, value);
-    }
-    
-    void Environment::sendMidiByte(int port, int byte)
-    {
-        z_pd_midisend_byte(port, byte);
-    }
-    
-    void Environment::sendSysEx(int port, int byte)
-    {
-        z_pd_midisend_sysex(port, byte);
-    }
-    
-    void Environment::sendSysRealtime(int port, int byte)
-    {
-        z_pd_midisend_sysrealtimein(port, byte);
     }
 }
 

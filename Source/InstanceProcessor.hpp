@@ -76,6 +76,27 @@ public:
         virtual void patchChanged() = 0;
     };
 
+protected:
+    
+    void receiveMidiNoteOn(int port, int channel, int pitch, int velocity) final;
+    
+    //! @brief Receives midi control change.
+    void receiveMidiControlChange(int port, int channel, int control, int value) final;
+    
+    //! @brief Receives midi program change.
+    void receiveMidiProgramChange(int port, int channel, int value) final;
+    
+    //! @brief Receives midi pitch bend.
+    void receiveMidiPitchBend(int port, int channel, int value) final;
+    
+    //! @brief Receives midi after touch.
+    void receiveMidiAfterTouch(int port, int channel, int value) final;
+    
+    //! @brief Receives midi poly after touch.
+    void receiveMidiPolyAfterTouch(int port, int channel, int pitch, int value) final;
+    
+    //! @brief Receives midi byte.
+    void receiveMidiByte(int port, int value) final;
 private:
     
     class Parameter : public AudioProcessorParameter
@@ -118,6 +139,7 @@ private:
     std::vector<Parameter> m_parameters;
     mutable std::mutex     m_mutex;
     juce::String           m_path;
+    MidiBuffer             m_midi;
     AudioPlayHead::CurrentPositionInfo m_playinfos;
 
     void parametersChanged();

@@ -8,7 +8,7 @@
 #include "InstanceEditor.hpp"
 #include "LookAndFeel.hpp"
 
-InstanceProcessor::InstanceProcessor() : pd::Instance(pd::Environment::createInstance())
+InstanceProcessor::InstanceProcessor() : pd::Instance("Camomile")
 {
     int todo;
     /*
@@ -198,7 +198,7 @@ void InstanceProcessor::parametersChanged()
 
 void InstanceProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(), sampleRate, samplesPerBlock);
+    prepareDsp(16, 16, sampleRate, samplesPerBlock);
 }
 
 void InstanceProcessor::releaseResources()
@@ -216,11 +216,12 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     AudioPlayHead* playhead = getPlayHead();
     if(playhead && playhead->getCurrentPosition(m_playinfos))
     {
+        int todo;
         //post to pd
     }
-    
     lock();
     {
+        m_midi.clear();
         MidiMessage message;
         MidiBuffer::Iterator it(midiMessages);
         int position = buffer.getNumSamples();
@@ -228,78 +229,86 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
         {
             if(message.isNoteOnOrOff())
             {
-                pd::Environment::sendNote(message.getChannel(), message.getNoteNumber(), message.getVelocity());
+                sendMidiNote(message.getChannel(), message.getNoteNumber(), message.getVelocity());
             }
             else if(message.isController())
             {
-                pd::Environment::sendControlChange(message.getChannel(), message.getControllerNumber(), message.getControllerValue());
+                sendMidiControlChange(message.getChannel(), message.getControllerNumber(), message.getControllerValue());
             }
             else if(message.isPitchWheel())
             {
-                pd::Environment::sendPitchBend(message.getChannel(), message.getPitchWheelValue());
+                sendMidiPitchBend(message.getChannel(), message.getPitchWheelValue());
             }
             else if(message.isChannelPressure())
             {
-                pd::Environment::sendAfterTouch(message.getChannel(), message.getChannelPressureValue());
+                sendMidiAfterTouch(message.getChannel(), message.getChannelPressureValue());
             }
             else if(message.isAftertouch())
             {
-                pd::Environment::sendPolyAfterTouch(message.getChannel(), message.getNoteNumber(), message.getAfterTouchValue());
+                sendMidiPolyAfterTouch(message.getChannel(), message.getNoteNumber(), message.getAfterTouchValue());
             }
             else if(message.isProgramChange())
             {
-                pd::Environment::sendProgramChange(message.getChannel(), message.getProgramChangeNumber());
+                sendMidiProgramChange(message.getChannel(), message.getProgramChangeNumber());
             }
         }
     }
    
-    midiMessages.clear();
+    
     for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); ++i)
     {
-        pd::Environment::send(m_parameters[i].getTie(), m_parameters[i].getValueNonNormalized());
+        sendMessageFloat(m_parameters[i].getTie(), m_parameters[i].getValueNonNormalized());
     }
     
     performDsp(buffer.getNumSamples(),
                getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
                getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
     
-    {
-        int todo;
-        /*
-        const int position = buffer.getNumSamples() - 1;
-        pd::MidiList::const_iterator it = pd::Pd::getMidiBegin();
-        while(it != pd::Pd::getMidiEnd())
-        {
-            if(it->isNoteOn())
-            {
-                midiMessages.addEvent(MidiMessage::noteOn(it->getChannel(), it->getPitch(), uint8(it->getVelocity())), position);
-            }
-            else if(it->isNoteOff())
-            {
-                midiMessages.addEvent(MidiMessage::noteOff(it->getChannel(), it->getPitch(), uint8(it->getVelocity())), position);
-            }
-            else if(it->isControlChange())
-            {
-                midiMessages.addEvent(MidiMessage::controllerEvent(it->getChannel(), it->getController(), it->getControl()), position);
-            }
-            else if(it->isPitchBend())
-            {
-                midiMessages.addEvent(MidiMessage::pitchWheel(it->getChannel(), it->getPitch()), position);
-            }
-            else if(it->isAfterTouch())
-            {
-                midiMessages.addEvent(MidiMessage::channelPressureChange(it->getChannel(), it->getAfterTouch()), position);
-            }
-            else if(it->isPolyafterTouch())
-            {
-                midiMessages.addEvent(MidiMessage::aftertouchChange(it->getChannel(), it->getPitch(), it->getAfterTouch()), position);
-            }
-            ++it;
-        }
-        pd::Pd::clearMidi();
-         */
-    }
+    midiMessages.clear();
+    midiMessages.swapWith(m_midi);
     unlock();
+}
+
+void InstanceProcessor::receiveMidiNoteOn(int port, int channel, int pitch, int velocity)
+{
+    if(velocity)
+    {
+        m_midi.addEvent(MidiMessage::noteOn(channel+1, pitch, uint8(velocity)), 1);
+    }
+    else
+    {
+        m_midi.addEvent(MidiMessage::noteOff(channel+1, pitch, uint8(velocity)), 1);
+    }
+}
+
+void InstanceProcessor::receiveMidiControlChange(int port, int channel, int control, int value)
+{
+    m_midi.addEvent(MidiMessage::controllerEvent(channel+1, control, value), 1);
+}
+
+void InstanceProcessor::receiveMidiProgramChange(int port, int channel, int value)
+{
+    m_midi.addEvent(MidiMessage::programChange(channel+1, value), 1);
+}
+
+void InstanceProcessor::receiveMidiPitchBend(int port, int channel, int value)
+{
+    m_midi.addEvent(MidiMessage::pitchWheel(channel+1, value), 1);
+}
+
+void InstanceProcessor::receiveMidiAfterTouch(int port, int channel, int value)
+{
+    m_midi.addEvent(MidiMessage::channelPressureChange(channel+1, value), 1);
+}
+
+void InstanceProcessor::receiveMidiPolyAfterTouch(int port, int channel, int pitch, int value)
+{
+    m_midi.addEvent(MidiMessage::aftertouchChange(channel+1, pitch, value), 1);
+}
+
+void InstanceProcessor::receiveMidiByte(int port, int value)
+{
+    m_midi.addEvent(MidiMessage(port, value), 1);
 }
 
 AudioProcessorEditor* InstanceProcessor::createEditor()

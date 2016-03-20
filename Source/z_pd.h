@@ -231,14 +231,17 @@ Z_PD_EXTERN void z_pd_messagesend_bang(z_tie const* tie);
 //! @brief Sends a float to Pure Data.
 Z_PD_EXTERN void z_pd_messagesend_float(z_tie const* tie, z_float value);
 
+//! @brief Sends a gpointer to Pure Data.
+Z_PD_EXTERN void z_pd_messagesend_gpointer(z_tie const* tie, z_gpointer const* pointer);
+
 //! @brief Sends a symbol to Pure Data.
-Z_PD_EXTERN void z_pd_messagesend_symbol(z_tie const* tie, z_symbol* symbol);
+Z_PD_EXTERN void z_pd_messagesend_symbol(z_tie const* tie, z_symbol const* symbol);
 
 //! @brief Sends a list to Pure Data.
-Z_PD_EXTERN void z_pd_messagesend_list(z_tie const* tie, z_list* list);
+Z_PD_EXTERN void z_pd_messagesend_list(z_tie const* tie, z_list const* list);
 
 //! @brief Sends a anything to Pure Data.
-Z_PD_EXTERN void z_pd_messagesend_anything(z_tie const* tie, z_symbol* symbol, z_list* list);
+Z_PD_EXTERN void z_pd_messagesend_anything(z_tie const* tie, z_symbol const* symbol, z_list const* list);
 
 
 
