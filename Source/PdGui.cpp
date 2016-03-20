@@ -76,19 +76,17 @@ namespace pd
     
     bool Gui::isParameter() const noexcept
     {
-        return isValid() && !getName().empty() && getBindingName() != Tie();
+        return isValid() && !getName().empty() && getReceiveTie() != Tie();
     }
     
     std::string Gui::getName() const
     {
-        int todo;
-        /*
         if(isValid())
         {
-            t_symbol* s = reinterpret_cast<t_iemgui *>(m_ptr)->x_lab;
+            z_symbol* s = z_pd_gui_get_label(reinterpret_cast<z_gui *>(m_ptr));
             if(s)
             {
-                std::string name(s->s_name);
+                std::string name(z_pd_symbol_get_name(s));
                 if(!name.empty() && name != "empty")
                 {
                     auto pos = name.find("_");
@@ -99,20 +97,18 @@ namespace pd
                     return name;
                 }
             }
-        }*/
+        }
         return std::string();
     }
     
     std::string Gui::getLabel() const
     {
-        int todo;
-        /*
         if(isValid())
         {
-            t_symbol* s = reinterpret_cast<t_iemgui *>(m_ptr)->x_lab;
+            z_symbol* s = z_pd_gui_get_label(reinterpret_cast<z_gui *>(m_ptr));
             if(s)
             {
-                std::string name(s->s_name);
+                std::string name(z_pd_symbol_get_name(s));
                 if(!name.empty() && name != "empty")
                 {
                     auto pos = name.find("_");
@@ -123,22 +119,21 @@ namespace pd
                     }
                 }
             }            
-        }*/
+        }
         return std::string();
     }
     
     
-    Tie Gui::getBindingName() const
+    Tie Gui::getReceiveTie() const
     {
-        int todo;
-        /*
         if(isValid())
         {
-            if(reinterpret_cast<t_iemgui *>(m_ptr)->x_rcv != gensym("empty"))
+            z_symbol* s = z_pd_gui_get_receive_symbol(reinterpret_cast<z_gui *>(m_ptr));
+            if(s && s != z_pd_get_symbol("empty"))
             {
-                return Environment::createTie(reinterpret_cast<t_iemgui *>(m_ptr)->x_rcv->s_name);
+                return Tie(s);
             }
-        }*/
+        }
         return Tie();
     }
     
@@ -146,32 +141,7 @@ namespace pd
     {
         if(isValid())
         {
-            if(m_type == Type::HorizontalSlider)
-            {
-                return 0;
-            }
-            else if(m_type == Type::VerticalSlider)
-            {
-                return 0;
-            }
-            else if(m_type == Type::Number)
-            {
-                return 0;
-            }
-            else if(m_type == Type::Toggle)
-            {
-                return 2;
-            }
-            else if(m_type == Type::HorizontalRadio)
-            {
-                int todo;
-                return 0;//reinterpret_cast<t_hradio *>(m_ptr)->x_number;
-            }
-            else if(m_type == Type::VerticalRadio)
-            {
-                int todo;
-                return 0;// reinterpret_cast<t_vradio *>(m_ptr)->x_number;
-            }
+            return z_pd_gui_get_number_of_steps(reinterpret_cast<z_gui *>(m_ptr));
         }
         return 0.f;
     }
@@ -180,33 +150,7 @@ namespace pd
     {
         if(isValid())
         {
-            if(m_type == Type::HorizontalSlider)
-            {
-                int todo;
-                return 0;// reinterpret_cast<t_hslider *>(m_ptr)->x_min;
-            }
-            else if(m_type == Type::VerticalSlider)
-            {
-                int todo;
-                return 0;// reinterpret_cast<t_vslider *>(m_ptr)->x_min;
-            }
-            else if(m_type == Type::Number)
-            {
-                int todo;
-                return 0;// reinterpret_cast<t_my_numbox *>(m_ptr)->x_min;
-            }
-            else if(m_type == Type::Toggle)
-            {
-                return 0;
-            }
-            else if(m_type == Type::HorizontalRadio)
-            {
-                return 0;
-            }
-            else if(m_type == Type::VerticalRadio)
-            {
-                return 0;
-            }
+            return z_pd_gui_get_minimum_value(reinterpret_cast<z_gui *>(m_ptr));
         }
         return 0.f;
     }
@@ -215,35 +159,7 @@ namespace pd
     {
         if(isValid())
         {
-            if(m_type == Type::HorizontalSlider)
-            {
-                int todo;
-                return 0;// reinterpret_cast<t_hslider *>(m_ptr)->x_max;
-            }
-            else if(m_type == Type::VerticalSlider)
-            {
-                int todo;
-                return 0;// reinterpret_cast<t_vslider *>(m_ptr)->x_max;
-            }
-            else if(m_type == Type::Number)
-            {
-                int todo;
-                return 0;// reinterpret_cast<t_my_numbox *>(m_ptr)->x_max;
-            }
-            else if(m_type == Type::Toggle)
-            {
-                return 1;
-            }
-            else if(m_type == Type::HorizontalRadio)
-            {
-                int todo;
-                return 0;// reinterpret_cast<t_hradio *>(m_ptr)->x_number - 1;
-            }
-            else if(m_type == Type::VerticalRadio)
-            {
-                int todo;
-                return 0;// reinterpret_cast<t_vradio *>(m_ptr)->x_number - 1;
-            }
+            return z_pd_gui_get_maximum_value(reinterpret_cast<z_gui *>(m_ptr));
         }
         return 1.f;
     }
@@ -252,56 +168,33 @@ namespace pd
     {
         if(isValid())
         {
-            if(m_type == Type::HorizontalSlider)
-            {
-                int todo;
-                return 0;// reinterpret_cast<t_hslider *>(m_ptr)->x_fval;
-            }
-            else if(m_type == Type::VerticalSlider)
-            {
-                int todo;
-                return 0;// reinterpret_cast<t_vslider *>(m_ptr)->x_fval;
-            }
-            else if(m_type == Type::Number)
-            {
-                int todo;
-                return 0;// reinterpret_cast<t_my_numbox *>(m_ptr)->x_val;
-            }
-            else if(m_type == Type::Toggle)
-            {
-                int todo;
-                return 0;// reinterpret_cast<t_toggle *>(m_ptr)->x_on;
-            }
-            else if(m_type == Type::HorizontalRadio)
-            {
-                int todo;
-                return 0;// reinterpret_cast<t_hradio *>(m_ptr)->x_on;
-            }
-            else if(m_type == Type::VerticalRadio)
-            {
-                int todo;
-                return 0;// reinterpret_cast<t_vradio *>(m_ptr)->x_on;
-            }
+            return z_pd_gui_get_value(reinterpret_cast<z_gui *>(m_ptr));
         }
         return 0.f;
     }
     
-    std::array<float, 4> Gui::getBounds() const noexcept
+    std::array<int, 4> Gui::getBounds() const noexcept
     {
+        int x = 0, y = 0, w = 0, h = 0;
         if(isValid())
         {
-            return m_patch.getGuiBounds(*this);
+            z_pd_gui_get_bounds(reinterpret_cast<z_gui *>(m_ptr),
+                               reinterpret_cast<z_patch *>(m_patch.m_ptr),
+                               &x, &y, &w, &h);
         }
-        return {0.f, 0.f, 0.f, 0.f};
+        return {x, y, w, h};
     }
     
-    std::array<float, 2> Gui::getLabelPosition() const noexcept
+    std::array<int, 2> Gui::getLabelPosition() const noexcept
     {
+        int x = 0, y = 0;
         if(isValid())
         {
-            return m_patch.getGuiLabelPosition(*this);
+            z_pd_gui_get_label_position(reinterpret_cast<z_gui *>(m_ptr),
+                                reinterpret_cast<z_patch *>(m_patch.m_ptr),
+                                &x, &y);
         }
-        return {0.f, 0.f};
+        return {x, y};
     }
     
     // ==================================================================================== //

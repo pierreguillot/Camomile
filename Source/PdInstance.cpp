@@ -289,26 +289,6 @@ namespace pd
     {
         return z_pd_instance_get_samplerate(reinterpret_cast<z_instance *>(m_ptr));
     }
-    
-    Patch Instance::createPatch(std::string const& name, std::string const& path)
-    {
-        Patch patch;
-        lock();
-        void* cnv = z_pd_patch_new(name.c_str(), path.c_str());
-        if(cnv)
-        {
-            patch = Patch(*this, cnv, name, path);
-        }
-        unlock();
-        return patch;
-    }
-    
-    void Instance::freePatch(Patch &patch)
-    {
-        lock();
-        z_pd_patch_free(reinterpret_cast<z_patch *>(patch.m_ptr));
-        unlock();
-    }
 }
 
 

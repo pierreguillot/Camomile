@@ -35,6 +35,7 @@ Z_PD_EXTERN_STRUCT _internal;
 Z_PD_EXTERN_STRUCT _gpointer;
 Z_PD_EXTERN_STRUCT _glist;
 Z_PD_EXTERN_STRUCT _text;
+Z_PD_EXTERN_STRUCT _iemgui;
 
 typedef float z_sample;
 typedef float z_float;
@@ -45,6 +46,7 @@ typedef struct _internal    z_internal;
 typedef struct _gpointer    z_gpointer;
 typedef struct _glist       z_patch;
 typedef struct _text        z_object;
+typedef struct _iemgui      z_gui;
 
 typedef struct _instance
 {
@@ -167,22 +169,22 @@ z_patch* z_pd_patch_new(const char* name, const char* path);
 void z_pd_patch_free(z_patch* patch);
 
 //! @brief Gets the name of a patch.
-const char* z_pd_patch_get_name(z_patch* patch);
+const char* z_pd_patch_get_name(z_patch const* patch);
 
 //! @brief Gets the path of a patch.
-const char* z_pd_patch_get_path(z_patch* patch);
+const char* z_pd_patch_get_path(z_patch const* patch);
 
 //! @brief Gets the x margin of a patch.
-int z_pd_patch_get_x(z_patch* patch);
+int z_pd_patch_get_x(z_patch const* patch);
 
 //! @brief Gets the x margin of a patch.
-int z_pd_patch_get_y(z_patch* patch);
+int z_pd_patch_get_y(z_patch const* patch);
 
 //! @brief Gets the width of a patch.
-int z_pd_patch_get_width(z_patch* patch);
+int z_pd_patch_get_width(z_patch const* patch);
 
 //! @brief Gets the height of a patch.
-int z_pd_patch_get_height(z_patch* patch);
+int z_pd_patch_get_height(z_patch const* patch);
 
 //! @brief Gets the first object of a patch.
 z_object* z_pd_patch_get_first_object(z_patch* patch);
@@ -190,8 +192,38 @@ z_object* z_pd_patch_get_first_object(z_patch* patch);
 //! @brief Gets the next object of a patch.
 z_object* z_pd_patch_get_next_object(z_patch* patch, z_object* previous);
 
+
+
+
 //! @brief Gets the name of an object.
-z_symbol* z_pd_object_get_name(z_object* object);
+z_symbol* z_pd_object_get_name(z_object const* object);
+
+//! @brief Gets the label of a gui.
+z_symbol* z_pd_gui_get_label(z_gui const* gui);
+
+//! @brief Gets the receive symbol of a gui.
+z_symbol* z_pd_gui_get_receive_symbol(z_gui const* gui);
+
+//! @brief Gets the send symbol of a gui.
+z_symbol* z_pd_gui_get_send_symbol(z_gui const* gui);
+
+//! @brief Gets the maximum value of a gui.
+float z_pd_gui_get_maximum_value(z_gui const* gui);
+
+//! @brief Gets the maximum value of a gui.
+float z_pd_gui_get_minimum_value(z_gui const* gui);
+
+//! @brief Gets the number of steps of a gui.
+int z_pd_gui_get_number_of_steps(z_gui const* gui);
+
+//! @brief Gets the number of steps of a gui.
+float z_pd_gui_get_value(z_gui const* gui);
+
+//! @brief Gets the bounds of a gui.
+void z_pd_gui_get_bounds(z_gui const* gui, z_patch const* patch, int* x, int* y, int* width, int* height);
+
+//! @brief Gets the bounds of a gui.
+void z_pd_gui_get_label_position(z_gui const* gui, z_patch const* patch, int* x, int* y);
 
 
 
@@ -203,6 +235,9 @@ Z_PD_EXTERN z_tie* z_pd_get_tie(const char* name);
 
 //! @brief Retrieves an opaque symbol that can be understood by Pure Data.
 Z_PD_EXTERN z_symbol* z_pd_get_symbol(const char* symbol);
+
+//! @brief Retrieves an opaque symbol that can be understood by Pure Data.
+Z_PD_EXTERN char const* z_pd_symbol_get_name(z_symbol const* symnol);
 
 //! @brief Retrieves an opaque list that can be understood by Pure Data.
 Z_PD_EXTERN z_list* z_pd_get_list();

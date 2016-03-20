@@ -176,22 +176,12 @@ namespace pd
         //! @brief Receives anything.
         virtual void receiveMessageAnything(Tie const& tie, Symbol const& s, List const& list) {}
         
-        //! @brief Creates a Patch.
-        Patch createPatch(std::string const& name, std::string const& path);
-        
     private:
-        
         struct Internal;
-        
-        //! @brief Release the Instance.
         void release() noexcept;
-        //! @brief Free a Patch.
-        void freePatch(Patch& patch);
         
         void*               m_ptr;
         std::atomic<long>*  m_count;
-        
-        friend class Environment;
         friend class Patch;
         
     };

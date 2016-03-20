@@ -11,6 +11,7 @@
 #include "../ThirdParty/PureData/src/g_canvas.h"
 #include "../ThirdParty/PureData/src/s_stuff.h"
 #include "../ThirdParty/PureData/src/m_imp.h"
+#include "../ThirdParty/PureData/src/g_all_guis.h"
 
 
 EXTERN void pd_init(void);
@@ -169,8 +170,14 @@ static t_sample*        z_sample_ins        = NULL;
 static t_sample*        z_sample_outs       = NULL;
 static t_pdinstance*    z_first_instance    = NULL;
 static z_instance*      z_current_instance  = NULL;
-static t_symbol*        z_pd_sym            = NULL;
-static t_symbol*        z_dsp_sym           = NULL;
+static t_symbol*        z_sym_pd            = NULL;
+static t_symbol*        z_sym_dsp           = NULL;
+static z_symbol*        z_sym_hsl           = NULL;
+static z_symbol*        z_sym_vsl           = NULL;
+static z_symbol*        z_sym_tgl           = NULL;
+static z_symbol*        z_sym_nbx           = NULL;
+static z_symbol*        z_sym_vradio        = NULL;
+static z_symbol*        z_sym_hradio        = NULL;
 
 static void z_pd_print(const char* s);
 
@@ -210,8 +217,15 @@ void z_pd_init()
         sys_soundout        = NULL;
         z_current_instance  = NULL;
      
-        z_pd_sym            = gensym("pd");
-        z_dsp_sym           = gensym("dsp");
+        z_sym_pd            = gensym("pd");
+        z_sym_dsp           = gensym("dsp");
+        z_sym_hsl           = gensym("hsl");
+        z_sym_vsl           = gensym("vsl");
+        z_sym_tgl           = gensym("tgl");
+        z_sym_nbx           = gensym("nbx");
+        z_sym_vradio        = gensym("vradio");
+        z_sym_hradio        = gensym("hradio");
+        
         bob_tilde_setup();
         bonk_tilde_setup();
         choice_setup();
@@ -451,7 +465,7 @@ void z_pd_instance_dsp_prepare(z_instance* instance,
     t_atom av;
     av.a_type = A_FLOAT;
     av.a_w.w_float = 1;
-    pd_typedmess((t_pd *)z_pd_sym->s_thing, z_dsp_sym, 1, &av);
+    pd_typedmess((t_pd *)z_sym_pd->s_thing, z_sym_dsp, 1, &av);
 }
 
 void z_pd_instance_dsp_perform(z_instance* instance, int nsamples,
@@ -518,32 +532,32 @@ void z_pd_patch_free(z_patch* patch)
     canvas_free(patch);
 }
 
-const char* z_pd_patch_get_name(z_patch* patch)
+const char* z_pd_patch_get_name(z_patch const* patch)
 {
     return patch->gl_name->s_name;
 }
 
-const char* z_pd_patch_get_path(z_patch* patch)
+const char* z_pd_patch_get_path(z_patch const* patch)
 {
-    return canvas_getdir(patch)->s_name;
+    return canvas_getdir((t_glist *)patch)->s_name;
 }
 
-int z_pd_patch_get_x(z_patch* patch)
+int z_pd_patch_get_x(z_patch const* patch)
 {
     return patch->gl_xmargin;
 }
 
-int z_pd_patch_get_y(z_patch* patch)
+int z_pd_patch_get_y(z_patch const* patch)
 {
     return patch->gl_ymargin;
 }
 
-int z_pd_patch_get_width(z_patch* patch)
+int z_pd_patch_get_width(z_patch const* patch)
 {
     return patch->gl_pixwidth;
 }
 
-int z_pd_patch_get_height(z_patch* patch)
+int z_pd_patch_get_height(z_patch const* patch)
 {
     return patch->gl_pixheight;
 }
@@ -564,14 +578,159 @@ z_object* z_pd_patch_get_next_object(z_patch* patch, z_object* previous)
 
 
 
-z_symbol* z_pd_object_get_name(z_object* object)
+z_symbol* z_pd_object_get_name(z_object const* object)
 {
     return object->te_g.g_pd->c_name;
 }
 
+z_symbol* z_pd_gui_get_label(z_gui const* gui)
+{
+    return gui->x_lab;
+}
 
+z_symbol* z_pd_gui_get_receive_symbol(z_gui const* gui)
+{
+    return gui->x_rcv;
+}
 
+z_symbol* z_pd_gui_get_send_symbol(z_gui const* gui)
+{
+    return gui->x_rcv;
+}
 
+float z_pd_gui_get_maximum_value(z_gui const* gui)
+{
+    if(gui->x_obj.te_g.g_pd->c_name == z_sym_hsl)
+    {
+        return ((t_hslider *)gui)->x_max;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_vsl)
+    {
+        return ((t_vslider *)gui)->x_max;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_tgl)
+    {
+        return 1.f;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_nbx)
+    {
+        return ((t_my_numbox *)gui)->x_max;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_vradio)
+    {
+        return ((t_hdial *)gui)->x_number - 1;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_hradio)
+    {
+        return ((t_vdial *)gui)->x_number - 1;
+    }
+    return 0.f;
+}
+
+float z_pd_gui_get_minimum_value(z_gui const* gui)
+{
+    if(gui->x_obj.te_g.g_pd->c_name == z_sym_hsl)
+    {
+        return ((t_hslider *)gui)->x_min;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_vsl)
+    {
+        return ((t_vslider *)gui)->x_min;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_tgl)
+    {
+        return 0.f;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_nbx)
+    {
+        return ((t_my_numbox *)gui)->x_min;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_vradio)
+    {
+        return 0.f;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_hradio)
+    {
+        return 0.f;
+    }
+    return 0.f;
+}
+
+int z_pd_gui_get_number_of_steps(z_gui const* gui)
+{
+    if(gui->x_obj.te_g.g_pd->c_name == z_sym_hsl)
+    {
+        return 0;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_vsl)
+    {
+        return 0;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_tgl)
+    {
+        return 2;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_nbx)
+    {
+        return 0;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_vradio)
+    {
+        return ((t_hdial *)gui)->x_number;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_hradio)
+    {
+        return ((t_vdial *)gui)->x_number;
+    }
+    return 0.f;
+}
+
+float z_pd_gui_get_value(z_gui const* gui)
+{
+    if(gui->x_obj.te_g.g_pd->c_name == z_sym_hsl)
+    {
+        return ((t_hslider *)gui)->x_val;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_vsl)
+    {
+        return ((t_vslider *)gui)->x_val;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_tgl)
+    {
+        return ((t_toggle *)gui)->x_on;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_nbx)
+    {
+        return ((t_my_numbox *)gui)->x_val;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_vradio)
+    {
+        return ((t_hdial *)gui)->x_on;
+    }
+    else if(gui->x_obj.te_g.g_pd->c_name == z_sym_hradio)
+    {
+        return ((t_vdial *)gui)->x_on;
+    }
+    return 0.f;
+}
+
+void z_pd_gui_get_bounds(z_gui const* gui, z_patch const* patch, int* x, int* y, int* width, int* height)
+{
+    if(gui->x_obj.te_g.g_pd->c_wb->w_getrectfn)
+    {
+        gui->x_obj.te_g.g_pd->c_wb->w_getrectfn((t_gobj *)gui, (t_canvas *)patch, x, y, width, height);
+        *width  = *width - *x;
+        *height = *height - *y;
+        *x = *x - z_pd_patch_get_x(patch);
+        *y = *y - z_pd_patch_get_y(patch);
+    }
+}
+
+void z_pd_gui_get_label_position(z_gui const* gui, z_patch const* patch, int* x, int* y)
+{
+    *x = ((t_object *)gui)->te_xpix - z_pd_patch_get_x(patch) + gui->x_ldx;
+    *y = ((t_object *)gui)->te_ypix - z_pd_patch_get_y(patch) + gui->x_ldy;
+}
 
 
 
@@ -586,6 +745,11 @@ z_tie* z_pd_get_tie(const char* name)
 z_symbol* z_pd_get_symbol(const char* symbol)
 {
     return (z_symbol *)gensym(symbol);
+}
+
+char const* z_pd_symbol_get_name(z_symbol const* symnol)
+{
+    return symnol->s_name;
 }
 
 z_list* z_pd_get_list()

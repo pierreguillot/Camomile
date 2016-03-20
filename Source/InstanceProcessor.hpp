@@ -78,6 +78,10 @@ public:
 
 protected:
     
+    //! @brief Receives a post.
+    void receivePost(std::string const& message) final;
+    
+     //! @brief Receives midi note on.
     void receiveMidiNoteOn(int port, int channel, int pitch, int velocity) final;
     
     //! @brief Receives midi control change.

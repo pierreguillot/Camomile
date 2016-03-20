@@ -269,6 +269,11 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     unlock();
 }
 
+void InstanceProcessor::receivePost(std::string const& message)
+{
+    int notifi_gui;
+}
+
 void InstanceProcessor::receiveMidiNoteOn(int port, int channel, int pitch, int velocity)
 {
     if(velocity)
@@ -326,7 +331,9 @@ void InstanceProcessor::loadPatch(const juce::File& file)
             releaseDsp();
             if(file.exists() && file.getFileExtension() == String(".pd"))
             {
-                m_patch = createPatch(file.getFileName().toStdString(), file.getParentDirectory().getFullPathName().toStdString());
+                m_patch = pd::Patch(*this,
+                                file.getFileName().toStdString(),
+                                file.getParentDirectory().getFullPathName().toStdString());
             }
             else
             {
@@ -474,7 +481,7 @@ m_min(gui.getMinimum()),
 m_max(gui.getMaximum()),
 m_name(gui.getName()),
 m_label(gui.getLabel()),
-m_bname(gui.getBindingName()),
+m_bname(gui.getReceiveTie()),
 m_nsteps(gui.getNumberOfSteps())
 {
     setValueNonNormalized(gui.getValue());

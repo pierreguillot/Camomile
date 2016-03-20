@@ -11,7 +11,6 @@
 
 namespace pd
 {
-    class BindingName;
     // ==================================================================================== //
     //                                          GUI                                         //
     // ==================================================================================== //
@@ -74,7 +73,7 @@ namespace pd
         
         std::string getLabel() const;
         
-        Tie getBindingName() const;
+        Tie getReceiveTie() const;
         
         bool isParameter() const noexcept;
         
@@ -86,9 +85,9 @@ namespace pd
         
         size_t getNumberOfSteps() const noexcept;
         
-        std::array<float, 4> getBounds() const noexcept;
+        std::array<int, 4> getBounds() const noexcept;
         
-        std::array<float, 2> getLabelPosition() const noexcept;
+        std::array<int, 2> getLabelPosition() const noexcept;
         
     private:
 

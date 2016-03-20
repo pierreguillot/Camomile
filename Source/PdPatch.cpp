@@ -23,9 +23,19 @@ namespace pd
         
     }
     
-    Patch::Patch(Instance& instance, void* ptr, std::string const& name, std::string const& path) noexcept :
-    m_ptr(ptr), m_count(new std::atomic<size_t>(1)), m_instance(instance)
+    Patch::Patch(Instance& instance, std::string const& name, std::string const& path) noexcept :
+    m_ptr(nullptr), m_count(nullptr), m_instance(instance)
     {
+        if(m_instance.isValid())
+        {
+            m_instance.lock();
+            m_ptr = z_pd_patch_new(name.c_str(), path.c_str());
+            if(m_ptr)
+            {
+                m_count = new std::atomic<size_t>(1);
+            }
+            m_instance.unlock();
+        }
     }
     
     Patch::Patch(Patch const& other) noexcept :
@@ -45,21 +55,24 @@ namespace pd
         other.m_instance = Instance();
     }
     
+    void Patch::release() noexcept
+    {
+        if(m_ptr && m_count && m_count->operator--() == 0)
+        {
+            m_instance.lock();
+            z_pd_patch_free(reinterpret_cast<z_patch *>(m_ptr));
+            m_instance.unlock();
+            delete m_count;
+            m_ptr           = nullptr;
+            m_count         = nullptr;
+        }
+    }
+    
     Patch& Patch::operator=(Patch const& other) noexcept
     {
-        if(m_ptr && m_count && --(*m_count) == 0)
+        release();
+        if(other.m_ptr && other.m_count && other.m_count->operator++() > 0)
         {
-            if(m_instance.isValid())
-            {
-                m_instance.freePatch(*this);
-                m_instance  = Instance();
-            }
-            m_ptr       = nullptr;
-            m_count     = nullptr;
-        }
-        if(other.m_ptr && other.m_count)
-        {
-            ++(*m_count);
             m_ptr       = other.m_ptr;
             m_count     = other.m_count;
             m_instance  = other.m_instance;
@@ -77,16 +90,7 @@ namespace pd
     
     Patch::~Patch() noexcept
     {
-        if(m_ptr && m_count && --(*m_count) == 0)
-        {
-            if(m_instance.isValid())
-            {
-                m_instance.freePatch(*this);
-                m_instance  = Instance();
-            }
-            m_ptr       = nullptr;
-            m_count     = nullptr;
-        }
+        release();
     }
     
     bool Patch::isValid() const noexcept
@@ -182,37 +186,6 @@ namespace pd
             }
         }
         return objects;
-    }
-    
-    std::array<float, 4> Patch::getGuiBounds(Gui const& gui) const noexcept
-    {
-        int todo;
-        /*
-        if(isValid())
-        {
-            t_canvas* cnv = reinterpret_cast<t_canvas*>(m_ptr);
-            t_object* obj = reinterpret_cast<t_object *>(gui.m_ptr);
-            int x1, x2, y1, y2;
-            obj->te_g.g_pd->c_wb->w_getrectfn(reinterpret_cast<t_gobj *>(gui.m_ptr),
-                                              reinterpret_cast<struct _glist *>(m_ptr),
-                                              &x1, &y1, &x2, &y2);
-            return {float(x1) - cnv->gl_xmargin, float(y1) - cnv->gl_ymargin, float(x2 - x1), float(y2 - y1)};
-        }*/
-        return {0.f, 0.f, 0.f, 0.f};
-    }
-    
-    std::array<float, 2> Patch::getGuiLabelPosition(Gui const& gui) const noexcept
-    {
-        int todo;
-        /*
-        if(isValid())
-        {
-            t_canvas* cnv = reinterpret_cast<t_canvas*>(m_ptr);
-            t_text* obj = reinterpret_cast<t_text *>(gui.m_ptr);
-            t_iemgui* gi = reinterpret_cast<t_iemgui *>(gui.m_ptr);
-            return {float(obj->te_xpix) - cnv->gl_xmargin + gi->x_ldx, float(obj->te_ypix) - cnv->gl_ymargin +  + gi->x_ldy};
-        }*/
-        return {0.f, 0.f};
     }
 }
 

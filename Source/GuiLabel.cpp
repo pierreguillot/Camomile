@@ -15,7 +15,7 @@
 GuiLabel::GuiLabel(InstanceProcessor& processor, pd::Gui const& gui) :
 Label("label", String(gui.getName()) + " " + gui.getLabel())
 {
-    std::array<float, 2> labelpos(gui.getLabelPosition());
+    std::array<int, 2> labelpos(gui.getLabelPosition());
     setFont(Gui::getFont());
     setJustificationType(Justification::topLeft);
     setColour(Label::backgroundColourId, Gui::getColorInv());

@@ -26,6 +26,10 @@ namespace pd
     {
     public:
         
+        //! @brief The constructor for a new Patch.
+        //! @details Creates a new valid Patch.
+        Patch(Instance& instance, std::string const& name, std::string const& path) noexcept;
+        
         //! @brief The constructor for an empty Patch.
         //! @details Creates an Patch that can be used as an empty reference inside
         //! another class.
@@ -77,22 +81,11 @@ namespace pd
         //! @brief Gets the Comment objects from the patch.
         std::vector<Comment> getComments() const noexcept;
     private:
-        
-        //! @brief The constructor for a new Patch.
-        //! @details Creates a new valid Patch.
-        Patch(Instance& instance, void* ptr, std::string const& name, std::string const& path) noexcept;
-        
-        //! @brief Gets the relative bounds of a GUI.
-        std::array<float, 4> getGuiBounds(Gui const& gui) const noexcept;
-        
-        //! @brief Gets the relative bounds of a GUI.
-        std::array<float, 2> getGuiLabelPosition(Gui const& gui) const noexcept;
-        
+        void release() noexcept;
         void*                   m_ptr;
         std::atomic<size_t>*    m_count;
         Instance                m_instance;
         
-        friend class Instance;
         friend class Gui;
     };
 }
