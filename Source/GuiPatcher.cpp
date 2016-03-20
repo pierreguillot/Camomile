@@ -34,8 +34,8 @@ void GuiPatcher::setPatch(InstanceProcessor& processor, pd::Patch const& patch)
     m_labels.clear();
     if(patch.isValid())
     {
-        std::array<float, 2> size(patch.getSize());
-        setSize(std::max(size[0], 120.f), std::max(size[1], 20.f));
+        std::array<int, 2> size(patch.getSize());
+        setSize(std::max(size[0], 120), std::max(size[1], 20));
         std::vector<pd::Gui> guis(patch.getGuis());
         for(size_t i = 0; i < guis.size(); ++i)
         {

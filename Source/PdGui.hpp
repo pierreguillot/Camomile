@@ -11,7 +11,6 @@
 
 namespace pd
 {
-    class Patch;
     class BindingName;
     // ==================================================================================== //
     //                                          GUI                                         //
@@ -75,7 +74,7 @@ namespace pd
         
         std::string getLabel() const;
         
-        BindingName getBindingName() const;
+        Tie getBindingName() const;
         
         bool isParameter() const noexcept;
         

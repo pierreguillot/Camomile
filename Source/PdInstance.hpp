@@ -4,28 +4,14 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef __CAMOMILE_PD_INSTANCE__
-#define __CAMOMILE_PD_INSTANCE__
+#ifndef Z_PD_INSTANCE_HPP
+#define Z_PD_INSTANCE_HPP
 
-#include <string>
-#include <array>
-#include <vector>
-#include <set>
-#include <map>
-#include <mutex>
-#include <tuple>
-#include <iostream>
-#include <memory>
-#include <cassert>
-#include <atomic>
-#include <cstring>
+#include "PdEnvironment.hpp"
 
 namespace pd
 {
-    class Instance;
     class Patch;
-    class Pd;
-    
     // ==================================================================================== //
     //                                          INSTANCE                                    //
     // ==================================================================================== //
@@ -107,14 +93,11 @@ namespace pd
         
         void*               m_ptr;
         std::atomic<long>*  m_count;
-        std::atomic<long>*  m_sample_rate;
-        void*               m_sample_ins;
-        void*               m_sample_outs;
         
-        friend class Pd;
+        friend class Environment;
         friend class Patch;
     };
 
 }
 
-#endif
+#endif // Z_PD_INSTANCE_HPP

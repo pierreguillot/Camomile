@@ -4,8 +4,8 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef __CAMOMILE_PD_PATCH__
-#define __CAMOMILE_PD_PATCH__
+#ifndef Z_PD_PATCH_HPP
+#define Z_PD_PATCH_HPP
 
 #include "PdInstance.hpp"
 
@@ -65,11 +65,11 @@ namespace pd
         //! @brief Gets the file's path.
         std::string getPath() const;
         
-        //! @brief Gets the Patch margin.
-        std::array<float, 2> getMargin() const noexcept;
+        //! @brief Gets the Patch position.
+        std::array<int, 2> getPosition() const noexcept;
         
         //! @brief Gets the Patch size.
-        std::array<float, 2> getSize() const noexcept;
+        std::array<int, 2> getSize() const noexcept;
         
         //! @brief Gets the Gui objects from the patch.
         std::vector<Gui> getGuis() const noexcept;
@@ -90,8 +90,6 @@ namespace pd
         
         void*                   m_ptr;
         std::atomic<size_t>*    m_count;
-        std::string             m_name;
-        std::string             m_path;
         Instance                m_instance;
         
         friend class Instance;
@@ -99,4 +97,4 @@ namespace pd
     };
 }
 
-#endif
+#endif // Z_PD_PATCH_HPP

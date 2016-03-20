@@ -8,17 +8,15 @@
 #include "InstanceEditor.hpp"
 #include "LookAndFeel.hpp"
 
-InstanceProcessor::InstanceProcessor() : pd::Instance(pd::Pd::createInstance())
+InstanceProcessor::InstanceProcessor() : pd::Instance(pd::Environment::createInstance())
 {
-    static bool initialzed = false;
-    if(!initialzed)
-    {
-        pd::Pd::logToConsole(std::string("Camomile ") +
-                              std::string(JucePlugin_VersionString) +
-                              std::string(" for Pure Data ") +
-                              pd::Pd::getPdVersion());
-        initialzed = true;
-    }
+    int todo;
+    /*
+    pd::Environment::logToConsole(std::string("Camomile ") +
+                         std::string(JucePlugin_VersionString) +
+                         std::string(" for Pure Data ") +
+                         pd::Environment::getPdVersion());
+     */
     Gui::addInstance();
     m_parameters.resize(32);
     busArrangement.inputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
@@ -125,13 +123,13 @@ bool InstanceProcessor::isMetaParameter(int index) const
     return m_parameters[index].isMetaParameter();
 }
 
-int InstanceProcessor::getParameterIndex(pd::BindingName const& name)
+int InstanceProcessor::getParameterIndex(pd::Tie const& name)
 {
-    if(name != nullptr)
+    if(name != pd::Tie())
     {
         for(size_t i = 0; i < m_parameters.size(); i++)
         {
-            if(m_parameters[i].getBindingName() == name)
+            if(m_parameters[i].getTie() == name)
             {
                 return i;
             }
@@ -172,7 +170,10 @@ void InstanceProcessor::parametersChanged()
                 {
                     if(gui.getName() == m_parameters[i].getName(512))
                     {
-                        pd::Pd::errorToConsole("Warning in patch " + m_patch.getName() + ": "  + gui.getName() + " parameter is duplicated !");
+                        int todo;
+                        /*
+                        pd::Environment::errorToConsole("Warning in patch " + m_patch.getName() + ": "  + gui.getName() + " parameter is duplicated !");
+                         */
                         ok = false;
                         break;
                     }
@@ -227,27 +228,27 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
         {
             if(message.isNoteOnOrOff())
             {
-                pd::Pd::sendNote(message.getChannel(), message.getNoteNumber(), message.getVelocity());
+                pd::Environment::sendNote(message.getChannel(), message.getNoteNumber(), message.getVelocity());
             }
             else if(message.isController())
             {
-                pd::Pd::sendControlChange(message.getChannel(), message.getControllerNumber(), message.getControllerValue());
+                pd::Environment::sendControlChange(message.getChannel(), message.getControllerNumber(), message.getControllerValue());
             }
             else if(message.isPitchWheel())
             {
-                pd::Pd::sendPitchBend(message.getChannel(), message.getPitchWheelValue());
+                pd::Environment::sendPitchBend(message.getChannel(), message.getPitchWheelValue());
             }
             else if(message.isChannelPressure())
             {
-                pd::Pd::sendAfterTouch(message.getChannel(), message.getChannelPressureValue());
+                pd::Environment::sendAfterTouch(message.getChannel(), message.getChannelPressureValue());
             }
             else if(message.isAftertouch())
             {
-                pd::Pd::sendPolyAfterTouch(message.getChannel(), message.getNoteNumber(), message.getAfterTouchValue());
+                pd::Environment::sendPolyAfterTouch(message.getChannel(), message.getNoteNumber(), message.getAfterTouchValue());
             }
             else if(message.isProgramChange())
             {
-                pd::Pd::sendProgramChange(message.getChannel(), message.getProgramChangeNumber());
+                pd::Environment::sendProgramChange(message.getChannel(), message.getProgramChangeNumber());
             }
         }
     }
@@ -255,7 +256,7 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     midiMessages.clear();
     for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); ++i)
     {
-        pd::Pd::send(m_parameters[i].getBindingName(), m_parameters[i].getValueNonNormalized());
+        pd::Environment::send(m_parameters[i].getTie(), m_parameters[i].getValueNonNormalized());
     }
     
     performDsp(buffer.getNumSamples(),
@@ -263,6 +264,8 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
                getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
     
     {
+        int todo;
+        /*
         const int position = buffer.getNumSamples() - 1;
         pd::MidiList::const_iterator it = pd::Pd::getMidiBegin();
         while(it != pd::Pd::getMidiEnd())
@@ -294,6 +297,7 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
             ++it;
         }
         pd::Pd::clearMidi();
+         */
     }
     unlock();
 }
@@ -318,7 +322,10 @@ void InstanceProcessor::loadPatch(const juce::File& file)
             else
             {
                 m_patch = pd::Patch();
+                int todo;
+                /*
                 pd::Pd::errorToConsole("Camomile can't find the patch : " + file.getFullPathName().toStdString());
+                 */
             }
         }
         parametersChanged();
@@ -438,7 +445,7 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 
 InstanceProcessor::Parameter::Parameter()
 : m_valid(false), m_value (0.f), m_min(0.f), m_max(0.f),
-m_name (""), m_label(""), m_bname(nullptr), m_nsteps(0)
+m_name (""), m_label(""), m_bname(), m_nsteps(0)
 {
     
 }

@@ -55,6 +55,7 @@ size_t& Gui::getCounter() noexcept
 
 void Gui::addInstance() noexcept
 {
+    int tochange;
     ++getCounter();
     if(m_window == nullptr)
     {

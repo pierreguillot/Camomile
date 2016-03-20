@@ -122,6 +122,9 @@ Z_PD_EXTERN z_instance* z_pd_instance_new(size_t size,
 //! @brief Deletes an instance.
 Z_PD_EXTERN void z_pd_instance_free(z_instance* instance);
 
+//! @brief Sets the current instance.
+Z_PD_EXTERN void z_pd_instance_set(z_instance* instance);
+
 //! @brief Binds an instance to a tie.
 Z_PD_EXTERN void z_pd_instance_bind(z_instance* instance, z_tie* tie,
                                     z_hook_bang mbang,
@@ -145,7 +148,10 @@ Z_PD_EXTERN void z_pd_instance_dsp_perform(z_instance* instance, int nsamples,
                                            const int nouts, z_sample** outputs);
 
 //! @brief Releases the DSP for an instance.
-Z_PD_EXTERN void z_pd_instance_dsp_release();
+Z_PD_EXTERN void z_pd_instance_dsp_release(z_instance* instance);
+
+//! @brief Gets the sample rate of an instance.
+Z_PD_EXTERN int z_pd_instance_get_samplerate(z_instance* instance);
 
 
 
@@ -184,15 +190,16 @@ z_object* z_pd_patch_get_first_object(z_patch* patch);
 //! @brief Gets the next object of a patch.
 z_object* z_pd_patch_get_next_object(z_patch* patch, z_object* previous);
 
+//! @brief Gets the name of an object.
+z_symbol* z_pd_object_get_name(z_object* object);
 
 
 
 
 
 
-
-//! @brief Retrieves an opaque name that can be understood by Pure Data.
-Z_PD_EXTERN z_tie* z_pd_get_name(const char* name);
+//! @brief Retrieves an opaque tie that can be understood by Pure Data.
+Z_PD_EXTERN z_tie* z_pd_get_tie(const char* name);
 
 //! @brief Retrieves an opaque symbol that can be understood by Pure Data.
 Z_PD_EXTERN z_symbol* z_pd_get_symbol(const char* symbol);
@@ -264,8 +271,10 @@ Z_PD_EXTERN void z_pd_midisend_byte(int port, int byte);
 Z_PD_EXTERN void z_pd_midisend_sysex(int port, int byte);
 
 //! @brief Sends a midi real time in event to Pure Data.
-Z_PD_EXTERN void z_pd_midisend_realtimein(int port, int byte);
+Z_PD_EXTERN void z_pd_midisend_sysrealtimein(int port, int byte);
 
 
+#undef Z_PD_EXTERN
+#undef Z_PD_EXTERN_STRUCT
 
 #endif /* z_pd_h */

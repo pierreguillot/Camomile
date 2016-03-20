@@ -6,14 +6,10 @@
 
 #include "PdInstance.hpp"
 #include "PdPatch.hpp"
-#include "Pd.hpp"
 
 extern "C"
 {
-#include "../ThirdParty/PureData/src/m_pd.h"
-#include "../ThirdParty/PureData/src/g_canvas.h"
-#include "../ThirdParty/PureData/src/s_stuff.h"
-#include "../ThirdParty/PureData/src/m_imp.h"
+#include "z_pd.h"
 }
 
 namespace pd
@@ -24,30 +20,21 @@ namespace pd
     
     Instance::Instance() noexcept :
     m_ptr(nullptr),
-    m_count(nullptr),
-    m_sample_rate(0ul),
-    m_sample_ins(nullptr),
-    m_sample_outs(nullptr)
+    m_count(nullptr)
     {
         
     }
     
     Instance::Instance(void* ptr) noexcept :
     m_ptr(ptr),
-    m_count(new std::atomic<long>(1)),
-    m_sample_rate(new std::atomic<long>(0)),
-    m_sample_ins(nullptr),
-    m_sample_outs(nullptr)
+    m_count(new std::atomic<long>(1))
     {
         
     }
     
     Instance::Instance(Instance const& other) noexcept :
     m_ptr(other.m_ptr),
-    m_count(other.m_count),
-    m_sample_rate(other.m_sample_rate),
-    m_sample_ins(other.m_sample_ins),
-    m_sample_outs(other.m_sample_outs)
+    m_count(other.m_count)
     {
         if(m_ptr && m_count)
         {
@@ -57,16 +44,10 @@ namespace pd
     
     Instance::Instance(Instance&& other) noexcept :
     m_ptr(other.m_ptr),
-    m_count(other.m_count),
-    m_sample_rate(other.m_sample_rate),
-    m_sample_ins(other.m_sample_ins),
-    m_sample_outs(other.m_sample_outs)
+    m_count(other.m_count)
     {
         other.m_ptr         = nullptr;
         other.m_count       = nullptr;
-        other.m_sample_rate = nullptr;
-        other.m_sample_ins  = nullptr;
-        other.m_sample_outs = nullptr;
     }
     
     void Instance::release() noexcept
@@ -74,12 +55,10 @@ namespace pd
         if(m_ptr && m_count && m_count->operator--() == 0)
         {
             releaseDsp();
-            Pd::free(*this);
+            Environment::free(*this);
             delete m_count;
-            delete m_sample_rate;
             m_ptr           = nullptr;
             m_count         = nullptr;
-            m_sample_rate   = nullptr;
         }
     }
     
@@ -90,9 +69,6 @@ namespace pd
         {
             m_ptr           = other.m_ptr;
             m_count         = other.m_count;
-            m_sample_rate   = other.m_sample_rate;
-            m_sample_ins    = other.m_sample_ins;
-            m_sample_outs   = other.m_sample_outs;
         }
         return *this;
     }
@@ -101,9 +77,6 @@ namespace pd
     {
         std::swap(m_count, other.m_count);
         std::swap(m_ptr, other.m_ptr);
-        std::swap(m_sample_rate, other.m_sample_rate);
-        std::swap(m_sample_ins, other.m_sample_ins);
-        std::swap(m_sample_outs, other.m_sample_outs);
         return *this;
     }
     
@@ -115,54 +88,31 @@ namespace pd
     void Instance::prepareDsp(const int nins, const int nouts, const int samplerate, const int nsamples) noexcept
     {
         lock();
-        if(samplerate != m_sample_rate->load())
-        {
-            sys_setchsr(16, 16, samplerate);
-            m_sample_ins    = sys_soundin;
-            m_sample_outs   = sys_soundout;
-            m_sample_rate->store(sys_getsr());
-        }
-        t_atom av;
-        av.a_type = A_FLOAT;
-        av.a_w.w_float = 1;
-        pd_typedmess((t_pd *)gensym("pd")->s_thing, gensym("dsp"), 1, &av);
+        z_pd_instance_dsp_prepare(reinterpret_cast<z_instance *>(m_ptr), nins, nouts, samplerate, nsamples);
         unlock();
     }
 
     void Instance::performDsp(int nsamples, const int nins, const float** inputs, const int nouts, float** outputs) noexcept
     {
-        for(int i = 0; i < nsamples; i += DEFDACBLKSIZE)
-        {
-            for(int j = 0; j < nins; j++)
-            {
-                memcpy(reinterpret_cast<t_sample *>(m_sample_ins)+j*DEFDACBLKSIZE, inputs[j]+i, DEFDACBLKSIZE * sizeof(t_sample));
-            }
-            memset(reinterpret_cast<t_sample *>(m_sample_outs), 0, DEFDACBLKSIZE * sizeof(t_sample) * nouts);
-            sched_tick();
-            for(int j = 0; j < nouts; j++)
-            {
-                memcpy(outputs[j]+i, reinterpret_cast<t_sample *>(m_sample_outs)+j*DEFDACBLKSIZE, DEFDACBLKSIZE * sizeof(t_sample));
-            }
-        }
+        z_pd_instance_dsp_perform(reinterpret_cast<z_instance *>(m_ptr), nsamples, nins, inputs, nouts, outputs);
     }
     
     void Instance::releaseDsp() noexcept
     {
-        
+        lock();
+        z_pd_instance_dsp_release(reinterpret_cast<z_instance *>(m_ptr));
+        unlock();
     }
     
     void Instance::lock() noexcept
     {
-        Pd::lock();
-        pd_setinstance(reinterpret_cast<t_pdinstance *>(m_ptr));
-        sys_soundin = reinterpret_cast<t_sample *>(m_sample_ins);
-        sys_soundout= reinterpret_cast<t_sample *>(m_sample_outs);
-        sys_dacsr   = m_sample_rate->load();
+        Environment::lock();
+        z_pd_instance_set(reinterpret_cast<z_instance *>(m_ptr));
     }
     
     void Instance::unlock() noexcept
     {
-        Pd::unlock();
+        Environment::unlock();
     }
     
     bool Instance::isValid() const noexcept
@@ -172,28 +122,14 @@ namespace pd
     
     long Instance::getSampleRate() const noexcept
     {
-        if(isValid())
-        {
-            return m_sample_rate->load();
-        }
-        return 0;
+        return z_pd_instance_get_samplerate(reinterpret_cast<z_instance *>(m_ptr));
     }
     
     Patch Instance::createPatch(std::string const& name, std::string const& path)
     {
         Patch patch;
-        t_canvas* cnv = nullptr;
         lock();
-        if(!name.empty() && !path.empty())
-        {
-            cnv = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym(path.c_str())));
-            cnv->gl_edit = 0;
-        }
-        else if(!name.empty())
-        {
-            cnv = reinterpret_cast<t_canvas*>(glob_evalfile(NULL, gensym(name.c_str()), gensym("")));
-            cnv->gl_edit = 0;
-        }
+        void* cnv = z_pd_patch_new(name.c_str(), path.c_str());
         if(cnv)
         {
             patch = Patch(*this, cnv, name, path);
@@ -204,10 +140,9 @@ namespace pd
     
     void Instance::freePatch(Patch &patch)
     {
-        Pd::lock();
-        pd_setinstance(reinterpret_cast<t_pdinstance *>(m_ptr));
-        canvas_free(reinterpret_cast<t_canvas*>(patch.m_ptr));
-        Pd::unlock();
+        lock();
+        z_pd_patch_free(reinterpret_cast<z_patch *>(patch.m_ptr));
+        unlock();
     }
 }
 

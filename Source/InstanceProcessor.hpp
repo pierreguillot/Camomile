@@ -63,7 +63,7 @@ public:
     void loadPatch(const juce::File& file);
     inline const pd::Patch getPatch() const noexcept {return m_patch;}
     inline pd::Patch getPatch() noexcept {return m_patch;}
-    int getParameterIndex(pd::BindingName const& name);
+    int getParameterIndex(pd::Tie const& name);
     int getParameterIndex(String const& name);
     
     void addListener(Listener* listener);
@@ -100,7 +100,7 @@ private:
         float getValueForText (const String& text) const final;
         bool isOrientationInverted() const final;
         int getNumSteps() const final;
-        inline pd::BindingName const& getBindingName() const noexcept {return m_bname;}
+        inline pd::Tie const& getTie() const noexcept {return m_bname;}
         
     private:
         bool   m_valid;
@@ -109,7 +109,7 @@ private:
         float  m_max;
         String m_name;
         String m_label;
-        pd::BindingName m_bname;
+        pd::Tie m_bname;
         int    m_nsteps;
     };
     

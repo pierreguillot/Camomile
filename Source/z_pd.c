@@ -475,9 +475,14 @@ void z_pd_instance_dsp_perform(z_instance* instance, int nsamples,
     }
 }
 
-void z_pd_instance_dsp_release()
+void z_pd_instance_dsp_release(z_instance* instance)
 {
     
+}
+
+int z_pd_instance_get_samplerate(z_instance* instance)
+{
+    return instance->z_internal_ptr->z_samplerate;
 }
 
 
@@ -553,9 +558,21 @@ z_object* z_pd_patch_get_next_object(z_patch* patch, z_object* previous)
 
 
 
+z_symbol* z_pd_object_get_name(z_object* object)
+{
+    return object->te_g.g_pd->c_name;
+}
 
 
-z_tie* z_pd_get_name(const char* name)
+
+
+
+
+
+
+
+
+z_tie* z_pd_get_tie(const char* name)
 {
     return (z_tie *)gensym(name);
 }
@@ -722,7 +739,7 @@ void z_pd_midisend_sysex(int port, int byte)
     inmidi_sysex(port, byte);
 }
 
-void z_pd_midisend_realtimein(int port, int byte)
+void z_pd_midisend_sysrealtimein(int port, int byte)
 {
     Z_PD_MIDI_CHECK_PORT(port)
     Z_PD_MIDI_CHECK_RANGE_8BIT(byte)

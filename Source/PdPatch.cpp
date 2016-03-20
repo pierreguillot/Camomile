@@ -4,15 +4,12 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
+#include "PdPatch.hpp"
 #include "PdGui.hpp"
 
 extern "C"
 {
-#include "../ThirdParty/PureData/src/m_pd.h"
-#include "../ThirdParty/PureData/src/g_canvas.h"
-#include "../ThirdParty/PureData/src/s_stuff.h"
-#include "../ThirdParty/PureData/src/m_imp.h"
-#include "../ThirdParty/PureData/src/g_all_guis.h"
+#include "z_pd.h"
 }
 
 namespace pd
@@ -27,12 +24,12 @@ namespace pd
     }
     
     Patch::Patch(Instance& instance, void* ptr, std::string const& name, std::string const& path) noexcept :
-    m_ptr(ptr), m_count(new std::atomic<size_t>(1)), m_name(name), m_path(path), m_instance(instance)
+    m_ptr(ptr), m_count(new std::atomic<size_t>(1)), m_instance(instance)
     {
     }
     
     Patch::Patch(Patch const& other) noexcept :
-    m_ptr(other.m_ptr), m_count(other.m_count), m_name(other.m_name), m_path(other.m_path), m_instance(other.m_instance)
+    m_ptr(other.m_ptr), m_count(other.m_count), m_instance(other.m_instance)
     {
         if(m_ptr && m_count)
         {
@@ -41,7 +38,7 @@ namespace pd
     }
     
     Patch::Patch(Patch&& other) noexcept :
-    m_ptr(other.m_ptr), m_count(other.m_count), m_name(other.m_name), m_path(other.m_path), m_instance(other.m_instance)
+    m_ptr(other.m_ptr), m_count(other.m_count), m_instance(other.m_instance)
     {
         other.m_ptr     = nullptr;
         other.m_count   = nullptr;
@@ -74,8 +71,6 @@ namespace pd
     {
         std::swap(m_count, other.m_count);
         std::swap(m_ptr, other.m_ptr);
-        std::swap(m_name, other.m_name);
-        std::swap(m_path, other.m_path);
         std::swap(m_instance, other.m_instance);
         return *this;
     }
@@ -106,32 +101,26 @@ namespace pd
     
     std::string Patch::getName() const
     {
-        return m_name;
+        return isValid() ? z_pd_patch_get_name(reinterpret_cast<z_patch *>(m_ptr)) : std::string();
     }
     
     std::string Patch::getPath() const
     {
-        return m_path;
+        return isValid() ? z_pd_patch_get_path(reinterpret_cast<z_patch *>(m_ptr)) : std::string();
     }
     
-    std::array<float, 2> Patch::getMargin() const noexcept
+    std::array<int, 2> Patch::getPosition() const noexcept
     {
-        if(isValid())
-        {
-            t_canvas* cnv = reinterpret_cast<t_canvas*>(m_ptr);
-            return {static_cast<float>(cnv->gl_xmargin), static_cast<float>(cnv->gl_ymargin)};
-        }
-        return {0.f, 0.f};
+        return isValid() ?
+        std::array<int, 2>{z_pd_patch_get_x(reinterpret_cast<z_patch *>(m_ptr)), z_pd_patch_get_y(reinterpret_cast<z_patch *>(m_ptr))} :
+        std::array<int, 2>{0, 0};
     }
     
-    std::array<float, 2> Patch::getSize() const noexcept
+    std::array<int, 2> Patch::getSize() const noexcept
     {
-        if(isValid())
-        {
-            t_canvas* cnv = reinterpret_cast<t_canvas*>(m_ptr);
-            return {static_cast<float>(cnv->gl_pixwidth), static_cast<float>(cnv->gl_pixheight)};
-        }
-        return {0.f, 0.f};
+        return isValid() ?
+        std::array<int, 2>{z_pd_patch_get_width(reinterpret_cast<z_patch *>(m_ptr)), z_pd_patch_get_height(reinterpret_cast<z_patch *>(m_ptr))} :
+        std::array<int, 2>{0, 0};
     }
     
     std::vector<Gui> Patch::getGuis() const noexcept
@@ -139,36 +128,36 @@ namespace pd
         std::vector<Gui> objects;
         if(isValid())
         {
-            t_canvas* cnv = reinterpret_cast<t_canvas*>(m_ptr);
-            t_symbol* hsl = gensym("hsl");
-            t_symbol* vsl = gensym("vsl");
-            t_symbol* tgl = gensym("tgl");
-            t_symbol* nbx = gensym("nbx");
-            t_symbol* vra = gensym("vradio");
-            t_symbol* hra = gensym("hradio");
-            for(t_gobj *y = cnv->gl_list; y; y = y->g_next)
+            z_symbol* hsl = z_pd_get_symbol("hsl");
+            z_symbol* vsl = z_pd_get_symbol("vsl");
+            z_symbol* tgl = z_pd_get_symbol("tgl");
+            z_symbol* nbx = z_pd_get_symbol("nbx");
+            z_symbol* vra = z_pd_get_symbol("vradio");
+            z_symbol* hra = z_pd_get_symbol("hradio");
+            for(z_object *y = z_pd_patch_get_first_object(reinterpret_cast<z_patch *>(m_ptr)); y;
+                y = z_pd_patch_get_next_object(reinterpret_cast<z_patch *>(m_ptr), y))
             {
-                if(y->g_pd->c_name == hsl)
+                if(z_pd_object_get_name(y) == hsl)
                 {
                     objects.push_back(Gui(*this, Gui::Type::HorizontalSlider, reinterpret_cast<void *>(y)));
                 }
-                else if(y->g_pd->c_name == vsl)
+                else if(z_pd_object_get_name(y) == vsl)
                 {
                     objects.push_back(Gui(*this, Gui::Type::VerticalSlider, reinterpret_cast<void *>(y)));
                 }
-                else if(y->g_pd->c_name == tgl)
+                else if(z_pd_object_get_name(y) == tgl)
                 {
                     objects.push_back(Gui(*this, Gui::Type::Toggle, reinterpret_cast<void *>(y)));
                 }
-                else if(y->g_pd->c_name == nbx)
+                else if(z_pd_object_get_name(y) == nbx)
                 {
                     objects.push_back(Gui(*this, Gui::Type::Number, reinterpret_cast<void *>(y)));
                 }
-                else if(y->g_pd->c_name == vra)
+                else if(z_pd_object_get_name(y) == vra)
                 {
                     objects.push_back(Gui(*this, Gui::Type::VerticalRadio, reinterpret_cast<void *>(y)));
                 }
-                else if(y->g_pd->c_name == hra)
+                else if(z_pd_object_get_name(y) == hra)
                 {
                     objects.push_back(Gui(*this, Gui::Type::HorizontalRadio, reinterpret_cast<void *>(y)));
                 }
@@ -182,12 +171,11 @@ namespace pd
         std::vector<Comment> objects;
         if(isValid())
         {
-            t_canvas* cnv = reinterpret_cast<t_canvas*>(m_ptr);
-            t_symbol* txt = gensym("text");
-            
-            for(t_gobj *y = cnv->gl_list; y; y = y->g_next)
+            z_symbol* txt = z_pd_get_symbol("text");
+            for(z_object *y = z_pd_patch_get_first_object(reinterpret_cast<z_patch *>(m_ptr)); y;
+                y = z_pd_patch_get_next_object(reinterpret_cast<z_patch *>(m_ptr), y))
             {
-                if(y->g_pd->c_name == txt)
+                if(z_pd_object_get_name(y)== txt)
                 {
                     objects.push_back(Comment(*this, reinterpret_cast<void *>(y)));
                 }
@@ -198,6 +186,8 @@ namespace pd
     
     std::array<float, 4> Patch::getGuiBounds(Gui const& gui) const noexcept
     {
+        int todo;
+        /*
         if(isValid())
         {
             t_canvas* cnv = reinterpret_cast<t_canvas*>(m_ptr);
@@ -207,19 +197,21 @@ namespace pd
                                               reinterpret_cast<struct _glist *>(m_ptr),
                                               &x1, &y1, &x2, &y2);
             return {float(x1) - cnv->gl_xmargin, float(y1) - cnv->gl_ymargin, float(x2 - x1), float(y2 - y1)};
-        }
+        }*/
         return {0.f, 0.f, 0.f, 0.f};
     }
     
     std::array<float, 2> Patch::getGuiLabelPosition(Gui const& gui) const noexcept
     {
+        int todo;
+        /*
         if(isValid())
         {
             t_canvas* cnv = reinterpret_cast<t_canvas*>(m_ptr);
             t_text* obj = reinterpret_cast<t_text *>(gui.m_ptr);
             t_iemgui* gi = reinterpret_cast<t_iemgui *>(gui.m_ptr);
             return {float(obj->te_xpix) - cnv->gl_xmargin + gi->x_ldx, float(obj->te_ypix) - cnv->gl_ymargin +  + gi->x_ldy};
-        }
+        }*/
         return {0.f, 0.f};
     }
 }

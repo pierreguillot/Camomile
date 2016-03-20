@@ -28,13 +28,15 @@ GuiConsole::GuiConsole()
     m_text.setBounds(0, 0, 300, 350);
     m_text.moveCaretToEnd();
     
+    int todo;
+    /*
     std::vector<pd::Post> messages(pd::Pd::getConsole());
     for(size_t i = 0; i < messages.size(); ++i)
     {
         m_text.moveCaretToEnd();
         m_text.setColour(juce::TextEditor::textColourId, Gui::getColorTxt());
         m_text.insertTextAtCaret(messages[i].message);
-    }
+    }*/
     addAndMakeVisible(&m_text, 1);
     
     m_button.addListener(this);
@@ -50,11 +52,16 @@ GuiConsole::~GuiConsole()
 
 void GuiConsole::buttonClicked(Button* button)
 {
+    int todo;
+    /*
      pd::Pd::clearConsole();
+     */
 }
 
 void GuiConsole::timerCallback()
 {
+    int todo;
+    /*
     if(pd::Pd::hasConsoleChanged())
     {
         m_text.clear();
@@ -65,7 +72,7 @@ void GuiConsole::timerCallback()
             m_text.setColour(juce::TextEditor::textColourId, Gui::getColorTxt());
             m_text.insertTextAtCaret(messages[i].message);
         }
-    }
+     */
 }
 
 
