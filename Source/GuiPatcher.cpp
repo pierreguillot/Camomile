@@ -69,7 +69,7 @@ void GuiPatcher::setPatch(InstanceProcessor& processor, pd::Patch const& patch)
             }
         }
         
-        std::vector<pd::Comment> cmts(patch.getComments());
+        std::vector<pd::Object> cmts(patch.getComments());
         for(size_t i = 0; i < cmts.size(); ++i)
         {
             m_comment.add(new GuiComment(cmts[i]));

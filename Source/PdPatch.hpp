@@ -12,7 +12,7 @@
 namespace pd
 {
     class Gui;
-    class Comment;
+    class Object;
     // ==================================================================================== //
     //                                          PATCHER                                     //
     // ==================================================================================== //
@@ -79,14 +79,14 @@ namespace pd
         std::vector<Gui> getGuis() const noexcept;
         
         //! @brief Gets the Comment objects from the patch.
-        std::vector<Comment> getComments() const noexcept;
+        std::vector<Object> getComments() const noexcept;
     private:
         void release() noexcept;
         void*                   m_ptr;
         std::atomic<size_t>*    m_count;
         Instance                m_instance;
         
-        friend class Gui;
+        friend class Object;
     };
 }
 

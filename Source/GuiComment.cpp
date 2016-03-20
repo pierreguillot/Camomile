@@ -8,14 +8,15 @@
 #include "Gui.hpp"
 
 // ==================================================================================== //
-//                                      GUI TOGGLE                                      //
+//                                      GUI COMMENT                                      //
 // ==================================================================================== //
 
-GuiComment::GuiComment(pd::Comment const& cmt) : m_text(cmt.getText())
+GuiComment::GuiComment(pd::Object const& cmt) : m_text(cmt.getText())
 {
     setInterceptsMouseClicks(false, false);
     setWantsKeyboardFocus(false);
-    setBounds(cmt.getX(), cmt.getY(), cmt.getWidth() < 1.f ? 360 : cmt.getWidth() * 6, 200);
+    std::array<int, 4> bounds(cmt.getBounds());
+    setBounds(int(bounds[0]), int(bounds[1]), bounds[2] < 1.f ? 360 : bounds[2] * 6, 200);
 }
 
 void GuiComment::paint(Graphics& g)

@@ -5,7 +5,7 @@
 */
 
 #include "PdPatch.hpp"
-#include "PdGui.hpp"
+#include "PdObject.hpp"
 
 extern "C"
 {
@@ -170,9 +170,9 @@ namespace pd
         return objects;
     }
     
-    std::vector<Comment> Patch::getComments() const noexcept
+    std::vector<Object> Patch::getComments() const noexcept
     {
-        std::vector<Comment> objects;
+        std::vector<Object> objects;
         if(isValid())
         {
             z_symbol* txt = z_pd_get_symbol("text");
@@ -181,7 +181,7 @@ namespace pd
             {
                 if(z_pd_object_get_name(y)== txt)
                 {
-                    objects.push_back(Comment(*this, reinterpret_cast<void *>(y)));
+                    objects.push_back(Object(*this, reinterpret_cast<void *>(y)));
                 }
             }
         }

@@ -7,6 +7,6 @@
 #ifndef Z_PD_HPP
 #define Z_PD_HPP
 
-#include "PdGui.hpp"
+#include "PdObject.hpp"
 
 #endif // Z_PD_HPP

@@ -319,16 +319,19 @@
     <ClCompile Include="..\..\Source\GuiParameter.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Pd.cpp">
+    <ClCompile Include="..\..\Source\PdEnvironment.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PdGui.cpp">
+    <ClCompile Include="..\..\Source\PdInstance.cpp">
+      <Filter>Camomile\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\PdObject.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\PdPatch.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PdInstance.cpp">
+    <ClCompile Include="..\..\Source\z_pd.c">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\PureData\extra\bob~\bob~.c">
@@ -1716,13 +1719,19 @@
     <ClInclude Include="..\..\Source\Pd.hpp">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\PdGui.hpp">
+    <ClInclude Include="..\..\Source\PdEnvironment.hpp">
+      <Filter>Camomile\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\PdInstance.hpp">
+      <Filter>Camomile\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\PdObject.hpp">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PdPatch.hpp">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\PdInstance.hpp">
+    <ClInclude Include="..\..\Source\z_pd.h">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\PureData\extra\expr~\vexp.h">

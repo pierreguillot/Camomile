@@ -163,67 +163,78 @@ Z_PD_EXTERN int z_pd_instance_get_samplerate(z_instance* instance);
 
 
 //! @brief Creates a new patch.
-z_patch* z_pd_patch_new(const char* name, const char* path);
+Z_PD_EXTERN z_patch* z_pd_patch_new(const char* name, const char* path);
 
 //! @brief Frees a patch.
-void z_pd_patch_free(z_patch* patch);
+Z_PD_EXTERN void z_pd_patch_free(z_patch* patch);
 
 //! @brief Gets the name of a patch.
-const char* z_pd_patch_get_name(z_patch const* patch);
+Z_PD_EXTERN const char* z_pd_patch_get_name(z_patch const* patch);
 
 //! @brief Gets the path of a patch.
-const char* z_pd_patch_get_path(z_patch const* patch);
+Z_PD_EXTERN const char* z_pd_patch_get_path(z_patch const* patch);
 
 //! @brief Gets the x margin of a patch.
-int z_pd_patch_get_x(z_patch const* patch);
+Z_PD_EXTERN int z_pd_patch_get_x(z_patch const* patch);
 
 //! @brief Gets the x margin of a patch.
-int z_pd_patch_get_y(z_patch const* patch);
+Z_PD_EXTERN int z_pd_patch_get_y(z_patch const* patch);
 
 //! @brief Gets the width of a patch.
-int z_pd_patch_get_width(z_patch const* patch);
+Z_PD_EXTERN int z_pd_patch_get_width(z_patch const* patch);
 
 //! @brief Gets the height of a patch.
-int z_pd_patch_get_height(z_patch const* patch);
+Z_PD_EXTERN int z_pd_patch_get_height(z_patch const* patch);
 
 //! @brief Gets the first object of a patch.
-z_object* z_pd_patch_get_first_object(z_patch* patch);
+Z_PD_EXTERN z_object* z_pd_patch_get_first_object(z_patch* patch);
 
 //! @brief Gets the next object of a patch.
-z_object* z_pd_patch_get_next_object(z_patch* patch, z_object* previous);
+Z_PD_EXTERN z_object* z_pd_patch_get_next_object(z_patch* patch, z_object* previous);
 
 
 
 
 //! @brief Gets the name of an object.
-z_symbol* z_pd_object_get_name(z_object const* object);
+Z_PD_EXTERN z_symbol* z_pd_object_get_name(z_object const* object);
+
+//! @brief Gets the name of an object.
+Z_PD_EXTERN void z_pd_object_get_text(z_object const* object, int* size, char** text);
+
+//! @brief Gets the bounds of an object.
+Z_PD_EXTERN void z_pd_object_get_bounds(z_object const* object, z_patch const* patch,
+                                        int* x, int* y, int* width, int* height);
+
+
+
+
+
+
+
 
 //! @brief Gets the label of a gui.
-z_symbol* z_pd_gui_get_label(z_gui const* gui);
+Z_PD_EXTERN z_symbol* z_pd_gui_get_label(z_gui const* gui);
 
 //! @brief Gets the receive symbol of a gui.
-z_symbol* z_pd_gui_get_receive_symbol(z_gui const* gui);
+Z_PD_EXTERN z_symbol* z_pd_gui_get_receive_symbol(z_gui const* gui);
 
 //! @brief Gets the send symbol of a gui.
-z_symbol* z_pd_gui_get_send_symbol(z_gui const* gui);
+Z_PD_EXTERN z_symbol* z_pd_gui_get_send_symbol(z_gui const* gui);
 
 //! @brief Gets the maximum value of a gui.
-float z_pd_gui_get_maximum_value(z_gui const* gui);
+Z_PD_EXTERN float z_pd_gui_get_maximum_value(z_gui const* gui);
 
 //! @brief Gets the maximum value of a gui.
-float z_pd_gui_get_minimum_value(z_gui const* gui);
+Z_PD_EXTERN float z_pd_gui_get_minimum_value(z_gui const* gui);
 
 //! @brief Gets the number of steps of a gui.
-int z_pd_gui_get_number_of_steps(z_gui const* gui);
+Z_PD_EXTERN int z_pd_gui_get_number_of_steps(z_gui const* gui);
 
 //! @brief Gets the number of steps of a gui.
-float z_pd_gui_get_value(z_gui const* gui);
+Z_PD_EXTERN float z_pd_gui_get_value(z_gui const* gui);
 
 //! @brief Gets the bounds of a gui.
-void z_pd_gui_get_bounds(z_gui const* gui, z_patch const* patch, int* x, int* y, int* width, int* height);
-
-//! @brief Gets the bounds of a gui.
-void z_pd_gui_get_label_position(z_gui const* gui, z_patch const* patch, int* x, int* y);
+Z_PD_EXTERN void z_pd_gui_get_label_position(z_gui const* gui, z_patch const* patch, int* x, int* y);
 
 
 

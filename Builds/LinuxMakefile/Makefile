@@ -65,10 +65,11 @@ OBJECTS := \
   $(OBJDIR)/GuiToggle_5aabe650.o \
   $(OBJDIR)/GuiRadio_1d3f9a09.o \
   $(OBJDIR)/GuiParameter_1f209e37.o \
-  $(OBJDIR)/Pd_51c89d7d.o \
-  $(OBJDIR)/PdGui_8982f688.o \
-  $(OBJDIR)/PdPatch_eded9115.o \
+  $(OBJDIR)/PdEnvironment_e8d0d360.o \
   $(OBJDIR)/PdInstance_9098ebb2.o \
+  $(OBJDIR)/PdObject_c5fa2f5c.o \
+  $(OBJDIR)/PdPatch_eded9115.o \
+  $(OBJDIR)/z_pd_994bae42.o \
   $(OBJDIR)/bob~_dea63fa8.o \
   $(OBJDIR)/bonk~_1c54edf2.o \
   $(OBJDIR)/choice_9a48dd28.o \
@@ -259,14 +260,19 @@ $(OBJDIR)/GuiParameter_1f209e37.o: ../../Source/GuiParameter.cpp
 	@echo "Compiling GuiParameter.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/Pd_51c89d7d.o: ../../Source/Pd.cpp
+$(OBJDIR)/PdEnvironment_e8d0d360.o: ../../Source/PdEnvironment.cpp
 	-@mkdir -p $(OBJDIR)
-	@echo "Compiling Pd.cpp"
+	@echo "Compiling PdEnvironment.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/PdGui_8982f688.o: ../../Source/PdGui.cpp
+$(OBJDIR)/PdInstance_9098ebb2.o: ../../Source/PdInstance.cpp
 	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdGui.cpp"
+	@echo "Compiling PdInstance.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/PdObject_c5fa2f5c.o: ../../Source/PdObject.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling PdObject.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/PdPatch_eded9115.o: ../../Source/PdPatch.cpp
@@ -274,10 +280,10 @@ $(OBJDIR)/PdPatch_eded9115.o: ../../Source/PdPatch.cpp
 	@echo "Compiling PdPatch.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/PdInstance_9098ebb2.o: ../../Source/PdInstance.cpp
+$(OBJDIR)/z_pd_994bae42.o: ../../Source/z_pd.c
 	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdInstance.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+	@echo "Compiling z_pd.c"
+	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/bob~_dea63fa8.o: ../../ThirdParty/PureData/extra/bob~/bob~.c
 	-@mkdir -p $(OBJDIR)

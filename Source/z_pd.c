@@ -575,13 +575,50 @@ z_object* z_pd_patch_get_next_object(z_patch* patch, z_object* previous)
 
 
 
+static char z_pd_object_is_patchable(z_object const* object)
+{
+    return object->te_g.g_pd->c_patchable;
+}
 
+static struct _widgetbehavior* z_pd_object_get_widget(z_object const* object)
+{
+    return object->te_g.g_pd->c_wb;
+}
 
 
 z_symbol* z_pd_object_get_name(z_object const* object)
 {
     return object->te_g.g_pd->c_name;
 }
+
+void z_pd_object_get_text(z_object const* object, int* size, char** text)
+{
+    binbuf_gettext(((t_text *)(object))->te_binbuf, text, size);
+}
+
+void z_pd_object_get_bounds(z_object const* object, z_patch const* patch, int* x, int* y, int* width, int* height)
+{
+    struct _widgetbehavior const* wb = z_pd_object_get_widget(object);
+    if(z_pd_object_is_patchable(object) && wb && wb->w_getrectfn)
+    {
+        wb->w_getrectfn((t_gobj *)object, (t_canvas *)patch, x, y, width, height);
+        *width  = *width - *x;
+        *height = *height - *y;
+        *x = *x - z_pd_patch_get_x(patch);
+        *y = *y - z_pd_patch_get_y(patch);
+    }
+    else
+    {
+        *x = 0;
+        *y = 0;
+        *width = 0;
+        *height = 0;
+    }
+}
+
+
+
+
 
 z_symbol* z_pd_gui_get_label(z_gui const* gui)
 {
@@ -712,18 +749,6 @@ float z_pd_gui_get_value(z_gui const* gui)
         return ((t_vdial *)gui)->x_on;
     }
     return 0.f;
-}
-
-void z_pd_gui_get_bounds(z_gui const* gui, z_patch const* patch, int* x, int* y, int* width, int* height)
-{
-    if(gui->x_obj.te_g.g_pd->c_wb->w_getrectfn)
-    {
-        gui->x_obj.te_g.g_pd->c_wb->w_getrectfn((t_gobj *)gui, (t_canvas *)patch, x, y, width, height);
-        *width  = *width - *x;
-        *height = *height - *y;
-        *x = *x - z_pd_patch_get_x(patch);
-        *y = *y - z_pd_patch_get_y(patch);
-    }
 }
 
 void z_pd_gui_get_label_position(z_gui const* gui, z_patch const* patch, int* x, int* y)
