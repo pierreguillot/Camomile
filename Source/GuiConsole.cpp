@@ -78,30 +78,13 @@ void GuiConsole::buttonClicked(Button* button)
         m.addItem(2, "Error", true, m_level == Level::Error);
         m.addItem(3, "Normal", true, m_level == Level::Post);
         m.addItem(4, "All", true, m_level == Level::Log);
-        int level = m.showAt(getScreenBounds().translated(222, -6 * (Gui::getFont().getHeight() + 2) - 2),
-                             0, 78, Gui::getFont().getHeight() + 2);
+        int level = m.showAt(getScreenBounds().translated(0, -6 * (Gui::getFont().getHeight() + 2) - 4),
+                             0, 0, Gui::getFont().getHeight() + 2);
         if(level && level != int(m_level)+1)
         {
             m_level = Level(level-1);
             m_size = m_history.getNumberOfMessageUntilLevel(m_level);
             m_table.updateContent();
-            if(m_level == Level::Fatal)
-            {
-                m_level_button.setLevelColor(Colours::red);
-            }
-            else if(m_level == Level::Error)
-            {
-                m_level_button.setLevelColor(Colours::orange);
-            }
-            else if(m_level == Level::Post)
-            {
-                m_level_button.setLevelColor(Gui::getColorTxt());
-            }
-            else
-            {
-                m_level_button.setLevelColor(Colours::green);
-            }
-            
         }
     }
 }

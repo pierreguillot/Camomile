@@ -18,7 +18,6 @@ class GuiAbout : public Component
 public:
     GuiAbout();
 private:
-    DrawableImage    m_image1;
     juce::TextEditor m_text;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiAbout)

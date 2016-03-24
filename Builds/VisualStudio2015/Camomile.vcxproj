@@ -289,9 +289,6 @@
     <ClCompile Include="..\..\ThirdParty\PureData\extra\bob~\bob~.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\extra\bonk~\bonk~.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\extra\choice\choice.c"/>
-    <ClCompile Include="..\..\ThirdParty\PureData\extra\expr~\vexp.c"/>
-    <ClCompile Include="..\..\ThirdParty\PureData\extra\expr~\vexp_fun.c"/>
-    <ClCompile Include="..\..\ThirdParty\PureData\extra\expr~\vexp_if.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\extra\fiddle~\fiddle~.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\extra\loop~\loop~.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\extra\lrshift~\lrshift~.c"/>
@@ -366,6 +363,9 @@
     <ClCompile Include="..\..\ThirdParty\PureData\src\x_scalar.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\x_text.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\x_time.c"/>
+    <ClCompile Include="..\..\ThirdParty\PureData\src\x_vexp_fun.c"/>
+    <ClCompile Include="..\..\ThirdParty\PureData\src\x_vexp_if.c"/>
+    <ClCompile Include="..\..\ThirdParty\PureData\src\x_vexp.c"/>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\buffers\juce_AudioDataConverters.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1383,14 +1383,13 @@
     <ClInclude Include="..\..\Source\PdEnvironment.hpp"/>
     <ClInclude Include="..\..\Source\PdTypes.hpp"/>
     <ClInclude Include="..\..\Source\z_pd.h"/>
-    <ClInclude Include="..\..\ThirdParty\PureData\extra\expr~\vexp.h"/>
-    <ClInclude Include="..\..\ThirdParty\PureData\extra\expr~\fts_to_pd.h"/>
     <ClInclude Include="..\..\ThirdParty\PureData\src\g_all_guis.h"/>
     <ClInclude Include="..\..\ThirdParty\PureData\src\g_canvas.h"/>
     <ClInclude Include="..\..\ThirdParty\PureData\src\m_imp.h"/>
     <ClInclude Include="..\..\ThirdParty\PureData\src\m_pd.h"/>
     <ClInclude Include="..\..\ThirdParty\PureData\src\s_stuff.h"/>
     <ClInclude Include="..\..\ThirdParty\PureData\src\s_utf8.h"/>
+    <ClInclude Include="..\..\ThirdParty\PureData\src\x_vexp.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\buffers\juce_AudioSampleBuffer.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\buffers\juce_FloatVectorOperations.h"/>
@@ -1814,6 +1813,7 @@
     <None Include="..\..\Ressources\clear2.png"/>
     <None Include="..\..\Ressources\copy1.png"/>
     <None Include="..\..\Ressources\copy2.png"/>
+    <None Include="..\..\Ressources\option.png"/>
     <None Include="..\..\Ressources\flower1.png"/>
     <None Include="..\..\Ressources\flower2.png"/>
     <None Include="..\..\Ressources\flowerG.png"/>

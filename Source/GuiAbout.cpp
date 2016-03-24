@@ -13,11 +13,6 @@
 
 GuiAbout::GuiAbout()
 {
-    m_image1.setImage(ImageCache::getFromMemory(BinaryData::flowerG_png, BinaryData::flowerG_pngSize));
-    m_image1.setBoundingBox(RelativeParallelogram(Rectangle<float>(300.f - 128.f, 370.f - 128.f, 128.f, 128.f)));
-    m_image1.setOpacity(0.5f);
-    addAndMakeVisible(&m_image1);
-    
     m_text.setMultiLine(true);
     m_text.setReadOnly(true);
     m_text.setScrollbarsShown(false);
@@ -32,7 +27,7 @@ GuiAbout::GuiAbout()
                    "Author :\n"+ String(JucePlugin_Manufacturer) + "\n\n"
                    "Organizations :\nCICM | Université Paris 8 | Labex Arts H2H\n\n"
                    "Web Site :\n" + String(JucePlugin_ManufacturerWebsite)+"/wiki\n\n"
-                   "Credits :\nPure Data by Miller Puckette\nJuce by ROLI Ltd.\nlibPD by the Pure Data community"
+                   "Credits :\nPure Data by Miller Puckette and others\nJuce by ROLI Ltd.\nlibPD by the Pure Data community"
 #ifdef JucePlugin_Build_VST
                    + "\nVST PlugIn Technology by Steinberg Media Technologies");
 #elif JucePlugin_Build_VST3

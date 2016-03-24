@@ -61,9 +61,11 @@ public:
     GuiLevelButton();
     void paintButton(Graphics& g, bool over, bool down) final;
     void buttonStateChanged() final;
-    void setLevelColor(Colour const& color);
 private:
-    Colour  m_color;
+    DrawableImage   m_image1;
+    DrawableImage   m_image2;
+    DrawableImage   m_image3;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiLevelButton)
 };
 

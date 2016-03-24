@@ -75,9 +75,6 @@ OBJECTS := \
   $(OBJDIR)/bob~_dea63fa8.o \
   $(OBJDIR)/bonk~_1c54edf2.o \
   $(OBJDIR)/choice_9a48dd28.o \
-  $(OBJDIR)/vexp_42c95f1e.o \
-  $(OBJDIR)/vexp_fun_46a72f5e.o \
-  $(OBJDIR)/vexp_if_a8aa2e8.o \
   $(OBJDIR)/fiddle~_d178694e.o \
   $(OBJDIR)/loop~_d8d5c53e.o \
   $(OBJDIR)/lrshift~_770f74c8.o \
@@ -152,6 +149,9 @@ OBJECTS := \
   $(OBJDIR)/x_scalar_6bd11c10.o \
   $(OBJDIR)/x_text_c7a174d1.o \
   $(OBJDIR)/x_time_c7d49a71.o \
+  $(OBJDIR)/x_vexp_fun_e64128cb.o \
+  $(OBJDIR)/x_vexp_if_624547db.o \
+  $(OBJDIR)/x_vexp_cb0b170b.o \
   $(OBJDIR)/BinaryData_ce4232d4.o \
   $(OBJDIR)/juce_audio_basics_4f86222c.o \
   $(OBJDIR)/juce_audio_processors_4fc0fe4.o \
@@ -310,21 +310,6 @@ $(OBJDIR)/bonk~_1c54edf2.o: ../../ThirdParty/PureData/extra/bonk~/bonk~.c
 $(OBJDIR)/choice_9a48dd28.o: ../../ThirdParty/PureData/extra/choice/choice.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling choice.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/vexp_42c95f1e.o: ../../ThirdParty/PureData/extra/expr~/vexp.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling vexp.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/vexp_fun_46a72f5e.o: ../../ThirdParty/PureData/extra/expr~/vexp_fun.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling vexp_fun.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/vexp_if_a8aa2e8.o: ../../ThirdParty/PureData/extra/expr~/vexp_if.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling vexp_if.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/fiddle~_d178694e.o: ../../ThirdParty/PureData/extra/fiddle~/fiddle~.c
@@ -695,6 +680,21 @@ $(OBJDIR)/x_text_c7a174d1.o: ../../ThirdParty/PureData/src/x_text.c
 $(OBJDIR)/x_time_c7d49a71.o: ../../ThirdParty/PureData/src/x_time.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_time.c"
+	@$(CC) $(CFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/x_vexp_fun_e64128cb.o: ../../ThirdParty/PureData/src/x_vexp_fun.c
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling x_vexp_fun.c"
+	@$(CC) $(CFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/x_vexp_if_624547db.o: ../../ThirdParty/PureData/src/x_vexp_if.c
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling x_vexp_if.c"
+	@$(CC) $(CFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/x_vexp_cb0b170b.o: ../../ThirdParty/PureData/src/x_vexp.c
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling x_vexp.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/BinaryData_ce4232d4.o: ../../JuceLibraryCode/BinaryData.cpp

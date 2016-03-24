@@ -21,7 +21,6 @@ EXTERN void pd_init(void);
 void bob_tilde_setup();
 void bonk_tilde_setup();
 void choice_setup();
-void expr_setup();
 void fiddle_tilde_setup();
 void loop_tilde_setup();
 void lrshift_tilde_setup();
@@ -231,7 +230,6 @@ void z_pd_init()
         bob_tilde_setup();
         bonk_tilde_setup();
         choice_setup();
-        expr_setup();
         fiddle_tilde_setup();
         loop_tilde_setup();
         lrshift_tilde_setup();
