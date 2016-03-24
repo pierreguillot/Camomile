@@ -24,6 +24,7 @@
 namespace pd
 {
     class Smuggler;
+    class List;
     
     // ==================================================================================== //
     //                                      TIE                                             //
@@ -48,6 +49,7 @@ namespace pd
     private:
         void* ptr;
         friend class Smuggler;
+        friend class List;
         inline constexpr void const* get() const noexcept{return ptr;}
         inline constexpr Tie(void *_ptr) : ptr(_ptr) {}
     };
@@ -76,6 +78,7 @@ namespace pd
     private:
         void* ptr;
         friend class Smuggler;
+        friend class List;
         inline constexpr void const* get() const noexcept{return ptr;}
         inline constexpr Symbol(void *_ptr) : ptr(_ptr) {}
     };
@@ -98,6 +101,7 @@ namespace pd
     private:
         void* ptr;
         friend class Smuggler;
+        friend class List;
         inline constexpr void const* get() const noexcept{return ptr;}
         inline constexpr Gpointer(void *_ptr) : ptr(_ptr) {}
     };
@@ -110,15 +114,34 @@ namespace pd
     class List
     {
     public:
-        inline constexpr List(void *_ptr) : ptr(_ptr) {}
-        inline constexpr List() : ptr(nullptr) {}
-        inline constexpr List(List const& other) : ptr(other.ptr) {}
-        inline List& operator=(List const& other) {ptr = other.ptr; return *this;}
-        inline bool operator!=(List const& other)const noexcept {return other.ptr != ptr;}
-        inline bool operator==(List const& other) const noexcept{return other.ptr == ptr;}
-        inline void const* get() const noexcept{return ptr;}
+        enum class Type
+        {
+            Nothing,
+            Float,
+            Symbol,
+            Gpointer
+        };
+        List();
+        List(size_t size);
+        List(List const& other);
+        List(List&& other);
+        ~List();
+        List& operator=(List const& other);
+        List& operator=(List&& other);
+        void resize(size_t size);
+        size_t getSize() const noexcept;
+        Type getType(size_t index) const;
+        float getFloat(size_t index) const;
+        Symbol getSymbol(size_t index) const;
+        Gpointer getGpointer(size_t index) const;
+        void setFloat(size_t index, float value);
+        void setSymbol(size_t index, Symbol& symbol);
+        void setGpointer(size_t index, Gpointer& pointer);
     private:
         void* ptr;
+        friend class Smuggler;
+        inline void const* get() const noexcept{return ptr;}
+        inline List(void *_ptr) : ptr(_ptr) {}
     };
     
     
@@ -136,6 +159,9 @@ namespace pd
         inline static constexpr Symbol createSymbol(void *ptr) noexcept {return Symbol(ptr);}
         inline static constexpr void const* getGpointer(Gpointer const& gpointer) noexcept {return gpointer.ptr;}
         inline static constexpr Gpointer createGpointer(void *ptr) noexcept {return Gpointer(ptr);}
+        
+        inline static constexpr void const* getList(List const& list) noexcept {return list.ptr;}
+        inline static List createList(void *ptr) noexcept {return List(ptr);}
     };
 }
 

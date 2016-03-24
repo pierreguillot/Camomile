@@ -8,13 +8,18 @@
 #include "InstanceEditor.hpp"
 #include "LookAndFeel.hpp"
 
-InstanceProcessor::InstanceProcessor() : pd::Instance("Camomile")
+pd::Symbol InstanceProcessor::s_playing;
+pd::Symbol InstanceProcessor::s_measure;
+
+InstanceProcessor::InstanceProcessor() : pd::Instance("Camomile"),
+m_parameters(32), m_playing_list(2), m_measure_list(5)
 {
     sendConsolePost(std::string("Camomile ") +
                          std::string(JucePlugin_VersionString) +
                          std::string(" for Pure Data ") +
                          pd::Environment::getPdVersion());
-    m_parameters.resize(32);
+    s_playing           = pd::Symbol("playing");
+    s_measure           = pd::Symbol("measure");
     busArrangement.inputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
     busArrangement.outputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
     m_path = juce::File::getCurrentWorkingDirectory().getFullPathName();
@@ -215,19 +220,27 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     }
     lock();
     {
+        m_midi.clear();
         if(infos)
         {
-            sendMessageFloat(m_patch_tie, m_playinfos.bpm);
+            m_playing_list.setFloat(0, m_playinfos.isPlaying);
+            m_playing_list.setFloat(1, m_playinfos.timeInSeconds);
+            sendMessageAnything(m_patch_tie, s_playing, m_playing_list);
+            m_measure_list.setFloat(0, m_playinfos.bpm);
+            m_measure_list.setFloat(1, m_playinfos.timeSigNumerator);
+            m_measure_list.setFloat(2, m_playinfos.timeSigDenominator);
+            m_measure_list.setFloat(3, m_playinfos.ppqPosition);
+            m_measure_list.setFloat(4, m_playinfos.ppqPositionOfLastBarStart);
+            sendMessageAnything(m_patch_tie, s_measure, m_measure_list);
         }
         for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); ++i)
         {
             sendMessageFloat(m_parameters[i].getTie(), m_parameters[i].getValueNonNormalized());
         }
         
-        m_midi.clear();
         MidiMessage message;
         MidiBuffer::Iterator it(midiMessages);
-        int position = buffer.getNumSamples();
+        int position = midiMessages.getFirstEventTime();
         while(it.getNextEvent(message, position))
         {
             if(message.isNoteOnOrOff())
@@ -256,12 +269,10 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
             }
         }
     }
-    
+    midiMessages.clear();
     performDsp(buffer.getNumSamples(),
                getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
                getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
-    
-    midiMessages.clear();
     midiMessages.swapWith(m_midi);
     unlock();
 }
@@ -290,42 +301,42 @@ void InstanceProcessor::receiveMidiNoteOn(int channel, int pitch, int velocity)
 {
     if(velocity)
     {
-        m_midi.addEvent(MidiMessage::noteOn(channel+1, pitch, uint8(velocity)), 1);
+        m_midi.addEvent(MidiMessage::noteOn(channel+1, pitch, uint8(velocity)), 0);
     }
     else
     {
-        m_midi.addEvent(MidiMessage::noteOff(channel+1, pitch, uint8(velocity)), 1);
+        m_midi.addEvent(MidiMessage::noteOff(channel+1, pitch, uint8(velocity)), 0);
     }
 }
 
 void InstanceProcessor::receiveMidiControlChange(int channel, int control, int value)
 {
-    m_midi.addEvent(MidiMessage::controllerEvent(channel+1, control, value), 1);
+    m_midi.addEvent(MidiMessage::controllerEvent(channel+1, control, value), 0);
 }
 
 void InstanceProcessor::receiveMidiProgramChange(int channel, int value)
 {
-    m_midi.addEvent(MidiMessage::programChange(channel+1, value), 1);
+    m_midi.addEvent(MidiMessage::programChange(channel+1, value), 0);
 }
 
 void InstanceProcessor::receiveMidiPitchBend(int channel, int value)
 {
-    m_midi.addEvent(MidiMessage::pitchWheel(channel+1, value), 1);
+    m_midi.addEvent(MidiMessage::pitchWheel(channel+1, value), 0);
 }
 
 void InstanceProcessor::receiveMidiAfterTouch(int channel, int value)
 {
-    m_midi.addEvent(MidiMessage::channelPressureChange(channel+1, value), 1);
+    m_midi.addEvent(MidiMessage::channelPressureChange(channel+1, value), 0);
 }
 
 void InstanceProcessor::receiveMidiPolyAfterTouch(int channel, int pitch, int value)
 {
-    m_midi.addEvent(MidiMessage::aftertouchChange(channel+1, pitch, value), 1);
+    m_midi.addEvent(MidiMessage::aftertouchChange(channel+1, pitch, value), 0);
 }
 
 void InstanceProcessor::receiveMidiByte(int port, int value)
 {
-    m_midi.addEvent(MidiMessage(port, value), 1);
+    m_midi.addEvent(MidiMessage(port, value), 0);
 }
 
 AudioProcessorEditor* InstanceProcessor::createEditor()

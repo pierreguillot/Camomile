@@ -95,6 +95,19 @@ void InstanceEditor::buttonClicked(Button* button)
                     }
                 }
             }
+            else
+            {
+                FileChooser fc("Open a patch...", File::getSpecialLocation(File::userDocumentsDirectory), "*.pd", true);
+                if(fc.browseForFileToOpen())
+                {
+                    juce::File file(fc.getResult());
+                    if(file.exists() && file.getFileExtension() == juce::String(".pd"))
+                    {
+                        m_processor.loadPatch(file.getFileName().toStdString(),
+                                              file.getParentDirectory().getFullPathName().toStdString());
+                    }
+                }
+            }
         }
         else if(result == 3)
         {

@@ -213,7 +213,7 @@ namespace pd
         if(isValid())
         {
             z_symbol* s = z_pd_gui_get_receive_symbol(reinterpret_cast<z_gui *>(getPtr()));
-            if(s && s != z_pd_get_symbol("empty"))
+            if(s && s != z_pd_symbol_create("empty"))
             {
                 return Smuggler::createTie(s);
             }

@@ -104,11 +104,14 @@ protected:
     //! @brief Receives midi byte.
     void receiveMidiByte(int port, int value) final;
 private:
-    
+    static pd::Symbol s_playing;
+    static pd::Symbol s_measure;
     std::vector<pd::Parameter>          m_parameters;
     juce::String                        m_path;
     MidiBuffer                          m_midi;
     pd::Tie                             m_patch_tie;
+    pd::List                            m_playing_list;
+    pd::List                            m_measure_list;
     AudioPlayHead::CurrentPositionInfo  m_playinfos;
 
     void parametersChanged();

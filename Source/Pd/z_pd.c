@@ -91,33 +91,31 @@ static void receiver_pointer(z_receiver *x, t_gpointer *gp)
     }
 }
 
-typedef struct _zinbuf
+struct _list
 {
-    int b_n;
-    t_atom *b_vec;
-}t_zinbuf;
+    int l_n;
+    t_atom *l_vec;
+};
 
 static void receiver_list(z_receiver *x, t_symbol *s, int argc, t_atom *argv)
 {
-    int ugly;
     if(x->z_m_list)
     {
-        t_zinbuf b;
-        b.b_n = argc;
-        b.b_vec = argv;
-        x->z_m_list(x->z_owner, x->z_sym, (t_binbuf *)&b);
+        z_list b;
+        b.l_n = argc;
+        b.l_vec = argv;
+        x->z_m_list(x->z_owner, x->z_sym, &b);
     }
 }
 
 static void receiver_anything(z_receiver *x, t_symbol *s, int argc, t_atom *argv)
 {
-    int ugly;
     if(x->z_m_anything)
     {
-        t_zinbuf b;
-        b.b_n = argc;
-        b.b_vec = argv;
-        x->z_m_anything(x->z_owner, x->z_sym, s, (t_binbuf *)&b);
+        z_list b;
+        b.l_n = argc;
+        b.l_vec = argv;
+        x->z_m_anything(x->z_owner, x->z_sym, s, &b);
     }
 }
 
@@ -801,7 +799,7 @@ void z_pd_gui_get_label_position(z_gui const* gui, z_patch const* patch, int* x,
 
 
 
-z_tie* z_pd_get_tie(const char* name)
+z_tie* z_pd_tie_create(const char* name)
 {
     return (z_tie *)gensym(name);
 }
@@ -811,7 +809,7 @@ char const* z_pd_tie_get_name(z_tie const* tie)
     return tie->s_name;
 }
 
-z_symbol* z_pd_get_symbol(const char* symbol)
+z_symbol* z_pd_symbol_create(const char* symbol)
 {
     return (z_symbol *)gensym(symbol);
 }
@@ -821,35 +819,140 @@ char const* z_pd_symbol_get_name(z_symbol const* symbol)
     return symbol->s_name;
 }
 
-z_list* z_pd_get_list()
+z_list* z_pd_list_create(size_t size)
 {
-    return (z_list *)binbuf_new();
+    z_list *x   = (z_list *)malloc(sizeof(z_list));
+    if(x)
+    {
+        if(size)
+        {
+            x->l_vec = (t_atom *)malloc(size * sizeof(t_atom));
+            if(x->l_vec)
+            {
+                x->l_n = size;
+            }
+            else
+            {
+                x->l_n = 0;
+            }
+        }
+        else
+        {
+            x->l_n      = 0;
+            x->l_vec    = NULL;
+        }
+    }
+    return x;
 }
 
-void z_pd_list_clear(z_list *list)
+void z_pd_list_free(z_list *list)
 {
-    binbuf_clear((t_binbuf *)list);
+    if(list->l_vec && list->l_n)
+    {
+        free(list->l_vec);
+    }
+    list->l_vec = NULL;
+    list->l_n   = 0;
+    free(list);
 }
 
-void z_pd_list_add_float(z_list *list, z_float value)
+char z_pd_list_resize(z_list *list, size_t size)
 {
-    t_atom av;
-    av.a_type = A_FLOAT;
-    av.a_w.w_float = value;
-    binbuf_add((t_binbuf *)list, 1, &av);
+    t_atom* temp = NULL;
+    if(list->l_vec && list->l_n)
+    {
+        temp = realloc(list->l_vec, size * sizeof(t_atom));
+        if(temp)
+        {
+            list->l_vec = temp;
+            list->l_n   = size;
+            return 0;
+        }
+    }
+    else
+    {
+        list->l_vec = (t_atom *)malloc(size * sizeof(t_atom));
+        if(list->l_vec)
+        {
+            list->l_n = size;
+            return 0;
+        }
+        else
+        {
+            list->l_n = 0;
+        }
+    }
+    return -1;
 }
 
-void z_pd_list_add_symbol(z_list *list, z_symbol* symbol)
+z_list* z_pd_list_create_copy(z_list const* list)
 {
-    t_atom av;
-    av.a_type = A_SYMBOL;
-    av.a_w.w_symbol = (t_symbol*)symbol;
-    binbuf_add((t_binbuf *)list, 1, &av);
+    z_list* x = z_pd_list_create(list->l_n);
+    if(x)
+    {
+        memcpy(x->l_vec, list->l_vec, list->l_n * sizeof(t_atom));
+        x->l_n = list->l_n;
+    }
+    return x;
 }
 
-void z_pd_list_add_list(z_list *list, z_list *other)
+char z_pd_list_copy(z_list* list1, z_list const* list2)
 {
-    binbuf_addbinbuf((t_binbuf *)list, (t_binbuf *)other);
+    if(!z_pd_list_resize(list1, list2->l_n))
+    {
+        memcpy(list1->l_vec, list2->l_vec, list2->l_n * sizeof(t_atom));
+        return 0;
+    }
+    return -1;
+}
+
+size_t z_pd_list_get_size(z_list const* list)
+{
+    return list->l_n;
+}
+
+z_listtype z_pd_list_get_type(z_list const* list, size_t index)
+{
+    if((list->l_vec+index)->a_type == A_FLOAT)
+        return Z_FLOAT;
+    if((list->l_vec+index)->a_type == A_SYMBOL)
+        return Z_SYMBOL;
+    if((list->l_vec+index)->a_type == A_POINTER)
+        return Z_POINTER;
+    return Z_NULL;
+}
+
+z_float z_pd_list_get_float(z_list const* list, size_t index)
+{
+    return (list->l_vec+index)->a_w.w_float;
+}
+
+z_symbol* z_pd_list_get_symbol(z_list const* list, size_t index)
+{
+    return (list->l_vec+index)->a_w.w_symbol;
+}
+
+z_gpointer* z_pd_list_get_gpointer(z_list const* list, size_t index)
+{
+    return (list->l_vec+index)->a_w.w_gpointer;
+}
+
+void z_pd_list_set_float(z_list *list, size_t index, z_float value)
+{
+    (list->l_vec+index)->a_type = A_FLOAT;
+    (list->l_vec+index)->a_w.w_float = value;
+}
+
+void z_pd_list_set_symbol(z_list *list, size_t index, z_symbol* symbol)
+{
+    (list->l_vec+index)->a_type = A_SYMBOL;
+    (list->l_vec+index)->a_w.w_symbol = symbol;
+}
+
+void z_pd_list_set_gpointer(z_list *list, size_t index, z_gpointer* pointer)
+{
+    (list->l_vec+index)->a_type = A_POINTER;
+    (list->l_vec+index)->a_w.w_gpointer = pointer;
 }
 
 
@@ -899,8 +1002,7 @@ void z_pd_messagesend_list(z_tie const* tie, z_list const* list)
     t_symbol const* sym = (t_symbol const *)tie;
     if(sym && sym->s_thing)
     {
-        pd_list((t_pd *)sym->s_thing, &s_list,
-                binbuf_getnatom((t_binbuf *)list), binbuf_getvec((t_binbuf *)list));
+        pd_list((t_pd *)sym->s_thing, &s_list, list->l_n, list->l_vec);
     }
 }
 
@@ -909,8 +1011,7 @@ void z_pd_messagesend_anything(z_tie const* tie, z_symbol const* symbol, z_list 
     t_symbol const* sym = (t_symbol const *)tie;
     if(sym && sym->s_thing)
     {
-        pd_typedmess((t_pd *)sym->s_thing, (t_symbol *)symbol,
-                     binbuf_getnatom((t_binbuf *)list), binbuf_getvec((t_binbuf *)list));
+        pd_typedmess((t_pd *)sym->s_thing, (t_symbol *)symbol, list->l_n, list->l_vec);
     }
 }
 

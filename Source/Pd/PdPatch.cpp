@@ -144,12 +144,12 @@ namespace pd
         std::vector<Gui> objects;
         if(isValid())
         {
-            z_symbol* hsl = z_pd_get_symbol("hsl");
-            z_symbol* vsl = z_pd_get_symbol("vsl");
-            z_symbol* tgl = z_pd_get_symbol("tgl");
-            z_symbol* nbx = z_pd_get_symbol("nbx");
-            z_symbol* vra = z_pd_get_symbol("vradio");
-            z_symbol* hra = z_pd_get_symbol("hradio");
+            z_symbol* hsl = z_pd_symbol_create("hsl");
+            z_symbol* vsl = z_pd_symbol_create("vsl");
+            z_symbol* tgl = z_pd_symbol_create("tgl");
+            z_symbol* nbx = z_pd_symbol_create("nbx");
+            z_symbol* vra = z_pd_symbol_create("vradio");
+            z_symbol* hra = z_pd_symbol_create("hradio");
             for(z_object *y = z_pd_patch_get_first_object(reinterpret_cast<z_patch *>(m_ptr)); y;
                 y = z_pd_patch_get_next_object(reinterpret_cast<z_patch *>(m_ptr), y))
             {
@@ -187,7 +187,7 @@ namespace pd
         std::vector<Object> objects;
         if(isValid())
         {
-            z_symbol* txt = z_pd_get_symbol("text");
+            z_symbol* txt = z_pd_symbol_create("text");
             for(z_object *y = z_pd_patch_get_first_object(reinterpret_cast<z_patch *>(m_ptr)); y;
                 y = z_pd_patch_get_next_object(reinterpret_cast<z_patch *>(m_ptr), y))
             {

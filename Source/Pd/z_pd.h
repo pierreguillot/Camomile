@@ -45,12 +45,20 @@ typedef float z_sample;
 typedef float z_float;
 typedef struct _symbol      z_tie;
 typedef struct _symbol      z_symbol;
-typedef struct _binbuf      z_list;
+typedef struct _list        z_list;
 typedef struct _internal    z_internal;
 typedef struct _gpointer    z_gpointer;
 typedef struct _glist       z_patch;
 typedef struct _text        z_object;
 typedef struct _iemgui      z_gui;
+
+typedef enum
+{
+    Z_NULL,
+    Z_FLOAT,
+    Z_SYMBOL,
+    Z_POINTER
+} z_listtype;
 
 typedef struct _instance
 {
@@ -89,13 +97,13 @@ Z_PD_EXTERN void z_pd_clear();
 
 
 
-//! @brief Retrieves the major version of Pure Data.
+//! @brief Gets the major version of Pure Data.
 Z_PD_EXTERN unsigned int z_pd_version_getmajor();
 
-//! @brief Retrieves the minor version of Pure Data.
+//! @brief Gets the minor version of Pure Data.
 Z_PD_EXTERN unsigned int z_pd_version_getminor();
 
-//! @brief Retrieves the bug version of Pure Data.
+//! @brief Gets the bug version of Pure Data.
 Z_PD_EXTERN unsigned int z_pd_version_getbug();
 
 
@@ -265,32 +273,61 @@ Z_PD_EXTERN void z_pd_gui_get_label_position(z_gui const* gui, z_patch const* pa
 
 
 
-//! @brief Retrieves an opaque tie that can be understood by Pure Data.
-Z_PD_EXTERN z_tie* z_pd_get_tie(const char* name);
+//! @brief Creates an opaque tie that can be understood by Pure Data.
+Z_PD_EXTERN z_tie* z_pd_tie_create(const char* name);
 
-//! @brief Retrieves an opaque symbol that can be understood by Pure Data.
+//! @brief Gets an opaque symbol that can be understood by Pure Data.
 Z_PD_EXTERN char const* z_pd_tie_get_name(z_tie const* tie);
 
-//! @brief Retrieves an opaque symbol that can be understood by Pure Data.
-Z_PD_EXTERN z_symbol* z_pd_get_symbol(const char* symbol);
+//! @brief Creates an opaque symbol that can be understood by Pure Data.
+Z_PD_EXTERN z_symbol* z_pd_symbol_create(const char* symbol);
 
-//! @brief Retrieves an opaque symbol that can be understood by Pure Data.
+//! @brief Gets an opaque symbol that can be understood by Pure Data.
 Z_PD_EXTERN char const* z_pd_symbol_get_name(z_symbol const* symbol);
 
-//! @brief Retrieves an opaque list that can be understood by Pure Data.
-Z_PD_EXTERN z_list* z_pd_get_list();
+
+
+//! @brief Creates an opaque list that can be understood by Pure Data.
+Z_PD_EXTERN z_list* z_pd_list_create(size_t size);
 
 //! @brief Clears a list.
-Z_PD_EXTERN void z_pd_list_clear(z_list *list);
+Z_PD_EXTERN void z_pd_list_free(z_list *list);
 
-//! @brief Adds a float to a list.
-Z_PD_EXTERN void z_pd_list_add_float(z_list *list, z_float value);
+//! @brief Resizes a list.
+Z_PD_EXTERN char z_pd_list_resize(z_list *list, size_t size);
 
-//! @brief Adds a symbol to a list.
-Z_PD_EXTERN void z_pd_list_add_symbol(z_list *list, z_symbol* symbol);
+//! @brief Creates a copy of a list.
+Z_PD_EXTERN z_list* z_pd_list_create_copy(z_list const* list);
 
-//! @brief Adds a list to a list.
-Z_PD_EXTERN void z_pd_list_add_list(z_list *list, z_list *other);
+//! @brief Copy of a list into another.
+Z_PD_EXTERN char z_pd_list_copy(z_list* list1, z_list const* list2);
+
+//! @brief Gets the size of a list.
+Z_PD_EXTERN size_t z_pd_list_get_size(z_list const* list);
+
+//! @brief Gets the type of a data of the list.
+Z_PD_EXTERN z_listtype z_pd_list_get_type(z_list const* list, size_t index);
+
+//! @brief Gets the float value of a data of the list.
+Z_PD_EXTERN z_float z_pd_list_get_float(z_list const* list, size_t index);
+
+//! @brief Gets the symbol of a data of the list.
+Z_PD_EXTERN z_symbol* z_pd_list_get_symbol(z_list const* list, size_t index);
+
+//! @brief Gets the gpointer of a data of the list.
+Z_PD_EXTERN z_gpointer* z_pd_list_get_gpointer(z_list const* list, size_t index);
+
+//! @brief Sets the float value of a data of the list.
+Z_PD_EXTERN void z_pd_list_set_float(z_list *list, size_t index, z_float value);
+
+//! @brief Sets the symbol of a data of the list.
+Z_PD_EXTERN void z_pd_list_set_symbol(z_list *list, size_t index, z_symbol* symbol);
+
+//! @brief Sets the gpointer of a data of the list.
+Z_PD_EXTERN void z_pd_list_set_gpointer(z_list *list, size_t index, z_gpointer* pointer);
+
+
+
 
 
 

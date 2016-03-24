@@ -131,12 +131,12 @@ namespace pd
         
         static void m_list(Instance::Internal* instance, z_tie* tie, z_list *list)
         {
-            instance->ref->receiveMessageList(createTie(tie), List(list));
+            instance->ref->receiveMessageList(createTie(tie), createList(list));
         }
         
         static void m_anything(Instance::Internal* instance, z_tie* tie, z_symbol *s, z_list *list)
         {
-            instance->ref->receiveMessageAnything(createTie(tie), createSymbol(s), List(list));
+            instance->ref->receiveMessageAnything(createTie(tie), createSymbol(s), createList(list));
         }
     };
     
@@ -305,14 +305,14 @@ namespace pd
     void Instance::sendMessageList(Tie const& name, List const& list) const
     {
         z_pd_messagesend_list(reinterpret_cast<z_tie const *>(getTie(name)),
-                              reinterpret_cast<z_list const *>(list.get()));
+                              reinterpret_cast<z_list const *>(getList(list)));
     }
     
     void Instance::sendMessageAnything(Tie const& name, Symbol const& s, List const& list) const
     {
         z_pd_messagesend_anything(reinterpret_cast<z_tie const *>(getTie(name)),
                                   reinterpret_cast<z_symbol const *>(getSymbol(s)),
-                                  reinterpret_cast<z_list const *>(list.get()));
+                                  reinterpret_cast<z_list const *>(getList(list)));
     }
     
     void Instance::sendMidiNote(int channel, int pitch, int velocity) const
