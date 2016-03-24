@@ -1,7 +1,7 @@
 /*
- // Copyright (c) 2015 Pierre Guillot.
- // For information on usage and redistribution, and for a DISCLAIMER OF ALL
- // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
+// Copyright (c) 2015 Pierre Guillot.
+// For information on usage and redistribution, and for a DISCLAIMER OF ALL
+// WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
 #ifndef Z_PD_CONSOLE_HPP
@@ -11,9 +11,11 @@
 
 namespace pd
 {
+    //! @brief A class that manages the console
     class Console
     {
     public:
+        //! @brief A small class that describes a message in the console
         class Message
         {
         public:
@@ -25,56 +27,49 @@ namespace pd
             std::string text;
         };
         
+        //! @brief A small class that manages the history of message in the console
         class History
         {
         public:
+            typedef Message::Level Level;
             //! @brief the constructor.
             History();
             
-            //! @brief Gets the number of messages.
+            //! @brief Gets the number of all messages.
             inline size_t getNumberOfMessages() const noexcept {return m_messages.size();}
             
-            //! @brief Gets the number of messages.
+            //! @brief Gets the number of fatal messages.
             inline size_t getNumberOfFatalMessages() const noexcept {return m_fatal_count;}
             
-            //! @brief Gets the number of messages.
+            //! @brief Gets the number of error messages.
             inline size_t getNumberOfErrorMessages() const noexcept {return m_error_count;}
             
-            //! @brief Gets the number of messages.
+            //! @brief Gets the number of post messages.
             inline size_t getNumberOfPostMessages() const noexcept {return m_post_count;}
             
-            //! @brief Gets the number of messages.
+            //! @brief Gets the number of log messages.
             inline size_t getNumberOfLogMessages() const noexcept {return m_log_count;}
             
-            //! @brief Gets the number of messages.
-            inline size_t getNumberOfMessageUntilLevel(Message::Level level) const noexcept
-            {
-                if(level == Message::Level::Fatal)
-                    return m_fatal_count;
-                if(level == Message::Level::Error)
-                    return m_fatal_count + m_error_count;
-                if(level == Message::Level::Post)
-                    return m_fatal_count + m_error_count + m_post_count;
-                return m_fatal_count + m_error_count + m_post_count + m_log_count;
-            }
+            //! @brief Gets the number of messages until a level.
+            size_t getNumberOfMessageUntilLevel(Level level) const noexcept;
             
-            //! @brief Gets the a message.
+            //! @brief Gets a message at an index.
             Message getMessage(size_t index) const noexcept;
             
-            //! @brief Gets the a fatal.
+            //! @brief Gets a fatal message at an index.
             std::string getFatal(size_t index) const noexcept;
             
-            //! @brief Gets the a fatal.
+            //! @brief Gets an error message at an index.
             std::string getError(size_t index) const noexcept;
             
-            //! @brief Gets the a fatal.
+            //! @brief Gets a post message at an index.
             std::string getPost(size_t index) const noexcept;
             
-            //! @brief Gets the a fatal.
+            //! @brief Gets a log message at an index.
             std::string getLog(size_t index) const noexcept;
             
-            //! @brief Gets a message that the level i.
-            Message getMessageUntilLevel(Message::Level level, size_t index) const noexcept;
+            //! @brief Gets a message at an index until a level.
+            Message getMessageUntilLevel(Level level, size_t index) const noexcept;
             
             //! @brief Clears the history.
             void clear() noexcept;
@@ -108,4 +103,4 @@ namespace pd
     };
 }
 
-#endif
+#endif //Z_PD_CONSOLE_HPP

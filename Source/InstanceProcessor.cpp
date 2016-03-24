@@ -22,16 +22,11 @@ InstanceProcessor::InstanceProcessor() : pd::Instance("Camomile")
 
 InstanceProcessor::~InstanceProcessor()
 {
-    std::lock_guard<std::mutex> guard(m_mutex);
-    m_listeners.clear();
+    ;
 }
 
 const String InstanceProcessor::getName() const
 {
-    if(m_patch.isValid())
-    {
-        return String(JucePlugin_Name + std::string(" ") + m_patch.getName());
-    }
     return String(JucePlugin_Name);
 }
 
@@ -44,7 +39,7 @@ const String InstanceProcessor::getParameterName(int index)
 {
     if(m_parameters[index].isValid())
     {
-        return m_parameters[index].getName(512);
+        return m_parameters[index].getName();
     }
     else
     {
@@ -54,7 +49,7 @@ const String InstanceProcessor::getParameterName(int index)
 
 float InstanceProcessor::getParameter(int index)
 {
-    return m_parameters[index].getValue();
+    return m_parameters[index].getValueNormalized();
 }
 
 float InstanceProcessor:: getParameterNonNormalized(int index) const
@@ -75,7 +70,7 @@ void InstanceProcessor::setParameterNonNormalizedNotifyingHost(int index, float 
 
 void InstanceProcessor::setParameter(int index, float newValue)
 {
-    m_parameters[index].setValue(newValue);
+    m_parameters[index].setValueNormalized(newValue);
 }
 
 float InstanceProcessor::getParameterDefaultValue(int index)
@@ -85,12 +80,12 @@ float InstanceProcessor::getParameterDefaultValue(int index)
 
 const String InstanceProcessor::getParameterText(int index)
 {
-    return m_parameters[index].getText(index, 512);
+    return m_parameters[index].getTextForValue();
 }
 
 String InstanceProcessor::getParameterText(int index, int size)
 {
-    return m_parameters[index].getText(index, size);
+    return m_parameters[index].getTextForValue();
 }
 
 String InstanceProcessor::getParameterLabel(int index) const
@@ -100,12 +95,12 @@ String InstanceProcessor::getParameterLabel(int index) const
 
 int InstanceProcessor::getParameterNumSteps(int index)
 {
-    return m_parameters[index].getNumSteps();
+    return m_parameters[index].getNumberOfSteps();
 }
 
 bool InstanceProcessor::isParameterAutomatable(int index) const
 {
-    return m_parameters[index].isAutomatable();
+    return true;
 }
 
 bool InstanceProcessor::isParameterOrientationInverted(int index) const
@@ -115,7 +110,7 @@ bool InstanceProcessor::isParameterOrientationInverted(int index) const
 
 bool InstanceProcessor::isMetaParameter(int index) const
 {
-    return m_parameters[index].isMetaParameter();
+    return false;
 }
 
 int InstanceProcessor::getParameterIndex(pd::Tie const& name)
@@ -137,7 +132,7 @@ int InstanceProcessor::getParameterIndex(String const& name)
 {
     for(size_t i = 0; i < m_parameters.size(); i++)
     {
-        if(m_parameters[i].getName(512) == name)
+        if(m_parameters[i].getName() == name)
         {
             return i;
         }
@@ -151,11 +146,12 @@ void InstanceProcessor::parametersChanged()
     
     for(size_t i = 0; i < m_parameters.size(); i++)
     {
-        m_parameters[i] = Parameter();
+        m_parameters[i] = pd::Parameter();
     }
-    if(m_patch.isValid())
+    pd::Patch patch(getPatch());
+    if(patch.isValid())
     {
-        std::vector<pd::Gui> guis(m_patch.getGuis());
+        std::vector<pd::Gui> guis(patch.getGuis());
         for(auto const& gui : guis)
         {
             if(gui.isParameter())
@@ -163,22 +159,22 @@ void InstanceProcessor::parametersChanged()
                 bool ok = true;
                 for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); i++)
                 {
-                    if(gui.getName() == m_parameters[i].getName(512))
+                    if(gui.getName() == m_parameters[i].getName())
                     {
-                        sendConsoleError("Warning in patch " + m_patch.getName() + ": "  + gui.getName() + " parameter is duplicated !");
+                        sendConsoleError("Warning in patch " + patch.getName() + ": "  + gui.getName() + " parameter is duplicated !");
                         ok = false;
                         break;
                     }
                     else if(gui.getReceiveTie() == m_parameters[i].getTie())
                     {
-                        sendConsoleError("Warning in patch " + m_patch.getName() + ": "  + gui.getName() + " parameter shares the same receive symbol with another parameter !");
+                        sendConsoleError("Warning in patch " + patch.getName() + ": "  + gui.getName() + " parameter shares the same receive symbol with another parameter !");
                         ok = false;
                         break;
                     }
                 }
                 if(ok)
                 {
-                    m_parameters[index] = Parameter(gui);
+                    m_parameters[index] = pd::Parameter(gui);
                     index++;
                 }
             }
@@ -189,7 +185,7 @@ void InstanceProcessor::parametersChanged()
     {
         if(m_parameters[i].isValid())
         {
-            setParameterNotifyingHost(i, m_parameters[i].getValue());
+            setParameterNotifyingHost(i, m_parameters[i].getValueNormalized());
         }
     }
 }
@@ -337,86 +333,71 @@ AudioProcessorEditor* InstanceProcessor::createEditor()
     return new InstanceEditor(*this);
 }
 
-void InstanceProcessor::loadPatch(const juce::File& file)
+void InstanceProcessor::loadPatch(std::string const& name, std::string const& path)
 {
     suspendProcessing(true);
     if(isSuspended())
     {
-        if(true)
         {
             releaseDsp();
-            if(file.exists() && file.getFileExtension() == String(".pd"))
+            m_patch = pd::Patch(*this, name, path);
+            pd::Patch patch(getPatch());
+            if(patch.isValid())
             {
-                m_patch = pd::Patch(*this,
-                                file.getFileName().toStdString(),
-                                file.getParentDirectory().getFullPathName().toStdString());
-                if(m_patch.isValid())
-                {
-                    m_patch_tie = pd::Tie(std::to_string(m_patch.getDollarZero()) + "-playhead");
-                }
-                else
-                {
-                    m_patch_tie = pd::Tie();
-                }
+                m_patch_tie = pd::Tie(std::to_string(patch.getDollarZero()) + "-playhead");
             }
             else
             {
-                m_patch = pd::Patch();
                 m_patch_tie = pd::Tie();
-                sendConsoleError("Camomile can't find the patch : " + file.getFullPathName().toStdString());
+                sendConsoleError("Camomile can't find the patch : " + name);
             }
         }
         parametersChanged();
-        prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(), AudioProcessor::getSampleRate(), getBlockSize());
+        prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(),
+                   AudioProcessor::getSampleRate(), getBlockSize());
         
-        std::vector<Listener*> listeners = getListeners();
-        for(auto it : listeners)
-        {
-            it->patchChanged();
-        }
+        pd::PatchManager::notifyListeners();
     }
     
     suspendProcessing(false);
 }
 
-void InstanceProcessor::addListener(Listener* listener)
+void InstanceProcessor::closePatch()
 {
-    if(listener)
+    suspendProcessing(true);
+    if(isSuspended())
     {
-        std::lock_guard<std::mutex> guard(m_mutex);
-        m_listeners.insert(listener);
+        {
+            releaseDsp();
+            m_patch = pd::Patch();
+            m_patch_tie = pd::Tie();
+        }
+        
+        parametersChanged();
+        prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(),
+                   AudioProcessor::getSampleRate(), getBlockSize());
+        
+        pd::PatchManager::notifyListeners();
     }
-}
-
-void InstanceProcessor::removeListener(Listener* listener)
-{
-    if(listener)
-    {
-        std::lock_guard<std::mutex> guard(m_mutex);
-        m_listeners.erase(listener);
-    }
-}
-
-std::vector<InstanceProcessor::Listener*> InstanceProcessor::getListeners() const noexcept
-{
-    std::lock_guard<std::mutex> guard(m_mutex);
-    return std::vector<Listener*>(m_listeners.begin(), m_listeners.end());
+    suspendProcessing(false);
 }
 
 void InstanceProcessor::getStateInformation(MemoryBlock& destData)
 {
     juce::XmlElement xml(String("CamomileSettings"));
-    if(m_patch.isValid())
+    
+    pd::Patch patch(getPatch());
+    if(patch.isValid())
     {
-        xml.setAttribute(String("name"), m_patch.getName());
-        xml.setAttribute(String("path"), m_patch.getPath());
+        xml.setAttribute(String("name"), patch.getName());
+        xml.setAttribute(String("path"), patch.getPath());
     }
     XmlElement* params = xml.createNewChildElement("params");
     for(size_t i = 0; i < m_parameters.size(); i++)
     {
         if(m_parameters[i].isValid())
         {
-            params->setAttribute(String(m_parameters[i].getName(512)), double(m_parameters[i].getValue()));
+            params->setAttribute(String(m_parameters[i].getName()), double(m_parameters[i].getValueNormalized()));
         }
     }
     copyXmlToBinary(xml, destData);
@@ -450,7 +431,7 @@ void InstanceProcessor::setStateInformation (const void* data, int sizeInBytes)
                         }
                     }
                 }
-                loadPatch(file);
+                loadPatch(name.toStdString(), path.toStdString());
             }
             
             XmlElement* params = xml->getChildByName(juce::StringRef("params"));
@@ -476,133 +457,6 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
     return new InstanceProcessor();
 }
 
-// ==================================================================================== //
-//                                  PARAMETERS                                          //
-// ==================================================================================== //
-
-
-InstanceProcessor::Parameter::Parameter()
-: m_valid(false), m_value (0.f), m_min(0.f), m_max(0.f),
-m_name (""), m_label(""), m_bname(), m_nsteps(0)
-{
-    
-}
-
-InstanceProcessor::Parameter::Parameter(Parameter const& other)
-: m_valid(other.m_valid), m_value (other.m_value),
-m_min(other.m_min), m_max(other.m_max),
-m_name (other.m_name), m_label(other.m_label),
-m_bname(other.m_bname), m_nsteps(other.m_nsteps)
-{
-    
-}
-
-InstanceProcessor::Parameter::Parameter(pd::Gui const& gui)
-: m_valid(true), m_value (0.f),
-m_min(gui.getMinimum()),
-m_max(gui.getMaximum()),
-m_name(gui.getName()),
-m_label(gui.getLabel()),
-m_bname(gui.getReceiveTie()),
-m_nsteps(gui.getNumberOfSteps())
-{
-    setValueNonNormalized(gui.getValue());
-}
-
-InstanceProcessor::Parameter::~Parameter()
-{
-    
-}
-
-InstanceProcessor::Parameter& InstanceProcessor::Parameter::operator=(InstanceProcessor::Parameter const& other)
-{
-    m_valid = other.m_valid;
-    m_value = other.m_value;
-    m_min   = other.m_min;
-    m_max   = other.m_max;
-    m_name  = other.m_name;
-    m_label = other.m_label;
-    m_bname = other.m_bname;
-    m_nsteps= other.m_nsteps;
-    return *this;
-}
-
-InstanceProcessor::Parameter& InstanceProcessor::Parameter::operator=(InstanceProcessor::Parameter&& other)
-{
-    m_valid = other.m_valid;
-    m_value = other.m_value;
-    m_min   = other.m_min;
-    m_max   = other.m_max;
-    std::swap(m_name, other.m_name);
-    std::swap(m_label, other.m_label);
-    m_bname = other.m_bname;
-    m_nsteps= other.m_nsteps;
-    return *this;
-}
-
-bool InstanceProcessor::Parameter::isValid() const noexcept
-{
-    return m_valid;
-}
-
-float InstanceProcessor::Parameter::getValue() const
-{
-    return m_value;
-}
-
-float InstanceProcessor::Parameter::getValueNonNormalized() const
-{
-    if(m_min < m_max)
-    {
-        return m_value * (m_max - m_min) + m_min;
-    }
-    return (1.f - m_value) * (m_min - m_max) + m_max;
-}
-
-void InstanceProcessor::Parameter::setValue(float newValue)
-{
-    newValue = std::min(std::max(newValue, 0.f), 1.f);
-    if(m_nsteps)
-    {
-        const float step = (1.f/ float(m_nsteps - 1));
-        m_value = std::round(newValue / step) * step;
-    }
-    else
-    {
-        m_value = newValue;
-    }
-}
-
-void InstanceProcessor::Parameter::setValueNonNormalized(float newValue)
-{
-    m_value = getValueNormalized(newValue);
-}
-
-float InstanceProcessor::Parameter::getValueNormalized(float newValue)
-{
-    if(m_min < m_max)
-    {
-        return std::min(std::max((newValue - m_min) / (m_max - m_min), 0.f), 1.f);
-    }
-    return std::min(std::max(1.f  - ((newValue - m_max) / (m_min - m_max)), 0.f), 1.f);
-}
-
-float InstanceProcessor::Parameter::getDefaultValue() const {return 0.f;}
-
-String InstanceProcessor::Parameter::getName(int maximumStringLength) const {return m_name;}
-
-String InstanceProcessor::Parameter::getLabel() const {return m_label;}
-
-String InstanceProcessor::Parameter::getText (float value, int size) const {return String(getValueNonNormalized());}
-
-float InstanceProcessor::Parameter::getValueForText (const String& text) const {return text.getFloatValue();}
-
-bool InstanceProcessor::Parameter::isOrientationInverted() const {return false;}
-
-int InstanceProcessor::Parameter::getNumSteps() const
-{
-    return m_nsteps != 0 ? m_nsteps : AudioProcessor::getDefaultNumParameterSteps();
-}
 
 
 

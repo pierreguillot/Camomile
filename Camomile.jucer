@@ -23,53 +23,63 @@
             file="Source/InstanceEditor.cpp"/>
       <FILE id="tLvOP3" name="InstanceEditor.hpp" compile="0" resource="0"
             file="Source/InstanceEditor.hpp"/>
-      <FILE id="mfu9aW" name="Gui.cpp" compile="1" resource="0" file="Source/Gui.cpp"/>
-      <FILE id="ahFT2V" name="Gui.hpp" compile="0" resource="0" file="Source/Gui.hpp"/>
-      <FILE id="ZAeAE7" name="GuiWindow.cpp" compile="1" resource="0" file="Source/GuiWindow.cpp"/>
-      <FILE id="d9Vjmd" name="GuiWindow.hpp" compile="0" resource="0" file="Source/GuiWindow.hpp"/>
-      <FILE id="OvL3wk" name="GuiAbout.cpp" compile="1" resource="0" file="Source/GuiAbout.cpp"/>
-      <FILE id="YEALPb" name="GuiAbout.hpp" compile="0" resource="0" file="Source/GuiAbout.hpp"/>
-      <FILE id="pQxITl" name="GuiConsole.cpp" compile="1" resource="0" file="Source/GuiConsole.cpp"/>
-      <FILE id="bFJbE9" name="GuiConsole.hpp" compile="0" resource="0" file="Source/GuiConsole.hpp"/>
-      <FILE id="VqmKdm" name="GuiFlowerButton.cpp" compile="1" resource="0"
-            file="Source/GuiFlowerButton.cpp"/>
-      <FILE id="HpCvwb" name="GuiFlowerButton.hpp" compile="0" resource="0"
-            file="Source/GuiFlowerButton.hpp"/>
-      <FILE id="hTEaiz" name="GuiPatcher.cpp" compile="1" resource="0" file="Source/GuiPatcher.cpp"/>
-      <FILE id="DcI7Ep" name="GuiPatcher.hpp" compile="0" resource="0" file="Source/GuiPatcher.hpp"/>
-      <FILE id="Iks2o8" name="GuiComment.cpp" compile="1" resource="0" file="Source/GuiComment.cpp"/>
-      <FILE id="K0Fuxh" name="GuiComment.hpp" compile="0" resource="0" file="Source/GuiComment.hpp"/>
-      <FILE id="gR2NvP" name="GuiLabel.cpp" compile="1" resource="0" file="Source/GuiLabel.cpp"/>
-      <FILE id="pO9tUK" name="GuiLabel.hpp" compile="0" resource="0" file="Source/GuiLabel.hpp"/>
-      <FILE id="QxJ9WH" name="GuiNumbox.cpp" compile="1" resource="0" file="Source/GuiNumbox.cpp"/>
-      <FILE id="RMNfIv" name="GuiNumbox.hpp" compile="0" resource="0" file="Source/GuiNumbox.hpp"/>
-      <FILE id="OeUGMN" name="GuiSlider.cpp" compile="1" resource="0" file="Source/GuiSlider.cpp"/>
-      <FILE id="X3S9do" name="GuiSlider.hpp" compile="0" resource="0" file="Source/GuiSlider.hpp"/>
-      <FILE id="RSGKI0" name="GuiToggle.cpp" compile="1" resource="0" file="Source/GuiToggle.cpp"/>
-      <FILE id="C9xs6Z" name="GuiToggle.hpp" compile="0" resource="0" file="Source/GuiToggle.hpp"/>
-      <FILE id="fgenxt" name="GuiRadio.cpp" compile="1" resource="0" file="Source/GuiRadio.cpp"/>
-      <FILE id="Bwy3TJ" name="GuiRadio.hpp" compile="0" resource="0" file="Source/GuiRadio.hpp"/>
-      <FILE id="yg4Nuq" name="GuiParameter.cpp" compile="1" resource="0"
-            file="Source/GuiParameter.cpp"/>
-      <FILE id="cuSyHc" name="GuiParameter.hpp" compile="0" resource="0"
-            file="Source/GuiParameter.hpp"/>
-      <FILE id="GhSj7F" name="Pd.hpp" compile="0" resource="0" file="Source/Pd.hpp"/>
-      <FILE id="Pp6D5l" name="PdConsole.cpp" compile="1" resource="0" file="Source/PdConsole.cpp"/>
-      <FILE id="elhu7A" name="PdConsole.hpp" compile="0" resource="0" file="Source/PdConsole.hpp"/>
-      <FILE id="KrA7Gf" name="PdObject.cpp" compile="1" resource="0" file="Source/PdObject.cpp"/>
-      <FILE id="RhXGNf" name="PdObject.hpp" compile="0" resource="0" file="Source/PdObject.hpp"/>
-      <FILE id="F1GPAl" name="PdPatch.cpp" compile="1" resource="0" file="Source/PdPatch.cpp"/>
-      <FILE id="ckHDOJ" name="PdPatch.hpp" compile="0" resource="0" file="Source/PdPatch.hpp"/>
-      <FILE id="E8wfIj" name="PdInstance.cpp" compile="1" resource="0" file="Source/PdInstance.cpp"/>
-      <FILE id="hLjEK4" name="PdInstance.hpp" compile="0" resource="0" file="Source/PdInstance.hpp"/>
-      <FILE id="U4n3Z5" name="PdEnvironment.cpp" compile="1" resource="0"
-            file="Source/PdEnvironment.cpp"/>
-      <FILE id="pNpime" name="PdEnvironment.hpp" compile="0" resource="0"
-            file="Source/PdEnvironment.hpp"/>
-      <FILE id="mHvH9J" name="PdTypes.cpp" compile="1" resource="0" file="Source/PdTypes.cpp"/>
-      <FILE id="ZCE0Hn" name="PdTypes.hpp" compile="0" resource="0" file="Source/PdTypes.hpp"/>
-      <FILE id="gBpcHt" name="z_pd.c" compile="1" resource="0" file="Source/z_pd.c"/>
-      <FILE id="rm2pE6" name="z_pd.h" compile="0" resource="0" file="Source/z_pd.h"/>
+      <GROUP id="{E043833F-89BF-72B1-385E-CBEDCD7AF99E}" name="Gui">
+        <FILE id="dV8HAr" name="Gui.cpp" compile="1" resource="0" file="Source/Gui/Gui.cpp"/>
+        <FILE id="dzXDy4" name="Gui.hpp" compile="0" resource="0" file="Source/Gui/Gui.hpp"/>
+        <FILE id="XzQolr" name="GuiAbout.cpp" compile="1" resource="0" file="Source/Gui/GuiAbout.cpp"/>
+        <FILE id="LvbDJX" name="GuiAbout.hpp" compile="0" resource="0" file="Source/Gui/GuiAbout.hpp"/>
+        <FILE id="zELK2I" name="GuiComment.cpp" compile="1" resource="0" file="Source/Gui/GuiComment.cpp"/>
+        <FILE id="BGggUV" name="GuiComment.hpp" compile="0" resource="0" file="Source/Gui/GuiComment.hpp"/>
+        <FILE id="oC33uj" name="GuiConsole.cpp" compile="1" resource="0" file="Source/Gui/GuiConsole.cpp"/>
+        <FILE id="xzP0n8" name="GuiConsole.hpp" compile="0" resource="0" file="Source/Gui/GuiConsole.hpp"/>
+        <FILE id="WPX2aw" name="GuiFlowerButton.cpp" compile="1" resource="0"
+              file="Source/Gui/GuiFlowerButton.cpp"/>
+        <FILE id="dPQh6a" name="GuiFlowerButton.hpp" compile="0" resource="0"
+              file="Source/Gui/GuiFlowerButton.hpp"/>
+        <FILE id="qlPKm4" name="GuiLabel.cpp" compile="1" resource="0" file="Source/Gui/GuiLabel.cpp"/>
+        <FILE id="cHVgdP" name="GuiLabel.hpp" compile="0" resource="0" file="Source/Gui/GuiLabel.hpp"/>
+        <FILE id="DcHzC7" name="GuiNumbox.cpp" compile="1" resource="0" file="Source/Gui/GuiNumbox.cpp"/>
+        <FILE id="N5TCrs" name="GuiNumbox.hpp" compile="0" resource="0" file="Source/Gui/GuiNumbox.hpp"/>
+        <FILE id="GXZZvd" name="GuiParameter.cpp" compile="1" resource="0"
+              file="Source/Gui/GuiParameter.cpp"/>
+        <FILE id="HP8MxI" name="GuiParameter.hpp" compile="0" resource="0"
+              file="Source/Gui/GuiParameter.hpp"/>
+        <FILE id="eFDrOW" name="GuiPatcher.cpp" compile="1" resource="0" file="Source/Gui/GuiPatcher.cpp"/>
+        <FILE id="GBDME6" name="GuiPatcher.hpp" compile="0" resource="0" file="Source/Gui/GuiPatcher.hpp"/>
+        <FILE id="uhftxL" name="GuiRadio.cpp" compile="1" resource="0" file="Source/Gui/GuiRadio.cpp"/>
+        <FILE id="tdiuNC" name="GuiRadio.hpp" compile="0" resource="0" file="Source/Gui/GuiRadio.hpp"/>
+        <FILE id="lDwk2k" name="GuiSlider.cpp" compile="1" resource="0" file="Source/Gui/GuiSlider.cpp"/>
+        <FILE id="zAVwWz" name="GuiSlider.hpp" compile="0" resource="0" file="Source/Gui/GuiSlider.hpp"/>
+        <FILE id="cGa9hy" name="GuiToggle.cpp" compile="1" resource="0" file="Source/Gui/GuiToggle.cpp"/>
+        <FILE id="lpVqgT" name="GuiToggle.hpp" compile="0" resource="0" file="Source/Gui/GuiToggle.hpp"/>
+        <FILE id="crqUQt" name="GuiWindow.cpp" compile="1" resource="0" file="Source/Gui/GuiWindow.cpp"/>
+        <FILE id="ctApEd" name="GuiWindow.hpp" compile="0" resource="0" file="Source/Gui/GuiWindow.hpp"/>
+      </GROUP>
+      <GROUP id="{54169745-384E-0695-75EC-6098DBFF0534}" name="Pd">
+        <FILE id="Sk2bkw" name="Pd.hpp" compile="0" resource="0" file="Source/Pd/Pd.hpp"/>
+        <FILE id="ows8zT" name="PdConsole.cpp" compile="1" resource="0" file="Source/Pd/PdConsole.cpp"/>
+        <FILE id="M2wrm9" name="PdConsole.hpp" compile="0" resource="0" file="Source/Pd/PdConsole.hpp"/>
+        <FILE id="XAxBih" name="PdEnvironment.cpp" compile="1" resource="0"
+              file="Source/Pd/PdEnvironment.cpp"/>
+        <FILE id="zpzoUl" name="PdEnvironment.hpp" compile="0" resource="0"
+              file="Source/Pd/PdEnvironment.hpp"/>
+        <FILE id="yz6bgC" name="PdInstance.cpp" compile="1" resource="0" file="Source/Pd/PdInstance.cpp"/>
+        <FILE id="zyjFjN" name="PdInstance.hpp" compile="0" resource="0" file="Source/Pd/PdInstance.hpp"/>
+        <FILE id="AJPlWv" name="PdObject.cpp" compile="1" resource="0" file="Source/Pd/PdObject.cpp"/>
+        <FILE id="FQGlHP" name="PdObject.hpp" compile="0" resource="0" file="Source/Pd/PdObject.hpp"/>
+        <FILE id="pdfJBZ" name="PdParameter.cpp" compile="1" resource="0" file="Source/Pd/PdParameter.cpp"/>
+        <FILE id="Jvledu" name="PdParameter.hpp" compile="0" resource="0" file="Source/Pd/PdParameter.hpp"/>
+        <FILE id="lDZ2UG" name="PdPatch.cpp" compile="1" resource="0" file="Source/Pd/PdPatch.cpp"/>
+        <FILE id="XZtiXM" name="PdPatch.hpp" compile="0" resource="0" file="Source/Pd/PdPatch.hpp"/>
+        <FILE id="p7fLwd" name="PdPatchManager.cpp" compile="1" resource="0"
+              file="Source/Pd/PdPatchManager.cpp"/>
+        <FILE id="a2S2gw" name="PdPatchManager.hpp" compile="0" resource="0"
+              file="Source/Pd/PdPatchManager.hpp"/>
+        <FILE id="Nx3HCd" name="PdTypes.cpp" compile="1" resource="0" file="Source/Pd/PdTypes.cpp"/>
+        <FILE id="HSh45O" name="PdTypes.hpp" compile="0" resource="0" file="Source/Pd/PdTypes.hpp"/>
+        <FILE id="njegb7" name="z_pd.c" compile="1" resource="0" file="Source/Pd/z_pd.c"/>
+        <FILE id="cDqoiv" name="z_pd.h" compile="0" resource="0" file="Source/Pd/z_pd.h"/>
+      </GROUP>
     </GROUP>
     <GROUP id="{13D75516-E697-ECB1-605C-FB3746C267F8}" name="PureData">
       <GROUP id="{E169D560-E0FD-D9AB-34FF-826654976AD0}" name="extra">
@@ -172,7 +182,6 @@
       <FILE id="SOv1mR" name="option.png" compile="0" resource="1" file="Ressources/option.png"/>
       <FILE id="pAFpl1" name="flower1.png" compile="0" resource="1" file="Ressources/flower1.png"/>
       <FILE id="aZl9d4" name="flower2.png" compile="0" resource="1" file="Ressources/flower2.png"/>
-      <FILE id="ABes24" name="flowerG.png" compile="0" resource="1" file="Ressources/flowerG.png"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

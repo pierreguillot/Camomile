@@ -26,7 +26,7 @@ GuiConsole::GuiConsole(pd::Console::History& history) : m_history(history)
     m_table.setModel(this);
     m_table.setOutlineThickness(0);
     m_table.setWantsKeyboardFocus(true);
-    m_table.setMultipleSelectionEnabled(true);
+    m_table.setMultipleSelectionEnabled(false);
     m_table.setMouseMoveSelectsRows(false);
     m_table.setHeaderHeight(0);
     m_table.setRowHeight(Gui::getFont().getHeight() + 2);
@@ -60,8 +60,7 @@ void GuiConsole::buttonClicked(Button* button)
     else if(button == &m_copy_button)
     {
         String text;
-        SparseSet<int> selection = m_table.getSelectedRows();
-        for(size_t i = 0; i < selection.size(); i++)
+        for(size_t i = 0; i < m_size; i++)
         {
             pd::Console::Message message(m_history.getMessageUntilLevel(m_level, i));
             if(!message.text.empty())

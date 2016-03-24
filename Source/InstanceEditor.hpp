@@ -7,13 +7,13 @@
 #ifndef __CAMOMILE_INSTANCE_EDITOR__
 #define __CAMOMILE_INSTANCE_EDITOR__
 
-#include "Gui.hpp"
+#include "Gui/Gui.hpp"
 
 // ==================================================================================== //
 //                                  INSTANCE EDITOR                                     //
 // ==================================================================================== //
 
-class InstanceEditor : public AudioProcessorEditor, public InstanceProcessor::Listener, public Button::Listener
+class InstanceEditor : public AudioProcessorEditor, public pd::PatchManager::Listener, public Button::Listener
 {
 public:
     InstanceEditor(InstanceProcessor&);

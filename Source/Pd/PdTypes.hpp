@@ -19,6 +19,7 @@
 #include <cassert>
 #include <atomic>
 #include <cstring>
+#include <cmath>
 
 namespace pd
 {

@@ -8,6 +8,12 @@
     <Filter Include="Camomile\Source">
       <UniqueIdentifier>{33E9C75D-FCFD-D74A-6894-584B92DA1489}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Camomile\Source\Gui">
+      <UniqueIdentifier>{3AF8F85C-58F5-53F7-00C3-F524890FB4C3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camomile\Source\Pd">
+      <UniqueIdentifier>{2EC11BD7-CEBB-B832-8CB3-D70D257E2DEE}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Camomile\PureData">
       <UniqueIdentifier>{ABB849DA-A280-579D-8B13-1DFA0A3DAE06}</UniqueIdentifier>
     </Filter>
@@ -280,65 +286,71 @@
     <ClCompile Include="..\..\Source\InstanceEditor.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Gui.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Gui\Gui.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\GuiWindow.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Gui\GuiAbout.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\GuiAbout.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Gui\GuiComment.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\GuiConsole.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Gui\GuiConsole.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\GuiFlowerButton.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Gui\GuiFlowerButton.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\GuiPatcher.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Gui\GuiLabel.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\GuiComment.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Gui\GuiNumbox.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\GuiLabel.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Gui\GuiParameter.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\GuiNumbox.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Gui\GuiPatcher.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\GuiSlider.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Gui\GuiRadio.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\GuiToggle.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Gui\GuiSlider.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\GuiRadio.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Gui\GuiToggle.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\GuiParameter.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Gui\GuiWindow.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PdConsole.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Pd\PdConsole.cpp">
+      <Filter>Camomile\Source\Pd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PdObject.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Pd\PdEnvironment.cpp">
+      <Filter>Camomile\Source\Pd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PdPatch.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Pd\PdInstance.cpp">
+      <Filter>Camomile\Source\Pd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PdInstance.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Pd\PdObject.cpp">
+      <Filter>Camomile\Source\Pd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PdEnvironment.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Pd\PdParameter.cpp">
+      <Filter>Camomile\Source\Pd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PdTypes.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Pd\PdPatch.cpp">
+      <Filter>Camomile\Source\Pd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\z_pd.c">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Pd\PdPatchManager.cpp">
+      <Filter>Camomile\Source\Pd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Pd\PdTypes.cpp">
+      <Filter>Camomile\Source\Pd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Pd\z_pd.c">
+      <Filter>Camomile\Source\Pd</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\PureData\extra\bob~\bob~.c">
       <Filter>Camomile\PureData\extra</Filter>
@@ -1683,68 +1695,74 @@
     <ClInclude Include="..\..\Source\InstanceEditor.hpp">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Gui.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Gui\Gui.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\GuiWindow.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Gui\GuiAbout.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\GuiAbout.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Gui\GuiComment.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\GuiConsole.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Gui\GuiConsole.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\GuiFlowerButton.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Gui\GuiFlowerButton.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\GuiPatcher.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Gui\GuiLabel.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\GuiComment.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Gui\GuiNumbox.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\GuiLabel.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Gui\GuiParameter.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\GuiNumbox.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Gui\GuiPatcher.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\GuiSlider.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Gui\GuiRadio.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\GuiToggle.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Gui\GuiSlider.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\GuiRadio.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Gui\GuiToggle.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\GuiParameter.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Gui\GuiWindow.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Pd.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Pd\Pd.hpp">
+      <Filter>Camomile\Source\Pd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\PdConsole.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Pd\PdConsole.hpp">
+      <Filter>Camomile\Source\Pd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\PdObject.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Pd\PdEnvironment.hpp">
+      <Filter>Camomile\Source\Pd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\PdPatch.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Pd\PdInstance.hpp">
+      <Filter>Camomile\Source\Pd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\PdInstance.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Pd\PdObject.hpp">
+      <Filter>Camomile\Source\Pd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\PdEnvironment.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Pd\PdParameter.hpp">
+      <Filter>Camomile\Source\Pd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\PdTypes.hpp">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Pd\PdPatch.hpp">
+      <Filter>Camomile\Source\Pd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\z_pd.h">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Pd\PdPatchManager.hpp">
+      <Filter>Camomile\Source\Pd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Pd\PdTypes.hpp">
+      <Filter>Camomile\Source\Pd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Pd\z_pd.h">
+      <Filter>Camomile\Source\Pd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\PureData\src\g_all_guis.h">
       <Filter>Camomile\PureData\src</Filter>
@@ -3039,9 +3057,6 @@
       <Filter>Camomile\Ressources</Filter>
     </None>
     <None Include="..\..\Ressources\flower2.png">
-      <Filter>Camomile\Ressources</Filter>
-    </None>
-    <None Include="..\..\Ressources\flowerG.png">
       <Filter>Camomile\Ressources</Filter>
     </None>
     <None Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\juce_module_info">

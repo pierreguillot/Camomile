@@ -18,6 +18,17 @@ namespace pd
         m_messages.reserve(512);
     }
     
+    size_t Console::History::getNumberOfMessageUntilLevel(Console::Message::Level level) const noexcept
+    {
+        if(level == Message::Level::Fatal)
+            return m_fatal_count;
+        if(level == Message::Level::Error)
+            return m_fatal_count + m_error_count;
+        if(level == Message::Level::Post)
+            return m_fatal_count + m_error_count + m_post_count;
+        return m_fatal_count + m_error_count + m_post_count + m_log_count;
+    }
+    
     Console::Message Console::History::getMessage(size_t index) const  noexcept
     {
         std::lock_guard<std::mutex> guard(m_mutex);
@@ -33,7 +44,7 @@ namespace pd
         {
             for(size_t i = 0, c = 0; i < m_messages.size(); ++i)
             {
-                if(m_messages[i].level == Console::Message::Level::Fatal)
+                if(m_messages[i].level == Level::Fatal)
                 {
                     ++c;
                     if(c == index+1)
@@ -54,7 +65,7 @@ namespace pd
         {
             for(size_t i = 0, c = 0; i < m_messages.size(); ++i)
             {
-                if(m_messages[i].level == Console::Message::Level::Error)
+                if(m_messages[i].level == Level::Error)
                 {
                     ++c;
                     if(c == index+1)
@@ -75,7 +86,7 @@ namespace pd
         {
             for(size_t i = 0, c = 0; i < m_messages.size(); ++i)
             {
-                if(m_messages[i].level == Console::Message::Level::Post)
+                if(m_messages[i].level == Level::Post)
                 {
                     ++c;
                     if(c == index+1)
@@ -96,7 +107,7 @@ namespace pd
         {
             for(size_t i = 0, c = 0; i < m_messages.size(); ++i)
             {
-                if(m_messages[i].level == Console::Message::Level::Log)
+                if(m_messages[i].level == Level::Log)
                 {
                     ++c;
                     if(c == index+1)
@@ -141,15 +152,15 @@ namespace pd
     void Console::History::add(Message message) noexcept
     {
         std::lock_guard<std::mutex> guard(m_mutex);
-        if(message.level == Console::Message::Level::Fatal)
+        if(message.level == Level::Fatal)
         {
             m_fatal_count++;
         }
-        if(message.level == Console::Message::Level::Error)
+        if(message.level == Level::Error)
         {
             m_error_count++;
         }
-        if(message.level == Console::Message::Level::Post)
+        if(message.level == Level::Post)
         {
             m_post_count++;
         }
@@ -164,27 +175,27 @@ namespace pd
     {
         std::lock_guard<std::mutex> guard(m_mutex);
         m_fatal_count++;
-        m_messages.push_back({Console::Message::Level::Fatal, std::move(message)});
+        m_messages.push_back({Level::Fatal, std::move(message)});
     }
     
     void Console::History::addError(std::string message) noexcept
     {
         std::lock_guard<std::mutex> guard(m_mutex);
         m_error_count++;
-        m_messages.push_back({Console::Message::Level::Error, std::move(message)});
+        m_messages.push_back({Level::Error, std::move(message)});
     }
     
     void Console::History::addPost(std::string message) noexcept
     {
         std::lock_guard<std::mutex> guard(m_mutex);
         m_post_count++;
-        m_messages.push_back({Console::Message::Level::Post, std::move(message)});
+        m_messages.push_back({Level::Post, std::move(message)});
     }
     
     void Console::History::addLog(std::string message) noexcept
     {
         std::lock_guard<std::mutex> guard(m_mutex);
         m_log_count++;
-        m_messages.push_back({Console::Message::Level::Log, std::move(message)});
+        m_messages.push_back({Level::Log, std::move(message)});
     }
 }
