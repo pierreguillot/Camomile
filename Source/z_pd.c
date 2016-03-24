@@ -199,7 +199,7 @@ void z_pd_init()
         sys_printtostderr = 0;
         sys_usestdpath = 0;
         sys_debuglevel = 1;
-        sys_verbose = DEBUG;
+        sys_verbose = 4;
         sys_noloadbang = 0;
         sys_nogui = 1;
         sys_hipriority = 0;
@@ -301,28 +301,26 @@ void z_pd_searchpath_add(const char* path)
 
 
 
-
-
-
-void z_pd_console_post(char const* message)
+void z_pd_console_fatal(char const* message)
 {
-    verbose(2, "%s", message);
-}
-
-void z_pd_console_log(char const* message)
-{
-    verbose(3, "%s", message);
+    verbose(-3, "%s", message);
 }
 
 void z_pd_console_error(char const* message)
 {
-    verbose(1, "%s", message);
+    verbose(-2, "%s", message);
 }
 
-void z_pd_console_fatal(char const* message)
+void z_pd_console_post(char const* message)
 {
-    verbose(1, "%s", message);
+    verbose(-1, "%s", message);
 }
+
+void z_pd_console_log(char const* message)
+{
+    verbose(0, "%s", message);
+}
+
 
 
 
@@ -416,6 +414,7 @@ void z_pd_instance_set(z_instance* instance)
     sys_inchannels  = instance->z_internal_ptr->z_ninputs;
     sys_outchannels = instance->z_internal_ptr->z_noutputs;
     sys_dacsr       = instance->z_internal_ptr->z_samplerate;
+    z_current_instance = instance;
 }
 
 static z_receiver* z_pd_instance_getreceiver(z_instance* instance, z_tie* tie)
@@ -572,6 +571,16 @@ const char* z_pd_patch_get_name(z_patch const* patch)
 const char* z_pd_patch_get_path(z_patch const* patch)
 {
     return canvas_getdir((t_glist *)patch)->s_name;
+}
+
+int z_pd_patch_get_dollarzero(z_patch const* patch)
+{
+    int value = 0;
+    t_canvas* current = canvas_getcurrent();
+    canvas_setcurrent((t_glist *)patch);
+    value = canvas_getdollarzero();
+    canvas_setcurrent(current);
+    return value;
 }
 
 int z_pd_patch_get_x(z_patch const* patch)

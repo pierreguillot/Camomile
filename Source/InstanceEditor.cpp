@@ -76,7 +76,7 @@ void InstanceEditor::buttonClicked(Button* button)
             m_window.setContentOwned(new GuiAbout(), false);
             m_window.setName("About Camomile " + String(JucePlugin_VersionString));
             m_window.addToDesktop();
-            m_window.grabKeyboardFocus();
+            m_window.toFront(false);
         }
         else if(result == 2)
         {
@@ -125,10 +125,11 @@ void InstanceEditor::buttonClicked(Button* button)
         }
         else if(result == 5)
         {
-            m_window.setContentOwned(new GuiConsole(), false);
+            m_window.setContentOwned(new GuiConsole(m_processor), false);
             m_window.setName("Camomile Console");
             m_window.addToDesktop();
             m_window.grabKeyboardFocus();
+            m_window.toFront(true);
         }
         else if(result == 6)
         {

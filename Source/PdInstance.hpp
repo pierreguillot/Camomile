@@ -21,7 +21,7 @@ namespace pd
     //! With the default constructor, the Instance won't be initialized. The Instance has some
     //! kind of smart pointer behavior so when an Instance object is no more useful the object
     //! is deleted.
-    class Instance : public Smuggler
+    class Instance : private Smuggler
     {
     public:
         
@@ -58,17 +58,33 @@ namespace pd
         //! @brief Retrieves the sample rate of the Instance.
         int getSampleRate() const noexcept;
         
-        //! @brief Sends a normal post to the console Pure Data.
-        void consolePost(std::string const& message) noexcept;
         
-        //! @brief Sends a log post to the console Pure Data.
-        void consoleLog(std::string const& message) noexcept;
         
-        //! @brief Sends an error to the console Pure Data.
-        void consoleError(std::string const& message) noexcept;
         
-        //! @brief Sends a fatal error to the console Pure Data.
-        void consoleFatal(std::string const& message) noexcept;
+        //! @brief Sends a normal post to the Pure Data console.
+        void sendConsolePost(std::string const& message) noexcept;
+        
+        //! @brief Sends a log post to the Pure Data console.
+        void sendConsoleLog(std::string const& message) noexcept;
+        
+        //! @brief Sends an error to the Pure Data console.
+        void sendConsoleError(std::string const& message) noexcept;
+        
+        //! @brief Sends a fatal error to the Pure Data console.
+        void sendConsoleFatal(std::string const& message) noexcept;
+        
+        
+        //! @brief Receives a normal post to the Pure Data console.
+        virtual void receiveConsolePost(std::string const& message) {};
+        
+        //! @brief Receives a log post to the Pure Data console.
+        virtual void receiveConsoleLog(std::string const& message) {};
+        
+        //! @brief Receives a error to the Pure Data console.
+        virtual void receiveConsoleError(std::string const& message) {};
+        
+        //! @brief Receives a fatal error to the Pure Data console.
+        virtual void receiveConsoleFatal(std::string const& message) {};
     protected:
         
         //! @brief The real constructor.
@@ -80,6 +96,9 @@ namespace pd
         //! @brief Unlocks Instance.
         void unlock() noexcept;
         
+        
+        
+        
         //! @brief Prepares the digital signal processing chain of the Instance.
         void prepareDsp(const int nins, const int nouts, const int samplerate, const int nsamples) noexcept;
         
@@ -89,9 +108,6 @@ namespace pd
         
         //! @brief Releases the digital signal processing chain of the Instance.
         void releaseDsp() noexcept;
-        
-        //! @brief Receives a post.
-        virtual void receivePost(std::string const& message) {};
         
         
         
@@ -122,23 +138,26 @@ namespace pd
         //! @brief Sends midi sys real time.
         void sendMidiSysRealtime(int port, int byte) const;
         
+        
+        
+        
         //! @brief Receives midi note on.
-        virtual void receiveMidiNoteOn(int port, int channel, int pitch, int velocity) {};
+        virtual void receiveMidiNoteOn(int channel, int pitch, int velocity) {};
         
         //! @brief Receives midi control change.
-        virtual void receiveMidiControlChange(int port, int channel, int control, int value) {}
+        virtual void receiveMidiControlChange(int channel, int control, int value) {}
         
         //! @brief Receives midi program change.
-        virtual void receiveMidiProgramChange(int port, int channel, int value) {}
+        virtual void receiveMidiProgramChange(int channel, int value) {}
         
         //! @brief Receives midi pitch bend.
-        virtual void receiveMidiPitchBend(int port, int channel, int value) {}
+        virtual void receiveMidiPitchBend(int channel, int value) {}
         
         //! @brief Receives midi after touch.
-        virtual void receiveMidiAfterTouch(int port, int channel, int value) {}
+        virtual void receiveMidiAfterTouch(int channel, int value) {}
         
         //! @brief Receives midi poly after touch.
-        virtual void receiveMidiPolyAfterTouch(int port, int channel, int pitch, int value) {}
+        virtual void receiveMidiPolyAfterTouch(int channel, int pitch, int value) {}
         
         //! @brief Receives midi byte.
         virtual void receiveMidiByte(int port, int value) {}

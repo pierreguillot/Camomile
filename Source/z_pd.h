@@ -114,16 +114,16 @@ Z_PD_EXTERN void z_pd_searchpath_add(const char* path);
 
 
 
-//! @brief Sends a normal post to the console Pure Data.
+//! @brief Sends a normal post to the Pure Data console.
 Z_PD_EXTERN void z_pd_console_post(char const* message);
 
-//! @brief Sends a log post to the console Pure Data.
+//! @brief Sends a log post to the Pure Data console.
 Z_PD_EXTERN void z_pd_console_log(char const* message);
 
-//! @brief Sends an error to the console Pure Data.
+//! @brief Sends an error to the Pure Data console.
 Z_PD_EXTERN void z_pd_console_error(char const* message);
 
-//! @brief Sends a fatal error to the console Pure Data.
+//! @brief Sends a fatal error to the Pure Data console.
 Z_PD_EXTERN void z_pd_console_fatal(char const* message);
 
 
@@ -194,6 +194,9 @@ Z_PD_EXTERN const char* z_pd_patch_get_name(z_patch const* patch);
 
 //! @brief Gets the path of a patch.
 Z_PD_EXTERN const char* z_pd_patch_get_path(z_patch const* patch);
+
+//! @brief Gets the dollar zero of a patch.
+Z_PD_EXTERN int z_pd_patch_get_dollarzero(z_patch const* patch);
 
 //! @brief Gets the x margin of a patch.
 Z_PD_EXTERN int z_pd_patch_get_x(z_patch const* patch);

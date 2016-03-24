@@ -10,7 +10,8 @@
 #include "Pd.hpp"
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class InstanceProcessor : public AudioProcessor, public pd::Instance
+
+class InstanceProcessor : public AudioProcessor, public pd::Instance, public pd::Console::History
 {
 public:
     class Listener;
@@ -75,29 +76,38 @@ public:
         inline virtual ~Listener() {}
         virtual void patchChanged() = 0;
     };
+    
+    //! @brief Receives a normal post to the Pure Data console.
+    void receiveConsolePost(std::string const& message) final;
+    
+    //! @brief Receives a log post to the Pure Data console.
+    void receiveConsoleLog(std::string const& message) final;
+    
+    //! @brief Receives a error to the Pure Data console.
+    void receiveConsoleError(std::string const& message) final;
+    
+    //! @brief Receives a fatal error to the Pure Data console.
+    void receiveConsoleFatal(std::string const& message) final;
 
 protected:
     
-    //! @brief Receives a post.
-    void receivePost(std::string const& message) final;
-    
      //! @brief Receives midi note on.
-    void receiveMidiNoteOn(int port, int channel, int pitch, int velocity) final;
+    void receiveMidiNoteOn(int channel, int pitch, int velocity) final;
     
     //! @brief Receives midi control change.
-    void receiveMidiControlChange(int port, int channel, int control, int value) final;
+    void receiveMidiControlChange(int channel, int control, int value) final;
     
     //! @brief Receives midi program change.
-    void receiveMidiProgramChange(int port, int channel, int value) final;
+    void receiveMidiProgramChange(int channel, int value) final;
     
     //! @brief Receives midi pitch bend.
-    void receiveMidiPitchBend(int port, int channel, int value) final;
+    void receiveMidiPitchBend(int channel, int value) final;
     
     //! @brief Receives midi after touch.
-    void receiveMidiAfterTouch(int port, int channel, int value) final;
+    void receiveMidiAfterTouch(int channel, int value) final;
     
     //! @brief Receives midi poly after touch.
-    void receiveMidiPolyAfterTouch(int port, int channel, int pitch, int value) final;
+    void receiveMidiPolyAfterTouch(int channel, int pitch, int value) final;
     
     //! @brief Receives midi byte.
     void receiveMidiByte(int port, int value) final;
@@ -144,6 +154,7 @@ private:
     mutable std::mutex     m_mutex;
     juce::String           m_path;
     MidiBuffer             m_midi;
+    pd::Tie                m_patch_tie;
     AudioPlayHead::CurrentPositionInfo m_playinfos;
 
     void parametersChanged();

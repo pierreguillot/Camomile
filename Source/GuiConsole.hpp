@@ -9,20 +9,35 @@
 
 #include "InstanceProcessor.hpp"
 #include "GuiFlowerButton.hpp"
+
 // ==================================================================================== //
 //                                      GUI TOGGLE                                      //
 // ==================================================================================== //
 
-class GuiConsole : public juce::Component, public juce::Timer, public juce::Button::Listener
+class GuiConsole : public juce::Component, public juce::Timer,
+public juce::Button::Listener, juce::TableListBoxModel
 {
 public:
-    GuiConsole();
+    GuiConsole(pd::Console::History& history);
     ~GuiConsole();
     void timerCallback() final;
     void buttonClicked(Button* button) final;
+    
+    int getNumRows() final;
+    void paintRowBackground(Graphics& g, int rowNumber, int width, int height, bool rowIsSelected) final;
+    void paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected) final;
+    bool keyPressed(const KeyPress& key) final;
 private:
-    GuiClearButton   m_button;
-    juce::TextEditor m_text;
+    typedef pd::Console::History        History;
+    typedef pd::Console::Message::Level Level;
+    
+    History&        m_history;
+    Level           m_level;
+    size_t          m_size;
+    TableListBox    m_table;
+    GuiClearButton  m_clear_button;
+    GuiCopyButton   m_copy_button;
+    GuiLevelButton  m_level_button;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiConsole)
 };
 

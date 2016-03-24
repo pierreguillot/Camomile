@@ -319,6 +319,9 @@
     <ClCompile Include="..\..\Source\GuiParameter.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\PdConsole.cpp">
+      <Filter>Camomile\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\PdObject.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
@@ -1722,6 +1725,9 @@
     <ClInclude Include="..\..\Source\Pd.hpp">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\PdConsole.hpp">
+      <Filter>Camomile\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\PdObject.hpp">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
@@ -3017,10 +3023,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Ressources\clear0.png">
+    <None Include="..\..\Ressources\clear1.png">
       <Filter>Camomile\Ressources</Filter>
     </None>
-    <None Include="..\..\Ressources\clear1.png">
+    <None Include="..\..\Ressources\clear2.png">
+      <Filter>Camomile\Ressources</Filter>
+    </None>
+    <None Include="..\..\Ressources\copy1.png">
+      <Filter>Camomile\Ressources</Filter>
+    </None>
+    <None Include="..\..\Ressources\copy2.png">
       <Filter>Camomile\Ressources</Filter>
     </None>
     <None Include="..\..\Ressources\flower1.png">

@@ -4,8 +4,8 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef __CAMOMILE_PD_GUI__
-#define __CAMOMILE_PD_GUI__
+#ifndef Z_PD_OBJECT_HPP
+#define Z_PD_OBJECT_HPP
 
 #include "PdPatch.hpp"
 
@@ -83,7 +83,7 @@ namespace pd
     //! With the default constructor, the Gui won't be initialized. A valid
     //! Gui should be created via a Patch. The Gui should be used as tempory object,
     //! because it locks the Patch.
-    class Gui : public Object, public Smuggler
+    class Gui : public Object, private Smuggler
     {
     public:
         

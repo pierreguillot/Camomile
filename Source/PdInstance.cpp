@@ -23,37 +23,82 @@ namespace pd
         
         static void m_print(Instance::Internal* instance, const char *s)
         {
-            instance->ref->receivePost(s);
+            int level = 2;
+            std::string message(s);
+            if(!message.compare(0, 6, "error:"))
+            {
+                level = 1;
+                message.erase(message.begin(), message.begin()+5);
+            }
+            else if(!message.compare(0, 8, "verbose(") && isdigit(message[8]))
+            {
+                level = std::atoi(message.c_str()+8);
+                message.erase(message.begin(), message.begin()+12);
+            }
+            else if(!message.compare(0, 5, "tried") || !message.compare(0, 5, "input"))
+            {
+                level = 3;
+                instance->ref->receiveConsoleLog(message);
+            }
+            if(!message.empty() && (message[0] == ' ' || message[0] == '\n'))
+            {
+                size_t i = 0;
+                while(i < message.size() && message[i] != ' ')
+                {
+                    ++i;
+                }
+                message.erase(message.begin(), message.begin()+i+1);
+            }
+
+            if(!message.empty())
+            {
+                if(level == 0)
+                {
+                    instance->ref->receiveConsoleFatal(message);
+                }
+                else if(level == 1)
+                {
+                    instance->ref->receiveConsoleError(message);
+                }
+                else if(level == 2)
+                {
+                    instance->ref->receiveConsolePost(message);
+                }
+                else
+                {
+                    instance->ref->receiveConsoleLog(message);
+                }
+            }
         }
         
         static void m_noteon(Instance::Internal* instance, int port, int channel, int pitch, int velocity)
         {
-            instance->ref->receiveMidiNoteOn(port, channel, pitch, velocity);
+            instance->ref->receiveMidiNoteOn(channel, pitch, velocity);
         }
         
         static void m_controlchange(Instance::Internal* instance, int port, int channel, int control, int value)
         {
-            instance->ref->receiveMidiControlChange(port, channel, control, value);
+            instance->ref->receiveMidiControlChange(channel, control, value);
         }
         
         static void m_programchange(Instance::Internal* instance, int port, int channel, int value)
         {
-            instance->ref->receiveMidiProgramChange(port, channel, value);
+            instance->ref->receiveMidiProgramChange(channel, value);
         }
         
         static void m_pitchbend(Instance::Internal* instance, int port, int channel, int value)
         {
-            instance->ref->receiveMidiPitchBend(port, channel, value);
+            instance->ref->receiveMidiPitchBend(channel, value);
         }
         
         static void m_aftertouch(Instance::Internal* instance, int port, int channel, int value)
         {
-            instance->ref->receiveMidiAfterTouch(port, channel, value);
+            instance->ref->receiveMidiAfterTouch(channel, value);
         }
         
         static void m_polyaftertouch(Instance::Internal* instance, int port, int channel, int pitch, int value)
         {
-            instance->ref->receiveMidiPolyAfterTouch(port, channel, pitch, value);
+            instance->ref->receiveMidiPolyAfterTouch(channel, pitch, value);
         }
         
         static void m_byte(Instance::Internal* instance, int port, int value)
@@ -202,28 +247,28 @@ namespace pd
     
     
     
-    void Instance::consolePost(std::string const& message) noexcept
+    void Instance::sendConsolePost(std::string const& message) noexcept
     {
         lock();
         z_pd_console_post(message.c_str());
         unlock();
     }
     
-    void Instance::consoleLog(std::string const& message) noexcept
+    void Instance::sendConsoleLog(std::string const& message) noexcept
     {
         lock();
         z_pd_console_log(message.c_str());
         unlock();
     }
     
-    void Instance::consoleError(std::string const& message) noexcept
+    void Instance::sendConsoleError(std::string const& message) noexcept
     {
         lock();
         z_pd_console_error(message.c_str());
         unlock();
     }
     
-    void Instance::consoleFatal(std::string const& message) noexcept
+    void Instance::sendConsoleFatal(std::string const& message) noexcept
     {
         lock();
         z_pd_console_fatal(message.c_str());

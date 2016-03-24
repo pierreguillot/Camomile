@@ -60,7 +60,7 @@ namespace pd
         //! @brief Gets if the Patch is valid.
         bool isValid() const noexcept;
         
-        //! @brief Gets the Instance that owns the Path.
+        //! @brief Gets the Instance that owns the Patch.
         Instance getInstance() const noexcept;
         
         //! @brief Gets the file's name.
@@ -68,6 +68,9 @@ namespace pd
         
         //! @brief Gets the file's path.
         std::string getPath() const;
+        
+        //! @brief Gets the dollar zero of the Patch.
+        int getDollarZero();
         
         //! @brief Gets the Patch position.
         std::array<int, 2> getPosition() const noexcept;

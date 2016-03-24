@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="0.0.6"
+<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="0.0.7"
               bundleIdentifier="com.cicm.Camomile" includeBinaryInAppConfig="1"
               buildVST="1" buildVST3="1" buildAU="0" buildRTAS="0" buildAAX="0"
               pluginName="Camomile" pluginDesc="Camomile" pluginManufacturer="Pierre Guillot"
@@ -54,6 +54,8 @@
       <FILE id="cuSyHc" name="GuiParameter.hpp" compile="0" resource="0"
             file="Source/GuiParameter.hpp"/>
       <FILE id="GhSj7F" name="Pd.hpp" compile="0" resource="0" file="Source/Pd.hpp"/>
+      <FILE id="Pp6D5l" name="PdConsole.cpp" compile="1" resource="0" file="Source/PdConsole.cpp"/>
+      <FILE id="elhu7A" name="PdConsole.hpp" compile="0" resource="0" file="Source/PdConsole.hpp"/>
       <FILE id="KrA7Gf" name="PdObject.cpp" compile="1" resource="0" file="Source/PdObject.cpp"/>
       <FILE id="RhXGNf" name="PdObject.hpp" compile="0" resource="0" file="Source/PdObject.hpp"/>
       <FILE id="F1GPAl" name="PdPatch.cpp" compile="1" resource="0" file="Source/PdPatch.cpp"/>
@@ -164,8 +166,10 @@
       </GROUP>
     </GROUP>
     <GROUP id="{8DE6AA0C-11D5-0E76-0B00-0843C90E25ED}" name="Ressources">
-      <FILE id="nAtHON" name="clear0.png" compile="0" resource="1" file="Ressources/clear0.png"/>
-      <FILE id="UvnyC9" name="clear1.png" compile="0" resource="1" file="Ressources/clear1.png"/>
+      <FILE id="aAL7Sj" name="clear1.png" compile="0" resource="1" file="Ressources/clear1.png"/>
+      <FILE id="oqcUsT" name="clear2.png" compile="0" resource="1" file="Ressources/clear2.png"/>
+      <FILE id="zA26MM" name="copy1.png" compile="0" resource="1" file="Ressources/copy1.png"/>
+      <FILE id="t9Tix1" name="copy2.png" compile="0" resource="1" file="Ressources/copy2.png"/>
       <FILE id="pAFpl1" name="flower1.png" compile="0" resource="1" file="Ressources/flower1.png"/>
       <FILE id="aZl9d4" name="flower2.png" compile="0" resource="1" file="Ressources/flower2.png"/>
       <FILE id="ABes24" name="flowerG.png" compile="0" resource="1" file="Ressources/flowerG.png"/>

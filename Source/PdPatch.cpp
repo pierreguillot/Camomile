@@ -113,6 +113,18 @@ namespace pd
         return isValid() ? z_pd_patch_get_path(reinterpret_cast<z_patch *>(m_ptr)) : std::string();
     }
     
+    int Patch::getDollarZero()
+    {
+        int value = 0;
+        if(isValid())
+        {
+            m_instance.lock();
+            value = z_pd_patch_get_dollarzero(reinterpret_cast<z_patch *>(m_ptr));
+            m_instance.unlock();
+        }
+        return value;
+    }
+    
     std::array<int, 2> Patch::getPosition() const noexcept
     {
         return isValid() ?

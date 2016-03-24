@@ -41,6 +41,7 @@ namespace pd
         Tie& operator=(char const* name);
         inline constexpr bool operator!=(Tie const& other)const noexcept {return other.ptr != ptr;}
         inline constexpr bool operator==(Tie const& other) const noexcept {return other.ptr == ptr;}
+        inline constexpr operator bool() const noexcept {return bool(ptr);}
         std::string getName() const;
     
     private:
@@ -68,6 +69,7 @@ namespace pd
         Symbol& operator=(char const* name);
         inline constexpr bool operator!=(Symbol const& other)const noexcept {return other.ptr != ptr;}
         inline constexpr bool operator==(Symbol const& other) const noexcept{return other.ptr == ptr;}
+        inline constexpr operator bool() const noexcept {return bool(ptr);}
         std::string getName() const;
         
     private:

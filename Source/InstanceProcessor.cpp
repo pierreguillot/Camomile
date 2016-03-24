@@ -10,7 +10,7 @@
 
 InstanceProcessor::InstanceProcessor() : pd::Instance("Camomile")
 {
-    consoleLog(std::string("Camomile ") +
+    sendConsolePost(std::string("Camomile ") +
                          std::string(JucePlugin_VersionString) +
                          std::string(" for Pure Data ") +
                          pd::Environment::getPdVersion());
@@ -165,13 +165,13 @@ void InstanceProcessor::parametersChanged()
                 {
                     if(gui.getName() == m_parameters[i].getName(512))
                     {
-                        consoleError("Warning in patch " + m_patch.getName() + ": "  + gui.getName() + " parameter is duplicated !");
+                        sendConsoleError("Warning in patch " + m_patch.getName() + ": "  + gui.getName() + " parameter is duplicated !");
                         ok = false;
                         break;
                     }
                     else if(gui.getReceiveTie() == m_parameters[i].getTie())
                     {
-                        consoleError("Warning in patch " + m_patch.getName() + ": "  + gui.getName() + " parameter shares the same receive symbol with another parameter !");
+                        sendConsoleError("Warning in patch " + m_patch.getName() + ": "  + gui.getName() + " parameter shares the same receive symbol with another parameter !");
                         ok = false;
                         break;
                     }
@@ -210,15 +210,24 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     {
         buffer.clear(i, 0, buffer.getNumSamples());
     }
+    bool infos = false;
     
     AudioPlayHead* playhead = getPlayHead();
-    if(playhead && playhead->getCurrentPosition(m_playinfos))
+    if(playhead && m_patch_tie)
     {
-        int todo;
-        //post to pd
+        infos = playhead->getCurrentPosition(m_playinfos);
     }
     lock();
     {
+        if(infos)
+        {
+            sendMessageFloat(m_patch_tie, m_playinfos.bpm);
+        }
+        for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); ++i)
+        {
+            sendMessageFloat(m_parameters[i].getTie(), m_parameters[i].getValueNonNormalized());
+        }
+        
         m_midi.clear();
         MidiMessage message;
         MidiBuffer::Iterator it(midiMessages);
@@ -251,12 +260,6 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
             }
         }
     }
-   
-    
-    for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); ++i)
-    {
-        sendMessageFloat(m_parameters[i].getTie(), m_parameters[i].getValueNonNormalized());
-    }
     
     performDsp(buffer.getNumSamples(),
                getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
@@ -267,12 +270,27 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     unlock();
 }
 
-void InstanceProcessor::receivePost(std::string const& message)
+void InstanceProcessor::receiveConsolePost(std::string const& message)
 {
-    int notifi_gui;
+    pd::Console::History::addPost(message);
 }
 
-void InstanceProcessor::receiveMidiNoteOn(int port, int channel, int pitch, int velocity)
+void InstanceProcessor::receiveConsoleLog(std::string const& message)
+{
+    pd::Console::History::addLog(message);
+}
+
+void InstanceProcessor::receiveConsoleError(std::string const& message)
+{
+    pd::Console::History::addError(message);
+}
+
+void InstanceProcessor::receiveConsoleFatal(std::string const& message)
+{
+    pd::Console::History::addFatal(message);
+}
+
+void InstanceProcessor::receiveMidiNoteOn(int channel, int pitch, int velocity)
 {
     if(velocity)
     {
@@ -284,27 +302,27 @@ void InstanceProcessor::receiveMidiNoteOn(int port, int channel, int pitch, int 
     }
 }
 
-void InstanceProcessor::receiveMidiControlChange(int port, int channel, int control, int value)
+void InstanceProcessor::receiveMidiControlChange(int channel, int control, int value)
 {
     m_midi.addEvent(MidiMessage::controllerEvent(channel+1, control, value), 1);
 }
 
-void InstanceProcessor::receiveMidiProgramChange(int port, int channel, int value)
+void InstanceProcessor::receiveMidiProgramChange(int channel, int value)
 {
     m_midi.addEvent(MidiMessage::programChange(channel+1, value), 1);
 }
 
-void InstanceProcessor::receiveMidiPitchBend(int port, int channel, int value)
+void InstanceProcessor::receiveMidiPitchBend(int channel, int value)
 {
     m_midi.addEvent(MidiMessage::pitchWheel(channel+1, value), 1);
 }
 
-void InstanceProcessor::receiveMidiAfterTouch(int port, int channel, int value)
+void InstanceProcessor::receiveMidiAfterTouch(int channel, int value)
 {
     m_midi.addEvent(MidiMessage::channelPressureChange(channel+1, value), 1);
 }
 
-void InstanceProcessor::receiveMidiPolyAfterTouch(int port, int channel, int pitch, int value)
+void InstanceProcessor::receiveMidiPolyAfterTouch(int channel, int pitch, int value)
 {
     m_midi.addEvent(MidiMessage::aftertouchChange(channel+1, pitch, value), 1);
 }
@@ -332,11 +350,20 @@ void InstanceProcessor::loadPatch(const juce::File& file)
                 m_patch = pd::Patch(*this,
                                 file.getFileName().toStdString(),
                                 file.getParentDirectory().getFullPathName().toStdString());
+                if(m_patch.isValid())
+                {
+                    m_patch_tie = pd::Tie(std::to_string(m_patch.getDollarZero()) + "-playhead");
+                }
+                else
+                {
+                    m_patch_tie = pd::Tie();
+                }
             }
             else
             {
                 m_patch = pd::Patch();
-                consoleError("Camomile can't find the patch : " + file.getFullPathName().toStdString());
+                m_patch_tie = pd::Tie();
+                sendConsoleError("Camomile can't find the patch : " + file.getFullPathName().toStdString());
             }
         }
         parametersChanged();
