@@ -12,7 +12,7 @@ pd::Symbol InstanceProcessor::s_playing;
 pd::Symbol InstanceProcessor::s_measure;
 
 InstanceProcessor::InstanceProcessor() : pd::Instance("Camomile"),
-m_parameters(32), m_playing_list(2), m_measure_list(5)
+m_parameters(64), m_playing_list(2), m_measure_list(5)
 {
     sendConsolePost(std::string("Camomile ") +
                          std::string(JucePlugin_VersionString) +
@@ -148,11 +148,12 @@ int InstanceProcessor::getParameterIndex(String const& name)
 void InstanceProcessor::parametersChanged()
 {
     size_t index = 0;
-    
+    lock();
     for(size_t i = 0; i < m_parameters.size(); i++)
     {
         m_parameters[i] = pd::Parameter();
     }
+    unlock();
     pd::Patch patch(getPatch());
     if(patch.isValid())
     {

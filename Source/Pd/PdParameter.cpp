@@ -57,14 +57,14 @@ namespace pd
     
     Parameter& Parameter::operator=(Parameter&& other)
     {
-        m_valid = other.m_valid;
-        m_value = other.m_value;
-        m_min   = other.m_min;
-        m_max   = other.m_max;
+        std::swap(m_valid, other.m_valid);
+        std::swap(m_value, other.m_value);
+        std::swap(m_min, other.m_min);
+        std::swap(m_max, other.m_max);
         std::swap(m_name, other.m_name);
         std::swap(m_label, other.m_label);
-        m_bname = other.m_bname;
-        m_nsteps= other.m_nsteps;
+        std::swap(m_bname, other.m_bname);
+        std::swap(m_nsteps, other.m_nsteps);
         return *this;
     }
     
