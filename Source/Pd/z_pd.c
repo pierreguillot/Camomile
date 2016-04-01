@@ -499,17 +499,18 @@ void z_pd_instance_dsp_perform(z_instance* instance, int nsamples,
                                const int nins, const z_sample** inputs,
                                const int nouts, z_sample** outputs)
 {
+    int i, j;
     t_sample *ins = instance->z_internal_ptr->z_inputs;
     t_sample *outs = instance->z_internal_ptr->z_outputs;
-    for(int i = 0; i < nsamples; i += DEFDACBLKSIZE)
+    for(i = 0; i < nsamples; i += DEFDACBLKSIZE)
     {
-        for(int j = 0; j < nins; j++)
+        for(j = 0; j < nins; j++)
         {
             memcpy(ins+j*DEFDACBLKSIZE, inputs[j]+i, DEFDACBLKSIZE * sizeof(t_sample));
         }
         memset(outs, 0, DEFDACBLKSIZE * sizeof(t_sample) * nouts);
         sched_tick();
-        for(int j = 0; j < nouts; j++)
+        for(j = 0; j < nouts; j++)
         {
             memcpy(outputs[j]+i, outs+j*DEFDACBLKSIZE, DEFDACBLKSIZE * sizeof(t_sample));
         }
