@@ -7,13 +7,14 @@
 #ifndef __CAMOMILE_INTANCE_PROCESSOR__
 #define __CAMOMILE_INTANCE_PROCESSOR__
 
-#include "Pd.hpp"
+#include "Pd/Pd.hpp"
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class InstanceProcessor : public AudioProcessor, public pd::Instance
+
+class InstanceProcessor : public AudioProcessor,
+public pd::Instance, public pd::PatchManager, public pd::Console::History
 {
 public:
-    class Listener;
     InstanceProcessor();
     ~InstanceProcessor();
 
@@ -56,73 +57,67 @@ public:
     void setCurrentProgram(int index) final {}
     const String getProgramName(int index) final {return String();}
     void changeProgramName(int index, const String& newName) final {}
-
+    int getParameterIndex(pd::Tie const& name);
+    int getParameterIndex(String const& name);
+    
+    
     void getStateInformation(MemoryBlock& destData) final;
     void setStateInformation(const void* data, int sizeInBytes) final;
     
-    void loadPatch(const juce::File& file);
-    inline const pd::Patch getPatch() const noexcept {return m_patch;}
-    inline pd::Patch getPatch() noexcept {return m_patch;}
-    int getParameterIndex(pd::BindingName const& name);
-    int getParameterIndex(String const& name);
+    //! @brief Receives a normal post to the Pure Data console.
+    void receiveConsolePost(std::string const& message) final;
     
-    void addListener(Listener* listener);
-    void removeListener(Listener* listener);
-    class Listener
-    {
-    public:
-        inline constexpr Listener() {}
-        inline virtual ~Listener() {}
-        virtual void patchChanged() = 0;
-    };
+    //! @brief Receives a log post to the Pure Data console.
+    void receiveConsoleLog(std::string const& message) final;
+    
+    //! @brief Receives a error to the Pure Data console.
+    void receiveConsoleError(std::string const& message) final;
+    
+    //! @brief Receives a fatal error to the Pure Data console.
+    void receiveConsoleFatal(std::string const& message) final;
 
+    //! @brief Loads a patch.
+    void loadPatch(std::string const& name, std::string const& path) final;
+    
+    //! @brief Closes a patch.
+    void closePatch() final;
+protected:
+    
+     //! @brief Receives midi note on.
+    void receiveMidiNoteOn(int channel, int pitch, int velocity) final;
+    
+    //! @brief Receives midi control change.
+    void receiveMidiControlChange(int channel, int control, int value) final;
+    
+    //! @brief Receives midi program change.
+    void receiveMidiProgramChange(int channel, int value) final;
+    
+    //! @brief Receives midi pitch bend.
+    void receiveMidiPitchBend(int channel, int value) final;
+    
+    //! @brief Receives midi after touch.
+    void receiveMidiAfterTouch(int channel, int value) final;
+    
+    //! @brief Receives midi poly after touch.
+    void receiveMidiPolyAfterTouch(int channel, int pitch, int value) final;
+    
+    //! @brief Receives midi byte.
+    void receiveMidiByte(int port, int value) final;
 private:
-    
-    class Parameter : public AudioProcessorParameter
-    {
-    public:
-        Parameter();
-        Parameter(Parameter const& other);
-        Parameter(pd::Gui const& gui);
-        ~Parameter();
-        Parameter& operator=(Parameter const& other);
-        Parameter& operator=(Parameter&& other);
-        bool isValid() const noexcept;
-        float getValue() const final;
-        float getValueNonNormalized() const;
-        void setValue(float newValue) final;
-        void setValueNonNormalized(float newValue);
-        float getValueNormalized(float newValue);
-        float getDefaultValue() const final;
-        String getName(int maximumStringLength) const final;
-        String getLabel() const final;
-        String getText (float value, int size) const final;
-        float getValueForText (const String& text) const final;
-        bool isOrientationInverted() const final;
-        int getNumSteps() const final;
-        inline pd::BindingName const& getBindingName() const noexcept {return m_bname;}
-        
-    private:
-        bool   m_valid;
-        float  m_value;
-        float  m_min;
-        float  m_max;
-        String m_name;
-        String m_label;
-        pd::BindingName m_bname;
-        int    m_nsteps;
-    };
-    
-    pd::Patch              m_patch;
-    std::set<Listener*>    m_listeners;
-    std::vector<Parameter> m_parameters;
-    mutable std::mutex     m_mutex;
-    
+    static pd::Symbol s_playing;
+    static pd::Symbol s_measure;
+    std::vector<pd::Parameter>          m_parameters;
+    juce::String                        m_path;
+    MidiBuffer                          m_midi;
+    pd::Tie                             m_patch_tie;
+    pd::List                            m_playing_list;
+    pd::List                            m_measure_list;
+    AudioPlayHead::CurrentPositionInfo  m_playinfos;
+
     void parametersChanged();
-    std::vector<Listener*> getListeners() const noexcept;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (InstanceProcessor)
 };
 
 
-#endif  // PLUGINPROCESSOR_H_INCLUDED
+#endif

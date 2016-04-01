@@ -8,27 +8,30 @@
 #include "InstanceEditor.hpp"
 #include "LookAndFeel.hpp"
 
-InstanceProcessor::InstanceProcessor() : pd::Instance(pd::Pd::createInstance())
+pd::Symbol InstanceProcessor::s_playing;
+pd::Symbol InstanceProcessor::s_measure;
+
+InstanceProcessor::InstanceProcessor() : pd::Instance("Camomile"),
+m_parameters(64), m_playing_list(2), m_measure_list(5)
 {
-    Gui::addInstance();
-    m_parameters.resize(32);
+    sendConsolePost(std::string("Camomile ") +
+                         std::string(JucePlugin_VersionString) +
+                         std::string(" for Pure Data ") +
+                         pd::Environment::getPdVersion());
+    s_playing           = pd::Symbol("playing");
+    s_measure           = pd::Symbol("measure");
     busArrangement.inputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
     busArrangement.outputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
+    m_path = juce::File::getCurrentWorkingDirectory().getFullPathName();
 }
 
 InstanceProcessor::~InstanceProcessor()
 {
-    Gui::removeInstance();
-    std::lock_guard<std::mutex> guard(m_mutex);
-    m_listeners.clear();
+    ;
 }
 
 const String InstanceProcessor::getName() const
 {
-    if(m_patch.isValid())
-    {
-        return String(JucePlugin_Name + std::string(" ") + m_patch.getName());
-    }
     return String(JucePlugin_Name);
 }
 
@@ -41,7 +44,7 @@ const String InstanceProcessor::getParameterName(int index)
 {
     if(m_parameters[index].isValid())
     {
-        return m_parameters[index].getName(512);
+        return m_parameters[index].getName();
     }
     else
     {
@@ -51,7 +54,7 @@ const String InstanceProcessor::getParameterName(int index)
 
 float InstanceProcessor::getParameter(int index)
 {
-    return m_parameters[index].getValue();
+    return m_parameters[index].getValueNormalized();
 }
 
 float InstanceProcessor:: getParameterNonNormalized(int index) const
@@ -72,7 +75,7 @@ void InstanceProcessor::setParameterNonNormalizedNotifyingHost(int index, float 
 
 void InstanceProcessor::setParameter(int index, float newValue)
 {
-    m_parameters[index].setValue(newValue);
+    m_parameters[index].setValueNormalized(newValue);
 }
 
 float InstanceProcessor::getParameterDefaultValue(int index)
@@ -82,12 +85,12 @@ float InstanceProcessor::getParameterDefaultValue(int index)
 
 const String InstanceProcessor::getParameterText(int index)
 {
-    return m_parameters[index].getText(index, 512);
+    return m_parameters[index].getTextForValue();
 }
 
 String InstanceProcessor::getParameterText(int index, int size)
 {
-    return m_parameters[index].getText(index, size);
+    return m_parameters[index].getTextForValue();
 }
 
 String InstanceProcessor::getParameterLabel(int index) const
@@ -97,12 +100,12 @@ String InstanceProcessor::getParameterLabel(int index) const
 
 int InstanceProcessor::getParameterNumSteps(int index)
 {
-    return m_parameters[index].getNumSteps();
+    return m_parameters[index].getNumberOfSteps();
 }
 
 bool InstanceProcessor::isParameterAutomatable(int index) const
 {
-    return m_parameters[index].isAutomatable();
+    return true;
 }
 
 bool InstanceProcessor::isParameterOrientationInverted(int index) const
@@ -112,16 +115,16 @@ bool InstanceProcessor::isParameterOrientationInverted(int index) const
 
 bool InstanceProcessor::isMetaParameter(int index) const
 {
-    return m_parameters[index].isMetaParameter();
+    return false;
 }
 
-int InstanceProcessor::getParameterIndex(pd::BindingName const& name)
+int InstanceProcessor::getParameterIndex(pd::Tie const& name)
 {
-    if(name != nullptr)
+    if(name != pd::Tie())
     {
         for(size_t i = 0; i < m_parameters.size(); i++)
         {
-            if(m_parameters[i].getBindingName() == name)
+            if(m_parameters[i].getTie() == name)
             {
                 return i;
             }
@@ -134,7 +137,7 @@ int InstanceProcessor::getParameterIndex(String const& name)
 {
     for(size_t i = 0; i < m_parameters.size(); i++)
     {
-        if(m_parameters[i].getName(512) == name)
+        if(m_parameters[i].getName() == name)
         {
             return i;
         }
@@ -145,14 +148,16 @@ int InstanceProcessor::getParameterIndex(String const& name)
 void InstanceProcessor::parametersChanged()
 {
     size_t index = 0;
-    
+    lock();
     for(size_t i = 0; i < m_parameters.size(); i++)
     {
-        m_parameters[i] = Parameter();
+        m_parameters[i] = pd::Parameter();
     }
-    if(m_patch.isValid())
+    unlock();
+    pd::Patch patch(getPatch());
+    if(patch.isValid())
     {
-        std::vector<pd::Gui> guis(m_patch.getGuis());
+        std::vector<pd::Gui> guis(patch.getGuis());
         for(auto const& gui : guis)
         {
             if(gui.isParameter())
@@ -160,16 +165,22 @@ void InstanceProcessor::parametersChanged()
                 bool ok = true;
                 for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); i++)
                 {
-                    if(gui.getName() == m_parameters[i].getName(512))
+                    if(gui.getName() == m_parameters[i].getName())
                     {
-                        pd::Pd::errorToConsole("Warning in patch " + m_patch.getName() + ": "  + gui.getName() + " parameter is duplicated !");
+                        sendConsoleError("Warning in patch " + patch.getName() + ": "  + gui.getName() + " parameter is duplicated !");
+                        ok = false;
+                        break;
+                    }
+                    else if(gui.getReceiveTie() == m_parameters[i].getTie())
+                    {
+                        sendConsoleError("Warning in patch " + patch.getName() + ": "  + gui.getName() + " parameter shares the same receive symbol with another parameter !");
                         ok = false;
                         break;
                     }
                 }
                 if(ok)
                 {
-                    m_parameters[index] = Parameter(gui);
+                    m_parameters[index] = pd::Parameter(gui);
                     index++;
                 }
             }
@@ -180,23 +191,19 @@ void InstanceProcessor::parametersChanged()
     {
         if(m_parameters[i].isValid())
         {
-            setParameterNotifyingHost(i, m_parameters[i].getValue());
+            setParameterNotifyingHost(i, m_parameters[i].getValueNormalized());
         }
     }
 }
 
 void InstanceProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    lock();
-    prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(), sampleRate, samplesPerBlock);
-    unlock();
+    prepareDsp(16, 16, sampleRate, samplesPerBlock);
 }
 
 void InstanceProcessor::releaseResources()
 {
-    lock();
     releaseDsp();
-    unlock();
 }
 
 void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
@@ -205,40 +212,132 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     {
         buffer.clear(i, 0, buffer.getNumSamples());
     }
+    bool infos = false;
     
+    AudioPlayHead* playhead = getPlayHead();
+    if(playhead && m_patch_tie)
+    {
+        infos = playhead->getCurrentPosition(m_playinfos);
+    }
     lock();
-    MidiMessage message;
-    MidiBuffer::Iterator it (midiMessages);
-    int samplePosition = buffer.getNumSamples();
-    while(it.getNextEvent (message, samplePosition))
     {
-        if(message.isNoteOn())
+        m_midi.clear();
+        if(infos)
         {
-            sendNoteOn(message.getChannel(), message.getNoteNumber(), message.getVelocity());
+            m_playing_list.setFloat(0, m_playinfos.isPlaying);
+            m_playing_list.setFloat(1, m_playinfos.timeInSeconds);
+            sendMessageAnything(m_patch_tie, s_playing, m_playing_list);
+            m_measure_list.setFloat(0, m_playinfos.bpm);
+            m_measure_list.setFloat(1, m_playinfos.timeSigNumerator);
+            m_measure_list.setFloat(2, m_playinfos.timeSigDenominator);
+            m_measure_list.setFloat(3, m_playinfos.ppqPosition);
+            m_measure_list.setFloat(4, m_playinfos.ppqPositionOfLastBarStart);
+            sendMessageAnything(m_patch_tie, s_measure, m_measure_list);
         }
-        if(message.isNoteOff())
+        for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); ++i)
         {
-            sendNoteOff(message.getChannel(), message.getNoteNumber(), message.getVelocity());
+            sendMessageFloat(m_parameters[i].getTie(), m_parameters[i].getValueNonNormalized());
         }
-        if(message.isPitchWheel())
+        
+        MidiMessage message;
+        MidiBuffer::Iterator it(midiMessages);
+        int position = midiMessages.getFirstEventTime();
+        while(it.getNextEvent(message, position))
         {
-            sendPitchBend(message.getChannel(), message.getPitchWheelValue());
-        }
-        if(message.isAftertouch())
-        {
-            sendAfterTouch(message.getChannel(), message.getAfterTouchValue());
+            if(message.isNoteOnOrOff())
+            {
+                sendMidiNote(message.getChannel(), message.getNoteNumber(), message.getVelocity());
+            }
+            else if(message.isController())
+            {
+                sendMidiControlChange(message.getChannel(), message.getControllerNumber(), message.getControllerValue());
+            }
+            else if(message.isPitchWheel())
+            {
+                sendMidiPitchBend(message.getChannel(), message.getPitchWheelValue());
+            }
+            else if(message.isChannelPressure())
+            {
+                sendMidiAfterTouch(message.getChannel(), message.getChannelPressureValue());
+            }
+            else if(message.isAftertouch())
+            {
+                sendMidiPolyAfterTouch(message.getChannel(), message.getNoteNumber(), message.getAfterTouchValue());
+            }
+            else if(message.isProgramChange())
+            {
+                sendMidiProgramChange(message.getChannel(), message.getProgramChangeNumber());
+            }
         }
     }
-    
-    for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); i++)
-    {
-        send(m_parameters[i].getBindingName(), m_parameters[i].getValueNonNormalized());
-    }
+    midiMessages.clear();
     performDsp(buffer.getNumSamples(),
                getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
                getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
+    midiMessages.swapWith(m_midi);
     unlock();
-    midiMessages.clear();
+}
+
+void InstanceProcessor::receiveConsolePost(std::string const& message)
+{
+    pd::Console::History::addPost(message);
+}
+
+void InstanceProcessor::receiveConsoleLog(std::string const& message)
+{
+    pd::Console::History::addLog(message);
+}
+
+void InstanceProcessor::receiveConsoleError(std::string const& message)
+{
+    pd::Console::History::addError(message);
+}
+
+void InstanceProcessor::receiveConsoleFatal(std::string const& message)
+{
+    pd::Console::History::addFatal(message);
+}
+
+void InstanceProcessor::receiveMidiNoteOn(int channel, int pitch, int velocity)
+{
+    if(velocity)
+    {
+        m_midi.addEvent(MidiMessage::noteOn(channel+1, pitch, uint8(velocity)), 0);
+    }
+    else
+    {
+        m_midi.addEvent(MidiMessage::noteOff(channel+1, pitch, uint8(velocity)), 0);
+    }
+}
+
+void InstanceProcessor::receiveMidiControlChange(int channel, int control, int value)
+{
+    m_midi.addEvent(MidiMessage::controllerEvent(channel+1, control, value), 0);
+}
+
+void InstanceProcessor::receiveMidiProgramChange(int channel, int value)
+{
+    m_midi.addEvent(MidiMessage::programChange(channel+1, value), 0);
+}
+
+void InstanceProcessor::receiveMidiPitchBend(int channel, int value)
+{
+    m_midi.addEvent(MidiMessage::pitchWheel(channel+1, value), 0);
+}
+
+void InstanceProcessor::receiveMidiAfterTouch(int channel, int value)
+{
+    m_midi.addEvent(MidiMessage::channelPressureChange(channel+1, value), 0);
+}
+
+void InstanceProcessor::receiveMidiPolyAfterTouch(int channel, int pitch, int value)
+{
+    m_midi.addEvent(MidiMessage::aftertouchChange(channel+1, pitch, value), 0);
+}
+
+void InstanceProcessor::receiveMidiByte(int port, int value)
+{
+    m_midi.addEvent(MidiMessage(port, value), 0);
 }
 
 AudioProcessorEditor* InstanceProcessor::createEditor()
@@ -246,71 +345,71 @@ AudioProcessorEditor* InstanceProcessor::createEditor()
     return new InstanceEditor(*this);
 }
 
-void InstanceProcessor::loadPatch(const juce::File& file)
+void InstanceProcessor::loadPatch(std::string const& name, std::string const& path)
 {
     suspendProcessing(true);
     if(isSuspended())
     {
-        if(true)
         {
             releaseDsp();
-            if(file.exists() && file.getFileExtension() == String(".pd"))
+            m_patch = pd::Patch(*this, name, path);
+            pd::Patch patch(getPatch());
+            if(patch.isValid())
             {
-                m_patch = createPatch(file.getFileName().toStdString(), file.getParentDirectory().getFullPathName().toStdString());
+                m_patch_tie = pd::Tie(std::to_string(patch.getDollarZero()) + "-playhead");
             }
             else
             {
-                m_patch = pd::Patch();
+                m_patch_tie = pd::Tie();
+                sendConsoleError("Camomile can't find the patch : " + name);
             }
         }
         parametersChanged();
-        prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(), getSampleRate(), getBlockSize());
+        prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(),
+                   AudioProcessor::getSampleRate(), getBlockSize());
         
-        std::vector<Listener*> listeners = getListeners();
-        for(auto it : listeners)
-        {
-            it->patchChanged();
-        }
+        pd::PatchManager::notifyListeners();
     }
     
     suspendProcessing(false);
 }
 
-void InstanceProcessor::addListener(Listener* listener)
+void InstanceProcessor::closePatch()
 {
-    if(listener)
+    suspendProcessing(true);
+    if(isSuspended())
     {
-        std::lock_guard<std::mutex> guard(m_mutex);
-        m_listeners.insert(listener);
+        {
+            releaseDsp();
+            m_patch = pd::Patch();
+            m_patch_tie = pd::Tie();
+        }
+        
+        parametersChanged();
+        prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(),
+                   AudioProcessor::getSampleRate(), getBlockSize());
+        
+        pd::PatchManager::notifyListeners();
     }
-}
-
-void InstanceProcessor::removeListener(Listener* listener)
-{
-    if(listener)
-    {
-        std::lock_guard<std::mutex> guard(m_mutex);
-        m_listeners.erase(listener);
-    }
-}
-
-std::vector<InstanceProcessor::Listener*> InstanceProcessor::getListeners() const noexcept
-{
-    std::lock_guard<std::mutex> guard(m_mutex);
-    return std::vector<Listener*>(m_listeners.begin(), m_listeners.end());
+    suspendProcessing(false);
 }
 
 void InstanceProcessor::getStateInformation(MemoryBlock& destData)
 {
-    XmlElement xml(String("CamomileSettings"));
-    xml.setAttribute(String("name"), m_patch.getName());
-    xml.setAttribute(String("path"), m_patch.getPath());
+    juce::XmlElement xml(String("CamomileSettings"));
+    
+    pd::Patch patch(getPatch());
+    if(patch.isValid())
+    {
+        xml.setAttribute(String("name"), patch.getName());
+        xml.setAttribute(String("path"), patch.getPath());
+    }
     XmlElement* params = xml.createNewChildElement("params");
     for(size_t i = 0; i < m_parameters.size(); i++)
     {
         if(m_parameters[i].isValid())
         {
-            params->setAttribute(String(m_parameters[i].getName(512)), double(m_parameters[i].getValue()));
+            params->setAttribute(String(m_parameters[i].getName()), double(m_parameters[i].getValueNormalized()));
         }
     }
     copyXmlToBinary(xml, destData);
@@ -325,8 +424,27 @@ void InstanceProcessor::setStateInformation (const void* data, int sizeInBytes)
         {
             String name = xml->getStringAttribute("name");
             String path = xml->getStringAttribute("path");
-            File file(path + File::separatorString + name);
-            loadPatch(file);
+            if(File::isAbsolutePath(path))
+            {
+                File file(path + File::separatorString + name);
+                if(!file.exists())
+                {
+                    file = File(m_path + File::separatorString + name);
+                    if(!file.exists())
+                    {
+                        file = File(File::getCurrentWorkingDirectory().getFullPathName() + File::separatorString + name);
+                        if(!file.exists())
+                        {
+                            file = File(File::getSpecialLocation(juce::File::SpecialLocationType::userDocumentsDirectory).getFullPathName() + File::separatorString + name);
+                            if(!file.exists())
+                            {
+                                file = File(path + File::separatorString + name);
+                            }
+                        }
+                    }
+                }
+                loadPatch(name.toStdString(), path.toStdString());
+            }
             
             XmlElement* params = xml->getChildByName(juce::StringRef("params"));
             if(params)
@@ -351,133 +469,6 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
     return new InstanceProcessor();
 }
 
-// ==================================================================================== //
-//                                  PARAMETERS                                          //
-// ==================================================================================== //
-
-
-InstanceProcessor::Parameter::Parameter()
-: m_valid(false), m_value (0.f), m_min(0.f), m_max(0.f),
-m_name (""), m_label(""), m_bname(nullptr), m_nsteps(0)
-{
-    
-}
-
-InstanceProcessor::Parameter::Parameter(Parameter const& other)
-: m_valid(other.m_valid), m_value (other.m_value),
-m_min(other.m_min), m_max(other.m_max),
-m_name (other.m_name), m_label(other.m_label),
-m_bname(other.m_bname), m_nsteps(other.m_nsteps)
-{
-    
-}
-
-InstanceProcessor::Parameter::Parameter(pd::Gui const& gui)
-: m_valid(true), m_value (0.f),
-m_min(gui.getMinimum()),
-m_max(gui.getMaximum()),
-m_name(gui.getName()),
-m_label(gui.getLabel()),
-m_bname(gui.getBindingName()),
-m_nsteps(gui.getNumberOfSteps())
-{
-    setValueNonNormalized(gui.getValue());
-}
-
-InstanceProcessor::Parameter::~Parameter()
-{
-    
-}
-
-InstanceProcessor::Parameter& InstanceProcessor::Parameter::operator=(InstanceProcessor::Parameter const& other)
-{
-    m_valid = other.m_valid;
-    m_value = other.m_value;
-    m_min   = other.m_min;
-    m_max   = other.m_max;
-    m_name  = other.m_name;
-    m_label = other.m_label;
-    m_bname = other.m_bname;
-    m_nsteps= other.m_nsteps;
-    return *this;
-}
-
-InstanceProcessor::Parameter& InstanceProcessor::Parameter::operator=(InstanceProcessor::Parameter&& other)
-{
-    m_valid = other.m_valid;
-    m_value = other.m_value;
-    m_min   = other.m_min;
-    m_max   = other.m_max;
-    std::swap(m_name, other.m_name);
-    std::swap(m_label, other.m_label);
-    m_bname = other.m_bname;
-    m_nsteps= other.m_nsteps;
-    return *this;
-}
-
-bool InstanceProcessor::Parameter::isValid() const noexcept
-{
-    return m_valid;
-}
-
-float InstanceProcessor::Parameter::getValue() const
-{
-    return m_value;
-}
-
-float InstanceProcessor::Parameter::getValueNonNormalized() const
-{
-    if(m_min < m_max)
-    {
-        return m_value * (m_max - m_min) + m_min;
-    }
-    return (1.f - m_value) * (m_min - m_max) + m_max;
-}
-
-void InstanceProcessor::Parameter::setValue(float newValue)
-{
-    newValue = std::min(std::max(newValue, 0.f), 1.f);
-    if(m_nsteps)
-    {
-        const float step = (1.f/ float(m_nsteps));
-        m_value = std::round(newValue / step) * step;
-    }
-    else
-    {
-        m_value = newValue;
-    }
-}
-
-void InstanceProcessor::Parameter::setValueNonNormalized(float newValue)
-{
-    m_value = getValueNormalized(newValue);
-}
-
-float InstanceProcessor::Parameter::getValueNormalized(float newValue)
-{
-    if(m_min < m_max)
-    {
-        return std::min(std::max((newValue - m_min) / (m_max - m_min), 0.f), 1.f);
-    }
-    return std::min(std::max(1.f  - ((newValue - m_max) / (m_min - m_max)), 0.f), 1.f);
-}
-
-float InstanceProcessor::Parameter::getDefaultValue() const {return 0.f;}
-
-String InstanceProcessor::Parameter::getName(int maximumStringLength) const {return m_name;}
-
-String InstanceProcessor::Parameter::getLabel() const {return m_label;}
-
-String InstanceProcessor::Parameter::getText (float value, int size) const {return String(getValueNonNormalized());}
-
-float InstanceProcessor::Parameter::getValueForText (const String& text) const {return text.getFloatValue();}
-
-bool InstanceProcessor::Parameter::isOrientationInverted() const {return false;}
-
-int InstanceProcessor::Parameter::getNumSteps() const
-{
-    return m_nsteps != 0 ? m_nsteps : AudioProcessor::getDefaultNumParameterSteps();
-}
 
 
 

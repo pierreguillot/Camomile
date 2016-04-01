@@ -18,7 +18,7 @@ ifeq ($(CONFIG),Debug)
     TARGET_ARCH := 
   endif
 
-  CPPFLAGS := $(DEPFLAGS) -D "LINUX=1" -D "DEBUG=1" -D "_DEBUG=1" -D "PD=1" -D "USEAPI_DUMMY=1" -D "PD_INTERNAL=1" -D "HAVE_UNISTD_H=1" -D "HAVE_LIBDL=1" -D "HAVE_ALLOCA_H=1" -D "JUCER_LINUX_MAKE_6D53C8B4=1" -D "JUCE_APP_VERSION=0.0.5" -D "JUCE_APP_VERSION_HEX=0x5" -I /usr/include -I /usr/include/freetype2 -I ../../ThirdParty/Vst -I ../../ThirdParty/Vst/vstsdk2.4 -I ../../JuceLibraryCode -I ../../ThirdParty/Juce/modules -I ../../ThirdParty/PureData/src
+  CPPFLAGS := $(DEPFLAGS) -D "LINUX=1" -D "DEBUG=1" -D "_DEBUG=1" -D "PD=1" -D "USEAPI_DUMMY=1" -D "PD_INTERNAL=1" -D "HAVE_UNISTD_H=1" -D "HAVE_LIBDL=1" -D "HAVE_ALLOCA_H=1" -D "JUCER_LINUX_MAKE_6D53C8B4=1" -D "JUCE_APP_VERSION=0.0.7" -D "JUCE_APP_VERSION_HEX=0x7" -I /usr/include -I /usr/include/freetype2 -I ../../ThirdParty/Vst -I ../../ThirdParty/Vst/vstsdk2.4 -I ../../JuceLibraryCode -I ../../ThirdParty/Juce/modules -I ../../ThirdParty/PureData/src
   CFLAGS += $(CPPFLAGS) $(TARGET_ARCH) -g -ggdb -fPIC -O0
   CXXFLAGS += $(CFLAGS) -std=c++11
   LDFLAGS += $(TARGET_ARCH) -L$(BINDIR) -L$(LIBDIR) -Wl,--no-undefined -shared -L/usr/X11R6/lib/ -lX11 -lXext -lXinerama -ldl -lfreetype -lpthread -lrt 
@@ -38,7 +38,7 @@ ifeq ($(CONFIG),Release)
     TARGET_ARCH := 
   endif
 
-  CPPFLAGS := $(DEPFLAGS) -D "LINUX=1" -D "NDEBUG=1" -D "PD=1" -D "USEAPI_DUMMY=1" -D "PD_INTERNAL=1" -D "HAVE_UNISTD_H=1" -D "HAVE_LIBDL=1" -D "HAVE_ALLOCA_H=1" -D "JUCER_LINUX_MAKE_6D53C8B4=1" -D "JUCE_APP_VERSION=0.0.5" -D "JUCE_APP_VERSION_HEX=0x5" -I /usr/include -I /usr/include/freetype2 -I ../../ThirdParty/Vst -I ../../ThirdParty/Vst/vstsdk2.4 -I ../../JuceLibraryCode -I ../../ThirdParty/Juce/modules -I ../../ThirdParty/PureData/src
+  CPPFLAGS := $(DEPFLAGS) -D "LINUX=1" -D "NDEBUG=1" -D "PD=1" -D "USEAPI_DUMMY=1" -D "PD_INTERNAL=1" -D "HAVE_UNISTD_H=1" -D "HAVE_LIBDL=1" -D "HAVE_ALLOCA_H=1" -D "JUCER_LINUX_MAKE_6D53C8B4=1" -D "JUCE_APP_VERSION=0.0.7" -D "JUCE_APP_VERSION_HEX=0x7" -I /usr/include -I /usr/include/freetype2 -I ../../ThirdParty/Vst -I ../../ThirdParty/Vst/vstsdk2.4 -I ../../JuceLibraryCode -I ../../ThirdParty/Juce/modules -I ../../ThirdParty/PureData/src
   CFLAGS += $(CPPFLAGS) $(TARGET_ARCH) -fPIC -O3
   CXXFLAGS += $(CFLAGS) -std=c++11
   LDFLAGS += $(TARGET_ARCH) -L$(BINDIR) -L$(LIBDIR) -Wl,--no-undefined -shared -fvisibility=hidden -L/usr/X11R6/lib/ -lX11 -lXext -lXinerama -ldl -lfreetype -lpthread -lrt 
@@ -52,29 +52,31 @@ OBJECTS := \
   $(OBJDIR)/LookAndFeel_40552bdf.o \
   $(OBJDIR)/InstanceProcessor_bc7e525e.o \
   $(OBJDIR)/InstanceEditor_fa2c28eb.o \
-  $(OBJDIR)/Gui_2b5c821c.o \
-  $(OBJDIR)/GuiWindow_fc7f58ec.o \
-  $(OBJDIR)/GuiAbout_73a909b.o \
-  $(OBJDIR)/GuiConsole_b1a18b25.o \
-  $(OBJDIR)/GuiFlowerButton_762682a9.o \
-  $(OBJDIR)/GuiPatcher_633be1c3.o \
-  $(OBJDIR)/GuiComment_a154d02d.o \
-  $(OBJDIR)/GuiLabel_32dae082.o \
-  $(OBJDIR)/GuiNumbox_87800701.o \
-  $(OBJDIR)/GuiSlider_cf6a155d.o \
-  $(OBJDIR)/GuiToggle_5aabe650.o \
-  $(OBJDIR)/GuiRadio_1d3f9a09.o \
-  $(OBJDIR)/GuiParameter_1f209e37.o \
-  $(OBJDIR)/Pd_51c89d7d.o \
-  $(OBJDIR)/PdGui_8982f688.o \
-  $(OBJDIR)/PdPatch_eded9115.o \
-  $(OBJDIR)/PdInstance_9098ebb2.o \
+  $(OBJDIR)/Gui_edc4c728.o \
+  $(OBJDIR)/GuiAbout_58af930f.o \
+  $(OBJDIR)/GuiComment_699305a1.o \
+  $(OBJDIR)/GuiConsole_79dfc099.o \
+  $(OBJDIR)/GuiFlowerButton_5b7395b5.o \
+  $(OBJDIR)/GuiLabel_844fe2f6.o \
+  $(OBJDIR)/GuiNumbox_64ab530d.o \
+  $(OBJDIR)/GuiParameter_d0a746ab.o \
+  $(OBJDIR)/GuiPatcher_2b7a1737.o \
+  $(OBJDIR)/GuiRadio_6eb49c7d.o \
+  $(OBJDIR)/GuiSlider_ac956169.o \
+  $(OBJDIR)/GuiToggle_37d7325c.o \
+  $(OBJDIR)/GuiWindow_d9aaa4f8.o \
+  $(OBJDIR)/PdConsole_4bdc72d1.o \
+  $(OBJDIR)/PdEnvironment_11e3570d.o \
+  $(OBJDIR)/PdInstance_ddabcf25.o \
+  $(OBJDIR)/PdObject_b945538f.o \
+  $(OBJDIR)/PdParameter_16404ae3.o \
+  $(OBJDIR)/PdPatch_69639a82.o \
+  $(OBJDIR)/PdPatchManager_e2506355.o \
+  $(OBJDIR)/PdTypes_a7fd5233.o \
+  $(OBJDIR)/z_pd_9c06b4b5.o \
   $(OBJDIR)/bob~_dea63fa8.o \
   $(OBJDIR)/bonk~_1c54edf2.o \
   $(OBJDIR)/choice_9a48dd28.o \
-  $(OBJDIR)/vexp_42c95f1e.o \
-  $(OBJDIR)/vexp_fun_46a72f5e.o \
-  $(OBJDIR)/vexp_if_a8aa2e8.o \
   $(OBJDIR)/fiddle~_d178694e.o \
   $(OBJDIR)/loop~_d8d5c53e.o \
   $(OBJDIR)/lrshift~_770f74c8.o \
@@ -133,8 +135,6 @@ OBJECTS := \
   $(OBJDIR)/s_inter_106fd5bd.o \
   $(OBJDIR)/s_loader_499588dc.o \
   $(OBJDIR)/s_main_b40a6202.o \
-  $(OBJDIR)/s_midi_b478c56a.o \
-  $(OBJDIR)/s_midi_dummy_723fbb13.o \
   $(OBJDIR)/s_path_b92dd56e.o \
   $(OBJDIR)/s_print_88f7f34e.o \
   $(OBJDIR)/s_utf8_c2babdba.o \
@@ -151,6 +151,9 @@ OBJECTS := \
   $(OBJDIR)/x_scalar_6bd11c10.o \
   $(OBJDIR)/x_text_c7a174d1.o \
   $(OBJDIR)/x_time_c7d49a71.o \
+  $(OBJDIR)/x_vexp_fun_e64128cb.o \
+  $(OBJDIR)/x_vexp_if_624547db.o \
+  $(OBJDIR)/x_vexp_cb0b170b.o \
   $(OBJDIR)/BinaryData_ce4232d4.o \
   $(OBJDIR)/juce_audio_basics_4f86222c.o \
   $(OBJDIR)/juce_audio_processors_4fc0fe4.o \
@@ -196,90 +199,115 @@ $(OBJDIR)/InstanceEditor_fa2c28eb.o: ../../Source/InstanceEditor.cpp
 	@echo "Compiling InstanceEditor.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/Gui_2b5c821c.o: ../../Source/Gui.cpp
+$(OBJDIR)/Gui_edc4c728.o: ../../Source/Gui/Gui.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling Gui.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/GuiWindow_fc7f58ec.o: ../../Source/GuiWindow.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiWindow.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiAbout_73a909b.o: ../../Source/GuiAbout.cpp
+$(OBJDIR)/GuiAbout_58af930f.o: ../../Source/Gui/GuiAbout.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling GuiAbout.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/GuiConsole_b1a18b25.o: ../../Source/GuiConsole.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiConsole.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiFlowerButton_762682a9.o: ../../Source/GuiFlowerButton.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiFlowerButton.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiPatcher_633be1c3.o: ../../Source/GuiPatcher.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiPatcher.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiComment_a154d02d.o: ../../Source/GuiComment.cpp
+$(OBJDIR)/GuiComment_699305a1.o: ../../Source/Gui/GuiComment.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling GuiComment.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/GuiLabel_32dae082.o: ../../Source/GuiLabel.cpp
+$(OBJDIR)/GuiConsole_79dfc099.o: ../../Source/Gui/GuiConsole.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling GuiConsole.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/GuiFlowerButton_5b7395b5.o: ../../Source/Gui/GuiFlowerButton.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling GuiFlowerButton.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/GuiLabel_844fe2f6.o: ../../Source/Gui/GuiLabel.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling GuiLabel.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/GuiNumbox_87800701.o: ../../Source/GuiNumbox.cpp
+$(OBJDIR)/GuiNumbox_64ab530d.o: ../../Source/Gui/GuiNumbox.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling GuiNumbox.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/GuiSlider_cf6a155d.o: ../../Source/GuiSlider.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiSlider.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiToggle_5aabe650.o: ../../Source/GuiToggle.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiToggle.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiRadio_1d3f9a09.o: ../../Source/GuiRadio.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiRadio.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiParameter_1f209e37.o: ../../Source/GuiParameter.cpp
+$(OBJDIR)/GuiParameter_d0a746ab.o: ../../Source/Gui/GuiParameter.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling GuiParameter.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/Pd_51c89d7d.o: ../../Source/Pd.cpp
+$(OBJDIR)/GuiPatcher_2b7a1737.o: ../../Source/Gui/GuiPatcher.cpp
 	-@mkdir -p $(OBJDIR)
-	@echo "Compiling Pd.cpp"
+	@echo "Compiling GuiPatcher.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/PdGui_8982f688.o: ../../Source/PdGui.cpp
+$(OBJDIR)/GuiRadio_6eb49c7d.o: ../../Source/Gui/GuiRadio.cpp
 	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdGui.cpp"
+	@echo "Compiling GuiRadio.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/PdPatch_eded9115.o: ../../Source/PdPatch.cpp
+$(OBJDIR)/GuiSlider_ac956169.o: ../../Source/Gui/GuiSlider.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling GuiSlider.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/GuiToggle_37d7325c.o: ../../Source/Gui/GuiToggle.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling GuiToggle.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/GuiWindow_d9aaa4f8.o: ../../Source/Gui/GuiWindow.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling GuiWindow.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/PdConsole_4bdc72d1.o: ../../Source/Pd/PdConsole.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling PdConsole.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/PdEnvironment_11e3570d.o: ../../Source/Pd/PdEnvironment.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling PdEnvironment.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/PdInstance_ddabcf25.o: ../../Source/Pd/PdInstance.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling PdInstance.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/PdObject_b945538f.o: ../../Source/Pd/PdObject.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling PdObject.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/PdParameter_16404ae3.o: ../../Source/Pd/PdParameter.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling PdParameter.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/PdPatch_69639a82.o: ../../Source/Pd/PdPatch.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling PdPatch.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/PdInstance_9098ebb2.o: ../../Source/PdInstance.cpp
+$(OBJDIR)/PdPatchManager_e2506355.o: ../../Source/Pd/PdPatchManager.cpp
 	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdInstance.cpp"
+	@echo "Compiling PdPatchManager.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/PdTypes_a7fd5233.o: ../../Source/Pd/PdTypes.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling PdTypes.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/z_pd_9c06b4b5.o: ../../Source/Pd/z_pd.c
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling z_pd.c"
+	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/bob~_dea63fa8.o: ../../ThirdParty/PureData/extra/bob~/bob~.c
 	-@mkdir -p $(OBJDIR)
@@ -294,21 +322,6 @@ $(OBJDIR)/bonk~_1c54edf2.o: ../../ThirdParty/PureData/extra/bonk~/bonk~.c
 $(OBJDIR)/choice_9a48dd28.o: ../../ThirdParty/PureData/extra/choice/choice.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling choice.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/vexp_42c95f1e.o: ../../ThirdParty/PureData/extra/expr~/vexp.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling vexp.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/vexp_fun_46a72f5e.o: ../../ThirdParty/PureData/extra/expr~/vexp_fun.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling vexp_fun.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/vexp_if_a8aa2e8.o: ../../ThirdParty/PureData/extra/expr~/vexp_if.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling vexp_if.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/fiddle~_d178694e.o: ../../ThirdParty/PureData/extra/fiddle~/fiddle~.c
@@ -601,16 +614,6 @@ $(OBJDIR)/s_main_b40a6202.o: ../../ThirdParty/PureData/src/s_main.c
 	@echo "Compiling s_main.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/s_midi_b478c56a.o: ../../ThirdParty/PureData/src/s_midi.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling s_midi.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/s_midi_dummy_723fbb13.o: ../../ThirdParty/PureData/src/s_midi_dummy.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling s_midi_dummy.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
 $(OBJDIR)/s_path_b92dd56e.o: ../../ThirdParty/PureData/src/s_path.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling s_path.c"
@@ -689,6 +692,21 @@ $(OBJDIR)/x_text_c7a174d1.o: ../../ThirdParty/PureData/src/x_text.c
 $(OBJDIR)/x_time_c7d49a71.o: ../../ThirdParty/PureData/src/x_time.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_time.c"
+	@$(CC) $(CFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/x_vexp_fun_e64128cb.o: ../../ThirdParty/PureData/src/x_vexp_fun.c
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling x_vexp_fun.c"
+	@$(CC) $(CFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/x_vexp_if_624547db.o: ../../ThirdParty/PureData/src/x_vexp_if.c
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling x_vexp_if.c"
+	@$(CC) $(CFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/x_vexp_cb0b170b.o: ../../ThirdParty/PureData/src/x_vexp.c
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling x_vexp.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/BinaryData_ce4232d4.o: ../../JuceLibraryCode/BinaryData.cpp

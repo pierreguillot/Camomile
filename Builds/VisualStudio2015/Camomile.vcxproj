@@ -85,7 +85,7 @@
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/PureData/src;../../ThirdParty/PthreadWindows/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.5;JUCE_APP_VERSION_HEX=0x5;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.7;JUCE_APP_VERSION_HEX=0x7;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -132,7 +132,7 @@
     <ClCompile>
       <Optimization>Full</Optimization>
       <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/PureData/src;../../ThirdParty/PthreadWindows/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.5;JUCE_APP_VERSION_HEX=0x5;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.7;JUCE_APP_VERSION_HEX=0x7;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -181,7 +181,7 @@
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/PureData/src;../../ThirdParty/PthreadWindows/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.5;JUCE_APP_VERSION_HEX=0x5;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.7;JUCE_APP_VERSION_HEX=0x7;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -226,7 +226,7 @@
     <ClCompile>
       <Optimization>Full</Optimization>
       <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/PureData/src;../../ThirdParty/PthreadWindows/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.5;JUCE_APP_VERSION_HEX=0x5;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.7;JUCE_APP_VERSION_HEX=0x7;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -266,29 +266,31 @@
     <ClCompile Include="..\..\Source\LookAndFeel.cpp"/>
     <ClCompile Include="..\..\Source\InstanceProcessor.cpp"/>
     <ClCompile Include="..\..\Source\InstanceEditor.cpp"/>
-    <ClCompile Include="..\..\Source\Gui.cpp"/>
-    <ClCompile Include="..\..\Source\GuiWindow.cpp"/>
-    <ClCompile Include="..\..\Source\GuiAbout.cpp"/>
-    <ClCompile Include="..\..\Source\GuiConsole.cpp"/>
-    <ClCompile Include="..\..\Source\GuiFlowerButton.cpp"/>
-    <ClCompile Include="..\..\Source\GuiPatcher.cpp"/>
-    <ClCompile Include="..\..\Source\GuiComment.cpp"/>
-    <ClCompile Include="..\..\Source\GuiLabel.cpp"/>
-    <ClCompile Include="..\..\Source\GuiNumbox.cpp"/>
-    <ClCompile Include="..\..\Source\GuiSlider.cpp"/>
-    <ClCompile Include="..\..\Source\GuiToggle.cpp"/>
-    <ClCompile Include="..\..\Source\GuiRadio.cpp"/>
-    <ClCompile Include="..\..\Source\GuiParameter.cpp"/>
-    <ClCompile Include="..\..\Source\Pd.cpp"/>
-    <ClCompile Include="..\..\Source\PdGui.cpp"/>
-    <ClCompile Include="..\..\Source\PdPatch.cpp"/>
-    <ClCompile Include="..\..\Source\PdInstance.cpp"/>
+    <ClCompile Include="..\..\Source\Gui\Gui.cpp"/>
+    <ClCompile Include="..\..\Source\Gui\GuiAbout.cpp"/>
+    <ClCompile Include="..\..\Source\Gui\GuiComment.cpp"/>
+    <ClCompile Include="..\..\Source\Gui\GuiConsole.cpp"/>
+    <ClCompile Include="..\..\Source\Gui\GuiFlowerButton.cpp"/>
+    <ClCompile Include="..\..\Source\Gui\GuiLabel.cpp"/>
+    <ClCompile Include="..\..\Source\Gui\GuiNumbox.cpp"/>
+    <ClCompile Include="..\..\Source\Gui\GuiParameter.cpp"/>
+    <ClCompile Include="..\..\Source\Gui\GuiPatcher.cpp"/>
+    <ClCompile Include="..\..\Source\Gui\GuiRadio.cpp"/>
+    <ClCompile Include="..\..\Source\Gui\GuiSlider.cpp"/>
+    <ClCompile Include="..\..\Source\Gui\GuiToggle.cpp"/>
+    <ClCompile Include="..\..\Source\Gui\GuiWindow.cpp"/>
+    <ClCompile Include="..\..\Source\Pd\PdConsole.cpp"/>
+    <ClCompile Include="..\..\Source\Pd\PdEnvironment.cpp"/>
+    <ClCompile Include="..\..\Source\Pd\PdInstance.cpp"/>
+    <ClCompile Include="..\..\Source\Pd\PdObject.cpp"/>
+    <ClCompile Include="..\..\Source\Pd\PdParameter.cpp"/>
+    <ClCompile Include="..\..\Source\Pd\PdPatch.cpp"/>
+    <ClCompile Include="..\..\Source\Pd\PdPatchManager.cpp"/>
+    <ClCompile Include="..\..\Source\Pd\PdTypes.cpp"/>
+    <ClCompile Include="..\..\Source\Pd\z_pd.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\extra\bob~\bob~.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\extra\bonk~\bonk~.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\extra\choice\choice.c"/>
-    <ClCompile Include="..\..\ThirdParty\PureData\extra\expr~\vexp.c"/>
-    <ClCompile Include="..\..\ThirdParty\PureData\extra\expr~\vexp_fun.c"/>
-    <ClCompile Include="..\..\ThirdParty\PureData\extra\expr~\vexp_if.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\extra\fiddle~\fiddle~.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\extra\loop~\loop~.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\extra\lrshift~\lrshift~.c"/>
@@ -347,8 +349,6 @@
     <ClCompile Include="..\..\ThirdParty\PureData\src\s_inter.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\s_loader.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\s_main.c"/>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\s_midi.c"/>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\s_midi_dummy.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\s_path.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\s_print.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\s_utf8.c"/>
@@ -365,6 +365,9 @@
     <ClCompile Include="..\..\ThirdParty\PureData\src\x_scalar.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\x_text.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\x_time.c"/>
+    <ClCompile Include="..\..\ThirdParty\PureData\src\x_vexp_fun.c"/>
+    <ClCompile Include="..\..\ThirdParty\PureData\src\x_vexp_if.c"/>
+    <ClCompile Include="..\..\ThirdParty\PureData\src\x_vexp.c"/>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\buffers\juce_AudioDataConverters.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1361,31 +1364,36 @@
     <ClInclude Include="..\..\Source\LookAndFeel.hpp"/>
     <ClInclude Include="..\..\Source\InstanceProcessor.hpp"/>
     <ClInclude Include="..\..\Source\InstanceEditor.hpp"/>
-    <ClInclude Include="..\..\Source\Gui.hpp"/>
-    <ClInclude Include="..\..\Source\GuiWindow.hpp"/>
-    <ClInclude Include="..\..\Source\GuiAbout.hpp"/>
-    <ClInclude Include="..\..\Source\GuiConsole.hpp"/>
-    <ClInclude Include="..\..\Source\GuiFlowerButton.hpp"/>
-    <ClInclude Include="..\..\Source\GuiPatcher.hpp"/>
-    <ClInclude Include="..\..\Source\GuiComment.hpp"/>
-    <ClInclude Include="..\..\Source\GuiLabel.hpp"/>
-    <ClInclude Include="..\..\Source\GuiNumbox.hpp"/>
-    <ClInclude Include="..\..\Source\GuiSlider.hpp"/>
-    <ClInclude Include="..\..\Source\GuiToggle.hpp"/>
-    <ClInclude Include="..\..\Source\GuiRadio.hpp"/>
-    <ClInclude Include="..\..\Source\GuiParameter.hpp"/>
-    <ClInclude Include="..\..\Source\Pd.hpp"/>
-    <ClInclude Include="..\..\Source\PdGui.hpp"/>
-    <ClInclude Include="..\..\Source\PdPatch.hpp"/>
-    <ClInclude Include="..\..\Source\PdInstance.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\PureData\extra\expr~\vexp.h"/>
-    <ClInclude Include="..\..\ThirdParty\PureData\extra\expr~\fts_to_pd.h"/>
+    <ClInclude Include="..\..\Source\Gui\Gui.hpp"/>
+    <ClInclude Include="..\..\Source\Gui\GuiAbout.hpp"/>
+    <ClInclude Include="..\..\Source\Gui\GuiComment.hpp"/>
+    <ClInclude Include="..\..\Source\Gui\GuiConsole.hpp"/>
+    <ClInclude Include="..\..\Source\Gui\GuiFlowerButton.hpp"/>
+    <ClInclude Include="..\..\Source\Gui\GuiLabel.hpp"/>
+    <ClInclude Include="..\..\Source\Gui\GuiNumbox.hpp"/>
+    <ClInclude Include="..\..\Source\Gui\GuiParameter.hpp"/>
+    <ClInclude Include="..\..\Source\Gui\GuiPatcher.hpp"/>
+    <ClInclude Include="..\..\Source\Gui\GuiRadio.hpp"/>
+    <ClInclude Include="..\..\Source\Gui\GuiSlider.hpp"/>
+    <ClInclude Include="..\..\Source\Gui\GuiToggle.hpp"/>
+    <ClInclude Include="..\..\Source\Gui\GuiWindow.hpp"/>
+    <ClInclude Include="..\..\Source\Pd\Pd.hpp"/>
+    <ClInclude Include="..\..\Source\Pd\PdConsole.hpp"/>
+    <ClInclude Include="..\..\Source\Pd\PdEnvironment.hpp"/>
+    <ClInclude Include="..\..\Source\Pd\PdInstance.hpp"/>
+    <ClInclude Include="..\..\Source\Pd\PdObject.hpp"/>
+    <ClInclude Include="..\..\Source\Pd\PdParameter.hpp"/>
+    <ClInclude Include="..\..\Source\Pd\PdPatch.hpp"/>
+    <ClInclude Include="..\..\Source\Pd\PdPatchManager.hpp"/>
+    <ClInclude Include="..\..\Source\Pd\PdTypes.hpp"/>
+    <ClInclude Include="..\..\Source\Pd\z_pd.h"/>
     <ClInclude Include="..\..\ThirdParty\PureData\src\g_all_guis.h"/>
     <ClInclude Include="..\..\ThirdParty\PureData\src\g_canvas.h"/>
     <ClInclude Include="..\..\ThirdParty\PureData\src\m_imp.h"/>
     <ClInclude Include="..\..\ThirdParty\PureData\src\m_pd.h"/>
     <ClInclude Include="..\..\ThirdParty\PureData\src\s_stuff.h"/>
     <ClInclude Include="..\..\ThirdParty\PureData\src\s_utf8.h"/>
+    <ClInclude Include="..\..\ThirdParty\PureData\src\x_vexp.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\buffers\juce_AudioSampleBuffer.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\buffers\juce_FloatVectorOperations.h"/>
@@ -1502,6 +1510,7 @@
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_DynamicObject.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_ElementComparator.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_HashMap.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_HomeopathicStack.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_LinkedListPointer.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_ListenerList.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_NamedValueSet.h"/>
@@ -1805,11 +1814,13 @@
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h"/>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Ressources\clear0.png"/>
     <None Include="..\..\Ressources\clear1.png"/>
+    <None Include="..\..\Ressources\clear2.png"/>
+    <None Include="..\..\Ressources\copy1.png"/>
+    <None Include="..\..\Ressources\copy2.png"/>
+    <None Include="..\..\Ressources\option.png"/>
     <None Include="..\..\Ressources\flower1.png"/>
     <None Include="..\..\Ressources\flower2.png"/>
-    <None Include="..\..\Ressources\flowerG.png"/>
     <None Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\juce_module_info"/>
     <None Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\juce_module_info"/>
     <None Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\juce_module_info"/>

@@ -4,4 +4,4 @@
 
 ![](https://cloud.githubusercontent.com/assets/1409918/13610631/ebdacae8-e55e-11e5-903c-fb3ad342adb8.png)
 
-**See the [wiki](https://github.com/pierreguillot/Camomile/wiki) for further informations.**
+**See the [wiki](https://github.com/pierreguillot/Camomile/wiki) for further informations and download.**

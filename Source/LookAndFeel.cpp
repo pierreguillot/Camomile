@@ -23,7 +23,7 @@
 */
 
 #include "LookAndFeel.hpp"
-#include "Gui.hpp"
+#include "Gui/Gui.hpp"
 
 namespace LookAndFeelHelpers
 {

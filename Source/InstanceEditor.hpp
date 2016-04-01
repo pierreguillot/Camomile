@@ -4,16 +4,16 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef __CAMOMILE_PATCH_EDITOR__
-#define __CAMOMILE_PATCH_EDITOR__
+#ifndef __CAMOMILE_INSTANCE_EDITOR__
+#define __CAMOMILE_INSTANCE_EDITOR__
 
-#include "Gui.hpp"
+#include "Gui/Gui.hpp"
 
 // ==================================================================================== //
 //                                  INSTANCE EDITOR                                     //
 // ==================================================================================== //
 
-class InstanceEditor : public AudioProcessorEditor, public InstanceProcessor::Listener, public Button::Listener
+class InstanceEditor : public AudioProcessorEditor, public pd::PatchManager::Listener, public Button::Listener
 {
 public:
     InstanceEditor(InstanceProcessor&);
@@ -25,11 +25,11 @@ private:
     InstanceProcessor&  m_processor;
     GuiFlowerButton     m_button;
     GuiPatcher          m_patcher;
-    Toolbar             m_menu;
+    GuiWindow           m_window;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(InstanceEditor)
 };
 
 
 
-#endif  // PLUGINEDITOR_H_INCLUDED
+#endif

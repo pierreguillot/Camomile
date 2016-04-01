@@ -60,14 +60,14 @@
 #X obj 601 89 delwrite~ \$0-delay-2 5000;
 #X obj 318 499 vd~ \$0-delay-1, f 16;
 #X obj 571 499 vd~ \$0-delay-2, f 16;
-#X text 646 664 Output 2;
-#X text 226 664 Output 1;
+#X text 646 684 Output 2;
+#X text 226 684 Output 1;
 #X text 426 17 Stereo Flanger;
 #X obj 431 200 r \$0-rate;
 #X obj 464 505 / 100;
 #X obj 572 165 / 100, f 16;
 #X obj 297 32 adc~ 1 2, f 50;
-#X obj 297 664 dac~ 1 2, f 46;
+#X obj 297 684 dac~ 1 2, f 46;
 #X text 329 65 Write Head 1;
 #X text 605 65 Write Head 2;
 #X text 609 475 Read Head 2;
@@ -76,6 +76,8 @@
 #X obj 434 270 clip 0 4000;
 #X obj 464 475 clip 0 100;
 #X obj 572 135 clip 0 100;
+#X obj 297 658 *~ 0.5;
+#X obj 570 658 *~ 0.5;
 #X connect 1 0 4 0;
 #X connect 1 0 15 0;
 #X connect 1 0 12 0;
@@ -88,8 +90,8 @@
 #X connect 15 0 0 0;
 #X connect 16 0 17 0;
 #X connect 17 0 28 0;
-#X connect 19 0 58 0;
-#X connect 20 0 58 1;
+#X connect 19 0 67 0;
+#X connect 20 0 68 0;
 #X connect 21 0 22 0;
 #X connect 22 0 29 0;
 #X connect 23 0 24 0;
@@ -132,4 +134,6 @@
 #X connect 64 0 27 0;
 #X connect 65 0 55 0;
 #X connect 66 0 56 0;
+#X connect 67 0 58 0;
+#X connect 68 0 58 1;
 #X coords 0 -1 1 1 206 160 2 50 50;

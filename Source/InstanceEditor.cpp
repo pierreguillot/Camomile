@@ -14,7 +14,7 @@
 InstanceEditor::InstanceEditor(InstanceProcessor& p) : AudioProcessorEditor(&p), m_processor(p)
 {
     m_button.addListener(this);
-    m_processor.addListener(this);
+    m_processor.PatchManager::addListener(this);
     addAndMakeVisible(m_patcher);
     addAndMakeVisible(m_button);
     setOpaque(true);
@@ -25,7 +25,7 @@ InstanceEditor::InstanceEditor(InstanceProcessor& p) : AudioProcessorEditor(&p),
 
 InstanceEditor::~InstanceEditor()
 {
-    m_processor.removeListener(this);
+    m_processor.PatchManager::removeListener(this);
 }
 
 void InstanceEditor::paint(Graphics& g)
@@ -40,7 +40,8 @@ void InstanceEditor::paint(Graphics& g)
     const pd::Patch patch = m_processor.getPatch();
     if(patch.isValid())
     {
-        g.drawText(String(patch.getName()).trimCharactersAtEnd(".pd"), 0, 0, getWidth(), 20, juce::Justification::centred);
+        g.drawText(String(patch.getName()).upToLastOccurrenceOf(StringRef(".pd"), false, false),
+                   0, 0, getWidth(), 20, juce::Justification::centred);
     }
     else
     {
@@ -72,10 +73,11 @@ void InstanceEditor::buttonClicked(Button* button)
         const int result = m.showAt(button->getScreenBounds().translated(-2, 3));
         if(result == 1)
         {
-            Gui::getWindow().setContentOwned(new GuiAbout(), false);
-            Gui::getWindow().setName("About Camomile " + String(JucePlugin_VersionString));
-            Gui::getWindow().addToDesktop();
-            Gui::getWindow().grabKeyboardFocus();
+            m_window.setContentOwned(new GuiAbout(), false);
+            m_window.setName("About Camomile " + String(JucePlugin_VersionString));
+            m_window.addToDesktop();
+            m_window.toFront(false);
+            m_window.setAlwaysOnTop(true);
         }
         else if(result == 2)
         {
@@ -88,7 +90,8 @@ void InstanceEditor::buttonClicked(Button* button)
                     juce::File file(fc.getResult());
                     if(file.getFileExtension() == juce::String(".pd"))
                     {
-                        m_processor.loadPatch(file);
+                        m_processor.loadPatch(file.getFileName().toStdString(),
+                                              file.getParentDirectory().getFullPathName().toStdString());
                     }
                 }
             }
@@ -98,36 +101,34 @@ void InstanceEditor::buttonClicked(Button* button)
                 if(fc.browseForFileToOpen())
                 {
                     juce::File file(fc.getResult());
-                    if(file.getFileExtension() == juce::String(".pd"))
+                    if(file.exists() && file.getFileExtension() == juce::String(".pd"))
                     {
-                        m_processor.loadPatch(file);
+                        m_processor.loadPatch(file.getFileName().toStdString(),
+                                              file.getParentDirectory().getFullPathName().toStdString());
                     }
                 }
             }
-            
         }
         else if(result == 3)
         {
-            m_processor.loadPatch(juce::File());
+            m_processor.closePatch();
         }
         else if(result == 4)
         {
             const pd::Patch patch = m_processor.getPatch();
             if(patch.isValid())
             {
-                File file(patch.getPath() + File::separatorString.toStdString() + patch.getName());
-                if(file.exists())
-                {
-                    m_processor.loadPatch(file);
-                }
+                m_processor.loadPatch(patch.getName(), patch.getPath());
             }
         }
         else if(result == 5)
         {
-            Gui::getWindow().setContentOwned(new GuiConsole(), false);
-            Gui::getWindow().setName("Camomile Console");
-            Gui::getWindow().addToDesktop();
-            Gui::getWindow().grabKeyboardFocus();
+            m_window.setContentOwned(new GuiConsole(m_processor), false);
+            m_window.setName("Camomile Console");
+            m_window.addToDesktop();
+            m_window.grabKeyboardFocus();
+            m_window.toFront(true);
+            m_window.setAlwaysOnTop(true);
         }
         else if(result == 6)
         {

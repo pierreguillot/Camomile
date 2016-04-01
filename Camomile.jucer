@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="0.0.5"
+<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="0.0.7"
               bundleIdentifier="com.cicm.Camomile" includeBinaryInAppConfig="1"
               buildVST="1" buildVST3="1" buildAU="0" buildRTAS="0" buildAAX="0"
               pluginName="Camomile" pluginDesc="Camomile" pluginManufacturer="Pierre Guillot"
               pluginManufacturerCode="CICM" pluginCode="PGCA" pluginChannelConfigs=""
-              pluginIsSynth="0" pluginWantsMidiIn="1" pluginProducesMidiOut="0"
+              pluginIsSynth="0" pluginWantsMidiIn="1" pluginProducesMidiOut="1"
               pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="1"
               pluginAUExportPrefix="CamomileAU" pluginRTASCategory="" aaxIdentifier="com.cicm.Camomile"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.1.0"
@@ -23,55 +23,69 @@
             file="Source/InstanceEditor.cpp"/>
       <FILE id="tLvOP3" name="InstanceEditor.hpp" compile="0" resource="0"
             file="Source/InstanceEditor.hpp"/>
-      <FILE id="mfu9aW" name="Gui.cpp" compile="1" resource="0" file="Source/Gui.cpp"/>
-      <FILE id="ahFT2V" name="Gui.hpp" compile="0" resource="0" file="Source/Gui.hpp"/>
-      <FILE id="ZAeAE7" name="GuiWindow.cpp" compile="1" resource="0" file="Source/GuiWindow.cpp"/>
-      <FILE id="d9Vjmd" name="GuiWindow.hpp" compile="0" resource="0" file="Source/GuiWindow.hpp"/>
-      <FILE id="OvL3wk" name="GuiAbout.cpp" compile="1" resource="0" file="Source/GuiAbout.cpp"/>
-      <FILE id="YEALPb" name="GuiAbout.hpp" compile="0" resource="0" file="Source/GuiAbout.hpp"/>
-      <FILE id="pQxITl" name="GuiConsole.cpp" compile="1" resource="0" file="Source/GuiConsole.cpp"/>
-      <FILE id="bFJbE9" name="GuiConsole.hpp" compile="0" resource="0" file="Source/GuiConsole.hpp"/>
-      <FILE id="VqmKdm" name="GuiFlowerButton.cpp" compile="1" resource="0"
-            file="Source/GuiFlowerButton.cpp"/>
-      <FILE id="HpCvwb" name="GuiFlowerButton.hpp" compile="0" resource="0"
-            file="Source/GuiFlowerButton.hpp"/>
-      <FILE id="hTEaiz" name="GuiPatcher.cpp" compile="1" resource="0" file="Source/GuiPatcher.cpp"/>
-      <FILE id="DcI7Ep" name="GuiPatcher.hpp" compile="0" resource="0" file="Source/GuiPatcher.hpp"/>
-      <FILE id="Iks2o8" name="GuiComment.cpp" compile="1" resource="0" file="Source/GuiComment.cpp"/>
-      <FILE id="K0Fuxh" name="GuiComment.hpp" compile="0" resource="0" file="Source/GuiComment.hpp"/>
-      <FILE id="gR2NvP" name="GuiLabel.cpp" compile="1" resource="0" file="Source/GuiLabel.cpp"/>
-      <FILE id="pO9tUK" name="GuiLabel.hpp" compile="0" resource="0" file="Source/GuiLabel.hpp"/>
-      <FILE id="QxJ9WH" name="GuiNumbox.cpp" compile="1" resource="0" file="Source/GuiNumbox.cpp"/>
-      <FILE id="RMNfIv" name="GuiNumbox.hpp" compile="0" resource="0" file="Source/GuiNumbox.hpp"/>
-      <FILE id="OeUGMN" name="GuiSlider.cpp" compile="1" resource="0" file="Source/GuiSlider.cpp"/>
-      <FILE id="X3S9do" name="GuiSlider.hpp" compile="0" resource="0" file="Source/GuiSlider.hpp"/>
-      <FILE id="RSGKI0" name="GuiToggle.cpp" compile="1" resource="0" file="Source/GuiToggle.cpp"/>
-      <FILE id="C9xs6Z" name="GuiToggle.hpp" compile="0" resource="0" file="Source/GuiToggle.hpp"/>
-      <FILE id="fgenxt" name="GuiRadio.cpp" compile="1" resource="0" file="Source/GuiRadio.cpp"/>
-      <FILE id="Bwy3TJ" name="GuiRadio.hpp" compile="0" resource="0" file="Source/GuiRadio.hpp"/>
-      <FILE id="yg4Nuq" name="GuiParameter.cpp" compile="1" resource="0"
-            file="Source/GuiParameter.cpp"/>
-      <FILE id="cuSyHc" name="GuiParameter.hpp" compile="0" resource="0"
-            file="Source/GuiParameter.hpp"/>
-      <FILE id="c7oMcM" name="Pd.cpp" compile="1" resource="0" file="Source/Pd.cpp"/>
-      <FILE id="o0Va6F" name="Pd.hpp" compile="0" resource="0" file="Source/Pd.hpp"/>
-      <FILE id="yk5hRN" name="PdGui.cpp" compile="1" resource="0" file="Source/PdGui.cpp"/>
-      <FILE id="qAbzUL" name="PdGui.hpp" compile="0" resource="0" file="Source/PdGui.hpp"/>
-      <FILE id="Bnr3EF" name="PdPatch.cpp" compile="1" resource="0" file="Source/PdPatch.cpp"/>
-      <FILE id="axFnWc" name="PdPatch.hpp" compile="0" resource="0" file="Source/PdPatch.hpp"/>
-      <FILE id="DEM9eo" name="PdInstance.cpp" compile="1" resource="0" file="Source/PdInstance.cpp"/>
-      <FILE id="mGAVYz" name="PdInstance.hpp" compile="0" resource="0" file="Source/PdInstance.hpp"/>
+      <GROUP id="{E043833F-89BF-72B1-385E-CBEDCD7AF99E}" name="Gui">
+        <FILE id="dV8HAr" name="Gui.cpp" compile="1" resource="0" file="Source/Gui/Gui.cpp"/>
+        <FILE id="dzXDy4" name="Gui.hpp" compile="0" resource="0" file="Source/Gui/Gui.hpp"/>
+        <FILE id="XzQolr" name="GuiAbout.cpp" compile="1" resource="0" file="Source/Gui/GuiAbout.cpp"/>
+        <FILE id="LvbDJX" name="GuiAbout.hpp" compile="0" resource="0" file="Source/Gui/GuiAbout.hpp"/>
+        <FILE id="zELK2I" name="GuiComment.cpp" compile="1" resource="0" file="Source/Gui/GuiComment.cpp"/>
+        <FILE id="BGggUV" name="GuiComment.hpp" compile="0" resource="0" file="Source/Gui/GuiComment.hpp"/>
+        <FILE id="oC33uj" name="GuiConsole.cpp" compile="1" resource="0" file="Source/Gui/GuiConsole.cpp"/>
+        <FILE id="xzP0n8" name="GuiConsole.hpp" compile="0" resource="0" file="Source/Gui/GuiConsole.hpp"/>
+        <FILE id="WPX2aw" name="GuiFlowerButton.cpp" compile="1" resource="0"
+              file="Source/Gui/GuiFlowerButton.cpp"/>
+        <FILE id="dPQh6a" name="GuiFlowerButton.hpp" compile="0" resource="0"
+              file="Source/Gui/GuiFlowerButton.hpp"/>
+        <FILE id="qlPKm4" name="GuiLabel.cpp" compile="1" resource="0" file="Source/Gui/GuiLabel.cpp"/>
+        <FILE id="cHVgdP" name="GuiLabel.hpp" compile="0" resource="0" file="Source/Gui/GuiLabel.hpp"/>
+        <FILE id="DcHzC7" name="GuiNumbox.cpp" compile="1" resource="0" file="Source/Gui/GuiNumbox.cpp"/>
+        <FILE id="N5TCrs" name="GuiNumbox.hpp" compile="0" resource="0" file="Source/Gui/GuiNumbox.hpp"/>
+        <FILE id="GXZZvd" name="GuiParameter.cpp" compile="1" resource="0"
+              file="Source/Gui/GuiParameter.cpp"/>
+        <FILE id="HP8MxI" name="GuiParameter.hpp" compile="0" resource="0"
+              file="Source/Gui/GuiParameter.hpp"/>
+        <FILE id="eFDrOW" name="GuiPatcher.cpp" compile="1" resource="0" file="Source/Gui/GuiPatcher.cpp"/>
+        <FILE id="GBDME6" name="GuiPatcher.hpp" compile="0" resource="0" file="Source/Gui/GuiPatcher.hpp"/>
+        <FILE id="uhftxL" name="GuiRadio.cpp" compile="1" resource="0" file="Source/Gui/GuiRadio.cpp"/>
+        <FILE id="tdiuNC" name="GuiRadio.hpp" compile="0" resource="0" file="Source/Gui/GuiRadio.hpp"/>
+        <FILE id="lDwk2k" name="GuiSlider.cpp" compile="1" resource="0" file="Source/Gui/GuiSlider.cpp"/>
+        <FILE id="zAVwWz" name="GuiSlider.hpp" compile="0" resource="0" file="Source/Gui/GuiSlider.hpp"/>
+        <FILE id="cGa9hy" name="GuiToggle.cpp" compile="1" resource="0" file="Source/Gui/GuiToggle.cpp"/>
+        <FILE id="lpVqgT" name="GuiToggle.hpp" compile="0" resource="0" file="Source/Gui/GuiToggle.hpp"/>
+        <FILE id="crqUQt" name="GuiWindow.cpp" compile="1" resource="0" file="Source/Gui/GuiWindow.cpp"/>
+        <FILE id="ctApEd" name="GuiWindow.hpp" compile="0" resource="0" file="Source/Gui/GuiWindow.hpp"/>
+      </GROUP>
+      <GROUP id="{54169745-384E-0695-75EC-6098DBFF0534}" name="Pd">
+        <FILE id="Sk2bkw" name="Pd.hpp" compile="0" resource="0" file="Source/Pd/Pd.hpp"/>
+        <FILE id="ows8zT" name="PdConsole.cpp" compile="1" resource="0" file="Source/Pd/PdConsole.cpp"/>
+        <FILE id="M2wrm9" name="PdConsole.hpp" compile="0" resource="0" file="Source/Pd/PdConsole.hpp"/>
+        <FILE id="XAxBih" name="PdEnvironment.cpp" compile="1" resource="0"
+              file="Source/Pd/PdEnvironment.cpp"/>
+        <FILE id="zpzoUl" name="PdEnvironment.hpp" compile="0" resource="0"
+              file="Source/Pd/PdEnvironment.hpp"/>
+        <FILE id="yz6bgC" name="PdInstance.cpp" compile="1" resource="0" file="Source/Pd/PdInstance.cpp"/>
+        <FILE id="zyjFjN" name="PdInstance.hpp" compile="0" resource="0" file="Source/Pd/PdInstance.hpp"/>
+        <FILE id="AJPlWv" name="PdObject.cpp" compile="1" resource="0" file="Source/Pd/PdObject.cpp"/>
+        <FILE id="FQGlHP" name="PdObject.hpp" compile="0" resource="0" file="Source/Pd/PdObject.hpp"/>
+        <FILE id="pdfJBZ" name="PdParameter.cpp" compile="1" resource="0" file="Source/Pd/PdParameter.cpp"/>
+        <FILE id="Jvledu" name="PdParameter.hpp" compile="0" resource="0" file="Source/Pd/PdParameter.hpp"/>
+        <FILE id="lDZ2UG" name="PdPatch.cpp" compile="1" resource="0" file="Source/Pd/PdPatch.cpp"/>
+        <FILE id="XZtiXM" name="PdPatch.hpp" compile="0" resource="0" file="Source/Pd/PdPatch.hpp"/>
+        <FILE id="p7fLwd" name="PdPatchManager.cpp" compile="1" resource="0"
+              file="Source/Pd/PdPatchManager.cpp"/>
+        <FILE id="a2S2gw" name="PdPatchManager.hpp" compile="0" resource="0"
+              file="Source/Pd/PdPatchManager.hpp"/>
+        <FILE id="Nx3HCd" name="PdTypes.cpp" compile="1" resource="0" file="Source/Pd/PdTypes.cpp"/>
+        <FILE id="HSh45O" name="PdTypes.hpp" compile="0" resource="0" file="Source/Pd/PdTypes.hpp"/>
+        <FILE id="njegb7" name="z_pd.c" compile="1" resource="0" file="Source/Pd/z_pd.c"/>
+        <FILE id="cDqoiv" name="z_pd.h" compile="0" resource="0" file="Source/Pd/z_pd.h"/>
+      </GROUP>
     </GROUP>
     <GROUP id="{13D75516-E697-ECB1-605C-FB3746C267F8}" name="PureData">
       <GROUP id="{E169D560-E0FD-D9AB-34FF-826654976AD0}" name="extra">
         <FILE id="MHTfOs" name="bob~.c" compile="1" resource="0" file="ThirdParty/PureData/extra/bob~/bob~.c"/>
         <FILE id="Elu9TX" name="bonk~.c" compile="1" resource="0" file="ThirdParty/PureData/extra/bonk~/bonk~.c"/>
         <FILE id="EE57Ga" name="choice.c" compile="1" resource="0" file="ThirdParty/PureData/extra/choice/choice.c"/>
-        <FILE id="Wfa74x" name="vexp.c" compile="1" resource="0" file="ThirdParty/PureData/extra/expr~/vexp.c"/>
-        <FILE id="OLM23T" name="vexp.h" compile="0" resource="0" file="ThirdParty/PureData/extra/expr~/vexp.h"/>
-        <FILE id="D8GsWm" name="vexp_fun.c" compile="1" resource="0" file="ThirdParty/PureData/extra/expr~/vexp_fun.c"/>
-        <FILE id="IhSpv5" name="vexp_if.c" compile="1" resource="0" file="ThirdParty/PureData/extra/expr~/vexp_if.c"/>
-        <FILE id="avCT6J" name="fts_to_pd.h" compile="0" resource="0" file="ThirdParty/PureData/extra/expr~/fts_to_pd.h"/>
         <FILE id="PdKXgp" name="fiddle~.c" compile="1" resource="0" file="ThirdParty/PureData/extra/fiddle~/fiddle~.c"/>
         <FILE id="BVJVGZ" name="loop~.c" compile="1" resource="0" file="ThirdParty/PureData/extra/loop~/loop~.c"/>
         <FILE id="m8v6it" name="lrshift~.c" compile="1" resource="0" file="ThirdParty/PureData/extra/lrshift~/lrshift~.c"/>
@@ -136,8 +150,6 @@
         <FILE id="EQZawY" name="s_inter.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_inter.c"/>
         <FILE id="WsEHMF" name="s_loader.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_loader.c"/>
         <FILE id="Ic6LsD" name="s_main.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_main.c"/>
-        <FILE id="VtfePp" name="s_midi.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_midi.c"/>
-        <FILE id="EFaawO" name="s_midi_dummy.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_midi_dummy.c"/>
         <FILE id="CfZaK0" name="s_path.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_path.c"/>
         <FILE id="PvtjZi" name="s_print.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_print.c"/>
         <FILE id="vIreZA" name="s_stuff.h" compile="0" resource="0" file="ThirdParty/PureData/src/s_stuff.h"/>
@@ -156,20 +168,26 @@
         <FILE id="YDMF0S" name="x_scalar.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_scalar.c"/>
         <FILE id="ynfMat" name="x_text.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_text.c"/>
         <FILE id="Yh5zvF" name="x_time.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_time.c"/>
+        <FILE id="AONfwM" name="x_vexp_fun.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_vexp_fun.c"/>
+        <FILE id="DLarYz" name="x_vexp_if.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_vexp_if.c"/>
+        <FILE id="xxzU7t" name="x_vexp.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_vexp.c"/>
+        <FILE id="yOSnli" name="x_vexp.h" compile="0" resource="0" file="ThirdParty/PureData/src/x_vexp.h"/>
       </GROUP>
     </GROUP>
     <GROUP id="{8DE6AA0C-11D5-0E76-0B00-0843C90E25ED}" name="Ressources">
-      <FILE id="nAtHON" name="clear0.png" compile="0" resource="1" file="Ressources/clear0.png"/>
-      <FILE id="UvnyC9" name="clear1.png" compile="0" resource="1" file="Ressources/clear1.png"/>
+      <FILE id="aAL7Sj" name="clear1.png" compile="0" resource="1" file="Ressources/clear1.png"/>
+      <FILE id="oqcUsT" name="clear2.png" compile="0" resource="1" file="Ressources/clear2.png"/>
+      <FILE id="zA26MM" name="copy1.png" compile="0" resource="1" file="Ressources/copy1.png"/>
+      <FILE id="t9Tix1" name="copy2.png" compile="0" resource="1" file="Ressources/copy2.png"/>
+      <FILE id="SOv1mR" name="option.png" compile="0" resource="1" file="Ressources/option.png"/>
       <FILE id="pAFpl1" name="flower1.png" compile="0" resource="1" file="Ressources/flower1.png"/>
       <FILE id="aZl9d4" name="flower2.png" compile="0" resource="1" file="Ressources/flower2.png"/>
-      <FILE id="ABes24" name="flowerG.png" compile="0" resource="1" file="Ressources/flowerG.png"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" vstFolder="ThirdParty/Vst/vstsdk2.4"
                postbuildCommand="&#10;# This script takes the build product and copies it to the AU, VST, VST3, RTAS and AAX folders, depending on &#10;# which plugin types you've built&#10;&#10;original=$CONFIGURATION_BUILD_DIR/$FULL_PRODUCT_NAME&#10;&#10;# this looks inside the binary to detect which platforms are needed.. &#10;copyAU=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'AudioUnit' | wc -l&#96;&#10;copyVST=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'VSTPlugin' | wc -l&#96;&#10;copyVST3=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'GetPluginFactory' | wc -l&#96;&#10;copyRTAS=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'CProcess' | wc -l&#96;&#10;copyAAX=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'ACFStartup' | wc -l&#96;&#10;&#10;if [ $copyAU -gt 0 ]; then&#10;  echo &quot;Copying to AudioUnit folder...&quot;&#10;  AUDir=~/Library/Audio/Plug-Ins/Components&#10;  mkdir -p &quot;$AUDir&quot;&#10;  AU=$AUDir/$PRODUCT_NAME.component&#10;  if [ -d &quot;$AU&quot; ]; then &#10;    rm -r &quot;$AU&quot;&#10;  fi&#10;&#10;  cp -r &quot;$original&quot; &quot;$AU&quot;&#10;  sed -i &quot;&quot; -e 's/TDMwPTul/BNDLPTul/g' &quot;$AU/Contents/PkgInfo&quot;&#10;  sed -i &quot;&quot; -e 's/TDMw/BNDL/g' &quot;$AU/Contents/$INFOPLIST_FILE&quot;&#10;fi&#10;&#10;if [ $copyVST -gt 0 ]; then&#10;  echo &quot;Copying to VST folder...&quot;&#10;  VSTDir=~/Library/Audio/Plug-Ins/VST&#10;  mkdir -p &quot;$VSTDir&quot;&#10;  VST=$VSTDir/$PRODUCT_NAME.vst&#10;  if [ -d &quot;$VST&quot; ]; then &#10;    rm -r &quot;$VST&quot;&#10;  fi&#10;&#10;  cp -r &quot;$original&quot; &quot;$VST&quot;&#10;  sed -i &quot;&quot; -e 's/TDMwPTul/BNDLPTul/g' &quot;$VST/Contents/PkgInfo&quot;&#10;  sed -i &quot;&quot; -e 's/TDMw/BNDL/g' &quot;$VST/Contents/$INFOPLIST_FILE&quot;&#10;fi&#10;&#10;if [ $copyVST3 -gt 0 ]; then&#10;  echo &quot;Copying to VST3 folder...&quot;&#10;  VST3Dir=~/Library/Audio/Plug-Ins/VST3&#10;  mkdir -p &quot;$VST3Dir&quot;&#10;  VST3=$VST3Dir/$PRODUCT_NAME.vst3&#10;  if [ -d &quot;$VST3&quot; ]; then &#10;    rm -r &quot;$VST3&quot;&#10;  fi&#10;&#10;  cp -r &quot;$original&quot; &quot;$VST3&quot;&#10;  sed -i &quot;&quot; -e 's/TDMwPTul/BNDLPTul/g' &quot;$VST3/Contents/PkgInfo&quot;&#10;  sed -i &quot;&quot; -e 's/TDMw/BNDL/g' &quot;$VST3/Contents/$INFOPLIST_FILE&quot;&#10;fi&#10;&#10;if [ $copyRTAS -gt 0 ]; then&#10;  echo &quot;Copying to RTAS folder...&quot;&#10;  RTASDir=/Library/Application\ Support/Digidesign/Plug-Ins&#10;  if [ -d &quot;$RTASDir&quot; ]; then&#10;    RTAS=$RTASDir/$PRODUCT_NAME.dpm&#10;    if [ -d &quot;$RTAS&quot; ]; then&#10;      rm -r &quot;$RTAS&quot;&#10;    fi&#10;&#10;    cp -r &quot;$original&quot; &quot;$RTAS&quot;&#10;  fi&#10;fi&#10;&#10;if [ $copyAAX -gt 0 ]; then&#10;  echo &quot;Copying to AAX folder...&quot;&#10;&#10;  if [ -d &quot;/Applications/ProTools_3PDev/Plug-Ins&quot; ]; then&#10;    AAX1=&quot;/Applications/ProTools_3PDev/Plug-Ins/$PRODUCT_NAME.aaxplugin&quot;&#10;&#10;    if [ -d &quot;$AAX1&quot; ]; then&#10;      rm -r &quot;$AAX1&quot;&#10;    fi&#10;&#10;    cp -R -H &quot;$original&quot; &quot;$AAX1&quot;&#10;  fi&#10;&#10;  if [ -d &quot;/Library/Application Support/Avid/Audio/Plug-Ins&quot; ]; then&#10;    AAX2=&quot;/Library/Application Support/Avid/Audio/Plug-Ins/$PRODUCT_NAME.aaxplugin&quot;&#10;&#10;    if [ -d &quot;$AAX2&quot; ]; then&#10;      rm -r &quot;$AAX2&quot;&#10;    fi&#10;&#10;    cp -R -H &quot;$original&quot; &quot;$AAX2&quot;&#10;  fi&#10;fi&#10;"
-               vst3Folder="ThirdParty/Vst/" externalLibraries="" extraDefs="HAVE_UNISTD_H=1&#10;HAVE_ALLOCA_H=1"
+               vst3Folder="ThirdParty/Vst/" externalLibraries="" extraDefs="HAVE_UNISTD_H=1&#10;HAVE_ALLOCA_H=1&#10;HAVE_LIBDL=1"
                extraLinkerFlags="" extraCompilerFlags="">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"

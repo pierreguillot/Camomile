@@ -1,0 +1,11 @@
+#N canvas 251 186 661 318 10;
+#X obj 61 81 netreceive 2000;
+#X obj 61 119 print;
+#X obj 148 117 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X text 61 9 This patch shows that you can send message through OSC
+with the plugin., f 54;
+#X text 61 49 Open camo.netsend in a Camomile plugin to use it., f
+54;
+#X connect 0 0 1 0;
+#X connect 0 1 2 0;
