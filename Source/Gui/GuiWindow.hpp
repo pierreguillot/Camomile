@@ -7,7 +7,7 @@
 #ifndef __CAMOMILE_GUI_WINDOW__
 #define __CAMOMILE_GUI_WINDOW__
 
-#include "InstanceProcessor.hpp"
+#include "../InstanceProcessor.hpp"
 
 // ==================================================================================== //
 //                                      GUI WINDOW                                      //

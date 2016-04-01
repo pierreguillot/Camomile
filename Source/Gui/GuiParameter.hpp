@@ -7,7 +7,7 @@
 #ifndef __CAMOMILE_GUI_PARAMETER__
 #define __CAMOMILE_GUI_PARAMETER__
 
-#include "InstanceProcessor.hpp"
+#include "../InstanceProcessor.hpp"
 
 // ==================================================================================== //
 //                                      GUI PARAMETER                                   //
