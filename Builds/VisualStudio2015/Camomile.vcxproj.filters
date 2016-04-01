@@ -2133,6 +2133,9 @@
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_HashMap.h">
       <Filter>Juce Modules\juce_core\containers</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_HomeopathicStack.h">
+      <Filter>Juce Modules\juce_core\containers</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_LinkedListPointer.h">
       <Filter>Juce Modules\juce_core\containers</Filter>
     </ClInclude>

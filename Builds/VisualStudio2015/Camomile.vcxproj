@@ -1510,6 +1510,7 @@
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_DynamicObject.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_ElementComparator.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_HashMap.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_HomeopathicStack.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_LinkedListPointer.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_ListenerList.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_NamedValueSet.h"/>
