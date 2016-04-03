@@ -436,6 +436,9 @@
     <ClCompile Include="..\..\ThirdParty\PureData\src\g_canvas.c">
       <Filter>Camomile\PureData\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\PureData\src\g_clone.c">
+      <Filter>Camomile\PureData\src</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\ThirdParty\PureData\src\g_editor.c">
       <Filter>Camomile\PureData\src</Filter>
     </ClCompile>

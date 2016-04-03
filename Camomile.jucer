@@ -115,6 +115,7 @@
         <FILE id="LbhS7n" name="g_bang.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_bang.c"/>
         <FILE id="V8y9am" name="g_canvas.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_canvas.c"/>
         <FILE id="Si8Lft" name="g_canvas.h" compile="0" resource="0" file="ThirdParty/PureData/src/g_canvas.h"/>
+        <FILE id="U2Tvfa" name="g_clone.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_clone.c"/>
         <FILE id="kpJAIs" name="g_editor.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_editor.c"/>
         <FILE id="REA2VX" name="g_graph.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_graph.c"/>
         <FILE id="CmYMPy" name="g_guiconnect.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_guiconnect.c"/>

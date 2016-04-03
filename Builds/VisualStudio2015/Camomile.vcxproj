@@ -316,6 +316,7 @@
     <ClCompile Include="..\..\ThirdParty\PureData\src\g_array.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\g_bang.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\g_canvas.c"/>
+    <ClCompile Include="..\..\ThirdParty\PureData\src\g_clone.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\g_editor.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\g_graph.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\g_guiconnect.c"/>
