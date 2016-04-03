@@ -38,36 +38,48 @@ namespace pd
             else if(!message.compare(0, 5, "tried") || !message.compare(0, 5, "input"))
             {
                 level = 3;
-                instance->ref->receiveConsoleLog(message);
             }
-            if(!message.empty() && (message[0] == ' ' || message[0] == '\n'))
+            std::string const whitespaces(" \t\f\v\n\r");
+            std::size_t const found = message.find_last_not_of(whitespaces);
+            if(found!=std::string::npos)
             {
-                size_t i = 0;
-                while(i < message.size() && message[i] != ' ')
-                {
-                    ++i;
-                }
-                message.erase(message.begin(), message.begin()+i+1);
+                message.erase(found+1);
             }
-
+            else
+            {
+                return;
+            }
             if(!message.empty())
             {
-                if(level == 0)
+                if(message[0] == ' ' || message[0] == '\n')
                 {
-                    instance->ref->receiveConsoleFatal(message);
+                    size_t i = message.find_first_not_of(" \n");
+                    if(i != std::string::npos)
+                    {
+                        message.erase(message.begin(), message.begin()+i+1);
+                    }
                 }
-                else if(level == 1)
-                {
-                    instance->ref->receiveConsoleError(message);
-                }
-                else if(level == 2)
-                {
-                    instance->ref->receiveConsolePost(message);
-                }
-                else
-                {
-                    instance->ref->receiveConsoleLog(message);
-                }
+            }
+            if(message.empty())
+            {
+                return;
+            }
+
+            if(level == 0)
+            {
+                instance->ref->receiveConsoleFatal(message);
+            }
+            else if(level == 1)
+            {
+                instance->ref->receiveConsoleError(message);
+            }
+            else if(level == 2)
+            {
+                instance->ref->receiveConsolePost(message);
+            }
+            else
+            {
+                instance->ref->receiveConsoleLog(message);
             }
         }
         
