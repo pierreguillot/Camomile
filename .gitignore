@@ -32,9 +32,7 @@
 *.plist
 *.nib
 *.pbxproj
-*.xcworkspacedata
 *.xcuserstate
-*.xcscheme
 *.xcuserdatad
 
 # Juce & ThirdParty

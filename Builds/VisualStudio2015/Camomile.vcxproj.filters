@@ -277,13 +277,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\LookAndFeel.cpp">
+    <ClCompile Include="..\..\Source\InstanceEditor.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\InstanceProcessor.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\InstanceEditor.cpp">
+    <ClCompile Include="..\..\Source\LookAndFeel.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Gui\Gui.cpp">
@@ -586,13 +586,13 @@
     <ClCompile Include="..\..\ThirdParty\PureData\src\x_time.c">
       <Filter>Camomile\PureData\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\PureData\src\x_vexp.c">
+      <Filter>Camomile\PureData\src</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\ThirdParty\PureData\src\x_vexp_fun.c">
       <Filter>Camomile\PureData\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\PureData\src\x_vexp_if.c">
-      <Filter>Camomile\PureData\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\x_vexp.c">
       <Filter>Camomile\PureData\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\buffers\juce_AudioDataConverters.cpp">
@@ -1689,13 +1689,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\LookAndFeel.hpp">
+    <ClInclude Include="..\..\Source\InstanceEditor.hpp">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\InstanceProcessor.hpp">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\InstanceEditor.hpp">
+    <ClInclude Include="..\..\Source\LookAndFeel.hpp">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Gui\Gui.hpp">
@@ -2134,9 +2134,6 @@
       <Filter>Juce Modules\juce_core\containers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_HashMap.h">
-      <Filter>Juce Modules\juce_core\containers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_HomeopathicStack.h">
       <Filter>Juce Modules\juce_core\containers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_LinkedListPointer.h">
@@ -3056,13 +3053,13 @@
     <None Include="..\..\Ressources\copy2.png">
       <Filter>Camomile\Ressources</Filter>
     </None>
-    <None Include="..\..\Ressources\option.png">
-      <Filter>Camomile\Ressources</Filter>
-    </None>
     <None Include="..\..\Ressources\flower1.png">
       <Filter>Camomile\Ressources</Filter>
     </None>
     <None Include="..\..\Ressources\flower2.png">
+      <Filter>Camomile\Ressources</Filter>
+    </None>
+    <None Include="..\..\Ressources\option.png">
       <Filter>Camomile\Ressources</Filter>
     </None>
     <None Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\juce_module_info">

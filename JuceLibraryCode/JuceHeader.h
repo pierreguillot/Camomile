@@ -10,8 +10,8 @@
 
 */
 
-#ifndef __APPHEADERFILE_Y2NDRU__
-#define __APPHEADERFILE_Y2NDRU__
+#ifndef __APPHEADERFILE_ZYBLIJ__
+#define __APPHEADERFILE_ZYBLIJ__
 
 #include "AppConfig.h"
 #include "modules/juce_audio_basics/juce_audio_basics.h"
@@ -35,9 +35,9 @@
 namespace ProjectInfo
 {
     const char* const  projectName    = "Camomile";
-    const char* const  versionString  = "0.0.7";
-    const int          versionNumber  = 0x7;
+    const char* const  versionString  = "0.0.8";
+    const int          versionNumber  = 0x8;
 }
 #endif
 
-#endif   // __APPHEADERFILE_Y2NDRU__
+#endif   // __APPHEADERFILE_ZYBLIJ__

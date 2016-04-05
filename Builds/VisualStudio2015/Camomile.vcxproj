@@ -20,7 +20,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{9AB5403A-2942-9151-4946-07CB19FDC4B9}</ProjectGuid>
+    <ProjectGuid>{23C59311-3902-E874-3114-4F231BA7D536}</ProjectGuid>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
@@ -85,7 +85,7 @@
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/PureData/src;../../ThirdParty/PthreadWindows/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.7;JUCE_APP_VERSION_HEX=0x7;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.8;JUCE_APP_VERSION_HEX=0x8;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -132,7 +132,7 @@
     <ClCompile>
       <Optimization>Full</Optimization>
       <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/PureData/src;../../ThirdParty/PthreadWindows/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.7;JUCE_APP_VERSION_HEX=0x7;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.8;JUCE_APP_VERSION_HEX=0x8;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -181,7 +181,7 @@
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/PureData/src;../../ThirdParty/PthreadWindows/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.7;JUCE_APP_VERSION_HEX=0x7;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.8;JUCE_APP_VERSION_HEX=0x8;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -224,9 +224,9 @@
       <HeaderFileName/>
     </Midl>
     <ClCompile>
-      <Optimization>Full</Optimization>
+      <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/PureData/src;../../ThirdParty/PthreadWindows/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.7;JUCE_APP_VERSION_HEX=0x7;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.8;JUCE_APP_VERSION_HEX=0x8;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -263,9 +263,9 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\LookAndFeel.cpp"/>
-    <ClCompile Include="..\..\Source\InstanceProcessor.cpp"/>
     <ClCompile Include="..\..\Source\InstanceEditor.cpp"/>
+    <ClCompile Include="..\..\Source\InstanceProcessor.cpp"/>
+    <ClCompile Include="..\..\Source\LookAndFeel.cpp"/>
     <ClCompile Include="..\..\Source\Gui\Gui.cpp"/>
     <ClCompile Include="..\..\Source\Gui\GuiAbout.cpp"/>
     <ClCompile Include="..\..\Source\Gui\GuiComment.cpp"/>
@@ -366,9 +366,9 @@
     <ClCompile Include="..\..\ThirdParty\PureData\src\x_scalar.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\x_text.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\x_time.c"/>
+    <ClCompile Include="..\..\ThirdParty\PureData\src\x_vexp.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\x_vexp_fun.c"/>
     <ClCompile Include="..\..\ThirdParty\PureData\src\x_vexp_if.c"/>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\x_vexp.c"/>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\buffers\juce_AudioDataConverters.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1362,9 +1362,9 @@
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\VST3\juce_VST3_Wrapper.cpp"/>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\LookAndFeel.hpp"/>
-    <ClInclude Include="..\..\Source\InstanceProcessor.hpp"/>
     <ClInclude Include="..\..\Source\InstanceEditor.hpp"/>
+    <ClInclude Include="..\..\Source\InstanceProcessor.hpp"/>
+    <ClInclude Include="..\..\Source\LookAndFeel.hpp"/>
     <ClInclude Include="..\..\Source\Gui\Gui.hpp"/>
     <ClInclude Include="..\..\Source\Gui\GuiAbout.hpp"/>
     <ClInclude Include="..\..\Source\Gui\GuiComment.hpp"/>
@@ -1511,7 +1511,6 @@
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_DynamicObject.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_ElementComparator.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_HashMap.h"/>
-    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_HomeopathicStack.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_LinkedListPointer.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_ListenerList.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_NamedValueSet.h"/>
@@ -1819,9 +1818,9 @@
     <None Include="..\..\Ressources\clear2.png"/>
     <None Include="..\..\Ressources\copy1.png"/>
     <None Include="..\..\Ressources\copy2.png"/>
-    <None Include="..\..\Ressources\option.png"/>
     <None Include="..\..\Ressources\flower1.png"/>
     <None Include="..\..\Ressources\flower2.png"/>
+    <None Include="..\..\Ressources\option.png"/>
     <None Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\juce_module_info"/>
     <None Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\juce_module_info"/>
     <None Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\juce_module_info"/>

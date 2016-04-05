@@ -15,10 +15,10 @@ ifeq ($(CONFIG),Debug)
   OUTDIR := build
 
   ifeq ($(TARGET_ARCH),)
-    TARGET_ARCH := 
+    TARGET_ARCH := -march=native
   endif
 
-  CPPFLAGS := $(DEPFLAGS) -D "LINUX=1" -D "DEBUG=1" -D "_DEBUG=1" -D "PD=1" -D "USEAPI_DUMMY=1" -D "PD_INTERNAL=1" -D "HAVE_UNISTD_H=1" -D "HAVE_LIBDL=1" -D "HAVE_ALLOCA_H=1" -D "JUCER_LINUX_MAKE_6D53C8B4=1" -D "JUCE_APP_VERSION=0.0.7" -D "JUCE_APP_VERSION_HEX=0x7" -I /usr/include -I /usr/include/freetype2 -I ../../ThirdParty/Vst -I ../../ThirdParty/Vst/vstsdk2.4 -I ../../JuceLibraryCode -I ../../ThirdParty/Juce/modules -I ../../ThirdParty/PureData/src
+  CPPFLAGS := $(DEPFLAGS) -D "LINUX=1" -D "DEBUG=1" -D "_DEBUG=1" -D "PD=1" -D "USEAPI_DUMMY=1" -D "PD_INTERNAL=1" -D "HAVE_UNISTD_H=1" -D "HAVE_LIBDL=1" -D "HAVE_ALLOCA_H=1" -D "JUCER_LINUX_MAKE_6D53C8B4=1" -D "JUCE_APP_VERSION=0.0.8" -D "JUCE_APP_VERSION_HEX=0x8" -I /usr/include -I /usr/include/freetype2 -I ../../ThirdParty/Vst -I ../../ThirdParty/Vst/vstsdk2.4 -I ../../JuceLibraryCode -I ../../ThirdParty/Juce/modules -I ../../ThirdParty/PureData/src
   CFLAGS += $(CPPFLAGS) $(TARGET_ARCH) -g -ggdb -fPIC -O0
   CXXFLAGS += $(CFLAGS) -std=c++11
   LDFLAGS += $(TARGET_ARCH) -L$(BINDIR) -L$(LIBDIR) -Wl,--no-undefined -shared -L/usr/X11R6/lib/ -lX11 -lXext -lXinerama -ldl -lfreetype -lpthread -lrt 
@@ -35,10 +35,10 @@ ifeq ($(CONFIG),Release)
   OUTDIR := build
 
   ifeq ($(TARGET_ARCH),)
-    TARGET_ARCH := 
+    TARGET_ARCH := -march=native
   endif
 
-  CPPFLAGS := $(DEPFLAGS) -D "LINUX=1" -D "NDEBUG=1" -D "PD=1" -D "USEAPI_DUMMY=1" -D "PD_INTERNAL=1" -D "HAVE_UNISTD_H=1" -D "HAVE_LIBDL=1" -D "HAVE_ALLOCA_H=1" -D "JUCER_LINUX_MAKE_6D53C8B4=1" -D "JUCE_APP_VERSION=0.0.7" -D "JUCE_APP_VERSION_HEX=0x7" -I /usr/include -I /usr/include/freetype2 -I ../../ThirdParty/Vst -I ../../ThirdParty/Vst/vstsdk2.4 -I ../../JuceLibraryCode -I ../../ThirdParty/Juce/modules -I ../../ThirdParty/PureData/src
+  CPPFLAGS := $(DEPFLAGS) -D "LINUX=1" -D "NDEBUG=1" -D "PD=1" -D "USEAPI_DUMMY=1" -D "PD_INTERNAL=1" -D "HAVE_UNISTD_H=1" -D "HAVE_LIBDL=1" -D "HAVE_ALLOCA_H=1" -D "JUCER_LINUX_MAKE_6D53C8B4=1" -D "JUCE_APP_VERSION=0.0.8" -D "JUCE_APP_VERSION_HEX=0x8" -I /usr/include -I /usr/include/freetype2 -I ../../ThirdParty/Vst -I ../../ThirdParty/Vst/vstsdk2.4 -I ../../JuceLibraryCode -I ../../ThirdParty/Juce/modules -I ../../ThirdParty/PureData/src
   CFLAGS += $(CPPFLAGS) $(TARGET_ARCH) -fPIC -O3
   CXXFLAGS += $(CFLAGS) -std=c++11
   LDFLAGS += $(TARGET_ARCH) -L$(BINDIR) -L$(LIBDIR) -Wl,--no-undefined -shared -fvisibility=hidden -L/usr/X11R6/lib/ -lX11 -lXext -lXinerama -ldl -lfreetype -lpthread -lrt 
@@ -49,9 +49,9 @@ ifeq ($(CONFIG),Release)
 endif
 
 OBJECTS := \
-  $(OBJDIR)/LookAndFeel_40552bdf.o \
-  $(OBJDIR)/InstanceProcessor_bc7e525e.o \
   $(OBJDIR)/InstanceEditor_fa2c28eb.o \
+  $(OBJDIR)/InstanceProcessor_bc7e525e.o \
+  $(OBJDIR)/LookAndFeel_40552bdf.o \
   $(OBJDIR)/Gui_edc4c728.o \
   $(OBJDIR)/GuiAbout_58af930f.o \
   $(OBJDIR)/GuiComment_699305a1.o \
@@ -152,9 +152,9 @@ OBJECTS := \
   $(OBJDIR)/x_scalar_6bd11c10.o \
   $(OBJDIR)/x_text_c7a174d1.o \
   $(OBJDIR)/x_time_c7d49a71.o \
+  $(OBJDIR)/x_vexp_cb0b170b.o \
   $(OBJDIR)/x_vexp_fun_e64128cb.o \
   $(OBJDIR)/x_vexp_if_624547db.o \
-  $(OBJDIR)/x_vexp_cb0b170b.o \
   $(OBJDIR)/BinaryData_ce4232d4.o \
   $(OBJDIR)/juce_audio_basics_4f86222c.o \
   $(OBJDIR)/juce_audio_processors_4fc0fe4.o \
@@ -185,9 +185,9 @@ strip:
 	@echo Stripping Camomile
 	-@strip --strip-unneeded $(OUTDIR)/$(TARGET)
 
-$(OBJDIR)/LookAndFeel_40552bdf.o: ../../Source/LookAndFeel.cpp
+$(OBJDIR)/InstanceEditor_fa2c28eb.o: ../../Source/InstanceEditor.cpp
 	-@mkdir -p $(OBJDIR)
-	@echo "Compiling LookAndFeel.cpp"
+	@echo "Compiling InstanceEditor.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/InstanceProcessor_bc7e525e.o: ../../Source/InstanceProcessor.cpp
@@ -195,9 +195,9 @@ $(OBJDIR)/InstanceProcessor_bc7e525e.o: ../../Source/InstanceProcessor.cpp
 	@echo "Compiling InstanceProcessor.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/InstanceEditor_fa2c28eb.o: ../../Source/InstanceEditor.cpp
+$(OBJDIR)/LookAndFeel_40552bdf.o: ../../Source/LookAndFeel.cpp
 	-@mkdir -p $(OBJDIR)
-	@echo "Compiling InstanceEditor.cpp"
+	@echo "Compiling LookAndFeel.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/Gui_edc4c728.o: ../../Source/Gui/Gui.cpp
@@ -700,6 +700,11 @@ $(OBJDIR)/x_time_c7d49a71.o: ../../ThirdParty/PureData/src/x_time.c
 	@echo "Compiling x_time.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
+$(OBJDIR)/x_vexp_cb0b170b.o: ../../ThirdParty/PureData/src/x_vexp.c
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling x_vexp.c"
+	@$(CC) $(CFLAGS) -o "$@" -c "$<"
+
 $(OBJDIR)/x_vexp_fun_e64128cb.o: ../../ThirdParty/PureData/src/x_vexp_fun.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_vexp_fun.c"
@@ -708,11 +713,6 @@ $(OBJDIR)/x_vexp_fun_e64128cb.o: ../../ThirdParty/PureData/src/x_vexp_fun.c
 $(OBJDIR)/x_vexp_if_624547db.o: ../../ThirdParty/PureData/src/x_vexp_if.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_vexp_if.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/x_vexp_cb0b170b.o: ../../ThirdParty/PureData/src/x_vexp.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling x_vexp.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/BinaryData_ce4232d4.o: ../../JuceLibraryCode/BinaryData.cpp

@@ -4,8 +4,8 @@
 
 */
 
-#ifndef BINARYDATA_H_24019154_INCLUDED
-#define BINARYDATA_H_24019154_INCLUDED
+#ifndef BINARYDATA_H_7040746_INCLUDED
+#define BINARYDATA_H_7040746_INCLUDED
 
 namespace BinaryData
 {
@@ -21,14 +21,14 @@ namespace BinaryData
     extern const char*   copy2_png;
     const int            copy2_pngSize = 13753;
 
-    extern const char*   option_png;
-    const int            option_pngSize = 29484;
-
     extern const char*   flower1_png;
     const int            flower1_pngSize = 22287;
 
     extern const char*   flower2_png;
     const int            flower2_pngSize = 3299;
+
+    extern const char*   option_png;
+    const int            option_pngSize = 29484;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];
