@@ -40,6 +40,7 @@ ThirdParty/Vst/*
 !ThirdParty/Vst/README.txt
 ThirdParty/PthreadWindows/*
 !ThirdParty/PthreadWindows/README.txt
-/Binaries
 /Builds/MacOSX/build/
 /Builds/LinuxMakefile/build/
+
+/Binaries
