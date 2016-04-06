@@ -61,7 +61,7 @@ void GuiParameter::setValue(float value, bool redraw)
     }
     if(m_index)
     {
-        m_processor.setParameterNonNormalizedNotifyingHost(m_index-1, m_value);
+        m_processor.setParameterNonNormalizedNotifyingHost(int(m_index)-1, m_value);
     }
     if(redraw)
     {
@@ -105,7 +105,7 @@ void GuiParameter::update()
 {
     if(m_index && m_edited == false)
     {
-        const float value = m_processor.getParameterNonNormalized(m_index-1);
+        const float value = m_processor.getParameterNonNormalized(int(m_index)-1);
         if(value != m_value)
         {
             m_value = value;

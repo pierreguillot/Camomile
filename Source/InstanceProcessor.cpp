@@ -126,7 +126,7 @@ int InstanceProcessor::getParameterIndex(pd::Tie const& name)
         {
             if(m_parameters[i].getTie() == name)
             {
-                return i;
+                return int(i);
             }
         }
     }
@@ -139,7 +139,7 @@ int InstanceProcessor::getParameterIndex(String const& name)
     {
         if(m_parameters[i].getName() == name)
         {
-            return i;
+            return int(i);
         }
     }
     return -1;
@@ -191,7 +191,7 @@ void InstanceProcessor::parametersChanged()
     {
         if(m_parameters[i].isValid())
         {
-            setParameterNotifyingHost(i, m_parameters[i].getValueNormalized());
+            setParameterNotifyingHost(int(i), m_parameters[i].getValueNormalized());
         }
     }
 }

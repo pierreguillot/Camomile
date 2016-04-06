@@ -32,7 +32,7 @@ GuiConsole::GuiConsole(pd::Console::History& history) : m_history(history)
     m_table.setRowHeight(Gui::getFont().getHeight() + 2);
     m_table.setColour(ListBox::ColourIds::backgroundColourId, Colours::transparentWhite);
     m_table.getViewport()->setScrollBarsShown(true, false, true, false);
-    m_table.getViewport()->setScrollBarThickness(1);
+    m_table.getViewport()->setScrollBarThickness(4);
     m_table.setModel(this);
     m_table.setHeader(header);
     addAndMakeVisible(m_table);
@@ -113,7 +113,7 @@ bool GuiConsole::keyPressed(const KeyPress& key)
 
 int GuiConsole::getNumRows()
 {
-    return m_size;
+    return int(m_size);
 }
 
 void GuiConsole::paintRowBackground(Graphics& g, int rowNumber, int width, int height, bool rowIsSelected)

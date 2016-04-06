@@ -32,7 +32,7 @@ namespace pd
     m_name(gui.getName()),
     m_label(gui.getLabel()),
     m_bname(gui.getReceiveTie()),
-    m_nsteps(gui.getNumberOfSteps())
+    m_nsteps(int(gui.getNumberOfSteps()))
     {
         setValueNonNormalized(gui.getValue());
     }

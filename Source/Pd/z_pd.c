@@ -93,7 +93,7 @@ static void receiver_pointer(z_receiver *x, t_gpointer *gp)
 
 struct _list
 {
-    int l_n;
+    size_t l_n;
     t_atom *l_vec;
 };
 

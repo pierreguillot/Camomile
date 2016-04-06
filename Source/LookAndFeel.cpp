@@ -557,7 +557,6 @@ void CamoLookAndFeel::drawScrollbarButton (Graphics& g, ScrollBar& scrollbar,
                                           bool /*isMouseOverButton*/,
                                           bool isButtonDown)
 {
-    return;
     Path p;
 
     if (buttonDirection == 0)
@@ -578,9 +577,9 @@ void CamoLookAndFeel::drawScrollbarButton (Graphics& g, ScrollBar& scrollbar,
                        width * 0.7f, height * 0.9f);
 
     if (isButtonDown)
-        g.setColour (scrollbar.findColour (ScrollBar::thumbColourId).contrasting (0.2f));
+        g.setColour (Gui::getColorTxt().contrasting (0.2f));
     else
-        g.setColour (scrollbar.findColour (ScrollBar::thumbColourId));
+        g.setColour (Gui::getColorTxt());
 
     g.fillPath (p);
 
@@ -598,7 +597,6 @@ void CamoLookAndFeel::drawScrollbar (Graphics& g,
                                  bool /*isMouseOver*/,
                                  bool /*isMouseDown*/)
 {
-    return;
     g.fillAll (scrollbar.findColour (ScrollBar::backgroundColourId));
 
     Path slotPath, thumbPath;
