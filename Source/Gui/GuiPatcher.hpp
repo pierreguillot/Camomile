@@ -15,7 +15,7 @@
 //                                      GUI PATCHER                                      //
 // ==================================================================================== //
 
-class GuiPatcher : public Component
+class GuiPatcher : public Component, private Timer
 {
 public:
     GuiPatcher();
@@ -23,6 +23,7 @@ public:
     
     void setPatch(InstanceProcessor& processor, pd::Patch const& patch);
 private:
+    void timerCallback() final;
     OwnedArray<GuiComment>      m_comment;
     OwnedArray<GuiParameter>    m_parameters;
     OwnedArray<GuiLabel>        m_labels;

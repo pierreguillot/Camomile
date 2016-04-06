@@ -13,7 +13,7 @@
 //                                      GUI PARAMETER                                   //
 // ==================================================================================== //
 
-class GuiParameter : public virtual Component, private Timer
+class GuiParameter : public virtual Component
 {
 public:
     GuiParameter(InstanceProcessor& processor, pd::Gui const& gui);
@@ -24,6 +24,7 @@ public:
     float getMinimum() const noexcept;
     float getValue() const noexcept;
     float getValueNormalized() const noexcept;
+    void update();
     
 protected:
     
@@ -32,7 +33,7 @@ protected:
     void setValue(float value, bool redraw = true);
     void setValueNormalized(float value, bool redraw = true);
 private:
-    void timerCallback() final;
+    
     
     InstanceProcessor&  m_processor;
     const pd::Gui::Type m_type;

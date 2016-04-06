@@ -22,10 +22,6 @@ m_edited(false)
     std::array<int, 4> bounds(gui.getBounds());
     setBounds(int(bounds[0]), int(bounds[1]), int(bounds[2]), int(bounds[3]));
     setOpaque(true);
-    if(m_index)
-    {
-        startTimer(25);
-    }
 }
 
 GuiParameter::~GuiParameter()
@@ -98,28 +94,23 @@ void GuiParameter::setValueNormalized(float value, bool redraw)
 void GuiParameter::startEdition() noexcept
 {
     m_edited = true;
-    if(m_index)
-    {
-        stopTimer();
-    }
 }
 
 void GuiParameter::stopEdition() noexcept
 {
     m_edited = false;
-    if(m_index)
-    {
-        startTimer(25);
-    }
 }
 
-void GuiParameter::timerCallback()
+void GuiParameter::update()
 {
-    float value = m_processor.getParameterNonNormalized(m_index-1);
-    if(m_edited == false && value != m_value)
+    if(m_index && m_edited == false)
     {
-        m_value = value;
-        repaint();
+        const float value = m_processor.getParameterNonNormalized(m_index-1);
+        if(value != m_value)
+        {
+            m_value = value;
+            repaint();
+        }
     }
 }
 

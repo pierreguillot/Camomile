@@ -27,8 +27,17 @@ GuiPatcher::~GuiPatcher()
     
 }
 
+void GuiPatcher::timerCallback()
+{
+    for(int i = 0; i < m_parameters.size(); i++)
+    {
+        m_parameters[i]->update();
+    }
+}
+
 void GuiPatcher::setPatch(InstanceProcessor& processor, pd::Patch const& patch)
 {
+    stopTimer();
     m_comment.clear();
     m_parameters.clear();
     m_labels.clear();
@@ -77,4 +86,5 @@ void GuiPatcher::setPatch(InstanceProcessor& processor, pd::Patch const& patch)
         }
         repaint();
     }
+    startTimer(25);
 }
