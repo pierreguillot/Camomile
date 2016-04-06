@@ -44,3 +44,4 @@ ThirdParty/PthreadWindows/*
 /Builds/LinuxMakefile/build/
 
 /Binaries
+/Tests
