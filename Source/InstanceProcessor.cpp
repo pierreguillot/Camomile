@@ -198,7 +198,7 @@ void InstanceProcessor::parametersChanged()
 
 void InstanceProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    prepareDsp(16, 16, sampleRate, samplesPerBlock);
+    prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(), sampleRate, samplesPerBlock);
 }
 
 void InstanceProcessor::releaseResources()
