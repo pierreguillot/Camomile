@@ -67,7 +67,7 @@ void GuiNumbox::mouseDrag(const MouseEvent& event)
 
 void GuiNumbox::mouseUp(const MouseEvent& event)
 {
-    if(!m_label.hasKeyboardFocus(true))
+    if(m_label.isBeingEdited() && !m_label.hasKeyboardFocus(true))
     {
         stopEdition();
     }
