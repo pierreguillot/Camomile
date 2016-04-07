@@ -113,6 +113,8 @@ private:
     pd::List                            m_playing_list;
     pd::List                            m_measure_list;
     AudioPlayHead::CurrentPositionInfo  m_playinfos;
+    
+    juce::String    m_name;
 
     void parametersChanged();
     

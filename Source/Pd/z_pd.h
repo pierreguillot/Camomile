@@ -65,6 +65,20 @@ typedef struct _instance
     z_internal* z_internal_ptr;
 }z_instance;
 
+typedef struct _pt
+{
+    int x;
+    int y;
+}z_pt;
+
+typedef struct _rect
+{
+    int x;
+    int y;
+    int w;
+    int h;
+}z_rect;
+
 typedef void (*z_hook_print)(struct _instance* instance, const char *s);
 typedef void (*z_hook_noteon)(struct _instance* instance, int port, int channel, int pitch, int velocity);
 typedef void (*z_hook_controlchange)(struct _instance* instance, int port, int channel, int control, int value);
