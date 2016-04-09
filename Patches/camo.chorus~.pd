@@ -3,7 +3,7 @@
 #X obj 193 209 delwrite~ \$0-delay1 1000;
 #X obj 256 240 delwrite~ \$0-delay2 1000;
 #X obj 196 350 dac~ 1 2, f 18;
-#N canvas 0 22 729 331 chorus1 0;
+#N canvas 0 22 761 341 chorus1 1;
 #X obj 33 63 osc~ 0.05;
 #X obj 33 88 *~ 10;
 #X obj 113 88 *~ 10;
