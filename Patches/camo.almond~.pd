@@ -302,7 +302,7 @@ Organ-Harmonic-9_% -2 -8 0 10 -262144 -1 -1 0 1;
 #X connect 16 0 15 0;
 #X connect 18 0 17 0;
 #X restore 53 474 pd init;
-#N canvas 0 22 579 443 multisynthesizer 0;
+#N canvas 539 227 579 443 multisynthesizer 1;
 #N canvas 332 289 597 279 synthesizer 0;
 #X obj 31 99 / 2;
 #X obj 31 79 mtof;
@@ -1827,9 +1827,9 @@ Organ-Harmonic-9_% -2 -8 0 10 -262144 -1 -1 0 1;
 #X connect 1 0 2 0;
 #X restore 277 279 pd;
 #X obj 303 337 hsl 128 15 0 15 0 0 \$0-lfo-s \$0-lfo Leslie-Rate_Hz
--2 -8 0 10 -262144 -1 -1 1200 1;
+-2 -8 0 10 -262144 -1 -1 254 1;
 #X obj 438 337 nbx 5 15 0 15 0 0 empty \$0-lfo empty 0 -8 0 10 -262144
--1 -1 1.41732 256;
+-1 -1 0.3 256;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X obj 14 18 inlet;
 #X msg 14 40 set \$1;
