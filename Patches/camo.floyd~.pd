@@ -1,17 +1,17 @@
-#N canvas 574 38 832 581 10;
-#X obj 474 259 line~;
-#X obj 374 432 vcf~;
-#X obj 374 187 clip~ 0 0.5;
-#X obj 374 211 *~ 2;
-#X obj 374 235 -~;
-#X obj 389 103 mtof;
-#X obj 389 157 phasor~;
-#X obj 374 460 vcf~, f 9;
-#X obj 474 210 max 61;
-#X obj 472 383 max 3;
-#X obj 374 527 dac~;
-#X obj 474 235 pack 0 5;
-#X obj 474 284 tabread4~ \$0-mtof;
+#N canvas 574 38 334 540 10;
+#X obj 158 206 line~;
+#X obj 58 379 vcf~;
+#X obj 58 269 clip~ 0 0.5;
+#X obj 58 293 *~ 2;
+#X obj 58 317 -~;
+#X obj 73 215 mtof;
+#X obj 73 239 phasor~;
+#X obj 58 407 vcf~, f 9;
+#X obj 158 157 max 61;
+#X obj 156 330 max 3;
+#X obj 58 442 dac~;
+#X obj 158 182 pack 0 5;
+#X obj 158 231 tabread4~ \$0-mtof;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array \$0-mtof 130 float 1;
 #A 0 8.1758 8.66196 9.17702 9.72272 10.3009 10.9134 11.5623 12.2499
@@ -30,19 +30,19 @@
 7040 7458.62 7902.13 8372.02 8869.84 9397.27 9956.06 10548.1 11175.3
 11839.8 12543.9 13289.8 14080;
 #X coords 0 300 1 299 200 100 0;
-#X restore 587 283 graph;
-#X obj 389 16 notein;
-#X obj 405 42 != 0;
-#X obj 389 76 *;
-#X obj 246 29 vsl 15 50 3 10 0 0 empty \$0-q Q 4 -9 0 10 -262144 -1
--1 0 1;
-#X obj 472 350 r \$0-q;
-#X obj 279 29 vsl 15 50 61 200 0 0 empty \$0-freq Freq -4 -9 0 10 -262144
--1 -1 0 1;
-#X obj 471 176 r \$0-freq;
+#X restore 271 230 graph;
+#X obj 73 98 notein;
+#X obj 89 124 != 0;
+#X obj 73 158 *;
+#X obj 246 29 vsl 15 50 3 10 0 0 \$0-q-s \$0-q Q 4 -9 0 10 -262144
+-1 -1 2800 1;
+#X obj 279 29 vsl 15 50 61 200 0 0 \$0-freq-s \$0-freq Freq -4 -9 0
+10 -262144 -1 -1 1200 1;
 #X text 15 15 Adaptation of Miller's pacth \, filter.floyd that recreates
 the Pink Floyd synthesizer of On The Run from The Dark Side Of The
 Moon. The pitch is controlled by MIDI., f 35;
+#X obj 157 123 r \$0-freq-s;
+#X obj 156 297 r \$0-q-s;
 #X connect 0 0 12 0;
 #X connect 1 0 7 0;
 #X connect 2 0 3 0;
@@ -63,6 +63,6 @@ Moon. The pitch is controlled by MIDI., f 35;
 #X connect 14 1 15 0;
 #X connect 15 0 16 1;
 #X connect 16 0 5 0;
-#X connect 18 0 9 0;
 #X connect 20 0 8 0;
+#X connect 21 0 9 0;
 #X coords 0 -1 1 1 300 80 2 10 10;
