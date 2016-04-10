@@ -1,6 +1,7 @@
 #N canvas 91 80 832 581 10;
-#X obj 32 263 dac~ 1 2, f 16;
-#X obj 36 52 noise~;
-#X connect 1 0 0 0;
-#X connect 1 0 0 1;
-#X coords 0 -1 1 1 120 20 2 20 20;
+#X obj 32 222 noise~;
+#X text 32 31 A simple white noise generator, f 16;
+#X obj 32 263 dac~, f 5;
+#X connect 0 0 2 0;
+#X connect 0 0 2 1;
+#X coords 0 -1 1 1 120 50 2 20 20;
