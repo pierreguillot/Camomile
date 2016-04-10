@@ -14,10 +14,8 @@ pd::Symbol InstanceProcessor::s_measure;
 InstanceProcessor::InstanceProcessor() : pd::Instance("Camomile"),
 m_parameters(64), m_playing_list(2), m_measure_list(5), m_name("Camomile")
 {
-    sendConsolePost(std::string("Camomile ") +
-                         std::string(JucePlugin_VersionString) +
-                         std::string(" for Pure Data ") +
-                         pd::Environment::getPdVersion());
+    sendConsolePost(std::string("Camomile ") + std::string(JucePlugin_VersionString) +
+                    std::string(" for Pure Data ") + pd::Environment::getPdVersion());
     s_playing           = pd::Symbol("playing");
     s_measure           = pd::Symbol("measure");
     busArrangement.inputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
