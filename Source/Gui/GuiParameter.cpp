@@ -16,12 +16,13 @@ m_type(gui.getType()),
 m_minimum(gui.getMinimum()),
 m_maximum(gui.getMaximum()),
 m_index(processor.getParameterIndex(gui.getReceiveTie())+1),
-m_value(gui.getValue()),
+m_value(0.f),
 m_edited(false)
 {
     std::array<int, 4> bounds(gui.getBounds());
     setBounds(int(bounds[0]), int(bounds[1]), int(bounds[2]), int(bounds[3]));
     setOpaque(true);
+    setValue(gui.getValue());
 }
 
 GuiParameter::~GuiParameter()
@@ -93,6 +94,7 @@ void GuiParameter::setValueNormalized(float value, bool redraw)
 
 void GuiParameter::startEdition() noexcept
 {
+    m_value = m_processor.getParameterNonNormalized(int(m_index)-1);
     m_edited = true;
 }
 
