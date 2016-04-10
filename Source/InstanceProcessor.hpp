@@ -60,7 +60,6 @@ public:
     int getParameterIndex(pd::Tie const& name);
     int getParameterIndex(String const& name);
     
-    
     void getStateInformation(MemoryBlock& destData) final;
     void setStateInformation(const void* data, int sizeInBytes) final;
     

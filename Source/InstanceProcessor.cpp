@@ -23,72 +23,6 @@ m_parameters(64), m_playing_list(2), m_measure_list(5), m_name("Camomile")
     busArrangement.inputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
     busArrangement.outputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
     m_path = juce::File::getCurrentWorkingDirectory().getFullPathName();
-    
-    
-    File file(File::getSpecialLocation(File::SpecialLocationType::currentExecutableFile).getParentDirectory().getFullPathName() + File::separatorString + String("Camomile.json"));
-    std::cout << "\n\nLoad:\n";
-    std::cout << file.getFullPathName() << "\n";
-    if(file.exists())
-    {
-        juce::var infos(juce::JSON::parse(file));
-        if(infos.isObject())
-        {
-            DynamicObject* main = infos.getDynamicObject();
-            if(main)
-            {
-                std::cout << "Main loadded \n";
-                if(main->hasProperty("Camomile"))
-                {
-                    var properties(main->getProperty("Camomile"));
-                    if(properties.isObject())
-                    {
-                        DynamicObject* current = properties.getDynamicObject();
-                        if(current->hasProperty("name"))
-                        {
-                            var namep =  current->getProperty("name");
-                            if(namep.isString())
-                            {
-                                m_name = namep.toString();
-                                std::cout << "Name " << m_name <<"\n";
-                            }
-                        }
-                        if(current->hasProperty("ninputs"))
-                        {
-                            var ninputs =  current->getProperty("ninputs");
-                            if(ninputs.isInt() && ninputs.isInt64())
-                            {
-                                busArrangement.inputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(int(ninputs));
-                                std::cout << "Ninputs " << int(ninputs) <<"\n";
-                            }
-                        }
-                        if(current->hasProperty("noutputs"))
-                        {
-                            var noutputs =  current->getProperty("noutputs");
-                            if(noutputs.isInt())
-                            {
-                                busArrangement.outputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(int(noutputs));
-                                std::cout << "Noutputs " << int(noutputs) <<"\n";
-                            }
-                        }
-                        if(current->hasProperty("parameters"))
-                        {
-                            var params = current->getProperty("parameters");
-                            if(params.isArray())
-                            {
-                                Array<var>* params_array = params.getArray();
-                                if(params_array)
-                                {
-                                    m_parameters.resize(params_array->size());
-                                }
-                            }
-                            
-                        }
-                    }
-                }
-            }
-        }
-    }
-    std::cout << "Loaded\n\n";
 }
 
 InstanceProcessor::~InstanceProcessor()
@@ -253,13 +187,6 @@ void InstanceProcessor::parametersChanged()
         }
     }
     updateHostDisplay();
-    for(size_t i = 0; i < m_parameters.size(); i++)
-    {
-        if(m_parameters[i].isValid())
-        {
-            setParameterNotifyingHost(int(i), m_parameters[i].getValueNormalized());
-        }
-    }
 }
 
 void InstanceProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
