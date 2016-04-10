@@ -1,19 +1,16 @@
 #N canvas 476 125 346 584 10;
 #X obj 59 67 hsl 128 15 0 20 0 0 \$0-rate-s \$0-rate Rate_Hz -3 -6
-0 10 -262144 -1 -1 0 1;
+0 10 -262144 -1 -1 6350 1;
 #X obj 195 67 nbx 5 15 0 20 0 0 empty \$0-rate empty 0 -8 0 10 -262144
--1 -1 0 256;
-#X obj 87 134 adc~ 1 2, f 11;
-#X text 89 235 Rate;
-#X text 86 214 Oscillator;
-#X obj 59 97 hsl 128 15 0 10 0 0 \$0-depth-s \$0-depth Depth_ms -3
--6 0 10 -262144 -1 -1 12700 1;
-#X obj 195 97 nbx 5 15 0 10 0 0 empty \$0-depth empty 0 -8 0 10 -262144
 -1 -1 10 256;
+#X obj 87 134 adc~ 1 2, f 11;
+#X obj 59 97 hsl 128 15 0 10 0 0 \$0-depth-s \$0-depth Depth_ms -3
+-6 0 10 -262144 -1 -1 127 1;
+#X obj 195 97 nbx 5 15 0 10 0 0 empty \$0-depth empty 0 -8 0 10 -262144
+-1 -1 0.1 256;
 #X obj 164 306 / 100;
 #X obj 164 328 \$1 20;
 #X obj 164 350 line~;
-#X text 163 235 Depth;
 #X obj 87 161 delwrite~ \$0-delay1 1000;
 #X obj 150 192 delwrite~ \$0-delay2 1000;
 #X obj 89 343 osc~;
@@ -53,27 +50,27 @@
 #X connect 1 0 3 0;
 #X connect 4 0 2 0;
 #X restore 21 161 pd init;
-#X connect 0 0 23 0;
+#X connect 0 0 20 0;
 #X connect 1 0 0 0;
-#X connect 2 0 11 0;
-#X connect 2 1 12 0;
-#X connect 5 0 24 0;
-#X connect 6 0 5 0;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
-#X connect 9 0 17 1;
-#X connect 13 0 14 0;
-#X connect 13 0 14 1;
+#X connect 2 0 8 0;
+#X connect 2 1 9 0;
+#X connect 3 0 21 0;
+#X connect 4 0 3 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 14 1;
+#X connect 10 0 11 0;
+#X connect 10 0 11 1;
+#X connect 11 0 14 0;
+#X connect 12 0 10 0;
+#X connect 13 0 15 0;
+#X connect 14 0 13 0;
 #X connect 14 0 17 0;
-#X connect 15 0 13 0;
-#X connect 16 0 18 0;
-#X connect 17 0 16 0;
-#X connect 17 0 20 0;
-#X connect 18 0 19 0;
-#X connect 20 0 19 1;
-#X connect 21 0 7 0;
-#X connect 23 0 1 0;
-#X connect 24 0 6 0;
-#X connect 25 0 15 0;
-#X connect 26 0 21 0;
+#X connect 15 0 16 0;
+#X connect 17 0 16 1;
+#X connect 18 0 5 0;
+#X connect 20 0 1 0;
+#X connect 21 0 4 0;
+#X connect 22 0 12 0;
+#X connect 23 0 18 0;
 #X coords 0 -1 1 1 206 90 2 50 30;
