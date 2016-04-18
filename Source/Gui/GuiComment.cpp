@@ -15,8 +15,8 @@ GuiComment::GuiComment(pd::Object const& cmt) : m_text(cmt.getText())
 {
     setInterceptsMouseClicks(false, false);
     setWantsKeyboardFocus(false);
-    std::array<int, 4> bounds(cmt.getBounds());
-    setBounds(int(bounds[0]), int(bounds[1]), bounds[2] < 1.f ? 360 : bounds[2] * 6, 200);
+    pd::Rectangle<int> bounds(cmt.getBounds());
+    setBounds(bounds.x, bounds.y, bounds.w < 1.f ? 360 : bounds.w * 6, 200);
 }
 
 void GuiComment::paint(Graphics& g)

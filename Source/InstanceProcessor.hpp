@@ -7,7 +7,7 @@
 #ifndef __CAMOMILE_INTANCE_PROCESSOR__
 #define __CAMOMILE_INTANCE_PROCESSOR__
 
-#include "Pd/Pd.hpp"
+#include "../ThirdParty/zpd/xpd/Pd.hpp"
 #include "../JuceLibraryCode/JuceHeader.h"
 
 

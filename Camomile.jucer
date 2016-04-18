@@ -56,124 +56,126 @@
         <FILE id="pSscNM" name="GuiWindow.cpp" compile="1" resource="0" file="Source/Gui/GuiWindow.cpp"/>
         <FILE id="PFnvcW" name="GuiWindow.hpp" compile="0" resource="0" file="Source/Gui/GuiWindow.hpp"/>
       </GROUP>
-      <GROUP id="{AF37F583-3B3F-51AD-C723-740A1E848E9D}" name="Pd">
-        <FILE id="lRJ2To" name="Pd.hpp" compile="0" resource="0" file="Source/Pd/Pd.hpp"/>
-        <FILE id="k2PrPg" name="PdConsole.cpp" compile="1" resource="0" file="Source/Pd/PdConsole.cpp"/>
-        <FILE id="XGFMe3" name="PdConsole.hpp" compile="0" resource="0" file="Source/Pd/PdConsole.hpp"/>
-        <FILE id="nWQDnz" name="PdEnvironment.cpp" compile="1" resource="0"
-              file="Source/Pd/PdEnvironment.cpp"/>
-        <FILE id="BxB4qe" name="PdEnvironment.hpp" compile="0" resource="0"
-              file="Source/Pd/PdEnvironment.hpp"/>
-        <FILE id="gh8d9C" name="PdInstance.cpp" compile="1" resource="0" file="Source/Pd/PdInstance.cpp"/>
-        <FILE id="MUybWH" name="PdInstance.hpp" compile="0" resource="0" file="Source/Pd/PdInstance.hpp"/>
-        <FILE id="exMSXj" name="PdObject.cpp" compile="1" resource="0" file="Source/Pd/PdObject.cpp"/>
-        <FILE id="nI3Lje" name="PdObject.hpp" compile="0" resource="0" file="Source/Pd/PdObject.hpp"/>
-        <FILE id="xrWypU" name="PdParameter.cpp" compile="1" resource="0" file="Source/Pd/PdParameter.cpp"/>
-        <FILE id="qZwnIO" name="PdParameter.hpp" compile="0" resource="0" file="Source/Pd/PdParameter.hpp"/>
-        <FILE id="CvU72q" name="PdPatch.cpp" compile="1" resource="0" file="Source/Pd/PdPatch.cpp"/>
-        <FILE id="T4sLbs" name="PdPatch.hpp" compile="0" resource="0" file="Source/Pd/PdPatch.hpp"/>
-        <FILE id="wlGVmV" name="PdPatchManager.cpp" compile="1" resource="0"
-              file="Source/Pd/PdPatchManager.cpp"/>
-        <FILE id="FNZzTo" name="PdPatchManager.hpp" compile="0" resource="0"
-              file="Source/Pd/PdPatchManager.hpp"/>
-        <FILE id="p8Koex" name="PdTypes.cpp" compile="1" resource="0" file="Source/Pd/PdTypes.cpp"/>
-        <FILE id="qEx7l6" name="PdTypes.hpp" compile="0" resource="0" file="Source/Pd/PdTypes.hpp"/>
-        <FILE id="UAmxzH" name="z_pd.c" compile="1" resource="0" file="Source/Pd/z_pd.c"/>
-        <FILE id="swOVOp" name="z_pd.h" compile="0" resource="0" file="Source/Pd/z_pd.h"/>
-      </GROUP>
     </GROUP>
-    <GROUP id="{FE270808-C2CD-210D-3181-B68593DF33A9}" name="PureData">
+    <GROUP id="{1DE05050-8AFD-7554-B16B-39AB026D49DD}" name="zpd">
+      <FILE id="VOrJEP" name="z_pd.c" compile="1" resource="0" file="ThirdParty/zpd/zpd/z_pd.c"/>
+      <FILE id="OUDfBl" name="z_pd.h" compile="0" resource="0" file="ThirdParty/zpd/zpd/z_pd.h"/>
+    </GROUP>
+    <GROUP id="{D49E12EE-2E19-B60A-038C-16156C16CE4E}" name="xpd">
+      <FILE id="zpekY8" name="Pd.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/Pd.hpp"/>
+      <FILE id="I8tVIj" name="PdConsole.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/PdConsole.cpp"/>
+      <FILE id="l3xxPo" name="PdConsole.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/PdConsole.hpp"/>
+      <FILE id="rXt5BA" name="PdEnvironment.cpp" compile="1" resource="0"
+            file="ThirdParty/zpd/xpd/PdEnvironment.cpp"/>
+      <FILE id="VoVBqK" name="PdEnvironment.hpp" compile="0" resource="0"
+            file="ThirdParty/zpd/xpd/PdEnvironment.hpp"/>
+      <FILE id="JEpQBh" name="PdInstance.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/PdInstance.cpp"/>
+      <FILE id="cH9edo" name="PdInstance.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/PdInstance.hpp"/>
+      <FILE id="b1O3J6" name="PdObject.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/PdObject.cpp"/>
+      <FILE id="szy2tt" name="PdObject.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/PdObject.hpp"/>
+      <FILE id="Ey7FYm" name="PdParameter.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/PdParameter.cpp"/>
+      <FILE id="g6B6mV" name="PdParameter.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/PdParameter.hpp"/>
+      <FILE id="bQOf69" name="PdPatch.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/PdPatch.cpp"/>
+      <FILE id="QXBiQC" name="PdPatch.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/PdPatch.hpp"/>
+      <FILE id="nSEV31" name="PdPatchManager.cpp" compile="1" resource="0"
+            file="ThirdParty/zpd/xpd/PdPatchManager.cpp"/>
+      <FILE id="nHpaDA" name="PdPatchManager.hpp" compile="0" resource="0"
+            file="ThirdParty/zpd/xpd/PdPatchManager.hpp"/>
+      <FILE id="rRRNF4" name="PdTypes.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/PdTypes.cpp"/>
+      <FILE id="ulVvNo" name="PdTypes.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/PdTypes.hpp"/>
+    </GROUP>
+    <GROUP id="{FE270808-C2CD-210D-3181-B68593DF33A9}" name="pd">
       <GROUP id="{1C3B3672-B6EE-6976-8B6E-5C05626E0E27}" name="extra">
-        <FILE id="OGYJ67" name="bob~.c" compile="1" resource="0" file="ThirdParty/PureData/extra/bob~/bob~.c"/>
-        <FILE id="Imvk8h" name="bonk~.c" compile="1" resource="0" file="ThirdParty/PureData/extra/bonk~/bonk~.c"/>
-        <FILE id="RIyVEx" name="choice.c" compile="1" resource="0" file="ThirdParty/PureData/extra/choice/choice.c"/>
-        <FILE id="STv0qK" name="fiddle~.c" compile="1" resource="0" file="ThirdParty/PureData/extra/fiddle~/fiddle~.c"/>
-        <FILE id="yUn5S8" name="loop~.c" compile="1" resource="0" file="ThirdParty/PureData/extra/loop~/loop~.c"/>
-        <FILE id="exk37N" name="lrshift~.c" compile="1" resource="0" file="ThirdParty/PureData/extra/lrshift~/lrshift~.c"/>
-        <FILE id="zJZN3w" name="pique.c" compile="1" resource="0" file="ThirdParty/PureData/extra/pique/pique.c"/>
-        <FILE id="pNWBE9" name="sigmund~.c" compile="1" resource="0" file="ThirdParty/PureData/extra/sigmund~/sigmund~.c"/>
-        <FILE id="NJtyfl" name="stdout.c" compile="1" resource="0" file="ThirdParty/PureData/extra/stdout/stdout.c"/>
+        <FILE id="owygXF" name="bob~.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/bob~/bob~.c"/>
+        <FILE id="VozfKN" name="bonk~.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/bonk~/bonk~.c"/>
+        <FILE id="O7XfKE" name="choice.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/choice/choice.c"/>
+        <FILE id="rrN1FX" name="fiddle~.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/fiddle~/fiddle~.c"/>
+        <FILE id="AsT5z1" name="loop~.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/loop~/loop~.c"/>
+        <FILE id="Q0Qt1D" name="lrshift~.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/lrshift~/lrshift~.c"/>
+        <FILE id="AE4O4b" name="pique.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/pique/pique.c"/>
+        <FILE id="qpbwL3" name="sigmund~.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/sigmund~/sigmund~.c"/>
+        <FILE id="fXtk2d" name="stdout.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/stdout/stdout.c"/>
       </GROUP>
       <GROUP id="{B10C4446-4164-FD84-A511-0CE89D7B2960}" name="src">
-        <FILE id="eUsswm" name="d_arithmetic.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_arithmetic.c"/>
-        <FILE id="eWCUwx" name="d_array.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_array.c"/>
-        <FILE id="e39u0q" name="d_ctl.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_ctl.c"/>
-        <FILE id="fVZCN7" name="d_dac.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_dac.c"/>
-        <FILE id="rHMur5" name="d_delay.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_delay.c"/>
-        <FILE id="nkxC7n" name="d_fft.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_fft.c"/>
-        <FILE id="KP0W2w" name="d_fft_fftsg.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_fft_fftsg.c"/>
-        <FILE id="eNNZ9f" name="d_filter.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_filter.c"/>
-        <FILE id="fCWqGK" name="d_global.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_global.c"/>
-        <FILE id="KCXpwe" name="d_math.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_math.c"/>
-        <FILE id="u9T4yU" name="d_misc.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_misc.c"/>
-        <FILE id="RCvHAj" name="d_osc.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_osc.c"/>
-        <FILE id="kAXSIw" name="d_resample.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_resample.c"/>
-        <FILE id="otLFD1" name="d_soundfile.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_soundfile.c"/>
-        <FILE id="CnyZ1k" name="d_ugen.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_ugen.c"/>
-        <FILE id="nHoIol" name="g_all_guis.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_all_guis.c"/>
-        <FILE id="CnVb8U" name="g_all_guis.h" compile="0" resource="0" file="ThirdParty/PureData/src/g_all_guis.h"/>
-        <FILE id="jOQJAO" name="g_array.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_array.c"/>
-        <FILE id="pAUvcm" name="g_bang.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_bang.c"/>
-        <FILE id="Xcspc2" name="g_canvas.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_canvas.c"/>
-        <FILE id="hjRymj" name="g_canvas.h" compile="0" resource="0" file="ThirdParty/PureData/src/g_canvas.h"/>
-        <FILE id="rDxTLO" name="g_clone.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_clone.c"/>
-        <FILE id="hxU8h6" name="g_editor.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_editor.c"/>
-        <FILE id="Fwf7Ks" name="g_graph.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_graph.c"/>
-        <FILE id="zLb1Hk" name="g_guiconnect.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_guiconnect.c"/>
-        <FILE id="O7xy4X" name="g_hdial.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_hdial.c"/>
-        <FILE id="LVpcsB" name="g_hslider.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_hslider.c"/>
-        <FILE id="WVoNYt" name="g_io.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_io.c"/>
-        <FILE id="X7ygYo" name="g_mycanvas.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_mycanvas.c"/>
-        <FILE id="wgI1AF" name="g_numbox.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_numbox.c"/>
-        <FILE id="RnSdCe" name="g_readwrite.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_readwrite.c"/>
-        <FILE id="R1Xykx" name="g_rtext.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_rtext.c"/>
-        <FILE id="ZjfrKw" name="g_scalar.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_scalar.c"/>
-        <FILE id="Nfj6DZ" name="g_template.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_template.c"/>
-        <FILE id="jeAfzM" name="g_text.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_text.c"/>
-        <FILE id="tJKmaB" name="g_toggle.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_toggle.c"/>
-        <FILE id="EZPkid" name="g_traversal.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_traversal.c"/>
-        <FILE id="vQ3xnp" name="g_vdial.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_vdial.c"/>
-        <FILE id="wiPhak" name="g_vslider.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_vslider.c"/>
-        <FILE id="lwrp9m" name="g_vumeter.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_vumeter.c"/>
-        <FILE id="mqb73A" name="m_atom.c" compile="1" resource="0" file="ThirdParty/PureData/src/m_atom.c"/>
-        <FILE id="TTJgPU" name="m_binbuf.c" compile="1" resource="0" file="ThirdParty/PureData/src/m_binbuf.c"/>
-        <FILE id="xoP78a" name="m_class.c" compile="1" resource="0" file="ThirdParty/PureData/src/m_class.c"/>
-        <FILE id="aiIMcE" name="m_conf.c" compile="1" resource="0" file="ThirdParty/PureData/src/m_conf.c"/>
-        <FILE id="ixvDxQ" name="m_glob.c" compile="1" resource="0" file="ThirdParty/PureData/src/m_glob.c"/>
-        <FILE id="RBXuT9" name="m_imp.h" compile="0" resource="0" file="ThirdParty/PureData/src/m_imp.h"/>
-        <FILE id="wP8vMM" name="m_memory.c" compile="1" resource="0" file="ThirdParty/PureData/src/m_memory.c"/>
-        <FILE id="hJxjbQ" name="m_obj.c" compile="1" resource="0" file="ThirdParty/PureData/src/m_obj.c"/>
-        <FILE id="gMqkBE" name="m_pd.c" compile="1" resource="0" file="ThirdParty/PureData/src/m_pd.c"/>
-        <FILE id="KGUZQd" name="m_pd.h" compile="0" resource="0" file="ThirdParty/PureData/src/m_pd.h"/>
-        <FILE id="bfT4RB" name="m_sched.c" compile="1" resource="0" file="ThirdParty/PureData/src/m_sched.c"/>
-        <FILE id="izx4FQ" name="s_audio.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_audio.c"/>
-        <FILE id="Tbx2TZ" name="s_audio_dummy.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_audio_dummy.c"/>
-        <FILE id="AtLmCf" name="s_file.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_file.c"/>
-        <FILE id="l1mSW4" name="s_inter.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_inter.c"/>
-        <FILE id="wz3lcF" name="s_loader.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_loader.c"/>
-        <FILE id="Z11QaN" name="s_main.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_main.c"/>
-        <FILE id="OFlkj6" name="s_path.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_path.c"/>
-        <FILE id="DSdPv0" name="s_print.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_print.c"/>
-        <FILE id="rMZMmo" name="s_stuff.h" compile="0" resource="0" file="ThirdParty/PureData/src/s_stuff.h"/>
-        <FILE id="JwH5Hg" name="s_utf8.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_utf8.c"/>
-        <FILE id="dE0tSc" name="s_utf8.h" compile="0" resource="0" file="ThirdParty/PureData/src/s_utf8.h"/>
-        <FILE id="T3SQYv" name="x_acoustics.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_acoustics.c"/>
-        <FILE id="DAZ1wa" name="x_arithmetic.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_arithmetic.c"/>
-        <FILE id="TbpBHq" name="x_array.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_array.c"/>
-        <FILE id="RMPviK" name="x_connective.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_connective.c"/>
-        <FILE id="HQV6h5" name="x_gui.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_gui.c"/>
-        <FILE id="qQTmjE" name="x_interface.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_interface.c"/>
-        <FILE id="U7g7Fp" name="x_list.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_list.c"/>
-        <FILE id="fugTRs" name="x_midi.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_midi.c"/>
-        <FILE id="j51AsW" name="x_misc.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_misc.c"/>
-        <FILE id="pH5M5Q" name="x_net.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_net.c"/>
-        <FILE id="CROy9X" name="x_scalar.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_scalar.c"/>
-        <FILE id="GeK7bR" name="x_text.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_text.c"/>
-        <FILE id="vGCWXR" name="x_time.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_time.c"/>
-        <FILE id="bVhyPO" name="x_vexp.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_vexp.c"/>
-        <FILE id="AFQ4w2" name="x_vexp.h" compile="0" resource="0" file="ThirdParty/PureData/src/x_vexp.h"/>
-        <FILE id="hBvtNq" name="x_vexp_fun.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_vexp_fun.c"/>
-        <FILE id="fRhSD7" name="x_vexp_if.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_vexp_if.c"/>
+        <FILE id="FftMjs" name="d_arithmetic.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_arithmetic.c"/>
+        <FILE id="iXT565" name="d_array.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_array.c"/>
+        <FILE id="az5DBC" name="d_ctl.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_ctl.c"/>
+        <FILE id="ERIFgt" name="d_dac.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_dac.c"/>
+        <FILE id="CxiVdz" name="d_delay.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_delay.c"/>
+        <FILE id="cq8qXP" name="d_fft_fftsg.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_fft_fftsg.c"/>
+        <FILE id="VZtabQ" name="d_fft.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_fft.c"/>
+        <FILE id="QlZhNA" name="d_filter.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_filter.c"/>
+        <FILE id="dgYmlJ" name="d_global.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_global.c"/>
+        <FILE id="Wpggda" name="d_math.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_math.c"/>
+        <FILE id="RCM5i2" name="d_misc.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_misc.c"/>
+        <FILE id="hQIft9" name="d_osc.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_osc.c"/>
+        <FILE id="GfexHA" name="d_resample.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_resample.c"/>
+        <FILE id="BR28JR" name="d_soundfile.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_soundfile.c"/>
+        <FILE id="Prc4OA" name="d_ugen.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_ugen.c"/>
+        <FILE id="N5xndw" name="g_all_guis.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_all_guis.c"/>
+        <FILE id="hORn3m" name="g_all_guis.h" compile="0" resource="0" file="ThirdParty/zpd/pd/src/g_all_guis.h"/>
+        <FILE id="xVIcyy" name="g_array.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_array.c"/>
+        <FILE id="sptrKt" name="g_bang.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_bang.c"/>
+        <FILE id="r7Sr8K" name="g_canvas.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_canvas.c"/>
+        <FILE id="rwC6Us" name="g_canvas.h" compile="0" resource="0" file="ThirdParty/zpd/pd/src/g_canvas.h"/>
+        <FILE id="uf4gYj" name="g_clone.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_clone.c"/>
+        <FILE id="Wt038j" name="g_editor.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_editor.c"/>
+        <FILE id="dsxsEW" name="g_graph.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_graph.c"/>
+        <FILE id="uFXs1U" name="g_guiconnect.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_guiconnect.c"/>
+        <FILE id="FGOMZI" name="g_hdial.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_hdial.c"/>
+        <FILE id="b49YkD" name="g_hslider.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_hslider.c"/>
+        <FILE id="sAzv7H" name="g_io.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_io.c"/>
+        <FILE id="FSWbX7" name="g_mycanvas.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_mycanvas.c"/>
+        <FILE id="WBcjRy" name="g_numbox.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_numbox.c"/>
+        <FILE id="eqwe9Y" name="g_readwrite.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_readwrite.c"/>
+        <FILE id="wgoeZt" name="g_rtext.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_rtext.c"/>
+        <FILE id="zR1Nq5" name="g_scalar.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_scalar.c"/>
+        <FILE id="Kw3t0P" name="g_template.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_template.c"/>
+        <FILE id="dvfxtZ" name="g_text.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_text.c"/>
+        <FILE id="tMBAEO" name="g_toggle.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_toggle.c"/>
+        <FILE id="aI1kM8" name="g_traversal.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_traversal.c"/>
+        <FILE id="HaPNhI" name="g_vdial.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_vdial.c"/>
+        <FILE id="OjFVhc" name="g_vslider.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_vslider.c"/>
+        <FILE id="gxiYTM" name="g_vumeter.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_vumeter.c"/>
+        <FILE id="Ae9QCQ" name="m_atom.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/m_atom.c"/>
+        <FILE id="Ix3rum" name="m_binbuf.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/m_binbuf.c"/>
+        <FILE id="i3R2lr" name="m_class.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/m_class.c"/>
+        <FILE id="pFjd5J" name="m_conf.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/m_conf.c"/>
+        <FILE id="ALtsMO" name="m_glob.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/m_glob.c"/>
+        <FILE id="GhDeYr" name="m_imp.h" compile="0" resource="0" file="ThirdParty/zpd/pd/src/m_imp.h"/>
+        <FILE id="qGDkuQ" name="m_memory.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/m_memory.c"/>
+        <FILE id="QApY3j" name="m_obj.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/m_obj.c"/>
+        <FILE id="b64Vvh" name="m_pd.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/m_pd.c"/>
+        <FILE id="v6vnV6" name="m_pd.h" compile="0" resource="0" file="ThirdParty/zpd/pd/src/m_pd.h"/>
+        <FILE id="AcMDno" name="m_sched.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/m_sched.c"/>
+        <FILE id="S1T7RD" name="s_audio_dummy.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/s_audio_dummy.c"/>
+        <FILE id="I16vNH" name="s_audio.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/s_audio.c"/>
+        <FILE id="fumaJg" name="s_file.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/s_file.c"/>
+        <FILE id="fntYKf" name="s_inter.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/s_inter.c"/>
+        <FILE id="hWLUEQ" name="s_loader.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/s_loader.c"/>
+        <FILE id="S4tkno" name="s_main.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/s_main.c"/>
+        <FILE id="kHFaCj" name="s_path.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/s_path.c"/>
+        <FILE id="QA64gg" name="s_print.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/s_print.c"/>
+        <FILE id="gVuuYb" name="s_stuff.h" compile="0" resource="0" file="ThirdParty/zpd/pd/src/s_stuff.h"/>
+        <FILE id="I0c607" name="s_utf8.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/s_utf8.c"/>
+        <FILE id="vpicCg" name="s_utf8.h" compile="0" resource="0" file="ThirdParty/zpd/pd/src/s_utf8.h"/>
+        <FILE id="I8XFD1" name="x_acoustics.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_acoustics.c"/>
+        <FILE id="AwInRF" name="x_arithmetic.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_arithmetic.c"/>
+        <FILE id="jJTh3J" name="x_array.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_array.c"/>
+        <FILE id="L9QY5x" name="x_connective.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_connective.c"/>
+        <FILE id="o4E03L" name="x_gui.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_gui.c"/>
+        <FILE id="gzpRyz" name="x_interface.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_interface.c"/>
+        <FILE id="phQ49w" name="x_list.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_list.c"/>
+        <FILE id="vovFm4" name="x_midi.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_midi.c"/>
+        <FILE id="yugd7s" name="x_misc.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_misc.c"/>
+        <FILE id="VRGvMR" name="x_net.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_net.c"/>
+        <FILE id="IBP4gM" name="x_scalar.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_scalar.c"/>
+        <FILE id="iiSSlt" name="x_text.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_text.c"/>
+        <FILE id="H3A8D5" name="x_time.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_time.c"/>
+        <FILE id="AXBJOk" name="x_vexp_fun.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_vexp_fun.c"/>
+        <FILE id="gGO2ms" name="x_vexp_if.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_vexp_if.c"/>
+        <FILE id="KzLhm5" name="x_vexp.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_vexp.c"/>
+        <FILE id="AklCfD" name="x_vexp.h" compile="0" resource="0" file="ThirdParty/zpd/pd/src/x_vexp.h"/>
       </GROUP>
     </GROUP>
     <GROUP id="{DA749788-8080-7C49-DD5B-37B9D2FE7980}" name="Ressources">

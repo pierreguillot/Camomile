@@ -5,19 +5,26 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "F96111FDA642BB5E2A1B5DE565CE46453A46D924" : 0,
+    "6F7A20C0CDB7BDCD5180DBA15CA6EBFFD435B7B5" : 0,
     "DEBAC9C6799FD4E8074B3BAF720718E3C3499FA0" : 0,
-    "6F7A20C0CDB7BDCD5180DBA15CA6EBFFD435B7B5" : 0
+    "11E5B0EAAF240FF6BDABEF96BCAD031C109B9D7C" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "24F7A382-69BB-4418-B15C-3E15B76FFDB7",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "F96111FDA642BB5E2A1B5DE565CE46453A46D924" : "Camomile\/",
+    "6F7A20C0CDB7BDCD5180DBA15CA6EBFFD435B7B5" : "Camomile\/ThirdParty\/PureData\/",
     "DEBAC9C6799FD4E8074B3BAF720718E3C3499FA0" : "Camomile\/ThirdParty\/Juce\/",
-    "6F7A20C0CDB7BDCD5180DBA15CA6EBFFD435B7B5" : "Camomile\/ThirdParty\/PureData\/"
+    "11E5B0EAAF240FF6BDABEF96BCAD031C109B9D7C" : "Camomile\/ThirdParty\/zpd\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Camomile",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Builds\/MacOSX\/Camomile.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/pierreguillot\/zpd.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "11E5B0EAAF240FF6BDABEF96BCAD031C109B9D7C"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/pure-data\/pure-data.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",

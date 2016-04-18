@@ -65,96 +65,96 @@ OBJECTS := \
   $(OBJDIR)/GuiSlider_ac956169.o \
   $(OBJDIR)/GuiToggle_37d7325c.o \
   $(OBJDIR)/GuiWindow_d9aaa4f8.o \
-  $(OBJDIR)/PdConsole_4bdc72d1.o \
-  $(OBJDIR)/PdEnvironment_11e3570d.o \
-  $(OBJDIR)/PdInstance_ddabcf25.o \
-  $(OBJDIR)/PdObject_b945538f.o \
-  $(OBJDIR)/PdParameter_16404ae3.o \
-  $(OBJDIR)/PdPatch_69639a82.o \
-  $(OBJDIR)/PdPatchManager_e2506355.o \
-  $(OBJDIR)/PdTypes_a7fd5233.o \
-  $(OBJDIR)/z_pd_9c06b4b5.o \
-  $(OBJDIR)/bob~_dea63fa8.o \
-  $(OBJDIR)/bonk~_1c54edf2.o \
-  $(OBJDIR)/choice_9a48dd28.o \
-  $(OBJDIR)/fiddle~_d178694e.o \
-  $(OBJDIR)/loop~_d8d5c53e.o \
-  $(OBJDIR)/lrshift~_770f74c8.o \
-  $(OBJDIR)/pique_a2bbb35a.o \
-  $(OBJDIR)/sigmund~_e0efd768.o \
-  $(OBJDIR)/stdout_6bc4f9e8.o \
-  $(OBJDIR)/d_arithmetic_a26d0d62.o \
-  $(OBJDIR)/d_array_bff0f6eb.o \
-  $(OBJDIR)/d_ctl_3e61b16d.o \
-  $(OBJDIR)/d_dac_3e670418.o \
-  $(OBJDIR)/d_delay_48201b95.o \
-  $(OBJDIR)/d_fft_3e85b8c6.o \
-  $(OBJDIR)/d_fft_fftsg_20e099cf.o \
-  $(OBJDIR)/d_filter_60423e30.o \
-  $(OBJDIR)/d_global_6af5179b.o \
-  $(OBJDIR)/d_math_9dddaa80.o \
-  $(OBJDIR)/d_misc_9e4ddf64.o \
-  $(OBJDIR)/d_osc_3f0a3551.o \
-  $(OBJDIR)/d_resample_72c3aa55.o \
-  $(OBJDIR)/d_soundfile_871e089d.o \
-  $(OBJDIR)/d_ugen_abd24173.o \
-  $(OBJDIR)/g_all_guis_13eaa90b.o \
-  $(OBJDIR)/g_array_7cbe43ee.o \
-  $(OBJDIR)/g_bang_c2b9244d.o \
-  $(OBJDIR)/g_canvas_61cd436d.o \
-  $(OBJDIR)/g_clone_dc28fdf2.o \
-  $(OBJDIR)/g_editor_c7a43e42.o \
-  $(OBJDIR)/g_graph_b93aa9a3.o \
-  $(OBJDIR)/g_guiconnect_76e73ba4.o \
-  $(OBJDIR)/g_hdial_d6a705ad.o \
-  $(OBJDIR)/g_hslider_8b2fe8de.o \
-  $(OBJDIR)/g_io_f6a02fbb.o \
-  $(OBJDIR)/g_mycanvas_ddb3dd19.o \
-  $(OBJDIR)/g_numbox_f7ae935a.o \
-  $(OBJDIR)/g_readwrite_9053c19e.o \
-  $(OBJDIR)/g_rtext_2c514b4.o \
-  $(OBJDIR)/g_scalar_32f09901.o \
-  $(OBJDIR)/g_template_1a1d520f.o \
-  $(OBJDIR)/g_text_e1ad7a02.o \
-  $(OBJDIR)/g_toggle_1f97fa69.o \
-  $(OBJDIR)/g_traversal_b8014513.o \
-  $(OBJDIR)/g_vdial_bb3e433b.o \
-  $(OBJDIR)/g_vslider_a6edfaec.o \
-  $(OBJDIR)/g_vumeter_a5a4a57f.o \
-  $(OBJDIR)/m_atom_3157a260.o \
-  $(OBJDIR)/m_binbuf_59c5a7db.o \
-  $(OBJDIR)/m_class_5500c953.o \
-  $(OBJDIR)/m_conf_347a4f73.o \
-  $(OBJDIR)/m_glob_3b23d0c7.o \
-  $(OBJDIR)/m_memory_fbdaeb90.o \
-  $(OBJDIR)/m_obj_1b1aaa92.o \
-  $(OBJDIR)/m_pd_e048c3.o \
-  $(OBJDIR)/m_sched_9464eed2.o \
-  $(OBJDIR)/s_audio_74503637.o \
-  $(OBJDIR)/s_audio_dummy_cb209e20.o \
-  $(OBJDIR)/s_file_a88a6d05.o \
-  $(OBJDIR)/s_inter_106fd5bd.o \
-  $(OBJDIR)/s_loader_499588dc.o \
-  $(OBJDIR)/s_main_b40a6202.o \
-  $(OBJDIR)/s_path_b92dd56e.o \
-  $(OBJDIR)/s_print_88f7f34e.o \
-  $(OBJDIR)/s_utf8_c2babdba.o \
-  $(OBJDIR)/x_acoustics_ccbfba76.o \
-  $(OBJDIR)/x_arithmetic_47c0cdce.o \
-  $(OBJDIR)/x_array_5549a2ff.o \
-  $(OBJDIR)/x_connective_b4ac63d2.o \
-  $(OBJDIR)/x_gui_609719a1.o \
-  $(OBJDIR)/x_interface_d15855f.o \
-  $(OBJDIR)/x_list_ba30c802.o \
-  $(OBJDIR)/x_midi_bbdea5c5.o \
-  $(OBJDIR)/x_misc_bbe560d0.o \
-  $(OBJDIR)/x_net_60f2a183.o \
-  $(OBJDIR)/x_scalar_6bd11c10.o \
-  $(OBJDIR)/x_text_c7a174d1.o \
-  $(OBJDIR)/x_time_c7d49a71.o \
-  $(OBJDIR)/x_vexp_cb0b170b.o \
-  $(OBJDIR)/x_vexp_fun_e64128cb.o \
-  $(OBJDIR)/x_vexp_if_624547db.o \
+  $(OBJDIR)/z_pd_a227d220.o \
+  $(OBJDIR)/PdConsole_9a7abb04.o \
+  $(OBJDIR)/PdEnvironment_daec4dc0.o \
+  $(OBJDIR)/PdInstance_62d68d52.o \
+  $(OBJDIR)/PdObject_5073b8fc.o \
+  $(OBJDIR)/PdParameter_366d5256.o \
+  $(OBJDIR)/PdPatch_8f4c5375.o \
+  $(OBJDIR)/PdPatchManager_3a664302.o \
+  $(OBJDIR)/PdTypes_cde60b26.o \
+  $(OBJDIR)/bob~_6f7631bb.o \
+  $(OBJDIR)/bonk~_b8f0a745.o \
+  $(OBJDIR)/choice_7edb8dbb.o \
+  $(OBJDIR)/fiddle~_dc214121.o \
+  $(OBJDIR)/loop~_75717e91.o \
+  $(OBJDIR)/lrshift~_7ae1a3db.o \
+  $(OBJDIR)/pique_3f576cad.o \
+  $(OBJDIR)/sigmund~_e4c2067b.o \
+  $(OBJDIR)/stdout_5057aa7b.o \
+  $(OBJDIR)/d_arithmetic_2b9b5daf.o \
+  $(OBJDIR)/d_array_84daea7e.o \
+  $(OBJDIR)/d_ctl_5e496dc0.o \
+  $(OBJDIR)/d_dac_5e4ec06b.o \
+  $(OBJDIR)/d_delay_d0a0f28.o \
+  $(OBJDIR)/d_fft_fftsg_b1b08be2.o \
+  $(OBJDIR)/d_fft_5e6d7519.o \
+  $(OBJDIR)/d_filter_3896bcfd.o \
+  $(OBJDIR)/d_global_43499668.o \
+  $(OBJDIR)/d_math_7aed788d.o \
+  $(OBJDIR)/d_misc_7b5dad71.o \
+  $(OBJDIR)/d_osc_5ef1f1a4.o \
+  $(OBJDIR)/d_resample_87f3a9e2.o \
+  $(OBJDIR)/d_soundfile_17edfab0.o \
+  $(OBJDIR)/d_ugen_88e20f80.o \
+  $(OBJDIR)/g_all_guis_291aa898.o \
+  $(OBJDIR)/g_array_41a83781.o \
+  $(OBJDIR)/g_bang_9fc8f25a.o \
+  $(OBJDIR)/g_canvas_3a21c23a.o \
+  $(OBJDIR)/g_clone_a112f185.o \
+  $(OBJDIR)/g_editor_9ff8bd0f.o \
+  $(OBJDIR)/g_graph_7e249d36.o \
+  $(OBJDIR)/g_guiconnect_158bf1.o \
+  $(OBJDIR)/g_hdial_9b90f940.o \
+  $(OBJDIR)/g_hslider_bd6b43b1.o \
+  $(OBJDIR)/g_io_31761d08.o \
+  $(OBJDIR)/g_mycanvas_f2e3dca6.o \
+  $(OBJDIR)/g_numbox_d0031227.o \
+  $(OBJDIR)/g_readwrite_2123b3b1.o \
+  $(OBJDIR)/g_rtext_c7af0847.o \
+  $(OBJDIR)/g_scalar_b4517ce.o \
+  $(OBJDIR)/g_template_2f4d519c.o \
+  $(OBJDIR)/g_text_bebd480f.o \
+  $(OBJDIR)/g_toggle_f7ec7936.o \
+  $(OBJDIR)/g_traversal_48d13726.o \
+  $(OBJDIR)/g_vdial_802836ce.o \
+  $(OBJDIR)/g_vslider_d92955bf.o \
+  $(OBJDIR)/g_vumeter_d7e00052.o \
+  $(OBJDIR)/m_atom_e67706d.o \
+  $(OBJDIR)/m_binbuf_321a26a8.o \
+  $(OBJDIR)/m_class_19eabce6.o \
+  $(OBJDIR)/m_conf_118a1d80.o \
+  $(OBJDIR)/m_glob_18339ed4.o \
+  $(OBJDIR)/m_memory_d42f6a5d.o \
+  $(OBJDIR)/m_obj_3b0266e5.o \
+  $(OBJDIR)/m_pd_3bb63610.o \
+  $(OBJDIR)/m_sched_594ee265.o \
+  $(OBJDIR)/s_audio_dummy_67bc5773.o \
+  $(OBJDIR)/s_audio_393a29ca.o \
+  $(OBJDIR)/s_file_859a3b12.o \
+  $(OBJDIR)/s_inter_d559c950.o \
+  $(OBJDIR)/s_loader_21ea07a9.o \
+  $(OBJDIR)/s_main_911a300f.o \
+  $(OBJDIR)/s_path_963da37b.o \
+  $(OBJDIR)/s_print_4de1e6e1.o \
+  $(OBJDIR)/s_utf8_9fca8bc7.o \
+  $(OBJDIR)/x_acoustics_5d8fac89.o \
+  $(OBJDIR)/x_arithmetic_d0ef1e1b.o \
+  $(OBJDIR)/x_array_1a339692.o \
+  $(OBJDIR)/x_connective_3ddab41f.o \
+  $(OBJDIR)/x_gui_807ed5f4.o \
+  $(OBJDIR)/x_interface_9de57772.o \
+  $(OBJDIR)/x_list_9740960f.o \
+  $(OBJDIR)/x_midi_98ee73d2.o \
+  $(OBJDIR)/x_misc_98f52edd.o \
+  $(OBJDIR)/x_net_80da5dd6.o \
+  $(OBJDIR)/x_scalar_44259add.o \
+  $(OBJDIR)/x_text_a4b142de.o \
+  $(OBJDIR)/x_time_a4e4687e.o \
+  $(OBJDIR)/x_vexp_fun_fb712858.o \
+  $(OBJDIR)/x_vexp_if_9480a2ae.o \
+  $(OBJDIR)/x_vexp_a81ae518.o \
   $(OBJDIR)/BinaryData_ce4232d4.o \
   $(OBJDIR)/juce_audio_basics_6b797ca1.o \
   $(OBJDIR)/juce_audio_plugin_client_utils_35fbf7.o \
@@ -264,454 +264,454 @@ $(OBJDIR)/GuiWindow_d9aaa4f8.o: ../../Source/Gui/GuiWindow.cpp
 	@echo "Compiling GuiWindow.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/PdConsole_4bdc72d1.o: ../../Source/Pd/PdConsole.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdConsole.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PdEnvironment_11e3570d.o: ../../Source/Pd/PdEnvironment.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdEnvironment.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PdInstance_ddabcf25.o: ../../Source/Pd/PdInstance.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdInstance.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PdObject_b945538f.o: ../../Source/Pd/PdObject.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdObject.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PdParameter_16404ae3.o: ../../Source/Pd/PdParameter.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdParameter.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PdPatch_69639a82.o: ../../Source/Pd/PdPatch.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdPatch.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PdPatchManager_e2506355.o: ../../Source/Pd/PdPatchManager.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdPatchManager.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PdTypes_a7fd5233.o: ../../Source/Pd/PdTypes.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdTypes.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/z_pd_9c06b4b5.o: ../../Source/Pd/z_pd.c
+$(OBJDIR)/z_pd_a227d220.o: ../../ThirdParty/zpd/zpd/z_pd.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling z_pd.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/bob~_dea63fa8.o: ../../ThirdParty/PureData/extra/bob~/bob~.c
+$(OBJDIR)/PdConsole_9a7abb04.o: ../../ThirdParty/zpd/xpd/PdConsole.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling PdConsole.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/PdEnvironment_daec4dc0.o: ../../ThirdParty/zpd/xpd/PdEnvironment.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling PdEnvironment.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/PdInstance_62d68d52.o: ../../ThirdParty/zpd/xpd/PdInstance.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling PdInstance.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/PdObject_5073b8fc.o: ../../ThirdParty/zpd/xpd/PdObject.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling PdObject.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/PdParameter_366d5256.o: ../../ThirdParty/zpd/xpd/PdParameter.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling PdParameter.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/PdPatch_8f4c5375.o: ../../ThirdParty/zpd/xpd/PdPatch.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling PdPatch.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/PdPatchManager_3a664302.o: ../../ThirdParty/zpd/xpd/PdPatchManager.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling PdPatchManager.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/PdTypes_cde60b26.o: ../../ThirdParty/zpd/xpd/PdTypes.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling PdTypes.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/bob~_6f7631bb.o: ../../ThirdParty/zpd/pd/extra/bob~/bob~.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling bob~.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/bonk~_1c54edf2.o: ../../ThirdParty/PureData/extra/bonk~/bonk~.c
+$(OBJDIR)/bonk~_b8f0a745.o: ../../ThirdParty/zpd/pd/extra/bonk~/bonk~.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling bonk~.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/choice_9a48dd28.o: ../../ThirdParty/PureData/extra/choice/choice.c
+$(OBJDIR)/choice_7edb8dbb.o: ../../ThirdParty/zpd/pd/extra/choice/choice.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling choice.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/fiddle~_d178694e.o: ../../ThirdParty/PureData/extra/fiddle~/fiddle~.c
+$(OBJDIR)/fiddle~_dc214121.o: ../../ThirdParty/zpd/pd/extra/fiddle~/fiddle~.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling fiddle~.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/loop~_d8d5c53e.o: ../../ThirdParty/PureData/extra/loop~/loop~.c
+$(OBJDIR)/loop~_75717e91.o: ../../ThirdParty/zpd/pd/extra/loop~/loop~.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling loop~.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/lrshift~_770f74c8.o: ../../ThirdParty/PureData/extra/lrshift~/lrshift~.c
+$(OBJDIR)/lrshift~_7ae1a3db.o: ../../ThirdParty/zpd/pd/extra/lrshift~/lrshift~.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling lrshift~.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/pique_a2bbb35a.o: ../../ThirdParty/PureData/extra/pique/pique.c
+$(OBJDIR)/pique_3f576cad.o: ../../ThirdParty/zpd/pd/extra/pique/pique.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling pique.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/sigmund~_e0efd768.o: ../../ThirdParty/PureData/extra/sigmund~/sigmund~.c
+$(OBJDIR)/sigmund~_e4c2067b.o: ../../ThirdParty/zpd/pd/extra/sigmund~/sigmund~.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling sigmund~.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/stdout_6bc4f9e8.o: ../../ThirdParty/PureData/extra/stdout/stdout.c
+$(OBJDIR)/stdout_5057aa7b.o: ../../ThirdParty/zpd/pd/extra/stdout/stdout.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling stdout.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/d_arithmetic_a26d0d62.o: ../../ThirdParty/PureData/src/d_arithmetic.c
+$(OBJDIR)/d_arithmetic_2b9b5daf.o: ../../ThirdParty/zpd/pd/src/d_arithmetic.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling d_arithmetic.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/d_array_bff0f6eb.o: ../../ThirdParty/PureData/src/d_array.c
+$(OBJDIR)/d_array_84daea7e.o: ../../ThirdParty/zpd/pd/src/d_array.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling d_array.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/d_ctl_3e61b16d.o: ../../ThirdParty/PureData/src/d_ctl.c
+$(OBJDIR)/d_ctl_5e496dc0.o: ../../ThirdParty/zpd/pd/src/d_ctl.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling d_ctl.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/d_dac_3e670418.o: ../../ThirdParty/PureData/src/d_dac.c
+$(OBJDIR)/d_dac_5e4ec06b.o: ../../ThirdParty/zpd/pd/src/d_dac.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling d_dac.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/d_delay_48201b95.o: ../../ThirdParty/PureData/src/d_delay.c
+$(OBJDIR)/d_delay_d0a0f28.o: ../../ThirdParty/zpd/pd/src/d_delay.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling d_delay.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/d_fft_3e85b8c6.o: ../../ThirdParty/PureData/src/d_fft.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling d_fft.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/d_fft_fftsg_20e099cf.o: ../../ThirdParty/PureData/src/d_fft_fftsg.c
+$(OBJDIR)/d_fft_fftsg_b1b08be2.o: ../../ThirdParty/zpd/pd/src/d_fft_fftsg.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling d_fft_fftsg.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/d_filter_60423e30.o: ../../ThirdParty/PureData/src/d_filter.c
+$(OBJDIR)/d_fft_5e6d7519.o: ../../ThirdParty/zpd/pd/src/d_fft.c
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling d_fft.c"
+	@$(CC) $(CFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/d_filter_3896bcfd.o: ../../ThirdParty/zpd/pd/src/d_filter.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling d_filter.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/d_global_6af5179b.o: ../../ThirdParty/PureData/src/d_global.c
+$(OBJDIR)/d_global_43499668.o: ../../ThirdParty/zpd/pd/src/d_global.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling d_global.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/d_math_9dddaa80.o: ../../ThirdParty/PureData/src/d_math.c
+$(OBJDIR)/d_math_7aed788d.o: ../../ThirdParty/zpd/pd/src/d_math.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling d_math.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/d_misc_9e4ddf64.o: ../../ThirdParty/PureData/src/d_misc.c
+$(OBJDIR)/d_misc_7b5dad71.o: ../../ThirdParty/zpd/pd/src/d_misc.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling d_misc.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/d_osc_3f0a3551.o: ../../ThirdParty/PureData/src/d_osc.c
+$(OBJDIR)/d_osc_5ef1f1a4.o: ../../ThirdParty/zpd/pd/src/d_osc.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling d_osc.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/d_resample_72c3aa55.o: ../../ThirdParty/PureData/src/d_resample.c
+$(OBJDIR)/d_resample_87f3a9e2.o: ../../ThirdParty/zpd/pd/src/d_resample.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling d_resample.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/d_soundfile_871e089d.o: ../../ThirdParty/PureData/src/d_soundfile.c
+$(OBJDIR)/d_soundfile_17edfab0.o: ../../ThirdParty/zpd/pd/src/d_soundfile.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling d_soundfile.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/d_ugen_abd24173.o: ../../ThirdParty/PureData/src/d_ugen.c
+$(OBJDIR)/d_ugen_88e20f80.o: ../../ThirdParty/zpd/pd/src/d_ugen.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling d_ugen.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_all_guis_13eaa90b.o: ../../ThirdParty/PureData/src/g_all_guis.c
+$(OBJDIR)/g_all_guis_291aa898.o: ../../ThirdParty/zpd/pd/src/g_all_guis.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_all_guis.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_array_7cbe43ee.o: ../../ThirdParty/PureData/src/g_array.c
+$(OBJDIR)/g_array_41a83781.o: ../../ThirdParty/zpd/pd/src/g_array.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_array.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_bang_c2b9244d.o: ../../ThirdParty/PureData/src/g_bang.c
+$(OBJDIR)/g_bang_9fc8f25a.o: ../../ThirdParty/zpd/pd/src/g_bang.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_bang.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_canvas_61cd436d.o: ../../ThirdParty/PureData/src/g_canvas.c
+$(OBJDIR)/g_canvas_3a21c23a.o: ../../ThirdParty/zpd/pd/src/g_canvas.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_canvas.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_clone_dc28fdf2.o: ../../ThirdParty/PureData/src/g_clone.c
+$(OBJDIR)/g_clone_a112f185.o: ../../ThirdParty/zpd/pd/src/g_clone.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_clone.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_editor_c7a43e42.o: ../../ThirdParty/PureData/src/g_editor.c
+$(OBJDIR)/g_editor_9ff8bd0f.o: ../../ThirdParty/zpd/pd/src/g_editor.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_editor.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_graph_b93aa9a3.o: ../../ThirdParty/PureData/src/g_graph.c
+$(OBJDIR)/g_graph_7e249d36.o: ../../ThirdParty/zpd/pd/src/g_graph.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_graph.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_guiconnect_76e73ba4.o: ../../ThirdParty/PureData/src/g_guiconnect.c
+$(OBJDIR)/g_guiconnect_158bf1.o: ../../ThirdParty/zpd/pd/src/g_guiconnect.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_guiconnect.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_hdial_d6a705ad.o: ../../ThirdParty/PureData/src/g_hdial.c
+$(OBJDIR)/g_hdial_9b90f940.o: ../../ThirdParty/zpd/pd/src/g_hdial.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_hdial.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_hslider_8b2fe8de.o: ../../ThirdParty/PureData/src/g_hslider.c
+$(OBJDIR)/g_hslider_bd6b43b1.o: ../../ThirdParty/zpd/pd/src/g_hslider.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_hslider.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_io_f6a02fbb.o: ../../ThirdParty/PureData/src/g_io.c
+$(OBJDIR)/g_io_31761d08.o: ../../ThirdParty/zpd/pd/src/g_io.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_io.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_mycanvas_ddb3dd19.o: ../../ThirdParty/PureData/src/g_mycanvas.c
+$(OBJDIR)/g_mycanvas_f2e3dca6.o: ../../ThirdParty/zpd/pd/src/g_mycanvas.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_mycanvas.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_numbox_f7ae935a.o: ../../ThirdParty/PureData/src/g_numbox.c
+$(OBJDIR)/g_numbox_d0031227.o: ../../ThirdParty/zpd/pd/src/g_numbox.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_numbox.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_readwrite_9053c19e.o: ../../ThirdParty/PureData/src/g_readwrite.c
+$(OBJDIR)/g_readwrite_2123b3b1.o: ../../ThirdParty/zpd/pd/src/g_readwrite.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_readwrite.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_rtext_2c514b4.o: ../../ThirdParty/PureData/src/g_rtext.c
+$(OBJDIR)/g_rtext_c7af0847.o: ../../ThirdParty/zpd/pd/src/g_rtext.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_rtext.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_scalar_32f09901.o: ../../ThirdParty/PureData/src/g_scalar.c
+$(OBJDIR)/g_scalar_b4517ce.o: ../../ThirdParty/zpd/pd/src/g_scalar.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_scalar.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_template_1a1d520f.o: ../../ThirdParty/PureData/src/g_template.c
+$(OBJDIR)/g_template_2f4d519c.o: ../../ThirdParty/zpd/pd/src/g_template.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_template.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_text_e1ad7a02.o: ../../ThirdParty/PureData/src/g_text.c
+$(OBJDIR)/g_text_bebd480f.o: ../../ThirdParty/zpd/pd/src/g_text.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_text.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_toggle_1f97fa69.o: ../../ThirdParty/PureData/src/g_toggle.c
+$(OBJDIR)/g_toggle_f7ec7936.o: ../../ThirdParty/zpd/pd/src/g_toggle.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_toggle.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_traversal_b8014513.o: ../../ThirdParty/PureData/src/g_traversal.c
+$(OBJDIR)/g_traversal_48d13726.o: ../../ThirdParty/zpd/pd/src/g_traversal.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_traversal.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_vdial_bb3e433b.o: ../../ThirdParty/PureData/src/g_vdial.c
+$(OBJDIR)/g_vdial_802836ce.o: ../../ThirdParty/zpd/pd/src/g_vdial.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_vdial.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_vslider_a6edfaec.o: ../../ThirdParty/PureData/src/g_vslider.c
+$(OBJDIR)/g_vslider_d92955bf.o: ../../ThirdParty/zpd/pd/src/g_vslider.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_vslider.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/g_vumeter_a5a4a57f.o: ../../ThirdParty/PureData/src/g_vumeter.c
+$(OBJDIR)/g_vumeter_d7e00052.o: ../../ThirdParty/zpd/pd/src/g_vumeter.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling g_vumeter.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/m_atom_3157a260.o: ../../ThirdParty/PureData/src/m_atom.c
+$(OBJDIR)/m_atom_e67706d.o: ../../ThirdParty/zpd/pd/src/m_atom.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling m_atom.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/m_binbuf_59c5a7db.o: ../../ThirdParty/PureData/src/m_binbuf.c
+$(OBJDIR)/m_binbuf_321a26a8.o: ../../ThirdParty/zpd/pd/src/m_binbuf.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling m_binbuf.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/m_class_5500c953.o: ../../ThirdParty/PureData/src/m_class.c
+$(OBJDIR)/m_class_19eabce6.o: ../../ThirdParty/zpd/pd/src/m_class.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling m_class.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/m_conf_347a4f73.o: ../../ThirdParty/PureData/src/m_conf.c
+$(OBJDIR)/m_conf_118a1d80.o: ../../ThirdParty/zpd/pd/src/m_conf.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling m_conf.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/m_glob_3b23d0c7.o: ../../ThirdParty/PureData/src/m_glob.c
+$(OBJDIR)/m_glob_18339ed4.o: ../../ThirdParty/zpd/pd/src/m_glob.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling m_glob.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/m_memory_fbdaeb90.o: ../../ThirdParty/PureData/src/m_memory.c
+$(OBJDIR)/m_memory_d42f6a5d.o: ../../ThirdParty/zpd/pd/src/m_memory.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling m_memory.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/m_obj_1b1aaa92.o: ../../ThirdParty/PureData/src/m_obj.c
+$(OBJDIR)/m_obj_3b0266e5.o: ../../ThirdParty/zpd/pd/src/m_obj.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling m_obj.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/m_pd_e048c3.o: ../../ThirdParty/PureData/src/m_pd.c
+$(OBJDIR)/m_pd_3bb63610.o: ../../ThirdParty/zpd/pd/src/m_pd.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling m_pd.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/m_sched_9464eed2.o: ../../ThirdParty/PureData/src/m_sched.c
+$(OBJDIR)/m_sched_594ee265.o: ../../ThirdParty/zpd/pd/src/m_sched.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling m_sched.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/s_audio_74503637.o: ../../ThirdParty/PureData/src/s_audio.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling s_audio.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/s_audio_dummy_cb209e20.o: ../../ThirdParty/PureData/src/s_audio_dummy.c
+$(OBJDIR)/s_audio_dummy_67bc5773.o: ../../ThirdParty/zpd/pd/src/s_audio_dummy.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling s_audio_dummy.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/s_file_a88a6d05.o: ../../ThirdParty/PureData/src/s_file.c
+$(OBJDIR)/s_audio_393a29ca.o: ../../ThirdParty/zpd/pd/src/s_audio.c
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling s_audio.c"
+	@$(CC) $(CFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/s_file_859a3b12.o: ../../ThirdParty/zpd/pd/src/s_file.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling s_file.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/s_inter_106fd5bd.o: ../../ThirdParty/PureData/src/s_inter.c
+$(OBJDIR)/s_inter_d559c950.o: ../../ThirdParty/zpd/pd/src/s_inter.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling s_inter.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/s_loader_499588dc.o: ../../ThirdParty/PureData/src/s_loader.c
+$(OBJDIR)/s_loader_21ea07a9.o: ../../ThirdParty/zpd/pd/src/s_loader.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling s_loader.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/s_main_b40a6202.o: ../../ThirdParty/PureData/src/s_main.c
+$(OBJDIR)/s_main_911a300f.o: ../../ThirdParty/zpd/pd/src/s_main.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling s_main.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/s_path_b92dd56e.o: ../../ThirdParty/PureData/src/s_path.c
+$(OBJDIR)/s_path_963da37b.o: ../../ThirdParty/zpd/pd/src/s_path.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling s_path.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/s_print_88f7f34e.o: ../../ThirdParty/PureData/src/s_print.c
+$(OBJDIR)/s_print_4de1e6e1.o: ../../ThirdParty/zpd/pd/src/s_print.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling s_print.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/s_utf8_c2babdba.o: ../../ThirdParty/PureData/src/s_utf8.c
+$(OBJDIR)/s_utf8_9fca8bc7.o: ../../ThirdParty/zpd/pd/src/s_utf8.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling s_utf8.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/x_acoustics_ccbfba76.o: ../../ThirdParty/PureData/src/x_acoustics.c
+$(OBJDIR)/x_acoustics_5d8fac89.o: ../../ThirdParty/zpd/pd/src/x_acoustics.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_acoustics.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/x_arithmetic_47c0cdce.o: ../../ThirdParty/PureData/src/x_arithmetic.c
+$(OBJDIR)/x_arithmetic_d0ef1e1b.o: ../../ThirdParty/zpd/pd/src/x_arithmetic.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_arithmetic.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/x_array_5549a2ff.o: ../../ThirdParty/PureData/src/x_array.c
+$(OBJDIR)/x_array_1a339692.o: ../../ThirdParty/zpd/pd/src/x_array.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_array.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/x_connective_b4ac63d2.o: ../../ThirdParty/PureData/src/x_connective.c
+$(OBJDIR)/x_connective_3ddab41f.o: ../../ThirdParty/zpd/pd/src/x_connective.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_connective.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/x_gui_609719a1.o: ../../ThirdParty/PureData/src/x_gui.c
+$(OBJDIR)/x_gui_807ed5f4.o: ../../ThirdParty/zpd/pd/src/x_gui.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_gui.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/x_interface_d15855f.o: ../../ThirdParty/PureData/src/x_interface.c
+$(OBJDIR)/x_interface_9de57772.o: ../../ThirdParty/zpd/pd/src/x_interface.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_interface.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/x_list_ba30c802.o: ../../ThirdParty/PureData/src/x_list.c
+$(OBJDIR)/x_list_9740960f.o: ../../ThirdParty/zpd/pd/src/x_list.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_list.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/x_midi_bbdea5c5.o: ../../ThirdParty/PureData/src/x_midi.c
+$(OBJDIR)/x_midi_98ee73d2.o: ../../ThirdParty/zpd/pd/src/x_midi.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_midi.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/x_misc_bbe560d0.o: ../../ThirdParty/PureData/src/x_misc.c
+$(OBJDIR)/x_misc_98f52edd.o: ../../ThirdParty/zpd/pd/src/x_misc.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_misc.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/x_net_60f2a183.o: ../../ThirdParty/PureData/src/x_net.c
+$(OBJDIR)/x_net_80da5dd6.o: ../../ThirdParty/zpd/pd/src/x_net.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_net.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/x_scalar_6bd11c10.o: ../../ThirdParty/PureData/src/x_scalar.c
+$(OBJDIR)/x_scalar_44259add.o: ../../ThirdParty/zpd/pd/src/x_scalar.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_scalar.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/x_text_c7a174d1.o: ../../ThirdParty/PureData/src/x_text.c
+$(OBJDIR)/x_text_a4b142de.o: ../../ThirdParty/zpd/pd/src/x_text.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_text.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/x_time_c7d49a71.o: ../../ThirdParty/PureData/src/x_time.c
+$(OBJDIR)/x_time_a4e4687e.o: ../../ThirdParty/zpd/pd/src/x_time.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_time.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/x_vexp_cb0b170b.o: ../../ThirdParty/PureData/src/x_vexp.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling x_vexp.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/x_vexp_fun_e64128cb.o: ../../ThirdParty/PureData/src/x_vexp_fun.c
+$(OBJDIR)/x_vexp_fun_fb712858.o: ../../ThirdParty/zpd/pd/src/x_vexp_fun.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_vexp_fun.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/x_vexp_if_624547db.o: ../../ThirdParty/PureData/src/x_vexp_if.c
+$(OBJDIR)/x_vexp_if_9480a2ae.o: ../../ThirdParty/zpd/pd/src/x_vexp_if.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling x_vexp_if.c"
+	@$(CC) $(CFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/x_vexp_a81ae518.o: ../../ThirdParty/zpd/pd/src/x_vexp.c
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling x_vexp.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/BinaryData_ce4232d4.o: ../../JuceLibraryCode/BinaryData.cpp

@@ -19,8 +19,8 @@ m_index(processor.getParameterIndex(gui.getReceiveTie())+1),
 m_value(0.f),
 m_edited(false)
 {
-    std::array<int, 4> bounds(gui.getBounds());
-    setBounds(int(bounds[0]), int(bounds[1]), int(bounds[2]), int(bounds[3]));
+    pd::Rectangle<int> bounds(gui.getBounds());
+    setBounds(bounds.x, bounds.y, bounds.w, bounds.h);
     setOpaque(true);
     setValue(gui.getValue());
 }

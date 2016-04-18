@@ -11,17 +11,20 @@
     <Filter Include="Camomile\Source\Gui">
       <UniqueIdentifier>{3AF8F85C-58F5-53F7-00C3-F524890FB4C3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Camomile\Source\Pd">
-      <UniqueIdentifier>{2EC11BD7-CEBB-B832-8CB3-D70D257E2DEE}</UniqueIdentifier>
+    <Filter Include="Camomile\zpd">
+      <UniqueIdentifier>{E2A16195-9D10-08B8-4AB3-00653FF6BD10}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Camomile\PureData">
-      <UniqueIdentifier>{ABB849DA-A280-579D-8B13-1DFA0A3DAE06}</UniqueIdentifier>
+    <Filter Include="Camomile\xpd">
+      <UniqueIdentifier>{CB0641A9-A966-2A5F-15C7-DBEFEBCFCE75}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Camomile\PureData\extra">
-      <UniqueIdentifier>{3AD91251-F509-05D9-F1BB-A50992806515}</UniqueIdentifier>
+    <Filter Include="Camomile\pd">
+      <UniqueIdentifier>{3063160C-72C6-2065-39E1-BD3FDD75C2BD}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Camomile\PureData\src">
-      <UniqueIdentifier>{A104CA70-27D0-7CAF-CB93-91D59B5C6908}</UniqueIdentifier>
+    <Filter Include="Camomile\pd\extra">
+      <UniqueIdentifier>{1FB4E959-6277-DC44-5662-6A31E132E451}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camomile\pd\src">
+      <UniqueIdentifier>{B1316A4A-FF86-4AE2-147A-65FAFD0CCAFC}</UniqueIdentifier>
     </Filter>
     <Filter Include="Camomile\Ressources">
       <UniqueIdentifier>{60196A5C-D261-843B-7545-3666A27AF9DC}</UniqueIdentifier>
@@ -331,275 +334,275 @@
     <ClCompile Include="..\..\Source\Gui\GuiWindow.cpp">
       <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Pd\PdConsole.cpp">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\zpd\z_pd.c">
+      <Filter>Camomile\zpd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Pd\PdEnvironment.cpp">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\PdConsole.cpp">
+      <Filter>Camomile\xpd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Pd\PdInstance.cpp">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\PdEnvironment.cpp">
+      <Filter>Camomile\xpd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Pd\PdObject.cpp">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\PdInstance.cpp">
+      <Filter>Camomile\xpd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Pd\PdParameter.cpp">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\PdObject.cpp">
+      <Filter>Camomile\xpd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Pd\PdPatch.cpp">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\PdParameter.cpp">
+      <Filter>Camomile\xpd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Pd\PdPatchManager.cpp">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\PdPatch.cpp">
+      <Filter>Camomile\xpd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Pd\PdTypes.cpp">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\PdPatchManager.cpp">
+      <Filter>Camomile\xpd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Pd\z_pd.c">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\PdTypes.cpp">
+      <Filter>Camomile\xpd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\extra\bob~\bob~.c">
-      <Filter>Camomile\PureData\extra</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\bob~\bob~.c">
+      <Filter>Camomile\pd\extra</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\extra\bonk~\bonk~.c">
-      <Filter>Camomile\PureData\extra</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\bonk~\bonk~.c">
+      <Filter>Camomile\pd\extra</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\extra\choice\choice.c">
-      <Filter>Camomile\PureData\extra</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\choice\choice.c">
+      <Filter>Camomile\pd\extra</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\extra\fiddle~\fiddle~.c">
-      <Filter>Camomile\PureData\extra</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\fiddle~\fiddle~.c">
+      <Filter>Camomile\pd\extra</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\extra\loop~\loop~.c">
-      <Filter>Camomile\PureData\extra</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\loop~\loop~.c">
+      <Filter>Camomile\pd\extra</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\extra\lrshift~\lrshift~.c">
-      <Filter>Camomile\PureData\extra</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\lrshift~\lrshift~.c">
+      <Filter>Camomile\pd\extra</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\extra\pique\pique.c">
-      <Filter>Camomile\PureData\extra</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\pique\pique.c">
+      <Filter>Camomile\pd\extra</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\extra\sigmund~\sigmund~.c">
-      <Filter>Camomile\PureData\extra</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\sigmund~\sigmund~.c">
+      <Filter>Camomile\pd\extra</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\extra\stdout\stdout.c">
-      <Filter>Camomile\PureData\extra</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\stdout\stdout.c">
+      <Filter>Camomile\pd\extra</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\d_arithmetic.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_arithmetic.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\d_array.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_array.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\d_ctl.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_ctl.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\d_dac.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_dac.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\d_delay.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_delay.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\d_fft.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_fft_fftsg.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\d_fft_fftsg.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_fft.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\d_filter.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_filter.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\d_global.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_global.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\d_math.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_math.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\d_misc.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_misc.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\d_osc.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_osc.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\d_resample.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_resample.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\d_soundfile.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_soundfile.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\d_ugen.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_ugen.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_all_guis.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_all_guis.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_array.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_array.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_bang.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_bang.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_canvas.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_canvas.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_clone.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_clone.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_editor.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_editor.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_graph.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_graph.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_guiconnect.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_guiconnect.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_hdial.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_hdial.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_hslider.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_hslider.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_io.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_io.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_mycanvas.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_mycanvas.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_numbox.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_numbox.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_readwrite.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_readwrite.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_rtext.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_rtext.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_scalar.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_scalar.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_template.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_template.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_text.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_text.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_toggle.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_toggle.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_traversal.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_traversal.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_vdial.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_vdial.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_vslider.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_vslider.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\g_vumeter.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_vumeter.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\m_atom.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\m_atom.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\m_binbuf.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\m_binbuf.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\m_class.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\m_class.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\m_conf.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\m_conf.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\m_glob.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\m_glob.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\m_memory.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\m_memory.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\m_obj.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\m_obj.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\m_pd.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\m_pd.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\m_sched.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\m_sched.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\s_audio.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\s_audio_dummy.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\s_audio_dummy.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\s_audio.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\s_file.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\s_file.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\s_inter.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\s_inter.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\s_loader.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\s_loader.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\s_main.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\s_main.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\s_path.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\s_path.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\s_print.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\s_print.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\s_utf8.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\s_utf8.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\x_acoustics.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_acoustics.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\x_arithmetic.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_arithmetic.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\x_array.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_array.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\x_connective.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_connective.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\x_gui.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_gui.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\x_interface.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_interface.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\x_list.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_list.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\x_midi.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_midi.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\x_misc.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_misc.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\x_net.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_net.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\x_scalar.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_scalar.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\x_text.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_text.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\x_time.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_time.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\x_vexp.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_vexp_fun.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\x_vexp_fun.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_vexp_if.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\PureData\src\x_vexp_if.c">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_vexp.c">
+      <Filter>Camomile\pd\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\buffers\juce_AudioDataConverters.cpp">
       <Filter>Juce Modules\juce_audio_basics\buffers</Filter>
@@ -689,9 +692,6 @@
       <Filter>Juce Modules\juce_audio_basics\synthesisers</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AAX\juce_AAX_Wrapper.cpp">
-      <Filter>Juce Modules\juce_audio_plugin_client\AAX</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AAX\juce_AAX_Wrapper.mm">
       <Filter>Juce Modules\juce_audio_plugin_client\AAX</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\juce_AU_Wrapper.mm">
@@ -1758,56 +1758,56 @@
     <ClInclude Include="..\..\Source\Gui\GuiWindow.hpp">
       <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Pd\Pd.hpp">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClInclude Include="..\..\ThirdParty\zpd\zpd\z_pd.h">
+      <Filter>Camomile\zpd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Pd\PdConsole.hpp">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\Pd.hpp">
+      <Filter>Camomile\xpd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Pd\PdEnvironment.hpp">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\PdConsole.hpp">
+      <Filter>Camomile\xpd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Pd\PdInstance.hpp">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\PdEnvironment.hpp">
+      <Filter>Camomile\xpd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Pd\PdObject.hpp">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\PdInstance.hpp">
+      <Filter>Camomile\xpd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Pd\PdParameter.hpp">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\PdObject.hpp">
+      <Filter>Camomile\xpd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Pd\PdPatch.hpp">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\PdParameter.hpp">
+      <Filter>Camomile\xpd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Pd\PdPatchManager.hpp">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\PdPatch.hpp">
+      <Filter>Camomile\xpd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Pd\PdTypes.hpp">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\PdPatchManager.hpp">
+      <Filter>Camomile\xpd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Pd\z_pd.h">
-      <Filter>Camomile\Source\Pd</Filter>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\PdTypes.hpp">
+      <Filter>Camomile\xpd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\PureData\src\g_all_guis.h">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClInclude Include="..\..\ThirdParty\zpd\pd\src\g_all_guis.h">
+      <Filter>Camomile\pd\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\PureData\src\g_canvas.h">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClInclude Include="..\..\ThirdParty\zpd\pd\src\g_canvas.h">
+      <Filter>Camomile\pd\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\PureData\src\m_imp.h">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClInclude Include="..\..\ThirdParty\zpd\pd\src\m_imp.h">
+      <Filter>Camomile\pd\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\PureData\src\m_pd.h">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClInclude Include="..\..\ThirdParty\zpd\pd\src\m_pd.h">
+      <Filter>Camomile\pd\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\PureData\src\s_stuff.h">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClInclude Include="..\..\ThirdParty\zpd\pd\src\s_stuff.h">
+      <Filter>Camomile\pd\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\PureData\src\s_utf8.h">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClInclude Include="..\..\ThirdParty\zpd\pd\src\s_utf8.h">
+      <Filter>Camomile\pd\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\PureData\src\x_vexp.h">
-      <Filter>Camomile\PureData\src</Filter>
+    <ClInclude Include="..\..\ThirdParty\zpd\pd\src\x_vexp.h">
+      <Filter>Camomile\pd\src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h">
       <Filter>Juce Modules\juce_audio_basics\buffers</Filter>
@@ -3088,6 +3088,12 @@
     </None>
     <None Include="..\..\Ressources\option.png">
       <Filter>Camomile\Ressources</Filter>
+    </None>
+    <None Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\AUResources.r">
+      <Filter>Juce Modules\juce_audio_plugin_client\AU</Filter>
+    </None>
+    <None Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\juce_RezResources_AU.r">
+      <Filter>Juce Modules\juce_audio_plugin_client\AU</Filter>
     </None>
     <None Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\RTAS\juce_RTAS_WinExports.def">
       <Filter>Juce Modules\juce_audio_plugin_client\RTAS</Filter>
