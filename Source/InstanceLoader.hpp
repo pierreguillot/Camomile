@@ -19,6 +19,10 @@ public:
     inline String getName() const {return m_name;}
     inline int getNumberOfInputs() const noexcept {return m_ninputs;}
     inline int getNumberOfOutputs() const noexcept {return m_noutputs;}
+    
+    void setName(String const& name);
+    void setNumberOfInputs(int ninputs);
+    void setNumberOfOutputs(int noutputs);
 private:
     String                      m_name;
     int                         m_ninputs;

@@ -68,8 +68,9 @@ void InstanceEditor::buttonClicked(Button* button)
         m.addItem(2, "Open");
         m.addItem(3, "Close");
         m.addItem(4, "Reload");
-        m.addItem(5, "Console");
-        m.addItem(6, "Help");
+        m.addItem(5, "Export");
+        m.addItem(6, "Console");
+        m.addItem(7, "Help");
         const int result = m.showAt(button->getScreenBounds().translated(-2, 3));
         if(result == 1)
         {
@@ -123,6 +124,10 @@ void InstanceEditor::buttonClicked(Button* button)
         }
         else if(result == 5)
         {
+            ;
+        }
+        else if(result == 6)
+        {
             m_window.setContentOwned(new GuiConsole(m_processor), false);
             m_window.setName("Camomile Console");
             m_window.addToDesktop();
@@ -130,7 +135,7 @@ void InstanceEditor::buttonClicked(Button* button)
             m_window.toFront(true);
             m_window.setAlwaysOnTop(true);
         }
-        else if(result == 6)
+        else if(result == 7)
         {
             juce::URL url("https://github.com/pierreguillot/Camomile/wiki");
             if(url.isWellFormed())
