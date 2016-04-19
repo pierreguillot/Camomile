@@ -16,9 +16,9 @@
 class GuiRadio : public GuiParameter
 {
 public:
-    static const pd::Gui::Type Horizontal = pd::Gui::Type::HorizontalRadio;
-    static const pd::Gui::Type Vertical   = pd::Gui::Type::VerticalRadio;
-    GuiRadio(InstanceProcessor& processor, pd::Gui const& gui);
+    static const xpd::Gui::Type Horizontal = xpd::Gui::Type::HorizontalRadio;
+    static const xpd::Gui::Type Vertical   = xpd::Gui::Type::VerticalRadio;
+    GuiRadio(InstanceProcessor& processor, xpd::Gui const& gui);
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& event) final;
 private:

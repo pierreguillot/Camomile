@@ -35,7 +35,7 @@ void GuiPatcher::timerCallback()
     }
 }
 
-void GuiPatcher::setPatch(InstanceProcessor& processor, pd::Patch const& patch)
+void GuiPatcher::setPatch(InstanceProcessor& processor, xpd::Patch const& patch)
 {
     stopTimer();
     m_comment.clear();
@@ -43,29 +43,29 @@ void GuiPatcher::setPatch(InstanceProcessor& processor, pd::Patch const& patch)
     m_labels.clear();
     if(patch.isValid())
     {
-        pd::Point<int> size(patch.getSize());
+        xpd::Point<int> size(patch.getSize());
         setSize(std::max(size.x, 120), std::max(size.y, 20));
-        std::vector<pd::Gui> guis(patch.getGuis());
+        std::vector<xpd::Gui> guis(patch.getGuis());
         for(size_t i = 0; i < guis.size(); ++i)
         {
-            if(guis[i].getType() == pd::Gui::Type::Number)
+            if(guis[i].getType() == xpd::Gui::Type::Number)
             {
                 m_parameters.add(new GuiNumbox(processor, guis[i]));
                 addAndMakeVisible(m_parameters.getLast());
             }
-            else if(guis[i].getType() == pd::Gui::Type::HorizontalRadio ||
-                    guis[i].getType() == pd::Gui::Type::VerticalRadio)
+            else if(guis[i].getType() == xpd::Gui::Type::HorizontalRadio ||
+                    guis[i].getType() == xpd::Gui::Type::VerticalRadio)
             {
                 m_parameters.add(new GuiRadio(processor, guis[i]));
                 addAndMakeVisible(m_parameters.getLast());
             }
-            else if(guis[i].getType() == pd::Gui::Type::HorizontalSlider ||
-                    guis[i].getType() == pd::Gui::Type::VerticalSlider)
+            else if(guis[i].getType() == xpd::Gui::Type::HorizontalSlider ||
+                    guis[i].getType() == xpd::Gui::Type::VerticalSlider)
             {
                 m_parameters.add(new GuiSlider(processor, guis[i]));
                 addAndMakeVisible(m_parameters.getLast());
             }
-            else if(guis[i].getType() == pd::Gui::Type::Toggle)
+            else if(guis[i].getType() == xpd::Gui::Type::Toggle)
             {
                 m_parameters.add(new GuiToggle(processor, guis[i]));
                 addAndMakeVisible(m_parameters.getLast());
@@ -78,7 +78,7 @@ void GuiPatcher::setPatch(InstanceProcessor& processor, pd::Patch const& patch)
             }
         }
         
-        std::vector<pd::Object> cmts(patch.getComments());
+        std::vector<xpd::Object> cmts(patch.getComments());
         for(size_t i = 0; i < cmts.size(); ++i)
         {
             m_comment.add(new GuiComment(cmts[i]));

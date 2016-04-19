@@ -12,10 +12,10 @@
 // ==================================================================================== //
 
 
-GuiLabel::GuiLabel(InstanceProcessor& processor, pd::Gui const& gui) :
+GuiLabel::GuiLabel(InstanceProcessor& processor, xpd::Gui const& gui) :
 Label("label", String(gui.getName()) + " " + gui.getLabel())
 {
-    pd::Point<int> labelpos(gui.getLabelPosition());
+    xpd::Point<int> labelpos(gui.getLabelPosition());
     setFont(Gui::getFont());
     setJustificationType(Justification::topLeft);
     setColour(Label::backgroundColourId, Gui::getColorInv());

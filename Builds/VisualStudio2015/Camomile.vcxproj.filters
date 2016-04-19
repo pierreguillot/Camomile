@@ -11,11 +11,11 @@
     <Filter Include="Camomile\Source\Gui">
       <UniqueIdentifier>{3AF8F85C-58F5-53F7-00C3-F524890FB4C3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Camomile\zpd">
-      <UniqueIdentifier>{E2A16195-9D10-08B8-4AB3-00653FF6BD10}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Camomile\xpd">
       <UniqueIdentifier>{CB0641A9-A966-2A5F-15C7-DBEFEBCFCE75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camomile\cpd">
+      <UniqueIdentifier>{CB28C824-5496-7F90-C815-DD968E50DD0B}</UniqueIdentifier>
     </Filter>
     <Filter Include="Camomile\pd">
       <UniqueIdentifier>{3063160C-72C6-2065-39E1-BD3FDD75C2BD}</UniqueIdentifier>
@@ -334,18 +334,6 @@
     <ClCompile Include="..\..\Source\Gui\GuiWindow.cpp">
       <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\zpd\zpd\z_pd.c">
-      <Filter>Camomile\zpd</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\PdConsole.cpp">
-      <Filter>Camomile\xpd</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\PdEnvironment.cpp">
-      <Filter>Camomile\xpd</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\PdInstance.cpp">
-      <Filter>Camomile\xpd</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\ThirdParty\zpd\xpd\PdObject.cpp">
       <Filter>Camomile\xpd</Filter>
     </ClCompile>
@@ -355,11 +343,32 @@
     <ClCompile Include="..\..\ThirdParty\zpd\xpd\PdPatch.cpp">
       <Filter>Camomile\xpd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\PdPatchManager.cpp">
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_instance.cpp">
       <Filter>Camomile\xpd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\PdTypes.cpp">
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_environment.cpp">
       <Filter>Camomile\xpd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_console.cpp">
+      <Filter>Camomile\xpd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_midi.cpp">
+      <Filter>Camomile\xpd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_atom.cpp">
+      <Filter>Camomile\xpd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_symbol.cpp">
+      <Filter>Camomile\xpd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_tie.cpp">
+      <Filter>Camomile\xpd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_mutex.cpp">
+      <Filter>Camomile\xpd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd.c">
+      <Filter>Camomile\cpd</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\bob~\bob~.c">
       <Filter>Camomile\pd\extra</Filter>
@@ -1758,19 +1767,7 @@
     <ClInclude Include="..\..\Source\Gui\GuiWindow.hpp">
       <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\zpd\zpd\z_pd.h">
-      <Filter>Camomile\zpd</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\ThirdParty\zpd\xpd\Pd.hpp">
-      <Filter>Camomile\xpd</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\PdConsole.hpp">
-      <Filter>Camomile\xpd</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\PdEnvironment.hpp">
-      <Filter>Camomile\xpd</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\PdInstance.hpp">
       <Filter>Camomile\xpd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\zpd\xpd\PdObject.hpp">
@@ -1782,11 +1779,32 @@
     <ClInclude Include="..\..\ThirdParty\zpd\xpd\PdPatch.hpp">
       <Filter>Camomile\xpd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\PdPatchManager.hpp">
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_instance.hpp">
       <Filter>Camomile\xpd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\PdTypes.hpp">
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_environment.hpp">
       <Filter>Camomile\xpd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_console.hpp">
+      <Filter>Camomile\xpd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_midi.hpp">
+      <Filter>Camomile\xpd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_atom.hpp">
+      <Filter>Camomile\xpd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_symbol.hpp">
+      <Filter>Camomile\xpd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_tie.hpp">
+      <Filter>Camomile\xpd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_mutex.hpp">
+      <Filter>Camomile\xpd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd.h">
+      <Filter>Camomile\cpd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\zpd\pd\src\g_all_guis.h">
       <Filter>Camomile\pd\src</Filter>

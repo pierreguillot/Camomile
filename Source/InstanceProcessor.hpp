@@ -11,8 +11,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 
-class InstanceProcessor : public AudioProcessor,
-public pd::Instance, public pd::PatchManager, public pd::Console::History
+class InstanceProcessor : public AudioProcessor, public xpd::instance, public xpd::console::history
 {
 public:
     InstanceProcessor();
@@ -57,60 +56,40 @@ public:
     void setCurrentProgram(int index) final {}
     const String getProgramName(int index) final {return String();}
     void changeProgramName(int index, const String& newName) final {}
-    int getParameterIndex(pd::Tie const& name);
+    int getParameterIndex(xpd::tie const& name);
     int getParameterIndex(String const& name);
     
     void getStateInformation(MemoryBlock& destData) final;
     void setStateInformation(const void* data, int sizeInBytes) final;
-    
-    //! @brief Receives a normal post to the Pure Data console.
-    void receiveConsolePost(std::string const& message) final;
-    
-    //! @brief Receives a log post to the Pure Data console.
-    void receiveConsoleLog(std::string const& message) final;
-    
-    //! @brief Receives a error to the Pure Data console.
-    void receiveConsoleError(std::string const& message) final;
-    
-    //! @brief Receives a fatal error to the Pure Data console.
-    void receiveConsoleFatal(std::string const& message) final;
 
     //! @brief Loads a patch.
-    void loadPatch(std::string const& name, std::string const& path) final;
+    void loadPatch(std::string const& name, std::string const& path);
     
     //! @brief Closes a patch.
-    void closePatch() final;
+    void closePatch();
+    
+    //! @brief Closes a patch.
+    inline xpd::patch const* getPatch() const noexcept {return m_patch;}
+    
 protected:
     
-     //! @brief Receives midi note on.
-    void receiveMidiNoteOn(int channel, int pitch, int velocity) final;
+    //! @brief Receives a post from the console.
+    void receive(xpd::console::post post) final;
     
-    //! @brief Receives midi control change.
-    void receiveMidiControlChange(int channel, int control, int value) final;
+    //! @brief Receives a midi event.
+    void receive(xpd::midi::event event) final;
     
-    //! @brief Receives midi program change.
-    void receiveMidiProgramChange(int channel, int value) final;
-    
-    //! @brief Receives midi pitch bend.
-    void receiveMidiPitchBend(int channel, int value) final;
-    
-    //! @brief Receives midi after touch.
-    void receiveMidiAfterTouch(int channel, int value) final;
-    
-    //! @brief Receives midi poly after touch.
-    void receiveMidiPolyAfterTouch(int channel, int pitch, int value) final;
-    
-    //! @brief Receives midi byte.
-    void receiveMidiByte(int port, int value) final;
 private:
-    static pd::Symbol s_playing;
-    static pd::Symbol s_measure;
-    std::vector<pd::Parameter>          m_parameters;
+    static xpd::symbol s_playing;
+    static xpd::symbol s_measure;
+    static xpd::symbol s_float;
+    xpd::patch*                 m_patch;
+    std::vector<xpd::Parameter>         m_parameters;
     juce::String                        m_path;
     MidiBuffer                          m_midi;
-    pd::Tie                             m_patch_tie;
-    pd::List                            m_playing_list;
-    pd::List                            m_measure_list;
+    xpd::tie                            m_patch_tie;
+    std::vector<xpd::atom>              m_playing_list;
+    std::vector<xpd::atom>              m_measure_list;
     AudioPlayHead::CurrentPositionInfo  m_playinfos;
     
     juce::String    m_name;

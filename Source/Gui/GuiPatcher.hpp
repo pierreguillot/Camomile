@@ -21,7 +21,7 @@ public:
     GuiPatcher();
     ~GuiPatcher();
     
-    void setPatch(InstanceProcessor& processor, pd::Patch const& patch);
+    void setPatch(InstanceProcessor& processor, xpd::patch const* patch);
 private:
     void timerCallback() final;
     OwnedArray<GuiComment>      m_comment;

@@ -13,14 +13,15 @@
 //                                  INSTANCE EDITOR                                     //
 // ==================================================================================== //
 
-class InstanceEditor : public AudioProcessorEditor, public pd::PatchManager::Listener, public Button::Listener
+class InstanceEditor : public AudioProcessorEditor, public xpd::instance::listener, public Button::Listener
 {
 public:
     InstanceEditor(InstanceProcessor&);
     ~InstanceEditor();
     void paint(Graphics&) final;
     void buttonClicked(Button* button) final;
-    void patchChanged() final;
+    void patch_created(xpd::patch* p) final;
+    void patch_deleted(xpd::patch* p) final;
 private:
     InstanceProcessor&  m_processor;
     GuiFlowerButton     m_button;

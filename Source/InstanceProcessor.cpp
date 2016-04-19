@@ -8,16 +8,22 @@
 #include "InstanceEditor.hpp"
 #include "LookAndFeel.hpp"
 
-pd::Symbol InstanceProcessor::s_playing;
-pd::Symbol InstanceProcessor::s_measure;
+xpd::symbol InstanceProcessor::s_playing;
+xpd::symbol InstanceProcessor::s_measure;
+xpd::symbol InstanceProcessor::s_float;
 
-InstanceProcessor::InstanceProcessor() : pd::Instance("Camomile"),
+InstanceProcessor::InstanceProcessor() : xpd::instance(),
 m_parameters(64), m_playing_list(2), m_measure_list(5), m_name("Camomile")
 {
-    sendConsolePost(std::string("Camomile ") + std::string(JucePlugin_VersionString) +
-                    std::string(" for Pure Data ") + pd::Environment::getPdVersion());
-    s_playing           = pd::Symbol("playing");
-    s_measure           = pd::Symbol("measure");
+    send(xpd::console::post{xpd::console::level::log, std::string("Camomile ") +
+        std::string(JucePlugin_VersionString) + std::string(" for Pure Data ") +
+        std::to_string(xpd::environment::version_major()) + "." +
+        std::to_string(xpd::environment::version_minor()) + "." +
+        std::to_string(xpd::environment::version_bug())});
+    
+    s_playing           = xpd::symbol("playing");
+    s_measure           = xpd::symbol("measure");
+    s_float             = xpd::symbol("float");
     busArrangement.inputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
     busArrangement.outputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
     m_path = juce::File::getCurrentWorkingDirectory().getFullPathName();
@@ -116,13 +122,13 @@ bool InstanceProcessor::isMetaParameter(int index) const
     return false;
 }
 
-int InstanceProcessor::getParameterIndex(pd::Tie const& name)
+int InstanceProcessor::getParameterIndex(xpd::tie const& name)
 {
-    if(name != pd::Tie())
+    if(name != xpd::tie())
     {
         for(size_t i = 0; i < m_parameters.size(); i++)
         {
-            if(m_parameters[i].getTie() == name)
+            if(m_parameters[i].gettie() == name)
             {
                 return int(i);
             }
@@ -146,16 +152,16 @@ int InstanceProcessor::getParameterIndex(String const& name)
 void InstanceProcessor::parametersChanged()
 {
     size_t index = 0;
-    lock();
     for(size_t i = 0; i < m_parameters.size(); i++)
     {
-        m_parameters[i] = pd::Parameter();
+        m_parameters[i] = xpd::Parameter();
     }
-    unlock();
-    pd::Patch patch(getPatch());
-    if(patch.isValid())
+    
+    if(m_patch)
     {
-        std::vector<pd::Gui> guis(patch.getGuis());
+        int todo;
+        /*
+        std::vector<xpd::Gui> guis(m_patch->getGuis());
         for(auto const& gui : guis)
         {
             if(gui.isParameter())
@@ -165,36 +171,37 @@ void InstanceProcessor::parametersChanged()
                 {
                     if(gui.getName() == m_parameters[i].getName())
                     {
-                        sendConsoleError("Warning in patch " + patch.getName() + ": "  + gui.getName() + " parameter is duplicated !");
+                        send({xpd::console::level::error, "Warning in patch " + m_patch->name() + ": "  + gui.getName() + " parameter is duplicated !"});
                         ok = false;
                         break;
                     }
-                    else if(gui.getReceiveTie() == m_parameters[i].getTie())
+                    else if(gui.getReceivetie() == m_parameters[i].gettie())
                     {
-                        sendConsoleError("Warning in patch " + patch.getName() + ": "  + gui.getName() + " parameter shares the same receive symbol with another parameter !");
+                        send({xpd::console::level::error, "Warning in patch " + m_patch->name() + ": "  + gui.getName() + " parameter shares the same receive symbol with another parameter !"});
                         ok = false;
                         break;
                     }
                 }
                 if(ok)
                 {
-                    m_parameters[index] = pd::Parameter(gui);
+                    m_parameters[index] = xpd::Parameter(gui);
                     index++;
                 }
             }
         }
+         */
     }
     updateHostDisplay();
 }
 
 void InstanceProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(), sampleRate, samplesPerBlock);
+    dsp_prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), sampleRate, samplesPerBlock);
 }
 
 void InstanceProcessor::releaseResources()
 {
-    releaseDsp();
+    dsp_release();
 }
 
 void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
@@ -210,24 +217,25 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     {
         infos = playhead->getCurrentPosition(m_playinfos);
     }
-    lock();
+
+    int dodo;
     {
         m_midi.clear();
         if(infos)
         {
-            m_playing_list.setFloat(0, m_playinfos.isPlaying);
-            m_playing_list.setFloat(1, m_playinfos.timeInSeconds);
-            sendMessageAnything(m_patch_tie, s_playing, m_playing_list);
-            m_measure_list.setFloat(0, m_playinfos.bpm);
-            m_measure_list.setFloat(1, m_playinfos.timeSigNumerator);
-            m_measure_list.setFloat(2, m_playinfos.timeSigDenominator);
-            m_measure_list.setFloat(3, m_playinfos.ppqPosition);
-            m_measure_list.setFloat(4, m_playinfos.ppqPositionOfLastBarStart);
-            sendMessageAnything(m_patch_tie, s_measure, m_measure_list);
+            m_playing_list[0] = m_playinfos.isPlaying;
+            m_playing_list[1] = m_playinfos.timeInSeconds;
+            send(m_patch_tie, s_playing, m_playing_list);
+            m_measure_list[0] = m_playinfos.bpm;
+            m_measure_list[1] = m_playinfos.timeSigNumerator;
+            m_measure_list[2] = m_playinfos.timeSigDenominator;
+            m_measure_list[3] = m_playinfos.ppqPosition;
+            m_measure_list[4] = m_playinfos.ppqPositionOfLastBarStart;
+            send(m_patch_tie, s_measure, m_measure_list);
         }
         for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); ++i)
         {
-            sendMessageFloat(m_parameters[i].getTie(), m_parameters[i].getValueNonNormalized());
+            send(m_parameters[i].gettie(), s_float, std::vector<xpd::atom>(1, m_parameters[i].getValueNonNormalized()));
         }
         
         MidiMessage message;
@@ -237,98 +245,76 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
         {
             if(message.isNoteOnOrOff())
             {
-                sendMidiNote(message.getChannel(), message.getNoteNumber(), message.getVelocity());
+                send(xpd::midi::event::note(message.getChannel(), message.getNoteNumber(), message.getVelocity()));
             }
             else if(message.isController())
             {
-                sendMidiControlChange(message.getChannel(), message.getControllerNumber(), message.getControllerValue());
+                send(xpd::midi::event::control_change(message.getChannel(), message.getControllerNumber(), message.getControllerValue()));
             }
             else if(message.isPitchWheel())
             {
-                sendMidiPitchBend(message.getChannel(), message.getPitchWheelValue());
+                send(xpd::midi::event::program_change(message.getChannel(), message.getPitchWheelValue()));
             }
             else if(message.isChannelPressure())
             {
-                sendMidiAfterTouch(message.getChannel(), message.getChannelPressureValue());
+                send(xpd::midi::event::after_touch(message.getChannel(), message.getChannelPressureValue()));
             }
             else if(message.isAftertouch())
             {
-                sendMidiPolyAfterTouch(message.getChannel(), message.getNoteNumber(), message.getAfterTouchValue());
+                send(xpd::midi::event::poly_after_touch(message.getChannel(), message.getNoteNumber(), message.getAfterTouchValue()));
             }
             else if(message.isProgramChange())
             {
-                sendMidiProgramChange(message.getChannel(), message.getProgramChangeNumber());
+                send(xpd::midi::event::program_change(message.getChannel(), message.getProgramChangeNumber()));
             }
         }
     }
     midiMessages.clear();
-    performDsp(buffer.getNumSamples(),
+    perform(buffer.getNumSamples(),
                getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
                getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
     midiMessages.swapWith(m_midi);
-    unlock();
 }
 
-void InstanceProcessor::receiveConsolePost(std::string const& message)
+void InstanceProcessor::receive(xpd::console::post post)
 {
-    pd::Console::History::addPost(message);
+    xpd::console::history::add(std::move(post));
 }
 
-void InstanceProcessor::receiveConsoleLog(std::string const& message)
-{
-    pd::Console::History::addLog(message);
-}
 
-void InstanceProcessor::receiveConsoleError(std::string const& message)
+void InstanceProcessor::receive(xpd::midi::event event)
 {
-    pd::Console::History::addError(message);
-}
-
-void InstanceProcessor::receiveConsoleFatal(std::string const& message)
-{
-    pd::Console::History::addFatal(message);
-}
-
-void InstanceProcessor::receiveMidiNoteOn(int channel, int pitch, int velocity)
-{
-    if(velocity)
+    if(event.type() == xpd::midi::event::type::note)
     {
-        m_midi.addEvent(MidiMessage::noteOn(channel+1, pitch, uint8(velocity)), 0);
+        if(event.velocity())
+        {
+            m_midi.addEvent(MidiMessage::noteOn(event.channel()+1, event.pitch(), uint8(event.velocity())), 0);
+        }
+        else
+        {
+            m_midi.addEvent(MidiMessage::noteOff(event.channel()+1, event.pitch(), uint8(0)), 0);
+        }
     }
-    else
+    else if(event.type() == xpd::midi::event::type::control_change)
     {
-        m_midi.addEvent(MidiMessage::noteOff(channel+1, pitch, uint8(velocity)), 0);
+        m_midi.addEvent(MidiMessage::controllerEvent(event.channel()+1, event.controler(), event.value()), 0);
     }
-}
-
-void InstanceProcessor::receiveMidiControlChange(int channel, int control, int value)
-{
-    m_midi.addEvent(MidiMessage::controllerEvent(channel+1, control, value), 0);
-}
-
-void InstanceProcessor::receiveMidiProgramChange(int channel, int value)
-{
-    m_midi.addEvent(MidiMessage::programChange(channel+1, value), 0);
-}
-
-void InstanceProcessor::receiveMidiPitchBend(int channel, int value)
-{
-    m_midi.addEvent(MidiMessage::pitchWheel(channel+1, value), 0);
-}
-
-void InstanceProcessor::receiveMidiAfterTouch(int channel, int value)
-{
-    m_midi.addEvent(MidiMessage::channelPressureChange(channel+1, value), 0);
-}
-
-void InstanceProcessor::receiveMidiPolyAfterTouch(int channel, int pitch, int value)
-{
-    m_midi.addEvent(MidiMessage::aftertouchChange(channel+1, pitch, value), 0);
-}
-
-void InstanceProcessor::receiveMidiByte(int port, int value)
-{
-    m_midi.addEvent(MidiMessage(port, value), 0);
+    else if(event.type() == xpd::midi::event::type::program_change)
+    {
+        m_midi.addEvent(MidiMessage::programChange(event.channel()+1, event.program()), 0);
+    }
+    else if(event.type() == xpd::midi::event::type::pitch_bend)
+    {
+        m_midi.addEvent(MidiMessage::pitchWheel(event.channel()+1, event.bend()), 0);
+    }
+    else if(event.type() == xpd::midi::event::type::after_touch)
+    {
+        m_midi.addEvent(MidiMessage::channelPressureChange(event.channel()+1, event.value()), 0);
+    }
+    else if(event.type() == xpd::midi::event::type::poly_after_touch)
+    {
+        m_midi.addEvent(MidiMessage::aftertouchChange(event.channel()+1, event.pitch(), event.value()), 0);
+    }
 }
 
 AudioProcessorEditor* InstanceProcessor::createEditor()
@@ -338,58 +324,62 @@ AudioProcessorEditor* InstanceProcessor::createEditor()
 
 void InstanceProcessor::loadPatch(std::string const& name, std::string const& path)
 {
+    /*
     suspendProcessing(true);
     if(isSuspended())
     {
         {
-            releaseDsp();
-            m_patch = pd::Patch(*this, name, path);
-            pd::Patch patch(getPatch());
+            dsp_release();
+            m_patch = xpd::Patch(*this, name, path);
+            xpd::Patch patch(getPatch());
             if(patch.isValid())
             {
-                m_patch_tie = pd::Tie(std::to_string(patch.getDollarZero()) + "-playhead");
+                m_patch_tie = xpd::tie(std::to_string(patch.getDollarZero()) + "-playhead");
             }
             else
             {
-                m_patch_tie = pd::Tie();
+                m_patch_tie = xpd::tie();
                 sendConsoleError("Camomile can't find the patch : " + name);
             }
         }
         parametersChanged();
-        prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(),
+        dsp_prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(),
                    AudioProcessor::getSampleRate(), getBlockSize());
         
-        pd::PatchManager::notifyListeners();
+        xpd::PatchManager::notifyListeners();
     }
     
     suspendProcessing(false);
+     */
 }
 
 void InstanceProcessor::closePatch()
 {
+    /*
     suspendProcessing(true);
     if(isSuspended())
     {
         {
-            releaseDsp();
-            m_patch = pd::Patch();
-            m_patch_tie = pd::Tie();
+            dsp_release();
+            m_patch = xpd::Patch();
+            m_patch_tie = xpd::tie();
         }
         
         parametersChanged();
-        prepareDsp(getTotalNumInputChannels(), getTotalNumOutputChannels(),
+        dsp_prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(),
                    AudioProcessor::getSampleRate(), getBlockSize());
         
-        pd::PatchManager::notifyListeners();
+        xpd::PatchManager::notifyListeners();
     }
     suspendProcessing(false);
+     */
 }
 
 void InstanceProcessor::getStateInformation(MemoryBlock& destData)
 {
     juce::XmlElement xml(String("CamomileSettings"));
-    
-    pd::Patch patch(getPatch());
+    /*
+    xpd::Patch patch(getPatch());
     if(patch.isValid())
     {
         xml.setAttribute(String("name"), patch.getName());
@@ -404,10 +394,12 @@ void InstanceProcessor::getStateInformation(MemoryBlock& destData)
         }
     }
     copyXmlToBinary(xml, destData);
+     */
 }
 
 void InstanceProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
+    /*
     ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
     if(xml != nullptr)
     {
@@ -451,6 +443,7 @@ void InstanceProcessor::setStateInformation (const void* data, int sizeInBytes)
             }
         }
     }
+     */
 }
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()

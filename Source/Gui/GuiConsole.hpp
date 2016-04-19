@@ -18,7 +18,7 @@ class GuiConsole : public juce::Component, public juce::Timer,
 public juce::Button::Listener, juce::TableListBoxModel
 {
 public:
-    GuiConsole(pd::Console::History& history);
+    GuiConsole(xpd::console::history& history);
     ~GuiConsole();
     void timerCallback() final;
     void buttonClicked(Button* button) final;
@@ -28,8 +28,8 @@ public:
     void paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected) final;
     bool keyPressed(const KeyPress& key) final;
 private:
-    typedef pd::Console::History        History;
-    typedef pd::Console::Message::Level Level;
+    typedef xpd::console::history        History;
+    typedef xpd::console::level Level;
     
     History&        m_history;
     Level           m_level;

@@ -65,15 +65,18 @@ OBJECTS := \
   $(OBJDIR)/GuiSlider_ac956169.o \
   $(OBJDIR)/GuiToggle_37d7325c.o \
   $(OBJDIR)/GuiWindow_d9aaa4f8.o \
-  $(OBJDIR)/z_pd_a227d220.o \
-  $(OBJDIR)/PdConsole_9a7abb04.o \
-  $(OBJDIR)/PdEnvironment_daec4dc0.o \
-  $(OBJDIR)/PdInstance_62d68d52.o \
   $(OBJDIR)/PdObject_5073b8fc.o \
   $(OBJDIR)/PdParameter_366d5256.o \
   $(OBJDIR)/PdPatch_8f4c5375.o \
-  $(OBJDIR)/PdPatchManager_3a664302.o \
-  $(OBJDIR)/PdTypes_cde60b26.o \
+  $(OBJDIR)/xpd_instance_986f9111.o \
+  $(OBJDIR)/xpd_environment_14673da1.o \
+  $(OBJDIR)/xpd_console_51e2c365.o \
+  $(OBJDIR)/xpd_midi_d87d351d.o \
+  $(OBJDIR)/xpd_atom_52d1534d.o \
+  $(OBJDIR)/xpd_symbol_4fee9e54.o \
+  $(OBJDIR)/xpd_tie_1622ae9e.o \
+  $(OBJDIR)/xpd_mutex_61425dcd.o \
+  $(OBJDIR)/cpd_6785f3e3.o \
   $(OBJDIR)/bob~_6f7631bb.o \
   $(OBJDIR)/bonk~_b8f0a745.o \
   $(OBJDIR)/choice_7edb8dbb.o \
@@ -264,26 +267,6 @@ $(OBJDIR)/GuiWindow_d9aaa4f8.o: ../../Source/Gui/GuiWindow.cpp
 	@echo "Compiling GuiWindow.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/z_pd_a227d220.o: ../../ThirdParty/zpd/zpd/z_pd.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling z_pd.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PdConsole_9a7abb04.o: ../../ThirdParty/zpd/xpd/PdConsole.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdConsole.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PdEnvironment_daec4dc0.o: ../../ThirdParty/zpd/xpd/PdEnvironment.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdEnvironment.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PdInstance_62d68d52.o: ../../ThirdParty/zpd/xpd/PdInstance.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdInstance.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
 $(OBJDIR)/PdObject_5073b8fc.o: ../../ThirdParty/zpd/xpd/PdObject.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling PdObject.cpp"
@@ -299,15 +282,50 @@ $(OBJDIR)/PdPatch_8f4c5375.o: ../../ThirdParty/zpd/xpd/PdPatch.cpp
 	@echo "Compiling PdPatch.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/PdPatchManager_3a664302.o: ../../ThirdParty/zpd/xpd/PdPatchManager.cpp
+$(OBJDIR)/xpd_instance_986f9111.o: ../../ThirdParty/zpd/xpd/xpd_instance.cpp
 	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdPatchManager.cpp"
+	@echo "Compiling xpd_instance.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/PdTypes_cde60b26.o: ../../ThirdParty/zpd/xpd/PdTypes.cpp
+$(OBJDIR)/xpd_environment_14673da1.o: ../../ThirdParty/zpd/xpd/xpd_environment.cpp
 	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdTypes.cpp"
+	@echo "Compiling xpd_environment.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/xpd_console_51e2c365.o: ../../ThirdParty/zpd/xpd/xpd_console.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling xpd_console.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/xpd_midi_d87d351d.o: ../../ThirdParty/zpd/xpd/xpd_midi.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling xpd_midi.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/xpd_atom_52d1534d.o: ../../ThirdParty/zpd/xpd/xpd_atom.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling xpd_atom.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/xpd_symbol_4fee9e54.o: ../../ThirdParty/zpd/xpd/xpd_symbol.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling xpd_symbol.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/xpd_tie_1622ae9e.o: ../../ThirdParty/zpd/xpd/xpd_tie.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling xpd_tie.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/xpd_mutex_61425dcd.o: ../../ThirdParty/zpd/xpd/xpd_mutex.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling xpd_mutex.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/cpd_6785f3e3.o: ../../ThirdParty/zpd/cpd/cpd.c
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling cpd.c"
+	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/bob~_6f7631bb.o: ../../ThirdParty/zpd/pd/extra/bob~/bob~.c
 	-@mkdir -p $(OBJDIR)

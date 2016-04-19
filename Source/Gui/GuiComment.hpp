@@ -16,7 +16,7 @@
 class GuiComment : public Component
 {
 public:
-    GuiComment(pd::Object const& cmt);
+    GuiComment(xpd::object const& cmt);
     void paint(Graphics& g) final;
 private:
     const std::string m_text;

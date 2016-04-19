@@ -14,18 +14,20 @@
 InstanceEditor::InstanceEditor(InstanceProcessor& p) : AudioProcessorEditor(&p), m_processor(p)
 {
     m_button.addListener(this);
-    m_processor.PatchManager::addListener(this);
+    m_processor.listener_add(this);
     addAndMakeVisible(m_patcher);
     addAndMakeVisible(m_button);
     setOpaque(true);
     setSize(600, 420);
     setWantsKeyboardFocus(true);
-    patchChanged();
+    
+    int todo;
+    //patchChanged();
 }
 
 InstanceEditor::~InstanceEditor()
 {
-    m_processor.PatchManager::removeListener(this);
+    m_processor.listener_remove(this);
 }
 
 void InstanceEditor::paint(Graphics& g)
@@ -37,10 +39,10 @@ void InstanceEditor::paint(Graphics& g)
     g.drawLine(0.f, 20.f, getWidth(), 20.f, Gui::getBorderSize());
     g.setFont(Gui::getFont());
     g.setColour(Gui::getColorTxt());
-    const pd::Patch patch = m_processor.getPatch();
-    if(patch.isValid())
+    xpd::patch const* patch = m_processor.getPatch();
+    if(patch)
     {
-        g.drawText(String(patch.getName()).upToLastOccurrenceOf(StringRef(".pd"), false, false),
+        g.drawText(String(patch->get_name()).upToLastOccurrenceOf(StringRef(".pd"), false, false),
                    0, 0, getWidth(), 20, juce::Justification::centred);
     }
     else
@@ -49,15 +51,17 @@ void InstanceEditor::paint(Graphics& g)
     }
 }
 
+/*
 void InstanceEditor::patchChanged()
 {
-    const pd::Patch patch = m_processor.getPatch();
+    const xpd::Patch patch = m_processor.getPatch();
     if(patch.isValid())
     {
         m_patcher.setPatch(m_processor, patch);
         setSize(m_patcher.getWidth(), m_patcher.getHeight() + 20);
     }
 }
+ */
 
 void InstanceEditor::buttonClicked(Button* button)
 {
@@ -82,10 +86,10 @@ void InstanceEditor::buttonClicked(Button* button)
         }
         else if(result == 2)
         {
-            const pd::Patch patch = m_processor.getPatch();
-            if(patch.isValid())
+            xpd::patch const* patch = m_processor.getPatch();
+            if(patch)
             {
-                FileChooser fc("Open a patch...", File(patch.getPath()), "*.pd", true);
+                FileChooser fc("Open a patch...", File(patch->get_path()), "*.pd", true);
                 if(fc.browseForFileToOpen())
                 {
                     juce::File file(fc.getResult());
@@ -116,10 +120,10 @@ void InstanceEditor::buttonClicked(Button* button)
         }
         else if(result == 4)
         {
-            const pd::Patch patch = m_processor.getPatch();
-            if(patch.isValid())
+            xpd::patch const* patch = m_processor.getPatch();
+            if(patch)
             {
-                m_processor.loadPatch(patch.getName(), patch.getPath());
+                m_processor.loadPatch(patch->get_name(), patch->get_path());
             }
         }
         else if(result == 5)

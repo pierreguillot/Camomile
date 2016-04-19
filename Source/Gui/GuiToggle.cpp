@@ -11,7 +11,7 @@
 //                                      GUI TOGGLE                                      //
 // ==================================================================================== //
 
-GuiToggle::GuiToggle(InstanceProcessor& processor, pd::Gui const& gui) : GuiParameter(processor, gui)
+GuiToggle::GuiToggle(InstanceProcessor& processor, xpd::Gui const& gui) : GuiParameter(processor, gui)
 {
     
 }

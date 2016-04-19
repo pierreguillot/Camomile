@@ -16,10 +16,10 @@
 class GuiParameter : public virtual Component
 {
 public:
-    GuiParameter(InstanceProcessor& processor, pd::Gui const& gui);
+    GuiParameter(InstanceProcessor& processor, xpd::Gui const& gui);
     ~GuiParameter();
     
-    pd::Gui::Type getType() const noexcept;
+    xpd::Gui::Type getType() const noexcept;
     float getMaximum() const noexcept;
     float getMinimum() const noexcept;
     float getValue() const noexcept;
@@ -36,7 +36,7 @@ private:
     
     
     InstanceProcessor&  m_processor;
-    const pd::Gui::Type m_type;
+    const xpd::Gui::Type m_type;
     const float         m_minimum;
     const float         m_maximum;
     const size_t        m_index;

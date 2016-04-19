@@ -10,16 +10,16 @@
 //                                      GUI SLIDER                                      //
 // ==================================================================================== //
 
-GuiParameter::GuiParameter(InstanceProcessor& processor, pd::Gui const& gui) :
+GuiParameter::GuiParameter(InstanceProcessor& processor, xpd::Gui const& gui) :
 m_processor(processor),
 m_type(gui.getType()),
 m_minimum(gui.getMinimum()),
 m_maximum(gui.getMaximum()),
-m_index(processor.getParameterIndex(gui.getReceiveTie())+1),
+m_index(processor.getParameterIndex(gui.getReceivetie())+1),
 m_value(0.f),
 m_edited(false)
 {
-    pd::Rectangle<int> bounds(gui.getBounds());
+    xpd::Rectangle<int> bounds(gui.getBounds());
     setBounds(bounds.x, bounds.y, bounds.w, bounds.h);
     setOpaque(true);
     setValue(gui.getValue());
@@ -30,7 +30,7 @@ GuiParameter::~GuiParameter()
     
 }
 
-pd::Gui::Type GuiParameter::getType() const noexcept
+xpd::Gui::Type GuiParameter::getType() const noexcept
 {
     return m_type;
 }

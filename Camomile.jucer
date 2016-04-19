@@ -57,32 +57,38 @@
         <FILE id="PFnvcW" name="GuiWindow.hpp" compile="0" resource="0" file="Source/Gui/GuiWindow.hpp"/>
       </GROUP>
     </GROUP>
-    <GROUP id="{1DE05050-8AFD-7554-B16B-39AB026D49DD}" name="zpd">
-      <FILE id="VOrJEP" name="z_pd.c" compile="1" resource="0" file="ThirdParty/zpd/zpd/z_pd.c"/>
-      <FILE id="OUDfBl" name="z_pd.h" compile="0" resource="0" file="ThirdParty/zpd/zpd/z_pd.h"/>
-    </GROUP>
     <GROUP id="{D49E12EE-2E19-B60A-038C-16156C16CE4E}" name="xpd">
       <FILE id="zpekY8" name="Pd.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/Pd.hpp"/>
-      <FILE id="I8tVIj" name="PdConsole.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/PdConsole.cpp"/>
-      <FILE id="l3xxPo" name="PdConsole.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/PdConsole.hpp"/>
-      <FILE id="rXt5BA" name="PdEnvironment.cpp" compile="1" resource="0"
-            file="ThirdParty/zpd/xpd/PdEnvironment.cpp"/>
-      <FILE id="VoVBqK" name="PdEnvironment.hpp" compile="0" resource="0"
-            file="ThirdParty/zpd/xpd/PdEnvironment.hpp"/>
-      <FILE id="JEpQBh" name="PdInstance.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/PdInstance.cpp"/>
-      <FILE id="cH9edo" name="PdInstance.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/PdInstance.hpp"/>
       <FILE id="b1O3J6" name="PdObject.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/PdObject.cpp"/>
       <FILE id="szy2tt" name="PdObject.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/PdObject.hpp"/>
       <FILE id="Ey7FYm" name="PdParameter.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/PdParameter.cpp"/>
       <FILE id="g6B6mV" name="PdParameter.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/PdParameter.hpp"/>
       <FILE id="bQOf69" name="PdPatch.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/PdPatch.cpp"/>
       <FILE id="QXBiQC" name="PdPatch.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/PdPatch.hpp"/>
-      <FILE id="nSEV31" name="PdPatchManager.cpp" compile="1" resource="0"
-            file="ThirdParty/zpd/xpd/PdPatchManager.cpp"/>
-      <FILE id="nHpaDA" name="PdPatchManager.hpp" compile="0" resource="0"
-            file="ThirdParty/zpd/xpd/PdPatchManager.hpp"/>
-      <FILE id="rRRNF4" name="PdTypes.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/PdTypes.cpp"/>
-      <FILE id="ulVvNo" name="PdTypes.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/PdTypes.hpp"/>
+      <FILE id="XhfJyi" name="xpd_instance.cpp" compile="1" resource="0"
+            file="ThirdParty/zpd/xpd/xpd_instance.cpp"/>
+      <FILE id="yg3laO" name="xpd_instance.hpp" compile="0" resource="0"
+            file="ThirdParty/zpd/xpd/xpd_instance.hpp"/>
+      <FILE id="h5Iig7" name="xpd_environment.cpp" compile="1" resource="0"
+            file="ThirdParty/zpd/xpd/xpd_environment.cpp"/>
+      <FILE id="CNLS1p" name="xpd_environment.hpp" compile="0" resource="0"
+            file="ThirdParty/zpd/xpd/xpd_environment.hpp"/>
+      <FILE id="xHHiW8" name="xpd_console.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_console.cpp"/>
+      <FILE id="ksuFSY" name="xpd_console.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_console.hpp"/>
+      <FILE id="HKOZza" name="xpd_midi.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_midi.cpp"/>
+      <FILE id="I8tj1b" name="xpd_midi.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_midi.hpp"/>
+      <FILE id="UZBeDM" name="xpd_atom.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_atom.cpp"/>
+      <FILE id="Z6cQ08" name="xpd_atom.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_atom.hpp"/>
+      <FILE id="ZWISCv" name="xpd_symbol.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_symbol.cpp"/>
+      <FILE id="uYzd0n" name="xpd_symbol.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_symbol.hpp"/>
+      <FILE id="MJHlfA" name="xpd_tie.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_tie.cpp"/>
+      <FILE id="Ms9eZw" name="xpd_tie.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_tie.hpp"/>
+      <FILE id="TJznxg" name="xpd_mutex.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_mutex.cpp"/>
+      <FILE id="XTVJqV" name="xpd_mutex.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_mutex.hpp"/>
+    </GROUP>
+    <GROUP id="{EAC48CE3-DD09-2CBE-2997-7591FB2BBEC6}" name="cpd">
+      <FILE id="YD9Gyy" name="cpd.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd.c"/>
+      <FILE id="ED1NlX" name="cpd.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd.h"/>
     </GROUP>
     <GROUP id="{FE270808-C2CD-210D-3181-B68593DF33A9}" name="pd">
       <GROUP id="{1C3B3672-B6EE-6976-8B6E-5C05626E0E27}" name="extra">

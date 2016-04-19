@@ -11,12 +11,11 @@
 //                                      GUI COMMENT                                      //
 // ==================================================================================== //
 
-GuiComment::GuiComment(pd::Object const& cmt) : m_text(cmt.getText())
+GuiComment::GuiComment(xpd::object const& cmt) : m_text(cmt.get_text())
 {
     setInterceptsMouseClicks(false, false);
     setWantsKeyboardFocus(false);
-    pd::Rectangle<int> bounds(cmt.getBounds());
-    setBounds(bounds.x, bounds.y, bounds.w < 1.f ? 360 : bounds.w * 6, 200);
+    setBounds(cmt.get_x(), cmt.get_y(), cmt.get_width() < 1 ? 360 : cmt.get_width() * 6, 200);
 }
 
 void GuiComment::paint(Graphics& g)
