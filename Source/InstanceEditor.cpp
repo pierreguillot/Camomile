@@ -7,6 +7,7 @@
 #include "InstanceProcessor.hpp"
 #include "InstanceEditor.hpp"
 
+/*
 // ==================================================================================== //
 //                                  INSTANCE EDITOR                                     //
 // ==================================================================================== //
@@ -61,7 +62,6 @@ void InstanceEditor::patchChanged()
         setSize(m_patcher.getWidth(), m_patcher.getHeight() + 20);
     }
 }
- */
 
 void InstanceEditor::buttonClicked(Button* button)
 {
@@ -149,4 +149,5 @@ void InstanceEditor::buttonClicked(Button* button)
         }
     }
 }
+*/
 

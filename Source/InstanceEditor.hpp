@@ -7,12 +7,13 @@
 #ifndef __CAMOMILE_INSTANCE_EDITOR__
 #define __CAMOMILE_INSTANCE_EDITOR__
 
-#include "Gui/Gui.hpp"
+//#include "Gui/Gui.hpp"
 
 // ==================================================================================== //
 //                                  INSTANCE EDITOR                                     //
 // ==================================================================================== //
 
+/*
 class InstanceEditor : public AudioProcessorEditor, public xpd::instance::listener, public Button::Listener
 {
 public:
@@ -30,6 +31,7 @@ private:
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(InstanceEditor)
 };
+ */
 
 
 

@@ -9,7 +9,7 @@
               pluginIsMidiEffectPlugin="0" pluginSilenceInIsSilenceOut="0"
               pluginEditorRequiresKeys="1" pluginAUExportPrefix="CamomileAU"
               pluginRTASCategory="" aaxIdentifier="com.yourcompany.Camomile"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.2.0"
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.2.1"
               companyName="CICM" companyWebsite="https://github.com/pierreguillot/Camomile"
               defines="PD=1&#10;USEAPI_DUMMY=1&#10;PD_INTERNAL=1&#10;" buildAUv3="0">
   <MAINGROUP id="wVVIu9" name="Camomile">
@@ -24,71 +24,64 @@
             file="Source/InstanceProcessor.hpp"/>
       <FILE id="A3woQ5" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
       <FILE id="PY3eEX" name="LookAndFeel.hpp" compile="0" resource="0" file="Source/LookAndFeel.hpp"/>
-      <GROUP id="{6C077DD6-A507-F9F8-284F-2F3BCFC02D8D}" name="Gui">
-        <FILE id="kf6ZXy" name="Gui.cpp" compile="1" resource="0" file="Source/Gui/Gui.cpp"/>
-        <FILE id="TZNh5t" name="Gui.hpp" compile="0" resource="0" file="Source/Gui/Gui.hpp"/>
-        <FILE id="c2lHNn" name="GuiAbout.cpp" compile="1" resource="0" file="Source/Gui/GuiAbout.cpp"/>
-        <FILE id="bR5dCk" name="GuiAbout.hpp" compile="0" resource="0" file="Source/Gui/GuiAbout.hpp"/>
-        <FILE id="YQ7RWU" name="GuiComment.cpp" compile="1" resource="0" file="Source/Gui/GuiComment.cpp"/>
-        <FILE id="SXxmqY" name="GuiComment.hpp" compile="0" resource="0" file="Source/Gui/GuiComment.hpp"/>
-        <FILE id="yXl0iY" name="GuiConsole.cpp" compile="1" resource="0" file="Source/Gui/GuiConsole.cpp"/>
-        <FILE id="guLLxj" name="GuiConsole.hpp" compile="0" resource="0" file="Source/Gui/GuiConsole.hpp"/>
-        <FILE id="rk85C8" name="GuiFlowerButton.cpp" compile="1" resource="0"
-              file="Source/Gui/GuiFlowerButton.cpp"/>
-        <FILE id="XjZelu" name="GuiFlowerButton.hpp" compile="0" resource="0"
-              file="Source/Gui/GuiFlowerButton.hpp"/>
-        <FILE id="VHg3r6" name="GuiLabel.cpp" compile="1" resource="0" file="Source/Gui/GuiLabel.cpp"/>
-        <FILE id="DcvS8a" name="GuiLabel.hpp" compile="0" resource="0" file="Source/Gui/GuiLabel.hpp"/>
-        <FILE id="A9yGiD" name="GuiNumbox.cpp" compile="1" resource="0" file="Source/Gui/GuiNumbox.cpp"/>
-        <FILE id="sfu95R" name="GuiNumbox.hpp" compile="0" resource="0" file="Source/Gui/GuiNumbox.hpp"/>
-        <FILE id="zsQUgS" name="GuiParameter.cpp" compile="1" resource="0"
-              file="Source/Gui/GuiParameter.cpp"/>
-        <FILE id="G8840Z" name="GuiParameter.hpp" compile="0" resource="0"
-              file="Source/Gui/GuiParameter.hpp"/>
-        <FILE id="EKJhPm" name="GuiPatcher.cpp" compile="1" resource="0" file="Source/Gui/GuiPatcher.cpp"/>
-        <FILE id="MnMzBd" name="GuiPatcher.hpp" compile="0" resource="0" file="Source/Gui/GuiPatcher.hpp"/>
-        <FILE id="NQbF5f" name="GuiRadio.cpp" compile="1" resource="0" file="Source/Gui/GuiRadio.cpp"/>
-        <FILE id="YQPtxv" name="GuiRadio.hpp" compile="0" resource="0" file="Source/Gui/GuiRadio.hpp"/>
-        <FILE id="AwJl9U" name="GuiSlider.cpp" compile="1" resource="0" file="Source/Gui/GuiSlider.cpp"/>
-        <FILE id="WcCiWL" name="GuiSlider.hpp" compile="0" resource="0" file="Source/Gui/GuiSlider.hpp"/>
-        <FILE id="OjJpcz" name="GuiToggle.cpp" compile="1" resource="0" file="Source/Gui/GuiToggle.cpp"/>
-        <FILE id="qJs8gK" name="GuiToggle.hpp" compile="0" resource="0" file="Source/Gui/GuiToggle.hpp"/>
-        <FILE id="pSscNM" name="GuiWindow.cpp" compile="1" resource="0" file="Source/Gui/GuiWindow.cpp"/>
-        <FILE id="PFnvcW" name="GuiWindow.hpp" compile="0" resource="0" file="Source/Gui/GuiWindow.hpp"/>
-      </GROUP>
     </GROUP>
     <GROUP id="{D49E12EE-2E19-B60A-038C-16156C16CE4E}" name="xpd">
-      <FILE id="zpekY8" name="Pd.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/Pd.hpp"/>
-      <FILE id="b1O3J6" name="PdObject.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/PdObject.cpp"/>
-      <FILE id="szy2tt" name="PdObject.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/PdObject.hpp"/>
-      <FILE id="Ey7FYm" name="PdParameter.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/PdParameter.cpp"/>
-      <FILE id="g6B6mV" name="PdParameter.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/PdParameter.hpp"/>
-      <FILE id="bQOf69" name="PdPatch.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/PdPatch.cpp"/>
-      <FILE id="QXBiQC" name="PdPatch.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/PdPatch.hpp"/>
-      <FILE id="XhfJyi" name="xpd_instance.cpp" compile="1" resource="0"
-            file="ThirdParty/zpd/xpd/xpd_instance.cpp"/>
-      <FILE id="yg3laO" name="xpd_instance.hpp" compile="0" resource="0"
-            file="ThirdParty/zpd/xpd/xpd_instance.hpp"/>
-      <FILE id="h5Iig7" name="xpd_environment.cpp" compile="1" resource="0"
+      <FILE id="mqyGSu" name="xpd_atom.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_atom.cpp"/>
+      <FILE id="UlKUPo" name="xpd_atom.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_atom.hpp"/>
+      <FILE id="h31bBZ" name="xpd_console.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_console.cpp"/>
+      <FILE id="ETnUDs" name="xpd_console.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_console.hpp"/>
+      <FILE id="ozL39C" name="xpd_def.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_def.hpp"/>
+      <FILE id="KMK9bA" name="xpd_environment.cpp" compile="1" resource="0"
             file="ThirdParty/zpd/xpd/xpd_environment.cpp"/>
-      <FILE id="CNLS1p" name="xpd_environment.hpp" compile="0" resource="0"
+      <FILE id="FOmzfz" name="xpd_environment.hpp" compile="0" resource="0"
             file="ThirdParty/zpd/xpd/xpd_environment.hpp"/>
-      <FILE id="xHHiW8" name="xpd_console.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_console.cpp"/>
-      <FILE id="ksuFSY" name="xpd_console.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_console.hpp"/>
-      <FILE id="HKOZza" name="xpd_midi.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_midi.cpp"/>
-      <FILE id="I8tj1b" name="xpd_midi.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_midi.hpp"/>
-      <FILE id="UZBeDM" name="xpd_atom.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_atom.cpp"/>
-      <FILE id="Z6cQ08" name="xpd_atom.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_atom.hpp"/>
-      <FILE id="ZWISCv" name="xpd_symbol.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_symbol.cpp"/>
-      <FILE id="uYzd0n" name="xpd_symbol.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_symbol.hpp"/>
-      <FILE id="MJHlfA" name="xpd_tie.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_tie.cpp"/>
-      <FILE id="Ms9eZw" name="xpd_tie.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_tie.hpp"/>
-      <FILE id="TJznxg" name="xpd_mutex.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_mutex.cpp"/>
-      <FILE id="XTVJqV" name="xpd_mutex.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_mutex.hpp"/>
+      <FILE id="dO9Hgw" name="xpd_gui.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_gui.cpp"/>
+      <FILE id="XLtQxh" name="xpd_gui.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_gui.hpp"/>
+      <FILE id="pNnAog" name="xpd_instance.cpp" compile="1" resource="0"
+            file="ThirdParty/zpd/xpd/xpd_instance.cpp"/>
+      <FILE id="WoLwgq" name="xpd_instance.hpp" compile="0" resource="0"
+            file="ThirdParty/zpd/xpd/xpd_instance.hpp"/>
+      <FILE id="RB904X" name="xpd_midi.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_midi.cpp"/>
+      <FILE id="qmAQNo" name="xpd_midi.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_midi.hpp"/>
+      <FILE id="jZDxbe" name="xpd_mutex.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_mutex.cpp"/>
+      <FILE id="nYxPsO" name="xpd_mutex.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_mutex.hpp"/>
+      <FILE id="AK303n" name="xpd_object.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_object.cpp"/>
+      <FILE id="C8CkI3" name="xpd_object.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_object.hpp"/>
+      <FILE id="SCmYGn" name="xpd_patch.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_patch.cpp"/>
+      <FILE id="ISGwQV" name="xpd_patch.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_patch.hpp"/>
+      <FILE id="SdDLU0" name="xpd_symbol.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_symbol.cpp"/>
+      <FILE id="ZUbnVY" name="xpd_symbol.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_symbol.hpp"/>
+      <FILE id="Ehaya1" name="xpd_tie.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_tie.cpp"/>
+      <FILE id="UVvohh" name="xpd_tie.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_tie.hpp"/>
+      <FILE id="nz9rAM" name="xpd.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd.hpp"/>
     </GROUP>
     <GROUP id="{EAC48CE3-DD09-2CBE-2997-7591FB2BBEC6}" name="cpd">
-      <FILE id="YD9Gyy" name="cpd.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd.c"/>
-      <FILE id="ED1NlX" name="cpd.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd.h"/>
+      <FILE id="kSRRUB" name="cpd_def.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_def.h"/>
+      <FILE id="h7Ixwo" name="cpd_dsp.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_dsp.c"/>
+      <FILE id="gnAlXe" name="cpd_dsp.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_dsp.h"/>
+      <FILE id="hqZxBz" name="cpd_environment.c" compile="1" resource="0"
+            file="ThirdParty/zpd/cpd/cpd_environment.c"/>
+      <FILE id="T9htB0" name="cpd_environment.h" compile="0" resource="0"
+            file="ThirdParty/zpd/cpd/cpd_environment.h"/>
+      <FILE id="PLWfTh" name="cpd_gui.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_gui.c"/>
+      <FILE id="D3vGEw" name="cpd_gui.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_gui.h"/>
+      <FILE id="zmT67i" name="cpd_instance.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_instance.c"/>
+      <FILE id="KMeyL3" name="cpd_instance.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_instance.h"/>
+      <FILE id="r1mJXw" name="cpd_message.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_message.c"/>
+      <FILE id="mxhkXs" name="cpd_message.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_message.h"/>
+      <FILE id="IUmurL" name="cpd_midi.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_midi.c"/>
+      <FILE id="LYgpNC" name="cpd_midi.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_midi.h"/>
+      <FILE id="Fxfk4V" name="cpd_mutex.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_mutex.c"/>
+      <FILE id="Fhn9AO" name="cpd_mutex.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_mutex.h"/>
+      <FILE id="zzAT8V" name="cpd_object.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_object.c"/>
+      <FILE id="OSBZmI" name="cpd_object.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_object.h"/>
+      <FILE id="yqItC9" name="cpd_patch.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_patch.c"/>
+      <FILE id="l4llSi" name="cpd_patch.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_patch.h"/>
+      <FILE id="WtLd0N" name="cpd_post.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_post.c"/>
+      <FILE id="xs52F4" name="cpd_post.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_post.h"/>
+      <FILE id="wEK7Oi" name="cpd_types.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_types.c"/>
+      <FILE id="Aaxgsx" name="cpd_types.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_types.h"/>
+      <FILE id="u01b7M" name="cpd.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd.h"/>
     </GROUP>
     <GROUP id="{FE270808-C2CD-210D-3181-B68593DF33A9}" name="pd">
       <GROUP id="{1C3B3672-B6EE-6976-8B6E-5C05626E0E27}" name="extra">

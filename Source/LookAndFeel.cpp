@@ -23,7 +23,7 @@
 */
 
 #include "LookAndFeel.hpp"
-#include "Gui/Gui.hpp"
+//#include "Gui/Gui.hpp"
 
 namespace LookAndFeelHelpers
 {
@@ -220,7 +220,9 @@ void CamoLookAndFeel::drawButtonBackground (Graphics& g,
 
 Font CamoLookAndFeel::getTextButtonFont (TextButton&, int buttonHeight)
 {
-    return Gui::getFont();
+    int todo;
+    return Font(12);
+    //return Gui::getFont();
 }
 
 int CamoLookAndFeel::getTextButtonWidthToFitText (TextButton& b, int buttonHeight)
@@ -230,7 +232,9 @@ int CamoLookAndFeel::getTextButtonWidthToFitText (TextButton& b, int buttonHeigh
 
 void CamoLookAndFeel::drawButtonText (Graphics& g, TextButton& button, bool isMouseOverButton, bool isButtonDown)
 {
-    Font font(Gui::getFont());
+    int todo;
+    Font font(12);
+    //Font font(Gui::getFont());
     g.setFont(font);
     g.setColour(button.findColour((isMouseOverButton || isButtonDown) ? TextButton::textColourOnId : TextButton::textColourOffId)
                        .withMultipliedAlpha (button.isEnabled() ? 1.0f : 0.5f));
@@ -576,10 +580,13 @@ void CamoLookAndFeel::drawScrollbarButton (Graphics& g, ScrollBar& scrollbar,
                        width * 0.7f, height * 0.1f,
                        width * 0.7f, height * 0.9f);
 
+    int todo;
+    /*
     if (isButtonDown)
         g.setColour (Gui::getColorTxt().contrasting (0.2f));
     else
         g.setColour (Gui::getColorTxt());
+     */
 
     g.fillPath (p);
 
@@ -643,7 +650,9 @@ void CamoLookAndFeel::drawScrollbar (Graphics& g,
         gy2 = y + height * 0.7f;
     }
 
-    const Colour thumbColour (Gui::getColorTxt());
+    int todo;
+    const Colour thumbColour = Colours::blue;
+    //const Colour thumbColour (Gui::getColorTxt());
     Colour trackColour1(ScrollBar::trackColourId), trackColour2(ScrollBar::trackColourId);
 
     g.setGradientFill (ColourGradient (trackColour1, gx1, gy1,
@@ -823,7 +832,8 @@ void CamoLookAndFeel::getIdealPopupMenuItemSize (const String& text, const bool 
 
 void CamoLookAndFeel::drawPopupMenuBackground (Graphics& g, int width, int height)
 {
-    g.fillAll(Gui::getColorBg());
+    int todo;
+    //g.fillAll(Gui::getColorBg());
 }
 
 void CamoLookAndFeel::drawPopupMenuUpDownArrow (Graphics& g, int width, int height, bool isScrollUpArrow)

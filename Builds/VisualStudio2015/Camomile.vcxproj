@@ -262,31 +262,28 @@
     <ClCompile Include="..\..\Source\InstanceEditor.cpp"/>
     <ClCompile Include="..\..\Source\InstanceProcessor.cpp"/>
     <ClCompile Include="..\..\Source\LookAndFeel.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\Gui.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\GuiAbout.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\GuiComment.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\GuiConsole.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\GuiFlowerButton.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\GuiLabel.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\GuiNumbox.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\GuiParameter.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\GuiPatcher.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\GuiRadio.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\GuiSlider.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\GuiToggle.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\GuiWindow.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\PdObject.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\PdParameter.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\PdPatch.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_instance.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_environment.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_console.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_midi.cpp"/>
     <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_atom.cpp"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_console.cpp"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_environment.cpp"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_gui.cpp"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_instance.cpp"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_midi.cpp"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_mutex.cpp"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_object.cpp"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_patch.cpp"/>
     <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_symbol.cpp"/>
     <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_tie.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_mutex.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd.c"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_dsp.c"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_environment.c"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_gui.c"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_instance.c"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_message.c"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_midi.c"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_mutex.c"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_object.c"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_patch.c"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_post.c"/>
+    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_types.c"/>
     <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\bob~\bob~.c"/>
     <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\bonk~\bonk~.c"/>
     <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\choice\choice.c"/>
@@ -455,7 +452,70 @@
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\synthesisers\juce_Synthesiser.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\juce_audio_basics.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AAX\juce_AAX_Wrapper.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUBase.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUBuffer.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUCarbonViewBase.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUCarbonViewControl.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUCarbonViewDispatch.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUDispatch.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUInputElement.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUMIDIBase.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUOutputBase.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUOutputElement.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUPlugInDispatch.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUScopeElement.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAAudioChannelLayout.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAAUParameter.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAMutex.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CarbonEventHandler.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAStreamBasicDescription.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAVectorUnit.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\ComponentBase.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\MusicDeviceBase.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\RTAS\juce_RTAS_DigiCode1.cpp">
@@ -483,6 +543,41 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\VST3\juce_VST3_Wrapper.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client_AAX.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client_RTAS_1.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+      <CallingConvention>StdCall</CallingConvention>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client_RTAS_2.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+      <CallingConvention>StdCall</CallingConvention>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client_RTAS_3.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+      <CallingConvention>StdCall</CallingConvention>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client_RTAS_4.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+      <CallingConvention>StdCall</CallingConvention>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client_RTAS_utils.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+      <CallingConvention>StdCall</CallingConvention>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client_Standalone.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client_utils.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client_VST2.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client_VST3.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\format\juce_AudioPluginFormat.cpp">
@@ -531,6 +626,9 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\utilities\juce_AudioProcessorValueTreeState.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\juce_audio_processors.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_AbstractFifo.cpp">
@@ -761,6 +859,39 @@
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_core\xml\juce_XmlElement.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\adler32.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\compress.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\crc32.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\deflate.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\infback.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\inffast.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\inflate.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\inftrees.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\trees.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\uncompr.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\zutil.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_core\zip\juce_GZIPCompressorOutputStream.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -768,6 +899,9 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_core\zip\juce_ZipFile.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_core\juce_core.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_data_structures\app_properties\juce_ApplicationProperties.cpp">
@@ -779,6 +913,9 @@
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_data_structures\undomanager\juce_UndoManager.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_data_structures\values\juce_CachedValue.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_data_structures\values\juce_Value.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -786,6 +923,9 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_data_structures\values\juce_ValueTreeSynchroniser.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_data_structures\juce_data_structures.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_events\broadcasters\juce_ActionBroadcaster.cpp">
@@ -831,6 +971,9 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_events\timers\juce_Timer.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_events\juce_events.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\colour\juce_Colour.cpp">
@@ -893,6 +1036,189 @@
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\geometry\juce_PathStrokeType.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jcapimin.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jcapistd.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jccoefct.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jccolor.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jcdctmgr.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jchuff.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jcinit.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jcmainct.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jcmarker.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jcmaster.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jcomapi.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jcparam.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jcphuff.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jcprepct.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jcsample.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jctrans.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jdapimin.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jdapistd.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jdatasrc.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jdcoefct.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jdcolor.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jddctmgr.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jdhuff.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jdinput.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jdmainct.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jdmarker.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jdmaster.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jdmerge.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jdphuff.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jdpostct.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jdsample.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jdtrans.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jerror.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jfdctflt.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jfdctfst.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jfdctint.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jidctflt.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jidctfst.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jidctint.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jidctred.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jmemmgr.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jmemnobs.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jquant1.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jquant2.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jutils.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\transupp.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\png.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\pngerror.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\pngget.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\pngmem.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\pngpread.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\pngread.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\pngrio.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\pngrtran.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\pngrutil.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\pngset.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\pngtrans.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\pngwio.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\pngwrite.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\pngwtran.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\pngwutil.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\juce_GIFLoader.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -939,6 +1265,9 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\placement\juce_RectanglePlacement.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_graphics\juce_graphics.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_gui_basics\application\juce_Application.cpp">
@@ -1295,6 +1624,9 @@
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_gui_basics\windows\juce_TopLevelWindow.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_gui_basics\juce_gui_basics.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_gui_extra\code_editor\juce_CodeDocument.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1361,6 +1693,9 @@
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_gui_extra\native\juce_win32_WebBrowserComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_gui_extra\juce_gui_extra.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\juce_audio_basics.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\juce_audio_plugin_client_utils.cpp"/>
@@ -1378,31 +1713,31 @@
     <ClInclude Include="..\..\Source\InstanceEditor.hpp"/>
     <ClInclude Include="..\..\Source\InstanceProcessor.hpp"/>
     <ClInclude Include="..\..\Source\LookAndFeel.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\Gui.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\GuiAbout.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\GuiComment.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\GuiConsole.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\GuiFlowerButton.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\GuiLabel.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\GuiNumbox.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\GuiParameter.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\GuiPatcher.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\GuiRadio.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\GuiSlider.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\GuiToggle.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\GuiWindow.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\Pd.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\PdObject.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\PdParameter.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\PdPatch.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_instance.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_environment.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_console.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_midi.hpp"/>
     <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_atom.hpp"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_console.hpp"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_def.hpp"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_environment.hpp"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_gui.hpp"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_instance.hpp"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_midi.hpp"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_mutex.hpp"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_object.hpp"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_patch.hpp"/>
     <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_symbol.hpp"/>
     <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_tie.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_mutex.hpp"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd.hpp"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_def.h"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_dsp.h"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_environment.h"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_gui.h"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_instance.h"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_message.h"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_midi.h"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_mutex.h"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_object.h"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_patch.h"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_post.h"/>
+    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_types.h"/>
     <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd.h"/>
     <ClInclude Include="..\..\ThirdParty\zpd\pd\src\g_all_guis.h"/>
     <ClInclude Include="..\..\ThirdParty\zpd\pd\src\g_canvas.h"/>
@@ -1447,6 +1782,43 @@
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\sources\juce_ToneGeneratorAudioSource.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\synthesisers\juce_Synthesiser.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\juce_audio_basics.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\juce_audio_basics.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUBase.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUBaseHelper.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUBuffer.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUCarbonViewBase.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUCarbonViewControl.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUDispatch.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUInputElement.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUInputFormatConverter.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUMIDIBase.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUOutputBase.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUOutputElement.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUPlugInDispatch.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUScopeElement.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUSilentTimeout.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUTimestampGenerator.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUViewLocalizedStringKeys.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAAtomic.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAAtomicStack.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAAudioChannelLayout.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAAUParameter.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAAutoDisposer.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CADebugMacros.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CADebugPrintf.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAException.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAHostTimeBase.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAMath.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAMutex.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CarbonEventHandler.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAReferenceCounted.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAStreamBasicDescription.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAThreadSafeList.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAVectorUnit.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAVectorUnitTypes.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\CAXException.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\ComponentBase.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\MusicDeviceBase.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\juce_AU_Shared.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\RTAS\juce_RTAS_DigiCode_Header.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\Standalone\juce_StandaloneFilterWindow.h"/>
@@ -1458,6 +1830,7 @@
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\utility\juce_PluginBusUtilities.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\utility\juce_PluginHostType.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\utility\juce_WindowsHooks.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\format\juce_AudioPluginFormat.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\format\juce_AudioPluginFormatManager.h"/>
@@ -1487,6 +1860,7 @@
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\utilities\juce_AudioParameterInt.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\utilities\juce_AudioProcessorParameterWithID.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\utilities\juce_AudioProcessorValueTreeState.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\juce_audio_processors.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\juce_audio_processors.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_AbstractFifo.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\containers\juce_Array.h"/>
@@ -1602,17 +1976,31 @@
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\unit_tests\juce_UnitTest.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\xml\juce_XmlDocument.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\xml\juce_XmlElement.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\crc32.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\deflate.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\inffast.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\inffixed.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\inflate.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\inftrees.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\trees.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\zconf.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\zconf.in.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\zlib.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\zip\zlib\zutil.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\zip\juce_GZIPCompressorOutputStream.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\zip\juce_GZIPDecompressorInputStream.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\zip\juce_ZipFile.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\juce_core.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_core\juce_core.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_data_structures\app_properties\juce_ApplicationProperties.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_data_structures\app_properties\juce_PropertiesFile.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_data_structures\undomanager\juce_UndoableAction.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_data_structures\undomanager\juce_UndoManager.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_data_structures\values\juce_CachedValue.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_data_structures\values\juce_Value.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_data_structures\values\juce_ValueTree.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_data_structures\values\juce_ValueTreeSynchroniser.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_data_structures\juce_data_structures.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_data_structures\juce_data_structures.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_events\broadcasters\juce_ActionBroadcaster.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_events\broadcasters\juce_ActionListener.h"/>
@@ -1636,6 +2024,7 @@
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_events\native\juce_win32_HiddenMessageWindow.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_events\timers\juce_MultiTimer.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_events\timers\juce_Timer.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_events\juce_events.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_events\juce_events.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\colour\juce_Colour.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\colour\juce_ColourGradient.h"/>
@@ -1665,6 +2054,24 @@
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\geometry\juce_Point.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\geometry\juce_Rectangle.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\geometry\juce_RectangleList.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\cderror.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jchuff.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jconfig.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jdct.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jdhuff.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jerror.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jinclude.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jmemsys.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jmorecfg.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jpegint.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jpeglib.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\jversion.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\transupp.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\png.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\pngconf.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\pnginfo.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\pngpriv.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\pngstruct.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\images\juce_Image.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\images\juce_ImageCache.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\images\juce_ImageConvolutionKernel.h"/>
@@ -1674,6 +2081,7 @@
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\native\juce_RenderingHelpers.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\placement\juce_Justification.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\placement\juce_RectanglePlacement.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\juce_graphics.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_graphics\juce_graphics.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_gui_basics\application\juce_Application.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_gui_basics\buttons\juce_ArrowButton.h"/>
@@ -1803,6 +2211,7 @@
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_gui_basics\windows\juce_TooltipWindow.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_gui_basics\windows\juce_TopLevelWindow.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_gui_basics\juce_gui_basics.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_gui_basics\juce_gui_basics.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_gui_extra\code_editor\juce_CodeDocument.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_gui_extra\code_editor\juce_CodeEditorComponent.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_gui_extra\code_editor\juce_CodeTokeniser.h"/>
@@ -1827,6 +2236,7 @@
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_gui_extra\misc\juce_WebBrowserComponent.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_gui_extra\native\juce_mac_CarbonViewWrapperComponent.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_gui_extra\juce_gui_extra.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_gui_extra\juce_gui_extra.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\AppConfig.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\BinaryData.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h"/>
@@ -1841,8 +2251,8 @@
     <None Include="..\..\Ressources\option.png"/>
     <None Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\AUResources.r"/>
     <None Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\juce_RezResources_AU.r"/>
-    <None Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\RTAS\juce_RTAS_WinExports.def"/>
-    <None Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\RTAS\juce_RTAS_WinResources.rsr"/>
+    <None Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\changes to libjpeg for JUCE.txt"/>
+    <None Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\libpng_readme.txt"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include=".\resources.rc"/>
