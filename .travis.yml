@@ -9,8 +9,6 @@ git:
   submodules: true
   depth: 3
 
-
-
 os: osx
 compiler: clang++
 env: COMPILER=clang++
