@@ -9,9 +9,7 @@ git:
   submodules: true
   depth: 3
 
-matrix:
-  - os: osx
-    compiler: clang++
-    env: COMPILER=clang++
-    script:
-    - xcodebuild -project Builds/MacOSX/Camomile.xcodeproj
+os: osx
+compiler: clang++
+env: COMPILER=clang++
+script: xcodebuild -project Builds/MacOSX/Camomile.xcodeproj
