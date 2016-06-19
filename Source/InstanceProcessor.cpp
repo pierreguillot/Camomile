@@ -249,9 +249,13 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
         int position = midiMessages.getFirstEventTime();
         while(it.getNextEvent(message, position))
         {
-            if(message.isNoteOnOrOff())
+            if(message.isNoteOn())
             {
                 send(xpd::midi::event::note(message.getChannel(), message.getNoteNumber(), message.getVelocity()));
+            }
+            if(message.isNoteOff())
+            {
+                send(xpd::midi::event::note(message.getChannel(), message.getNoteNumber(), 0));
             }
             else if(message.isController())
             {
