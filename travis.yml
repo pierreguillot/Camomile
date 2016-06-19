@@ -1,0 +1,17 @@
+language: cpp
+dist: trusty
+sudo: required
+
+notifications:
+  email: false
+
+git:
+  submodules: true
+  depth: 3
+
+matrix:
+  - os: osx
+    compiler: clang++
+    env: COMPILER=clang++
+    script:
+    - xcodebuild -project Builds/MacOSX/Camomile.xcodeproj
