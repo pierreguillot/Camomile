@@ -31,7 +31,6 @@
 # Mac Xcode
 *.plist
 *.nib
-*.pbxproj
 *.xcuserstate
 *.xcuserdatad
 
