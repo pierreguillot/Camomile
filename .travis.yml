@@ -16,6 +16,6 @@ compiler: clang++
 env: COMPILER=clang++
 before_script:
         - curl -o Vst.zip 'http://www.steinberg.net/sdk_downloads/vstsdk365_12_11_2015_build_67.zip'
-        - unzip Vst.zip
+        - tar -xf Vst.zip
         - cp -R 'VST3 SDK' ThirdParty/Vst
 script: xcodebuild -project Builds/MacOSX/Camomile.xcodeproj
