@@ -9,7 +9,7 @@
 
 
 // ==================================================================================== //
-//                                  INSTANCE EDITOR                                     //
+//                                  CAMOMILE EDITOR                                     //
 // ==================================================================================== //
 
 CamomileEditor::CamomileEditor(InstanceProcessor& p) : AudioProcessorEditor(&p), m_processor(p)

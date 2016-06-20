@@ -13,7 +13,7 @@
 
 
 GuiLabel::GuiLabel(InstanceProcessor& processor, xpd::gui const& gui) :
-Label("label", String(gui.name() + std::string(" ") + gui.label().name()))
+Label("label", String(gui.name() + std::string(" ") + gui.label()))
 {
     setFont(Gui::getFont());
     setJustificationType(Justification::topLeft);
