@@ -11,7 +11,7 @@
 #include "InstanceProcessor.hpp"
 
 // ==================================================================================== //
-//                                  INSTANCE EDITOR                                     //
+//                                  CAMOMILE EDITOR                                     //
 // ==================================================================================== //
 
 class CamomileEditor : public AudioProcessorEditor, public InstanceProcessor::Listener, public Button::Listener
@@ -21,6 +21,7 @@ public:
     ~CamomileEditor();
     void paint(Graphics&) final;
     void buttonClicked(Button* button) final;
+    void patchChanged() final;
 private:
     InstanceProcessor&  m_processor;
     GuiPatcher          m_patcher;

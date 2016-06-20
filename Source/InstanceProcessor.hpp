@@ -11,6 +11,10 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 
+// ==================================================================================== //
+//                                  INSTANCE EDITOR                                     //
+// ==================================================================================== //
+
 class InstanceProcessor : public AudioProcessor, public xpd::instance, public xpd::console::history
 {
 public:
@@ -63,6 +67,10 @@ public:
     void getStateInformation(MemoryBlock& destData) final;
     void setStateInformation(const void* data, int sizeInBytes) final;
 
+    // ==================================================================================== //
+    //                                          PATCH                                       //
+    // ==================================================================================== //
+
     //! @brief Loads a patch.
     void loadPatch(std::string const& name, std::string const& path);
     
@@ -70,7 +78,16 @@ public:
     void closePatch();
     
     //! @brief Closes a patch.
-    inline xpd::patch const* getPatch() const noexcept {return m_patch;}
+    inline xpd::patch const getPatch() const noexcept {return m_patch;}
+    
+    class Listener
+    {
+    public:
+        virtual ~Listener() noexcept {}
+        virtual void patchChanged() = 0;
+    };
+    
+    
     
 protected:
     
@@ -92,7 +109,7 @@ private:
     static xpd::symbol s_playing;
     static xpd::symbol s_measure;
     static xpd::symbol s_float;
-    xpd::patch*                 m_patch;
+    xpd::patch         m_patch;
     //std::vector<xpd::Parameter>         m_parameters;
     juce::String                        m_path;
     MidiBuffer                          m_midi;

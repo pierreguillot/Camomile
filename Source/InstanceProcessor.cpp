@@ -5,7 +5,7 @@
  */
 
 #include "InstanceProcessor.hpp"
-#include "InstanceEditor.hpp"
+#include "CamomileEditor.hpp"
 //#include "LookAndFeel.hpp"
 
 xpd::symbol InstanceProcessor::s_playing;

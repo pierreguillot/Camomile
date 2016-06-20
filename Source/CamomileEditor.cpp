@@ -5,33 +5,36 @@
 */
 
 #include "InstanceProcessor.hpp"
-#include "InstanceEditor.hpp"
+#include "CamomileEditor.hpp"
 
-/*
+
 // ==================================================================================== //
 //                                  INSTANCE EDITOR                                     //
 // ==================================================================================== //
 
-InstanceEditor::InstanceEditor(InstanceProcessor& p) : AudioProcessorEditor(&p), m_processor(p)
+CamomileEditor::CamomileEditor(InstanceProcessor& p) : AudioProcessorEditor(&p), m_processor(p)
 {
-    m_button.addListener(this);
-    m_processor.listener_add(this);
-    addAndMakeVisible(m_patcher);
-    addAndMakeVisible(m_button);
+    
+    int todo;
     setOpaque(true);
     setSize(600, 420);
     setWantsKeyboardFocus(true);
+    //m_processor.listener_add(this);
+    addAndMakeVisible(m_patcher);
+    addAndMakeVisible(m_button);
+    m_button.addListener(this);
     
-    int todo;
+    int todo2;
     //patchChanged();
 }
 
-InstanceEditor::~InstanceEditor()
+CamomileEditor::~CamomileEditor()
 {
-    m_processor.listener_remove(this);
+    int todo;
+    //m_processor.listener_remove(this);
 }
 
-void InstanceEditor::paint(Graphics& g)
+void CamomileEditor::paint(Graphics& g)
 {
     String text;
     g.fillAll(Gui::getColorBg());
@@ -40,10 +43,10 @@ void InstanceEditor::paint(Graphics& g)
     g.drawLine(0.f, 20.f, getWidth(), 20.f, Gui::getBorderSize());
     g.setFont(Gui::getFont());
     g.setColour(Gui::getColorTxt());
-    xpd::patch const* patch = m_processor.getPatch();
-    if(patch)
+    xpd::patch const patch = m_processor.getPatch();
+    if(bool(patch))
     {
-        g.drawText(String(patch->get_name()).upToLastOccurrenceOf(StringRef(".pd"), false, false),
+        g.drawText(String(patch.name()).upToLastOccurrenceOf(StringRef(".pd"), false, false),
                    0, 0, getWidth(), 20, juce::Justification::centred);
     }
     else
@@ -52,18 +55,18 @@ void InstanceEditor::paint(Graphics& g)
     }
 }
 
-/*
-void InstanceEditor::patchChanged()
+
+void CamomileEditor::patchChanged()
 {
-    const xpd::Patch patch = m_processor.getPatch();
-    if(patch.isValid())
+    const xpd::patch patch = m_processor.getPatch();
+    if(bool(patch))
     {
         m_patcher.setPatch(m_processor, patch);
         setSize(m_patcher.getWidth(), m_patcher.getHeight() + 20);
     }
 }
 
-void InstanceEditor::buttonClicked(Button* button)
+void CamomileEditor::buttonClicked(Button* button)
 {
     if(button)
     {
@@ -76,6 +79,7 @@ void InstanceEditor::buttonClicked(Button* button)
         m.addItem(6, "Console");
         m.addItem(7, "Help");
         const int result = m.showAt(button->getScreenBounds().translated(-2, 3));
+        
         if(result == 1)
         {
             m_window.setContentOwned(new GuiAbout(), false);
@@ -86,10 +90,10 @@ void InstanceEditor::buttonClicked(Button* button)
         }
         else if(result == 2)
         {
-            xpd::patch const* patch = m_processor.getPatch();
-            if(patch)
+            xpd::patch const patch = m_processor.getPatch();
+            if(bool(patch))
             {
-                FileChooser fc("Open a patch...", File(patch->get_path()), "*.pd", true);
+                FileChooser fc("Open a patch...", File(patch.path()), "*.pd", true);
                 if(fc.browseForFileToOpen())
                 {
                     juce::File file(fc.getResult());
@@ -120,10 +124,10 @@ void InstanceEditor::buttonClicked(Button* button)
         }
         else if(result == 4)
         {
-            xpd::patch const* patch = m_processor.getPatch();
-            if(patch)
+            xpd::patch const patch = m_processor.getPatch();
+            if(bool(patch))
             {
-                m_processor.loadPatch(patch->get_name(), patch->get_path());
+                m_processor.loadPatch(patch.name(), patch.path());
             }
         }
         else if(result == 5)
@@ -149,5 +153,4 @@ void InstanceEditor::buttonClicked(Button* button)
         }
     }
 }
-*/
 
