@@ -280,9 +280,7 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
         }
     }
     midiMessages.clear();
-    perform(buffer.getNumSamples(),
-               getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
-               getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
+    perform(buffer.getNumSamples(), getTotalNumInputChannels(), buffer.getArrayOfReadPointers(), getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
     midiMessages.swapWith(m_midi);
 }
 
@@ -290,7 +288,6 @@ void InstanceProcessor::receive(xpd::console::post const& post)
 {
     xpd::console::history::add(std::move(post));
 }
-
 
 void InstanceProcessor::receive(xpd::midi::event const& event)
 {
@@ -335,55 +332,51 @@ AudioProcessorEditor* InstanceProcessor::createEditor()
 
 void InstanceProcessor::loadPatch(std::string const& name, std::string const& path)
 {
-    /*
     suspendProcessing(true);
     if(isSuspended())
     {
+        xpd::instance::release();
+        if(static_cast<bool>(m_patch))
         {
-            dsp_release();
-            m_patch = xpd::Patch(*this, name, path);
-            xpd::Patch patch(getPatch());
-            if(patch.isValid())
-            {
-                m_patch_tie = xpd::tie(std::to_string(patch.getDollarZero()) + "-playhead");
-            }
-            else
-            {
-                m_patch_tie = xpd::tie();
-                sendConsoleError("Camomile can't find the patch : " + name);
-            }
+            close(m_patch);
+        }
+        m_patch = xpd::instance::load(name, path);
+        if(static_cast<bool>(m_patch))
+        {
+            m_patch_tie = xpd::tie(std::to_string(m_patch.unique_id()) + "-playhead");
+        }
+        else
+        {
+            send(xpd::console::post(xpd::console::error, std::string("Camomile can't find the patch : ") + name));
         }
         parametersChanged();
-        dsp_prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(),
-                   AudioProcessor::getSampleRate(), getBlockSize());
+        prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), AudioProcessor::getSampleRate(), getBlockSize());
         
-        xpd::PatchManager::notifyListeners();
+        int todo_notify_listeners;
+        //
     }
-    
     suspendProcessing(false);
-     */
 }
 
 void InstanceProcessor::closePatch()
 {
-    /*
     suspendProcessing(true);
     if(isSuspended())
     {
+        xpd::instance::release();
+        if(static_cast<bool>(m_patch))
         {
-            dsp_release();
-            m_patch = xpd::Patch();
+            close(m_patch);
             m_patch_tie = xpd::tie();
         }
         
         parametersChanged();
-        dsp_prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(),
-                   AudioProcessor::getSampleRate(), getBlockSize());
+        prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), AudioProcessor::getSampleRate(), getBlockSize());
         
-        xpd::PatchManager::notifyListeners();
+        int todo_notify_listeners;
+        //
     }
     suspendProcessing(false);
-     */
 }
 
 void InstanceProcessor::getStateInformation(MemoryBlock& destData)
