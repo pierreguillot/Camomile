@@ -14,14 +14,18 @@
               defines="PD=1&#10;USEAPI_DUMMY=1&#10;PD_INTERNAL=1&#10;" buildAUv3="0">
   <MAINGROUP id="wVVIu9" name="Camomile">
     <GROUP id="{51EAB2F7-7167-302A-F6E7-853D8D6554C0}" name="Source">
-      <FILE id="PJtddQ" name="InstanceEditor.cpp" compile="1" resource="0"
-            file="Source/InstanceEditor.cpp"/>
-      <FILE id="cdPACA" name="InstanceEditor.hpp" compile="0" resource="0"
-            file="Source/InstanceEditor.hpp"/>
       <FILE id="q2ZLr2" name="InstanceProcessor.cpp" compile="1" resource="0"
             file="Source/InstanceProcessor.cpp"/>
       <FILE id="eYMfby" name="InstanceProcessor.hpp" compile="0" resource="0"
             file="Source/InstanceProcessor.hpp"/>
+      <FILE id="P1IYgm" name="CamomileEditor.cpp" compile="1" resource="0"
+            file="Source/CamomileEditor.cpp"/>
+      <FILE id="l2CEqO" name="CamomileEditor.hpp" compile="0" resource="0"
+            file="Source/CamomileEditor.hpp"/>
+      <FILE id="xXu58p" name="CamomileParameter.cpp" compile="1" resource="0"
+            file="Source/CamomileParameter.cpp"/>
+      <FILE id="y79qKg" name="CamomileParameter.hpp" compile="0" resource="0"
+            file="Source/CamomileParameter.hpp"/>
       <FILE id="A3woQ5" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
       <FILE id="PY3eEX" name="LookAndFeel.hpp" compile="0" resource="0" file="Source/LookAndFeel.hpp"/>
       <GROUP id="{5A0FA5A4-A4CD-0F98-6047-84A5A87C6E33}" name="Gui">

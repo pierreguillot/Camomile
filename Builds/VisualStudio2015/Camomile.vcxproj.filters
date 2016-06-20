@@ -298,10 +298,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\InstanceEditor.cpp">
+    <ClCompile Include="..\..\Source\InstanceProcessor.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\InstanceProcessor.cpp">
+    <ClCompile Include="..\..\Source\CamomileEditor.cpp">
+      <Filter>Camomile\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CamomileParameter.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\LookAndFeel.cpp">
@@ -2136,10 +2139,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\InstanceEditor.hpp">
+    <ClInclude Include="..\..\Source\InstanceProcessor.hpp">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\InstanceProcessor.hpp">
+    <ClInclude Include="..\..\Source\CamomileEditor.hpp">
+      <Filter>Camomile\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CamomileParameter.hpp">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\LookAndFeel.hpp">
