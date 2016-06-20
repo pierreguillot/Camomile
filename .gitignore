@@ -29,7 +29,6 @@
 *.app
 
 # Mac Xcode
-*.plist
 *.nib
 *.xcuserstate
 *.xcuserdatad

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist>
+  <dict>
+    <key>CFBundleExecutable</key>
+    <string>${EXECUTABLE_NAME}</string>
+    <key>CFBundleIconFile</key>
+    <string></string>
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleName</key>
+    <string>Camomile</string>
+    <key>CFBundleDisplayName</key>
+    <string>Camomile</string>
+    <key>CFBundlePackageType</key>
+    <string>BNDL</string>
+    <key>CFBundleSignature</key>
+    <string>????</string>
+    <key>CFBundleShortVersionString</key>
+    <string>0.0.8</string>
+    <key>CFBundleVersion</key>
+    <string>0.0.8</string>
+    <key>NSHumanReadableCopyright</key>
+    <string>CICM</string>
+    <key>NSHighResolutionCapable</key>
+    <true/>
+    <key>AudioComponents</key>
+    <array>
+      <dict>
+        <key>name</key>
+        <string>Pierre Guillot: Camomile</string>
+        <key>description</key>
+        <string>Camomile</string>
+        <key>factoryFunction</key>
+        <string>CamomileAUFactory</string>
+        <key>manufacturer</key>
+        <string>CICM</string>
+        <key>type</key>
+        <string>aumf</string>
+        <key>subtype</key>
+        <string>PGCA</string>
+        <key>version</key>
+        <integer>8</integer>
+      </dict>
+    </array>
+  </dict>
+</plist>
