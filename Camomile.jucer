@@ -24,6 +24,38 @@
             file="Source/InstanceProcessor.hpp"/>
       <FILE id="A3woQ5" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
       <FILE id="PY3eEX" name="LookAndFeel.hpp" compile="0" resource="0" file="Source/LookAndFeel.hpp"/>
+      <GROUP id="{5A0FA5A4-A4CD-0F98-6047-84A5A87C6E33}" name="Gui">
+        <FILE id="hF28IC" name="Gui.cpp" compile="1" resource="0" file="Source/Gui/Gui.cpp"/>
+        <FILE id="bg8sKH" name="Gui.hpp" compile="0" resource="0" file="Source/Gui/Gui.hpp"/>
+        <FILE id="THRKTP" name="GuiAbout.cpp" compile="1" resource="0" file="Source/Gui/GuiAbout.cpp"/>
+        <FILE id="qOjUsP" name="GuiAbout.hpp" compile="0" resource="0" file="Source/Gui/GuiAbout.hpp"/>
+        <FILE id="pEOYic" name="GuiComment.cpp" compile="1" resource="0" file="Source/Gui/GuiComment.cpp"/>
+        <FILE id="ZQz2wF" name="GuiComment.hpp" compile="0" resource="0" file="Source/Gui/GuiComment.hpp"/>
+        <FILE id="IAOR1n" name="GuiConsole.cpp" compile="1" resource="0" file="Source/Gui/GuiConsole.cpp"/>
+        <FILE id="AQaNlZ" name="GuiConsole.hpp" compile="0" resource="0" file="Source/Gui/GuiConsole.hpp"/>
+        <FILE id="NmYKqr" name="GuiFlowerButton.cpp" compile="1" resource="0"
+              file="Source/Gui/GuiFlowerButton.cpp"/>
+        <FILE id="MYAWye" name="GuiFlowerButton.hpp" compile="0" resource="0"
+              file="Source/Gui/GuiFlowerButton.hpp"/>
+        <FILE id="G49fyi" name="GuiLabel.cpp" compile="1" resource="0" file="Source/Gui/GuiLabel.cpp"/>
+        <FILE id="N11Doq" name="GuiLabel.hpp" compile="0" resource="0" file="Source/Gui/GuiLabel.hpp"/>
+        <FILE id="VVZdOi" name="GuiNumbox.cpp" compile="1" resource="0" file="Source/Gui/GuiNumbox.cpp"/>
+        <FILE id="TmgJG5" name="GuiNumbox.hpp" compile="0" resource="0" file="Source/Gui/GuiNumbox.hpp"/>
+        <FILE id="BSHFpP" name="GuiParameter.cpp" compile="1" resource="0"
+              file="Source/Gui/GuiParameter.cpp"/>
+        <FILE id="yTAuxs" name="GuiParameter.hpp" compile="0" resource="0"
+              file="Source/Gui/GuiParameter.hpp"/>
+        <FILE id="iCBqHB" name="GuiPatcher.cpp" compile="1" resource="0" file="Source/Gui/GuiPatcher.cpp"/>
+        <FILE id="v9N3mV" name="GuiPatcher.hpp" compile="0" resource="0" file="Source/Gui/GuiPatcher.hpp"/>
+        <FILE id="zc84rf" name="GuiRadio.cpp" compile="1" resource="0" file="Source/Gui/GuiRadio.cpp"/>
+        <FILE id="SK63yT" name="GuiRadio.hpp" compile="0" resource="0" file="Source/Gui/GuiRadio.hpp"/>
+        <FILE id="U8YyZh" name="GuiSlider.cpp" compile="1" resource="0" file="Source/Gui/GuiSlider.cpp"/>
+        <FILE id="qkZpjj" name="GuiSlider.hpp" compile="0" resource="0" file="Source/Gui/GuiSlider.hpp"/>
+        <FILE id="RBEofu" name="GuiToggle.cpp" compile="1" resource="0" file="Source/Gui/GuiToggle.cpp"/>
+        <FILE id="yQfyEx" name="GuiToggle.hpp" compile="0" resource="0" file="Source/Gui/GuiToggle.hpp"/>
+        <FILE id="ss5PKl" name="GuiWindow.cpp" compile="1" resource="0" file="Source/Gui/GuiWindow.cpp"/>
+        <FILE id="VzDLnl" name="GuiWindow.hpp" compile="0" resource="0" file="Source/Gui/GuiWindow.hpp"/>
+      </GROUP>
     </GROUP>
     <GROUP id="{D49E12EE-2E19-B60A-038C-16156C16CE4E}" name="xpd">
       <FILE id="mqyGSu" name="xpd_atom.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_atom.cpp"/>

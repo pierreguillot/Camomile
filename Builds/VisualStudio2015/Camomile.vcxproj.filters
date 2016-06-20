@@ -8,6 +8,9 @@
     <Filter Include="Camomile\Source">
       <UniqueIdentifier>{33E9C75D-FCFD-D74A-6894-584B92DA1489}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Camomile\Source\Gui">
+      <UniqueIdentifier>{3AF8F85C-58F5-53F7-00C3-F524890FB4C3}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Camomile\xpd">
       <UniqueIdentifier>{CB0641A9-A966-2A5F-15C7-DBEFEBCFCE75}</UniqueIdentifier>
     </Filter>
@@ -303,6 +306,45 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\LookAndFeel.cpp">
       <Filter>Camomile\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\Gui.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\GuiAbout.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\GuiComment.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\GuiConsole.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\GuiFlowerButton.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\GuiLabel.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\GuiNumbox.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\GuiParameter.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\GuiPatcher.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\GuiRadio.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\GuiSlider.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\GuiToggle.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\GuiWindow.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_atom.cpp">
       <Filter>Camomile\xpd</Filter>
@@ -2102,6 +2144,45 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\LookAndFeel.hpp">
       <Filter>Camomile\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\Gui.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\GuiAbout.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\GuiComment.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\GuiConsole.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\GuiFlowerButton.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\GuiLabel.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\GuiNumbox.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\GuiParameter.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\GuiPatcher.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\GuiRadio.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\GuiSlider.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\GuiToggle.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\GuiWindow.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_atom.hpp">
       <Filter>Camomile\xpd</Filter>

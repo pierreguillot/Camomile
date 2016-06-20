@@ -52,6 +52,19 @@ OBJECTS := \
   $(OBJDIR)/InstanceEditor_fa2c28eb.o \
   $(OBJDIR)/InstanceProcessor_bc7e525e.o \
   $(OBJDIR)/LookAndFeel_40552bdf.o \
+  $(OBJDIR)/Gui_edc4c728.o \
+  $(OBJDIR)/GuiAbout_58af930f.o \
+  $(OBJDIR)/GuiComment_699305a1.o \
+  $(OBJDIR)/GuiConsole_79dfc099.o \
+  $(OBJDIR)/GuiFlowerButton_5b7395b5.o \
+  $(OBJDIR)/GuiLabel_844fe2f6.o \
+  $(OBJDIR)/GuiNumbox_64ab530d.o \
+  $(OBJDIR)/GuiParameter_d0a746ab.o \
+  $(OBJDIR)/GuiPatcher_2b7a1737.o \
+  $(OBJDIR)/GuiRadio_6eb49c7d.o \
+  $(OBJDIR)/GuiSlider_ac956169.o \
+  $(OBJDIR)/GuiToggle_37d7325c.o \
+  $(OBJDIR)/GuiWindow_d9aaa4f8.o \
   $(OBJDIR)/xpd_atom_52d1534d.o \
   $(OBJDIR)/xpd_console_51e2c365.o \
   $(OBJDIR)/xpd_environment_14673da1.o \
@@ -197,6 +210,71 @@ $(OBJDIR)/InstanceProcessor_bc7e525e.o: ../../Source/InstanceProcessor.cpp
 $(OBJDIR)/LookAndFeel_40552bdf.o: ../../Source/LookAndFeel.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling LookAndFeel.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/Gui_edc4c728.o: ../../Source/Gui/Gui.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling Gui.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/GuiAbout_58af930f.o: ../../Source/Gui/GuiAbout.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling GuiAbout.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/GuiComment_699305a1.o: ../../Source/Gui/GuiComment.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling GuiComment.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/GuiConsole_79dfc099.o: ../../Source/Gui/GuiConsole.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling GuiConsole.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/GuiFlowerButton_5b7395b5.o: ../../Source/Gui/GuiFlowerButton.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling GuiFlowerButton.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/GuiLabel_844fe2f6.o: ../../Source/Gui/GuiLabel.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling GuiLabel.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/GuiNumbox_64ab530d.o: ../../Source/Gui/GuiNumbox.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling GuiNumbox.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/GuiParameter_d0a746ab.o: ../../Source/Gui/GuiParameter.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling GuiParameter.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/GuiPatcher_2b7a1737.o: ../../Source/Gui/GuiPatcher.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling GuiPatcher.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/GuiRadio_6eb49c7d.o: ../../Source/Gui/GuiRadio.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling GuiRadio.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/GuiSlider_ac956169.o: ../../Source/Gui/GuiSlider.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling GuiSlider.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/GuiToggle_37d7325c.o: ../../Source/Gui/GuiToggle.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling GuiToggle.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/GuiWindow_d9aaa4f8.o: ../../Source/Gui/GuiWindow.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling GuiWindow.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/xpd_atom_52d1534d.o: ../../ThirdParty/zpd/xpd/xpd_atom.cpp
