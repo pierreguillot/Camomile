@@ -11,7 +11,7 @@
 //                                      GUI SLIDER                                      //
 // ==================================================================================== //
 
-GuiSlider::GuiSlider(InstanceProcessor& processor, xpd::Gui const& gui) : GuiParameter(processor, gui)
+GuiSlider::GuiSlider(InstanceProcessor& processor, xpd::gui const& gui) : GuiParameter(processor, gui)
 {
     
 }

@@ -35,54 +35,72 @@ void GuiPatcher::timerCallback()
     }
 }
 
-void GuiPatcher::setPatch(InstanceProcessor& processor, xpd::Patch const& patch)
+void GuiPatcher::setPatch(InstanceProcessor& processor, xpd::patch const& patch)
 {
     stopTimer();
     m_comment.clear();
     m_parameters.clear();
     m_labels.clear();
-    if(patch.isValid())
+    if(bool(patch))
     {
-        xpd::Point<int> size(patch.getSize());
-        setSize(std::max(size.x, 120), std::max(size.y, 20));
-        std::vector<xpd::Gui> guis(patch.getGuis());
-        for(size_t i = 0; i < guis.size(); ++i)
+        setSize(std::max(patch.width(), 120), std::max(patch.height(), 20));
+        std::vector<xpd::object> objects(patch.objects());
+        for(size_t i = 0; i < objects.size(); ++i)
         {
-            if(guis[i].getType() == xpd::Gui::Type::Number)
+            xpd::gui gui;
+            try
             {
-                m_parameters.add(new GuiNumbox(processor, guis[i]));
-                addAndMakeVisible(m_parameters.getLast());
+                gui = objects[i];
             }
-            else if(guis[i].getType() == xpd::Gui::Type::HorizontalRadio ||
-                    guis[i].getType() == xpd::Gui::Type::VerticalRadio)
+            catch(...)
             {
-                m_parameters.add(new GuiRadio(processor, guis[i]));
-                addAndMakeVisible(m_parameters.getLast());
+                ;
             }
-            else if(guis[i].getType() == xpd::Gui::Type::HorizontalSlider ||
-                    guis[i].getType() == xpd::Gui::Type::VerticalSlider)
+            if(bool(gui))
             {
-                m_parameters.add(new GuiSlider(processor, guis[i]));
-                addAndMakeVisible(m_parameters.getLast());
+                if(gui.type() == xpd::gui::number)
+                {
+                    m_parameters.add(new GuiNumbox(processor, gui));
+                    addAndMakeVisible(m_parameters.getLast());
+                }
+                else if(gui.type() == xpd::gui::radio_horizontal ||
+                        gui.type() == xpd::gui::radio_vertical)
+                {
+                    m_parameters.add(new GuiRadio(processor, gui));
+                    addAndMakeVisible(m_parameters.getLast());
+                }
+                else if(gui.type() == xpd::gui::slider_horizontal ||
+                        gui.type() == xpd::gui::slider_vertical)
+                {
+                    m_parameters.add(new GuiSlider(processor, gui));
+                    addAndMakeVisible(m_parameters.getLast());
+                }
+                else if(gui.type() == xpd::gui::toggle)
+                {
+                    m_parameters.add(new GuiToggle(processor, gui));
+                    addAndMakeVisible(m_parameters.getLast());
+                }
+                
+                int todo;
+                /*
+                if(gui.isParameter())
+                {
+                    m_labels.add(new GuiLabel(processor, gui));
+                    addAndMakeVisible(m_labels.getLast());
+                }
+                 */
             }
-            else if(guis[i].getType() == xpd::Gui::Type::Toggle)
+            else
             {
-                m_parameters.add(new GuiToggle(processor, guis[i]));
-                addAndMakeVisible(m_parameters.getLast());
+                /*
+                 std::vector<xpd::Object> cmts(patch.getComments());
+                 for(size_t i = 0; i < cmts.size(); ++i)
+                 {
+                 m_comment.add(new GuiComment(cmts[i]));
+                 addAndMakeVisible(m_comment.getLast());
+                 }
+                 */
             }
-            
-            if(guis[i].isParameter())
-            {
-                m_labels.add(new GuiLabel(processor, guis[i]));
-                addAndMakeVisible(m_labels.getLast());
-            }
-        }
-        
-        std::vector<xpd::Object> cmts(patch.getComments());
-        for(size_t i = 0; i < cmts.size(); ++i)
-        {
-            m_comment.add(new GuiComment(cmts[i]));
-            addAndMakeVisible(m_comment.getLast());
         }
         repaint();
     }

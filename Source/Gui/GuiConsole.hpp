@@ -28,8 +28,9 @@ public:
     void paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected) final;
     bool keyPressed(const KeyPress& key) final;
 private:
-    typedef xpd::console::history        History;
-    typedef xpd::console::level Level;
+    typedef xpd::console::history   History;
+    typedef xpd::console::level     Level;
+    typedef xpd::console::post      Post;
     
     History&        m_history;
     Level           m_level;

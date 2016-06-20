@@ -14,7 +14,7 @@
     
 GuiConsole::GuiConsole(xpd::console::history& history) : m_history(history)
 {
-    m_level = Level::post;
+    m_level = Level::normal;
     m_size  = 0;
     setWantsKeyboardFocus(true);
     TableHeaderComponent* header = new TableHeaderComponent();
@@ -62,10 +62,10 @@ void GuiConsole::buttonClicked(Button* button)
         String text;
         for(size_t i = 0; i < m_size; i++)
         {
-            xpd::console::message message(m_history.get_message_until(i, m_level));
-            if(!message.txt.empty())
+            Post message(m_history.get_post_to_level(i, m_level));
+            if(!message.text.empty())
             {
-                text += message.txt + "\n";
+                text += message.text + "\n";
             }
         }
         SystemClipboard::copyTextToClipboard(text);
@@ -75,14 +75,14 @@ void GuiConsole::buttonClicked(Button* button)
         juce::PopupMenu m;
         m.addItem(1, "Fatal", true, m_level == Level::fatal);
         m.addItem(2, "Error", true, m_level == Level::error);
-        m.addItem(3, "Normal", true, m_level == Level::post);
+        m.addItem(3, "Normal", true, m_level == Level::normal);
         m.addItem(4, "All", true, m_level == Level::log);
         int level = m.showAt(getScreenBounds().translated(0, -6 * (Gui::getFont().getHeight() + 2) - 4),
                              0, 0, Gui::getFont().getHeight() + 2);
         if(level && level != int(m_level)+1)
         {
             m_level = Level(level-1);
-            m_size = m_history.get_number_of_messages_until(m_level);
+            m_size = m_history.get_number_of_posts_to_level(m_level);
             m_table.updateContent();
         }
     }
@@ -98,10 +98,10 @@ bool GuiConsole::keyPressed(const KeyPress& key)
             String text;
             for(size_t i = 0; i < selection.size(); i++)
             {
-                xpd::console::message message(m_history.get_message_until(i ,m_level));
-                if(!message.txt.empty())
+                Post message(m_history.get_post_to_level(i ,m_level));
+                if(!message.text.empty())
                 {
-                    text += message.txt + "\n";
+                    text += message.text + "\n";
                 }
             }
             SystemClipboard::copyTextToClipboard(text);
@@ -123,22 +123,22 @@ void GuiConsole::paintRowBackground(Graphics& g, int rowNumber, int width, int h
 
 void GuiConsole::paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
 {
-    xpd::console::message message(m_history.get_message_until(rowNumber, m_level));
+    Post message(m_history.get_post_to_level(rowNumber, m_level));
     if(rowIsSelected)
     {
         g.setColour(Gui::getColorTxt());
         g.fillRect(0, 0, width, height);
     }
     g.setFont(Gui::getFont());
-    if(message.lvl == Level::fatal)
+    if(message.type == Level::fatal)
     {
         g.setColour(Colours::red);
     }
-    else if(message.lvl == Level::error)
+    else if(message.type == Level::error)
     {
         g.setColour(Colours::orange);
     }
-    else if(message.lvl == Level::post)
+    else if(message.type == Level::normal)
     {
         g.setColour(rowIsSelected ? Gui::getColorBg() : Gui::getColorTxt());
     }
@@ -146,12 +146,12 @@ void GuiConsole::paintCell(Graphics& g, int rowNumber, int columnId, int width, 
     {
         g.setColour(Colours::green);
     }
-    g.drawText(message.txt, 2, 0, width, height, juce::Justification::centredLeft);
+    g.drawText(message.text, 2, 0, width, height, juce::Justification::centredLeft);
 }
 
 void GuiConsole::timerCallback()
 {
-    const size_t size = m_history.get_number_of_messages_until(m_level);
+    const size_t size = m_history.get_number_of_posts_to_level(m_level);
     if(m_size != size)
     {
         m_size = size;

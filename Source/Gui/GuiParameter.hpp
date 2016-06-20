@@ -16,13 +16,12 @@
 class GuiParameter : public virtual Component
 {
 public:
-    GuiParameter(InstanceProcessor& processor, xpd::Gui const& gui);
-    ~GuiParameter();
-    
-    xpd::Gui::Type getType() const noexcept;
-    float getMaximum() const noexcept;
-    float getMinimum() const noexcept;
-    float getValue() const noexcept;
+    GuiParameter(InstanceProcessor& processor, xpd::gui const& gui);
+    ~GuiParameter() {}
+    inline xpd::gui::type_t getType() const noexcept {return m_type;}
+    inline float getMaximum() const noexcept {return m_maximum;}
+    inline float getMinimum() const noexcept {return m_minimum;}
+    inline float getValue() const noexcept {return m_value;}
     float getValueNormalized() const noexcept;
     void update();
     
@@ -34,14 +33,13 @@ protected:
     void setValueNormalized(float value, bool redraw = true);
 private:
     
-    
-    InstanceProcessor&  m_processor;
-    const xpd::Gui::Type m_type;
-    const float         m_minimum;
-    const float         m_maximum;
-    const size_t        m_index;
-    float               m_value;
-    bool                m_edited;
+    InstanceProcessor&      m_processor;
+    const xpd::gui::type_t  m_type;
+    const float             m_minimum;
+    const float             m_maximum;
+    const size_t            m_index;
+    float                   m_value;
+    bool                    m_edited;
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiParameter)
 };

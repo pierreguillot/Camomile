@@ -16,7 +16,7 @@
 class GuiToggle : public GuiParameter
 {
 public:
-    GuiToggle(InstanceProcessor& processor, xpd::Gui const& gui);
+    GuiToggle(InstanceProcessor& processor, xpd::gui const& gui);
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& event) final;
 private:

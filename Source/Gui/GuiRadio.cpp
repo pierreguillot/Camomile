@@ -11,7 +11,7 @@
 //                                      GUI RADIO                                       //
 // ==================================================================================== //
 
-GuiRadio::GuiRadio(InstanceProcessor& processor, xpd::Gui const& gui) : GuiParameter(processor, gui)
+GuiRadio::GuiRadio(InstanceProcessor& processor, xpd::gui const& gui) : GuiParameter(processor, gui)
 {
     
 }

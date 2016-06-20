@@ -10,44 +10,19 @@
 //                                      GUI SLIDER                                      //
 // ==================================================================================== //
 
-GuiParameter::GuiParameter(InstanceProcessor& processor, xpd::Gui const& gui) :
+GuiParameter::GuiParameter(InstanceProcessor& processor, xpd::gui const& gui) :
 m_processor(processor),
-m_type(gui.getType()),
-m_minimum(gui.getMinimum()),
-m_maximum(gui.getMaximum()),
-m_index(processor.getParameterIndex(gui.getReceivetie())+1),
+m_type(gui.type()),
+m_minimum(gui.minimum()),
+m_maximum(gui.maximum()),
+m_index(0),//processor.getParameterIndex(gui.receive_tie())+1),
 m_value(0.f),
 m_edited(false)
 {
-    xpd::Rectangle<int> bounds(gui.getBounds());
-    setBounds(bounds.x, bounds.y, bounds.w, bounds.h);
+    int todo_m_index;
+    setBounds(gui.x(), gui.y(), gui.width(), gui.height());
     setOpaque(true);
-    setValue(gui.getValue());
-}
-
-GuiParameter::~GuiParameter()
-{
-    
-}
-
-xpd::Gui::Type GuiParameter::getType() const noexcept
-{
-    return m_type;
-}
-
-float GuiParameter::getMaximum() const noexcept
-{
-    return m_maximum;
-}
-
-float GuiParameter::getMinimum() const noexcept
-{
-    return m_minimum;
-}
-
-float GuiParameter::getValue() const noexcept
-{
-    return m_value;
+    setValue(gui.value());
 }
 
 void GuiParameter::setValue(float value, bool redraw)
@@ -62,7 +37,8 @@ void GuiParameter::setValue(float value, bool redraw)
     }
     if(m_index)
     {
-        m_processor.setParameterNonNormalizedNotifyingHost(int(m_index)-1, m_value);
+        int todo;
+        //m_processor.setParameterNonNormalizedNotifyingHost(int(m_index)-1, m_value);
     }
     if(redraw)
     {
@@ -94,7 +70,8 @@ void GuiParameter::setValueNormalized(float value, bool redraw)
 
 void GuiParameter::startEdition() noexcept
 {
-    m_value = m_processor.getParameterNonNormalized(int(m_index)-1);
+    int todo;
+    //m_value = m_processor.getParameterNonNormalized(int(m_index)-1);
     m_edited = true;
 }
 
@@ -107,7 +84,8 @@ void GuiParameter::update()
 {
     if(m_index && m_edited == false)
     {
-        const float value = m_processor.getParameterNonNormalized(int(m_index)-1);
+        int todo;
+        const float value = 0.;//m_processor.getParameterNonNormalized(int(m_index)-1);
         if(value != m_value)
         {
             m_value = value;

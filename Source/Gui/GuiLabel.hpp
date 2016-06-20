@@ -16,8 +16,7 @@
 class GuiLabel : public Label
 {
 public:
-    GuiLabel(InstanceProcessor& processor, xpd::Gui const& gui);
-    ~GuiLabel();
+    GuiLabel(InstanceProcessor& processor, xpd::gui const& gui);
 };
 
 

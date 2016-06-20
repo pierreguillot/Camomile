@@ -166,7 +166,7 @@ void InstanceProcessor::parametersChanged()
     {
         int todo;
         /*
-        std::vector<xpd::Gui> guis(m_patch->getGuis());
+        std::vector<xpd::gui> guis(m_patch->getGuis());
         for(auto const& gui : guis)
         {
             if(gui.isParameter())
