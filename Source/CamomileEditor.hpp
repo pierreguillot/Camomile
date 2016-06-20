@@ -7,32 +7,26 @@
 #ifndef __CAMOMILE_INSTANCE_EDITOR__
 #define __CAMOMILE_INSTANCE_EDITOR__
 
-//#include "Gui/Gui.hpp"
+#include "Gui/Gui.hpp"
+#include "InstanceProcessor.hpp"
 
 // ==================================================================================== //
 //                                  INSTANCE EDITOR                                     //
 // ==================================================================================== //
 
-/*
-class InstanceEditor : public AudioProcessorEditor, public xpd::instance::listener, public Button::Listener
+class CamomileEditor : public AudioProcessorEditor, public InstanceProcessor::Listener, public Button::Listener
 {
 public:
-    InstanceEditor(InstanceProcessor&);
-    ~InstanceEditor();
+    CamomileEditor(InstanceProcessor&);
+    ~CamomileEditor();
     void paint(Graphics&) final;
     void buttonClicked(Button* button) final;
-    void patch_created(xpd::patch* p) final;
-    void patch_deleted(xpd::patch* p) final;
 private:
     InstanceProcessor&  m_processor;
-    GuiFlowerButton     m_button;
     GuiPatcher          m_patcher;
+    GuiFlowerButton     m_button;
     GuiWindow           m_window;
-    
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(InstanceEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditor)
 };
- */
-
-
 
 #endif
