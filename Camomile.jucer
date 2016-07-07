@@ -18,16 +18,14 @@
             file="Source/InstanceProcessor.cpp"/>
       <FILE id="eYMfby" name="InstanceProcessor.hpp" compile="0" resource="0"
             file="Source/InstanceProcessor.hpp"/>
-      <FILE id="P1IYgm" name="CamomileEditor.cpp" compile="1" resource="0"
-            file="Source/CamomileEditor.cpp"/>
-      <FILE id="l2CEqO" name="CamomileEditor.hpp" compile="0" resource="0"
-            file="Source/CamomileEditor.hpp"/>
-      <FILE id="xXu58p" name="CamomileParameter.cpp" compile="1" resource="0"
-            file="Source/CamomileParameter.cpp"/>
-      <FILE id="y79qKg" name="CamomileParameter.hpp" compile="0" resource="0"
-            file="Source/CamomileParameter.hpp"/>
       <FILE id="A3woQ5" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
       <FILE id="PY3eEX" name="LookAndFeel.hpp" compile="0" resource="0" file="Source/LookAndFeel.hpp"/>
+      <GROUP id="{A2EEC958-343E-2619-6C3A-90AE6C704457}" name="Camo">
+        <FILE id="cvk4I6" name="CamoParameter.cpp" compile="1" resource="0"
+              file="Source/Camo/CamoParameter.cpp"/>
+        <FILE id="az6QaN" name="CamoParameter.hpp" compile="0" resource="0"
+              file="Source/Camo/CamoParameter.hpp"/>
+      </GROUP>
       <GROUP id="{5A0FA5A4-A4CD-0F98-6047-84A5A87C6E33}" name="Gui">
         <FILE id="hF28IC" name="Gui.cpp" compile="1" resource="0" file="Source/Gui/Gui.cpp"/>
         <FILE id="bg8sKH" name="Gui.hpp" compile="0" resource="0" file="Source/Gui/Gui.hpp"/>
@@ -228,9 +226,9 @@
                vst3Folder="ThirdParty/Vst/" extraDefs="HAVE_UNISTD_H=1&#10;HAVE_ALLOCA_H=1&#10;HAVE_LIBDL=1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"
-                       isDebug="1" optimisation="1" targetName="Camomile" headerPath="../../ThirdParty/PureData/src"/>
+                       isDebug="1" optimisation="1" targetName="Camomile" headerPath=""/>
         <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"
-                       isDebug="0" optimisation="3" targetName="Camomile" headerPath="../../ThirdParty/PureData/src"
+                       isDebug="0" optimisation="3" targetName="Camomile" headerPath=""
                        linkTimeOptimisation="1"/>
       </CONFIGURATIONS>
       <MODULEPATHS>

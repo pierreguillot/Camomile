@@ -50,9 +50,8 @@ endif
 
 OBJECTS := \
   $(OBJDIR)/InstanceProcessor_bc7e525e.o \
-  $(OBJDIR)/CamomileEditor_6e8172eb.o \
-  $(OBJDIR)/CamomileParameter_f8a4cbf5.o \
   $(OBJDIR)/LookAndFeel_40552bdf.o \
+  $(OBJDIR)/CamoParameter_a8009c23.o \
   $(OBJDIR)/Gui_edc4c728.o \
   $(OBJDIR)/GuiAbout_58af930f.o \
   $(OBJDIR)/GuiComment_699305a1.o \
@@ -203,19 +202,14 @@ $(OBJDIR)/InstanceProcessor_bc7e525e.o: ../../Source/InstanceProcessor.cpp
 	@echo "Compiling InstanceProcessor.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/CamomileEditor_6e8172eb.o: ../../Source/CamomileEditor.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling CamomileEditor.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/CamomileParameter_f8a4cbf5.o: ../../Source/CamomileParameter.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling CamomileParameter.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
 $(OBJDIR)/LookAndFeel_40552bdf.o: ../../Source/LookAndFeel.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling LookAndFeel.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/CamoParameter_a8009c23.o: ../../Source/Camo/CamoParameter.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling CamoParameter.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/Gui_edc4c728.o: ../../Source/Gui/Gui.cpp

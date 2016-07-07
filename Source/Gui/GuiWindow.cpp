@@ -11,8 +11,7 @@
 //                                      GUI WINDOW                                      //
 // ==================================================================================== //
 
-GuiWindow::GuiWindow() :
-DocumentWindow(String(""), Gui::getColorBg(), DocumentWindow::closeButton, false)
+GuiWindow::GuiWindow() : DocumentWindow(String(""), Gui::getColorBg(), DocumentWindow::closeButton, false)
 {
     setUsingNativeTitleBar(true);
     setBounds(50, 50, 300, 370);

@@ -8,6 +8,9 @@
     <Filter Include="Camomile\Source">
       <UniqueIdentifier>{33E9C75D-FCFD-D74A-6894-584B92DA1489}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Camomile\Source\Camo">
+      <UniqueIdentifier>{5F477D59-C08B-23A1-C392-406296F2EFD6}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Camomile\Source\Gui">
       <UniqueIdentifier>{3AF8F85C-58F5-53F7-00C3-F524890FB4C3}</UniqueIdentifier>
     </Filter>
@@ -301,14 +304,11 @@
     <ClCompile Include="..\..\Source\InstanceProcessor.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\CamomileEditor.cpp">
-      <Filter>Camomile\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\CamomileParameter.cpp">
-      <Filter>Camomile\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\LookAndFeel.cpp">
       <Filter>Camomile\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Camo\CamoParameter.cpp">
+      <Filter>Camomile\Source\Camo</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Gui\Gui.cpp">
       <Filter>Camomile\Source\Gui</Filter>
@@ -2142,14 +2142,11 @@
     <ClInclude Include="..\..\Source\InstanceProcessor.hpp">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\CamomileEditor.hpp">
-      <Filter>Camomile\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\CamomileParameter.hpp">
-      <Filter>Camomile\Source</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\LookAndFeel.hpp">
       <Filter>Camomile\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Camo\CamoParameter.hpp">
+      <Filter>Camomile\Source\Camo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Gui\Gui.hpp">
       <Filter>Camomile\Source\Gui</Filter>

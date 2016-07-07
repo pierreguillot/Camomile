@@ -260,9 +260,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\InstanceProcessor.cpp"/>
-    <ClCompile Include="..\..\Source\CamomileEditor.cpp"/>
-    <ClCompile Include="..\..\Source\CamomileParameter.cpp"/>
     <ClCompile Include="..\..\Source\LookAndFeel.cpp"/>
+    <ClCompile Include="..\..\Source\Camo\CamoParameter.cpp"/>
     <ClCompile Include="..\..\Source\Gui\Gui.cpp"/>
     <ClCompile Include="..\..\Source\Gui\GuiAbout.cpp"/>
     <ClCompile Include="..\..\Source\Gui\GuiComment.cpp"/>
@@ -1725,9 +1724,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\InstanceProcessor.hpp"/>
-    <ClInclude Include="..\..\Source\CamomileEditor.hpp"/>
-    <ClInclude Include="..\..\Source\CamomileParameter.hpp"/>
     <ClInclude Include="..\..\Source\LookAndFeel.hpp"/>
+    <ClInclude Include="..\..\Source\Camo\CamoParameter.hpp"/>
     <ClInclude Include="..\..\Source\Gui\Gui.hpp"/>
     <ClInclude Include="..\..\Source\Gui\GuiAbout.hpp"/>
     <ClInclude Include="..\..\Source\Gui\GuiComment.hpp"/>

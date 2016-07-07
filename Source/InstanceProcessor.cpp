@@ -12,9 +12,11 @@ xpd::symbol InstanceProcessor::s_playing;
 xpd::symbol InstanceProcessor::s_measure;
 xpd::symbol InstanceProcessor::s_float;
 
-InstanceProcessor::InstanceProcessor() : xpd::instance(),
-//m_parameters(64),
-m_playing_list(2), m_measure_list(5), m_name("Camomile")
+InstanceProcessor::InstanceProcessor() :
+m_parameters(64),
+m_playing_list(2),
+m_measure_list(5),
+m_name("Camomile")
 {
     send(xpd::console::post{xpd::console::level::log, std::string("Camomile ") +
         std::string(JucePlugin_VersionString) + std::string(" for Pure Data ") +
@@ -40,7 +42,7 @@ const String InstanceProcessor::getName() const
     return m_name;
 }
 
-/*
+
 int InstanceProcessor::getNumParameters()
 {
     return int(m_parameters.size());
@@ -77,7 +79,6 @@ void InstanceProcessor::setParameterNonNormalizedNotifyingHost(int index, float 
 {
     setParameterNotifyingHost(index, m_parameters[index].getValueNormalized(newValue));
 }
-
 
 void InstanceProcessor::setParameter(int index, float newValue)
 {
@@ -130,7 +131,7 @@ int InstanceProcessor::getParameterIndex(xpd::tie const& name)
     {
         for(size_t i = 0; i < m_parameters.size(); i++)
         {
-            if(m_parameters[i].gettie() == name)
+            if(m_parameters[i].getTie() == name)
             {
                 return int(i);
             }
@@ -151,16 +152,15 @@ int InstanceProcessor::getParameterIndex(String const& name)
     return -1;
 }
 
-*/
+
 void InstanceProcessor::parametersChanged()
 {
     size_t index = 0;
-    /*
+    
     for(size_t i = 0; i < m_parameters.size(); i++)
     {
-        m_parameters[i] = xpd::Parameter();
+        m_parameters[i] = camo::Parameter();
     }
-    */
     
     if(m_patch)
     {
@@ -194,7 +194,7 @@ void InstanceProcessor::parametersChanged()
                 }
             }
         }
-         */
+        */
     }
     updateHostDisplay();
 }
@@ -237,12 +237,11 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
             m_measure_list[4] = m_playinfos.ppqPositionOfLastBarStart;
             send(m_patch_tie, s_measure, m_measure_list);
         }
-        /*
+        
         for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); ++i)
         {
-            send(m_parameters[i].gettie(), s_float, std::vector<xpd::atom>(1, m_parameters[i].getValueNonNormalized()));
+            send(m_parameters[i].getTie(), s_float, std::vector<xpd::atom>(1, m_parameters[i].getValueNonNormalized()));
         }
-         */
         
         MidiMessage message;
         MidiBuffer::Iterator it(midiMessages);
@@ -326,8 +325,7 @@ void InstanceProcessor::receive(xpd::midi::event const& event)
 
 AudioProcessorEditor* InstanceProcessor::createEditor()
 {
-    int todo;
-    return nullptr; //new InstanceEditor(*this);
+    return new CamomileEditor(*this);
 }
 
 void InstanceProcessor::loadPatch(std::string const& name, std::string const& path)

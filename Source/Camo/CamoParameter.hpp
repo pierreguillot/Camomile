@@ -4,8 +4,8 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef CAMOMILE_PARAMETER_INCLUDE_HPP
-#define CAMOMILE_PARAMETER_INCLUDE_HPP
+#ifndef CAMO_PARAMETER_INCLUDE_HPP
+#define CAMO_PARAMETER_INCLUDE_HPP
 
 #include <string>
 #include <cstdlib>
@@ -56,4 +56,4 @@ namespace camo
 }
 
 
-#endif
+#endif // CAMO_PARAMETER_INCLUDE_HPP

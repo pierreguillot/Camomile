@@ -58,7 +58,6 @@ InstanceLoader::InstanceLoader() : m_name("Camomile"), m_ninputs(16), m_noutputs
                                     m_parameters.resize(params_array->size());
                                 }
                             }
-                            
                         }
                     }
                 }

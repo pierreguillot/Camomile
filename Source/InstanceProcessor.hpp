@@ -8,6 +8,7 @@
 #define __CAMOMILE_INTANCE_PROCESSOR__
 
 #include "../ThirdParty/zpd/xpd/xpd.hpp"
+#include "Camo/CamoParameter.hpp"
 #include "../JuceLibraryCode/JuceHeader.h"
 
 
@@ -15,7 +16,10 @@
 //                                  INSTANCE EDITOR                                     //
 // ==================================================================================== //
 
-class InstanceProcessor : public AudioProcessor, public xpd::instance, public xpd::console::history
+class InstanceProcessor :
+public AudioProcessor,
+private xpd::instance,
+public xpd::console::history
 {
 public:
     InstanceProcessor();
@@ -29,7 +33,6 @@ public:
     bool hasEditor() const final {return true;};
     const String getName() const final ;
     
-    /*
     int getNumParameters() final;
     float getParameter(int index) final;
     void setParameter(int index, float newValue) final;
@@ -45,7 +48,7 @@ public:
     float getParameterNonNormalized(int index) const;
     void setParameterNonNormalized(int index, float newValue);
     void setParameterNonNormalizedNotifyingHost(int index, float newValue);
-    */
+    
     const String getInputChannelName(int index) const final {return String(index + 1);}
     const String getOutputChannelName(int index) const final {return String(index + 1);}
     bool isInputChannelStereoPair(int index) const final {return true;}
@@ -110,7 +113,7 @@ private:
     static xpd::symbol s_measure;
     static xpd::symbol s_float;
     xpd::patch         m_patch;
-    //std::vector<xpd::Parameter>         m_parameters;
+    std::vector<camo::Parameter>        m_parameters;
     juce::String                        m_path;
     MidiBuffer                          m_midi;
     xpd::tie                            m_patch_tie;

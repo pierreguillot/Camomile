@@ -4,7 +4,7 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "CamomileParameter.hpp"
+#include "CamoParameter.hpp"
 #include <cmath>
 
 namespace camo
