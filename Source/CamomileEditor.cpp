@@ -14,24 +14,20 @@
 
 CamomileEditor::CamomileEditor(InstanceProcessor& p) : AudioProcessorEditor(&p), m_processor(p)
 {
-    
-    int todo;
     setOpaque(true);
     setSize(600, 420);
     setWantsKeyboardFocus(true);
-    //m_processor.listener_add(this);
+    m_processor.add_listener(*this);
     addAndMakeVisible(m_patcher);
     addAndMakeVisible(m_button);
     m_button.addListener(this);
-    
-    int todo2;
-    //patchChanged();
+    patch_changed();
 }
 
 CamomileEditor::~CamomileEditor()
 {
     int todo;
-    //m_processor.listener_remove(this);
+    m_processor.remove_listener(*this);
 }
 
 void CamomileEditor::paint(Graphics& g)
@@ -43,7 +39,7 @@ void CamomileEditor::paint(Graphics& g)
     g.drawLine(0.f, 20.f, getWidth(), 20.f, Gui::getBorderSize());
     g.setFont(Gui::getFont());
     g.setColour(Gui::getColorTxt());
-    xpd::patch const patch = m_processor.getPatch();
+    xpd::patch const patch = m_processor.get_patch();
     if(bool(patch))
     {
         g.drawText(String(patch.name()).upToLastOccurrenceOf(StringRef(".pd"), false, false),
@@ -56,9 +52,9 @@ void CamomileEditor::paint(Graphics& g)
 }
 
 
-void CamomileEditor::patchChanged()
+void CamomileEditor::patch_changed()
 {
-    const xpd::patch patch = m_processor.getPatch();
+    const xpd::patch patch = m_processor.get_patch();
     if(bool(patch))
     {
         m_patcher.setPatch(m_processor, patch);
@@ -90,7 +86,7 @@ void CamomileEditor::buttonClicked(Button* button)
         }
         else if(result == 2)
         {
-            xpd::patch const patch = m_processor.getPatch();
+            xpd::patch const patch = m_processor.get_patch();
             if(bool(patch))
             {
                 FileChooser fc("Open a patch...", File(patch.path()), "*.pd", true);
@@ -99,7 +95,7 @@ void CamomileEditor::buttonClicked(Button* button)
                     juce::File file(fc.getResult());
                     if(file.getFileExtension() == juce::String(".pd"))
                     {
-                        m_processor.loadPatch(file.getFileName().toStdString(),
+                        m_processor.load_patch(file.getFileName().toStdString(),
                                               file.getParentDirectory().getFullPathName().toStdString());
                     }
                 }
@@ -112,7 +108,7 @@ void CamomileEditor::buttonClicked(Button* button)
                     juce::File file(fc.getResult());
                     if(file.exists() && file.getFileExtension() == juce::String(".pd"))
                     {
-                        m_processor.loadPatch(file.getFileName().toStdString(),
+                        m_processor.load_patch(file.getFileName().toStdString(),
                                               file.getParentDirectory().getFullPathName().toStdString());
                     }
                 }
@@ -120,14 +116,14 @@ void CamomileEditor::buttonClicked(Button* button)
         }
         else if(result == 3)
         {
-            m_processor.closePatch();
+            m_processor.close_patch();
         }
         else if(result == 4)
         {
-            xpd::patch const patch = m_processor.getPatch();
+            xpd::patch const patch = m_processor.get_patch();
             if(bool(patch))
             {
-                m_processor.loadPatch(patch.name(), patch.path());
+                m_processor.load_patch(patch.name(), patch.path());
             }
         }
         else if(result == 5)

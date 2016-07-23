@@ -13,7 +13,6 @@ xpd::symbol InstanceProcessor::s_measure;
 xpd::symbol InstanceProcessor::s_float;
 
 InstanceProcessor::InstanceProcessor() :
-m_parameters(64),
 m_playing_list(2),
 m_measure_list(5),
 m_name("Camomile")
@@ -43,161 +42,61 @@ const String InstanceProcessor::getName() const
 }
 
 
+// ==================================================================================== //
+//                                          PARAMETERS                                  //
+// ==================================================================================== //
+
 int InstanceProcessor::getNumParameters()
 {
-    return int(m_parameters.size());
+    return get_number_of_parameters() != 0 ? get_number_of_parameters() : 64;
 }
 
 const String InstanceProcessor::getParameterName(int index)
 {
-    if(m_parameters[index].isValid())
-    {
-        return m_parameters[index].getName();
-    }
-    else
-    {
-        return String("Dummy ") + String(std::to_string(index + 1));
-    }
-}
-
-float InstanceProcessor::getParameter(int index)
-{
-    return m_parameters[index].getValueNormalized();
-}
-
-float InstanceProcessor:: getParameterNonNormalized(int index) const
-{
-    return m_parameters[index].getValueNonNormalized();
-}
-
-void InstanceProcessor::setParameterNonNormalized(int index, float newValue)
-{
-    m_parameters[index].setValueNonNormalized(newValue);
-}
-
-void InstanceProcessor::setParameterNonNormalizedNotifyingHost(int index, float newValue)
-{
-    setParameterNotifyingHost(index, m_parameters[index].getValueNormalized(newValue));
-}
-
-void InstanceProcessor::setParameter(int index, float newValue)
-{
-    m_parameters[index].setValueNormalized(newValue);
-}
-
-float InstanceProcessor::getParameterDefaultValue(int index)
-{
-    return 0.;
-}
-
-const String InstanceProcessor::getParameterText(int index)
-{
-    return m_parameters[index].getTextForValue();
-}
-
-String InstanceProcessor::getParameterText(int index, int size)
-{
-    return m_parameters[index].getTextForValue();
+    return get_parameter_name(index);
 }
 
 String InstanceProcessor::getParameterLabel(int index) const
 {
-    return m_parameters[index].getLabel();
+    return get_parameter_label(index);
+}
+
+float InstanceProcessor::getParameter(int index)
+{
+    return get_parameter_value(index);
+}
+
+void InstanceProcessor::setParameter(int index, float newValue)
+{
+    set_parameter_value(index, newValue);
+}
+
+float InstanceProcessor::getParameterDefaultValue(int index)
+{
+    return get_parameter_default_value(index);
+}
+
+const String InstanceProcessor::getParameterText(int index)
+{
+    return get_parameter_text(index);
+}
+
+String InstanceProcessor::getParameterText(int index, int size)
+{
+    return String(get_parameter_text(index)).substring(0, size);
 }
 
 int InstanceProcessor::getParameterNumSteps(int index)
 {
-    return m_parameters[index].getNumberOfSteps();
-}
-
-bool InstanceProcessor::isParameterAutomatable(int index) const
-{
-    return true;
-}
-
-bool InstanceProcessor::isParameterOrientationInverted(int index) const
-{
-    return m_parameters[index].isOrientationInverted();
-}
-
-bool InstanceProcessor::isMetaParameter(int index) const
-{
-    return false;
-}
-
-int InstanceProcessor::getParameterIndex(xpd::tie const& name)
-{
-    if(name != xpd::tie())
-    {
-        for(size_t i = 0; i < m_parameters.size(); i++)
-        {
-            if(m_parameters[i].getTie() == name)
-            {
-                return int(i);
-            }
-        }
-    }
-    return -1;
-}
-
-int InstanceProcessor::getParameterIndex(String const& name)
-{
-    for(size_t i = 0; i < m_parameters.size(); i++)
-    {
-        if(m_parameters[i].getName() == name)
-        {
-            return int(i);
-        }
-    }
-    return -1;
+    return static_cast<int>(get_parameter_nsteps(index));
 }
 
 
-void InstanceProcessor::parametersChanged()
-{
-    size_t index = 0;
-    
-    for(size_t i = 0; i < m_parameters.size(); i++)
-    {
-        m_parameters[i] = camo::Parameter();
-    }
-    
-    if(m_patch)
-    {
-        int todo;
-        /*
-        std::vector<xpd::gui> guis(m_patch->getGuis());
-        for(auto const& gui : guis)
-        {
-            if(gui.isParameter())
-            {
-                bool ok = true;
-                for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); i++)
-                {
-                    if(gui.getName() == m_parameters[i].getName())
-                    {
-                        send({xpd::console::level::error, "Warning in patch " + m_patch->name() + ": "  + gui.getName() + " parameter is duplicated !"});
-                        ok = false;
-                        break;
-                    }
-                    else if(gui.getReceivetie() == m_parameters[i].gettie())
-                    {
-                        send({xpd::console::level::error, "Warning in patch " + m_patch->name() + ": "  + gui.getName() + " parameter shares the same receive symbol with another parameter !"});
-                        ok = false;
-                        break;
-                    }
-                }
-                if(ok)
-                {
-                    m_parameters[index] = xpd::Parameter(gui);
-                    index++;
-                }
-            }
-        }
-        */
-    }
-    updateHostDisplay();
-}
+
+
+
+
+
 
 void InstanceProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
@@ -238,10 +137,12 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
             send(m_patch_tie, s_measure, m_measure_list);
         }
         
-        for(size_t i = 0; i < m_parameters.size() && m_parameters[i].isValid(); ++i)
+        /*
+        for(size_t i = 0; i < m_parameters.size() && bool(m_parameters[i]); ++i)
         {
-            send(m_parameters[i].getTie(), s_float, std::vector<xpd::atom>(1, m_parameters[i].getValueNonNormalized()));
+            send(m_parameters[i].receive_tie(), s_float, std::vector<xpd::atom>(1, m_parameters[i].get_value_denormalized()));
         }
+        */
         
         MidiMessage message;
         MidiBuffer::Iterator it(midiMessages);
@@ -328,51 +229,26 @@ AudioProcessorEditor* InstanceProcessor::createEditor()
     return new CamomileEditor(*this);
 }
 
-void InstanceProcessor::loadPatch(std::string const& name, std::string const& path)
+void InstanceProcessor::load_patch(std::string const& name, std::string const& path)
 {
     suspendProcessing(true);
     if(isSuspended())
     {
-        xpd::instance::release();
-        if(static_cast<bool>(m_patch))
-        {
-            close(m_patch);
-        }
-        m_patch = xpd::instance::load(name, path);
-        if(static_cast<bool>(m_patch))
-        {
-            m_patch_tie = xpd::tie(std::to_string(m_patch.unique_id()) + "-playhead");
-        }
-        else
-        {
-            send(xpd::console::post(xpd::console::error, std::string("Camomile can't find the patch : ") + name));
-        }
-        parametersChanged();
-        prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), AudioProcessor::getSampleRate(), getBlockSize());
-        
-        int todo_notify_listeners;
-        //
+        camo::instance::load_patch(name, path);
+        updateHostDisplay();
+        camo::instance::prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), AudioProcessor::getSampleRate(), getBlockSize());
     }
     suspendProcessing(false);
 }
 
-void InstanceProcessor::closePatch()
+void InstanceProcessor::close_patch()
 {
     suspendProcessing(true);
     if(isSuspended())
     {
-        xpd::instance::release();
-        if(static_cast<bool>(m_patch))
-        {
-            close(m_patch);
-            m_patch_tie = xpd::tie();
-        }
-        
-        parametersChanged();
-        prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), AudioProcessor::getSampleRate(), getBlockSize());
-        
-        int todo_notify_listeners;
-        //
+        camo::instance::close_patch();
+        updateHostDisplay();
+        camo::instance::prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), AudioProcessor::getSampleRate(), getBlockSize());
     }
     suspendProcessing(false);
 }

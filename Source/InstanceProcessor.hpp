@@ -8,7 +8,7 @@
 #define __CAMOMILE_INTANCE_PROCESSOR__
 
 #include "../ThirdParty/zpd/xpd/xpd.hpp"
-#include "Camo/CamoParameter.hpp"
+#include "Camo/camo.hpp"
 #include "../JuceLibraryCode/JuceHeader.h"
 
 
@@ -18,8 +18,7 @@
 
 class InstanceProcessor :
 public AudioProcessor,
-private xpd::instance,
-public xpd::console::history
+public camo::instance
 {
 public:
     InstanceProcessor();
@@ -33,6 +32,11 @@ public:
     bool hasEditor() const final {return true;};
     const String getName() const final ;
     
+    
+    // ==================================================================================== //
+    //                                          PARAMETERS                                  //
+    // ==================================================================================== //
+
     int getNumParameters() final;
     float getParameter(int index) final;
     void setParameter(int index, float newValue) final;
@@ -42,12 +46,7 @@ public:
     String getParameterText(int index, int size) final;
     String getParameterLabel (int index) const final;
     int getParameterNumSteps(int index) final;
-    bool isParameterAutomatable(int index) const final;
-    bool isParameterOrientationInverted (int index) const final;
-    bool isMetaParameter(int index) const final;
-    float getParameterNonNormalized(int index) const;
-    void setParameterNonNormalized(int index, float newValue);
-    void setParameterNonNormalizedNotifyingHost(int index, float newValue);
+
     
     const String getInputChannelName(int index) const final {return String(index + 1);}
     const String getOutputChannelName(int index) const final {return String(index + 1);}
@@ -64,34 +63,12 @@ public:
     void setCurrentProgram(int index) final {}
     const String getProgramName(int index) final {return String();}
     void changeProgramName(int index, const String& newName) final {}
-    int getParameterIndex(xpd::tie const& name);
-    int getParameterIndex(String const& name);
     
     void getStateInformation(MemoryBlock& destData) final;
     void setStateInformation(const void* data, int sizeInBytes) final;
-
-    // ==================================================================================== //
-    //                                          PATCH                                       //
-    // ==================================================================================== //
-
-    //! @brief Loads a patch.
-    void loadPatch(std::string const& name, std::string const& path);
     
-    //! @brief Closes a patch.
-    void closePatch();
-    
-    //! @brief Closes a patch.
-    inline xpd::patch const getPatch() const noexcept {return m_patch;}
-    
-    class Listener
-    {
-    public:
-        virtual ~Listener() noexcept {}
-        virtual void patchChanged() = 0;
-    };
-    
-    
-    
+    void load_patch(std::string const& name, std::string const& path);
+    void close_patch();
 protected:
     
     //! @brief Receives a message from a tie.
@@ -112,8 +89,8 @@ private:
     static xpd::symbol s_playing;
     static xpd::symbol s_measure;
     static xpd::symbol s_float;
-    xpd::patch         m_patch;
-    std::vector<camo::Parameter>        m_parameters;
+
+
     juce::String                        m_path;
     MidiBuffer                          m_midi;
     xpd::tie                            m_patch_tie;
@@ -122,8 +99,6 @@ private:
     AudioPlayHead::CurrentPositionInfo  m_playinfos;
     
     juce::String    m_name;
-
-    void parametersChanged();
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (InstanceProcessor)
 };

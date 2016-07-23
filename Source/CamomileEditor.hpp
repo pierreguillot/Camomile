@@ -14,14 +14,14 @@
 //                                  CAMOMILE EDITOR                                     //
 // ==================================================================================== //
 
-class CamomileEditor : public AudioProcessorEditor, public InstanceProcessor::Listener, public Button::Listener
+class CamomileEditor : public AudioProcessorEditor, public camo::instance::listener, public Button::Listener
 {
 public:
     CamomileEditor(InstanceProcessor&);
     ~CamomileEditor();
     void paint(Graphics&) final;
     void buttonClicked(Button* button) final;
-    void patchChanged() final;
+    void patch_changed() final;
 private:
     InstanceProcessor&  m_processor;
     GuiPatcher          m_patcher;
