@@ -8,12 +8,12 @@
 
 namespace camo
 {
-    instance::~instance()
+    camomile::~camomile()
     {
         
     }
     
-    void instance::load_patch(const std::string &name, const std::string &path)
+    void camomile::load_patch(const std::string &name, const std::string &path)
     {
         xpd::instance::release();
         if(static_cast<bool>(m_patch))
@@ -27,12 +27,12 @@ namespace camo
         }
         else
         {
-            send(xpd::console::post(xpd::console::error, std::string("instance can't find the patch : ") + name));
+            send(xpd::console::post(xpd::console::error, std::string("camomile can't find the patch : ") + name));
         }
     }
     
     
-    void instance::close_patch()
+    void camomile::close_patch()
     {
         xpd::instance::release();
         if(static_cast<bool>(m_patch))
@@ -42,12 +42,12 @@ namespace camo
         }
     }
     
-    void instance::add_listener(listener& l)
+    void camomile::add_listener(listener& l)
     {
         m_listeners.insert(&l);
     }
     
-    void instance::remove_listener(listener& l)
+    void camomile::remove_listener(listener& l)
     {
         m_listeners.erase(&l);
     }

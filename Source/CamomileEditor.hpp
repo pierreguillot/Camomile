@@ -14,7 +14,7 @@
 //                                  CAMOMILE EDITOR                                     //
 // ==================================================================================== //
 
-class CamomileEditor : public AudioProcessorEditor, public camo::instance::listener, public Button::Listener
+class CamomileEditor : public AudioProcessorEditor, public camo::camomile::listener, public Button::Listener
 {
 public:
     CamomileEditor(InstanceProcessor&);

@@ -14,37 +14,60 @@ namespace camo
     // ==================================================================================== //
     //                                  CAMOMILE INSTANCE                                   //
     // ==================================================================================== //
-
-    class instance : public exchanger, public xpd::console::history
+    //! @brief
+    //! @details
+    class camomile : public exchanger, public xpd::console::history
     {
     public:
        
-        virtual ~instance();
+        //! @brief The default constructor.
+        camomile() = default;
+        
+        //! @brief The virutal destructor.
+        virtual ~camomile();
         
         // ================================================================================ //
         //                                      PATCH                                       //
         // ================================================================================ //
  
+        //! @brief Loads a patch.
+        //! @details You can override the method to perform extra stuff before and after the loading of the patch.
         virtual void load_patch(std::string const& name, std::string const& path);
         
+        //! @brief Closes a patch.
+        //! @details You can override the method to perform extra stuff before and after the closing of the patch.
         virtual void close_patch();
         
+        //! @brief Returns the current patch.
         inline xpd::patch const get_patch() const noexcept {return m_patch;}
+        
+        
+        // ================================================================================ //
+        //                                      PARAMETERS                                  //
+        // ================================================================================ //
+
+        
         
         
         // ================================================================================ //
         //                                      LISTENER                                    //
         // ================================================================================ //
         
+        //! @brief The camomile listener.
         class listener
         {
         public:
-            virtual ~listener() {}
+            virtual ~listener() = default;
+            
+            //! @brief Receives the notification that the patch changed.
+            //! @details You must override the method.
             virtual void patch_changed() = 0;
         };
         
+        //! @brief Adds a listener to camomile.
         void add_listener(listener& l);
         
+        //! @brief Removes a listener from camomile.
         void remove_listener(listener& l);
         
     private:

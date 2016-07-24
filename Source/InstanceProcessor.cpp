@@ -26,8 +26,8 @@ m_name("Camomile")
     s_playing           = xpd::symbol("playing");
     s_measure           = xpd::symbol("measure");
     s_float             = xpd::symbol("float");
-    busArrangement.inputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
-    busArrangement.outputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(16);
+    busArrangement.inputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(32);
+    busArrangement.outputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(32);
     m_path = juce::File::getCurrentWorkingDirectory().getFullPathName();
 }
 
@@ -224,19 +224,18 @@ void InstanceProcessor::receive(xpd::midi::event const& event)
     }
 }
 
-AudioProcessorEditor* InstanceProcessor::createEditor()
-{
-    return new CamomileEditor(*this);
-}
+// ================================================================================ //
+//                                      PATCH                                       //
+// ================================================================================ //
 
 void InstanceProcessor::load_patch(std::string const& name, std::string const& path)
 {
     suspendProcessing(true);
     if(isSuspended())
     {
-        camo::instance::load_patch(name, path);
+        camo::camomile::load_patch(name, path);
         updateHostDisplay();
-        camo::instance::prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), AudioProcessor::getSampleRate(), getBlockSize());
+        camo::camomile::prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), AudioProcessor::getSampleRate(), getBlockSize());
     }
     suspendProcessing(false);
 }
@@ -246,38 +245,37 @@ void InstanceProcessor::close_patch()
     suspendProcessing(true);
     if(isSuspended())
     {
-        camo::instance::close_patch();
+        camo::camomile::close_patch();
         updateHostDisplay();
-        camo::instance::prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), AudioProcessor::getSampleRate(), getBlockSize());
+        camo::camomile::prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), AudioProcessor::getSampleRate(), getBlockSize());
     }
     suspendProcessing(false);
 }
 
+
+// ================================================================================ //
+//                                  STATE INFORMATION                               //
+// ================================================================================ //
+
 void InstanceProcessor::getStateInformation(MemoryBlock& destData)
 {
     juce::XmlElement xml(String("CamomileSettings"));
-    /*
-    xpd::Patch patch(getPatch());
-    if(patch.isValid())
+    xpd::patch patch(get_patch());
+    if(static_cast<bool>(patch))
     {
-        xml.setAttribute(String("name"), patch.getName());
-        xml.setAttribute(String("path"), patch.getPath());
+        xml.setAttribute(String("name"), patch.name());
+        xml.setAttribute(String("path"), patch.path());
     }
     XmlElement* params = xml.createNewChildElement("params");
-    for(size_t i = 0; i < m_parameters.size(); i++)
+    for(size_t i = 0; i < get_number_of_parameters(); ++i)
     {
-        if(m_parameters[i].isValid())
-        {
-            params->setAttribute(String(m_parameters[i].getName()), double(m_parameters[i].getValueNormalized()));
-        }
+        params->setAttribute(String(get_parameter_name(i)), static_cast<double>(get_parameter_value(i, true)));
     }
     copyXmlToBinary(xml, destData);
-     */
 }
 
-void InstanceProcessor::setStateInformation (const void* data, int sizeInBytes)
+void InstanceProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
-    /*
     ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
     if(xml != nullptr)
     {
@@ -304,7 +302,7 @@ void InstanceProcessor::setStateInformation (const void* data, int sizeInBytes)
                         }
                     }
                 }
-                loadPatch(name.toStdString(), path.toStdString());
+                this->load_patch(name.toStdString(), path.toStdString());
             }
             
             XmlElement* params = xml->getChildByName(juce::StringRef("params"));
@@ -312,16 +310,24 @@ void InstanceProcessor::setStateInformation (const void* data, int sizeInBytes)
             {
                 for(int i = 0; i < params->getNumAttributes(); i++)
                 {
-                    int index = getParameterIndex(params->getAttributeName(i));
-                    if(index >= 0)
+                    String const& name = params->getAttributeName(i);
+                    for(size_t i = 0; i < get_number_of_parameters(); ++i)
                     {
-                        setParameterNotifyingHost(index, params->getAttributeValue(i).getDoubleValue());
+                        if(name == get_parameter_name(i))
+                        {
+                            setParameterNotifyingHost(i, params->getAttributeValue(i).getDoubleValue());
+                        }
                     }
                 }
             }
         }
     }
-     */
+}
+
+
+AudioProcessorEditor* InstanceProcessor::createEditor()
+{
+    return new CamomileEditor(*this);
 }
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()

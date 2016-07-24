@@ -18,7 +18,7 @@
 
 class InstanceProcessor :
 public AudioProcessor,
-public camo::instance
+public camo::camomile
 {
 public:
     InstanceProcessor();
@@ -64,11 +64,20 @@ public:
     const String getProgramName(int index) final {return String();}
     void changeProgramName(int index, const String& newName) final {}
     
+    // ================================================================================ //
+    //                                      PATCH                                       //
+    // ================================================================================ //
+ 
+    void load_patch(std::string const& name, std::string const& path);
+    void close_patch();
+
+    // ================================================================================ //
+    //                                  STATE INFORMATION                               //
+    // ================================================================================ //
+
     void getStateInformation(MemoryBlock& destData) final;
     void setStateInformation(const void* data, int sizeInBytes) final;
     
-    void load_patch(std::string const& name, std::string const& path);
-    void close_patch();
 protected:
     
     //! @brief Receives a message from a tie.
