@@ -11,7 +11,8 @@
               pluginRTASCategory="" aaxIdentifier="com.yourcompany.Camomile"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.2.3"
               companyName="CICM" companyWebsite="https://github.com/pierreguillot/Camomile"
-              defines="PD=1&#10;USEAPI_DUMMY=1&#10;PD_INTERNAL=1&#10;" buildAUv3="0">
+              defines="PD=1&#10;USEAPI_DUMMY=1&#10;PD_INTERNAL=1&#10;THREAD_LOCKING=0"
+              buildAUv3="0">
   <MAINGROUP id="wVVIu9" name="Camomile">
     <GROUP id="{51EAB2F7-7167-302A-F6E7-853D8D6554C0}" name="Source">
       <FILE id="q2ZLr2" name="InstanceProcessor.cpp" compile="1" resource="0"
@@ -274,22 +275,21 @@
       </MODULEPATHS>
     </LINUX_MAKE>
     <VS2015 targetFolder="Builds/VisualStudio2015" vstFolder="ThirdParty\Vst\vstsdk2.4"
-            vst3Folder="ThirdParty\Vst" extraDefs="HAVE_STRUCT_TIMESPEC=1&#10;PTW32_STATIC_LIB=1"
-            externalLibraries="pthread_lib.lib">
+            vst3Folder="ThirdParty\Vst" extraDefs="HAVE_STRUCT_TIMESPEC=1"
+            externalLibraries="">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug32" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
-                       isDebug="1" optimisation="1" targetName="Camomile" headerPath="../../ThirdParty/PureData/src&#10;../../ThirdParty/PthreadWindows/include"
-                       libraryPath="../../ThirdParty/PthreadWindows/lib/x86" useRuntimeLibDLL="0"/>
+                       isDebug="1" optimisation="1" targetName="Camomile" headerPath="../../ThirdParty/zpd/pd/src"
+                       libraryPath="" useRuntimeLibDLL="0"/>
         <CONFIGURATION name="Release32" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
-                       isDebug="0" optimisation="3" targetName="Camomile" headerPath="../../ThirdParty/PureData/src&#10;../../ThirdParty/PthreadWindows/include"
-                       libraryPath="../../ThirdParty/PthreadWindows/lib/x86" useRuntimeLibDLL="0"/>
+                       isDebug="0" optimisation="3" targetName="Camomile" headerPath="../../ThirdParty/zpd/pd/src"
+                       libraryPath="" useRuntimeLibDLL="0"/>
         <CONFIGURATION name="Debug64" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
-                       isDebug="1" targetName="Camomile" headerPath="../../ThirdParty/PureData/src&#10;../../ThirdParty/PthreadWindows/include"
-                       optimisation="1" useRuntimeLibDLL="0" libraryPath="../../ThirdParty/PthreadWindows/lib/x64&#10;"/>
+                       isDebug="1" targetName="Camomile" headerPath="../../ThirdParty/zpd/pd/src"
+                       optimisation="1" useRuntimeLibDLL="0" libraryPath="" defines="&quot;PD_LONGINTTYPE=long long&quot;"/>
         <CONFIGURATION name="Release64" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
-                       headerPath="../../ThirdParty/PureData/src&#10;../../ThirdParty/PthreadWindows/include"
-                       targetName="Camomile" libraryPath="../../ThirdParty/PthreadWindows/lib/x64&#10;"
-                       useRuntimeLibDLL="0"/>
+                       headerPath="../../ThirdParty/zpd/pd/src" targetName="Camomile"
+                       libraryPath="" useRuntimeLibDLL="0" defines="&quot;PD_LONGINTTYPE=long long&quot;"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_gui_extra" path="ThirdParty/Juce/modules"/>

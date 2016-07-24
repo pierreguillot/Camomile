@@ -61,16 +61,12 @@
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">Camomile</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">true</GenerateManifest>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">$(LibraryPath);../../ThirdParty/PthreadWindows/lib/x86</LibraryPath>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">Camomile</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">true</GenerateManifest>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">$(LibraryPath);../../ThirdParty/PthreadWindows/lib/x86</LibraryPath>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug64|x64'">Camomile</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug64|x64'">true</GenerateManifest>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug64|x64'">$(LibraryPath);../../ThirdParty/PthreadWindows/lib/x64</LibraryPath>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release64|x64'">Camomile</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release64|x64'">true</GenerateManifest>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release64|x64'">$(LibraryPath);../../ThirdParty/PthreadWindows/lib/x64</LibraryPath>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">
@@ -84,8 +80,8 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/PureData/src;../../ThirdParty/PthreadWindows/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.8;JUCE_APP_VERSION_HEX=0x8;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/zpd/pd/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;THREAD_LOCKING=0;HAVE_STRUCT_TIMESPEC=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.8;JUCE_APP_VERSION_HEX=0x8;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -108,9 +104,7 @@
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>../../ThirdParty/PthreadWindows/lib/x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>pthread_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -130,8 +124,8 @@
     </Midl>
     <ClCompile>
       <Optimization>Full</Optimization>
-      <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/PureData/src;../../ThirdParty/PthreadWindows/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.8;JUCE_APP_VERSION_HEX=0x8;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/zpd/pd/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;THREAD_LOCKING=0;HAVE_STRUCT_TIMESPEC=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.8;JUCE_APP_VERSION_HEX=0x8;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -155,9 +149,7 @@
       <TargetMachine>MachineX86</TargetMachine>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <AdditionalLibraryDirectories>../../ThirdParty/PthreadWindows/lib/x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>pthread_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -178,8 +170,8 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/PureData/src;../../ThirdParty/PthreadWindows/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.8;JUCE_APP_VERSION_HEX=0x8;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/zpd/pd/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;THREAD_LOCKING=0;&quot;PD_LONGINTTYPE=long;long&quot;;HAVE_STRUCT_TIMESPEC=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.8;JUCE_APP_VERSION_HEX=0x8;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -200,9 +192,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(IntDir)\Camomile.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>../../ThirdParty/PthreadWindows/lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>pthread_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -222,8 +212,8 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/PureData/src;../../ThirdParty/PthreadWindows/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;HAVE_STRUCT_TIMESPEC=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.8;JUCE_APP_VERSION_HEX=0x8;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\ThirdParty\Vst\vstsdk2.4;..\..\JuceLibraryCode;..\..\ThirdParty\Juce\modules;../../ThirdParty/zpd/pd/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;THREAD_LOCKING=0;&quot;PD_LONGINTTYPE=long;long&quot;;HAVE_STRUCT_TIMESPEC=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.0.8;JUCE_APP_VERSION_HEX=0x8;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -246,9 +236,7 @@
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <AdditionalLibraryDirectories>../../ThirdParty/PthreadWindows/lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>pthread_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>

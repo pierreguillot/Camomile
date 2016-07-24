@@ -1,0 +1,22 @@
+
+environment:
+   matrix:
+      - CONFIGURATION: Release
+        PLATFORM: Win32
+      - CONFIGURATION: Release
+        PLATFORM: x64
+
+os: Visual Studio 2015
+
+before_script:
+    - Invoke-WebRequest http://www.steinberg.net/sdk_downloads/vstsdk365_12_11_2015_build_67.zip -OutFile Vst.zip
+    - 7z e Vst.zip -o%APPVEYOR_BUILD_FOLDER%\ThirdParty\Vst
+    - cd ThirdParty\Vst
+    - dir /s /b /o:gn
+
+build_script:
+
+notifications:
+
+  - provider: Email
+    on_build_status_changed: false
