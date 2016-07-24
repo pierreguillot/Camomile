@@ -253,7 +253,8 @@
       </MODULEPATHS>
     </XCODE_MAC>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile" vstFolder="ThirdParty/Vst/vstsdk2.4"
-                vst3Folder="ThirdParty/Vst/" extraDefs="HAVE_UNISTD_H=1&#10;HAVE_LIBDL=1&#10;HAVE_ALLOCA_H=1">
+                vst3Folder="ThirdParty/Vst/" extraDefs="HAVE_UNISTD_H=1&#10;HAVE_LIBDL=1&#10;HAVE_ALLOCA_H=1"
+                extraCompilerFlags="-iquote ../../ThirdParty/PureData/src">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
                        targetName="Camomile" headerPath="../../ThirdParty/PureData/src"/>
