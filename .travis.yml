@@ -13,23 +13,25 @@ matrix:
   include:
     - os: linux
       compiler: gcc
+      before_install:
+        - sudo apt-get -qq update
+        - sudo apt-get install -y libx11-dev
+        - sudo apt-get install -y libxrandr-dev
+        - sudo apt-get install -y libxinerama-dev
+        - sudo apt-get install -y libxcursor-dev
+        - sudo apt-get install -y python-dev libfreetype6-dev
       before_script:
         - curl -o Vst.zip 'http://www.steinberg.net/sdk_downloads/vstsdk365_12_11_2015_build_67.zip'
-        - tar -xf Vst.zip
-        - cp -R 'VST3 SDK' ThirdParty/Vst
+        - unzip -qq Vst.zip -d ThirdParty
+        - mv ThirdParty/VST3 SDK/ ThirdParty/Vst
         - ls ThirdParty/Vst/
-        - sudo apt-get install libx11-dev
-        - sudo apt-get install libxrandr-dev
-        - sudo apt-get install libxinerama-dev
-        - sudo apt-get install libxcursor-dev
-        - sudo apt-get install python-dev libfreetype6-dev
       script: make Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=Release
 
     - os: osx
       compiler: clang++
       before_script:
         - curl -o Vst.zip 'http://www.steinberg.net/sdk_downloads/vstsdk365_12_11_2015_build_67.zip'
-        - tar -xf Vst.zip
-        - cp -R 'VST3 SDK' ThirdParty/Vst
+        - unzip -qq Vst.zip -d ThirdParty
+        - mv ThirdParty/VST3 SDK/ ThirdParty/Vst
         - ls ThirdParty/Vst/
       script: xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration Release
