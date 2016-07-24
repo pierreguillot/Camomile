@@ -23,7 +23,7 @@ matrix:
       before_script:
         - curl -o Vst.zip 'http://www.steinberg.net/sdk_downloads/vstsdk365_12_11_2015_build_67.zip'
         - unzip -qq Vst.zip -d ThirdParty
-        - mv ThirdParty/VST3 SDK/ ThirdParty/Vst
+        - mv ThirdParty/VST3\ SDK/ ThirdParty/Vst
         - ls ThirdParty/Vst/
       script: make Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=Release
 
@@ -32,6 +32,6 @@ matrix:
       before_script:
         - curl -o Vst.zip 'http://www.steinberg.net/sdk_downloads/vstsdk365_12_11_2015_build_67.zip'
         - unzip -qq Vst.zip -d ThirdParty
-        - mv ThirdParty/VST3 SDK/ ThirdParty/Vst
+        - mv ThirdParty/VST3\ SDK/ ThirdParty/Vst
         - ls ThirdParty/Vst/
       script: xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration Release
