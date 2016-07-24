@@ -3,8 +3,10 @@ environment:
    matrix:
       - CONFIGURATION: Release
         PLATFORM: Win32
+        TARGET: Release32
       - CONFIGURATION: Release
         PLATFORM: x64
+        TARGET: Release64
 
 os: Visual Studio 2015
 
@@ -14,7 +16,7 @@ before_script:
     - cd ThirdParty\Vst
     - dir /s /b /o:gn
 
-build_script:
+build_script: msbuild %APPVEYOR_BUILD_FOLDER%\VisualStudio2015\Camomile.vcxproj /t:%TARGET%
 
 notifications:
 
