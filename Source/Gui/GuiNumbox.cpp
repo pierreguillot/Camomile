@@ -13,7 +13,7 @@
 
 GuiNumbox::GuiNumbox(InstanceProcessor& processor, xpd::gui const& gui) : GuiParameter(processor, gui)
 {
-    Rectangle<int> bounds(getLocalBounds());
+    juce::Rectangle<int> bounds(getLocalBounds());
     m_label.setBounds(bounds.getHeight() / 2, 0, bounds.getWidth() - bounds.getHeight() / 2, bounds.getHeight());
     m_label.setFont(Gui::getFont());
     m_label.setColour(Label::textColourId, Gui::getColorTxt());
