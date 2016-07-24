@@ -26,7 +26,7 @@ matrix:
         - rm -r ThirdParty/Vst/
         - mv ThirdParty/VST3\ SDK/ ThirdParty/Vst
         - ls ThirdParty/Vst/
-      script: make Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=Release
+      script: make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=Release
 
     - os: osx
       compiler: clang++
