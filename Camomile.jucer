@@ -274,7 +274,7 @@
         <MODULEPATH id="juce_audio_basics" path="ThirdParty/Juce/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
-    <VS2015 targetFolder="Builds/VisualStudio2015" vstFolder="ThirdParty\Vst\vstsdk2.4"
+    <VS2015 targetFolder="Builds/VisualStudio2015" vstFolder="ThirdParty\Vst"
             vst3Folder="ThirdParty\Vst" extraDefs="HAVE_STRUCT_TIMESPEC=1"
             externalLibraries="">
       <CONFIGURATIONS>
