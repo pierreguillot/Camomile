@@ -261,7 +261,9 @@
   <ItemGroup>
     <ClCompile Include="..\..\Source\InstanceProcessor.cpp"/>
     <ClCompile Include="..\..\Source\LookAndFeel.cpp"/>
-    <ClCompile Include="..\..\Source\Camo\CamoParameter.cpp"/>
+    <ClCompile Include="..\..\Source\CamomileEditor.cpp"/>
+    <ClCompile Include="..\..\Source\Camo\camo_instance.cpp"/>
+    <ClCompile Include="..\..\Source\Camo\camo_parameter.cpp"/>
     <ClCompile Include="..\..\Source\Gui\Gui.cpp"/>
     <ClCompile Include="..\..\Source\Gui\GuiAbout.cpp"/>
     <ClCompile Include="..\..\Source\Gui\GuiComment.cpp"/>
@@ -1725,7 +1727,10 @@
   <ItemGroup>
     <ClInclude Include="..\..\Source\InstanceProcessor.hpp"/>
     <ClInclude Include="..\..\Source\LookAndFeel.hpp"/>
-    <ClInclude Include="..\..\Source\Camo\CamoParameter.hpp"/>
+    <ClInclude Include="..\..\Source\CamomileEditor.hpp"/>
+    <ClInclude Include="..\..\Source\Camo\camo_instance.hpp"/>
+    <ClInclude Include="..\..\Source\Camo\camo_parameter.hpp"/>
+    <ClInclude Include="..\..\Source\Camo\camo.hpp"/>
     <ClInclude Include="..\..\Source\Gui\Gui.hpp"/>
     <ClInclude Include="..\..\Source\Gui\GuiAbout.hpp"/>
     <ClInclude Include="..\..\Source\Gui\GuiComment.hpp"/>
@@ -1809,6 +1814,7 @@
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\synthesisers\juce_Synthesiser.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\juce_audio_basics.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\juce_audio_basics.h"/>
+    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AAX\juce_AAX_Modifier_Injector.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUBase.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUBaseHelper.h"/>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUBuffer.h"/>
@@ -2276,7 +2282,8 @@
     <None Include="..\..\Ressources\flower2.png"/>
     <None Include="..\..\Ressources\option.png"/>
     <None Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\AUResources.r"/>
-    <None Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\AU\juce_RezResources_AU.r"/>
+    <None Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client_AU.r"/>
+    <None Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client_RTAS.r"/>
     <None Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\jpglib\changes to libjpeg for JUCE.txt"/>
     <None Include="..\..\ThirdParty\Juce\modules\juce_graphics\image_formats\pnglib\libpng_readme.txt"/>
   </ItemGroup>

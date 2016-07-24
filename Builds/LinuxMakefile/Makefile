@@ -18,7 +18,7 @@ ifeq ($(CONFIG),Debug)
     TARGET_ARCH := -march=native
   endif
 
-  CPPFLAGS := $(DEPFLAGS) -D "LINUX=1" -D "DEBUG=1" -D "_DEBUG=1" -D "PD=1" -D "USEAPI_DUMMY=1" -D "PD_INTERNAL=1" -D "HAVE_UNISTD_H=1" -D "HAVE_LIBDL=1" -D "HAVE_ALLOCA_H=1" -D "JUCER_LINUX_MAKE_6D53C8B4=1" -D "JUCE_APP_VERSION=0.0.8" -D "JUCE_APP_VERSION_HEX=0x8" -I /usr/include -I /usr/include/freetype2 -I ../../ThirdParty/Vst/vstsdk2.4 -I ../../JuceLibraryCode -I ../../ThirdParty/Juce/modules -I ../../ThirdParty/PureData/src
+  CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DDEBUG=1 -D_DEBUG=1 -DPD=1 -DUSEAPI_DUMMY=1 -DPD_INTERNAL=1 -DHAVE_UNISTD_H=1 -DHAVE_LIBDL=1 -DHAVE_ALLOCA_H=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=0.0.8 -DJUCE_APP_VERSION_HEX=0x8 -I /usr/include -I /usr/include/freetype2 -I ../../ThirdParty/Vst/vstsdk2.4 -I ../../JuceLibraryCode -I ../../ThirdParty/Juce/modules -I ../../ThirdParty/PureData/src
   CFLAGS += $(CPPFLAGS) $(TARGET_ARCH) -g -ggdb -fPIC -O0
   CXXFLAGS += $(CFLAGS) -std=c++11
   LDFLAGS += $(TARGET_ARCH) -L$(BINDIR) -L$(LIBDIR) -Wl,--no-undefined -shared -L/usr/X11R6/lib/ -lX11 -lXext -lXinerama -ldl -lfreetype -lpthread -lrt 
@@ -38,7 +38,7 @@ ifeq ($(CONFIG),Release)
     TARGET_ARCH := -march=native
   endif
 
-  CPPFLAGS := $(DEPFLAGS) -D "LINUX=1" -D "NDEBUG=1" -D "PD=1" -D "USEAPI_DUMMY=1" -D "PD_INTERNAL=1" -D "HAVE_UNISTD_H=1" -D "HAVE_LIBDL=1" -D "HAVE_ALLOCA_H=1" -D "JUCER_LINUX_MAKE_6D53C8B4=1" -D "JUCE_APP_VERSION=0.0.8" -D "JUCE_APP_VERSION_HEX=0x8" -I /usr/include -I /usr/include/freetype2 -I ../../ThirdParty/Vst/vstsdk2.4 -I ../../JuceLibraryCode -I ../../ThirdParty/Juce/modules -I ../../ThirdParty/PureData/src
+  CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DNDEBUG=1 -DPD=1 -DUSEAPI_DUMMY=1 -DPD_INTERNAL=1 -DHAVE_UNISTD_H=1 -DHAVE_LIBDL=1 -DHAVE_ALLOCA_H=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=0.0.8 -DJUCE_APP_VERSION_HEX=0x8 -I /usr/include -I /usr/include/freetype2 -I ../../ThirdParty/Vst/vstsdk2.4 -I ../../JuceLibraryCode -I ../../ThirdParty/Juce/modules -I ../../ThirdParty/PureData/src
   CFLAGS += $(CPPFLAGS) $(TARGET_ARCH) -fPIC -O3
   CXXFLAGS += $(CFLAGS) -std=c++11
   LDFLAGS += $(TARGET_ARCH) -L$(BINDIR) -L$(LIBDIR) -Wl,--no-undefined -shared -fvisibility=hidden -L/usr/X11R6/lib/ -lX11 -lXext -lXinerama -ldl -lfreetype -lpthread -lrt 
@@ -51,7 +51,9 @@ endif
 OBJECTS := \
   $(OBJDIR)/InstanceProcessor_bc7e525e.o \
   $(OBJDIR)/LookAndFeel_40552bdf.o \
-  $(OBJDIR)/CamoParameter_a8009c23.o \
+  $(OBJDIR)/CamomileEditor_6e8172eb.o \
+  $(OBJDIR)/camo_instance_fae2212e.o \
+  $(OBJDIR)/camo_parameter_9fd439fa.o \
   $(OBJDIR)/Gui_edc4c728.o \
   $(OBJDIR)/GuiAbout_58af930f.o \
   $(OBJDIR)/GuiComment_699305a1.o \
@@ -207,9 +209,19 @@ $(OBJDIR)/LookAndFeel_40552bdf.o: ../../Source/LookAndFeel.cpp
 	@echo "Compiling LookAndFeel.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/CamoParameter_a8009c23.o: ../../Source/Camo/CamoParameter.cpp
+$(OBJDIR)/CamomileEditor_6e8172eb.o: ../../Source/CamomileEditor.cpp
 	-@mkdir -p $(OBJDIR)
-	@echo "Compiling CamoParameter.cpp"
+	@echo "Compiling CamomileEditor.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/camo_instance_fae2212e.o: ../../Source/Camo/camo_instance.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling camo_instance.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/camo_parameter_9fd439fa.o: ../../Source/Camo/camo_parameter.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling camo_parameter.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/Gui_edc4c728.o: ../../Source/Gui/Gui.cpp

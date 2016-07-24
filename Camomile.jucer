@@ -2,14 +2,14 @@
 
 <JUCERPROJECT id="ZyblIj" name="Camomile" projectType="audioplug" version="0.0.8"
               bundleIdentifier="com.cicm.Camomile" includeBinaryInAppConfig="1"
-              buildVST="1" buildVST3="1" buildAU="1" buildRTAS="0" buildAAX="0"
+              buildVST="1" buildVST3="1" buildAU="0" buildRTAS="0" buildAAX="0"
               pluginName="Camomile" pluginDesc="Camomile" pluginManufacturer="Pierre Guillot"
               pluginManufacturerCode="CICM" pluginCode="PGCA" pluginChannelConfigs=""
               pluginIsSynth="0" pluginWantsMidiIn="1" pluginProducesMidiOut="1"
               pluginIsMidiEffectPlugin="0" pluginSilenceInIsSilenceOut="0"
               pluginEditorRequiresKeys="1" pluginAUExportPrefix="CamomileAU"
               pluginRTASCategory="" aaxIdentifier="com.yourcompany.Camomile"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.2.1"
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.2.3"
               companyName="CICM" companyWebsite="https://github.com/pierreguillot/Camomile"
               defines="PD=1&#10;USEAPI_DUMMY=1&#10;PD_INTERNAL=1&#10;" buildAUv3="0">
   <MAINGROUP id="wVVIu9" name="Camomile">
@@ -20,11 +20,20 @@
             file="Source/InstanceProcessor.hpp"/>
       <FILE id="A3woQ5" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
       <FILE id="PY3eEX" name="LookAndFeel.hpp" compile="0" resource="0" file="Source/LookAndFeel.hpp"/>
+      <FILE id="dP1REk" name="CamomileEditor.cpp" compile="1" resource="0"
+            file="Source/CamomileEditor.cpp"/>
+      <FILE id="MazVyC" name="CamomileEditor.hpp" compile="0" resource="0"
+            file="Source/CamomileEditor.hpp"/>
       <GROUP id="{A2EEC958-343E-2619-6C3A-90AE6C704457}" name="Camo">
-        <FILE id="cvk4I6" name="CamoParameter.cpp" compile="1" resource="0"
-              file="Source/Camo/CamoParameter.cpp"/>
-        <FILE id="az6QaN" name="CamoParameter.hpp" compile="0" resource="0"
-              file="Source/Camo/CamoParameter.hpp"/>
+        <FILE id="kALEzo" name="camo_instance.cpp" compile="1" resource="0"
+              file="Source/Camo/camo_instance.cpp"/>
+        <FILE id="cZlBow" name="camo_instance.hpp" compile="0" resource="0"
+              file="Source/Camo/camo_instance.hpp"/>
+        <FILE id="gNBDTb" name="camo_parameter.cpp" compile="1" resource="0"
+              file="Source/Camo/camo_parameter.cpp"/>
+        <FILE id="J0xbym" name="camo_parameter.hpp" compile="0" resource="0"
+              file="Source/Camo/camo_parameter.hpp"/>
+        <FILE id="M4rmza" name="camo.hpp" compile="0" resource="0" file="Source/Camo/camo.hpp"/>
       </GROUP>
       <GROUP id="{5A0FA5A4-A4CD-0F98-6047-84A5A87C6E33}" name="Gui">
         <FILE id="hF28IC" name="Gui.cpp" compile="1" resource="0" file="Source/Gui/Gui.cpp"/>
