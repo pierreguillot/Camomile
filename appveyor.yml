@@ -18,8 +18,6 @@ before_build:
     - 7z x %APPVEYOR_BUILD_FOLDER%\Vst.zip -o%APPVEYOR_BUILD_FOLDER%\ThirdParty -aoa -y -r
     - rmdir %APPVEYOR_BUILD_FOLDER%\ThirdParty\Vst /s /q
     - rename %APPVEYOR_BUILD_FOLDER%\ThirdParty\"VST3 SDK" Vst
-    - cd %APPVEYOR_BUILD_FOLDER%\ThirdParty\Vst\
-    - dir /s /b /o:gn
 
 build_script: msbuild %APPVEYOR_BUILD_FOLDER%\Builds\VisualStudio2015\Camomile.vcxproj /property:Configuration=%TARGET%
 
