@@ -281,7 +281,7 @@
     </LINUX_MAKE>
     <VS2015 targetFolder="Builds/VisualStudio2015" vstFolder="ThirdParty\Vst"
             vst3Folder="ThirdParty\Vst" extraDefs="HAVE_STRUCT_TIMESPEC=1"
-            externalLibraries="" extraCompilerFlags="/wd4091 &#10;/wd4996&#10;/wd4100">
+            externalLibraries="" extraCompilerFlags="/wd4091 &#10;/wd4996&#10;/wd4100&#10;/wd4706&#10;/wd4210">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug32" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
                        isDebug="1" optimisation="1" targetName="Camomile" headerPath="../../ThirdParty/zpd/pd/src&#10;../../ThirdParty/zpd/thread/pthreadwin"
