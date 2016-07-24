@@ -17,6 +17,7 @@ matrix:
         - curl -o Vst.zip 'http://www.steinberg.net/sdk_downloads/vstsdk365_12_11_2015_build_67.zip'
         - tar -xf Vst.zip
         - cp -R 'VST3 SDK' ThirdParty/Vst
+        - ls ThirdParty/Vst/
         - sudo apt-get install libx11-dev
         - sudo apt-get install libxrandr-dev
         - sudo apt-get install libxinerama-dev
@@ -30,4 +31,5 @@ matrix:
         - curl -o Vst.zip 'http://www.steinberg.net/sdk_downloads/vstsdk365_12_11_2015_build_67.zip'
         - tar -xf Vst.zip
         - cp -R 'VST3 SDK' ThirdParty/Vst
+        - ls ThirdParty/Vst/
       script: xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration Release
