@@ -14,8 +14,10 @@ install:
     - git submodule update --init --recursive
 
 before_build:
-    - curl -fsS -o Vst.zip 'http://www.steinberg.net/sdk_downloads/vstsdk365_12_11_2015_build_67.zip'
-    - 7z e Vst.zip -o%APPVEYOR_BUILD_FOLDER%\ThirdParty\Vst -aoa
+    - curl -fsS -o %APPVEYOR_BUILD_FOLDER%\Vst.zip 'http://www.steinberg.net/sdk_downloads/vstsdk365_12_11_2015_build_67.zip'
+    - 7z e %APPVEYOR_BUILD_FOLDER%\Vst.zip -o%APPVEYOR_BUILD_FOLDER%\ThirdParty\Vst -aoa
+    - cd %APPVEYOR_BUILD_FOLDER%\ThirdParty\
+    - dir /s /b /o:gn
 
 build_script: msbuild %APPVEYOR_BUILD_FOLDER%\Builds\VisualStudio2015\Camomile.vcxproj /property:Configuration=%TARGET%
 
