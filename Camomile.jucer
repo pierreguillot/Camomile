@@ -127,6 +127,10 @@
       <FILE id="Aaxgsx" name="cpd_types.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_types.h"/>
       <FILE id="u01b7M" name="cpd.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd.h"/>
     </GROUP>
+    <GROUP id="{3F2C2BA0-2BE5-2D4C-25C4-CAA9B3F46019}" name="thd">
+      <FILE id="e1LVVS" name="thd.c" compile="1" resource="0" file="ThirdParty/zpd/thread/src/thd.c"/>
+      <FILE id="q7MmIf" name="thd.h" compile="0" resource="0" file="ThirdParty/zpd/thread/src/thd.h"/>
+    </GROUP>
     <GROUP id="{FE270808-C2CD-210D-3181-B68593DF33A9}" name="pd">
       <GROUP id="{1C3B3672-B6EE-6976-8B6E-5C05626E0E27}" name="extra">
         <FILE id="owygXF" name="bob~.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/bob~/bob~.c"/>
@@ -279,17 +283,17 @@
             externalLibraries="" extraCompilerFlags="/wd4091 &#10;/wd4996&#10;/wd4100">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug32" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
-                       isDebug="1" optimisation="1" targetName="Camomile" headerPath="../../ThirdParty/zpd/pd/src"
+                       isDebug="1" optimisation="1" targetName="Camomile" headerPath="../../ThirdParty/zpd/pd/src&#10;../../ThirdParty/zpd/thread/pthreadwin"
                        libraryPath="" useRuntimeLibDLL="0"/>
         <CONFIGURATION name="Release32" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
-                       isDebug="0" optimisation="3" targetName="Camomile" headerPath="../../ThirdParty/zpd/pd/src"
+                       isDebug="0" optimisation="3" targetName="Camomile" headerPath="../../ThirdParty/zpd/pd/src&#10;../../ThirdParty/zpd/thread/pthreadwin"
                        libraryPath="" useRuntimeLibDLL="0"/>
         <CONFIGURATION name="Debug64" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
-                       isDebug="1" targetName="Camomile" headerPath="../../ThirdParty/zpd/pd/src"
+                       isDebug="1" targetName="Camomile" headerPath="../../ThirdParty/zpd/pd/src&#10;../../ThirdParty/zpd/thread/pthreadwin"
                        optimisation="1" useRuntimeLibDLL="0" libraryPath="" defines="&quot;PD_LONGINTTYPE=long long&quot;"/>
         <CONFIGURATION name="Release64" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
-                       headerPath="../../ThirdParty/zpd/pd/src" targetName="Camomile"
-                       libraryPath="" useRuntimeLibDLL="0" defines="&quot;PD_LONGINTTYPE=long long&quot;"/>
+                       headerPath="../../ThirdParty/zpd/pd/src&#10;../../ThirdParty/zpd/thread/pthreadwin"
+                       targetName="Camomile" libraryPath="" useRuntimeLibDLL="0" defines="&quot;PD_LONGINTTYPE=long long&quot;"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_gui_extra" path="ThirdParty/Juce/modules"/>

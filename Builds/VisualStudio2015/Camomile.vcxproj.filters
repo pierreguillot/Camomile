@@ -20,6 +20,9 @@
     <Filter Include="Camomile\cpd">
       <UniqueIdentifier>{CB28C824-5496-7F90-C815-DD968E50DD0B}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Camomile\thd">
+      <UniqueIdentifier>{3095D154-E894-7170-4460-5AFC226EABEC}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Camomile\pd">
       <UniqueIdentifier>{3063160C-72C6-2065-39E1-BD3FDD75C2BD}</UniqueIdentifier>
     </Filter>
@@ -420,6 +423,9 @@
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_types.c">
       <Filter>Camomile\cpd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\zpd\thread\src\thd.c">
+      <Filter>Camomile\thd</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\bob~\bob~.c">
       <Filter>Camomile\pd\extra</Filter>
@@ -2279,6 +2285,9 @@
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd.h">
       <Filter>Camomile\cpd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\zpd\thread\src\thd.h">
+      <Filter>Camomile\thd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\zpd\pd\src\g_all_guis.h">
       <Filter>Camomile\pd\src</Filter>

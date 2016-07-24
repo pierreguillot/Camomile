@@ -89,6 +89,7 @@ OBJECTS := \
   $(OBJDIR)/cpd_patch_a00c1e6c.o \
   $(OBJDIR)/cpd_post_ed288a86.o \
   $(OBJDIR)/cpd_types_9c620e5d.o \
+  $(OBJDIR)/thd_f3d9d546.o \
   $(OBJDIR)/bob~_6f7631bb.o \
   $(OBJDIR)/bonk~_b8f0a745.o \
   $(OBJDIR)/choice_7edb8dbb.o \
@@ -397,6 +398,11 @@ $(OBJDIR)/cpd_post_ed288a86.o: ../../ThirdParty/zpd/cpd/cpd_post.c
 $(OBJDIR)/cpd_types_9c620e5d.o: ../../ThirdParty/zpd/cpd/cpd_types.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling cpd_types.c"
+	@$(CC) $(CFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/thd_f3d9d546.o: ../../ThirdParty/zpd/thread/src/thd.c
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling thd.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/bob~_6f7631bb.o: ../../ThirdParty/zpd/pd/extra/bob~/bob~.c
