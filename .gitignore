@@ -29,7 +29,6 @@
 *.app
 
 # Mac Xcode
-*.nib
 *.xcuserstate
 *.xcuserdatad
 
