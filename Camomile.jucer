@@ -290,7 +290,7 @@
                        libraryPath="" useRuntimeLibDLL="0"/>
         <CONFIGURATION name="Debug64" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        isDebug="1" targetName="Camomile" headerPath="../../ThirdParty/zpd/pd/src&#10;../../ThirdParty/zpd/thread/pthreadwin"
-                       optimisation="1" useRuntimeLibDLL="0" libraryPath="" defines="PD_LONGINTTYPE=long\ long"/>
+                       optimisation="1" useRuntimeLibDLL="0" libraryPath="" defines="PD_LONGINTTYPE=&quot;long long&quot;"/>
         <CONFIGURATION name="Release64" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        headerPath="../../ThirdParty/zpd/pd/src&#10;../../ThirdParty/zpd/thread/pthreadwin"
                        targetName="Camomile" libraryPath="" useRuntimeLibDLL="0" defines="PD_LONGINTTYPE=&quot;long long&quot;"/>
