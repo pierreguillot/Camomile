@@ -231,7 +231,7 @@
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX" postbuildCommand="" vstFolder="ThirdParty/Vst/vstsdk2.4"
+    <XCODE_MAC targetFolder="Builds/MacOSX" postbuildCommand="" vstFolder="ThirdParty/Vst/"
                vst3Folder="ThirdParty/Vst/" extraDefs="HAVE_UNISTD_H=1&#10;HAVE_ALLOCA_H=1&#10;HAVE_LIBDL=1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"
@@ -252,7 +252,7 @@
         <MODULEPATH id="juce_audio_plugin_client" path="ThirdParty/Juce/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" vstFolder="ThirdParty/Vst/vstsdk2.4"
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" vstFolder="ThirdParty/Vst/"
                 vst3Folder="ThirdParty/Vst/" extraDefs="HAVE_UNISTD_H=1&#10;HAVE_LIBDL=1&#10;HAVE_ALLOCA_H=1"
                 extraCompilerFlags="">
       <CONFIGURATIONS>
