@@ -17,6 +17,10 @@
 //==============================================================================
 // [BEGIN_USER_CODE_SECTION]
 
+#define JucePlugin_MaxNumInputChannels 1
+#define JucePlugin_MaxNumOutputChannels 2
+#define JucePlugin_PreferredChannelConfigurations  {1, 1}, {1, 2}
+
 // (You can add your own code in this section, and the Introjucer will not overwrite it)
 
 // [END_USER_CODE_SECTION]
@@ -243,7 +247,7 @@
  #define JucePlugin_RTASDisableMultiMono   0
 #endif
 #ifndef  JucePlugin_AAXIdentifier
- #define JucePlugin_AAXIdentifier          com.yourcompany.Camomile
+ #define JucePlugin_AAXIdentifier          com.cicm.camomile
 #endif
 #ifndef  JucePlugin_AAXManufacturerCode
  #define JucePlugin_AAXManufacturerCode    JucePlugin_ManufacturerCode
@@ -259,6 +263,15 @@
 #endif
 #ifndef  JucePlugin_AAXDisableMultiMono
  #define JucePlugin_AAXDisableMultiMono    0
+#endif
+#ifndef  JucePlugin_MaxNumInputChannels
+ #define JucePlugin_MaxNumInputChannels    1
+#endif
+#ifndef  JucePlugin_MaxNumOutputChannels
+ #define JucePlugin_MaxNumOutputChannels   2
+#endif
+#ifndef  JucePlugin_PreferredChannelConfigurations
+ #define JucePlugin_PreferredChannelConfigurations  {1, 1}, {1, 2}
 #endif
 
 #endif  // __JUCE_APPCONFIG_ZYBLIJ__

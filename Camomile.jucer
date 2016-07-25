@@ -4,13 +4,12 @@
               bundleIdentifier="com.cicm.Camomile" includeBinaryInAppConfig="1"
               buildVST="1" buildVST3="1" buildAU="0" buildRTAS="0" buildAAX="0"
               pluginName="Camomile" pluginDesc="Camomile" pluginManufacturer="Pierre Guillot"
-              pluginManufacturerCode="CICM" pluginCode="PGCA" pluginChannelConfigs=""
+              pluginManufacturerCode="CICM" pluginCode="PGCA" pluginChannelConfigs="{1, 1}, {1, 2}"
               pluginIsSynth="0" pluginWantsMidiIn="1" pluginProducesMidiOut="1"
               pluginIsMidiEffectPlugin="0" pluginSilenceInIsSilenceOut="0"
               pluginEditorRequiresKeys="1" pluginAUExportPrefix="CamomileAU"
-              pluginRTASCategory="" aaxIdentifier="com.yourcompany.Camomile"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.2.3"
-              companyName="CICM" companyWebsite="https://github.com/pierreguillot/Camomile"
+              pluginRTASCategory="" aaxIdentifier="com.cicm.camomile" pluginAAXCategory="AAX_ePlugInCategory_Dynamics"
+              jucerVersion="4.2.3" companyName="CICM" companyWebsite="https://github.com/pierreguillot/Camomile"
               defines="PD=1&#10;USEAPI_DUMMY=1&#10;PD_INTERNAL=1&#10;THREAD_LOCKING=0"
               buildAUv3="0">
   <MAINGROUP id="wVVIu9" name="Camomile">

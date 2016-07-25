@@ -15,10 +15,7 @@ InstanceProcessor::InstanceProcessor() : m_name("Camomile")
         std::to_string(xpd::environment::version_major()) + "." +
         std::to_string(xpd::environment::version_minor()) + "." +
         std::to_string(xpd::environment::version_bug())});
-    
-    
-    busArrangement.inputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(32);
-    busArrangement.outputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(32);
+
     m_path = juce::File::getCurrentWorkingDirectory().getFullPathName();
 }
 
@@ -39,47 +36,48 @@ const String InstanceProcessor::getName() const
 
 int InstanceProcessor::getNumParameters()
 {
-    return static_cast<int>(get_number_of_parameters()) != 0 ? static_cast<int>(get_number_of_parameters()) : 64;
+    return get_number_of_parameters() != 0 ? static_cast<int>(get_number_of_parameters()) : 64;
 }
 
 const String InstanceProcessor::getParameterName(int index)
 {
-    return get_parameter_name(index);
+    return index < get_number_of_parameters() ? get_parameter_name(index) : String("dummy ") + String(index);
 }
 
 String InstanceProcessor::getParameterLabel(int index) const
 {
-    return get_parameter_label(index);
+    return index < get_number_of_parameters() ? get_parameter_label(index) : String("");
 }
 
 float InstanceProcessor::getParameter(int index)
 {
-    return get_parameter_value(index);
+    return index < get_number_of_parameters() ? get_parameter_value(index) : 0.f;
 }
 
 void InstanceProcessor::setParameter(int index, float newValue)
 {
-    set_parameter_value(index, newValue);
+    if(index < get_number_of_parameters()) {
+        set_parameter_value(index, newValue);}
 }
 
 float InstanceProcessor::getParameterDefaultValue(int index)
 {
-    return get_parameter_default_value(index);
+    return index < get_number_of_parameters() ? get_parameter_default_value(index) : 0.f;
 }
 
 const String InstanceProcessor::getParameterText(int index)
 {
-    return String(get_parameter_value(index));
+    return index < get_number_of_parameters() ? String(get_parameter_value(index)) : String("0");
 }
 
 String InstanceProcessor::getParameterText(int index, int size)
 {
-    return String(get_parameter_value(index)).substring(0, size);
+    return index < get_number_of_parameters() ? String(get_parameter_value(index)).substring(0, size) : String("0");
 }
 
 int InstanceProcessor::getParameterNumSteps(int index)
 {
-    return static_cast<int>(get_parameter_nsteps(index));
+    return index < get_number_of_parameters() ? static_cast<int>(get_parameter_nsteps(index)) : 0;
 }
 
 // ==================================================================================== //
@@ -295,6 +293,12 @@ AudioProcessorEditor* InstanceProcessor::createEditor()
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
+    static bool initialized = false;
+    if(!initialized)
+    {
+        xpd::environment::initialize();
+        initialized = true;
+    }
     int todo;
     //static CamoLookAndFeel lookAndFeel;
     //LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);

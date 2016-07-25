@@ -28,8 +28,8 @@ public:
     
     const String getInputChannelName(int index) const final {return String(index + 1);}
     const String getOutputChannelName(int index) const final {return String(index + 1);}
-    bool isInputChannelStereoPair(int index) const final {return true;}
-    bool isOutputChannelStereoPair(int index) const final {return true;}
+    bool isInputChannelStereoPair(int index) const final {return false;}
+    bool isOutputChannelStereoPair(int index) const final {return false;}
     
     bool acceptsMidi() const final {return bool(JucePlugin_WantsMidiInput);}
     bool producesMidi() const final {return bool(JucePlugin_ProducesMidiOutput);}
