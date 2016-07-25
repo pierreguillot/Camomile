@@ -110,16 +110,16 @@ namespace camo
     
     void camomile::add_parameter(parameter const& param)
     {
-        assert(!param.name.empty() && "The name of a parameter can't be empty.");
-        assert(static_cast<bool>(param.receive_tie) && "The receive tie of a parameter can't be empty.");
-        assert(static_cast<bool>(param.send_tie) && "The send tie of a parameter can't be empty.");
+        assert(!param.name.empty() && "the name of a camomile parameter can't be empty.");
+        assert(static_cast<bool>(param.receive_tie) && "the receive tie of a camomile parameter can't be empty.");
+        assert(static_cast<bool>(param.send_tie) && "the send tie of a camomile parameter can't be empty.");
         for(size_t i = 0; i < m_parameters.size(); ++i)
         {
             if(m_parameters[i].name == param.name ||
                m_parameters[i].receive_tie == param.receive_tie ||
                m_parameters[i].send_tie == param.send_tie)
             {
-                throw "camomile receives a parameter duplicated.";
+                throw "camomile receives a duplicated parameter.";
             }
         }
         m_parameters.push_back(param);
