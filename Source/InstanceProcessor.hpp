@@ -24,10 +24,6 @@ public:
     InstanceProcessor();
     ~InstanceProcessor();
 
-    void prepareToPlay(double sampleRate, int samplesPerBlock) final;
-    void releaseResources() final;
-    void processBlock(AudioSampleBuffer&, MidiBuffer&) final;
-
     AudioProcessorEditor* createEditor() final;
     bool hasEditor() const final {return true;};
     const String getName() const final ;
@@ -46,7 +42,6 @@ public:
     String getParameterText(int index, int size) final;
     String getParameterLabel (int index) const final;
     int getParameterNumSteps(int index) final;
-
     
     const String getInputChannelName(int index) const final {return String(index + 1);}
     const String getOutputChannelName(int index) const final {return String(index + 1);}
@@ -64,6 +59,14 @@ public:
     const String getProgramName(int index) final {return String();}
     void changeProgramName(int index, const String& newName) final {}
     
+    // ==================================================================================== //
+    //                                          DSP                                         //
+    // ==================================================================================== //
+    
+    void prepareToPlay(double sampleRate, int samplesPerBlock) final;
+    void releaseResources() final;
+    void processBlock(AudioSampleBuffer&, MidiBuffer&) final;
+ 
     // ================================================================================ //
     //                                      PATCH                                       //
     // ================================================================================ //
@@ -85,19 +88,12 @@ protected:
     void receive(xpd::midi::event const& event) final;
     
 private:
-    static xpd::symbol s_playing;
-    static xpd::symbol s_measure;
-    static xpd::symbol s_float;
-
-
-    juce::String                        m_path;
-    MidiBuffer                          m_midi;
-    xpd::tie                            m_patch_tie;
-    std::vector<xpd::atom>              m_playing_list;
-    std::vector<xpd::atom>              m_measure_list;
+    juce::String    m_name;
+    juce::String    m_path;
+    MidiBuffer      m_midi;
     AudioPlayHead::CurrentPositionInfo  m_playinfos;
     
-    juce::String    m_name;
+    
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (InstanceProcessor)
 };

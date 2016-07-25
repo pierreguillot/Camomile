@@ -8,13 +8,7 @@
 #include "CamomileEditor.hpp"
 //#include "LookAndFeel.hpp"
 
-xpd::symbol InstanceProcessor::s_playing;
-xpd::symbol InstanceProcessor::s_measure;
-
-InstanceProcessor::InstanceProcessor() :
-m_playing_list(2),
-m_measure_list(5),
-m_name("Camomile")
+InstanceProcessor::InstanceProcessor() : m_name("Camomile")
 {
     send(xpd::console::post{xpd::console::level::log, std::string("Camomile ") +
         std::string(JucePlugin_VersionString) + std::string(" for Pure Data ") +
@@ -22,8 +16,6 @@ m_name("Camomile")
         std::to_string(xpd::environment::version_minor()) + "." +
         std::to_string(xpd::environment::version_bug())});
     
-    s_playing           = xpd::symbol("playing");
-    s_measure           = xpd::symbol("measure");
     
     busArrangement.inputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(32);
     busArrangement.outputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(32);
@@ -90,11 +82,9 @@ int InstanceProcessor::getParameterNumSteps(int index)
     return static_cast<int>(get_parameter_nsteps(index));
 }
 
-
-
-
-
-
+// ==================================================================================== //
+//                                          DSP                                         //
+// ==================================================================================== //
 
 
 void InstanceProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
@@ -113,29 +103,15 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     {
         buffer.clear(i, 0, buffer.getNumSamples());
     }
-    bool infos = false;
-    
+
     AudioPlayHead* playhead = getPlayHead();
-    if(playhead && m_patch_tie)
+    if(playhead && playhead->getCurrentPosition(m_playinfos))
     {
-        infos = playhead->getCurrentPosition(m_playinfos);
+        set_playhead_infos(reinterpret_cast<PlayHeadInfos const&>(m_playinfos));
     }
 
     {
         m_midi.clear();
-        if(infos)
-        {
-            m_playing_list[0] = m_playinfos.isPlaying;
-            m_playing_list[1] = m_playinfos.timeInSeconds;
-            send(m_patch_tie, s_playing, m_playing_list);
-            m_measure_list[0] = m_playinfos.bpm;
-            m_measure_list[1] = m_playinfos.timeSigNumerator;
-            m_measure_list[2] = m_playinfos.timeSigDenominator;
-            m_measure_list[3] = m_playinfos.ppqPosition;
-            m_measure_list[4] = m_playinfos.ppqPositionOfLastBarStart;
-            send(m_patch_tie, s_measure, m_measure_list);
-        }
-        
         MidiMessage message;
         MidiBuffer::Iterator it(midiMessages);
         int position = midiMessages.getFirstEventTime();
@@ -180,7 +156,7 @@ void InstanceProcessor::receive(xpd::midi::event const& event)
 {
     if(event.type() == xpd::midi::event::note_t)
     {
-        if(event.velocity())
+        if(event.velocity() != 0)
         {
             m_midi.addEvent(MidiMessage::noteOn(event.channel()+1, event.pitch(), uint8(event.velocity())), 0);
         }

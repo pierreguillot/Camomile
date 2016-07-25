@@ -49,6 +49,47 @@ namespace camo
         void receive(xpd::console::post const& post) override;
         
         // ================================================================================ //
+        //                                      PLAY HEAD                                   //
+        // ================================================================================ //
+        
+        struct PlayHeadInfos
+        {
+            enum FrameRateType
+            {
+                fps24           = 0,
+                fps25           = 1,
+                fps2997         = 2,
+                fps30           = 3,
+                fps2997drop     = 4,
+                fps30drop       = 5,
+                fpsUnknown      = 99
+            };
+        
+            double  bpm;
+            int     timeSigNumerator;
+            int     timeSigDenominator;
+#if _WIN32
+            __int64 timeInSamples;
+#else
+            long long timeInSamples;
+#endif
+            double timeInSeconds;
+            double editOriginTime;
+            double ppqPosition;
+            double ppqPositionOfLastBarStart;
+            FrameRateType frameRate;
+            bool isPlaying;
+            bool isRecording;
+            double ppqLoopStart;
+            double ppqLoopEnd;
+            bool isLooping;
+        };
+        
+        //! @brief Sets infos.
+        //! @param post The console post received.
+        void set_playhead_infos(PlayHeadInfos const& ph);
+        
+        // ================================================================================ //
         //                                      PATCH                                       //
         // ================================================================================ //
  
@@ -64,11 +105,6 @@ namespace camo
         
         //! @brief Returns the current patch.
         inline xpd::patch const get_patch() const noexcept {return m_patch;}
-        
-        // ================================================================================ //
-        //                                      PLAY HEAD                                   //
-        // ================================================================================ //
-
         
         // ================================================================================ //
         //                                      PARAMETERS                                  //
@@ -151,14 +187,12 @@ namespace camo
     private:
         
         static xpd::symbol get_symbol_float();
-        static xpd::symbol get_symbol_playing();
-        static xpd::symbol get_symbol_measure();
+        static xpd::symbol get_symbol_list();
         
         xpd::patch              m_patch;
         xpd::tie                m_playhead_tie;
+        std::vector<xpd::atom>  m_playhead_list;
         std::vector<parameter>  m_parameters;
-        std::vector<xpd::atom>  m_playing_list;
-        std::vector<xpd::atom>  m_measure_list;
         std::set<listener*>     m_listeners;
     };
 };

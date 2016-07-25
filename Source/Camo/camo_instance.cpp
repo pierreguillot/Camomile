@@ -16,15 +16,9 @@ namespace camo
         return x_sym;
     }
     
-    xpd::symbol get_symbol_playing()
+    xpd::symbol camomile::get_symbol_list()
     {
-        static xpd::symbol x_sym("playing");
-        return x_sym;
-    }
-    
-    xpd::symbol get_symbol_measure()
-    {
-        static xpd::symbol x_sym("measure");
+        static xpd::symbol x_sym("list");
         return x_sym;
     }
     
@@ -33,9 +27,10 @@ namespace camo
     // ================================================================================ //
     
     
-    camomile::camomile() : m_playing_list(2), m_measure_list(5)
+    camomile::camomile() : m_playhead_list(14)
     {
-        
+        get_symbol_float();
+        get_symbol_list();
     }
     
     // ================================================================================ //
@@ -60,6 +55,30 @@ namespace camo
     void camomile::receive(xpd::console::post const& post)
     {
         xpd::console::history::add(std::move(post));
+    }
+    
+    // ================================================================================ //
+    //                                      PLAY HEAD                                   //
+    // ================================================================================ //
+    
+    
+    void camomile::set_playhead_infos(PlayHeadInfos const& ph)
+    {
+        m_playhead_list[0] = static_cast<float>(ph.bpm);
+        m_playhead_list[1] = static_cast<float>(ph.timeSigNumerator);
+        m_playhead_list[2] = static_cast<float>(ph.timeSigDenominator);
+        m_playhead_list[3] = static_cast<float>(ph.timeInSamples);
+        m_playhead_list[4] = static_cast<float>(ph.timeInSeconds);
+        m_playhead_list[5] = static_cast<float>(ph.editOriginTime);
+        m_playhead_list[6] = static_cast<float>(ph.ppqPosition);
+        m_playhead_list[7] = static_cast<float>(ph.ppqPositionOfLastBarStart);
+        m_playhead_list[8] = static_cast<float>(ph.frameRate);
+        m_playhead_list[9] = static_cast<float>(ph.isPlaying);
+        m_playhead_list[10] = static_cast<float>(ph.isRecording);
+        m_playhead_list[11] = static_cast<float>(ph.ppqLoopStart);
+        m_playhead_list[12] = static_cast<float>(ph.ppqLoopEnd);
+        m_playhead_list[13] = static_cast<float>(ph.isLooping);
+        xpd::instance::send(m_playhead_tie, get_symbol_list(), m_playhead_list);
     }
     
     // ================================================================================ //
