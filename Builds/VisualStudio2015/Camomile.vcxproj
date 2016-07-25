@@ -255,7 +255,6 @@
     <ClCompile Include="..\..\Source\LookAndFeel.cpp"/>
     <ClCompile Include="..\..\Source\CamomileEditor.cpp"/>
     <ClCompile Include="..\..\Source\Camo\camo_instance.cpp"/>
-    <ClCompile Include="..\..\Source\Camo\camo_parameter.cpp"/>
     <ClCompile Include="..\..\Source\Gui\Gui.cpp"/>
     <ClCompile Include="..\..\Source\Gui\GuiAbout.cpp"/>
     <ClCompile Include="..\..\Source\Gui\GuiComment.cpp"/>
@@ -1722,7 +1721,6 @@
     <ClInclude Include="..\..\Source\LookAndFeel.hpp"/>
     <ClInclude Include="..\..\Source\CamomileEditor.hpp"/>
     <ClInclude Include="..\..\Source\Camo\camo_instance.hpp"/>
-    <ClInclude Include="..\..\Source\Camo\camo_parameter.hpp"/>
     <ClInclude Include="..\..\Source\Camo\camo.hpp"/>
     <ClInclude Include="..\..\Source\Gui\Gui.hpp"/>
     <ClInclude Include="..\..\Source\Gui\GuiAbout.hpp"/>

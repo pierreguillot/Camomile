@@ -23,7 +23,6 @@
 		E295F6606739CDC8A8781D7F = {isa = PBXBuildFile; fileRef = 9C12D15D9C8BFB3F5FA41CEA; };
 		619D3B4535DF6F0E4049E214 = {isa = PBXBuildFile; fileRef = 9A81A8E7E8D82BDBD2219D70; };
 		5D55056165716A9C141F7BD8 = {isa = PBXBuildFile; fileRef = E5324DD14125C18B2EE6E6C7; };
-		BC320D76F80FBDBB4A22CBE6 = {isa = PBXBuildFile; fileRef = 5BED7129C98CC1D819310C8A; };
 		89DC774CED98C0B2E2C6AFAC = {isa = PBXBuildFile; fileRef = 31F7783C8A4DFA20793CADA9; };
 		AC0359B2212797166E111816 = {isa = PBXBuildFile; fileRef = D28DB0D67C649F0FBB36E5B6; };
 		855001F2DB363BA77005E1DA = {isa = PBXBuildFile; fileRef = A7F4749972D1F80B3E5BDDFB; };
@@ -567,7 +566,6 @@
 		5B18CD3915AFDCDEC893C46F = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = choice.c; path = ../../ThirdParty/zpd/pd/extra/choice/choice.c; sourceTree = "SOURCE_ROOT"; };
 		5B5DC6AAD169BACADE736D84 = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-VST.plist"; path = "Info-VST.plist"; sourceTree = "SOURCE_ROOT"; };
 		5BD30D1067C8780E76964E6E = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "juce_events.mm"; path = "../../ThirdParty/Juce/modules/juce_events/juce_events.mm"; sourceTree = "SOURCE_ROOT"; };
-		5BED7129C98CC1D819310C8A = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "camo_parameter.cpp"; path = "../../Source/Camo/camo_parameter.cpp"; sourceTree = "SOURCE_ROOT"; };
 		5C6F79A477BCAAF112E1760C = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = inftrees.c; path = "../../ThirdParty/Juce/modules/juce_core/zip/zlib/inftrees.c"; sourceTree = "SOURCE_ROOT"; };
 		5DAE0D0912BB4F9E91F257E6 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "g_numbox.c"; path = "../../ThirdParty/zpd/pd/src/g_numbox.c"; sourceTree = "SOURCE_ROOT"; };
 		5DD795FFD713BF3F4F597115 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = jmemmgr.c; path = "../../ThirdParty/Juce/modules/juce_graphics/image_formats/jpglib/jmemmgr.c"; sourceTree = "SOURCE_ROOT"; };
@@ -1019,7 +1017,6 @@
 		BE00BD61A016BCC5E7213FB2 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_CharPointer_UTF32.h"; path = "../../ThirdParty/Juce/modules/juce_core/text/juce_CharPointer_UTF32.h"; sourceTree = "SOURCE_ROOT"; };
 		BE1E372449879D7D81391620 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_TableHeaderComponent.h"; path = "../../ThirdParty/Juce/modules/juce_gui_basics/widgets/juce_TableHeaderComponent.h"; sourceTree = "SOURCE_ROOT"; };
 		BE3E288E92B4AFDEF040048B = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_GIFLoader.cpp"; path = "../../ThirdParty/Juce/modules/juce_graphics/image_formats/juce_GIFLoader.cpp"; sourceTree = "SOURCE_ROOT"; };
-		BE7109DBE9EA0B87B94FE3C1 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "camo_parameter.hpp"; path = "../../Source/Camo/camo_parameter.hpp"; sourceTree = "SOURCE_ROOT"; };
 		BEA7649348E5D33B52CF5940 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "g_canvas.h"; path = "../../ThirdParty/zpd/pd/src/g_canvas.h"; sourceTree = "SOURCE_ROOT"; };
 		BEFB6F7C817FA6617692DC27 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "juce_events.mm"; path = "../../JuceLibraryCode/juce_events.mm"; sourceTree = "SOURCE_ROOT"; };
 		BF056A4671D4226FEDDB18D4 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_ScopedWriteLock.h"; path = "../../ThirdParty/Juce/modules/juce_core/threads/juce_ScopedWriteLock.h"; sourceTree = "SOURCE_ROOT"; };
@@ -1340,8 +1337,6 @@
 		39A4516AB13B4BF2A978D981 = {isa = PBXGroup; children = (
 					E5324DD14125C18B2EE6E6C7,
 					45537DFA6BF6F89ECC2EBA4A,
-					5BED7129C98CC1D819310C8A,
-					BE7109DBE9EA0B87B94FE3C1,
 					80307D9CD067B583EF4CC934, ); name = Camo; sourceTree = "<group>"; };
 		C972A168D4D5622EA1E10F3D = {isa = PBXGroup; children = (
 					31F7783C8A4DFA20793CADA9,
@@ -3095,7 +3090,6 @@
 					E295F6606739CDC8A8781D7F,
 					619D3B4535DF6F0E4049E214,
 					5D55056165716A9C141F7BD8,
-					BC320D76F80FBDBB4A22CBE6,
 					89DC774CED98C0B2E2C6AFAC,
 					AC0359B2212797166E111816,
 					855001F2DB363BA77005E1DA,

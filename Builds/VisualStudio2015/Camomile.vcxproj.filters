@@ -316,9 +316,6 @@
     <ClCompile Include="..\..\Source\Camo\camo_instance.cpp">
       <Filter>Camomile\Source\Camo</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Camo\camo_parameter.cpp">
-      <Filter>Camomile\Source\Camo</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\Gui\Gui.cpp">
       <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
@@ -2161,9 +2158,6 @@
       <Filter>Camomile\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Camo\camo_instance.hpp">
-      <Filter>Camomile\Source\Camo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Camo\camo_parameter.hpp">
       <Filter>Camomile\Source\Camo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Camo\camo.hpp">

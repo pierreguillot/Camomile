@@ -53,7 +53,6 @@ OBJECTS := \
   $(OBJDIR)/LookAndFeel_40552bdf.o \
   $(OBJDIR)/CamomileEditor_6e8172eb.o \
   $(OBJDIR)/camo_instance_fae2212e.o \
-  $(OBJDIR)/camo_parameter_9fd439fa.o \
   $(OBJDIR)/Gui_edc4c728.o \
   $(OBJDIR)/GuiAbout_58af930f.o \
   $(OBJDIR)/GuiComment_699305a1.o \
@@ -218,11 +217,6 @@ $(OBJDIR)/CamomileEditor_6e8172eb.o: ../../Source/CamomileEditor.cpp
 $(OBJDIR)/camo_instance_fae2212e.o: ../../Source/Camo/camo_instance.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling camo_instance.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/camo_parameter_9fd439fa.o: ../../Source/Camo/camo_parameter.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling camo_parameter.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/Gui_edc4c728.o: ../../Source/Gui/Gui.cpp

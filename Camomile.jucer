@@ -30,10 +30,6 @@
               file="Source/Camo/camo_instance.cpp"/>
         <FILE id="cZlBow" name="camo_instance.hpp" compile="0" resource="0"
               file="Source/Camo/camo_instance.hpp"/>
-        <FILE id="gNBDTb" name="camo_parameter.cpp" compile="1" resource="0"
-              file="Source/Camo/camo_parameter.cpp"/>
-        <FILE id="J0xbym" name="camo_parameter.hpp" compile="0" resource="0"
-              file="Source/Camo/camo_parameter.hpp"/>
         <FILE id="M4rmza" name="camo.hpp" compile="0" resource="0" file="Source/Camo/camo.hpp"/>
       </GROUP>
       <GROUP id="{5A0FA5A4-A4CD-0F98-6047-84A5A87C6E33}" name="Gui">
