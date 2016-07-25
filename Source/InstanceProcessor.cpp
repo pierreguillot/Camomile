@@ -10,7 +10,6 @@
 
 xpd::symbol InstanceProcessor::s_playing;
 xpd::symbol InstanceProcessor::s_measure;
-xpd::symbol InstanceProcessor::s_float;
 
 InstanceProcessor::InstanceProcessor() :
 m_playing_list(2),
@@ -25,7 +24,7 @@ m_name("Camomile")
     
     s_playing           = xpd::symbol("playing");
     s_measure           = xpd::symbol("measure");
-    s_float             = xpd::symbol("float");
+    
     busArrangement.inputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(32);
     busArrangement.outputBuses.getReference(0).channels = AudioChannelSet::discreteChannels(32);
     m_path = juce::File::getCurrentWorkingDirectory().getFullPathName();
@@ -48,7 +47,7 @@ const String InstanceProcessor::getName() const
 
 int InstanceProcessor::getNumParameters()
 {
-    return get_number_of_parameters() != 0 ? get_number_of_parameters() : 64;
+    return static_cast<int>(get_number_of_parameters()) != 0 ? static_cast<int>(get_number_of_parameters()) : 64;
 }
 
 const String InstanceProcessor::getParameterName(int index)
@@ -78,12 +77,12 @@ float InstanceProcessor::getParameterDefaultValue(int index)
 
 const String InstanceProcessor::getParameterText(int index)
 {
-    return get_parameter_text(index);
+    return String(get_parameter_value(index));
 }
 
 String InstanceProcessor::getParameterText(int index, int size)
 {
-    return String(get_parameter_text(index)).substring(0, size);
+    return String(get_parameter_value(index)).substring(0, size);
 }
 
 int InstanceProcessor::getParameterNumSteps(int index)
@@ -137,13 +136,6 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
             send(m_patch_tie, s_measure, m_measure_list);
         }
         
-        /*
-        for(size_t i = 0; i < m_parameters.size() && bool(m_parameters[i]); ++i)
-        {
-            send(m_parameters[i].receive_tie(), s_float, std::vector<xpd::atom>(1, m_parameters[i].get_value_denormalized()));
-        }
-        */
-        
         MidiMessage message;
         MidiBuffer::Iterator it(midiMessages);
         int position = midiMessages.getFirstEventTime();
@@ -182,11 +174,6 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     midiMessages.clear();
     perform(buffer.getNumSamples(), getTotalNumInputChannels(), buffer.getArrayOfReadPointers(), getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
     midiMessages.swapWith(m_midi);
-}
-
-void InstanceProcessor::receive(xpd::console::post const& post)
-{
-    xpd::console::history::add(std::move(post));
 }
 
 void InstanceProcessor::receive(xpd::midi::event const& event)
@@ -310,12 +297,12 @@ void InstanceProcessor::setStateInformation(const void* data, int sizeInBytes)
             {
                 for(int i = 0; i < params->getNumAttributes(); i++)
                 {
-                    String const& name = params->getAttributeName(i);
-                    for(size_t i = 0; i < get_number_of_parameters(); ++i)
+                    String const& aname = params->getAttributeName(i);
+                    for(int j = 0; j < static_cast<int>(get_number_of_parameters()); ++j)
                     {
-                        if(name == get_parameter_name(i))
+                        if(aname == get_parameter_name(j))
                         {
-                            setParameterNotifyingHost(i, params->getAttributeValue(i).getDoubleValue());
+                            setParameterNotifyingHost(j, params->getAttributeValue(i).getDoubleValue());
                         }
                     }
                 }
