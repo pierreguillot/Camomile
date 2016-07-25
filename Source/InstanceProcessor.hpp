@@ -16,9 +16,7 @@
 //                                  INSTANCE EDITOR                                     //
 // ==================================================================================== //
 
-class InstanceProcessor :
-public AudioProcessor,
-public camo::camomile
+class InstanceProcessor : public AudioProcessor, public camo::camomile
 {
 public:
     InstanceProcessor();
@@ -27,6 +25,16 @@ public:
     AudioProcessorEditor* createEditor() final;
     bool hasEditor() const final {return true;};
     const String getName() const final ;
+    
+    const String getInputChannelName(int index) const final {return String(index + 1);}
+    const String getOutputChannelName(int index) const final {return String(index + 1);}
+    bool isInputChannelStereoPair(int index) const final {return true;}
+    bool isOutputChannelStereoPair(int index) const final {return true;}
+    
+    bool acceptsMidi() const final {return bool(JucePlugin_WantsMidiInput);}
+    bool producesMidi() const final {return bool(JucePlugin_ProducesMidiOutput);}
+    bool silenceInProducesSilenceOut() const final {return false;}
+    double getTailLengthSeconds() const final {return 0.0;}
     
     
     // ==================================================================================== //
@@ -42,16 +50,10 @@ public:
     String getParameterText(int index, int size) final;
     String getParameterLabel (int index) const final;
     int getParameterNumSteps(int index) final;
-    
-    const String getInputChannelName(int index) const final {return String(index + 1);}
-    const String getOutputChannelName(int index) const final {return String(index + 1);}
-    bool isInputChannelStereoPair(int index) const final {return true;}
-    bool isOutputChannelStereoPair(int index) const final {return true;}
 
-    bool acceptsMidi() const final {return bool(JucePlugin_WantsMidiInput);}
-    bool producesMidi() const final {return bool(JucePlugin_ProducesMidiOutput);}
-    bool silenceInProducesSilenceOut() const final {return false;}
-    double getTailLengthSeconds() const final {return 0.0;}
+    // ==================================================================================== //
+    //                                          PRESETS                                     //
+    // ==================================================================================== //
 
     int getNumPrograms() final {return 1;}
     int getCurrentProgram() final {return 0;}
@@ -60,16 +62,18 @@ public:
     void changeProgramName(int index, const String& newName) final {}
     
     // ==================================================================================== //
-    //                                          DSP                                         //
+    //                                          DSP & MIDI                                  //
     // ==================================================================================== //
     
     void prepareToPlay(double sampleRate, int samplesPerBlock) final;
     void releaseResources() final;
     void processBlock(AudioSampleBuffer&, MidiBuffer&) final;
- 
-    // ================================================================================ //
-    //                                      PATCH                                       //
-    // ================================================================================ //
+    void receive(xpd::midi::event const& event) final;
+    
+    // ==================================================================================== //
+    //                                          PATCH                                       //
+    // ==================================================================================== //
+
  
     void load_patch(std::string const& name, std::string const& path);
     void close_patch();
@@ -80,12 +84,6 @@ public:
 
     void getStateInformation(MemoryBlock& destData) final;
     void setStateInformation(const void* data, int sizeInBytes) final;
-    
-protected:
-    
-    //! @brief Receives a midi event.
-    //! @param event The midi event received.
-    void receive(xpd::midi::event const& event) final;
     
 private:
     juce::String    m_name;
