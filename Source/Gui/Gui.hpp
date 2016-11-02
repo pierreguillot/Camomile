@@ -7,7 +7,7 @@
 #ifndef __CAMOMILE_GUI__
 #define __CAMOMILE_GUI__
 
-#include "../InstanceProcessor.hpp"
+#include "../CamomileProcessor.hpp"
 #include "GuiParameter.hpp"
 #include "GuiRadio.hpp"
 #include "GuiToggle.hpp"

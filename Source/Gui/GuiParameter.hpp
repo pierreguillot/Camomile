@@ -7,7 +7,7 @@
 #ifndef __CAMOMILE_GUI_PARAMETER__
 #define __CAMOMILE_GUI_PARAMETER__
 
-#include "../InstanceProcessor.hpp"
+#include "../CamomileProcessor.hpp"
 
 // ==================================================================================== //
 //                                      GUI PARAMETER                                   //
@@ -16,7 +16,7 @@
 class GuiParameter : public virtual Component
 {
 public:
-    GuiParameter(InstanceProcessor& processor, xpd::gui const& gui);
+    GuiParameter(CamomileProcessor& processor, xpd::gui const& gui);
     ~GuiParameter() {}
     inline xpd::gui::type_t getType() const noexcept {return m_type;}
     inline float getMaximum() const noexcept {return m_maximum;}
@@ -33,7 +33,7 @@ protected:
     void setValueNormalized(float value, bool redraw = true);
 private:
     
-    InstanceProcessor&      m_processor;
+    CamomileProcessor&      m_processor;
     const xpd::gui::type_t  m_type;
     const float             m_minimum;
     const float             m_maximum;

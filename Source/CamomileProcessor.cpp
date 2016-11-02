@@ -4,11 +4,11 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
-#include "InstanceProcessor.hpp"
+#include "CamomileProcessor.hpp"
 #include "CamomileEditor.hpp"
-//#include "LookAndFeel.hpp"
+#include "LookAndFeel.hpp"
 
-InstanceProcessor::InstanceProcessor() : m_name("Camomile")
+CamomileProcessor::CamomileProcessor() : m_name("Camomile")
 {
     send(xpd::console::post{xpd::console::level::log, std::string("Camomile ") +
         std::string(JucePlugin_VersionString) + std::string(" for Pure Data ") +
@@ -19,12 +19,12 @@ InstanceProcessor::InstanceProcessor() : m_name("Camomile")
     m_path = juce::File::getCurrentWorkingDirectory().getFullPathName();
 }
 
-InstanceProcessor::~InstanceProcessor()
+CamomileProcessor::~CamomileProcessor()
 {
     ;
 }
 
-const String InstanceProcessor::getName() const
+const String CamomileProcessor::getName() const
 {
     return m_name;
 }
@@ -34,48 +34,48 @@ const String InstanceProcessor::getName() const
 //                                          PARAMETERS                                  //
 // ==================================================================================== //
 
-int InstanceProcessor::getNumParameters()
+int CamomileProcessor::getNumParameters()
 {
     return get_number_of_parameters() != 0 ? static_cast<int>(get_number_of_parameters()) : 64;
 }
 
-const String InstanceProcessor::getParameterName(int index)
+const String CamomileProcessor::getParameterName(int index)
 {
     return index < get_number_of_parameters() ? get_parameter_name(index) : String("dummy ") + String(index);
 }
 
-String InstanceProcessor::getParameterLabel(int index) const
+String CamomileProcessor::getParameterLabel(int index) const
 {
     return index < get_number_of_parameters() ? get_parameter_label(index) : String("");
 }
 
-float InstanceProcessor::getParameter(int index)
+float CamomileProcessor::getParameter(int index)
 {
     return index < get_number_of_parameters() ? get_parameter_value(index) : 0.f;
 }
 
-void InstanceProcessor::setParameter(int index, float newValue)
+void CamomileProcessor::setParameter(int index, float newValue)
 {
     if(index < get_number_of_parameters()) {
         set_parameter_value(index, newValue);}
 }
 
-float InstanceProcessor::getParameterDefaultValue(int index)
+float CamomileProcessor::getParameterDefaultValue(int index)
 {
     return index < get_number_of_parameters() ? get_parameter_default_value(index) : 0.f;
 }
 
-const String InstanceProcessor::getParameterText(int index)
+const String CamomileProcessor::getParameterText(int index)
 {
     return index < get_number_of_parameters() ? String(get_parameter_value(index)) : String("0");
 }
 
-String InstanceProcessor::getParameterText(int index, int size)
+String CamomileProcessor::getParameterText(int index, int size)
 {
     return index < get_number_of_parameters() ? String(get_parameter_value(index)).substring(0, size) : String("0");
 }
 
-int InstanceProcessor::getParameterNumSteps(int index)
+int CamomileProcessor::getParameterNumSteps(int index)
 {
     return index < get_number_of_parameters() ? static_cast<int>(get_parameter_nsteps(index)) : 0;
 }
@@ -85,17 +85,17 @@ int InstanceProcessor::getParameterNumSteps(int index)
 // ==================================================================================== //
 
 
-void InstanceProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
+void CamomileProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), sampleRate, samplesPerBlock);
 }
 
-void InstanceProcessor::releaseResources()
+void CamomileProcessor::releaseResources()
 {
     release();
 }
 
-void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
+void CamomileProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
     for(int i = getTotalNumInputChannels(); i < getTotalNumOutputChannels(); ++i)
     {
@@ -150,7 +150,7 @@ void InstanceProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     midiMessages.swapWith(m_midi);
 }
 
-void InstanceProcessor::receive(xpd::midi::event const& event)
+void CamomileProcessor::receive(xpd::midi::event const& event)
 {
     if(event.type() == xpd::midi::event::note_t)
     {
@@ -189,26 +189,26 @@ void InstanceProcessor::receive(xpd::midi::event const& event)
 //                                      PATCH                                       //
 // ================================================================================ //
 
-void InstanceProcessor::load_patch(std::string const& name, std::string const& path)
+void CamomileProcessor::load_patch(std::string const& name, std::string const& path)
 {
     suspendProcessing(true);
     if(isSuspended())
     {
-        camo::camomile::load_patch(name, path);
+        camo::processor::load_patch(name, path);
         updateHostDisplay();
-        camo::camomile::prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), AudioProcessor::getSampleRate(), getBlockSize());
+        camo::processor::prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), AudioProcessor::getSampleRate(), getBlockSize());
     }
     suspendProcessing(false);
 }
 
-void InstanceProcessor::close_patch()
+void CamomileProcessor::close_patch()
 {
     suspendProcessing(true);
     if(isSuspended())
     {
-        camo::camomile::close_patch();
+        camo::processor::close_patch();
         updateHostDisplay();
-        camo::camomile::prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), AudioProcessor::getSampleRate(), getBlockSize());
+        camo::processor::prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), AudioProcessor::getSampleRate(), getBlockSize());
     }
     suspendProcessing(false);
 }
@@ -218,7 +218,7 @@ void InstanceProcessor::close_patch()
 //                                  STATE INFORMATION                               //
 // ================================================================================ //
 
-void InstanceProcessor::getStateInformation(MemoryBlock& destData)
+void CamomileProcessor::getStateInformation(MemoryBlock& destData)
 {
     juce::XmlElement xml(String("CamomileSettings"));
     xpd::patch patch(get_patch());
@@ -235,7 +235,7 @@ void InstanceProcessor::getStateInformation(MemoryBlock& destData)
     copyXmlToBinary(xml, destData);
 }
 
-void InstanceProcessor::setStateInformation(const void* data, int sizeInBytes)
+void CamomileProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
     ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
     if(xml != nullptr)
@@ -286,7 +286,7 @@ void InstanceProcessor::setStateInformation(const void* data, int sizeInBytes)
 }
 
 
-AudioProcessorEditor* InstanceProcessor::createEditor()
+AudioProcessorEditor* CamomileProcessor::createEditor()
 {
     return new CamomileEditor(*this);
 }
@@ -299,10 +299,10 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
         xpd::environment::initialize();
         initialized = true;
     }
-    int todo;
+    
     //static CamoLookAndFeel lookAndFeel;
     //LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
-    return new InstanceProcessor();
+    return new CamomileProcessor();
 }
 
 

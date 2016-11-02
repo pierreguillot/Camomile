@@ -254,7 +254,8 @@
     <ClCompile Include="..\..\Source\InstanceProcessor.cpp"/>
     <ClCompile Include="..\..\Source\LookAndFeel.cpp"/>
     <ClCompile Include="..\..\Source\CamomileEditor.cpp"/>
-    <ClCompile Include="..\..\Source\Camo\camo_instance.cpp"/>
+    <ClCompile Include="..\..\Source\camo\camo_gui.cpp"/>
+    <ClCompile Include="..\..\Source\camo\camo_processor.cpp"/>
     <ClCompile Include="..\..\Source\Gui\Gui.cpp"/>
     <ClCompile Include="..\..\Source\Gui\GuiAbout.cpp"/>
     <ClCompile Include="..\..\Source\Gui\GuiComment.cpp"/>
@@ -1720,8 +1721,9 @@
     <ClInclude Include="..\..\Source\InstanceProcessor.hpp"/>
     <ClInclude Include="..\..\Source\LookAndFeel.hpp"/>
     <ClInclude Include="..\..\Source\CamomileEditor.hpp"/>
-    <ClInclude Include="..\..\Source\Camo\camo_instance.hpp"/>
-    <ClInclude Include="..\..\Source\Camo\camo.hpp"/>
+    <ClInclude Include="..\..\Source\camo\camo.hpp"/>
+    <ClInclude Include="..\..\Source\camo\camo_gui.hpp"/>
+    <ClInclude Include="..\..\Source\camo\camo_processor.hpp"/>
     <ClInclude Include="..\..\Source\Gui\Gui.hpp"/>
     <ClInclude Include="..\..\Source\Gui\GuiAbout.hpp"/>
     <ClInclude Include="..\..\Source\Gui\GuiComment.hpp"/>

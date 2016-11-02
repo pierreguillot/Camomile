@@ -11,7 +11,7 @@
 //                                      GUI TOGGLE                                      //
 // ==================================================================================== //
 
-GuiNumbox::GuiNumbox(InstanceProcessor& processor, xpd::gui const& gui) : GuiParameter(processor, gui)
+GuiNumbox::GuiNumbox(CamomileProcessor& processor, xpd::gui const& gui) : GuiParameter(processor, gui)
 {
     juce::Rectangle<int> bounds(getLocalBounds());
     m_label.setBounds(bounds.getHeight() / 2, 0, bounds.getWidth() - bounds.getHeight() / 2, bounds.getHeight());

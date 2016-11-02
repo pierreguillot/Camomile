@@ -1,4 +1,4 @@
-#N canvas 735 173 321 434 10;
+#N canvas 735 173 454 430 10;
 #X obj 59 67 hsl 128 15 0 22050 0 0 \$0-rate-s \$0-rate Rate_Hz -3
 -6 0 10 -262144 -1 -1 3 1;
 #X obj 195 67 nbx 5 15 0 22050 0 0 empty \$0-rate empty 0 -8 0 10 -262144
@@ -52,6 +52,8 @@
 #X connect 1 0 2 0;
 #X connect 4 0 3 0;
 #X restore 197 363 pd init;
+#X obj 290 33 text define -k \$0-parameters;
+#A set;
 #X connect 0 0 22 0;
 #X connect 1 0 0 0;
 #X connect 2 0 5 0;

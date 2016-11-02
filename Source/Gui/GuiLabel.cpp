@@ -12,7 +12,7 @@
 // ==================================================================================== //
 
 
-GuiLabel::GuiLabel(InstanceProcessor& processor, xpd::gui const& gui) :
+GuiLabel::GuiLabel(CamomileProcessor& processor, xpd::gui const& gui) :
 Label("label", String(gui.name() + std::string(" ") + gui.label()))
 {
     setFont(Gui::getFont());

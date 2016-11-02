@@ -7,7 +7,7 @@
 #ifndef __CAMOMILE_GUI_FLOWER_BUTTON__
 #define __CAMOMILE_GUI_FLOWER_BUTTON__
 
-#include "../InstanceProcessor.hpp"
+#include "../CamomileProcessor.hpp"
 
 // ==================================================================================== //
 //                                      GUI FLOWER BUTTON                               //

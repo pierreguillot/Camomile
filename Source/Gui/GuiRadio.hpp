@@ -18,7 +18,7 @@ class GuiRadio : public GuiParameter
 public:
     static const xpd::gui::type_t Horizontal = xpd::gui::radio_horizontal;
     static const xpd::gui::type_t Vertical   = xpd::gui::radio_vertical;
-    GuiRadio(InstanceProcessor& processor, xpd::gui const& gui);
+    GuiRadio(CamomileProcessor& processor, xpd::gui const& gui);
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& event) final;
 private:

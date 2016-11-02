@@ -7,7 +7,7 @@
 #ifndef __CAMOMILE_GUI_ABOUT__
 #define __CAMOMILE_GUI_ABOUT__
 
-#include "../InstanceProcessor.hpp"
+#include "../CamomileProcessor.hpp"
 
 // ==================================================================================== //
 //                                      GUI ABOUT                                       //

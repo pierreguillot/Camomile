@@ -4,23 +4,23 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef __CAMOMILE_INTANCE_PROCESSOR__
-#define __CAMOMILE_INTANCE_PROCESSOR__
+#ifndef CAMOMILE_PROCESSOR_INCLUDE_HPP
+#define CAMOMILE_PROCESSOR_INCLUDE_HPP
 
 #include "../ThirdParty/zpd/xpd/xpd.hpp"
-#include "Camo/camo.hpp"
+#include "camo/camo.hpp"
 #include "../JuceLibraryCode/JuceHeader.h"
 
 
 // ==================================================================================== //
-//                                  INSTANCE EDITOR                                     //
+//                                  CAMOMILE PROCESSOR                                  //
 // ==================================================================================== //
 
-class InstanceProcessor : public AudioProcessor, public camo::camomile
+class CamomileProcessor : public AudioProcessor, public camo::processor
 {
 public:
-    InstanceProcessor();
-    ~InstanceProcessor();
+    CamomileProcessor();
+    ~CamomileProcessor();
 
     AudioProcessorEditor* createEditor() final;
     bool hasEditor() const final {return true;};
@@ -74,7 +74,6 @@ public:
     //                                          PATCH                                       //
     // ==================================================================================== //
 
- 
     void load_patch(std::string const& name, std::string const& path);
     void close_patch();
 
@@ -91,10 +90,8 @@ private:
     MidiBuffer      m_midi;
     AudioPlayHead::CurrentPositionInfo  m_playinfos;
     
-    
-    
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (InstanceProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileProcessor)
 };
 
 
-#endif
+#endif // CAMOMILE_PROCESSOR_INCLUDE_HPP

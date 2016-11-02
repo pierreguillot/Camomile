@@ -10,7 +10,7 @@
 //                                      GUI SLIDER                                      //
 // ==================================================================================== //
 
-GuiParameter::GuiParameter(InstanceProcessor& processor, xpd::gui const& gui) :
+GuiParameter::GuiParameter(CamomileProcessor& processor, xpd::gui const& gui) :
 m_processor(processor),
 m_type(gui.type()),
 m_minimum(gui.minimum()),

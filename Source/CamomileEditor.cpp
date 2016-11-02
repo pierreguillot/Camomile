@@ -4,7 +4,7 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "InstanceProcessor.hpp"
+#include "CamomileProcessor.hpp"
 #include "CamomileEditor.hpp"
 
 
@@ -12,7 +12,7 @@
 //                                  CAMOMILE EDITOR                                     //
 // ==================================================================================== //
 
-CamomileEditor::CamomileEditor(InstanceProcessor& p) : AudioProcessorEditor(&p), m_processor(p)
+CamomileEditor::CamomileEditor(CamomileProcessor& p) : AudioProcessorEditor(&p), m_processor(p)
 {
     setOpaque(true);
     setSize(600, 420);

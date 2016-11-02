@@ -24,12 +24,14 @@
             file="Source/CamomileEditor.cpp"/>
       <FILE id="MazVyC" name="CamomileEditor.hpp" compile="0" resource="0"
             file="Source/CamomileEditor.hpp"/>
-      <GROUP id="{A2EEC958-343E-2619-6C3A-90AE6C704457}" name="Camo">
-        <FILE id="kALEzo" name="camo_instance.cpp" compile="1" resource="0"
-              file="Source/Camo/camo_instance.cpp"/>
-        <FILE id="cZlBow" name="camo_instance.hpp" compile="0" resource="0"
-              file="Source/Camo/camo_instance.hpp"/>
-        <FILE id="M4rmza" name="camo.hpp" compile="0" resource="0" file="Source/Camo/camo.hpp"/>
+      <GROUP id="{F8FE4F68-2F0D-C6E5-10EC-B2C8A66CDB90}" name="camo">
+        <FILE id="zvTVJo" name="camo.hpp" compile="0" resource="0" file="Source/camo/camo.hpp"/>
+        <FILE id="N1ol1U" name="camo_gui.cpp" compile="1" resource="0" file="Source/camo/camo_gui.cpp"/>
+        <FILE id="vRXK9k" name="camo_gui.hpp" compile="0" resource="0" file="Source/camo/camo_gui.hpp"/>
+        <FILE id="Iehj0P" name="camo_processor.cpp" compile="1" resource="0"
+              file="Source/camo/camo_processor.cpp"/>
+        <FILE id="LYwGBa" name="camo_processor.hpp" compile="0" resource="0"
+              file="Source/camo/camo_processor.hpp"/>
       </GROUP>
       <GROUP id="{5A0FA5A4-A4CD-0F98-6047-84A5A87C6E33}" name="Gui">
         <FILE id="hF28IC" name="Gui.cpp" compile="1" resource="0" file="Source/Gui/Gui.cpp"/>

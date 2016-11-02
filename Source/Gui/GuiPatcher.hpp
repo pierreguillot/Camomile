@@ -20,7 +20,7 @@ class GuiPatcher : public Component, private Timer
 public:
     GuiPatcher();
     ~GuiPatcher();
-    void setPatch(InstanceProcessor& processor, xpd::patch const& patch);
+    void setPatch(CamomileProcessor& processor, xpd::patch const& patch);
 private:
     void timerCallback() final;
     OwnedArray<GuiComment>      m_comment;

@@ -35,7 +35,7 @@ void GuiPatcher::timerCallback()
     }
 }
 
-void GuiPatcher::setPatch(InstanceProcessor& processor, xpd::patch const& patch)
+void GuiPatcher::setPatch(CamomileProcessor& processor, xpd::patch const& patch)
 {
     stopTimer();
     m_comment.clear();

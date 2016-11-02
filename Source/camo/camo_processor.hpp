@@ -14,11 +14,11 @@
 namespace camo
 {
     // ==================================================================================== //
-    //                                  CAMOMILE INSTANCE                                   //
+    //                                  CAMOMILE PROCESSOR                                  //
     // ==================================================================================== //
     
-    //! @brief A usefull class that override an instance.
-    class camomile : protected xpd::instance, public xpd::console::history
+    //! @brief A class that manages a single patch with parameters and presets.
+    class processor : public xpd::instance, public xpd::console::history
     {
     public:
        
@@ -27,10 +27,10 @@ namespace camo
         // ================================================================================ //
         
         //! @brief The default constructor.
-        camomile();
+        processor();
         
         //! @brief The virutal destructor.
-        virtual ~camomile() = default;
+        virtual ~processor() = default;
         
         // ================================================================================ //
         //                                      INSTANCE                                    //
@@ -167,7 +167,7 @@ namespace camo
         //                                      LISTENER                                    //
         // ================================================================================ //
         
-        //! @brief The camomile listener.
+        //! @brief The processor listener that is notified when the patch changed.
         class listener
         {
         public:
@@ -178,10 +178,10 @@ namespace camo
             virtual void patch_changed() = 0;
         };
         
-        //! @brief Adds a listener to camomile.
+        //! @brief Adds a listener to processor.
         void add_listener(listener& l);
         
-        //! @brief Removes a listener from camomile.
+        //! @brief Removes a listener from processor.
         void remove_listener(listener& l);
         
     private:
@@ -195,7 +195,7 @@ namespace camo
         std::vector<parameter>  m_parameters;
         std::set<listener*>     m_listeners;
     };
-};
+}
 
 
 #endif // CAMO_INSTANCE_INCLUDE_HPP

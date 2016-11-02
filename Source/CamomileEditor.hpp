@@ -8,22 +8,22 @@
 #define __CAMOMILE_INSTANCE_EDITOR__
 
 #include "Gui/Gui.hpp"
-#include "InstanceProcessor.hpp"
+#include "CamomileProcessor.hpp"
 
 // ==================================================================================== //
 //                                  CAMOMILE EDITOR                                     //
 // ==================================================================================== //
 
-class CamomileEditor : public AudioProcessorEditor, public camo::camomile::listener, public Button::Listener
+class CamomileEditor : public AudioProcessorEditor, public camo::processor::listener, public Button::Listener
 {
 public:
-    CamomileEditor(InstanceProcessor&);
+    CamomileEditor(CamomileProcessor&);
     ~CamomileEditor();
     void paint(Graphics&) final;
     void buttonClicked(Button* button) final;
     void patch_changed() final;
 private:
-    InstanceProcessor&  m_processor;
+    CamomileProcessor&  m_processor;
     GuiPatcher          m_patcher;
     GuiFlowerButton     m_button;
     GuiWindow           m_window;

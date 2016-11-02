@@ -52,7 +52,8 @@ OBJECTS := \
   $(OBJDIR)/InstanceProcessor_bc7e525e.o \
   $(OBJDIR)/LookAndFeel_40552bdf.o \
   $(OBJDIR)/CamomileEditor_6e8172eb.o \
-  $(OBJDIR)/camo_instance_fae2212e.o \
+  $(OBJDIR)/camo_gui_67b103ac.o \
+  $(OBJDIR)/camo_processor_7b0f5e83.o \
   $(OBJDIR)/Gui_edc4c728.o \
   $(OBJDIR)/GuiAbout_58af930f.o \
   $(OBJDIR)/GuiComment_699305a1.o \
@@ -214,9 +215,14 @@ $(OBJDIR)/CamomileEditor_6e8172eb.o: ../../Source/CamomileEditor.cpp
 	@echo "Compiling CamomileEditor.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/camo_instance_fae2212e.o: ../../Source/Camo/camo_instance.cpp
+$(OBJDIR)/camo_gui_67b103ac.o: ../../Source/camo/camo_gui.cpp
 	-@mkdir -p $(OBJDIR)
-	@echo "Compiling camo_instance.cpp"
+	@echo "Compiling camo_gui.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/camo_processor_7b0f5e83.o: ../../Source/camo/camo_processor.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling camo_processor.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/Gui_edc4c728.o: ../../Source/Gui/Gui.cpp

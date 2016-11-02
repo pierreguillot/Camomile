@@ -16,7 +16,7 @@
 class GuiNumbox : public GuiParameter, public Label::Listener
 {
 public:
-    GuiNumbox(InstanceProcessor& processor, xpd::gui const& gui);
+    GuiNumbox(CamomileProcessor& processor, xpd::gui const& gui);
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& event) final;
     void mouseDrag(const MouseEvent& event) final;

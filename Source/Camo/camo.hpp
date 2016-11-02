@@ -7,6 +7,6 @@
 #ifndef CAMO_INCLUDE_HPP
 #define CAMO_INCLUDE_HPP
 
-#include "camo_instance.hpp"
+#include "camo_processor.hpp"
 
 #endif // CAMO_INCLUDE_HPP

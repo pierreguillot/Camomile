@@ -7,7 +7,7 @@
 #ifndef __CAMOMILE_GUI_CONSOLE__
 #define __CAMOMILE_GUI_CONSOLE__
 
-#include "../InstanceProcessor.hpp"
+#include "../CamomileProcessor.hpp"
 #include "GuiFlowerButton.hpp"
 
 // ==================================================================================== //
