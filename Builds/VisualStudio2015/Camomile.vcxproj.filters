@@ -304,9 +304,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\InstanceProcessor.cpp">
-      <Filter>Camomile\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\LookAndFeel.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
@@ -2151,9 +2148,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\InstanceProcessor.hpp">
-      <Filter>Camomile\Source</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\LookAndFeel.hpp">
       <Filter>Camomile\Source</Filter>
     </ClInclude>

@@ -251,7 +251,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\InstanceProcessor.cpp"/>
     <ClCompile Include="..\..\Source\LookAndFeel.cpp"/>
     <ClCompile Include="..\..\Source\CamomileEditor.cpp"/>
     <ClCompile Include="..\..\Source\camo\camo_gui.cpp"/>
@@ -1718,7 +1717,6 @@
     <ClCompile Include="..\..\JuceLibraryCode\juce_gui_extra.cpp"/>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\InstanceProcessor.hpp"/>
     <ClInclude Include="..\..\Source\LookAndFeel.hpp"/>
     <ClInclude Include="..\..\Source\CamomileEditor.hpp"/>
     <ClInclude Include="..\..\Source\camo\camo.hpp"/>

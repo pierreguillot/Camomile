@@ -14,10 +14,6 @@
               buildAUv3="0">
   <MAINGROUP id="wVVIu9" name="Camomile">
     <GROUP id="{51EAB2F7-7167-302A-F6E7-853D8D6554C0}" name="Source">
-      <FILE id="q2ZLr2" name="InstanceProcessor.cpp" compile="1" resource="0"
-            file="Source/InstanceProcessor.cpp"/>
-      <FILE id="eYMfby" name="InstanceProcessor.hpp" compile="0" resource="0"
-            file="Source/InstanceProcessor.hpp"/>
       <FILE id="A3woQ5" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
       <FILE id="PY3eEX" name="LookAndFeel.hpp" compile="0" resource="0" file="Source/LookAndFeel.hpp"/>
       <FILE id="dP1REk" name="CamomileEditor.cpp" compile="1" resource="0"

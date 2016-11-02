@@ -49,7 +49,6 @@ ifeq ($(CONFIG),Release)
 endif
 
 OBJECTS := \
-  $(OBJDIR)/InstanceProcessor_bc7e525e.o \
   $(OBJDIR)/LookAndFeel_40552bdf.o \
   $(OBJDIR)/CamomileEditor_6e8172eb.o \
   $(OBJDIR)/camo_gui_67b103ac.o \
@@ -199,11 +198,6 @@ clean:
 strip:
 	@echo Stripping Camomile
 	-@strip --strip-unneeded $(OUTDIR)/$(TARGET)
-
-$(OBJDIR)/InstanceProcessor_bc7e525e.o: ../../Source/InstanceProcessor.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling InstanceProcessor.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/LookAndFeel_40552bdf.o: ../../Source/LookAndFeel.cpp
 	-@mkdir -p $(OBJDIR)
