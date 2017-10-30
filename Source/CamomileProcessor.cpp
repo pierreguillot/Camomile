@@ -5,17 +5,16 @@
  */
 
 #include "CamomileProcessor.hpp"
-#include "CamomileEditor.hpp"
-#include "LookAndFeel.hpp"
 
 CamomileProcessor::CamomileProcessor() : m_name("Camomile")
 {
+    /*
     send(xpd::console::post{xpd::console::level::log, std::string("Camomile ") +
         std::string(JucePlugin_VersionString) + std::string(" for Pure Data ") +
         std::to_string(xpd::environment::version_major()) + "." +
         std::to_string(xpd::environment::version_minor()) + "." +
         std::to_string(xpd::environment::version_bug())});
-
+ */
     m_path = juce::File::getCurrentWorkingDirectory().getFullPathName();
 }
 
@@ -31,68 +30,18 @@ const String CamomileProcessor::getName() const
 
 
 // ==================================================================================== //
-//                                          PARAMETERS                                  //
-// ==================================================================================== //
-
-int CamomileProcessor::getNumParameters()
-{
-    return get_number_of_parameters() != 0 ? static_cast<int>(get_number_of_parameters()) : 64;
-}
-
-const String CamomileProcessor::getParameterName(int index)
-{
-    return index < get_number_of_parameters() ? get_parameter_name(index) : String("dummy ") + String(index);
-}
-
-String CamomileProcessor::getParameterLabel(int index) const
-{
-    return index < get_number_of_parameters() ? get_parameter_label(index) : String("");
-}
-
-float CamomileProcessor::getParameter(int index)
-{
-    return index < get_number_of_parameters() ? get_parameter_value(index) : 0.f;
-}
-
-void CamomileProcessor::setParameter(int index, float newValue)
-{
-    if(index < get_number_of_parameters()) {
-        set_parameter_value(index, newValue);}
-}
-
-float CamomileProcessor::getParameterDefaultValue(int index)
-{
-    return index < get_number_of_parameters() ? get_parameter_default_value(index) : 0.f;
-}
-
-const String CamomileProcessor::getParameterText(int index)
-{
-    return index < get_number_of_parameters() ? String(get_parameter_value(index)) : String("0");
-}
-
-String CamomileProcessor::getParameterText(int index, int size)
-{
-    return index < get_number_of_parameters() ? String(get_parameter_value(index)).substring(0, size) : String("0");
-}
-
-int CamomileProcessor::getParameterNumSteps(int index)
-{
-    return index < get_number_of_parameters() ? static_cast<int>(get_parameter_nsteps(index)) : 0;
-}
-
-// ==================================================================================== //
 //                                          DSP & MIDI                                  //
 // ==================================================================================== //
 
 
 void CamomileProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), sampleRate, samplesPerBlock);
+    
 }
 
 void CamomileProcessor::releaseResources()
 {
-    release();
+    
 }
 
 void CamomileProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
@@ -105,7 +54,7 @@ void CamomileProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
     AudioPlayHead* playhead = getPlayHead();
     if(playhead && playhead->getCurrentPosition(m_playinfos))
     {
-        set_playhead_infos(reinterpret_cast<PlayHeadInfos const&>(m_playinfos));
+        //set_playhead_infos(reinterpret_cast<PlayHeadInfos const&>(m_playinfos));
     }
 
     {
@@ -117,39 +66,42 @@ void CamomileProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi
         {
             if(message.isNoteOn())
             {
-                send(xpd::midi::event::note(message.getChannel(), message.getNoteNumber(), message.getVelocity()));
+                //send(xpd::midi::event::note(message.getChannel(), message.getNoteNumber(), message.getVelocity()));
             }
             if(message.isNoteOff())
             {
-                send(xpd::midi::event::note(message.getChannel(), message.getNoteNumber(), 0));
+                //send(xpd::midi::event::note(message.getChannel(), message.getNoteNumber(), 0));
             }
             else if(message.isController())
             {
-                send(xpd::midi::event::control_change(message.getChannel(), message.getControllerNumber(), message.getControllerValue()));
+                //send(xpd::midi::event::control_change(message.getChannel(), message.getControllerNumber(), message.getControllerValue()));
             }
             else if(message.isPitchWheel())
             {
-                send(xpd::midi::event::program_change(message.getChannel(), message.getPitchWheelValue()));
+                //send(xpd::midi::event::program_change(message.getChannel(), message.getPitchWheelValue()));
             }
             else if(message.isChannelPressure())
             {
-                send(xpd::midi::event::after_touch(message.getChannel(), message.getChannelPressureValue()));
+                //send(xpd::midi::event::after_touch(message.getChannel(), message.getChannelPressureValue()));
             }
             else if(message.isAftertouch())
             {
-                send(xpd::midi::event::poly_after_touch(message.getChannel(), message.getNoteNumber(), message.getAfterTouchValue()));
+                //send(xpd::midi::event::poly_after_touch(message.getChannel(), message.getNoteNumber(), message.getAfterTouchValue()));
             }
             else if(message.isProgramChange())
             {
-                send(xpd::midi::event::program_change(message.getChannel(), message.getProgramChangeNumber()));
+                //send(xpd::midi::event::program_change(message.getChannel(), message.getProgramChangeNumber()));
             }
         }
     }
+    /*
     midiMessages.clear();
     perform(buffer.getNumSamples(), getTotalNumInputChannels(), buffer.getArrayOfReadPointers(), getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
     midiMessages.swapWith(m_midi);
+     */
 }
 
+/*
 void CamomileProcessor::receive(xpd::midi::event const& event)
 {
     if(event.type() == xpd::midi::event::note_t)
@@ -184,6 +136,7 @@ void CamomileProcessor::receive(xpd::midi::event const& event)
         m_midi.addEvent(MidiMessage::aftertouchChange(event.channel()+1, event.pitch(), event.value()), 0);
     }
 }
+ */
 
 // ================================================================================ //
 //                                      PATCH                                       //
@@ -192,24 +145,28 @@ void CamomileProcessor::receive(xpd::midi::event const& event)
 void CamomileProcessor::load_patch(std::string const& name, std::string const& path)
 {
     suspendProcessing(true);
+    /*
     if(isSuspended())
     {
         camo::processor::load_patch(name, path);
         updateHostDisplay();
         camo::processor::prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), AudioProcessor::getSampleRate(), getBlockSize());
     }
+     */
     suspendProcessing(false);
 }
 
 void CamomileProcessor::close_patch()
 {
     suspendProcessing(true);
+    /*
     if(isSuspended())
     {
         camo::processor::close_patch();
         updateHostDisplay();
         camo::processor::prepare(getTotalNumInputChannels(), getTotalNumOutputChannels(), AudioProcessor::getSampleRate(), getBlockSize());
     }
+     */
     suspendProcessing(false);
 }
 
@@ -220,6 +177,7 @@ void CamomileProcessor::close_patch()
 
 void CamomileProcessor::getStateInformation(MemoryBlock& destData)
 {
+    /*
     juce::XmlElement xml(String("CamomileSettings"));
     xpd::patch patch(get_patch());
     if(static_cast<bool>(patch))
@@ -233,10 +191,12 @@ void CamomileProcessor::getStateInformation(MemoryBlock& destData)
         params->setAttribute(String(get_parameter_name(i)), static_cast<double>(get_parameter_value(i, true)));
     }
     copyXmlToBinary(xml, destData);
+     */
 }
 
 void CamomileProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
+    /*
     ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
     if(xml != nullptr)
     {
@@ -283,12 +243,13 @@ void CamomileProcessor::setStateInformation(const void* data, int sizeInBytes)
             }
         }
     }
+     */
 }
 
 
 AudioProcessorEditor* CamomileProcessor::createEditor()
 {
-    return new CamomileEditor(*this);
+    return nullptr;//new CamomileEditor(*this);
 }
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
@@ -296,7 +257,7 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
     static bool initialized = false;
     if(!initialized)
     {
-        xpd::environment::initialize();
+        //xpd::environment::initialize();
         initialized = true;
     }
     

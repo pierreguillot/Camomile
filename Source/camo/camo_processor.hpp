@@ -9,7 +9,6 @@
 
 #include <set>
 #include <vector>
-#include "../ThirdParty/zpd/xpd/xpd.hpp"
 
 namespace camo
 {

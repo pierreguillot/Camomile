@@ -1,5 +1,5 @@
 /*
- // Copyright (c) 2015 Pierre Guillot.
+ // Copyright (c) 2015 - 2018 Pierre Guillot.
  // For information on usage and redistribution, and for a DISCLAIMER OF ALL
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
@@ -7,8 +7,6 @@
 #ifndef CAMOMILE_PROCESSOR_INCLUDE_HPP
 #define CAMOMILE_PROCESSOR_INCLUDE_HPP
 
-#include "../ThirdParty/zpd/xpd/xpd.hpp"
-#include "camo/camo.hpp"
 #include "../JuceLibraryCode/JuceHeader.h"
 
 
@@ -16,7 +14,7 @@
 //                                  CAMOMILE PROCESSOR                                  //
 // ==================================================================================== //
 
-class CamomileProcessor : public AudioProcessor, public camo::processor
+class CamomileProcessor : public AudioProcessor
 {
 public:
     CamomileProcessor();
@@ -40,7 +38,7 @@ public:
     // ==================================================================================== //
     //                                          PARAMETERS                                  //
     // ==================================================================================== //
-
+    /*
     int getNumParameters() final;
     float getParameter(int index) final;
     void setParameter(int index, float newValue) final;
@@ -50,6 +48,7 @@ public:
     String getParameterText(int index, int size) final;
     String getParameterLabel (int index) const final;
     int getParameterNumSteps(int index) final;
+     */
 
     // ==================================================================================== //
     //                                          PRESETS                                     //
@@ -68,7 +67,7 @@ public:
     void prepareToPlay(double sampleRate, int samplesPerBlock) final;
     void releaseResources() final;
     void processBlock(AudioSampleBuffer&, MidiBuffer&) final;
-    void receive(xpd::midi::event const& event) final;
+    //void receive(xpd::midi::event const& event) final;
     
     // ==================================================================================== //
     //                                          PATCH                                       //

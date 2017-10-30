@@ -8,7 +8,7 @@
     <key>CFBundleIconFile</key>
     <string></string>
     <key>CFBundleIdentifier</key>
-    <string>com.cicm.Camomile.CamomileAUv3</string>
+    <string>com.yourcompany.Camomile.CamomileAUv3</string>
     <key>CFBundleName</key>
     <string>Camomile</string>
     <key>CFBundleDisplayName</key>
@@ -43,11 +43,11 @@
             <key>factoryFunction</key>
             <string>CamomileAUFactoryAUv3</string>
             <key>manufacturer</key>
-            <string>PGEP</string>
+            <string>CICM</string>
             <key>type</key>
             <string>aumf</string>
             <key>subtype</key>
-            <string>PGCA</string>
+            <string>Qe0p</string>
             <key>version</key>
             <integer>256</integer>
             <key>sandboxSafe</key>

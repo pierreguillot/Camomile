@@ -8,7 +8,7 @@
     <key>CFBundleIconFile</key>
     <string></string>
     <key>CFBundleIdentifier</key>
-    <string>com.cicm.Camomile</string>
+    <string>com.yourcompany.Camomile</string>
     <key>CFBundleName</key>
     <string>Camomile</string>
     <key>CFBundleDisplayName</key>

@@ -2,17 +2,8 @@
 
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Camomile\Source\camo">
-      <UniqueIdentifier>{67A671A9-2B44-C757-0986-A7FFAF8E0427}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Camomile\Source\Gui">
-      <UniqueIdentifier>{3AF8F85C-58F5-53F7-00C3-F524890FB4C3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Camomile\Source">
       <UniqueIdentifier>{33E9C75D-FCFD-D74A-6894-584B92DA1489}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Camomile\Ressources">
-      <UniqueIdentifier>{60196A5C-D261-843B-7545-3666A27AF9DC}</UniqueIdentifier>
     </Filter>
     <Filter Include="Camomile">
       <UniqueIdentifier>{AE2AEEA8-98A7-4FFF-924A-E091915F5128}</UniqueIdentifier>
@@ -43,6 +34,21 @@
     </Filter>
     <Filter Include="Juce Modules\juce_audio_basics">
       <UniqueIdentifier>{3247ED97-A75A-F50B-8CCC-46155E895806}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_audio_devices\audio_io">
+      <UniqueIdentifier>{9D270B31-2425-8FDB-84A4-6A2288FF5B2F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_audio_devices\midi_io">
+      <UniqueIdentifier>{0F766DD4-A277-CB86-5647-42498C8B41E1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_audio_devices\native">
+      <UniqueIdentifier>{01603E05-423B-5FC3-1BEE-E15ED33B5688}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_audio_devices\sources">
+      <UniqueIdentifier>{D64942B4-6984-3623-3347-45D472AE1C61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_audio_devices">
+      <UniqueIdentifier>{CACD7B50-4DB3-76AF-A6E8-90DF94F8F594}</UniqueIdentifier>
     </Filter>
     <Filter Include="Juce Modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses">
       <UniqueIdentifier>{2FB30532-4EF3-EFA3-E57C-F7DDE9DB1297}</UniqueIdentifier>
@@ -283,56 +289,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\LookAndFeel.cpp">
+    <ClCompile Include="..\..\Source\PluginProcessor.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\CamomileEditor.cpp">
+    <ClCompile Include="..\..\Source\PluginEditor.cpp">
       <Filter>Camomile\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\camo\camo_gui.cpp">
-      <Filter>Camomile\Source\camo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\camo\camo_processor.cpp">
-      <Filter>Camomile\Source\camo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\Gui.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\GuiAbout.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\GuiComment.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\GuiConsole.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\GuiFlowerButton.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\GuiLabel.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\GuiNumbox.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\GuiParameter.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\GuiPatcher.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\GuiRadio.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\GuiSlider.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\GuiToggle.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\GuiWindow.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <Filter>Juce Modules\juce_audio_basics\buffers</Filter>
@@ -429,6 +390,72 @@
     </ClCompile>
     <ClCompile Include="..\..\Juce\modules\juce_audio_basics\juce_audio_basics.mm">
       <Filter>Juce Modules\juce_audio_basics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\audio_io\juce_AudioDeviceManager.cpp">
+      <Filter>Juce Modules\juce_audio_devices\audio_io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\audio_io\juce_AudioIODevice.cpp">
+      <Filter>Juce Modules\juce_audio_devices\audio_io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\audio_io\juce_AudioIODeviceType.cpp">
+      <Filter>Juce Modules\juce_audio_devices\audio_io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\midi_io\juce_MidiMessageCollector.cpp">
+      <Filter>Juce Modules\juce_audio_devices\midi_io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\midi_io\juce_MidiOutput.cpp">
+      <Filter>Juce Modules\juce_audio_devices\midi_io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\native\juce_android_Audio.cpp">
+      <Filter>Juce Modules\juce_audio_devices\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\native\juce_android_Midi.cpp">
+      <Filter>Juce Modules\juce_audio_devices\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\native\juce_android_OpenSL.cpp">
+      <Filter>Juce Modules\juce_audio_devices\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\native\juce_ios_Audio.cpp">
+      <Filter>Juce Modules\juce_audio_devices\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\native\juce_linux_ALSA.cpp">
+      <Filter>Juce Modules\juce_audio_devices\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\native\juce_linux_JackAudio.cpp">
+      <Filter>Juce Modules\juce_audio_devices\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\native\juce_linux_Midi.cpp">
+      <Filter>Juce Modules\juce_audio_devices\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\native\juce_mac_CoreAudio.cpp">
+      <Filter>Juce Modules\juce_audio_devices\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\native\juce_mac_CoreMidi.cpp">
+      <Filter>Juce Modules\juce_audio_devices\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\native\juce_win32_ASIO.cpp">
+      <Filter>Juce Modules\juce_audio_devices\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\native\juce_win32_DirectSound.cpp">
+      <Filter>Juce Modules\juce_audio_devices\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\native\juce_win32_Midi.cpp">
+      <Filter>Juce Modules\juce_audio_devices\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\native\juce_win32_WASAPI.cpp">
+      <Filter>Juce Modules\juce_audio_devices\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\sources\juce_AudioSourcePlayer.cpp">
+      <Filter>Juce Modules\juce_audio_devices\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\sources\juce_AudioTransportSource.cpp">
+      <Filter>Juce Modules\juce_audio_devices\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\juce_audio_devices.cpp">
+      <Filter>Juce Modules\juce_audio_devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Juce\modules\juce_audio_devices\juce_audio_devices.mm">
+      <Filter>Juce Modules\juce_audio_devices</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUBase.cpp">
       <Filter>Juce Modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses</Filter>
@@ -1765,10 +1792,10 @@
     <ClCompile Include="..\..\Juce\modules\juce_gui_extra\juce_gui_extra.mm">
       <Filter>Juce Modules\juce_gui_extra</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp">
+    <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp">
       <Filter>Juce Library Code</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp">
+    <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_devices.cpp">
       <Filter>Juce Library Code</Filter>
     </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_plugin_client_utils.cpp">
@@ -1797,59 +1824,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\LookAndFeel.hpp">
+    <ClInclude Include="..\..\Source\PluginProcessor.h">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\CamomileEditor.hpp">
+    <ClInclude Include="..\..\Source\PluginEditor.h">
       <Filter>Camomile\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\camo\camo.hpp">
-      <Filter>Camomile\Source\camo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\camo\camo_gui.hpp">
-      <Filter>Camomile\Source\camo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\camo\camo_processor.hpp">
-      <Filter>Camomile\Source\camo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\Gui.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\GuiAbout.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\GuiComment.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\GuiConsole.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\GuiFlowerButton.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\GuiLabel.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\GuiNumbox.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\GuiParameter.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\GuiPatcher.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\GuiRadio.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\GuiSlider.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\GuiToggle.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\GuiWindow.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
       <Filter>Juce Modules\juce_audio_basics\audio_play_head</Filter>
@@ -1967,6 +1946,42 @@
     </ClInclude>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\juce_audio_basics.h">
       <Filter>Juce Modules\juce_audio_basics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Juce\modules\juce_audio_devices\audio_io\juce_AudioDeviceManager.h">
+      <Filter>Juce Modules\juce_audio_devices\audio_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Juce\modules\juce_audio_devices\audio_io\juce_AudioIODevice.h">
+      <Filter>Juce Modules\juce_audio_devices\audio_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Juce\modules\juce_audio_devices\audio_io\juce_AudioIODeviceType.h">
+      <Filter>Juce Modules\juce_audio_devices\audio_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Juce\modules\juce_audio_devices\audio_io\juce_SystemAudioVolume.h">
+      <Filter>Juce Modules\juce_audio_devices\audio_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Juce\modules\juce_audio_devices\midi_io\juce_MidiInput.h">
+      <Filter>Juce Modules\juce_audio_devices\midi_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Juce\modules\juce_audio_devices\midi_io\juce_MidiMessageCollector.h">
+      <Filter>Juce Modules\juce_audio_devices\midi_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Juce\modules\juce_audio_devices\midi_io\juce_MidiOutput.h">
+      <Filter>Juce Modules\juce_audio_devices\midi_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Juce\modules\juce_audio_devices\native\juce_ios_Audio.h">
+      <Filter>Juce Modules\juce_audio_devices\native</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Juce\modules\juce_audio_devices\native\juce_MidiDataConcatenator.h">
+      <Filter>Juce Modules\juce_audio_devices\native</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Juce\modules\juce_audio_devices\sources\juce_AudioSourcePlayer.h">
+      <Filter>Juce Modules\juce_audio_devices\sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Juce\modules\juce_audio_devices\sources\juce_AudioTransportSource.h">
+      <Filter>Juce Modules\juce_audio_devices\sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Juce\modules\juce_audio_devices\juce_audio_devices.h">
+      <Filter>Juce Modules\juce_audio_devices</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Juce\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\AUBase.h">
       <Filter>Juce Modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses</Filter>
@@ -3342,35 +3357,11 @@
     <ClInclude Include="..\..\JuceLibraryCode\AppConfig.h">
       <Filter>Juce Library Code</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\JuceLibraryCode\BinaryData.h">
-      <Filter>Juce Library Code</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h">
       <Filter>Juce Library Code</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Ressources\clear1.png">
-      <Filter>Camomile\Ressources</Filter>
-    </None>
-    <None Include="..\..\Ressources\clear2.png">
-      <Filter>Camomile\Ressources</Filter>
-    </None>
-    <None Include="..\..\Ressources\copy1.png">
-      <Filter>Camomile\Ressources</Filter>
-    </None>
-    <None Include="..\..\Ressources\copy2.png">
-      <Filter>Camomile\Ressources</Filter>
-    </None>
-    <None Include="..\..\Ressources\flower1.png">
-      <Filter>Camomile\Ressources</Filter>
-    </None>
-    <None Include="..\..\Ressources\flower2.png">
-      <Filter>Camomile\Ressources</Filter>
-    </None>
-    <None Include="..\..\Ressources\option.png">
-      <Filter>Camomile\Ressources</Filter>
-    </None>
     <None Include="..\..\Juce\modules\juce_graphics\image_formats\jpglib\changes to libjpeg for JUCE.txt">
       <Filter>Juce Modules\juce_graphics\image_formats\jpglib</Filter>
     </None>

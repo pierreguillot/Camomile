@@ -53,6 +53,7 @@
 
 //==============================================================================
 #define JUCE_MODULE_AVAILABLE_juce_audio_basics             1
+#define JUCE_MODULE_AVAILABLE_juce_audio_devices            1
 #define JUCE_MODULE_AVAILABLE_juce_audio_plugin_client      1
 #define JUCE_MODULE_AVAILABLE_juce_audio_processors         1
 #define JUCE_MODULE_AVAILABLE_juce_core                     1
@@ -63,6 +64,41 @@
 #define JUCE_MODULE_AVAILABLE_juce_gui_extra                1
 
 #define JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED 1
+
+//==============================================================================
+// juce_audio_devices flags:
+
+#ifndef    JUCE_ASIO
+ //#define JUCE_ASIO 1
+#endif
+
+#ifndef    JUCE_WASAPI
+ //#define JUCE_WASAPI 1
+#endif
+
+#ifndef    JUCE_WASAPI_EXCLUSIVE
+ //#define JUCE_WASAPI_EXCLUSIVE 1
+#endif
+
+#ifndef    JUCE_DIRECTSOUND
+ //#define JUCE_DIRECTSOUND 1
+#endif
+
+#ifndef    JUCE_ALSA
+ //#define JUCE_ALSA 1
+#endif
+
+#ifndef    JUCE_JACK
+ //#define JUCE_JACK 1
+#endif
+
+#ifndef    JUCE_USE_ANDROID_OPENSLES
+ //#define JUCE_USE_ANDROID_OPENSLES 1
+#endif
+
+#ifndef    JUCE_USE_WINRT_MIDI
+ //#define JUCE_USE_WINRT_MIDI 1
+#endif
 
 //==============================================================================
 // juce_audio_plugin_client flags:
@@ -207,7 +243,7 @@
  #define JucePlugin_Build_AAX              0
 #endif
 #ifndef  JucePlugin_Build_Standalone
- #define JucePlugin_Build_Standalone       0
+ #define JucePlugin_Build_Standalone       1
 #endif
 #ifndef  JucePlugin_Enable_IAA
  #define JucePlugin_Enable_IAA             0
@@ -222,16 +258,16 @@
  #define JucePlugin_Manufacturer           "Pierre Guillot"
 #endif
 #ifndef  JucePlugin_ManufacturerWebsite
- #define JucePlugin_ManufacturerWebsite    "https://github.com/pierreguillot/Camomile"
+ #define JucePlugin_ManufacturerWebsite    ""
 #endif
 #ifndef  JucePlugin_ManufacturerEmail
  #define JucePlugin_ManufacturerEmail      ""
 #endif
 #ifndef  JucePlugin_ManufacturerCode
- #define JucePlugin_ManufacturerCode       0x50474550 // 'PGEP'
+ #define JucePlugin_ManufacturerCode       0x4349434d // 'CICM'
 #endif
 #ifndef  JucePlugin_PluginCode
- #define JucePlugin_PluginCode             0x50474341 // 'PGCA'
+ #define JucePlugin_PluginCode             0x51653070 // 'Qe0p'
 #endif
 #ifndef  JucePlugin_IsSynth
  #define JucePlugin_IsSynth                0
@@ -279,7 +315,7 @@
  #define JucePlugin_AUManufacturerCode     JucePlugin_ManufacturerCode
 #endif
 #ifndef  JucePlugin_CFBundleIdentifier
- #define JucePlugin_CFBundleIdentifier     com.cicm.Camomile
+ #define JucePlugin_CFBundleIdentifier     com.yourcompany.Camomile
 #endif
 #ifndef  JucePlugin_RTASCategory
  #define JucePlugin_RTASCategory           ePlugInCategory_None
@@ -297,7 +333,7 @@
  #define JucePlugin_RTASDisableMultiMono   0
 #endif
 #ifndef  JucePlugin_AAXIdentifier
- #define JucePlugin_AAXIdentifier          com.cicm.camomile
+ #define JucePlugin_AAXIdentifier          com.yourcompany.Camomile
 #endif
 #ifndef  JucePlugin_AAXManufacturerCode
  #define JucePlugin_AAXManufacturerCode    JucePlugin_ManufacturerCode
@@ -322,13 +358,4 @@
 #endif
 #ifndef  JucePlugin_IAAName
  #define JucePlugin_IAAName                "Pierre Guillot: Camomile"
-#endif
-#ifndef  JucePlugin_MaxNumInputChannels
- #define JucePlugin_MaxNumInputChannels    1
-#endif
-#ifndef  JucePlugin_MaxNumOutputChannels
- #define JucePlugin_MaxNumOutputChannels   2
-#endif
-#ifndef  JucePlugin_PreferredChannelConfigurations
- #define JucePlugin_PreferredChannelConfigurations  {1, 1}, {1, 2}
 #endif
