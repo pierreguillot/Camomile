@@ -3,14 +3,15 @@
 <JUCERPROJECT id="Kpq9Ee" name="Camomile" displaySplashScreen="1" reportAppUsage="1"
               splashScreenColour="Dark" projectType="audioplug" version="0.1.0"
               bundleIdentifier="com.pierreguillot.camomile" includeBinaryInAppConfig="1"
-              cppLanguageStandard="11" companyCopyright="" buildVST="1" buildVST3="1"
-              buildAU="1" buildAUv3="1" buildRTAS="0" buildAAX="0" buildStandalone="1"
-              enableIAA="0" pluginName="Camomile" pluginDesc="Camomile" pluginManufacturer="pierreguillot"
-              pluginManufacturerCode="CICM" pluginCode="Kpq9" pluginChannelConfigs=""
-              pluginIsSynth="0" pluginWantsMidiIn="1" pluginProducesMidiOut="1"
-              pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="0" pluginAUExportPrefix="CamomileAU"
-              pluginRTASCategory="" aaxIdentifier="com.pierreguillot.camomile"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.2.0">
+              cppLanguageStandard="11" companyCopyright="Pierre Guillot" buildVST="1"
+              buildVST3="1" buildAU="1" buildAUv3="1" buildRTAS="0" buildAAX="0"
+              buildStandalone="1" enableIAA="0" pluginName="Camomile" pluginDesc="Camomile"
+              pluginManufacturer="pierreguillot" pluginManufacturerCode="CICM"
+              pluginCode="Kpq9" pluginChannelConfigs="" pluginIsSynth="0" pluginWantsMidiIn="1"
+              pluginProducesMidiOut="1" pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="0"
+              pluginAUExportPrefix="CamomileAU" pluginRTASCategory="" aaxIdentifier="com.pierreguillot.camomile"
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.2.0"
+              companyName="Pierre Guillot">
   <MAINGROUP id="BLNPyv" name="Camomile">
     <GROUP id="{D4367A82-F269-8F5A-1C22-AB42C90672ED}" name="Source">
       <FILE id="yIk1CH" name="PluginProcessor.cpp" compile="1" resource="0"

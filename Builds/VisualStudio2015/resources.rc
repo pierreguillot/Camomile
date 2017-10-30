@@ -13,6 +13,8 @@ BEGIN
   BEGIN
     BLOCK "040904E4"
     BEGIN
+      VALUE "CompanyName",  "Pierre Guillot\0"
+      VALUE "LegalCopyright",  "Pierre Guillot\0"
       VALUE "FileDescription",  "Camomile\0"
       VALUE "FileVersion",  "0.1.0\0"
       VALUE "ProductName",  "Camomile\0"
