@@ -4,3 +4,6 @@
 [submodule "VST"]
 	path = VST
 	url = https://pierreguillot@github.com/steinbergmedia/vst3sdk.git
+[submodule "libpd"]
+	path = libpd
+	url = https://pierreguillot@github.com/pierreguillot/libpd.git
