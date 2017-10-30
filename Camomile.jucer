@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="ZyblIj" name="Camomile" projectType="audioplug" version="0.0.8"
+<JUCERPROJECT id="ZyblIj" name="Camomile" projectType="audioplug" version="0.1.0"
               bundleIdentifier="com.cicm.Camomile" includeBinaryInAppConfig="1"
-              buildVST="1" buildVST3="1" buildAU="0" buildRTAS="0" buildAAX="0"
+              buildVST="1" buildVST3="1" buildAU="1" buildRTAS="0" buildAAX="0"
               pluginName="Camomile" pluginDesc="Camomile" pluginManufacturer="Pierre Guillot"
-              pluginManufacturerCode="CICM" pluginCode="PGCA" pluginChannelConfigs="{1, 1}, {1, 2}"
+              pluginManufacturerCode="PGEP" pluginCode="PGCA" pluginChannelConfigs="{1, 1}, {1, 2}"
               pluginIsSynth="0" pluginWantsMidiIn="1" pluginProducesMidiOut="1"
               pluginIsMidiEffectPlugin="0" pluginSilenceInIsSilenceOut="0"
               pluginEditorRequiresKeys="1" pluginAUExportPrefix="CamomileAU"
               pluginRTASCategory="" aaxIdentifier="com.cicm.camomile" pluginAAXCategory="AAX_ePlugInCategory_Dynamics"
-              jucerVersion="4.2.3" companyName="CICM" companyWebsite="https://github.com/pierreguillot/Camomile"
+              jucerVersion="5.2.0" companyName="Pierre Guillot" companyWebsite="https://github.com/pierreguillot/Camomile"
               defines="PD=1&#10;USEAPI_DUMMY=1&#10;PD_INTERNAL=1&#10;THREAD_LOCKING=0"
-              buildAUv3="0">
+              buildAUv3="1" displaySplashScreen="1" reportAppUsage="1" splashScreenColour="Dark"
+              buildStandalone="0" enableIAA="0" cppLanguageStandard="11" companyCopyright="Pierre Guillot">
   <MAINGROUP id="wVVIu9" name="Camomile">
     <GROUP id="{51EAB2F7-7167-302A-F6E7-853D8D6554C0}" name="Source">
       <FILE id="A3woQ5" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
@@ -235,10 +236,11 @@
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="10.7 SDK" osxArchitecture="64BitUniversal"
                        isDebug="1" optimisation="1" targetName="Camomile" headerPath=""
-                       cppLanguageStandard="c++11" cppLibType="libc++"/>
+                       cppLanguageStandard="c++11" cppLibType="libc++" enablePluginBinaryCopyStep="1"/>
         <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="10.7 SDK" osxArchitecture="64BitUniversal"
                        isDebug="0" optimisation="3" targetName="Camomile" headerPath=""
-                       linkTimeOptimisation="1" cppLanguageStandard="c++11" cppLibType="libc++"/>
+                       linkTimeOptimisation="1" cppLanguageStandard="c++11" cppLibType="libc++"
+                       enablePluginBinaryCopyStep="1"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="ThirdParty/Juce/modules"/>
@@ -279,16 +281,21 @@
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug32" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
                        isDebug="1" optimisation="1" targetName="Camomile" headerPath="../../ThirdParty/zpd/pd/src&#10;../../ThirdParty/zpd/thread/pthreadwin"
-                       libraryPath="" useRuntimeLibDLL=""/>
+                       libraryPath="" useRuntimeLibDLL="" debugInformationFormat="ProgramDatabase"
+                       enablePluginBinaryCopyStep="0"/>
         <CONFIGURATION name="Release32" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
                        isDebug="0" optimisation="3" targetName="Camomile" headerPath="../../ThirdParty/zpd/pd/src&#10;../../ThirdParty/zpd/thread/pthreadwin"
-                       libraryPath="" useRuntimeLibDLL=""/>
+                       libraryPath="" useRuntimeLibDLL="" debugInformationFormat="ProgramDatabase"
+                       enablePluginBinaryCopyStep="0" linkTimeOptimisation="1"/>
         <CONFIGURATION name="Debug64" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        isDebug="1" targetName="Camomile" headerPath="../../ThirdParty/zpd/pd/src&#10;../../ThirdParty/zpd/thread/pthreadwin"
-                       optimisation="1" useRuntimeLibDLL="" libraryPath="" defines="PD_LONGINTTYPE=long\ long"/>
+                       optimisation="1" useRuntimeLibDLL="" libraryPath="" defines="PD_LONGINTTYPE=long\ long"
+                       debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"/>
         <CONFIGURATION name="Release64" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        headerPath="../../ThirdParty/zpd/pd/src&#10;../../ThirdParty/zpd/thread/pthreadwin"
-                       targetName="Camomile" libraryPath="" useRuntimeLibDLL="" defines="PD_LONGINTTYPE=long\ long"/>
+                       targetName="Camomile" libraryPath="" useRuntimeLibDLL="" defines="PD_LONGINTTYPE=long\ long"
+                       debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="1"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_gui_extra" path="ThirdParty/Juce/modules"/>

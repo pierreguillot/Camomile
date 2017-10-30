@@ -8,7 +8,7 @@
     <key>CFBundleIconFile</key>
     <string></string>
     <key>CFBundleIdentifier</key>
-    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <string>com.cicm.Camomile</string>
     <key>CFBundleName</key>
     <string>Camomile</string>
     <key>CFBundleDisplayName</key>
@@ -18,11 +18,11 @@
     <key>CFBundleSignature</key>
     <string>????</string>
     <key>CFBundleShortVersionString</key>
-    <string>0.0.8</string>
+    <string>0.1.0</string>
     <key>CFBundleVersion</key>
-    <string>0.0.8</string>
+    <string>0.1.0</string>
     <key>NSHumanReadableCopyright</key>
-    <string>CICM</string>
+    <string>Pierre Guillot</string>
     <key>NSHighResolutionCapable</key>
     <true/>
     <key>AudioComponents</key>
@@ -35,13 +35,13 @@
         <key>factoryFunction</key>
         <string>CamomileAUFactory</string>
         <key>manufacturer</key>
-        <string>CICM</string>
+        <string>PGEP</string>
         <key>type</key>
         <string>aumf</string>
         <key>subtype</key>
         <string>PGCA</string>
         <key>version</key>
-        <integer>8</integer>
+        <integer>256</integer>
       </dict>
     </array>
   </dict>

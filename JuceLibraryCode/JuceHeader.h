@@ -10,8 +10,7 @@
 
 */
 
-#ifndef __APPHEADERFILE_ZYBLIJ__
-#define __APPHEADERFILE_ZYBLIJ__
+#pragma once
 
 #include "AppConfig.h"
 
@@ -37,9 +36,7 @@
 namespace ProjectInfo
 {
     const char* const  projectName    = "Camomile";
-    const char* const  versionString  = "0.0.8";
-    const int          versionNumber  = 0x8;
+    const char* const  versionString  = "0.1.0";
+    const int          versionNumber  = 0x100;
 }
 #endif
-
-#endif   // __APPHEADERFILE_ZYBLIJ__
