@@ -103,7 +103,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\JuceLibraryCode;..\..\Juce\modules;../../ThirdParty/zpd/pd/src;../../ThirdParty/zpd/thread/pthreadwin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\VST;..\..\JuceLibraryCode;..\..\Juce\modules;../../ThirdParty/zpd/pd/src;../../ThirdParty/zpd/thread/pthreadwin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;THREAD_LOCKING=0;HAVE_STRUCT_TIMESPEC=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.1.0;JUCE_APP_VERSION_HEX=0x100;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -149,7 +149,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Full</Optimization>
-      <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\JuceLibraryCode;..\..\Juce\modules;../../ThirdParty/zpd/pd/src;../../ThirdParty/zpd/thread/pthreadwin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\VST;..\..\JuceLibraryCode;..\..\Juce\modules;../../ThirdParty/zpd/pd/src;../../ThirdParty/zpd/thread/pthreadwin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;THREAD_LOCKING=0;HAVE_STRUCT_TIMESPEC=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.1.0;JUCE_APP_VERSION_HEX=0x100;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -198,7 +198,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\JuceLibraryCode;..\..\Juce\modules;../../ThirdParty/zpd/pd/src;../../ThirdParty/zpd/thread/pthreadwin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\VST;..\..\JuceLibraryCode;..\..\Juce\modules;../../ThirdParty/zpd/pd/src;../../ThirdParty/zpd/thread/pthreadwin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;THREAD_LOCKING=0;PD_LONGINTTYPE=long long;HAVE_STRUCT_TIMESPEC=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.1.0;JUCE_APP_VERSION_HEX=0x100;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -240,7 +240,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\ThirdParty\Vst;..\..\JuceLibraryCode;..\..\Juce\modules;../../ThirdParty/zpd/pd/src;../../ThirdParty/zpd/thread/pthreadwin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\VST;..\..\JuceLibraryCode;..\..\Juce\modules;../../ThirdParty/zpd/pd/src;../../ThirdParty/zpd/thread/pthreadwin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD=1;USEAPI_DUMMY=1;PD_INTERNAL=1;THREAD_LOCKING=0;PD_LONGINTTYPE=long long;HAVE_STRUCT_TIMESPEC=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=0.1.0;JUCE_APP_VERSION_HEX=0x100;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -292,110 +292,6 @@
     <ClCompile Include="..\..\Source\Gui\GuiSlider.cpp"/>
     <ClCompile Include="..\..\Source\Gui\GuiToggle.cpp"/>
     <ClCompile Include="..\..\Source\Gui\GuiWindow.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_atom.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_console.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_environment.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_gui.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_instance.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_midi.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_mutex.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_object.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_patch.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_symbol.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\xpd\xpd_tie.cpp"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_dsp.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_environment.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_gui.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_instance.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_message.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_midi.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_mutex.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_object.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_patch.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_post.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\cpd\cpd_types.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\thread\src\thd.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\bob~\bob~.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\bonk~\bonk~.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\choice\choice.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\fiddle~\fiddle~.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\loop~\loop~.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\lrshift~\lrshift~.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\pique\pique.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\sigmund~\sigmund~.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\extra\stdout\stdout.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_arithmetic.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_array.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_ctl.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_dac.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_delay.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_fft_fftsg.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_fft.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_filter.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_global.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_math.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_misc.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_osc.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_resample.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_soundfile.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\d_ugen.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_all_guis.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_array.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_bang.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_canvas.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_clone.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_editor.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_graph.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_guiconnect.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_hdial.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_hslider.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_io.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_mycanvas.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_numbox.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_readwrite.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_rtext.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_scalar.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_template.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_text.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_toggle.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_traversal.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_vdial.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_vslider.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\g_vumeter.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\m_atom.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\m_binbuf.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\m_class.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\m_conf.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\m_glob.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\m_memory.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\m_obj.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\m_pd.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\m_sched.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\s_audio_dummy.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\s_audio.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\s_file.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\s_inter.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\s_loader.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\s_main.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\s_path.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\s_print.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\s_utf8.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_acoustics.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_arithmetic.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_array.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_connective.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_gui.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_interface.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_list.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_midi.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_misc.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_net.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_scalar.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_text.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_time.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_vexp_fun.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_vexp_if.c"/>
-    <ClCompile Include="..\..\ThirdParty\zpd\pd\src\x_vexp.c"/>
     <ClCompile Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1764,40 +1660,6 @@
     <ClInclude Include="..\..\Source\Gui\GuiSlider.hpp"/>
     <ClInclude Include="..\..\Source\Gui\GuiToggle.hpp"/>
     <ClInclude Include="..\..\Source\Gui\GuiWindow.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_atom.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_console.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_def.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_environment.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_gui.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_instance.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_midi.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_mutex.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_object.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_patch.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_symbol.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd_tie.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\xpd\xpd.hpp"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_def.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_dsp.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_environment.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_gui.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_instance.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_message.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_midi.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_mutex.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_object.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_patch.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_post.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd_types.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\cpd\cpd.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\thread\src\thd.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\pd\src\g_all_guis.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\pd\src\g_canvas.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\pd\src\m_imp.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\pd\src\m_pd.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\pd\src\s_stuff.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\pd\src\s_utf8.h"/>
-    <ClInclude Include="..\..\ThirdParty\zpd\pd\src\x_vexp.h"/>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h"/>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h"/>

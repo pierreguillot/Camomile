@@ -63,162 +63,6 @@
         <FILE id="VzDLnl" name="GuiWindow.hpp" compile="0" resource="0" file="Source/Gui/GuiWindow.hpp"/>
       </GROUP>
     </GROUP>
-    <GROUP id="{D49E12EE-2E19-B60A-038C-16156C16CE4E}" name="xpd">
-      <FILE id="mqyGSu" name="xpd_atom.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_atom.cpp"/>
-      <FILE id="UlKUPo" name="xpd_atom.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_atom.hpp"/>
-      <FILE id="h31bBZ" name="xpd_console.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_console.cpp"/>
-      <FILE id="ETnUDs" name="xpd_console.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_console.hpp"/>
-      <FILE id="ozL39C" name="xpd_def.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_def.hpp"/>
-      <FILE id="KMK9bA" name="xpd_environment.cpp" compile="1" resource="0"
-            file="ThirdParty/zpd/xpd/xpd_environment.cpp"/>
-      <FILE id="FOmzfz" name="xpd_environment.hpp" compile="0" resource="0"
-            file="ThirdParty/zpd/xpd/xpd_environment.hpp"/>
-      <FILE id="dO9Hgw" name="xpd_gui.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_gui.cpp"/>
-      <FILE id="XLtQxh" name="xpd_gui.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_gui.hpp"/>
-      <FILE id="pNnAog" name="xpd_instance.cpp" compile="1" resource="0"
-            file="ThirdParty/zpd/xpd/xpd_instance.cpp"/>
-      <FILE id="WoLwgq" name="xpd_instance.hpp" compile="0" resource="0"
-            file="ThirdParty/zpd/xpd/xpd_instance.hpp"/>
-      <FILE id="RB904X" name="xpd_midi.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_midi.cpp"/>
-      <FILE id="qmAQNo" name="xpd_midi.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_midi.hpp"/>
-      <FILE id="jZDxbe" name="xpd_mutex.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_mutex.cpp"/>
-      <FILE id="nYxPsO" name="xpd_mutex.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_mutex.hpp"/>
-      <FILE id="AK303n" name="xpd_object.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_object.cpp"/>
-      <FILE id="C8CkI3" name="xpd_object.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_object.hpp"/>
-      <FILE id="SCmYGn" name="xpd_patch.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_patch.cpp"/>
-      <FILE id="ISGwQV" name="xpd_patch.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_patch.hpp"/>
-      <FILE id="SdDLU0" name="xpd_symbol.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_symbol.cpp"/>
-      <FILE id="ZUbnVY" name="xpd_symbol.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_symbol.hpp"/>
-      <FILE id="Ehaya1" name="xpd_tie.cpp" compile="1" resource="0" file="ThirdParty/zpd/xpd/xpd_tie.cpp"/>
-      <FILE id="UVvohh" name="xpd_tie.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd_tie.hpp"/>
-      <FILE id="nz9rAM" name="xpd.hpp" compile="0" resource="0" file="ThirdParty/zpd/xpd/xpd.hpp"/>
-    </GROUP>
-    <GROUP id="{EAC48CE3-DD09-2CBE-2997-7591FB2BBEC6}" name="cpd">
-      <FILE id="kSRRUB" name="cpd_def.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_def.h"/>
-      <FILE id="h7Ixwo" name="cpd_dsp.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_dsp.c"/>
-      <FILE id="gnAlXe" name="cpd_dsp.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_dsp.h"/>
-      <FILE id="hqZxBz" name="cpd_environment.c" compile="1" resource="0"
-            file="ThirdParty/zpd/cpd/cpd_environment.c"/>
-      <FILE id="T9htB0" name="cpd_environment.h" compile="0" resource="0"
-            file="ThirdParty/zpd/cpd/cpd_environment.h"/>
-      <FILE id="PLWfTh" name="cpd_gui.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_gui.c"/>
-      <FILE id="D3vGEw" name="cpd_gui.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_gui.h"/>
-      <FILE id="zmT67i" name="cpd_instance.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_instance.c"/>
-      <FILE id="KMeyL3" name="cpd_instance.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_instance.h"/>
-      <FILE id="r1mJXw" name="cpd_message.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_message.c"/>
-      <FILE id="mxhkXs" name="cpd_message.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_message.h"/>
-      <FILE id="IUmurL" name="cpd_midi.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_midi.c"/>
-      <FILE id="LYgpNC" name="cpd_midi.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_midi.h"/>
-      <FILE id="Fxfk4V" name="cpd_mutex.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_mutex.c"/>
-      <FILE id="Fhn9AO" name="cpd_mutex.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_mutex.h"/>
-      <FILE id="zzAT8V" name="cpd_object.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_object.c"/>
-      <FILE id="OSBZmI" name="cpd_object.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_object.h"/>
-      <FILE id="yqItC9" name="cpd_patch.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_patch.c"/>
-      <FILE id="l4llSi" name="cpd_patch.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_patch.h"/>
-      <FILE id="WtLd0N" name="cpd_post.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_post.c"/>
-      <FILE id="xs52F4" name="cpd_post.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_post.h"/>
-      <FILE id="wEK7Oi" name="cpd_types.c" compile="1" resource="0" file="ThirdParty/zpd/cpd/cpd_types.c"/>
-      <FILE id="Aaxgsx" name="cpd_types.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd_types.h"/>
-      <FILE id="u01b7M" name="cpd.h" compile="0" resource="0" file="ThirdParty/zpd/cpd/cpd.h"/>
-    </GROUP>
-    <GROUP id="{3F2C2BA0-2BE5-2D4C-25C4-CAA9B3F46019}" name="thd">
-      <FILE id="e1LVVS" name="thd.c" compile="1" resource="0" file="ThirdParty/zpd/thread/src/thd.c"/>
-      <FILE id="q7MmIf" name="thd.h" compile="0" resource="0" file="ThirdParty/zpd/thread/src/thd.h"/>
-    </GROUP>
-    <GROUP id="{FE270808-C2CD-210D-3181-B68593DF33A9}" name="pd">
-      <GROUP id="{1C3B3672-B6EE-6976-8B6E-5C05626E0E27}" name="extra">
-        <FILE id="owygXF" name="bob~.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/bob~/bob~.c"/>
-        <FILE id="VozfKN" name="bonk~.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/bonk~/bonk~.c"/>
-        <FILE id="O7XfKE" name="choice.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/choice/choice.c"/>
-        <FILE id="rrN1FX" name="fiddle~.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/fiddle~/fiddle~.c"/>
-        <FILE id="AsT5z1" name="loop~.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/loop~/loop~.c"/>
-        <FILE id="Q0Qt1D" name="lrshift~.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/lrshift~/lrshift~.c"/>
-        <FILE id="AE4O4b" name="pique.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/pique/pique.c"/>
-        <FILE id="qpbwL3" name="sigmund~.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/sigmund~/sigmund~.c"/>
-        <FILE id="fXtk2d" name="stdout.c" compile="1" resource="0" file="ThirdParty/zpd/pd/extra/stdout/stdout.c"/>
-      </GROUP>
-      <GROUP id="{B10C4446-4164-FD84-A511-0CE89D7B2960}" name="src">
-        <FILE id="FftMjs" name="d_arithmetic.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_arithmetic.c"/>
-        <FILE id="iXT565" name="d_array.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_array.c"/>
-        <FILE id="az5DBC" name="d_ctl.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_ctl.c"/>
-        <FILE id="ERIFgt" name="d_dac.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_dac.c"/>
-        <FILE id="CxiVdz" name="d_delay.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_delay.c"/>
-        <FILE id="cq8qXP" name="d_fft_fftsg.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_fft_fftsg.c"/>
-        <FILE id="VZtabQ" name="d_fft.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_fft.c"/>
-        <FILE id="QlZhNA" name="d_filter.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_filter.c"/>
-        <FILE id="dgYmlJ" name="d_global.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_global.c"/>
-        <FILE id="Wpggda" name="d_math.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_math.c"/>
-        <FILE id="RCM5i2" name="d_misc.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_misc.c"/>
-        <FILE id="hQIft9" name="d_osc.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_osc.c"/>
-        <FILE id="GfexHA" name="d_resample.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_resample.c"/>
-        <FILE id="BR28JR" name="d_soundfile.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_soundfile.c"/>
-        <FILE id="Prc4OA" name="d_ugen.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/d_ugen.c"/>
-        <FILE id="N5xndw" name="g_all_guis.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_all_guis.c"/>
-        <FILE id="hORn3m" name="g_all_guis.h" compile="0" resource="0" file="ThirdParty/zpd/pd/src/g_all_guis.h"/>
-        <FILE id="xVIcyy" name="g_array.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_array.c"/>
-        <FILE id="sptrKt" name="g_bang.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_bang.c"/>
-        <FILE id="r7Sr8K" name="g_canvas.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_canvas.c"/>
-        <FILE id="rwC6Us" name="g_canvas.h" compile="0" resource="0" file="ThirdParty/zpd/pd/src/g_canvas.h"/>
-        <FILE id="uf4gYj" name="g_clone.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_clone.c"/>
-        <FILE id="Wt038j" name="g_editor.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_editor.c"/>
-        <FILE id="dsxsEW" name="g_graph.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_graph.c"/>
-        <FILE id="uFXs1U" name="g_guiconnect.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_guiconnect.c"/>
-        <FILE id="FGOMZI" name="g_hdial.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_hdial.c"/>
-        <FILE id="b49YkD" name="g_hslider.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_hslider.c"/>
-        <FILE id="sAzv7H" name="g_io.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_io.c"/>
-        <FILE id="FSWbX7" name="g_mycanvas.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_mycanvas.c"/>
-        <FILE id="WBcjRy" name="g_numbox.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_numbox.c"/>
-        <FILE id="eqwe9Y" name="g_readwrite.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_readwrite.c"/>
-        <FILE id="wgoeZt" name="g_rtext.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_rtext.c"/>
-        <FILE id="zR1Nq5" name="g_scalar.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_scalar.c"/>
-        <FILE id="Kw3t0P" name="g_template.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_template.c"/>
-        <FILE id="dvfxtZ" name="g_text.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_text.c"/>
-        <FILE id="tMBAEO" name="g_toggle.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_toggle.c"/>
-        <FILE id="aI1kM8" name="g_traversal.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_traversal.c"/>
-        <FILE id="HaPNhI" name="g_vdial.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_vdial.c"/>
-        <FILE id="OjFVhc" name="g_vslider.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_vslider.c"/>
-        <FILE id="gxiYTM" name="g_vumeter.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/g_vumeter.c"/>
-        <FILE id="Ae9QCQ" name="m_atom.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/m_atom.c"/>
-        <FILE id="Ix3rum" name="m_binbuf.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/m_binbuf.c"/>
-        <FILE id="i3R2lr" name="m_class.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/m_class.c"/>
-        <FILE id="pFjd5J" name="m_conf.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/m_conf.c"/>
-        <FILE id="ALtsMO" name="m_glob.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/m_glob.c"/>
-        <FILE id="GhDeYr" name="m_imp.h" compile="0" resource="0" file="ThirdParty/zpd/pd/src/m_imp.h"/>
-        <FILE id="qGDkuQ" name="m_memory.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/m_memory.c"/>
-        <FILE id="QApY3j" name="m_obj.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/m_obj.c"/>
-        <FILE id="b64Vvh" name="m_pd.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/m_pd.c"/>
-        <FILE id="v6vnV6" name="m_pd.h" compile="0" resource="0" file="ThirdParty/zpd/pd/src/m_pd.h"/>
-        <FILE id="AcMDno" name="m_sched.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/m_sched.c"/>
-        <FILE id="S1T7RD" name="s_audio_dummy.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/s_audio_dummy.c"/>
-        <FILE id="I16vNH" name="s_audio.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/s_audio.c"/>
-        <FILE id="fumaJg" name="s_file.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/s_file.c"/>
-        <FILE id="fntYKf" name="s_inter.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/s_inter.c"/>
-        <FILE id="hWLUEQ" name="s_loader.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/s_loader.c"/>
-        <FILE id="S4tkno" name="s_main.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/s_main.c"/>
-        <FILE id="kHFaCj" name="s_path.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/s_path.c"/>
-        <FILE id="QA64gg" name="s_print.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/s_print.c"/>
-        <FILE id="gVuuYb" name="s_stuff.h" compile="0" resource="0" file="ThirdParty/zpd/pd/src/s_stuff.h"/>
-        <FILE id="I0c607" name="s_utf8.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/s_utf8.c"/>
-        <FILE id="vpicCg" name="s_utf8.h" compile="0" resource="0" file="ThirdParty/zpd/pd/src/s_utf8.h"/>
-        <FILE id="I8XFD1" name="x_acoustics.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_acoustics.c"/>
-        <FILE id="AwInRF" name="x_arithmetic.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_arithmetic.c"/>
-        <FILE id="jJTh3J" name="x_array.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_array.c"/>
-        <FILE id="L9QY5x" name="x_connective.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_connective.c"/>
-        <FILE id="o4E03L" name="x_gui.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_gui.c"/>
-        <FILE id="gzpRyz" name="x_interface.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_interface.c"/>
-        <FILE id="phQ49w" name="x_list.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_list.c"/>
-        <FILE id="vovFm4" name="x_midi.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_midi.c"/>
-        <FILE id="yugd7s" name="x_misc.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_misc.c"/>
-        <FILE id="VRGvMR" name="x_net.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_net.c"/>
-        <FILE id="IBP4gM" name="x_scalar.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_scalar.c"/>
-        <FILE id="iiSSlt" name="x_text.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_text.c"/>
-        <FILE id="H3A8D5" name="x_time.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_time.c"/>
-        <FILE id="AXBJOk" name="x_vexp_fun.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_vexp_fun.c"/>
-        <FILE id="gGO2ms" name="x_vexp_if.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_vexp_if.c"/>
-        <FILE id="KzLhm5" name="x_vexp.c" compile="1" resource="0" file="ThirdParty/zpd/pd/src/x_vexp.c"/>
-        <FILE id="AklCfD" name="x_vexp.h" compile="0" resource="0" file="ThirdParty/zpd/pd/src/x_vexp.h"/>
-      </GROUP>
-    </GROUP>
     <GROUP id="{DA749788-8080-7C49-DD5B-37B9D2FE7980}" name="Ressources">
       <FILE id="EAeTb6" name="clear1.png" compile="0" resource="1" file="Ressources/clear1.png"/>
       <FILE id="bFHZOt" name="clear2.png" compile="0" resource="1" file="Ressources/clear2.png"/>
@@ -231,7 +75,7 @@
   </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" postbuildCommand="" vstFolder="ThirdParty/Vst/"
-               vst3Folder="ThirdParty/Vst/" extraDefs="HAVE_UNISTD_H=1&#10;HAVE_ALLOCA_H=1&#10;HAVE_LIBDL=1"
+               vst3Folder="VST" extraDefs="HAVE_UNISTD_H=1&#10;HAVE_ALLOCA_H=1&#10;HAVE_LIBDL=1"
                extraCompilerFlags="">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="10.7 SDK" osxArchitecture="64BitUniversal"
@@ -276,8 +120,9 @@
       </MODULEPATHS>
     </LINUX_MAKE>
     <VS2015 targetFolder="Builds/VisualStudio2015" vstFolder="ThirdParty\Vst"
-            vst3Folder="ThirdParty\Vst" extraDefs="HAVE_STRUCT_TIMESPEC=1"
-            externalLibraries="" extraCompilerFlags="/wd4091 &#10;/wd4996&#10;/wd4100&#10;/wd4706&#10;/wd4210">
+            vst3Folder="VST" extraDefs="HAVE_STRUCT_TIMESPEC=1" externalLibraries=""
+            extraCompilerFlags="/wd4091 &#10;/wd4996&#10;/wd4100&#10;/wd4706&#10;/wd4210"
+            windowsTargetPlatformVersion="8.1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug32" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
                        isDebug="1" optimisation="1" targetName="Camomile" headerPath="../../ThirdParty/zpd/pd/src&#10;../../ThirdParty/zpd/thread/pthreadwin"
