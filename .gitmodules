@@ -1,6 +1,0 @@
-[submodule "ThirdParty/Juce"]
-	path = ThirdParty/Juce
-	url = https://pierreguillot@github.com/julianstorer/JUCE.git
-[submodule "ThirdParty/zpd"]
-	path = ThirdParty/zpd
-	url = https://pierreguillot@github.com/pierreguillot/zpd.git
