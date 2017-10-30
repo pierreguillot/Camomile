@@ -676,9 +676,6 @@
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\effects\juce_CatmullRomInterpolator.cpp">
       <Filter>Juce Modules\juce_audio_basics\effects</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\effects\juce_FFT.cpp">
-      <Filter>Juce Modules\juce_audio_basics\effects</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\effects\juce_IIRFilter.cpp">
       <Filter>Juce Modules\juce_audio_basics\effects</Filter>
     </ClCompile>
@@ -858,9 +855,6 @@
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\format_types\juce_VSTPluginFormat.cpp">
       <Filter>Juce Modules\juce_audio_processors\format_types</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\processors\juce_AudioChannelSet.cpp">
-      <Filter>Juce Modules\juce_audio_processors\processors</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\processors\juce_AudioProcessor.cpp">
       <Filter>Juce Modules\juce_audio_processors\processors</Filter>
@@ -1855,13 +1849,7 @@
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_gui_basics\native\juce_ios_Windowing.mm">
       <Filter>Juce Modules\juce_gui_basics\native</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_gui_basics\native\juce_linux_Clipboard.cpp">
-      <Filter>Juce Modules\juce_gui_basics\native</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_gui_basics\native\juce_linux_FileChooser.cpp">
-      <Filter>Juce Modules\juce_gui_basics\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_gui_basics\native\juce_linux_Windowing.cpp">
       <Filter>Juce Modules\juce_gui_basics\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_gui_basics\native\juce_linux_X11.cpp">
@@ -2069,12 +2057,6 @@
       <Filter>Juce Modules\juce_gui_extra\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_gui_extra\native\juce_ios_UIViewComponent.mm">
-      <Filter>Juce Modules\juce_gui_extra\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_gui_extra\native\juce_linux_SystemTrayIcon.cpp">
-      <Filter>Juce Modules\juce_gui_extra\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_gui_extra\native\juce_linux_WebBrowserComponent.cpp">
       <Filter>Juce Modules\juce_gui_extra\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Juce\modules\juce_gui_extra\native\juce_linux_X11_SystemTrayIcon.cpp">
@@ -2322,9 +2304,6 @@
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\effects\juce_Decibels.h">
       <Filter>Juce Modules\juce_audio_basics\effects</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\effects\juce_FFT.h">
-      <Filter>Juce Modules\juce_audio_basics\effects</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_basics\effects\juce_IIRFilter.h">
       <Filter>Juce Modules\juce_audio_basics\effects</Filter>
     </ClInclude>
@@ -2547,9 +2526,6 @@
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\utility\juce_IncludeSystemHeaders.h">
       <Filter>Juce Modules\juce_audio_plugin_client\utility</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\utility\juce_PluginBusUtilities.h">
-      <Filter>Juce Modules\juce_audio_plugin_client\utility</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_plugin_client\utility\juce_PluginHostType.h">
       <Filter>Juce Modules\juce_audio_plugin_client\utility</Filter>
     </ClInclude>
@@ -2594,12 +2570,6 @@
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\format_types\juce_VSTPluginFormat.h">
       <Filter>Juce Modules\juce_audio_processors\format_types</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\processors\juce_AudioChannelSet.h">
-      <Filter>Juce Modules\juce_audio_processors\processors</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\processors\juce_AudioPlayHead.h">
-      <Filter>Juce Modules\juce_audio_processors\processors</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_audio_processors\processors\juce_AudioPluginInstance.h">
       <Filter>Juce Modules\juce_audio_processors\processors</Filter>
@@ -3130,9 +3100,6 @@
       <Filter>Juce Modules\juce_events\native</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_events\native\juce_osx_MessageQueue.h">
-      <Filter>Juce Modules\juce_events\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_events\native\juce_ScopedXLock.h">
       <Filter>Juce Modules\juce_events\native</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\Juce\modules\juce_events\native\juce_win32_HiddenMessageWindow.h">
