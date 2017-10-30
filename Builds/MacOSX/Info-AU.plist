@@ -8,7 +8,7 @@
     <key>CFBundleIconFile</key>
     <string></string>
     <key>CFBundleIdentifier</key>
-    <string>com.yourcompany.Camomile</string>
+    <string>com.pierreguillot.camomile</string>
     <key>CFBundleName</key>
     <string>Camomile</string>
     <key>CFBundleDisplayName</key>
@@ -29,7 +29,7 @@
     <array>
       <dict>
         <key>name</key>
-        <string>yourcompany: Camomile</string>
+        <string>pierreguillot: Camomile</string>
         <key>description</key>
         <string>Camomile</string>
         <key>factoryFunction</key>

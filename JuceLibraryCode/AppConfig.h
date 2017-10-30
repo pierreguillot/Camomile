@@ -266,7 +266,7 @@
  #define JucePlugin_Build_AU               1
 #endif
 #ifndef  JucePlugin_Build_AUv3
- #define JucePlugin_Build_AUv3             0
+ #define JucePlugin_Build_AUv3             1
 #endif
 #ifndef  JucePlugin_Build_RTAS
  #define JucePlugin_Build_RTAS             0
@@ -287,7 +287,7 @@
  #define JucePlugin_Desc                   "Camomile"
 #endif
 #ifndef  JucePlugin_Manufacturer
- #define JucePlugin_Manufacturer           "yourcompany"
+ #define JucePlugin_Manufacturer           "pierreguillot"
 #endif
 #ifndef  JucePlugin_ManufacturerWebsite
  #define JucePlugin_ManufacturerWebsite    ""
@@ -347,7 +347,7 @@
  #define JucePlugin_AUManufacturerCode     JucePlugin_ManufacturerCode
 #endif
 #ifndef  JucePlugin_CFBundleIdentifier
- #define JucePlugin_CFBundleIdentifier     com.yourcompany.Camomile
+ #define JucePlugin_CFBundleIdentifier     com.pierreguillot.camomile
 #endif
 #ifndef  JucePlugin_RTASCategory
  #define JucePlugin_RTASCategory           ePlugInCategory_None
@@ -365,7 +365,7 @@
  #define JucePlugin_RTASDisableMultiMono   0
 #endif
 #ifndef  JucePlugin_AAXIdentifier
- #define JucePlugin_AAXIdentifier          com.yourcompany.Camomile
+ #define JucePlugin_AAXIdentifier          com.pierreguillot.camomile
 #endif
 #ifndef  JucePlugin_AAXManufacturerCode
  #define JucePlugin_AAXManufacturerCode    JucePlugin_ManufacturerCode
@@ -389,5 +389,5 @@
  #define JucePlugin_IAASubType             JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_IAAName
- #define JucePlugin_IAAName                "yourcompany: Camomile"
+ #define JucePlugin_IAAName                "pierreguillot: Camomile"
 #endif
