@@ -32,34 +32,7 @@ typedef struct l_instance
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-static void* libpd_instance_doinit(t_libpd_instance* inst)
-{
-    inst->l_pd = pdinstance_new();
-    pd_setinstance(inst->l_pd);
-    assert(inst->l_pd && "pd instance can't be allocated.");
-    libpd_init_audio((int)inst->l_ninputs, (int)inst->l_noutputs, (int)inst->l_samplerate);
-    return NULL;
-}
 
-static void libpd_instance_init(t_libpd_instance* inst,
-                                size_t blksize, size_t samplerate, size_t nins, size_t nouts)
-{
-    
-    inst->l_blocksize   = blksize;
-    inst->l_samplerate  = samplerate;
-    inst->l_ninputs     = nins;
-    inst->l_noutputs    = nouts;
-    inst->l_patch       = NULL;
-    
-    assert(blksize && nins && nouts && "block size, number of inputs and number of outputs must be positives");
-    inst->l_inputs      = (t_sample *)malloc(blksize * nins * sizeof(*inst->l_inputs));
-    assert(inst->l_inputs && "inputs can't be allocated.");
-    inst->l_outputs      = (t_sample *)malloc(blksize * nouts * sizeof(*inst->l_outputs));
-    assert(inst->l_outputs && "outputs can't be allocated.");
-    assert(!pthread_create(&inst->l_thd, NULL, (void *)libpd_instance_doinit, inst) &&
-           "libpd_instance_init thread creation error.");
-    pthread_join(inst->l_thd, NULL);
-}
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -232,13 +205,32 @@ namespace xpd
     instance::instance()
     {
         m_ptr = pdinstance_new();
-        pd_setinstance((t_pdinstance *)m_ptr);
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
     }
     
     instance::~instance()
     {
-        pd_setinstance((t_pdinstance *)m_ptr);
-        pdinstance_free((t_pdinstance *)m_ptr);
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        pdinstance_free(static_cast<t_pdinstance *>(m_ptr));
+    }
+    
+    void instance::prepare(const int nins, const int nouts, const int blksize, const double samplerate)
+    {
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        m_inputs.resize(blksize * nins);
+        m_outputs.resize(blksize * nouts);
+        libpd_init_audio((int)nins, (int)nouts, (int)samplerate);
+        libpd_start_message(1);
+        libpd_add_float(1.f);
+        libpd_finish_message("pd", "dsp");
+    }
+    
+    void instance::release()
+    {
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        libpd_start_message(1);
+        libpd_add_float(0.f);
+        libpd_finish_message("pd", "dsp");
     }
 }
 

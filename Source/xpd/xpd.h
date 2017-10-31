@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include <vector>
+
 namespace xpd
 {
     // ==================================================================================== //
@@ -33,7 +35,11 @@ namespace xpd
         instance();
         ~instance();
         
+        void prepare(const int nins, const int nouts, const int blksize, const double samplerate);
+        void release();
     private:
-        void* m_ptr;
+        void* m_ptr         = nullptr;
+        std::vector<float> m_inputs;
+        std::vector<float> m_outputs;
     };
 }

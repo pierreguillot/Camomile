@@ -84,14 +84,14 @@ void CamomileAudioProcessor::changeProgramName (int index, const String& newName
 //==============================================================================
 void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    prepare(AudioProcessor::getTotalNumInputChannels(),
+            AudioProcessor::getTotalNumOutputChannels(),
+            samplesPerBlock, sampleRate);
 }
 
 void CamomileAudioProcessor::releaseResources()
 {
-    // When playback stops, you can use this as an opportunity to free up any
-    // spare memory, etc.
+    release();
 }
 
 void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
@@ -114,7 +114,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         float* channelData = buffer.getWritePointer (channel);
-        *channelData = 0;
+        *channelData = *channelData;
         // ..do something to the data...
     }
 }
