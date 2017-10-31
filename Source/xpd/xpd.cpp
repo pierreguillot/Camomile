@@ -224,5 +224,21 @@ namespace xpd
     {
         ;
     }
+    
+    // ==================================================================================== //
+    //                                      INSTANCE                                        //
+    // ==================================================================================== //
+    
+    instance::instance()
+    {
+        m_ptr = pdinstance_new();
+        pd_setinstance((t_pdinstance *)m_ptr);
+    }
+    
+    instance::~instance()
+    {
+        pd_setinstance((t_pdinstance *)m_ptr);
+        pdinstance_free((t_pdinstance *)m_ptr);
+    }
 }
 

@@ -19,5 +19,5 @@
 #### MacOSX
 ```
 cd libpd
-xcodebuild -project libpd.xcodeproj -scheme libpd-osx -configuration Release -arch x86_64 ONLY_ACTIVE_ARCH=NO
+xcodebuild -project libpd.xcodeproj -scheme libpd-osx -configuration Release -arch x86_64 ONLY_ACTIVE_ARCH=NO BUILT_PRODUCTS_DIR="./libs" PDINSTANCE=1 PDTHREADS=1
 ```

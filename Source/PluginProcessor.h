@@ -11,12 +11,12 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-
+#include "xpd/xpd.h"
 
 //==============================================================================
 /**
 */
-class CamomileAudioProcessor  : public AudioProcessor
+class CamomileAudioProcessor  : public AudioProcessor, xpd::instance
 {
 public:
     //==============================================================================

@@ -10,7 +10,6 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
-#include "xpd/xpd.h"
 
 //==============================================================================
 CamomileAudioProcessor::CamomileAudioProcessor()
