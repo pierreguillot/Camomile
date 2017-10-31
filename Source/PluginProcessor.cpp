@@ -10,11 +10,20 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include <iostream>
 
 //==============================================================================
 CamomileAudioProcessor::CamomileAudioProcessor()
 {
-    juce::File::getCurrentWorkingDirectory().getFullPathName();
+    juce::File plugin = juce::File::getSpecialLocation(juce::File::currentApplicationFile).getFullPathName();
+    if(plugin.exists())
+    {
+#ifdef JUCE_MAC
+        open(plugin.getFullPathName().toStdString() + "/Contents/Resources",
+             plugin.getFileNameWithoutExtension().toStdString() + ".pd");
+#else
+#endif
+    }
 }
 
 CamomileAudioProcessor::~CamomileAudioProcessor()

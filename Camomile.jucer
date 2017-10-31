@@ -28,7 +28,8 @@
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX" vst3Folder="VST" externalLibraries="pd-osx">
+    <XCODE_MAC targetFolder="Builds/MacOSX" vst3Folder="VST" externalLibraries="pd-osx"
+               customXcodeResourceFolders="Patches/Camomile.pd">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" enablePluginBinaryCopyStep="1" isDebug="1" optimisation="1"
                        linkTimeOptimisation="0" targetName="Camomile" osxCompatibility="10.9 SDK"

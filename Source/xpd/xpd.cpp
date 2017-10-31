@@ -127,12 +127,18 @@ namespace xpd
                            const int nins, float const** inputs,
                            const int nouts, float** outputs)
     {
-        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
         for(int i = 0; i < nins; ++i) {
-            std::copy(inputs[i], inputs[i]+blksize, m_inputs.data()); }
+            for(int j = 0; j < blksize; ++j) {
+                m_inputs[j*nins+i] = inputs[i][j];
+            }
+        }
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
         libpd_process_float(blksize / 64, m_inputs.data(), m_outputs.data());
         for(int i = 0; i < nouts; ++i) {
-            std::copy(m_outputs.data(), m_outputs.data()+blksize, outputs[i]); }
+            for(int j = 0; j < blksize; ++j) {
+                outputs[i][j] = m_outputs[j*nouts+i];
+            }
+        }
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////
