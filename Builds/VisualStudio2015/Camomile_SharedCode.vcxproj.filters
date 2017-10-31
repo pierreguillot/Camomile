@@ -5,6 +5,9 @@
     <Filter Include="Camomile\Source">
       <UniqueIdentifier>{33E9C75D-FCFD-D74A-6894-584B92DA1489}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Camomile\xpd">
+      <UniqueIdentifier>{CB0641A9-A966-2A5F-15C7-DBEFEBCFCE75}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Camomile">
       <UniqueIdentifier>{AE2AEEA8-98A7-4FFF-924A-E091915F5128}</UniqueIdentifier>
     </Filter>
@@ -360,6 +363,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\PluginEditor.cpp">
       <Filter>Camomile\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\xpd\xpd.cpp">
+      <Filter>Camomile\xpd</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <Filter>Juce Modules\juce_audio_basics\buffers</Filter>
@@ -2135,6 +2141,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\PluginEditor.h">
       <Filter>Camomile\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\xpd\xpd.h">
+      <Filter>Camomile\xpd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
       <Filter>Juce Modules\juce_audio_basics\audio_play_head</Filter>

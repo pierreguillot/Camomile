@@ -10,7 +10,7 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
-
+#include "xpd/xpd.h"
 
 //==============================================================================
 CamomileAudioProcessor::CamomileAudioProcessor()
@@ -61,8 +61,7 @@ double CamomileAudioProcessor::getTailLengthSeconds() const
 
 int CamomileAudioProcessor::getNumPrograms()
 {
-    return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
-                // so this should be at least 1, even if you're not really implementing programs.
+    return 1;
 }
 
 int CamomileAudioProcessor::getCurrentProgram()
@@ -84,7 +83,7 @@ void CamomileAudioProcessor::changeProgramName (int index, const String& newName
 }
 
 //==============================================================================
-void CamomileAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
@@ -96,7 +95,7 @@ void CamomileAudioProcessor::releaseResources()
     // spare memory, etc.
 }
 
-void CamomileAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
+void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
     ScopedNoDenormals noDenormals;
     const int totalNumInputChannels  = getTotalNumInputChannels();
@@ -116,7 +115,7 @@ void CamomileAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         float* channelData = buffer.getWritePointer (channel);
-
+        *channelData = 0;
         // ..do something to the data...
     }
 }
@@ -150,5 +149,6 @@ void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBy
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
+    xpd::environment::initialize();
     return new CamomileAudioProcessor();
 }

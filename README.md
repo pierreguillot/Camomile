@@ -13,3 +13,11 @@
 [![Release](https://img.shields.io/github/release/pierreguillot/Camomile.svg)](https://github.com/pierreguillot/Camomile/releases/latest)  
 [![Documentation](https://img.shields.io/badge/wiki-documentation-blue.svg)](https://github.com/pierreguillot/Camomile/wiki)  
 [![License](https://img.shields.io/badge/license-BSD 3-blue.svg)](https://github.com/pierreguillot/Camomile/blob/master/LICENSE)
+
+### Build
+
+#### MacOSX
+```
+cd libpd
+xcodebuild -project libpd.xcodeproj -scheme libpd-osx -configuration Release -arch x86_64 ONLY_ACTIVE_ARCH=NO
+```
