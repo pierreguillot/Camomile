@@ -7,6 +7,7 @@
 
 #include "xpd.h"
 #include <cassert>
+#include <algorithm>
 extern "C"
 {
     #include <z_libpd.h>
@@ -67,41 +68,6 @@ static void libpd_instance_free(t_libpd_instance* inst)
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-static void* libpd_instance_dodsp_start(t_libpd_instance* inst)
-{
-    pd_setinstance(inst->l_pd);
-    libpd_start_message(1);
-    libpd_add_float(1.f);
-    libpd_finish_message("pd", "dsp");
-    return NULL;
-}
-
-static void libpd_instance_dsp_start(t_libpd_instance* inst)
-{
-    assert(!pthread_create(&inst->l_thd, NULL, (void *)libpd_instance_dodsp_start, inst) &&
-           "libpd_instance_dsp_start thread creation error.");
-    pthread_join(inst->l_thd, NULL);
-}
-
-static void* libpd_instance_dodsp_stop(t_libpd_instance* inst)
-{
-    pd_setinstance(inst->l_pd);
-    libpd_start_message(1);
-    libpd_add_float(0.f);
-    libpd_finish_message("pd", "dsp");
-    return NULL;
-}
-
-static void libpd_instance_dsp_stop(t_libpd_instance* inst)
-{
-    assert(!pthread_create(&inst->l_thd, NULL, (void *)libpd_instance_dodsp_stop, inst) &&
-           "libpd_instance_dsp_stop thread creation error.");
-    pthread_join(inst->l_thd, NULL);
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////
-
 static void* libpd_instance_doclose(t_libpd_instance* inst)
 {
     pd_setinstance(inst->l_pd);
@@ -152,15 +118,7 @@ static void* libpd_instance_doperform(t_libpd_instance* inst)
     return NULL;
 }
 
-static void libpd_instance_perform(t_libpd_instance* inst)
-{
-    assert(!pthread_create(&inst->l_thd, NULL, (void *)libpd_instance_doperform, inst) &&
-           "libpd_instance_perform thread creation error.");
-    pthread_join(inst->l_thd, NULL);
-}
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////
 
 static void* multi_instance_run(t_libpd_instance* inst)
 {
@@ -214,6 +172,9 @@ namespace xpd
         pdinstance_free(static_cast<t_pdinstance *>(m_ptr));
     }
     
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////
+
     void instance::prepare(const int nins, const int nouts, const int blksize, const double samplerate)
     {
         pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
@@ -233,6 +194,21 @@ namespace xpd
         libpd_finish_message("pd", "dsp");
     }
     
+    void instance::perform(const int blksize,
+                           const int nins, float const** inputs,
+                           const int nouts, float** outputs)
+    {
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        for(int i = 0; i < nins; ++i) {
+            std::copy(inputs[i], inputs[i]+blksize, m_inputs.data()); }
+        libpd_process_float(blksize / 64, m_inputs.data(), m_outputs.data());
+        for(int i = 0; i < nouts; ++i) {
+            std::copy(m_outputs.data(), m_outputs.data()+blksize, outputs[i]); }
+    }
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////
+
     void instance::sendNoteOn(const int channel, const int pitch, const int velocity)
     {
         pd_setinstance(static_cast<t_pdinstance *>(m_ptr));

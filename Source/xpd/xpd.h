@@ -42,6 +42,7 @@ namespace xpd
         
         void prepare(const int nins, const int nouts, const int blksize, const double samplerate);
         void release();
+        void perform(const int blksize, const int nins, float const** inputs, const int nouts, float** outputs);
         
         void sendNoteOn(const int channel, const int pitch, const int velocity);
         void sendControlChange(const int channel, const int controller, const int value);
