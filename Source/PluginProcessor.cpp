@@ -14,6 +14,7 @@
 //==============================================================================
 CamomileAudioProcessor::CamomileAudioProcessor()
 {
+    juce::File::getCurrentWorkingDirectory().getFullPathName();
 }
 
 CamomileAudioProcessor::~CamomileAudioProcessor()

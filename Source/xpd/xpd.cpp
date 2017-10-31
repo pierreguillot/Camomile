@@ -14,60 +14,6 @@ extern "C"
 }
 
 /*
-typedef struct l_instance
-{
-    t_pdinstance*       l_pd;
-    size_t              l_blocksize;
-    size_t              l_samplerate;
-    size_t              l_ninputs;
-    t_sample*           l_inputs;
-    size_t              l_noutputs;
-    t_sample*           l_outputs;
-    char                l_name[MAXPDSTRING];
-    char                l_folder[MAXPDSTRING];
-    void*               l_patch;
-    
-    pthread_t           l_thd;
-} t_libpd_instance;
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-static void* libpd_instance_dofree(t_libpd_instance* inst)
-{
-    pd_setinstance(inst->l_pd);
-    if(inst->l_pd) {
-        pdinstance_free(inst->l_pd); }
-    return NULL;
-}
-
-static void libpd_instance_free(t_libpd_instance* inst)
-{
-    assert(!pthread_create(&inst->l_thd, NULL, (void *)libpd_instance_dofree, inst) &&
-           "thread creation error.");
-    pthread_join(inst->l_thd, NULL);
-    if(inst->l_inputs)
-    {
-        free(inst->l_inputs);
-        inst->l_inputs = NULL;
-        inst->l_ninputs = 0;
-    }
-    if(inst->l_outputs)
-    {
-        free(inst->l_outputs);
-        inst->l_outputs = NULL;
-        inst->l_noutputs = 0;
-    }
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////
-
 static void* libpd_instance_doclose(t_libpd_instance* inst)
 {
     pd_setinstance(inst->l_pd);
@@ -102,23 +48,6 @@ static void libpd_instance_open(t_libpd_instance* inst, const char *name, const 
            "libpd_instance_open thread creation error.");
     pthread_join(inst->l_thd, NULL);
 }
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-static void* libpd_instance_doperform(t_libpd_instance* inst)
-{
-    size_t i;
-    pd_setinstance(inst->l_pd);
-    libpd_process_float((int)(inst->l_blocksize / (size_t)64), inst->l_inputs, inst->l_outputs);
-    for(i = 0; i < inst->l_blocksize; ++i) {
-        int result   = (int)inst->l_outputs[i];
-        int expected = i%2 ? ((i-1)/2)%64 * -1 : (i/2)%64;
-        assert(result == expected && "DSP results are wrong"); }
-    return NULL;
-}
-
-
 
 static void* multi_instance_run(t_libpd_instance* inst)
 {
@@ -261,6 +190,20 @@ namespace xpd
     {
         pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
         libpd_midibyte(port, byte);
+    }
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    void instance::open(std::string const& path, std::string const& name)
+    {
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        m_patch = libpd_openfile(name.c_str(), path.c_str());
+    }
+    
+    void instance::close()
+    {
+        
     }
 }
 

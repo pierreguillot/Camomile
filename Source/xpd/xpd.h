@@ -7,6 +7,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 
 namespace xpd
 {
@@ -53,8 +54,12 @@ namespace xpd
         void sendSysEx(const int port, const int byte);
         void sendSysRealTime(const int port, const int byte);
         void sendMidiByte(const int port, const int byte);
+        
+        void open(std::string const& path, std::string const& name);
+        void close();
     private:
         void* m_ptr         = nullptr;
+        void* m_patch       = nullptr;
         std::vector<float> m_inputs;
         std::vector<float> m_outputs;
     };
