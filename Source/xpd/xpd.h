@@ -25,6 +25,11 @@ namespace xpd
         static void  clear() noexcept;
     };
     
+    class midi
+    {
+        
+    };
+    
     // ==================================================================================== //
     //                                      INSTANCE                                        //
     // ==================================================================================== //
@@ -37,6 +42,16 @@ namespace xpd
         
         void prepare(const int nins, const int nouts, const int blksize, const double samplerate);
         void release();
+        
+        void sendNoteOn(const int channel, const int pitch, const int velocity);
+        void sendControlChange(const int channel, const int controller, const int value);
+        void sendProgramChange(const int channel, const int value);
+        void sendPitchBend(const int channel, const int value);
+        void sendAfterTouch(const int channel, const int value);
+        void sendPolyAfterTouch(const int channel, const int pitch, const int value);
+        void sendSysEx(const int port, const int byte);
+        void sendSysRealTime(const int port, const int byte);
+        void sendMidiByte(const int port, const int byte);
     private:
         void* m_ptr         = nullptr;
         std::vector<float> m_inputs;

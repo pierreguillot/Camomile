@@ -232,5 +232,59 @@ namespace xpd
         libpd_add_float(0.f);
         libpd_finish_message("pd", "dsp");
     }
+    
+    void instance::sendNoteOn(const int channel, const int pitch, const int velocity)
+    {
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        libpd_noteon(channel, pitch, velocity);
+    }
+    
+    void instance::sendControlChange(const int channel, const int controller, const int value)
+    {
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        libpd_controlchange(channel, controller, value);
+    }
+    
+    void instance::sendProgramChange(const int channel, const int value)
+    {
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        libpd_programchange(channel, value);
+    }
+    
+    void instance::sendPitchBend(const int channel, const int value)
+    {
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        libpd_pitchbend(channel, value);
+    }
+    
+    void instance::sendAfterTouch(const int channel, const int value)
+    {
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        libpd_aftertouch(channel, value);
+    }
+    
+    void instance::sendPolyAfterTouch(const int channel, const int pitch, const int value)
+    {
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        libpd_polyaftertouch(channel, pitch, value);
+    }
+    
+    void instance::sendSysEx(const int port, const int byte)
+    {
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        libpd_sysex(port, byte);
+    }
+    
+    void instance::sendSysRealTime(const int port, const int byte)
+    {
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        libpd_sysrealtime(port, byte);
+    }
+    
+    void instance::sendMidiByte(const int port, const int byte)
+    {
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        libpd_midibyte(port, byte);
+    }
 }
 

@@ -100,14 +100,32 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     const int totalNumInputChannels  = getTotalNumInputChannels();
     const int totalNumOutputChannels = getTotalNumOutputChannels();
 
-    // In case we have more outputs than inputs, this code clears any output
-    // channels that didn't contain input data, (because these aren't
-    // guaranteed to be empty - they may contain garbage).
-    // This is here to avoid people getting screaming feedback
-    // when they first compile a plugin, but obviously you don't need to keep
-    // this code if your algorithm always overwrites all the output channels.
-    for (int i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-        buffer.clear (i, 0, buffer.getNumSamples());
+    for(int i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
+    {
+        buffer.clear(i, 0, buffer.getNumSamples());
+    }
+    
+    {
+        MidiMessage message;
+        MidiBuffer::Iterator it(midiMessages);
+        int position = midiMessages.getFirstEventTime();
+        while(it.getNextEvent(message, position)) {
+            if(message.isNoteOn()) {
+                sendNoteOn(message.getChannel(), message.getNoteNumber(), message.getVelocity()); }
+            else if(message.isNoteOff()) {
+                sendNoteOn(message.getChannel(), message.getNoteNumber(), 0); }
+            else if(message.isController()) {
+                sendControlChange(message.getChannel(), message.getControllerNumber(), message.getControllerValue()); }
+            else if(message.isPitchWheel()) {
+                sendPitchBend(message.getChannel(), message.getPitchWheelValue()); }
+            else if(message.isChannelPressure()) {
+                sendAfterTouch(message.getChannel(), message.getChannelPressureValue()); }
+            else if(message.isAftertouch()) {
+                sendPolyAfterTouch(message.getChannel(), message.getNoteNumber(), message.getAfterTouchValue()); }
+            else if(message.isProgramChange()) {
+                sendProgramChange(message.getChannel(), message.getProgramChangeNumber()); }
+        }
+    }
 
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
