@@ -25,8 +25,8 @@ matrix:
     - os: osx
       compiler: clang++
       script:
-        - xcodebuild -list -project libpd/libpd.xcodeproj 
-        - xcodebuild -project libpd/libpd.xcodeproj -scheme libpd-osx -configuration Release -arch x86_64 ONLY_ACTIVE_ARCH=NO CONFIGURATION_BUILD_DIR="./libs/x86_64" PDINSTANCE=1 PDTHREADS=1
-        - xcodebuild -project libpd/libpd.xcodeproj -scheme libpd-osx -configuration Release -arch i386 ONLY_ACTIVE_ARCH=NO CONFIGURATION_BUILD_DIR="./libs/i386" PDINSTANCE=1 PDTHREADS=1
+        - xcodebuild -list -project libpd/libpd.xcodeproj
+        - xcodebuild -project libpd/libpd.xcodeproj -target libpd-osx -configuration Release -arch x86_64 ONLY_ACTIVE_ARCH=NO CONFIGURATION_BUILD_DIR="./libs/x86_64" PDINSTANCE=1 PDTHREADS=1
+        - xcodebuild -project libpd/libpd.xcodeproj -target libpd-osx -configuration Release -arch i386 ONLY_ACTIVE_ARCH=NO CONFIGURATION_BUILD_DIR="./libs/i386" PDINSTANCE=1 PDTHREADS=1
         - lipo -create -output "./libpd/libs/libpd-osx.a" "./libpd/libs/x86_64/libpd-osx.a" "./libpd/libs/i386/libpd-osx.a"
         - xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration Release
