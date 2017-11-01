@@ -84,9 +84,9 @@
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraLinkerFlags="" externalLibraries="pd">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" linkTimeOptimisation="0"
-                       targetName="Camomile"/>
+                       targetName="Camomile" libraryPath="../../libpd/libs"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" linkTimeOptimisation="1"
-                       targetName="Camomile"/>
+                       targetName="Camomile" libraryPath="../../libpd/libs"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="Juce/modules"/>
