@@ -22,7 +22,7 @@ matrix:
         - sudo apt-get install -y python-dev libfreetype6-dev
       script:
         - cd libpd
-        - make UTIL=true EXTRA=true -DPDINSTANCE=1 -DPDTHREADS=1
+        - make UTIL=true EXTRA=true ADDITIONAL_CFLAGS="-DPDINSTANCE=1 -DPDTHREADS=1"
         - cd ..
         - make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=Release
 

@@ -13,12 +13,6 @@ os: Visual Studio 2015
 install:
     - git submodule update --init --recursive
 
-before_build:
-    - curl -fsS -o %APPVEYOR_BUILD_FOLDER%\Vst.zip 'http://www.steinberg.net/sdk_downloads/vstsdk365_12_11_2015_build_67.zip'
-    - 7z x %APPVEYOR_BUILD_FOLDER%\Vst.zip -o%APPVEYOR_BUILD_FOLDER%\ThirdParty -aoa -y -r
-    - rmdir %APPVEYOR_BUILD_FOLDER%\ThirdParty\Vst /s /q
-    - rename %APPVEYOR_BUILD_FOLDER%\ThirdParty\"VST3 SDK" Vst
-
 build_script: msbuild %APPVEYOR_BUILD_FOLDER%\Builds\VisualStudio2015\Camomile.vcxproj /property:Configuration=%TARGET%
 
 notifications:

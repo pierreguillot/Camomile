@@ -81,7 +81,7 @@
         <MODULEPATH id="juce_audio_devices" path="Juce/modules"/>
       </MODULEPATHS>
     </VS2015>
-    <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraLinkerFlags="pd">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" linkTimeOptimisation="0"
                        targetName="Camomile"/>
