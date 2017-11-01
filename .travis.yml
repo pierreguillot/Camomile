@@ -29,4 +29,6 @@ matrix:
         - xcodebuild -project libpd/libpd.xcodeproj -target libpd-osx -configuration Release -arch i386 ONLY_ACTIVE_ARCH=NO CONFIGURATION_BUILD_DIR="./libs/i386" PDINSTANCE=1 PDTHREADS=1 | egrep -A 5 "(error|warning):"
         - lipo -create -output "./libpd/libs/libpd-osx.a" "./libpd/libs/x86_64/libpd-osx.a" "./libpd/libs/i386/libpd-osx.a"
         - ls libpd/libs
+        - ls libpd/libs/x86_64
+        - ls libpd/libs/i386
         - xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration Release
