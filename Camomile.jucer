@@ -30,7 +30,7 @@
   </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" vst3Folder="VST" externalLibraries="pd-osx"
-               customXcodeResourceFolders="Patches/Camomile.pd">
+               customXcodeResourceFolders="Ressources/Camomile.pd&#10;Ressources/Camomile.txt">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" enablePluginBinaryCopyStep="1" isDebug="1" optimisation="1"
                        linkTimeOptimisation="0" targetName="Camomile" osxCompatibility="10.9 SDK"
@@ -81,7 +81,7 @@
         <MODULEPATH id="juce_audio_devices" path="Juce/modules"/>
       </MODULEPATHS>
     </VS2015>
-    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraLinkerFlags="pd">
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraLinkerFlags="" externalLibraries="pd">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" linkTimeOptimisation="0"
                        targetName="Camomile"/>
