@@ -233,7 +233,7 @@
 					"JucePlugin_Build_Standalone=0", );
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../libpd/cpp", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
+				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
 				INFOPLIST_FILE = Info-VST.plist;
 				INFOPLIST_PREPROCESS = NO;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/VST/";
@@ -275,7 +275,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../libpd/cpp", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
+				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
 				INFOPLIST_FILE = Info-VST.plist;
 				INFOPLIST_PREPROCESS = NO;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/VST/";
@@ -317,7 +317,7 @@
 					"JucePlugin_Build_Standalone=0", );
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../libpd/cpp", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
+				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
 				INFOPLIST_FILE = Info-VST3.plist;
 				INFOPLIST_PREPROCESS = NO;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/VST3/";
@@ -359,7 +359,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../libpd/cpp", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
+				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
 				INFOPLIST_FILE = Info-VST3.plist;
 				INFOPLIST_PREPROCESS = NO;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/VST3/";
@@ -401,7 +401,7 @@
 					"JucePlugin_Build_Standalone=0", );
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../libpd/cpp", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
+				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
 				INFOPLIST_FILE = Info-AU.plist;
 				INFOPLIST_PREPROCESS = NO;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
@@ -444,7 +444,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../libpd/cpp", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
+				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
 				INFOPLIST_FILE = Info-AU.plist;
 				INFOPLIST_PREPROCESS = NO;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
@@ -485,7 +485,7 @@
 					"JucePlugin_Build_AAX=0",
 					"JucePlugin_Build_Standalone=0", );
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../libpd/cpp", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
+				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
 				INFOPLIST_FILE = Info-AUv3_AppExtension.plist;
 				INFOPLIST_PREPROCESS = NO;
 				LIBRARY_SEARCH_PATHS = ("$(inherited)", "\"../../libpd/libs\"");
@@ -522,7 +522,7 @@
 					"JucePlugin_Build_Standalone=0", );
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../libpd/cpp", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
+				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
 				INFOPLIST_FILE = Info-AUv3_AppExtension.plist;
 				INFOPLIST_PREPROCESS = NO;
 				LIBRARY_SEARCH_PATHS = ("$(inherited)", "\"../../libpd/libs\"");
@@ -558,7 +558,7 @@
 					"JucePlugin_Build_AAX=0",
 					"JucePlugin_Build_Standalone=1", );
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../libpd/cpp", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
+				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
 				INFOPLIST_FILE = Info-Standalone_Plugin.plist;
 				INFOPLIST_PREPROCESS = NO;
 				LIBRARY_SEARCH_PATHS = ("$(inherited)", "\"../../libpd/libs\"");
@@ -594,7 +594,7 @@
 					"JucePlugin_Build_Standalone=1", );
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../libpd/cpp", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
+				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
 				INFOPLIST_FILE = Info-Standalone_Plugin.plist;
 				INFOPLIST_PREPROCESS = NO;
 				LIBRARY_SEARCH_PATHS = ("$(inherited)", "\"../../libpd/libs\"");
@@ -631,7 +631,7 @@
 					"JucePlugin_Build_Standalone=1",
 					"JUCE_SHARED_CODE=1", );
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../libpd/cpp", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
+				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = ("$(inherited)", "\"../../libpd/libs\"");
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
@@ -667,7 +667,7 @@
 					"JUCE_SHARED_CODE=1", );
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../libpd/cpp", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
+				HEADER_SEARCH_PATHS = ("../../VST", "../../JuceLibraryCode", "../../Juce/modules", "../../libpd/pure-data/src", "../../libpd/libpd_wrapper", "../../libpd/libpd_wrapper/util", "../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = ("$(inherited)", "\"../../libpd/libs\"");
 				LLVM_LTO = YES;

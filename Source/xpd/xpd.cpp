@@ -11,6 +11,7 @@
 extern "C"
 {
     #include <z_libpd.h>
+    #include <m_pd.h>
 }
 
 /*
@@ -209,7 +210,8 @@ namespace xpd
     
     void instance::close()
     {
-        
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        libpd_closefile(m_patch);
     }
 }
 
