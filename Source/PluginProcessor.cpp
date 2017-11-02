@@ -19,7 +19,10 @@
 #define CAMOMILE_RESSOURCE_PATH juce::String("")
 #endif
 
-CamomileAudioProcessor::CamomileAudioProcessor()
+CamomileAudioProcessor::CamomileAudioProcessor() :
+AudioProcessor(BusesProperties()
+               .withInput("Input", AudioChannelSet::stereo())
+               .withOutput("Output", AudioChannelSet::stereo()))
 {
     juce::File const plugin = juce::File::getSpecialLocation(juce::File::currentApplicationFile).getFullPathName();
     if(plugin.exists())
@@ -27,17 +30,8 @@ CamomileAudioProcessor::CamomileAudioProcessor()
         juce::String name   = plugin.getFileNameWithoutExtension();
         juce::File   infos  = plugin.getFullPathName() + CAMOMILE_RESSOURCE_PATH +  juce::File::getSeparatorString() + name + juce::String(".txt");
         
-        if(infos.exists())
-        {
-            StringArray lines;
-            infos.readLines(lines);
-            
-            for(int i = 0; i < lines.size(); ++i)
-            {
-                ;
-            }
-        }
         open((plugin.getFullPathName() + CAMOMILE_RESSOURCE_PATH).toStdString(), name.toStdString() + std::string(".pd"));
+        //initialise();
     }
 }
 
@@ -107,6 +101,12 @@ void CamomileAudioProcessor::changeProgramName (int index, const String& newName
 }
 
 //==============================================================================
+
+bool CamomileAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+{
+    return true;
+}
+
 void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     prepare(AudioProcessor::getTotalNumInputChannels(),
