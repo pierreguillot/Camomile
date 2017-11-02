@@ -1,11 +1,7 @@
 /*
-  ==============================================================================
-
-    This file was auto-generated!
-
-    It contains the basic framework code for a JUCE plugin processor.
-
-  ==============================================================================
+ // Copyright (c) 2015-2017 Pierre Guillot.
+ // For information on usage and redistribution, and for a DISCLAIMER OF ALL
+ // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
 #pragma once
@@ -13,9 +9,10 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "xpd/xpd.h"
 
-//==============================================================================
-/**
-*/
+// ======================================================================================== //
+//                                      PROCESSOR                                           //
+// ======================================================================================== //
+
 class CamomileAudioProcessor  : public AudioProcessor, xpd::instance
 {
 public:

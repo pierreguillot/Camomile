@@ -1,28 +1,43 @@
 /*
-  ==============================================================================
-
-    This file was auto-generated!
-
-    It contains the basic framework code for a JUCE plugin processor.
-
-  ==============================================================================
+ // Copyright (c) 2015-2017 Pierre Guillot.
+ // For information on usage and redistribution, and for a DISCLAIMER OF ALL
+ // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
 #include "PluginProcessor.h"
+#include "PluginParameter.h"
 #include "PluginEditor.h"
 #include <iostream>
 
-//==============================================================================
+// ======================================================================================== //
+//                                      PROCESSOR                                           //
+// ======================================================================================== //
+
+#ifdef JUCE_MAC
+#define CAMOMILE_RESSOURCE_PATH juce::String("/Contents/Resources")
+#else
+#define CAMOMILE_RESSOURCE_PATH
+#endif
+
 CamomileAudioProcessor::CamomileAudioProcessor()
 {
-    juce::File plugin = juce::File::getSpecialLocation(juce::File::currentApplicationFile).getFullPathName();
+    juce::File const plugin = juce::File::getSpecialLocation(juce::File::currentApplicationFile).getFullPathName();
     if(plugin.exists())
     {
-#ifdef JUCE_MAC
-        open(plugin.getFullPathName().toStdString() + "/Contents/Resources",
-             plugin.getFileNameWithoutExtension().toStdString() + ".pd");
-#else
-#endif
+        juce::String name   = plugin.getFileNameWithoutExtension();
+        juce::File   infos  = plugin.getFullPathName() + CAMOMILE_RESSOURCE_PATH +  juce::File::getSeparatorString() + name + juce::String(".txt");
+        
+        if(infos.exists())
+        {
+            StringArray lines;
+            infos.readLines(lines);
+            
+            for(int i = 0; i < lines.size(); ++i)
+            {
+                ;
+            }
+        }
+        open((plugin.getFullPathName() + CAMOMILE_RESSOURCE_PATH).toStdString(), name.toStdString() + std::string(".pd"));
     }
 }
 
@@ -113,6 +128,15 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     for(int i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
     {
         buffer.clear(i, 0, buffer.getNumSamples());
+    }
+    
+    {
+        OwnedArray<AudioProcessorParameter> const& parameters = AudioProcessor::getParameters();
+        for(int i = 0; i < parameters.size(); ++i)
+        {
+            CamomileAudioParameter const*p = static_cast<CamomileAudioParameter const*>(parameters.getUnchecked(i));
+            sendFloat(std::string("param") + std::to_string(i+1), p->getOriginalScaledValue());
+        }
     }
     
     {

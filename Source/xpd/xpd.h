@@ -50,6 +50,9 @@ namespace xpd
         void sendSysRealTime(const int port, const int byte);
         void sendMidiByte(const int port, const int byte);
         
+        void sendBang(std::string const& receiver);
+        void sendFloat(std::string const& receiver, float const value);
+
         void open(std::string const& path, std::string const& name);
         void close();
     private:

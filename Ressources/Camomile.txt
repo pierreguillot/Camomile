@@ -1,0 +1,3 @@
+param1 Frequency Hz 0 22050 220 0 1 0;
+param2 Volume dB 0 100 0 1 0;
+param3 Mute dB 0 100 0 1 0;

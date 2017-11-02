@@ -202,6 +202,21 @@ namespace xpd
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     
+    void instance::sendBang(std::string const& receiver)
+    {
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        libpd_bang(receiver.c_str());
+    }
+    
+    void instance::sendFloat(std::string const& receiver, float const value)
+    {
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        libpd_float(receiver.c_str(), value);
+    }
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
     void instance::open(std::string const& path, std::string const& name)
     {
         pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
