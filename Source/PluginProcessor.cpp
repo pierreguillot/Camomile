@@ -16,7 +16,7 @@
 #ifdef JUCE_MAC
 #define CAMOMILE_RESSOURCE_PATH juce::String("/Contents/Resources")
 #else
-#define CAMOMILE_RESSOURCE_PATH
+#define CAMOMILE_RESSOURCE_PATH juce::String("")
 #endif
 
 CamomileAudioProcessor::CamomileAudioProcessor()
