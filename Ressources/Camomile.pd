@@ -6,8 +6,11 @@
 #X obj 340 54 r param2;
 #X obj 340 76 print p2;
 #X obj 440 29 r camomile;
-#X obj 450 171 s camo.infos;
+#X obj 444 171 s camo.infos;
+#X obj 440 51 route nparameters parameter;
+#X obj 440 126 text define config;
 #X connect 0 0 1 0;
 #X connect 0 1 1 1;
 #X connect 2 0 3 0;
 #X connect 4 0 5 0;
+#X connect 6 0 8 0;

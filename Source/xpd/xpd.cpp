@@ -12,60 +12,71 @@ extern "C"
 {
     #include <z_libpd.h>
     #include <m_pd.h>
-}
-
-/*
-static void* libpd_instance_doclose(t_libpd_instance* inst)
-{
-    pd_setinstance(inst->l_pd);
-    assert(inst->l_patch && "patch not loaded so can't be closed");
-    libpd_closefile(inst->l_patch);
-    return NULL;
-}
-
-static void libpd_instance_close(t_libpd_instance* inst)
-{
-    assert(!pthread_create(&inst->l_thd, NULL, (void *)libpd_instance_doclose, inst) &&
-           "libpd_instance_close thread creation error.");
-    pthread_join(inst->l_thd, NULL);
-    inst->l_patch = NULL;
-}
-
-static void* libpd_instance_doopen(t_libpd_instance* inst)
-{
-    pd_setinstance(inst->l_pd);
-    assert((inst->l_patch = libpd_openfile(inst->l_name, inst->l_folder)) &&
-           "patch can't be loaded");
-    return NULL;
-}
-
-static void libpd_instance_open(t_libpd_instance* inst, const char *name, const char *folder)
-{
-    if(inst->l_patch) {
-        libpd_instance_close(inst); }
-    strncpy(inst->l_name, name, MAXPDSTRING);
-    strncpy(inst->l_folder, folder, MAXPDSTRING);
-    assert(!pthread_create(&inst->l_thd, NULL, (void *)libpd_instance_doopen, inst) &&
-           "libpd_instance_open thread creation error.");
-    pthread_join(inst->l_thd, NULL);
-}
-
-static void* multi_instance_run(t_libpd_instance* inst)
-{
-    size_t i;
-    libpd_instance_init(inst, 256, 44100, 2, 2);
-    libpd_instance_open(inst, LIBPD_TEST_PATCH_NAME, test_path);
-    libpd_instance_dsp_start(inst);
-    for(i = 0; i < LIBPD_TEST_NLOOPS; ++i) {
-        libpd_instance_perform(inst); }
-    libpd_instance_dsp_stop(inst);
-    libpd_instance_close(inst);
     
-    libpd_instance_free(inst);
-    return NULL;
+    static t_pd *garray_arraytemplatecanvas;  /* written at setup w/ global lock */
+    static const char garray_arraytemplatefile[] = "\
+    canvas 0 0 458 153 10;\n\
+    #X obj 43 31 struct float-array array z float float style\n\
+    float linewidth float color;\n\
+    #X obj 43 70 plot z color linewidth 0 0 1 style;\n\
+    ";
+    static const char garray_floattemplatefile[] = "\
+    canvas 0 0 458 153 10;\n\
+    #X obj 39 26 struct float float y;\n\
+    ";
+    
+    /* create invisible, built-in canvases to supply templates for floats
+     and float-arrays. */
+    
+    static void garray_init(void)
+    {
+        t_binbuf *b;
+        if (garray_arraytemplatecanvas)
+            return;
+        b = binbuf_new();
+        
+        glob_setfilename(0, gensym("_float_template"), gensym("."));
+        binbuf_text(b, garray_floattemplatefile, strlen(garray_floattemplatefile));
+        binbuf_eval(b, &pd_canvasmaker, 0, 0);
+        vmess(s__X.s_thing, gensym("pop"), "i", 0);
+        
+        glob_setfilename(0, gensym("_float_array_template"), gensym("."));
+        binbuf_text(b, garray_arraytemplatefile, strlen(garray_arraytemplatefile));
+        binbuf_eval(b, &pd_canvasmaker, 0, 0);
+        garray_arraytemplatecanvas = s__X.s_thing;
+        vmess(s__X.s_thing, gensym("pop"), "i", 0);
+        
+        glob_setfilename(0, &s_, &s_);
+        binbuf_free(b);
+    }
+    
+    static t_pd *text_templatecanvas;
+    static char text_templatefile[] = "\
+    canvas 0 0 458 153 10;\n\
+    #X obj 43 31 struct text float x float y text t;\n\
+    ";
+    
+    /* create invisible, built-in canvas to supply template containing one text
+     field named 't'.  I don't know how to make this not break
+     pre-0.45 patches using templates named 'text'... perhaps this is a minor
+     enough incompatibility that I'll just get away with it. */
+    
+    static void text_template_init(void)
+    {
+        t_binbuf *b;
+        if (text_templatecanvas)
+            return;
+        b = binbuf_new();
+        
+        glob_setfilename(0, gensym("_text_template"), gensym("."));
+        binbuf_text(b, text_templatefile, strlen(text_templatefile));
+        binbuf_eval(b, &pd_canvasmaker, 0, 0);
+        vmess(s__X.s_thing, gensym("pop"), "i", 0);
+        
+        glob_setfilename(0, &s_, &s_);
+        binbuf_free(b);
+    }
 }
-*/
-
 
 namespace xpd
 {
@@ -93,7 +104,8 @@ namespace xpd
     instance::instance()
     {
         m_ptr = pdinstance_new();
-        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        garray_init();
+        text_template_init();
     }
     
     instance::~instance()
@@ -148,6 +160,8 @@ namespace xpd
     void instance::sendNoteOn(const int channel, const int pitch, const int velocity)
     {
         pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        garray_init();
+        text_template_init();
         libpd_noteon(channel, pitch, velocity);
     }
     
