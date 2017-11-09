@@ -12,21 +12,6 @@
 namespace xpd
 {
     // ==================================================================================== //
-    //                                      ENVIRONMENT                                     //
-    // ==================================================================================== //
-    
-    //! @brief The environment manages xpd global variables and methods.
-    class environment
-    {
-    public:
-        //! @brief Initializes the environment.
-        static void initialize() noexcept;
-        
-        //! @brief Clears the environment.
-        static void  clear() noexcept;
-    };
-
-    // ==================================================================================== //
     //                                      INSTANCE                                        //
     // ==================================================================================== //
     
@@ -52,7 +37,8 @@ namespace xpd
         
         void sendBang(std::string const& receiver);
         void sendFloat(std::string const& receiver, float const value);
-
+        void sendSymbol(std::string const& receiver, std::string const& symbol);
+        
         void open(std::string const& path, std::string const& name);
         void close();
     private:

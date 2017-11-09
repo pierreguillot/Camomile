@@ -364,6 +364,9 @@
     <ClCompile Include="..\..\Source\PluginParameter.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\PluginChannelsManager.cpp">
+      <Filter>Camomile\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\PluginEditor.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
@@ -2143,6 +2146,9 @@
       <Filter>Camomile\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PluginParameter.h">
+      <Filter>Camomile\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\PluginChannelsManager.h">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PluginEditor.h">

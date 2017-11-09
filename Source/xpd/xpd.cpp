@@ -79,8 +79,12 @@ extern "C"
 }
 
 namespace xpd
-{
-    void environment::initialize() noexcept
+{    
+    // ==================================================================================== //
+    //                                      INSTANCE                                        //
+    // ==================================================================================== //
+    
+    instance::instance()
     {
         static int initialized = 0;
         if(!initialized)
@@ -90,19 +94,7 @@ namespace xpd
             libpd_init();
             initialized = 1;
         }
-    }
-    
-    void environment::clear() noexcept
-    {
-        ;
-    }
-    
-    // ==================================================================================== //
-    //                                      INSTANCE                                        //
-    // ==================================================================================== //
-    
-    instance::instance()
-    {
+        
         m_ptr = pdinstance_new();
         garray_init();
         text_template_init();
@@ -226,6 +218,12 @@ namespace xpd
     {
         pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
         libpd_float(receiver.c_str(), value);
+    }
+    
+    void instance::sendSymbol(std::string const& receiver, std::string const& symbol)
+    {
+        pd_setinstance(static_cast<t_pdinstance *>(m_ptr));
+        libpd_symbol(receiver.c_str(), symbol.c_str());
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////

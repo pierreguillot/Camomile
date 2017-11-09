@@ -161,7 +161,9 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         }
     }
 
-    perform(buffer.getNumSamples(), getTotalNumInputChannels(), buffer.getArrayOfReadPointers(), getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
+    perform(buffer.getNumSamples(),
+            getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
+            getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
 }
 
 //==============================================================================
@@ -172,7 +174,7 @@ bool CamomileAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* CamomileAudioProcessor::createEditor()
 {
-    return new CamomileAudioProcessorEditor (*this);
+    return new CamomileAudioProcessorEditor(*this);
 }
 
 //==============================================================================
@@ -193,6 +195,5 @@ void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBy
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    xpd::environment::initialize();
     return new CamomileAudioProcessor();
 }
