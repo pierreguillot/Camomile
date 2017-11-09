@@ -29,8 +29,9 @@ AudioProcessor(BusesProperties()
     {
         juce::String name   = plugin.getFileNameWithoutExtension();
         juce::File   infos  = plugin.getFullPathName() + CAMOMILE_RESSOURCE_PATH +  juce::File::getSeparatorString() + name + juce::String(".txt");
-        
+        bind("camomile");
         open((plugin.getFullPathName() + CAMOMILE_RESSOURCE_PATH).toStdString(), name.toStdString() + std::string(".pd"));
+        processReceive();
         //initialise();
     }
 }
@@ -109,14 +110,14 @@ bool CamomileAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts)
 
 void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    prepare(AudioProcessor::getTotalNumInputChannels(),
+    prepareDSP(AudioProcessor::getTotalNumInputChannels(),
             AudioProcessor::getTotalNumOutputChannels(),
             samplesPerBlock, sampleRate);
 }
 
 void CamomileAudioProcessor::releaseResources()
 {
-    release();
+    releaseDSP();
 }
 
 void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
@@ -161,7 +162,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         }
     }
 
-    perform(buffer.getNumSamples(),
+    performDSP(buffer.getNumSamples(),
             getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
             getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
 }
@@ -189,6 +190,32 @@ void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBy
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+}
+
+
+void CamomileAudioProcessor::receiveBang(const std::string& dest)
+{
+    std::cout << "receiveBang\n";
+}
+
+void CamomileAudioProcessor::receiveFloat(const std::string& dest, float num)
+{
+    std::cout << "receiveFloat\n";
+}
+
+void CamomileAudioProcessor::receiveSymbol(const std::string& dest, const std::string& symbol)
+{
+    std::cout << "receiveSymbol\n";
+}
+
+void CamomileAudioProcessor::receiveList(const std::string& dest, const std::vector<pd::Atom>& list)
+{
+    std::cout << "receiveList\n";
+}
+
+void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
+{
+    std::cout << "receiveMessage\n";
 }
 
 //==============================================================================

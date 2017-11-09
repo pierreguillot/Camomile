@@ -13,7 +13,7 @@
 //                                      PROCESSOR                                           //
 // ======================================================================================== //
 
-class CamomileAudioProcessor  : public AudioProcessor, xpd::instance
+class CamomileAudioProcessor  : public AudioProcessor, pd::instance
 {
 public:
     //==============================================================================
@@ -48,6 +48,13 @@ public:
     //==============================================================================
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+    
+    void receiveBang(const std::string& dest) override;
+    void receiveFloat(const std::string& dest, float num) override;
+    void receiveSymbol(const std::string& dest, const std::string& symbol) override;
+    void receiveList(const std::string& dest, const std::vector<pd::Atom>& list) override;
+    void receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list) override;
 
 private:
     //==============================================================================

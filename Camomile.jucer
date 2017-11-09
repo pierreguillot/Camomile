@@ -11,7 +11,7 @@
               pluginProducesMidiOut="1" pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="0"
               pluginAUExportPrefix="CamomileAU" pluginRTASCategory="" aaxIdentifier="com.pierreguillot.camomile"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.2.0"
-              companyName="Pierre Guillot" headerPath="../../libpd/pure-data/src&#10;../../libpd/libpd_wrapper&#10;../../libpd/libpd_wrapper/util"
+              companyName="Pierre Guillot" headerPath="../../libpd/pure-data/src&#10;../../libpd/libpd_wrapper&#10;../../libpd/libpd_wrapper/util&#10;../../libpd/cpp"
               defines="PDINSTANCE=1&#10;PDTHREAD=1">
   <MAINGROUP id="BLNPyv" name="Camomile">
     <GROUP id="{D4367A82-F269-8F5A-1C22-AB42C90672ED}" name="Source">
@@ -37,7 +37,7 @@
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX" vst3Folder="VST" externalLibraries="pd-osx"
+    <XCODE_MAC targetFolder="Builds/MacOSX" vst3Folder="VST" externalLibraries="pd-osx-multi"
                customXcodeResourceFolders="Ressources/Camomile.pd&#10;Ressources/Camomile.txt">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" enablePluginBinaryCopyStep="1" isDebug="1" optimisation="1"
