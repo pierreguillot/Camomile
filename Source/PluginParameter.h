@@ -23,6 +23,7 @@ public:
     CamomileAudioParameter(const String& name, const String& label,
                            StringArray const& elemen, const String& def,
                            const bool automatable = true, const bool meta = false);
+    
     ~CamomileAudioParameter();
     
     String getName(int maximumStringLength) const final;

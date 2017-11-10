@@ -18,9 +18,9 @@
     <key>CFBundleSignature</key>
     <string>????</string>
     <key>CFBundleShortVersionString</key>
-    <string>0.1.0</string>
+    <string>0.1.0.1</string>
     <key>CFBundleVersion</key>
-    <string>0.1.0</string>
+    <string>0.1.0.1</string>
     <key>NSHumanReadableCopyright</key>
     <string>Pierre Guillot</string>
     <key>NSHighResolutionCapable</key>
@@ -41,7 +41,7 @@
         <key>subtype</key>
         <string>Kpq9</string>
         <key>version</key>
-        <integer>256</integer>
+        <integer>65537</integer>
       </dict>
     </array>
   </dict>

@@ -17,7 +17,7 @@ CamomileAudioParameter::CamomileAudioParameter(const String& name, const String&
 m_name(name), m_label(label),
 m_minimum(min), m_maximum(max),
 m_default(def), m_nsteps(nsteps),
-m_automatable(automatable), m_meta(meta) {}
+m_automatable(automatable), m_meta(meta) { m_value = getDefaultValue(); }
 
 CamomileAudioParameter::CamomileAudioParameter(const String& name, const String& label,
                                                StringArray const& elems, const String& def,
@@ -26,7 +26,7 @@ m_name(name), m_label(label),
 m_minimum(0), m_maximum(elems.size()),
 m_default(static_cast<float>(elems.indexOf(def)) / static_cast<float>(elems.size())), m_nsteps(elems.size()+1),
 m_automatable(automatable), m_meta(meta),
-m_elements(elems) {}
+m_elements(elems) { m_value = getDefaultValue(); }
 
 CamomileAudioParameter::~CamomileAudioParameter() {}
 
@@ -57,7 +57,7 @@ void CamomileAudioParameter::setValue(float newValue)
 
 float CamomileAudioParameter::getDefaultValue() const
 {
-    return m_default;
+    return (m_default - m_minimum) / (m_maximum - m_minimum);
 }
 
 int CamomileAudioParameter::getNumSteps() const

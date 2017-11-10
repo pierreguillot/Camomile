@@ -343,10 +343,10 @@ namespace pd
             libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
             for(size_t i = 0; i < list.size(); ++i)
             {
-                if(list[i].type == Atom::FLOAT)
-                    libpd_set_float(argv+i, list[i].value);
+                if(list[i].isFloat())
+                    libpd_set_float(argv+i, list[i].getFloat());
                 else
-                    libpd_set_symbol(argv+i, list[i].symbol.c_str());
+                    libpd_set_symbol(argv+i, list[i].getSymbol().c_str());
             }
             sys_unlock();
             
@@ -365,10 +365,10 @@ namespace pd
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         for(size_t i = 0; i < list.size(); ++i)
         {
-            if(list[i].type == Atom::FLOAT)
-                libpd_set_float(argv+i, list[i].value);
+            if(list[i].isFloat())
+                libpd_set_float(argv+i, list[i].getFloat());
             else
-                libpd_set_symbol(argv+i, list[i].symbol.c_str());
+                libpd_set_symbol(argv+i, list[i].getSymbol().c_str());
         }
         sys_unlock();
         
@@ -390,11 +390,11 @@ namespace pd
             }
             else if(mess.selector == std::string("float"))
             {
-                receiveFloat(mess.destination, mess.list[0].value);
+                receiveFloat(mess.destination, mess.list[0].getFloat());
             }
             else if(mess.selector == std::string("symbol"))
             {
-                receiveSymbol(mess.destination, mess.list[0].symbol);
+                receiveSymbol(mess.destination, mess.list[0].getSymbol());
             }
             else if(mess.selector == std::string("list"))
             {

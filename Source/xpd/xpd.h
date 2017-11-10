@@ -21,6 +21,18 @@ namespace pd
     class Atom
     {
     public:
+        
+        inline Atom() : type(FLOAT), value(0), symbol() {}
+        inline Atom(const float val) : type(FLOAT), value(val), symbol() {}
+        inline Atom(const std::string& sym) : type(SYMBOL), value(0), symbol(sym) {}
+        
+        inline bool isFloat() const noexcept { return type == FLOAT; }
+        inline bool isSymbol() const noexcept { return type == SYMBOL; }
+        inline float getFloat() const noexcept { return value; }
+        inline std::string const& getSymbol() const noexcept { return symbol; }
+        
+    private:
+        
         enum Type
         {
             FLOAT,
@@ -30,10 +42,6 @@ namespace pd
         Type        type = FLOAT;
         float       value = 0;
         std::string symbol;
-        
-        Atom() : type(FLOAT), value(0), symbol() {}
-        Atom(const float val) : type(FLOAT), value(val), symbol() {}
-        Atom(const std::string& sym) : type(SYMBOL), value(0), symbol(sym) {}
     };
     
     class instance

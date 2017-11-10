@@ -57,6 +57,7 @@ public:
     void receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list) override;
 
 private:
+    void parseParameter(const std::vector<pd::Atom>& list);
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)
 };
