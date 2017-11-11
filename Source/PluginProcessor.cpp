@@ -24,18 +24,14 @@ AudioProcessor(BusesProperties()
                .withInput("Input", AudioChannelSet::stereo())
                .withOutput("Output", AudioChannelSet::stereo()))
 {
-    std::cout << "Load Camomile :\n";
     juce::File const plugin = juce::File::getSpecialLocation(juce::File::currentApplicationFile).getFullPathName();
     if(plugin.exists())
     {
         juce::String name   = plugin.getFileNameWithoutExtension();
         juce::File   infos  = plugin.getFullPathName() + CAMOMILE_RESSOURCE_PATH +  juce::File::getSeparatorString() + name + juce::String(".txt");
         bind("camomile");
-        
         open((plugin.getFullPathName() + CAMOMILE_RESSOURCE_PATH).toStdString(), name.toStdString() + std::string(".pd"));
         processReceive();
-
-        std::cout << "nparams " << getNumParameters() << "\n";
     }
 }
 
@@ -134,17 +130,40 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         buffer.clear(i, 0, buffer.getNumSamples());
     }
     
+    // Play Head
     {
-        /*
+        AudioPlayHead* playhead = getPlayHead();
+        AudioPlayHead::CurrentPositionInfo infos;
+        if(playhead && playhead->getCurrentPosition(infos))
+        {
+            std::string const splayhead("playhead");
+            sendList(splayhead, {"bpm", static_cast<float>(infos.bpm)});
+            sendList(splayhead, {"timeSigNumerator", static_cast<float>(infos.timeSigNumerator)});
+            sendList(splayhead, {"timeSigDenominator", static_cast<float>(infos.timeSigDenominator)});
+            sendList(splayhead, {"timeInSamples", static_cast<float>(infos.timeInSamples)});
+            sendList(splayhead, {"timeInSeconds", static_cast<float>(infos.timeInSeconds)});
+            sendList(splayhead, {"editOriginTime", static_cast<float>(infos.editOriginTime)});
+            sendList(splayhead, {"ppqPosition", static_cast<float>(infos.ppqPosition)});
+            sendList(splayhead, {"ppqPositionOfLastBarStart", static_cast<float>(infos.ppqPositionOfLastBarStart)});
+            sendList(splayhead, {"frameRate", static_cast<float>(infos.frameRate)});
+            sendList(splayhead, {"isPlaying", static_cast<float>(infos.isPlaying)});
+            sendList(splayhead, {"isRecording", static_cast<float>(infos.isRecording)});
+            sendList(splayhead, {"ppqLoopStart", static_cast<float>(infos.ppqLoopStart)});
+            sendList(splayhead, {"ppqLoopEnd", static_cast<float>(infos.ppqLoopEnd)});
+            sendList(splayhead, {"isLooping", static_cast<float>(infos.isLooping)});
+        }
+    }
+    
+    
+    // Parameters
+    {
+        std::string const sparam("param");
         OwnedArray<AudioProcessorParameter> const& parameters = AudioProcessor::getParameters();
         for(int i = 0; i < parameters.size(); ++i)
         {
-            CamomileAudioParameter const*p = static_cast<CamomileAudioParameter const*>(parameters.getUnchecked(i));
-            sendFloat(std::string("param") + std::to_string(i+1), p->getOriginalScaledValue());
+            sendList(sparam, {float(i+1), static_cast<CamomileAudioParameter const*>(parameters.getUnchecked(i))->getOriginalScaledValue()});
         }
-         */
     }
-    
     {
         MidiMessage message;
         MidiBuffer::Iterator it(midiMessages);
@@ -183,34 +202,37 @@ AudioProcessorEditor* CamomileAudioProcessor::createEditor()
     return new CamomileAudioProcessorEditor(*this);
 }
 
-//==============================================================================
-void CamomileAudioProcessor::getStateInformation (MemoryBlock& destData)
+
+void CamomileAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+    XmlElement xml(String("CamomileSettings"));
+    CamomileAudioParameter::saveStateInformation(xml, getParameters());
+    copyXmlToBinary(xml, destData);
 }
 
 void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+    ScopedPointer<const XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
+    if(xml && xml->hasTagName("CamomileSettings"))
+    {
+        CamomileAudioParameter::loadStateInformation(*xml, getParameters());
+    }
 }
 
 
 void CamomileAudioProcessor::receiveBang(const std::string& dest)
 {
-    std::cout << "receiveBang\n";
+    ;
 }
 
 void CamomileAudioProcessor::receiveFloat(const std::string& dest, float num)
 {
-    std::cout << "receiveFloat\n";
+    ;
 }
 
 void CamomileAudioProcessor::receiveSymbol(const std::string& dest, const std::string& symbol)
 {
-    std::cout << "receiveSymbol\n";
+    ;
 }
 
 void CamomileAudioProcessor::receiveList(const std::string& dest, const std::vector<pd::Atom>& list)
@@ -228,18 +250,6 @@ void CamomileAudioProcessor::parseParameter(const std::vector<pd::Atom>& list)
                                             (list.size() > 5 && list[5].isFloat()) ? static_cast<int>(list[5].getFloat()) : 0,
                                             (list.size() > 6 && list[6].isFloat()) ? static_cast<bool>(list[6].getFloat()) : true,
                                             (list.size() > 7 && list[7].isFloat()) ? static_cast<bool>(list[7].getFloat()) : false));
-    /*
-    std::cout << "New Parameter : ";
-    std::cout << "name " << ((list.size() > 0 && list[0].isSymbol()) ? list[0].getSymbol() : "") << " ";
-    std::cout << "label " << ((list.size() > 1 && list[1].isSymbol()) ? list[1].getSymbol() : "") << " ";
-    std::cout << "min " << ((list.size() > 2 && list[2].isFloat()) ? list[2].getFloat() : 0) << " ";
-    std::cout << "max " << ((list.size() > 3 && list[3].isFloat()) ? list[3].getFloat() : 1) << " ";
-    std::cout << "default " << ((list.size() > 4 && list[4].isFloat()) ? list[4].getFloat() : 0) << " ";
-    std::cout << "nsteps " << ((list.size() > 5 && list[5].isFloat()) ? static_cast<int>(list[5].getFloat()) : 0) << " ";
-    std::cout << "auto " << ((list.size() > 6 && list[6].isFloat()) ? static_cast<bool>(list[6].getFloat()) : true) << " ";
-    std::cout << "meta " << ((list.size() > 7 && list[7].isFloat()) ? static_cast<bool>(list[7].getFloat()) : false);
-    std::cout << "\n";
-     */
 }
 
 void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)

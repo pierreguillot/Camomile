@@ -44,6 +44,9 @@ public:
     bool isMetaParameter() const final;
     
     float getOriginalScaledValue() const;
+    
+    static void saveStateInformation(XmlElement& xml, OwnedArray<AudioProcessorParameter> const& parameters);
+    static void loadStateInformation(XmlElement const& xml, OwnedArray<AudioProcessorParameter> const& parameters);
 private:
     float m_value;
     String const m_name;

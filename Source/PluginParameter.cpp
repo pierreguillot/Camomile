@@ -109,4 +109,30 @@ bool CamomileAudioParameter::isMetaParameter() const
     return m_meta;
 }
 
+void CamomileAudioParameter::saveStateInformation(XmlElement& xml, OwnedArray<AudioProcessorParameter> const& parameters)
+{
+    XmlElement* params = xml.createNewChildElement("params");
+    if(params)
+    {
+        for(int i = 0; i < parameters.size(); ++i)
+        {
+            params->setAttribute(String("param") + String(i+1), parameters[i]->getValue());
+        }
+    }
+}
+
+void CamomileAudioParameter::loadStateInformation(XmlElement const& xml, OwnedArray<AudioProcessorParameter> const& parameters)
+{
+    XmlElement const* params = xml.getChildByName(juce::StringRef("params"));
+    if(params)
+    {
+        for(int i = 0; i < parameters.size(); ++i)
+        {
+            parameters[i]->setValue(params->getDoubleAttribute(String("param") + String(i+1), parameters[i]->getValue()));
+        }
+    }
+}
+
+
+
 

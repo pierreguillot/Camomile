@@ -260,8 +260,6 @@ namespace pd
     void instance::sendNoteOn(const int channel, const int pitch, const int velocity)
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        garray_init();
-        text_template_init();
         libpd_noteon(channel, pitch, velocity);
     }
     
@@ -339,7 +337,6 @@ namespace pd
         t_atom* argv = (t_atom *)getbytes(sizeof(t_atom) * list.size());
         if(argv)
         {
-            sys_lock();
             libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
             for(size_t i = 0; i < list.size(); ++i)
             {
@@ -348,11 +345,7 @@ namespace pd
                 else
                     libpd_set_symbol(argv+i, list[i].getSymbol().c_str());
             }
-            sys_unlock();
-            
-            libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
             libpd_list(receiver.c_str(), (int)list.size(), argv);
-            
             freebytes(argv, sizeof(t_atom) * list.size());
         }
         
@@ -361,7 +354,6 @@ namespace pd
     void instance::sendMessage(std::string const& receiver, const std::string& msg, const std::vector<Atom>& list)
     {
         t_atom* argv = (t_atom *)getbytes(sizeof(t_atom) * list.size());
-        sys_lock();
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         for(size_t i = 0; i < list.size(); ++i)
         {
@@ -370,11 +362,7 @@ namespace pd
             else
                 libpd_set_symbol(argv+i, list[i].getSymbol().c_str());
         }
-        sys_unlock();
-        
-        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_message(receiver.c_str(), msg.c_str(), (int)list.size(), argv);
-        
         freebytes(argv, sizeof(t_atom) * list.size());
     }
     
