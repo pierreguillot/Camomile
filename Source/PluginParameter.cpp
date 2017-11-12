@@ -5,6 +5,7 @@
 */
 
 #include "PluginParameter.h"
+#include <stdexcept>
 
 // ======================================================================================== //
 //                                      PARAMETER                                           //
@@ -53,6 +54,11 @@ float CamomileAudioParameter::getOriginalScaledValue() const
 void CamomileAudioParameter::setValue(float newValue)
 {
      m_value = newValue;
+}
+
+void CamomileAudioParameter::setOriginalScaledValueNotifyingHost(float newValue)
+{
+    setValueNotifyingHost((newValue - m_minimum) / (m_maximum - m_minimum));
 }
 
 float CamomileAudioParameter::getDefaultValue() const
@@ -107,6 +113,40 @@ bool CamomileAudioParameter::isAutomatable() const
 bool CamomileAudioParameter::isMetaParameter() const
 {
     return m_meta;
+}
+
+CamomileAudioParameter* CamomileAudioParameter::parse(const std::vector<pd::Atom>& list)
+{
+    if(list.size() >= 2 && list[0].isSymbol() && list[1].isSymbol())
+    {
+        String const name = (list.size() > 0 && list[0].isSymbol()) ? list[0].getSymbol() : String("");
+        String const label = (list.size() > 1 && list[1].isSymbol()) ? list[1].getSymbol() : String("");
+        if(list.size() >= 4 && list[2].isSymbol() && list[3].isSymbol())
+        {
+            const float min = (list.size() > 2 && list[2].isFloat()) ? list[2].getFloat() : 0;
+            const float max = (list.size() > 3 && list[3].isFloat()) ? list[3].getFloat() : 1;
+            const float def = (list.size() > 4 && list[4].isFloat()) ? list[4].getFloat() : min;
+            const int nsteps = (list.size() > 5 && list[5].isFloat()) ? static_cast<int>(list[5].getFloat()) : 0;
+            const int autom = (list.size() > 6 && list[6].isFloat()) ? static_cast<bool>(list[6].getFloat()) : true;
+            const int meta = (list.size() > 7 && list[7].isFloat()) ? static_cast<bool>(list[7].getFloat()) : false;
+            return new CamomileAudioParameter(name, label, min, max, def, nsteps, autom, meta);
+        }
+        else
+        {
+            const float min = (list.size() > 2 && list[2].isFloat()) ? list[2].getFloat() : 0;
+            const float max = (list.size() > 3 && list[3].isFloat()) ? list[3].getFloat() : 1;
+            const float def = (list.size() > 4 && list[4].isFloat()) ? list[4].getFloat() : min;
+            const int nsteps = (list.size() > 5 && list[5].isFloat()) ? static_cast<int>(list[5].getFloat()) : 0;
+            const int autom = (list.size() > 6 && list[6].isFloat()) ? static_cast<bool>(list[6].getFloat()) : true;
+            const int meta = (list.size() > 7 && list[7].isFloat()) ? static_cast<bool>(list[7].getFloat()) : false;
+            return new CamomileAudioParameter(name, label, min, max, def, nsteps, autom, meta);
+        }
+    }
+    else
+    {
+        throw std::runtime_error("Parameter definition requires a least a name and a label.");
+    }
+    return nullptr;
 }
 
 void CamomileAudioParameter::saveStateInformation(XmlElement& xml, OwnedArray<AudioProcessorParameter> const& parameters)

@@ -8,6 +8,7 @@
 #include "PluginParameter.h"
 #include "PluginEditor.h"
 #include <iostream>
+#include <exception>
 
 // ======================================================================================== //
 //                                      PROCESSOR                                           //
@@ -154,7 +155,6 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         }
     }
     
-    
     // Parameters
     {
         std::string const sparam("param");
@@ -164,6 +164,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
             sendList(sparam, {float(i+1), static_cast<CamomileAudioParameter const*>(parameters.getUnchecked(i))->getOriginalScaledValue()});
         }
     }
+    
     {
         MidiMessage message;
         MidiBuffer::Iterator it(midiMessages);
@@ -189,6 +190,8 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     performDSP(buffer.getNumSamples(),
             getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
             getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
+    
+    processReceive();
 }
 
 //==============================================================================
@@ -240,27 +243,30 @@ void CamomileAudioProcessor::receiveList(const std::string& dest, const std::vec
     
 }
 
-void CamomileAudioProcessor::parseParameter(const std::vector<pd::Atom>& list)
-{
-    addParameter(new CamomileAudioParameter((list.size() > 0 && list[0].isSymbol()) ? list[0].getSymbol() : "",
-                                            (list.size() > 1 && list[1].isSymbol()) ? list[1].getSymbol() : "",
-                                            (list.size() > 2 && list[2].isFloat()) ? list[2].getFloat() : 0,
-                                            (list.size() > 3 && list[3].isFloat()) ? list[3].getFloat() : 1,
-                                            (list.size() > 4 && list[4].isFloat()) ? list[4].getFloat() : 0,
-                                            (list.size() > 5 && list[5].isFloat()) ? static_cast<int>(list[5].getFloat()) : 0,
-                                            (list.size() > 6 && list[6].isFloat()) ? static_cast<bool>(list[6].getFloat()) : true,
-                                            (list.size() > 7 && list[7].isFloat()) ? static_cast<bool>(list[7].getFloat()) : false));
-}
-
 void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
 {
     if(msg == std::string("param"))
     {
-        parseParameter(list);
+        if(list.size() >= 2 && list[0].isFloat() && list[1].isFloat())
+        {
+            CamomileAudioParameter* param = static_cast<CamomileAudioParameter *>(getParameters()[int(list[0].getFloat()) - 1]);
+            if(param)
+            {
+                param->setOriginalScaledValueNotifyingHost(list[1].getFloat());
+            }
+        }
+        else
+        {
+            try
+            {
+                addParameter(CamomileAudioParameter::parse(list));
+            }
+            catch (std::exception& e)
+            {
+                std::cout << e.what();
+            }
+        }
     }
-    /*
-    
-     */
 }
 
 //==============================================================================

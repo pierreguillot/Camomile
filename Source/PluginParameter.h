@@ -7,7 +7,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-
+#include "xpd/xpd.h"
 
 // ======================================================================================== //
 //                                      PARAMETER                                           //
@@ -44,7 +44,9 @@ public:
     bool isMetaParameter() const final;
     
     float getOriginalScaledValue() const;
+    void setOriginalScaledValueNotifyingHost(float newValue);
     
+    static CamomileAudioParameter* parse(const std::vector<pd::Atom>& list);
     static void saveStateInformation(XmlElement& xml, OwnedArray<AudioProcessorParameter> const& parameters);
     static void loadStateInformation(XmlElement const& xml, OwnedArray<AudioProcessorParameter> const& parameters);
 private:
