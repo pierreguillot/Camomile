@@ -1,4 +1,4 @@
-#N canvas 318 277 840 279 10;
+#N canvas 113 298 840 279 10;
 #X obj 100 39 adc~ 1 2;
 #X obj 100 181 dac~ 1 2;
 #X obj 340 54 r param2;
@@ -11,9 +11,10 @@
 #X obj 444 93 until;
 #X obj 444 73 route float;
 #X obj 563 20 text define -k \$0-config;
-#A set ninputs 8 \; noutputs 8 \; param Frequency Hz 0 22050 220 0
-1 0 \; param Volume dB 0 100 0 0 1 0 \; param Mute dB 0 100 0 0 1 0
-\;;
+#A set ninputs 8 \; noutputs 8 \; param -name Frequency -label Hz -min
+0 -max 22050 -default 220 -nsteps 0 -auto 1 -meta 0 \; param -name
+Volume -label dB -min 0 -max 100 -default 0 \; param -name Mute -list
+On/Off -default On \;;
 #X obj 444 137 text get \$0-config;
 #X obj 444 159 list trim;
 #X obj 19 21 r param;
@@ -24,6 +25,11 @@
 #X obj 256 92 loadbang;
 #X obj 256 114 metro 100;
 #X obj 255 220 s camomile;
+#X obj 635 99 r buses;
+#X obj 635 121 print bubu;
+#X obj 571 193 symbol;
+#X obj 571 215 print;
+#X msg 571 171 symbol "On/Off";
 #X connect 0 0 1 0;
 #X connect 0 1 1 1;
 #X connect 2 0 3 0;
@@ -43,3 +49,6 @@
 #X connect 18 0 17 0;
 #X connect 19 0 20 0;
 #X connect 20 0 18 0;
+#X connect 22 0 23 0;
+#X connect 24 0 25 0;
+#X connect 26 0 24 0;

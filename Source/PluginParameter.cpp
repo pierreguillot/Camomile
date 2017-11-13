@@ -6,6 +6,7 @@
 
 #include "PluginParameter.h"
 #include <stdexcept>
+#include <cmath>
 
 // ======================================================================================== //
 //                                      PARAMETER                                           //
@@ -24,8 +25,9 @@ CamomileAudioParameter::CamomileAudioParameter(const String& name, const String&
                                                StringArray const& elems, const String& def,
                                                const bool automatable, const bool meta) :
 m_name(name), m_label(label),
-m_minimum(0), m_maximum(elems.size()),
-m_default(static_cast<float>(elems.indexOf(def)) / static_cast<float>(elems.size())), m_nsteps(elems.size()+1),
+m_minimum(0), m_maximum(elems.size() - 1),
+m_default(static_cast<float>((elems.indexOf(def) != -1) ? elems.indexOf(def) : 0) / m_maximum),
+m_nsteps(elems.size()),
 m_automatable(automatable), m_meta(meta),
 m_elements(elems) { m_value = getDefaultValue(); }
 
@@ -53,7 +55,19 @@ float CamomileAudioParameter::getOriginalScaledValue() const
 
 void CamomileAudioParameter::setValue(float newValue)
 {
-     m_value = newValue;
+    if(isDiscrete())
+    {
+        m_value = round(newValue * static_cast<float>(m_maximum)) / static_cast<float>(m_maximum);
+    }
+    else
+    {
+        m_value = newValue;
+    }
+}
+
+void CamomileAudioParameter::setOriginalScaledValue(float newValue)
+{
+    m_value = (newValue - m_minimum) / (m_maximum - m_minimum);
 }
 
 void CamomileAudioParameter::setOriginalScaledValueNotifyingHost(float newValue)
@@ -84,7 +98,9 @@ String CamomileAudioParameter::getText(float value, int maximumStringLength) con
     }
     else
     {
-        return m_elements[int(value * m_elements.size())];
+        value = (value > 1.f) ? 1.f : value;
+        value = (value < 0.f) ? 0.f : value;
+        return m_elements[static_cast<int>(round(value * m_maximum))].substring(0, maximumStringLength);
     }
 }
 
@@ -96,7 +112,7 @@ float CamomileAudioParameter::getValueForText(const String& text) const
     }
     else
     {
-        return static_cast<float>(m_elements.indexOf(text)) / static_cast<float>(m_elements.size());
+        return static_cast<float>(m_elements.indexOf(text)) / static_cast<float>(m_maximum);
     }
 }
 
@@ -115,36 +131,112 @@ bool CamomileAudioParameter::isMetaParameter() const
     return m_meta;
 }
 
+String CamomileAudioParameter::parseString(const std::vector<pd::Atom>& list, const String& name)
+{
+    String def;
+    auto it = std::find(list.begin(), list.end(), name.toStdString());
+    if(it != list.end())
+    {
+        while(++it != list.end())
+        {
+            if(it->isSymbol())
+            {
+                const String sym = it->getSymbol();
+                if(sym.isNotEmpty())
+                {
+                    if(sym[0] == '-') {
+                        return def; }
+                    if(def.isEmpty()) {
+                        def = sym; }
+                    else {
+                        def += String(" ") + sym; }
+                }
+            }
+            else if(it->isFloat())
+            {
+                if(!def.isEmpty()) {
+                    def += String(" "); }
+                def += String(it->getFloat());
+            }
+        }
+    }
+    return def;
+}
+
+float CamomileAudioParameter::parseFloat(const std::vector<pd::Atom>& list, const String& name, float const def)
+{
+    auto it = std::find(list.begin(), list.end(), name.toStdString());
+    if(it != list.end())
+    {
+        if(++it != list.end() && it->isFloat())
+        {
+            return it->getFloat();
+        }
+    }
+    return def;
+}
+
+int CamomileAudioParameter::parseInt(const std::vector<pd::Atom>& list, const String& name, int const def)
+{
+    return static_cast<int>(parseFloat(list, name, static_cast<float>(def)));
+}
+
+bool CamomileAudioParameter::parseBool(const std::vector<pd::Atom>& list, const String& name, bool const def)
+{
+    auto it = std::find(list.begin(), list.end(), name.toStdString());
+    if(it != list.end())
+    {
+        if(++it != list.end())
+        {
+            if(it->isFloat())
+                return static_cast<bool>(it->getFloat());
+            else if(it->getSymbol() == "true")
+                return true;
+            else if(it->getSymbol() == "false")
+                return false;
+        }
+    }
+    return def;
+}
+
+
 CamomileAudioParameter* CamomileAudioParameter::parse(const std::vector<pd::Atom>& list)
 {
-    if(list.size() >= 2 && list[0].isSymbol() && list[1].isSymbol())
+    String const name = parseString(list, "-name");
+    if(!name.isEmpty())
     {
-        String const name = (list.size() > 0 && list[0].isSymbol()) ? list[0].getSymbol() : String("");
-        String const label = (list.size() > 1 && list[1].isSymbol()) ? list[1].getSymbol() : String("");
-        if(list.size() >= 4 && list[2].isSymbol() && list[3].isSymbol())
+        String const label = parseString(list, "-label");
+        String const elems = parseString(list, "-list");
+        if(elems.isNotEmpty())
         {
-            const float min = (list.size() > 2 && list[2].isFloat()) ? list[2].getFloat() : 0;
-            const float max = (list.size() > 3 && list[3].isFloat()) ? list[3].getFloat() : 1;
-            const float def = (list.size() > 4 && list[4].isFloat()) ? list[4].getFloat() : min;
-            const int nsteps = (list.size() > 5 && list[5].isFloat()) ? static_cast<int>(list[5].getFloat()) : 0;
-            const int autom = (list.size() > 6 && list[6].isFloat()) ? static_cast<bool>(list[6].getFloat()) : true;
-            const int meta = (list.size() > 7 && list[7].isFloat()) ? static_cast<bool>(list[7].getFloat()) : false;
-            return new CamomileAudioParameter(name, label, min, max, def, nsteps, autom, meta);
+            StringArray elems_l;
+            int start = 0, next = elems.indexOfChar(1, '/');
+            while(next != -1)
+            {
+                elems_l.add(elems.substring(start, next));
+                start = next+1;
+                next = elems.indexOfChar(start, '/');
+            }
+            elems_l.add(elems.substring(start));
+            const String def = parseString(list, "-default");
+            const bool autom = parseBool(list, "-auto", true);
+            const bool meta = parseBool(list, "-meta", false);
+            return new CamomileAudioParameter(name, label, elems_l, def, autom, meta);
         }
         else
         {
-            const float min = (list.size() > 2 && list[2].isFloat()) ? list[2].getFloat() : 0;
-            const float max = (list.size() > 3 && list[3].isFloat()) ? list[3].getFloat() : 1;
-            const float def = (list.size() > 4 && list[4].isFloat()) ? list[4].getFloat() : min;
-            const int nsteps = (list.size() > 5 && list[5].isFloat()) ? static_cast<int>(list[5].getFloat()) : 0;
-            const int autom = (list.size() > 6 && list[6].isFloat()) ? static_cast<bool>(list[6].getFloat()) : true;
-            const int meta = (list.size() > 7 && list[7].isFloat()) ? static_cast<bool>(list[7].getFloat()) : false;
+            const float min = parseFloat(list, "-min", 0);
+            const float max = parseFloat(list, "-max", 1);
+            const float def = parseFloat(list, "-default", min);
+            const int nsteps = static_cast<int>(parseFloat(list, "-nsteps", 0));
+            const bool autom = parseBool(list, "-auto", true);
+            const bool meta = parseBool(list, "-meta", false);
             return new CamomileAudioParameter(name, label, min, max, def, nsteps, autom, meta);
         }
     }
     else
     {
-        throw std::runtime_error("Parameter definition requires a least a name and a label.");
+        throw std::runtime_error("Wrong parameter definition.");
     }
     return nullptr;
 }

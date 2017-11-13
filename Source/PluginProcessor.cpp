@@ -105,6 +105,11 @@ void CamomileAudioProcessor::changeProgramName (int index, const String& newName
 
 bool CamomileAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
+    const AudioChannelSet& mainOutput = layouts.getMainOutputChannelSet();
+    const AudioChannelSet& mainInput  = layouts.getMainInputChannelSet();
+    
+    //sendList(std::string("buses"), {});
+    std::cout << "| Input : "<< mainInput.getDescription() << " | Output : " << mainOutput.getDescription() << " |\n";
     return true;
 }
 
@@ -113,6 +118,11 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     prepareDSP(AudioProcessor::getTotalNumInputChannels(),
             AudioProcessor::getTotalNumOutputChannels(),
             samplesPerBlock, sampleRate);
+    
+    const BusesLayout& layouts(getBusesLayout());
+    const std::string input = layouts.getMainInputChannelSet().getDescription().toStdString();
+    const std::string output = layouts.getMainOutputChannelSet().getDescription().toStdString();
+    sendList(std::string("buses"), {input, output});
 }
 
 void CamomileAudioProcessor::releaseResources()
@@ -253,6 +263,10 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
             if(param)
             {
                 param->setOriginalScaledValueNotifyingHost(list[1].getFloat());
+            }
+            else
+            {
+                // Parameter out of range
             }
         }
         else

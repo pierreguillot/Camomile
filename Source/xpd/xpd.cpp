@@ -257,55 +257,55 @@ namespace pd
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
 
-    void instance::sendNoteOn(const int channel, const int pitch, const int velocity)
+    void instance::sendNoteOn(const int channel, const int pitch, const int velocity) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_noteon(channel, pitch, velocity);
     }
     
-    void instance::sendControlChange(const int channel, const int controller, const int value)
+    void instance::sendControlChange(const int channel, const int controller, const int value) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_controlchange(channel, controller, value);
     }
     
-    void instance::sendProgramChange(const int channel, const int value)
+    void instance::sendProgramChange(const int channel, const int value) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_programchange(channel, value);
     }
     
-    void instance::sendPitchBend(const int channel, const int value)
+    void instance::sendPitchBend(const int channel, const int value) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_pitchbend(channel, value);
     }
     
-    void instance::sendAfterTouch(const int channel, const int value)
+    void instance::sendAfterTouch(const int channel, const int value) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_aftertouch(channel, value);
     }
     
-    void instance::sendPolyAfterTouch(const int channel, const int pitch, const int value)
+    void instance::sendPolyAfterTouch(const int channel, const int pitch, const int value) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_polyaftertouch(channel, pitch, value);
     }
     
-    void instance::sendSysEx(const int port, const int byte)
+    void instance::sendSysEx(const int port, const int byte) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_sysex(port, byte);
     }
     
-    void instance::sendSysRealTime(const int port, const int byte)
+    void instance::sendSysRealTime(const int port, const int byte) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_sysrealtime(port, byte);
     }
     
-    void instance::sendMidiByte(const int port, const int byte)
+    void instance::sendMidiByte(const int port, const int byte) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_midibyte(port, byte);
@@ -314,25 +314,25 @@ namespace pd
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     
-    void instance::sendBang(std::string const& receiver)
+    void instance::sendBang(std::string const& receiver) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_bang(receiver.c_str());
     }
     
-    void instance::sendFloat(std::string const& receiver, float const value)
+    void instance::sendFloat(std::string const& receiver, float const value) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_float(receiver.c_str(), value);
     }
     
-    void instance::sendSymbol(std::string const& receiver, std::string const& symbol)
+    void instance::sendSymbol(std::string const& receiver, std::string const& symbol) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_symbol(receiver.c_str(), symbol.c_str());
     }
     
-    void instance::sendList(std::string const& receiver, const std::vector<Atom>& list)
+    void instance::sendList(std::string const& receiver, const std::vector<Atom>& list) const
     {
         t_atom* argv = (t_atom *)getbytes(sizeof(t_atom) * list.size());
         if(argv)
@@ -348,10 +348,9 @@ namespace pd
             libpd_list(receiver.c_str(), (int)list.size(), argv);
             freebytes(argv, sizeof(t_atom) * list.size());
         }
-        
     }
     
-    void instance::sendMessage(std::string const& receiver, const std::string& msg, const std::vector<Atom>& list)
+    void instance::sendMessage(std::string const& receiver, const std::string& msg, const std::vector<Atom>& list) const
     {
         t_atom* argv = (t_atom *)getbytes(sizeof(t_atom) * list.size());
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));

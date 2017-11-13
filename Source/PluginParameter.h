@@ -30,7 +30,11 @@ public:
     String getLabel() const final;
     
     float getValue() const final;
+    float getOriginalScaledValue() const;
+    
     void setValue(float newValue) final;
+    void setOriginalScaledValue(float newValue);
+    void setOriginalScaledValueNotifyingHost(float newValue);
     
     float getDefaultValue() const final;
     int getNumSteps() const final;
@@ -43,8 +47,8 @@ public:
     bool isAutomatable() const final;
     bool isMetaParameter() const final;
     
-    float getOriginalScaledValue() const;
-    void setOriginalScaledValueNotifyingHost(float newValue);
+    bool isNumeric() const { return m_elements.isEmpty(); }
+    bool isList() const { return !m_elements.isEmpty(); }
     
     static CamomileAudioParameter* parse(const std::vector<pd::Atom>& list);
     static void saveStateInformation(XmlElement& xml, OwnedArray<AudioProcessorParameter> const& parameters);
@@ -63,6 +67,11 @@ private:
     bool const  m_meta;
     
     StringArray const m_elements;
+    
+    static String parseString(const std::vector<pd::Atom>& list, const String& name);
+    static float parseFloat(const std::vector<pd::Atom>& list, const String& name, float const def);
+    static int parseInt(const std::vector<pd::Atom>& list, const String& name, int const def);
+    static bool parseBool(const std::vector<pd::Atom>& list, const String& name, bool const def);
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileAudioParameter)
 };
