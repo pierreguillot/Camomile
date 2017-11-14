@@ -179,7 +179,59 @@ extern "C"
         sys_unlock();
     }
     
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////
     
+    static void libpd_multi_noteon(int channel, int pitch, int velocity)
+    {
+        t_atom av[3];
+        SETFLOAT(av, (float)channel);
+        SETFLOAT(av+1, (float)pitch);
+        SETFLOAT(av+2, (float)velocity);
+        libpd_message("camomile", "#noteout", 3, av);
+    }
+    
+    static void libpd_multi_controlchange(int channel, int controller, int value)
+    {
+        t_atom av[3];
+        SETFLOAT(av, (float)channel);
+        SETFLOAT(av+1, (float)controller);
+        SETFLOAT(av+2, (float)value);
+        libpd_message("camomile", "#controlchange", 3, av);
+    }
+    
+    static void libpd_multi_programchange(int channel, int value)
+    {
+        t_atom av[2];
+        SETFLOAT(av, (float)channel);
+        SETFLOAT(av+1, (float)value);
+        libpd_message("camomile", "#programchange", 2, av);
+    }
+    
+    static void libpd_multi_pitchbend(int channel, int value)
+    {
+        t_atom av[2];
+        SETFLOAT(av, (float)channel);
+        SETFLOAT(av+1, (float)value);
+        libpd_message("camomile", "#pitchbend", 2, av);
+    }
+    
+    static void libpd_multi_aftertouch(int channel, int value)
+    {
+        t_atom av[2];
+        SETFLOAT(av, (float)channel);
+        SETFLOAT(av+1, (float)value);
+        libpd_message("camomile", "#aftertouch", 2, av);
+    }
+    
+    static void libpd_multi_polyaftertouch(int channel, int pitch, int value)
+    {
+        t_atom av[3];
+        SETFLOAT(av, (float)channel);
+        SETFLOAT(av+1, (float)pitch);
+        SETFLOAT(av+2, (float)value);
+        libpd_message("camomile", "#polyaftertouch", 3, av);
+    }
 }
 
 namespace pd
@@ -197,6 +249,13 @@ namespace pd
             libpd_init();
             libpd_multirec_setup();
             initialized = 1;
+            
+            libpd_set_noteonhook(libpd_multi_noteon);
+            libpd_set_controlchangehook(libpd_multi_controlchange);
+            libpd_set_programchangehook(libpd_multi_programchange);
+            libpd_set_pitchbendhook(libpd_multi_pitchbend);
+            libpd_set_aftertouchhook(libpd_multi_aftertouch);
+            libpd_set_polyaftertouchhook(libpd_multi_polyaftertouch);
         }
         
         m_instance = libpd_new_instance();

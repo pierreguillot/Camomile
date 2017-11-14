@@ -141,7 +141,9 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         buffer.clear(i, 0, buffer.getNumSamples());
     }
     
-    // Play Head
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                                     PLAY HEAD                                        //
+    //////////////////////////////////////////////////////////////////////////////////////////
     {
         AudioPlayHead* playhead = getPlayHead();
         AudioPlayHead::CurrentPositionInfo infos;
@@ -165,7 +167,9 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         }
     }
     
-    // Parameters
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                                  PARAMETERS                                          //
+    //////////////////////////////////////////////////////////////////////////////////////////
     {
         std::string const sparam("param");
         OwnedArray<AudioProcessorParameter> const& parameters = AudioProcessor::getParameters();
@@ -175,6 +179,9 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         }
     }
     
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                                          MIDI                                        //
+    //////////////////////////////////////////////////////////////////////////////////////////
     {
         MidiMessage message;
         MidiBuffer::Iterator it(midiMessages);
@@ -197,10 +204,16 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         }
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                                          AUDIO                                       //
+    //////////////////////////////////////////////////////////////////////////////////////////
     performDSP(buffer.getNumSamples(),
             getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
             getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
     
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                                          RETRIVE MESSAGE                             //
+    //////////////////////////////////////////////////////////////////////////////////////////
     processReceive();
 }
 
@@ -257,27 +270,73 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
 {
     if(msg == std::string("param"))
     {
-        if(list.size() >= 2 && list[0].isFloat() && list[1].isFloat())
+        if(list.size() >= 2 && list[0].isSymbol() && list[1].isFloat())
         {
-            CamomileAudioParameter* param = static_cast<CamomileAudioParameter *>(getParameters()[int(list[0].getFloat()) - 1]);
-            if(param)
+            std::string const method = list[0].getSymbol();
+            int const index = static_cast<int>(list[1].getFloat());
+            if(method == "set")
             {
-                param->setOriginalScaledValueNotifyingHost(list[1].getFloat());
+                if(list.size() >= 3 && list[2].isFloat())
+                {
+                    CamomileAudioParameter* param = static_cast<CamomileAudioParameter *>(getParameters()[index - 1]);
+                    if(param)
+                    {
+                        param->setOriginalScaledValueNotifyingHost(list[2].getFloat());
+                    }
+                    else
+                    {
+                        std::cerr << "parameter set method index: out of range.\n";
+                    }
+                }
+                else
+                {
+                    std::cerr << "parameter set method: wrong argument.\n";
+                }
             }
-            else
+            else if(method == "change")
             {
-                // Parameter out of range
+                if(list.size() >= 3 && list[2].isFloat())
+                {
+                    CamomileAudioParameter* param = static_cast<CamomileAudioParameter *>(getParameters()[index - 1]);
+                    if(param)
+                    {
+                        if(static_cast<bool>(list[2].getFloat()))
+                        {
+                            param->beginChangeGesture();
+                        }
+                        else
+                        {
+                            param->endChangeGesture();
+                        }
+                    }
+                    else
+                    {
+                        std::cerr << "parameter change method index: out of range.\n";
+                    }
+                }
+                else
+                {
+                    std::cerr << "parameter set method: wrong argument.\n";
+                }
             }
-        }
-        else
-        {
-            try
+            else if(method == "define")
             {
-                addParameter(CamomileAudioParameter::parse(list));
-            }
-            catch (std::exception& e)
-            {
-                std::cout << e.what();
+                if(index == getParameters().size()+1)
+                {
+                    std::vector<pd::Atom> args(list.begin()+2, list.end());
+                    try
+                    {
+                        addParameter(CamomileAudioParameter::parse(args));
+                    }
+                    catch (std::exception& e)
+                    {
+                        std::cerr << "parameter define method: " << e.what() << "\n";
+                    }
+                }
+                else
+                {
+                    std::cerr << "parameter define method: index out of range.\n";
+                }
             }
         }
     }

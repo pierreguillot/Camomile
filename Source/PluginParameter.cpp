@@ -236,7 +236,7 @@ CamomileAudioParameter* CamomileAudioParameter::parse(const std::vector<pd::Atom
     }
     else
     {
-        throw std::runtime_error("Wrong parameter definition.");
+        throw std::runtime_error("wrong argument.");
     }
     return nullptr;
 }

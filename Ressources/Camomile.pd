@@ -1,8 +1,6 @@
 #N canvas 113 298 840 279 10;
 #X obj 100 39 adc~ 1 2;
 #X obj 100 181 dac~ 1 2;
-#X obj 340 54 r param2;
-#X obj 340 76 print p2;
 #X obj 444 29 loadbang;
 #X obj 444 182 s camomile;
 #X obj 444 51 text size \$0-config;
@@ -11,16 +9,15 @@
 #X obj 444 93 until;
 #X obj 444 73 route float;
 #X obj 563 20 text define -k \$0-config;
-#A set ninputs 8 \; noutputs 8 \; param -name Frequency -label Hz -min
-0 -max 22050 -default 220 -nsteps 0 -auto 1 -meta 0 \; param -name
-Volume -label dB -min 0 -max 100 -default 0 \; param -name Mute -list
-On/Off -default On \;;
+#A set ninputs 8 \; noutputs 8 \; param define 1 -name Frequency -label
+Hz -min 0 -max 22050 -default 220 -nsteps 0 -auto 1 -meta 0 \; param
+define 2 -name Volume -label dB -min 0 -max 100 -default 0 \; param
+define 3 -name Mute -list Off/On -default On \;;
 #X obj 444 137 text get \$0-config;
 #X obj 444 159 list trim;
 #X obj 19 21 r param;
 #X obj 19 73 osc~ 220;
 #X obj 19 43 route 1;
-#X msg 255 193 param 3 \$1;
 #X obj 256 151 random 100;
 #X obj 256 92 loadbang;
 #X obj 256 114 metro 100;
@@ -30,25 +27,25 @@ On/Off -default On \;;
 #X obj 571 193 symbol;
 #X obj 571 215 print;
 #X msg 571 171 symbol "On/Off";
+#X msg 255 193 param set 3 \$1;
 #X connect 0 0 1 0;
 #X connect 0 1 1 1;
-#X connect 2 0 3 0;
-#X connect 4 0 6 0;
-#X connect 6 0 10 0;
-#X connect 7 0 8 0;
-#X connect 7 0 12 0;
-#X connect 8 0 7 1;
-#X connect 9 0 7 0;
-#X connect 10 0 9 0;
-#X connect 12 0 13 0;
-#X connect 13 0 5 0;
-#X connect 14 0 16 0;
-#X connect 15 0 1 0;
-#X connect 16 0 15 0;
-#X connect 17 0 21 0;
-#X connect 18 0 17 0;
+#X connect 2 0 4 0;
+#X connect 4 0 8 0;
+#X connect 5 0 6 0;
+#X connect 5 0 10 0;
+#X connect 6 0 5 1;
+#X connect 7 0 5 0;
+#X connect 8 0 7 0;
+#X connect 10 0 11 0;
+#X connect 11 0 3 0;
+#X connect 12 0 14 0;
+#X connect 13 0 1 0;
+#X connect 14 0 13 0;
+#X connect 15 0 24 0;
+#X connect 16 0 17 0;
+#X connect 17 0 15 0;
 #X connect 19 0 20 0;
-#X connect 20 0 18 0;
-#X connect 22 0 23 0;
-#X connect 24 0 25 0;
-#X connect 26 0 24 0;
+#X connect 21 0 22 0;
+#X connect 23 0 21 0;
+#X connect 24 0 18 0;
