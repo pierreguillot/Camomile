@@ -9,10 +9,11 @@
 #X obj 444 93 until;
 #X obj 444 73 route float;
 #X obj 563 20 text define -k \$0-config;
-#A set ninputs 8 \; noutputs 8 \; param define 1 -name Frequency -label
-Hz -min 0 -max 22050 -default 220 -nsteps 0 -auto 1 -meta 0 \; param
-define 2 -name Volume -label dB -min 0 -max 100 -default 0 \; param
-define 3 -name Mute -list Off/On -default On \;;
+#A set ninputs 8 \; noutputs 8 \; option -midiin true -midiout true
+-playhead true \; param define 1 -name Frequency -label Hz -min 0 -max
+22050 -default 220 -nsteps 0 -auto 1 -meta 0 \; param define 2 -name
+Volume -label dB -min 0 -max 100 -default 0 \; param define 3 -name
+Mute -list Off/On -default On \;;
 #X obj 444 137 text get \$0-config;
 #X obj 444 159 list trim;
 #X obj 19 21 r param;

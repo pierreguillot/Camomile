@@ -19,6 +19,10 @@
             file="Source/PluginProcessor.cpp"/>
       <FILE id="kaSsak" name="PluginProcessor.h" compile="0" resource="0"
             file="Source/PluginProcessor.h"/>
+      <FILE id="W8LAfr" name="PluginAtomParser.cpp" compile="1" resource="0"
+            file="Source/PluginAtomParser.cpp"/>
+      <FILE id="oNQqn3" name="PluginAtomParser.h" compile="0" resource="0"
+            file="Source/PluginAtomParser.h"/>
       <FILE id="P6bHhc" name="PluginParameter.cpp" compile="1" resource="0"
             file="Source/PluginParameter.cpp"/>
       <FILE id="kRjX4J" name="PluginParameter.h" compile="0" resource="0"

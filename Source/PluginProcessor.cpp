@@ -5,6 +5,7 @@
 */
 
 #include "PluginProcessor.h"
+#include "PluginAtomParser.h"
 #include "PluginParameter.h"
 #include "PluginEditor.h"
 #include <iostream>
@@ -48,29 +49,17 @@ const String CamomileAudioProcessor::getName() const
 
 bool CamomileAudioProcessor::acceptsMidi() const
 {
-   #if JucePlugin_WantsMidiInput
-    return true;
-   #else
-    return false;
-   #endif
+    return m_midi_in_support;
 }
 
 bool CamomileAudioProcessor::producesMidi() const
 {
-   #if JucePlugin_ProducesMidiOutput
-    return true;
-   #else
-    return false;
-   #endif
+   return m_midi_out_support;
 }
 
 bool CamomileAudioProcessor::isMidiEffect() const
 {
-   #if JucePlugin_IsMidiEffect
-    return true;
-   #else
-    return false;
-   #endif
+    return m_midi_only;
 }
 
 double CamomileAudioProcessor::getTailLengthSeconds() const
@@ -109,15 +98,22 @@ bool CamomileAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts)
     const AudioChannelSet& mainInput  = layouts.getMainInputChannelSet();
     
     //sendList(std::string("buses"), {});
-    std::cout << "| Input : "<< mainInput.getDescription() << " | Output : " << mainOutput.getDescription() << " |\n";
+    //std::cout << "| Input : "<< mainInput.getDescription() << " | Output : " << mainOutput.getDescription() << " |\n";
     return true;
 }
 
 void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    prepareDSP(AudioProcessor::getTotalNumInputChannels(),
-            AudioProcessor::getTotalNumOutputChannels(),
-            samplesPerBlock, sampleRate);
+    try
+    {
+        prepareDSP(AudioProcessor::getTotalNumInputChannels(),
+                   AudioProcessor::getTotalNumOutputChannels(),
+                   samplesPerBlock, sampleRate);
+    }
+    catch(std::exception& e)
+    {
+        std::cerr << e.what() << "\n";
+    }
     
     const BusesLayout& layouts(getBusesLayout());
     const std::string input = layouts.getMainInputChannelSet().getDescription().toStdString();
@@ -144,6 +140,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                     PLAY HEAD                                        //
     //////////////////////////////////////////////////////////////////////////////////////////
+    if(m_play_head_support)
     {
         AudioPlayHead* playhead = getPlayHead();
         AudioPlayHead::CurrentPositionInfo infos;
@@ -168,20 +165,9 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////
-    //                                  PARAMETERS                                          //
-    //////////////////////////////////////////////////////////////////////////////////////////
-    {
-        std::string const sparam("param");
-        OwnedArray<AudioProcessorParameter> const& parameters = AudioProcessor::getParameters();
-        for(int i = 0; i < parameters.size(); ++i)
-        {
-            sendList(sparam, {float(i+1), static_cast<CamomileAudioParameter const*>(parameters.getUnchecked(i))->getOriginalScaledValue()});
-        }
-    }
-    
-    //////////////////////////////////////////////////////////////////////////////////////////
     //                                          MIDI                                        //
     //////////////////////////////////////////////////////////////////////////////////////////
+    if(m_midi_in_support)
     {
         MidiMessage message;
         MidiBuffer::Iterator it(midiMessages);
@@ -204,6 +190,18 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         }
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                                  PARAMETERS                                          //
+    //////////////////////////////////////////////////////////////////////////////////////////
+    {
+        std::string const sparam("param");
+        OwnedArray<AudioProcessorParameter> const& parameters = AudioProcessor::getParameters();
+        for(int i = 0; i < parameters.size(); ++i)
+        {
+            sendList(sparam, {float(i+1), static_cast<CamomileAudioParameter const*>(parameters.getUnchecked(i))->getOriginalScaledValue()});
+        }
+    }
+    
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                          AUDIO                                       //
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -267,6 +265,19 @@ void CamomileAudioProcessor::receiveSymbol(const std::string& dest, const std::s
 void CamomileAudioProcessor::receiveList(const std::string& dest, const std::vector<pd::Atom>& list)
 {
     
+}
+
+bool CamomileAudioProcessor::processOption(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
+{
+    if(msg == std::string("option"))
+    {
+        m_midi_in_support   = CamomileAtomParser::parseBool(list, "-midiin", m_midi_in_support);
+        m_midi_out_support  = CamomileAtomParser::parseBool(list, "-midiout", m_midi_out_support);
+        m_midi_only         = CamomileAtomParser::parseBool(list, "-midionly", m_midi_only);
+        m_play_head_support = CamomileAtomParser::parseBool(list, "-playhead", m_midi_out_support);
+        return true;
+    }
+    return false;
 }
 
 void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
@@ -385,7 +396,7 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
                                                              static_cast<int>(list[1].getFloat()),
                                                              static_cast<int>(list[2].getFloat())), 0);
     }
-    else
+    else if(!processOption(dest, msg, list))
     {
         std::cerr << "camomile unknow message : "<< msg << "\n";
     }

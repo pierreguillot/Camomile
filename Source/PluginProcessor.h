@@ -57,6 +57,13 @@ public:
     void receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list) override;
 
 private:
+    
+    bool processOption(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
+    
+    bool            m_midi_in_support   =false;
+    bool            m_midi_out_support  =false;
+    bool            m_midi_only         =false;
+    bool            m_play_head_support =false;
     MidiBuffer      m_midi_buffer;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)
 };

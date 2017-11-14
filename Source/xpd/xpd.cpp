@@ -283,9 +283,10 @@ namespace pd
 
     void instance::prepareDSP(const int nins, const int nouts, const int blksize, const double samplerate)
     {
-        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         m_inputs.resize(blksize * nins);
         m_outputs.resize(blksize * nouts);
+        
+        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_init_audio((int)nins, (int)nouts, (int)samplerate);
         libpd_start_message(1);
         libpd_add_float(1.f);
