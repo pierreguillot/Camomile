@@ -68,11 +68,6 @@ private:
     
     StringArray const m_elements;
     
-    static String parseString(const std::vector<pd::Atom>& list, const String& name);
-    static float parseFloat(const std::vector<pd::Atom>& list, const String& name, float const def);
-    static int parseInt(const std::vector<pd::Atom>& list, const String& name, int const def);
-    static bool parseBool(const std::vector<pd::Atom>& list, const String& name, bool const def);
-    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileAudioParameter)
 };
 

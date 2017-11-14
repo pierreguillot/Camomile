@@ -58,6 +58,8 @@ public:
 
 private:
     
+    bool processParameters(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
+    bool processMidi(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
     bool processOption(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
     
     bool            m_midi_in_support   =false;

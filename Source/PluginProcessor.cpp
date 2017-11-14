@@ -267,20 +267,7 @@ void CamomileAudioProcessor::receiveList(const std::string& dest, const std::vec
     
 }
 
-bool CamomileAudioProcessor::processOption(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
-{
-    if(msg == std::string("option"))
-    {
-        m_midi_in_support   = CamomileAtomParser::parseBool(list, "-midiin", m_midi_in_support);
-        m_midi_out_support  = CamomileAtomParser::parseBool(list, "-midiout", m_midi_out_support);
-        m_midi_only         = CamomileAtomParser::parseBool(list, "-midionly", m_midi_only);
-        m_play_head_support = CamomileAtomParser::parseBool(list, "-playhead", m_midi_out_support);
-        return true;
-    }
-    return false;
-}
-
-void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
+bool CamomileAudioProcessor::processParameters(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
 {
     if(msg == std::string("param"))
     {
@@ -353,8 +340,14 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
                 }
             }
         }
+        return true;
     }
-    else if(msg == "#noteout")
+    return false;
+}
+
+bool CamomileAudioProcessor::processMidi(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
+{
+    if(msg == "#noteout")
     {
         if(static_cast<int>(list[2].getFloat()) == 0)
         {
@@ -365,8 +358,8 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
         else
         {
             m_midi_buffer.addEvent(MidiMessage::noteOn(static_cast<int>(list[0].getFloat()),
-                                                        static_cast<int>(list[1].getFloat()),
-                                                        static_cast<uint8>(list[2].getFloat())), 0);
+                                                       static_cast<int>(list[1].getFloat()),
+                                                       static_cast<uint8>(list[2].getFloat())), 0);
         }
     }
     else if(msg == "#controlchange")
@@ -383,7 +376,7 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
     else if(msg == "#pitchbend")
     {
         m_midi_buffer.addEvent(MidiMessage::pitchWheel(static_cast<int>(list[0].getFloat()),
-                                                          static_cast<int>(list[1].getFloat())), 0);
+                                                       static_cast<int>(list[1].getFloat())), 0);
     }
     else if(msg == "#aftertouch")
     {
@@ -396,7 +389,29 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
                                                              static_cast<int>(list[1].getFloat()),
                                                              static_cast<int>(list[2].getFloat())), 0);
     }
-    else if(!processOption(dest, msg, list))
+    else
+    {
+        return false;
+    }
+    return true;
+}
+
+bool CamomileAudioProcessor::processOption(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
+{
+    if(msg == std::string("option"))
+    {
+        m_midi_in_support   = CamomileAtomParser::parseBool(list, "-midiin", m_midi_in_support);
+        m_midi_out_support  = CamomileAtomParser::parseBool(list, "-midiout", m_midi_out_support);
+        m_midi_only         = CamomileAtomParser::parseBool(list, "-midionly", m_midi_only);
+        m_play_head_support = CamomileAtomParser::parseBool(list, "-playhead", m_midi_out_support);
+        return true;
+    }
+    return false;
+}
+
+void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
+{
+    if(!processParameters(dest, msg, list) && !processMidi(dest, msg, list) && !processOption(dest, msg, list))
     {
         std::cerr << "camomile unknow message : "<< msg << "\n";
     }
