@@ -215,6 +215,9 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     //                                          RETRIVE MESSAGE                             //
     //////////////////////////////////////////////////////////////////////////////////////////
     processReceive();
+    
+    midiMessages.swapWith(m_midi_buffer);
+    m_midi_buffer.clear();
 }
 
 //==============================================================================
@@ -339,6 +342,52 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
                 }
             }
         }
+    }
+    else if(msg == "#noteout")
+    {
+        if(static_cast<int>(list[2].getFloat()) == 0)
+        {
+            m_midi_buffer.addEvent(MidiMessage::noteOff(static_cast<int>(list[0].getFloat()),
+                                                        static_cast<int>(list[1].getFloat()),
+                                                        uint8(0)), 0);
+        }
+        else
+        {
+            m_midi_buffer.addEvent(MidiMessage::noteOn(static_cast<int>(list[0].getFloat()),
+                                                        static_cast<int>(list[1].getFloat()),
+                                                        static_cast<uint8>(list[2].getFloat())), 0);
+        }
+    }
+    else if(msg == "#controlchange")
+    {
+        m_midi_buffer.addEvent(MidiMessage::controllerEvent(static_cast<int>(list[0].getFloat()),
+                                                            static_cast<int>(list[1].getFloat()),
+                                                            static_cast<int>(list[2].getFloat())), 0);
+    }
+    else if(msg == "#programchange")
+    {
+        m_midi_buffer.addEvent(MidiMessage::programChange(static_cast<int>(list[0].getFloat()),
+                                                          static_cast<int>(list[1].getFloat())), 0);
+    }
+    else if(msg == "#pitchbend")
+    {
+        m_midi_buffer.addEvent(MidiMessage::pitchWheel(static_cast<int>(list[0].getFloat()),
+                                                          static_cast<int>(list[1].getFloat())), 0);
+    }
+    else if(msg == "#aftertouch")
+    {
+        m_midi_buffer.addEvent(MidiMessage::channelPressureChange(static_cast<int>(list[0].getFloat()),
+                                                                  static_cast<int>(list[1].getFloat())), 0);
+    }
+    else if(msg == "#aftertouch")
+    {
+        m_midi_buffer.addEvent(MidiMessage::aftertouchChange(static_cast<int>(list[0].getFloat()),
+                                                             static_cast<int>(list[1].getFloat()),
+                                                             static_cast<int>(list[2].getFloat())), 0);
+    }
+    else
+    {
+        std::cerr << "camomile unknow message : "<< msg << "\n";
     }
 }
 

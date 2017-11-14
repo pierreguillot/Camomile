@@ -181,6 +181,15 @@ extern "C"
     
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
+    static void libpd_multi_midisend(const char* receiver, const char* msg, int argc, t_atom* argv)
+    {
+        // Avoid thread concurrency. If this function is called, it must be in the right thread.
+        t_symbol *sym = gensym(receiver);
+        if(sym->s_thing)
+        {
+            pd_typedmess(sym->s_thing, gensym(msg), argc, argv);
+        }
+    }
     
     static void libpd_multi_noteon(int channel, int pitch, int velocity)
     {
@@ -188,7 +197,7 @@ extern "C"
         SETFLOAT(av, (float)channel);
         SETFLOAT(av+1, (float)pitch);
         SETFLOAT(av+2, (float)velocity);
-        libpd_message("camomile", "#noteout", 3, av);
+        libpd_multi_midisend("camomile", "#noteout", 3, av);
     }
     
     static void libpd_multi_controlchange(int channel, int controller, int value)
@@ -197,7 +206,7 @@ extern "C"
         SETFLOAT(av, (float)channel);
         SETFLOAT(av+1, (float)controller);
         SETFLOAT(av+2, (float)value);
-        libpd_message("camomile", "#controlchange", 3, av);
+        libpd_multi_midisend("camomile", "#controlchange", 3, av);
     }
     
     static void libpd_multi_programchange(int channel, int value)
@@ -205,7 +214,7 @@ extern "C"
         t_atom av[2];
         SETFLOAT(av, (float)channel);
         SETFLOAT(av+1, (float)value);
-        libpd_message("camomile", "#programchange", 2, av);
+        libpd_multi_midisend("camomile", "#programchange", 2, av);
     }
     
     static void libpd_multi_pitchbend(int channel, int value)
@@ -213,7 +222,7 @@ extern "C"
         t_atom av[2];
         SETFLOAT(av, (float)channel);
         SETFLOAT(av+1, (float)value);
-        libpd_message("camomile", "#pitchbend", 2, av);
+        libpd_multi_midisend("camomile", "#pitchbend", 2, av);
     }
     
     static void libpd_multi_aftertouch(int channel, int value)
@@ -221,7 +230,7 @@ extern "C"
         t_atom av[2];
         SETFLOAT(av, (float)channel);
         SETFLOAT(av+1, (float)value);
-        libpd_message("camomile", "#aftertouch", 2, av);
+        libpd_multi_midisend("camomile", "#aftertouch", 2, av);
     }
     
     static void libpd_multi_polyaftertouch(int channel, int pitch, int value)
@@ -230,7 +239,7 @@ extern "C"
         SETFLOAT(av, (float)channel);
         SETFLOAT(av+1, (float)pitch);
         SETFLOAT(av+2, (float)value);
-        libpd_message("camomile", "#polyaftertouch", 3, av);
+        libpd_multi_midisend("camomile", "#polyaftertouch", 3, av);
     }
 }
 

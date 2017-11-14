@@ -57,6 +57,6 @@ public:
     void receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list) override;
 
 private:
-    //==============================================================================
+    MidiBuffer      m_midi_buffer;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)
 };
