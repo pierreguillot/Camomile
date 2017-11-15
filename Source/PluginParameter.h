@@ -21,7 +21,7 @@ public:
                            const float def, const int nsteps,
                            const bool automatable = true, const bool meta = false);
     CamomileAudioParameter(const String& name, const String& label,
-                           StringArray const& elemen, const String& def,
+                           StringArray const& elemen, const int def,
                            const bool automatable = true, const bool meta = false);
     
     ~CamomileAudioParameter();

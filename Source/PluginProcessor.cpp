@@ -325,14 +325,7 @@ bool CamomileAudioProcessor::processParameters(const std::string& dest, const st
                 if(index == getParameters().size()+1)
                 {
                     std::vector<pd::Atom> args(list.begin()+2, list.end());
-                    try
-                    {
-                        addParameter(CamomileAudioParameter::parse(args));
-                    }
-                    catch (std::exception& e)
-                    {
-                        std::cerr << "parameter define method: " << e.what() << "\n";
-                    }
+                    addParameter(CamomileAudioParameter::parse(args));
                 }
                 else
                 {

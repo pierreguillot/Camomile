@@ -23,12 +23,11 @@ m_default(def), m_nsteps(nsteps),
 m_automatable(automatable), m_meta(meta) { m_value = getDefaultValue(); }
 
 CamomileAudioParameter::CamomileAudioParameter(const String& name, const String& label,
-                                               StringArray const& elems, const String& def,
+                                               StringArray const& elems, const int def,
                                                const bool automatable, const bool meta) :
 m_name(name), m_label(label),
 m_minimum(0), m_maximum(elems.size() - 1),
-m_default(static_cast<float>((elems.indexOf(def) != -1) ? elems.indexOf(def) : 0) / m_maximum),
-m_nsteps(elems.size()),
+m_default(static_cast<int>(def)), m_nsteps(elems.size()),
 m_automatable(automatable), m_meta(meta),
 m_elements(elems) { m_value = getDefaultValue(); }
 
@@ -135,40 +134,43 @@ bool CamomileAudioParameter::isMetaParameter() const
 CamomileAudioParameter* CamomileAudioParameter::parse(const std::vector<pd::Atom>& list)
 {
     String const name = CamomileAtomParser::parseString(list, "-name");
-    if(!name.isEmpty())
+    String const label = CamomileAtomParser::parseString(list, "-label");
+    String const elems = CamomileAtomParser::parseString(list, "-list");
+    if(elems.isNotEmpty())
     {
-        String const label = CamomileAtomParser::parseString(list, "-label");
-        String const elems = CamomileAtomParser::parseString(list, "-list");
-        if(elems.isNotEmpty())
+        StringArray elems_l;
+        int defn = 0;
+        int start = 0, next = elems.indexOfChar(1, '/');
+        while(next != -1)
         {
-            StringArray elems_l;
-            int start = 0, next = elems.indexOfChar(1, '/');
-            while(next != -1)
-            {
-                elems_l.add(elems.substring(start, next));
-                start = next+1;
-                next = elems.indexOfChar(start, '/');
-            }
-            elems_l.add(elems.substring(start));
-            const String def = CamomileAtomParser::parseString(list, "-default");
-            const bool autom = CamomileAtomParser::parseBool(list, "-auto", true);
-            const bool meta = CamomileAtomParser::parseBool(list, "-meta", false);
-            return new CamomileAudioParameter(name, label, elems_l, def, autom, meta);
+            elems_l.add(elems.substring(start, next));
+            start = next+1;
+            next = elems.indexOfChar(start, '/');
+        }
+        elems_l.add(elems.substring(start));
+        const String def = CamomileAtomParser::parseString(list, "-default");
+        if(def.isEmpty())
+        {
+            defn = CamomileAtomParser::parseInt(list, "-default", 0);
         }
         else
         {
-            const float min = CamomileAtomParser::parseFloat(list, "-min", 0);
-            const float max = CamomileAtomParser::parseFloat(list, "-max", 1);
-            const float def = CamomileAtomParser::parseFloat(list, "-default", min);
-            const int nsteps = CamomileAtomParser::parseInt(list, "-nsteps", 0);
-            const bool autom = CamomileAtomParser::parseBool(list, "-auto", true);
-            const bool meta = CamomileAtomParser::parseBool(list, "-meta", false);
-            return new CamomileAudioParameter(name, label, min, max, def, nsteps, autom, meta);
+            defn = (elems_l.indexOf(def) != -1) ? static_cast<int>(static_cast<float>(elems_l.indexOf(def)) / static_cast<float>(elems_l.size())) : 0;
         }
+        
+        const bool autom = CamomileAtomParser::parseBool(list, "-auto", true);
+        const bool meta = CamomileAtomParser::parseBool(list, "-meta", false);
+        return new CamomileAudioParameter(name, label, elems_l, defn, autom, meta);
     }
     else
     {
-        throw std::runtime_error("wrong argument.");
+        const float min = CamomileAtomParser::parseFloat(list, "-min", 0);
+        const float max = CamomileAtomParser::parseFloat(list, "-max", 1);
+        const float def = CamomileAtomParser::parseFloat(list, "-default", min);
+        const int nsteps = CamomileAtomParser::parseInt(list, "-nsteps", 0);
+        const bool autom = CamomileAtomParser::parseBool(list, "-auto", true);
+        const bool meta = CamomileAtomParser::parseBool(list, "-meta", false);
+        return new CamomileAudioParameter(name, label, min, max, def, nsteps, autom, meta);
     }
     return nullptr;
 }
