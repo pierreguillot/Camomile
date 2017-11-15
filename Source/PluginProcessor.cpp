@@ -447,10 +447,7 @@ bool CamomileAudioProcessor::processMidi(const std::string& dest, const std::str
                                                              static_cast<int>(list[1].getFloat()),
                                                              static_cast<int>(list[2].getFloat())), 0);
     }
-    else
-    {
-        return false;
-    }
+    else { return false; }
     return true;
 }
 
