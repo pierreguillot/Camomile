@@ -11,9 +11,11 @@
 #X obj 563 20 text define -k \$0-config;
 #A set ninputs 8 \; noutputs 8 \; option -midiin true -midiout true
 -playhead true \; param define 1 -name Frequency -label Hz -min 0 -max
-22050 -default 220 -nsteps 0 -auto 1 -meta 0 \; param define 2 -name
-Volume -label dB -min 0 -max 100 -default 0 \; param define 3 -name
-Mute -list Off/On -default On \;;
+22050 -default 220 -nsteps 0 -auto true -meta false \; param define
+2 -name Volume -label dB -min 0 -max 100 -default 0 \; param define
+3 -name Mute -list Off/On -default On \; param define 4 -name Dummy
+-list Off/On -default On -auto false \; program define 1 John \; program
+define 2 Hammond 321 12 \;;
 #X obj 444 137 text get \$0-config;
 #X obj 444 159 list trim;
 #X obj 19 21 r param;
@@ -32,6 +34,8 @@ Mute -list Off/On -default On \;;
 #X obj 754 165 notein, f 7;
 #X obj 754 199 noteout;
 #X obj 827 193 print notein;
+#X obj 817 32 r program;
+#X obj 817 54 print program;
 #X connect 0 0 1 0;
 #X connect 0 1 1 1;
 #X connect 2 0 4 0;
@@ -55,3 +59,4 @@ Mute -list Off/On -default On \;;
 #X connect 25 0 26 0;
 #X connect 25 1 26 1;
 #X connect 25 2 26 2;
+#X connect 28 0 29 0;

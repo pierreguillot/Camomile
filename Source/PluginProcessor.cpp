@@ -14,6 +14,7 @@
 // ======================================================================================== //
 //                                      PROCESSOR                                           //
 // ======================================================================================== //
+//char* global_plugin_name = "Camomile";
 
 #ifdef JUCE_MAC
 #define CAMOMILE_RESSOURCE_PATH juce::String("/Contents/Resources")
@@ -69,25 +70,54 @@ double CamomileAudioProcessor::getTailLengthSeconds() const
 
 int CamomileAudioProcessor::getNumPrograms()
 {
-    return 1;
+    return m_programs.isEmpty() ? 1 : m_programs.size();
 }
 
 int CamomileAudioProcessor::getCurrentProgram()
 {
-    return 0;
+    return m_program_current;
 }
 
 void CamomileAudioProcessor::setCurrentProgram (int index)
 {
+    if(index < m_programs.size())
+    {
+        m_program_current = index;
+        Array<float> const& values = m_programs.getReference(index).values;
+        std::string const sparam("param");
+        OwnedArray<AudioProcessorParameter> const& parameters = AudioProcessor::getParameters();
+        for(int i = 0; i < values.size(); ++i)
+        {
+            CamomileAudioParameter* p = static_cast<CamomileAudioParameter*>(parameters[i]);
+            if(p)
+            {
+                p->setOriginalScaledValueNotifyingHost(values[i]);
+                sendList(sparam, {float(i+1), p->getOriginalScaledValue()});
+            }
+        }
+        sendFloat("program", static_cast<float>(index+1));
+    }
+    
 }
 
 const String CamomileAudioProcessor::getProgramName (int index)
 {
+    if(index < m_programs.size())
+    {
+        if(m_programs[index].alias.isNotEmpty())
+            return m_programs[index].alias;
+        else
+            return m_programs[index].name;
+    }
     return {};
 }
 
 void CamomileAudioProcessor::changeProgramName (int index, const String& newName)
 {
+    if(index < m_programs.size())
+    {
+        m_programs[index].alias = newName;
+    }
 }
 
 //==============================================================================
@@ -214,8 +244,11 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     //////////////////////////////////////////////////////////////////////////////////////////
     processReceive();
     
-    midiMessages.swapWith(m_midi_buffer);
-    m_midi_buffer.clear();
+    if(m_midi_in_support)
+    {
+        midiMessages.swapWith(m_midi_buffer);
+        m_midi_buffer.clear();
+    }
 }
 
 //==============================================================================
@@ -338,6 +371,38 @@ bool CamomileAudioProcessor::processParameters(const std::string& dest, const st
     return false;
 }
 
+bool CamomileAudioProcessor::processPrograms(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
+{
+    if(msg == std::string("program"))
+    {
+        if(list.size() >= 2 && list[0].isSymbol() && list[1].isFloat())
+        {
+            std::string const method = list[0].getSymbol();
+            int const index = static_cast<int>(list[1].getFloat());
+            if(method == "define")
+            {
+                if(list.size() >= 3 && list[2].isSymbol())
+                {
+                    if(index == m_programs.size()+1)
+                    {
+                        m_programs.add({list[2].getSymbol(), "", Array<float>()});
+                        for(int i = 3; i < list.size(); ++i)
+                        {
+                            m_programs.getReference(index-1).values.add(list[i].getFloat());
+                        }
+                    }
+                    else { std::cerr << "program define method: index out of range.\n"; }
+                }
+                else { std::cerr << "program error syntax: define index name...\n"; }
+            }
+            else { std::cerr << "program unknown method: index out of range.\n"; }
+        }
+        else { std::cerr << "program error syntax: method index...\n"; }
+        return true;
+    }
+    return false;
+}
+
 bool CamomileAudioProcessor::processMidi(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
 {
     if(msg == "#noteout")
@@ -404,7 +469,10 @@ bool CamomileAudioProcessor::processOption(const std::string& dest, const std::s
 
 void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
 {
-    if(!processParameters(dest, msg, list) && !processMidi(dest, msg, list) && !processOption(dest, msg, list))
+    if(!processParameters(dest, msg, list) &&
+       !processPrograms(dest, msg, list) &&
+       !processMidi(dest, msg, list) &&
+       !processOption(dest, msg, list))
     {
         std::cerr << "camomile unknow message : "<< msg << "\n";
     }

@@ -59,6 +59,7 @@ public:
 private:
     
     bool processParameters(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
+    bool processPrograms(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
     bool processMidi(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
     bool processOption(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
     
@@ -67,5 +68,16 @@ private:
     bool            m_midi_only         =false;
     bool            m_play_head_support =false;
     MidiBuffer      m_midi_buffer;
+    
+    typedef struct
+    {
+        String       name;
+        String       alias;
+        Array<float> values;
+    } Program;
+    
+    Array<Program>  m_programs;
+    int             m_program_current = 0;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)
 };
