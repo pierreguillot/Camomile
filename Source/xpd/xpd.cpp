@@ -145,6 +145,14 @@ extern "C"
             x->x_instance->m_messages.push({x->x_recv, sel, vec});
         }
         
+        static void libpd_multirec_post(struct pd::instance::_libpd_multirec *x, char const* s) {
+            if(strlen(s) && (strlen(s) > 1 || s[0] != ' '))
+            {
+                //std::lock_guard<std::mutex> lock(x->x_instance->m_messages_mutex);
+                x->x_instance->m_messages.push({x->x_recv, "#post", {Atom(s)}});
+            }
+        }
+        
     } t_libpd_multirec;
     
     static void libpdmultireceive_free(t_libpd_multirec *x) {
@@ -166,6 +174,7 @@ extern "C"
         return x;
     }
     
+    
     static void libpd_multirec_setup(void) {
         sys_lock();
         libpd_multirec_class = class_new(gensym("libpd_multireceive"), (t_newmethod)NULL, (t_method)libpdmultireceive_free,
@@ -176,6 +185,7 @@ extern "C"
         //class_addpointer(libpd_multirec_class, libpd_multirec_pointer);
         class_addlist(libpd_multirec_class, t_libpd_multirec::libpd_multirec_list);
         class_addanything(libpd_multirec_class, t_libpd_multirec::libpd_multirec_anything);
+        class_addmethod(libpd_multirec_class, (t_method)t_libpd_multirec::libpd_multirec_post, gensym("#post"), A_CANT, 0);
         sys_unlock();
     }
     
@@ -241,6 +251,17 @@ extern "C"
         SETFLOAT(av+2, (float)value);
         libpd_multi_midisend("camomile", "#polyaftertouch", 3, av);
     }
+    
+    static void libpd_multi_post(const char* s)
+    {
+        printf("%s", s);
+        t_symbol *sym = gensym("camomile");
+        if(sym->s_thing)
+        {
+            mess1(sym->s_thing, gensym("#post"), (void *)s);
+        }
+    }
+    
 }
 
 namespace pd
@@ -253,18 +274,19 @@ namespace pd
         static int initialized = 0;
         if(!initialized)
         {
-            assert(PDINSTANCE && "PDINSTANCE undefined");
-            assert(PDTHREADS && "PDTHREADS undefined");
-            libpd_init();
-            libpd_multirec_setup();
-            initialized = 1;
-            
             libpd_set_noteonhook(libpd_multi_noteon);
             libpd_set_controlchangehook(libpd_multi_controlchange);
             libpd_set_programchangehook(libpd_multi_programchange);
             libpd_set_pitchbendhook(libpd_multi_pitchbend);
             libpd_set_aftertouchhook(libpd_multi_aftertouch);
             libpd_set_polyaftertouchhook(libpd_multi_polyaftertouch);
+            //libpd_set_printhook(libpd_multi_post);
+            
+            assert(PDINSTANCE && "PDINSTANCE undefined");
+            assert(PDTHREADS && "PDTHREADS undefined");
+            libpd_init();
+            libpd_multirec_setup();
+            initialized = 1;
         }
         
         m_instance = libpd_new_instance();
@@ -274,6 +296,10 @@ namespace pd
     
     instance::~instance()
     {
+        for(size_t i = 0; i < m_receivers.size(); ++i)
+        {
+            pd_free((t_pd *)m_receivers[i]);
+        }
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_free_instance(static_cast<t_pdinstance *>(m_instance));
     }

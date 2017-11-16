@@ -97,7 +97,7 @@ void CamomileAudioProcessor::setCurrentProgram (int index)
         }
         sendFloat("program", static_cast<float>(index+1));
     }
-    
+    processReceive();
 }
 
 const String CamomileAudioProcessor::getProgramName (int index)
@@ -149,6 +149,7 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     const std::string input = layouts.getMainInputChannelSet().getDescription().toStdString();
     const std::string output = layouts.getMainOutputChannelSet().getDescription().toStdString();
     sendList(std::string("buses"), {input, output});
+    processReceive();
 }
 
 void CamomileAudioProcessor::releaseResources()
@@ -365,6 +366,7 @@ bool CamomileAudioProcessor::processParameters(const std::string& dest, const st
                     std::cerr << "parameter define method: index out of range.\n";
                 }
             }
+            else { std::cerr << "param error syntax: method index...\n"; }
         }
         return true;
     }
@@ -464,11 +466,26 @@ bool CamomileAudioProcessor::processOption(const std::string& dest, const std::s
     return false;
 }
 
+bool CamomileAudioProcessor::processPost(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
+{
+    if(msg == std::string("#post"))
+    {
+        if(list[0].isSymbol())
+        {
+            std::string const mess = list[0].getSymbol();
+            std::cout << "post :" << mess.size() << " : |" << mess << "| \n";
+        }
+        return true;
+    }
+    return false;
+}
+
 void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
 {
     if(!processParameters(dest, msg, list) &&
-       !processPrograms(dest, msg, list) &&
        !processMidi(dest, msg, list) &&
+       !processPost(dest, msg, list) &&
+       !processPrograms(dest, msg, list) &&
        !processOption(dest, msg, list))
     {
         std::cerr << "camomile unknow message : "<< msg << "\n";
