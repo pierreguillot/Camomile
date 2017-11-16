@@ -8,6 +8,24 @@
 #include <stdexcept>
 #include <cmath>
 
+StringArray CamomileAtomParser::parseList(const std::vector<pd::Atom>& list, const String& name)
+{
+    StringArray elemslist;
+    String const elems = CamomileAtomParser::parseString(list, name);
+    if(elems.isNotEmpty())
+    {
+        int start = 0, next = elems.indexOfChar(0, '/');
+        while(next != -1)
+        {
+            elemslist.add(elems.substring(start, next));
+            start = next+1;
+            next = elems.indexOfChar(start, '/');
+        }
+        elemslist.add(elems.substring(start));
+    }
+    return elemslist;
+}
+
 String CamomileAtomParser::parseString(const std::vector<pd::Atom>& list, const String& name)
 {
     String def;

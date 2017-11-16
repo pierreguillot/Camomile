@@ -63,6 +63,7 @@ private:
     bool processMidi(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
     bool processOption(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
     bool processPost(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
+    bool processChannels(const std::string& msg, const std::vector<pd::Atom>& list);
     
     bool            m_midi_in_support   =false;
     bool            m_midi_out_support  =false;
@@ -79,6 +80,9 @@ private:
     
     Array<Program>  m_programs;
     int             m_program_current = 0;
-
+    
+    StringArray m_input_sets;
+    StringArray m_output_sets;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)
 };

@@ -1,4 +1,4 @@
-#N canvas 70 169 970 313 10;
+#N canvas 157 401 1139 277 10;
 #X obj 100 39 adc~ 1 2;
 #X obj 100 181 dac~ 1 2;
 #X obj 614 29 loadbang;
@@ -14,7 +14,8 @@
 0 \; param define 2 -name Volume -label dB -min 0 -max 100 -default
 0 \; param define 3 -name Mute -list Off/On -default On \; param define
 4 -name Dummy -list Off/On -default On -auto false -meta false \; program
-define 1 John \; program define 2 Hammond 321 12 \;;
+define 1 John \; program define 2 Hammond 321 12 \; define channels
+-inputs 1/2/3/4 -outputs 1/2/3/4;
 #X obj 614 137 text get \$0-config;
 #X obj 614 159 list trim;
 #X obj 19 21 r param;
@@ -24,13 +25,19 @@ define 1 John \; program define 2 Hammond 321 12 \;;
 #X obj 256 92 loadbang;
 #X obj 256 114 metro 100;
 #X obj 255 220 s camomile;
-#X obj 250 15 r buses;
-#X obj 250 37 print bubu;
 #X msg 256 157 param set 3 \$1;
 #X obj 489 225 notein, f 7;
 #X obj 489 259 noteout;
 #X obj 332 18 r program;
 #X obj 332 40 print program;
+#X obj 457 96 samplerate~;
+#X obj 457 69 r pd-dsp-started;
+#X floatatom 457 123 7 0 0 0 - - -, f 7;
+#X obj 457 142 print samplerate;
+#X obj 812 45 r channels;
+#X obj 812 66 route inputs outputs;
+#X obj 812 111 print inputs;
+#X obj 880 89 print outputs;
 #X connect 0 0 1 0;
 #X connect 0 1 1 1;
 #X connect 2 0 4 0;
@@ -45,8 +52,13 @@ define 1 John \; program define 2 Hammond 321 12 \;;
 #X connect 12 0 14 0;
 #X connect 13 0 1 0;
 #X connect 14 0 13 0;
-#X connect 15 0 21 0;
+#X connect 15 0 19 0;
 #X connect 16 0 17 0;
 #X connect 17 0 15 0;
-#X connect 19 0 20 0;
-#X connect 24 0 25 0;
+#X connect 22 0 23 0;
+#X connect 24 0 26 0;
+#X connect 25 0 24 0;
+#X connect 26 0 27 0;
+#X connect 28 0 29 0;
+#X connect 29 0 30 0;
+#X connect 29 1 31 0;

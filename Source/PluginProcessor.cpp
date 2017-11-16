@@ -23,9 +23,7 @@
 #endif
 
 CamomileAudioProcessor::CamomileAudioProcessor() :
-AudioProcessor(BusesProperties()
-               .withInput("Input", AudioChannelSet::stereo())
-               .withOutput("Output", AudioChannelSet::stereo()))
+AudioProcessor()
 {
     juce::File const plugin = juce::File::getSpecialLocation(juce::File::currentApplicationFile).getFullPathName();
     if(plugin.exists())
@@ -124,12 +122,25 @@ void CamomileAudioProcessor::changeProgramName (int index, const String& newName
 
 bool CamomileAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
-    const AudioChannelSet& mainOutput = layouts.getMainOutputChannelSet();
-    const AudioChannelSet& mainInput  = layouts.getMainInputChannelSet();
-    
-    //sendList(std::string("buses"), {});
-    //std::cout << "| Input : "<< mainInput.getDescription() << " | Output : " << mainOutput.getDescription() << " |\n";
-    return true;
+    bool pass_in = false;
+    {
+        const AudioChannelSet& set  = layouts.getMainInputChannelSet();
+        String input_desc = set.getDescription().toLowerCase();
+        for(int i = 0; i < m_input_sets.size() && !pass_in; ++i)
+        {
+            pass_in = m_input_sets[i] == input_desc || m_input_sets[i].getIntValue() == set.size();
+        }
+    }
+    bool pass_out = false;
+    {
+        const AudioChannelSet& set  = layouts.getMainOutputChannelSet();
+        String output_desc = set.getDescription().toLowerCase();
+        for(int i = 0; i < m_input_sets.size() && !pass_out; ++i)
+        {
+            pass_out = m_input_sets[i] == output_desc || m_input_sets[i].getIntValue() == set.size();
+        }
+    }
+    return pass_in && pass_out;
 }
 
 void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
@@ -145,10 +156,24 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
         std::cerr << e.what() << "\n";
     }
     
-    const BusesLayout& layouts(getBusesLayout());
-    const std::string input = layouts.getMainInputChannelSet().getDescription().toStdString();
-    const std::string output = layouts.getMainOutputChannelSet().getDescription().toStdString();
-    sendList(std::string("buses"), {input, output});
+    {
+        const BusesLayout& layouts(getBusesLayout());
+        AudioChannelSet inputs  = layouts.getMainInputChannelSet();
+        AudioChannelSet outputs = layouts.getMainOutputChannelSet();
+        String ins_desc     = inputs.getDescription().toLowerCase();
+        String outs_desc    = outputs.getDescription().toLowerCase();
+        if(ins_desc.contains("discrete"))
+        {
+            ins_desc = "discrete";
+        }
+        if(outs_desc.contains("discrete"))
+        {
+            outs_desc = "discrete";
+        }
+        sendMessage(std::string("channels"), std::string("inputs"), {inputs.size(), ins_desc.toStdString()});
+        sendMessage(std::string("channels"), std::string("outputs"), {outputs.size(), outs_desc.toStdString()});
+    }
+    
     processReceive();
 }
 
@@ -178,20 +203,20 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         if(playhead && playhead->getCurrentPosition(infos))
         {
             std::string const splayhead("playhead");
-            sendList(splayhead, {"bpm", static_cast<float>(infos.bpm)});
-            sendList(splayhead, {"timeSigNumerator", static_cast<float>(infos.timeSigNumerator)});
-            sendList(splayhead, {"timeSigDenominator", static_cast<float>(infos.timeSigDenominator)});
-            sendList(splayhead, {"timeInSamples", static_cast<float>(infos.timeInSamples)});
-            sendList(splayhead, {"timeInSeconds", static_cast<float>(infos.timeInSeconds)});
-            sendList(splayhead, {"editOriginTime", static_cast<float>(infos.editOriginTime)});
-            sendList(splayhead, {"ppqPosition", static_cast<float>(infos.ppqPosition)});
-            sendList(splayhead, {"ppqPositionOfLastBarStart", static_cast<float>(infos.ppqPositionOfLastBarStart)});
-            sendList(splayhead, {"frameRate", static_cast<float>(infos.frameRate)});
-            sendList(splayhead, {"isPlaying", static_cast<float>(infos.isPlaying)});
-            sendList(splayhead, {"isRecording", static_cast<float>(infos.isRecording)});
-            sendList(splayhead, {"ppqLoopStart", static_cast<float>(infos.ppqLoopStart)});
-            sendList(splayhead, {"ppqLoopEnd", static_cast<float>(infos.ppqLoopEnd)});
-            sendList(splayhead, {"isLooping", static_cast<float>(infos.isLooping)});
+            sendMessage(splayhead, std::string("bpm"), {static_cast<float>(infos.bpm)});
+            sendMessage(splayhead, std::string("timeSigNumerator"), {static_cast<float>(infos.timeSigNumerator)});
+            sendMessage(splayhead, std::string("timeSigDenominator"), {static_cast<float>(infos.timeSigDenominator)});
+            sendMessage(splayhead, std::string("timeInSamples"), {static_cast<float>(infos.timeInSamples)});
+            sendMessage(splayhead, std::string("timeInSeconds"), {static_cast<float>(infos.timeInSeconds)});
+            sendMessage(splayhead, std::string("editOriginTime"), {static_cast<float>(infos.editOriginTime)});
+            sendMessage(splayhead, std::string("ppqPosition"), {static_cast<float>(infos.ppqPosition)});
+            sendMessage(splayhead, std::string("ppqPositionOfLastBarStart"), {static_cast<float>(infos.ppqPositionOfLastBarStart)});
+            sendMessage(splayhead, std::string("frameRate"), {static_cast<float>(infos.frameRate)});
+            sendMessage(splayhead, std::string("isPlaying"), {static_cast<float>(infos.isPlaying)});
+            sendMessage(splayhead, std::string("isRecording"), {static_cast<float>(infos.isRecording)});
+            sendMessage(splayhead, std::string("ppqLoopStart"), {static_cast<float>(infos.ppqLoopStart)});
+            sendMessage(splayhead, std::string("ppqLoopEnd"), {static_cast<float>(infos.ppqLoopEnd)});
+            sendMessage(splayhead, std::string("isLooping"), {static_cast<float>(infos.isLooping)});
         }
     }
     
@@ -480,13 +505,37 @@ bool CamomileAudioProcessor::processPost(const std::string& dest, const std::str
     return false;
 }
 
+bool CamomileAudioProcessor::processChannels(const std::string& msg, const std::vector<pd::Atom>& list)
+{
+    if(msg == std::string("define"))
+    {
+        if(list[0].isSymbol() && list[0].getSymbol() == std::string("channels"))
+        {
+            m_input_sets  = CamomileAtomParser::parseList(list, "-inputs");
+            for(int i = 0; i < m_input_sets.size(); ++i)
+            {
+                m_input_sets.getReference(i) = m_input_sets[i].toLowerCase();
+            }
+            m_output_sets    = CamomileAtomParser::parseList(list, "-outputs");
+            for(int i = 0; i < m_input_sets.size(); ++i)
+            {
+                m_output_sets.getReference(i) = m_output_sets[i].toLowerCase();
+            }
+            return true;
+        }
+        
+    }
+    return false;
+}
+
 void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
 {
     if(!processParameters(dest, msg, list) &&
        !processMidi(dest, msg, list) &&
        !processPost(dest, msg, list) &&
        !processPrograms(dest, msg, list) &&
-       !processOption(dest, msg, list))
+       !processOption(dest, msg, list) &&
+       !processChannels(msg, list))
     {
         std::cerr << "camomile unknow message : "<< msg << "\n";
     }
