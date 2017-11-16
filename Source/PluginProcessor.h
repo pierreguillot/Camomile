@@ -13,7 +13,8 @@
 //                                      PROCESSOR                                           //
 // ======================================================================================== //
 
-class CamomileAudioProcessor  : public AudioProcessor, pd::instance
+
+class CamomileAudioProcessor : public AudioProcessor, pd::instance
 {
 public:
     //==============================================================================
@@ -83,6 +84,6 @@ private:
     
     StringArray m_input_sets;
     StringArray m_output_sets;
-    
+    String      m_name;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)
 };

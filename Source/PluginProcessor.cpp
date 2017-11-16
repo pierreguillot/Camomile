@@ -21,6 +21,7 @@
 #else
 #define CAMOMILE_RESSOURCE_PATH juce::String("")
 #endif
+static char const* real_plugin_name;
 
 CamomileAudioProcessor::CamomileAudioProcessor() :
 AudioProcessor()
@@ -28,10 +29,11 @@ AudioProcessor()
     juce::File const plugin = juce::File::getSpecialLocation(juce::File::currentApplicationFile).getFullPathName();
     if(plugin.exists())
     {
-        juce::String name   = plugin.getFileNameWithoutExtension();
-        juce::File   infos  = plugin.getFullPathName() + CAMOMILE_RESSOURCE_PATH +  juce::File::getSeparatorString() + name + juce::String(".txt");
+        m_name  = plugin.getFileNameWithoutExtension();
+        real_plugin_name = m_name.toRawUTF8();
+        juce::File   infos  = plugin.getFullPathName() + CAMOMILE_RESSOURCE_PATH +  juce::File::getSeparatorString() + m_name + juce::String(".txt");
         bind("camomile");
-        open((plugin.getFullPathName() + CAMOMILE_RESSOURCE_PATH).toStdString(), name.toStdString() + std::string(".pd"));
+        open((plugin.getFullPathName() + CAMOMILE_RESSOURCE_PATH).toStdString(), m_name.toStdString() + std::string(".pd"));
         processReceive();
     }
 }
@@ -43,7 +45,12 @@ CamomileAudioProcessor::~CamomileAudioProcessor()
 //==============================================================================
 const String CamomileAudioProcessor::getName() const
 {
-    return JucePlugin_Name;
+    return m_name;
+}
+
+const char * CamomileNameTricker::getPluginName()
+{
+    return real_plugin_name;
 }
 
 bool CamomileAudioProcessor::acceptsMidi() const

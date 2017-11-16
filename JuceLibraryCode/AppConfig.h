@@ -13,9 +13,14 @@
 
 #pragma once
 
+class CamomileNameTricker
+{
+public:
+    static char const* getPluginName();
+};
 //==============================================================================
 // [BEGIN_USER_CODE_SECTION]
-
+#define JucePlugin_Name CamomileNameTricker::getPluginName()
 #define JUCE_DISPLAY_SPLASH_SCREEN 0
 // [END_USER_CODE_SECTION]
 
