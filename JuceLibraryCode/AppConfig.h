@@ -13,14 +13,11 @@
 
 #pragma once
 
-class CamomileNameTricker
-{
-public:
-    static char const* getPluginName();
-};
 //==============================================================================
 // [BEGIN_USER_CODE_SECTION]
-#define JucePlugin_Name CamomileNameTricker::getPluginName()
+#include "../Source/PluginEnvironment.h"
+#define JucePlugin_Name CamomileEnvironment::getPluginNameUTF8()
+#define JucePlugin_PluginCode CamomileEnvironment::getPluginID()
 #define JUCE_DISPLAY_SPLASH_SCREEN 0
 // [END_USER_CODE_SECTION]
 
@@ -321,13 +318,13 @@ public:
  #define JucePlugin_EditorRequiresKeyboardFocus  0
 #endif
 #ifndef  JucePlugin_Version
- #define JucePlugin_Version                0.1.0.1
+ #define JucePlugin_Version                0.1.0
 #endif
 #ifndef  JucePlugin_VersionCode
- #define JucePlugin_VersionCode            0x10001
+ #define JucePlugin_VersionCode            0x100
 #endif
 #ifndef  JucePlugin_VersionString
- #define JucePlugin_VersionString          "0.1.0.1"
+ #define JucePlugin_VersionString          "0.1.0"
 #endif
 #ifndef  JucePlugin_VSTUniqueID
  #define JucePlugin_VSTUniqueID            JucePlugin_PluginCode

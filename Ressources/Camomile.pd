@@ -1,31 +1,18 @@
-#N canvas 157 401 1139 277 10;
+#N canvas 287 69 1073 557 10;
 #X obj 100 39 adc~ 1 2;
 #X obj 100 181 dac~ 1 2;
 #X obj 614 29 loadbang;
-#X obj 614 182 s camomile;
-#X obj 614 51 text size \$0-config;
-#X obj 614 115 f 0;
+#X obj 614 205 s camomile;
 #X obj 644 115 + 1;
 #X obj 614 93 until;
 #X obj 614 73 route float;
-#X obj 615 7 text define -k \$0-config;
-#A set option -midiin true -midiout true -playhead true \; param define
-1 -name Frequency -label Hz -min 0 -max 22050 -default 220 -nsteps
-0 \; param define 2 -name Volume -label dB -min 0 -max 100 -default
-0 \; param define 3 -name Mute -list Off/On -default On \; param define
-4 -name Dummy -list Off/On -default On -auto false -meta false \; program
-define 1 John \; program define 2 Hammond 321 12 \; define channels
--inputs 1/2/3/4 -outputs 1/2/3/4;
-#X obj 614 137 text get \$0-config;
-#X obj 614 159 list trim;
+#X obj 614 182 list trim;
 #X obj 19 21 r param;
-#X obj 19 103 osc~ 220;
 #X obj 19 73 route 1;
-#X obj 256 135 random 100;
+#X obj 275 165 random 100;
 #X obj 256 92 loadbang;
 #X obj 256 114 metro 100;
-#X obj 255 220 s camomile;
-#X msg 256 157 param set 3 \$1;
+#X obj 256 220 s camomile;
 #X obj 489 225 notein, f 7;
 #X obj 489 259 noteout;
 #X obj 332 18 r program;
@@ -38,27 +25,87 @@ define 1 John \; program define 2 Hammond 321 12 \; define channels
 #X obj 812 66 route inputs outputs;
 #X obj 812 111 print inputs;
 #X obj 880 89 print outputs;
-#X connect 0 0 1 0;
-#X connect 0 1 1 1;
-#X connect 2 0 4 0;
-#X connect 4 0 8 0;
-#X connect 5 0 6 0;
-#X connect 5 0 10 0;
-#X connect 6 0 5 1;
-#X connect 7 0 5 0;
-#X connect 8 0 7 0;
-#X connect 10 0 11 0;
-#X connect 11 0 3 0;
-#X connect 12 0 14 0;
-#X connect 13 0 1 0;
-#X connect 14 0 13 0;
-#X connect 15 0 19 0;
+#X obj 155 103 dbtorms;
+#X obj 155 57 r param;
+#X obj 155 79 route 2;
+#X obj 19 125 *~;
+#X msg 155 125 \$1 20;
+#X obj 155 147 line~;
+#X obj 19 103 phasor~ 220;
+#X obj 614 115 f 0;
+#X msg 275 187 param set 2 \$1;
+#X obj 256 136 t b b b;
+#X msg 375 187 param change 2 1;
+#X msg 165 187 param change 2 0;
+#X obj 614 7 text define -k config;
+#A set param 1 -name Frequency -label Hz -min 0 -max 22050 -default
+220 -nsteps 0 \; param 2 -name Volume -label dB -min 0 -max 100 -default
+0 \; param 3 -name Mute -list Off/On -default On \; param 4 -name Dummy
+-list Off/On -default On -auto false -meta false \; program 1 John
+\; program 2 Hammond 321 12 \; channels -inputs 1/2/8/12 -outputs 1/2
+\; options -midiin true -midiout true -playhead true -midionly false
+\;;
+#X obj 169 270 r param;
+#X obj 169 292 route 4;
+#X obj 614 137 text get config;
+#X obj 614 51 text size config;
+#X obj 614 159 list prepend define;
+#X obj 230 343 hsl 128 15 0 127 0 0 \$0-slider-s \$0-slider-r empty
+-2 -8 0 10 -262144 -1 -1 0 1;
+#X obj 227 436 s camomile;
+#X msg 246 403 param set 2 \$1;
+#X msg 346 403 param change 2 1;
+#X msg 136 403 param change 2 0;
+#X obj 227 363 t b f b;
+#X obj 509 360 r gui;
+#X obj 509 382 route mousedown mouseup;
+#X obj 509 404 route \$0-slider-r;
+#X obj 576 434 route \$0-slider-r;
+#X connect 2 0 42 0;
+#X connect 4 0 33 1;
+#X connect 5 0 33 0;
+#X connect 6 0 5 0;
+#X connect 7 0 3 0;
+#X connect 8 0 9 0;
+#X connect 9 0 32 0;
+#X connect 10 0 34 0;
+#X connect 11 0 12 0;
+#X connect 12 0 35 0;
 #X connect 16 0 17 0;
-#X connect 17 0 15 0;
+#X connect 18 0 20 0;
+#X connect 19 0 18 0;
+#X connect 20 0 21 0;
 #X connect 22 0 23 0;
-#X connect 24 0 26 0;
-#X connect 25 0 24 0;
-#X connect 26 0 27 0;
-#X connect 28 0 29 0;
-#X connect 29 0 30 0;
-#X connect 29 1 31 0;
+#X connect 23 0 24 0;
+#X connect 23 1 25 0;
+#X connect 26 0 30 0;
+#X connect 27 0 28 0;
+#X connect 28 0 26 0;
+#X connect 29 0 1 0;
+#X connect 29 0 1 1;
+#X connect 30 0 31 0;
+#X connect 31 0 29 1;
+#X connect 32 0 29 0;
+#X connect 33 0 4 0;
+#X connect 33 0 41 0;
+#X connect 34 0 13 0;
+#X connect 35 0 37 0;
+#X connect 35 1 10 0;
+#X connect 35 2 36 0;
+#X connect 36 0 13 0;
+#X connect 37 0 13 0;
+#X connect 39 0 40 0;
+#X connect 41 0 43 0;
+#X connect 42 0 6 0;
+#X connect 43 0 7 0;
+#X connect 44 0 49 0;
+#X connect 46 0 45 0;
+#X connect 47 0 45 0;
+#X connect 48 0 45 0;
+#X connect 49 1 46 0;
+#X connect 50 0 51 0;
+#X connect 51 0 52 0;
+#X connect 51 1 53 0;
+#X connect 52 0 47 0;
+#X connect 53 0 48 0;
+#X coords 0 -1 1 1 85 60 1 100 100;

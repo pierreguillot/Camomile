@@ -17,11 +17,19 @@ StringArray CamomileAtomParser::parseList(const std::vector<pd::Atom>& list, con
         int start = 0, next = elems.indexOfChar(0, '/');
         while(next != -1)
         {
-            elemslist.add(elems.substring(start, next));
-            start = next+1;
-            next = elems.indexOfChar(start, '/');
+            String const newel = elems.substring(start, next);
+            if(newel.isNotEmpty())
+            {
+                elemslist.add(newel);
+                start = next+1;
+                next = elems.indexOfChar(start, '/');
+            }
         }
-        elemslist.add(elems.substring(start));
+        String const newel = elems.substring(start);
+        if(newel.isNotEmpty())
+        {
+            elemslist.add(newel);
+        }
     }
     return elemslist;
 }
