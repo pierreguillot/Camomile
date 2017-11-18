@@ -44,7 +44,7 @@
 -list Off/On -default On -auto false -meta false \; program 1 John
 \; program 2 Hammond 321 12 \; channels -inputs 1/2/8/12 -outputs 1/2
 \; options -midiin true -midiout true -playhead true -midionly false
-\;;
+\; uniqueid zaed;
 #X obj 169 270 r param;
 #X obj 169 292 route 4;
 #X obj 614 137 text get config;

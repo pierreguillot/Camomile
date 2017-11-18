@@ -8,10 +8,21 @@
 
 #include <string>
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                      ENVIRONMENT                                         //
+//////////////////////////////////////////////////////////////////////////////////////////////
+
 //! @brief The class manages the global environmment for Camomile
 class CamomileEnvironment
 {
 public:
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                                      GLOBAL                                          //
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    //! @brief Initialize the environment (only if you want to do it in advance).
+    static bool initialize();
     
     //! @brief Gets the name used by the plugin.
     static const char* getPluginNameUTF8();
@@ -20,7 +31,7 @@ public:
     static std::string getPluginName();
     
     //! @brief Gets the ID used by the plugin.
-    static long getPluginID();
+    static unsigned int getPluginID();
     
     //! @brief Gets the path to the Pd patch.
     static std::string getPatchPath();
@@ -31,14 +42,43 @@ public:
     //! @brief Gets if the environment is valid.
     static bool isValid();
     
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                                      OPTIONS                                         //
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    //! @brief Gets if the patch wants MIDI events.
+    static bool wantsMidi();
+    
+    //! @brief Gets if the patch produces MIDI events.
+    static bool producesMidi();
+    
+    //! @brief Gets if the patch wants play head information.
+    static bool wantsPlayHead();
+    
+    //! @brief Gets if the patch is valid (no audio).
+    static bool isMidiOnly();
+    
+    //! @brief Gets the tail length in seconds.
+    static float getTailLengthSeconds();
+    
 private:
     static CamomileEnvironment& get();
-    CamomileEnvironment();
     
-    std::string plugin_name = "Camomile";
-    std::string plugin_path = "";
-    long        plugin_id   = 0x4b707139;
-    std::string patch_name  = "Camomile.pd";
-    std::string patch_path  = "";
-    bool        valid       = false;
+    CamomileEnvironment();
+    void load();
+    void parse(std::string const& line);
+    
+    std::string     plugin_name = "Camomile";
+    std::string     plugin_path = "";
+    unsigned int    plugin_id   = 0x4b707139;
+    std::string     patch_name  = "Camomile.pd";
+    std::string     patch_path  = "";
+    bool            valid       = false;
+    
+    
+    bool    midi_in_support   = false;
+    bool    midi_out_support  = false;
+    bool    play_head_support = false;
+    bool    midi_only         = false;
+    float   tail_length_sec   = 0.f;
 };

@@ -19,25 +19,23 @@ class CamomileAudioProcessor : public AudioProcessor, pd::instance
 public:
     //==============================================================================
     CamomileAudioProcessor();
-    ~CamomileAudioProcessor();
+    ~CamomileAudioProcessor() {}
 
     //==============================================================================
-    bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
-    void prepareToPlay (double sampleRate, int samplesPerBlock) override;
-    void releaseResources() override;
-    void processBlock (AudioSampleBuffer&, MidiBuffer&) override;
+    bool isBusesLayoutSupported (const BusesLayout& layouts) const final;
+    void prepareToPlay (double sampleRate, int samplesPerBlock) final;
+    void releaseResources() final;
+    void processBlock (AudioSampleBuffer&, MidiBuffer&) final;
 
     //==============================================================================
-    AudioProcessorEditor* createEditor() override;
-    bool hasEditor() const override;
+    AudioProcessorEditor* createEditor() final;
+    bool hasEditor() const final;
 
-    //==============================================================================
-    const String getName() const override;
-
-    bool acceptsMidi() const override;
-    bool producesMidi() const override;
-    bool isMidiEffect () const override;
-    double getTailLengthSeconds() const override;
+    const String getName() const final { return CamomileEnvironment::getPluginName(); }
+    bool acceptsMidi() const final { return CamomileEnvironment::wantsMidi(); }
+    bool producesMidi() const final { return CamomileEnvironment::producesMidi(); }
+    bool isMidiEffect () const final { return CamomileEnvironment::isMidiOnly(); }
+    double getTailLengthSeconds() const final { return static_cast<float>(CamomileEnvironment::getTailLengthSeconds()); }
 
     //==============================================================================
     int getNumPrograms() override;
@@ -66,10 +64,6 @@ private:
     bool processPost(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
     bool processChannels(const std::string& msg, const std::vector<pd::Atom>& list);
     
-    bool            m_midi_in_support   =false;
-    bool            m_midi_out_support  =false;
-    bool            m_midi_only         =false;
-    bool            m_play_head_support =false;
     MidiBuffer      m_midi_buffer;
     
     typedef struct

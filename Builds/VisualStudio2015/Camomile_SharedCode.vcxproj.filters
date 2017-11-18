@@ -364,6 +364,9 @@
     <ClCompile Include="..\..\Source\PluginEnvironment.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\PluginParser.cpp">
+      <Filter>Camomile\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\PluginAtomParser.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
@@ -2152,6 +2155,9 @@
       <Filter>Camomile\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PluginEnvironment.h">
+      <Filter>Camomile\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\PluginParser.h">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PluginAtomParser.h">

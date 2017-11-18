@@ -24,26 +24,9 @@ CamomileAudioProcessor::CamomileAudioProcessor() : AudioProcessor()
         open(CamomileEnvironment::getPatchPath(), CamomileEnvironment::getPatchName());
         processReceive();
     }
-    else
-    {
-        
-    }
 }
 
-CamomileAudioProcessor::~CamomileAudioProcessor() {}
 
-const String CamomileAudioProcessor::getName() const { return CamomileEnvironment::getPluginName(); }
-
-bool CamomileAudioProcessor::acceptsMidi() const { return m_midi_in_support; }
-
-bool CamomileAudioProcessor::producesMidi() const { return m_midi_out_support; }
-
-bool CamomileAudioProcessor::isMidiEffect() const { return m_midi_only; }
-
-double CamomileAudioProcessor::getTailLengthSeconds() const
-{
-    return 0.0;
-}
 
 int CamomileAudioProcessor::getNumPrograms()
 {
@@ -175,7 +158,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                     PLAY HEAD                                        //
     //////////////////////////////////////////////////////////////////////////////////////////
-    if(m_play_head_support)
+    if(CamomileEnvironment::wantsPlayHead())
     {
         AudioPlayHead* playhead = getPlayHead();
         AudioPlayHead::CurrentPositionInfo infos;
@@ -202,7 +185,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                          MIDI                                        //
     //////////////////////////////////////////////////////////////////////////////////////////
-    if(m_midi_in_support)
+    if(CamomileEnvironment::wantsMidi())
     {
         MidiMessage message;
         MidiBuffer::Iterator it(midiMessages);
@@ -249,7 +232,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     //////////////////////////////////////////////////////////////////////////////////////////
     processReceive();
     
-    if(m_midi_in_support)
+    if(CamomileEnvironment::producesMidi())
     {
         midiMessages.swapWith(m_midi_buffer);
         m_midi_buffer.clear();
@@ -461,10 +444,12 @@ bool CamomileAudioProcessor::processOption(const std::string& dest, const std::s
 {
     if(msg == std::string("option"))
     {
+        /*
         m_midi_in_support   = CamomileAtomParser::parseBool(list, "-midiin", m_midi_in_support);
         m_midi_out_support  = CamomileAtomParser::parseBool(list, "-midiout", m_midi_out_support);
         m_midi_only         = CamomileAtomParser::parseBool(list, "-midionly", m_midi_only);
         m_play_head_support = CamomileAtomParser::parseBool(list, "-playhead", m_midi_out_support);
+        */
         return true;
     }
     return false;

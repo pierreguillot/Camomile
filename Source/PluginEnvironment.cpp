@@ -15,35 +15,41 @@ CamomileEnvironment& CamomileEnvironment::get()
     return env;
 }
 
-const char* CamomileEnvironment::getPluginNameUTF8()
-{
-    return get().plugin_name.c_str();
-}
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                          GLOBAL                                          //
+//////////////////////////////////////////////////////////////////////////////////////////////
 
-std::string CamomileEnvironment::getPluginName()
-{
-    return get().plugin_name;
-}
+bool CamomileEnvironment::initialize() { return isValid(); }
 
-long CamomileEnvironment::getPluginID()
-{
-    return get().plugin_id;
-}
+const char* CamomileEnvironment::getPluginNameUTF8() { return get().plugin_name.c_str(); }
 
-std::string CamomileEnvironment::getPatchPath()
-{
-    return get().patch_path;
-}
+std::string CamomileEnvironment::getPluginName() { return get().plugin_name; }
 
-std::string CamomileEnvironment::getPatchName()
-{
-    return get().patch_name;
-}
+unsigned int CamomileEnvironment::getPluginID() { return get().plugin_id; }
 
-bool CamomileEnvironment::isValid()
-{
-    return get().valid;
-}
+std::string CamomileEnvironment::getPatchPath() { return get().patch_path; }
+
+std::string CamomileEnvironment::getPatchName() { return get().patch_name; }
+
+bool CamomileEnvironment::isValid() { return get().valid; }
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                          OPTIONS                                         //
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+bool CamomileEnvironment::wantsMidi() { return get().midi_in_support; }
+
+bool CamomileEnvironment::producesMidi() { return get().midi_out_support; }
+
+bool CamomileEnvironment::wantsPlayHead() { return get().play_head_support; }
+
+bool CamomileEnvironment::isMidiOnly() { return get().midi_only; }
+
+float CamomileEnvironment::getTailLengthSeconds() { return get().tail_length_sec; }
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                          CONSTRUCTOR                                     //
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 CamomileEnvironment::CamomileEnvironment()
 {
@@ -56,13 +62,32 @@ CamomileEnvironment::CamomileEnvironment()
 #ifdef JUCE_MAC
         patch_path = plugin_name + std::string("/Contents/Resources");
 #else
-        patch_path = plugin_name + std::string("/") + plugin_name;
+        patch_path = plugin_name + String(File::getSeparatorString()).toStdString() + plugin_name;
 #endif
         juce::File const patch(String(patch_path + patch_name));
-        if(patch.exists())
-        {
-            valid = patch.exists();
-        }
+        load();
     }
 }
 
+void CamomileEnvironment::load()
+{
+    juce::File const patch(String(patch_path + plugin_name));
+    if(patch.exists())
+    {
+        FileInputStream stream(patch);
+        if(stream.openedOk())
+        {
+            String line = stream.readNextLine();
+            while(line.isNotEmpty())
+            {
+                parse(stream.readNextLine().toStdString());
+            }
+        }
+        valid = true;
+    }
+}
+
+void CamomileEnvironment::parse(std::string const& line)
+{
+    
+}
