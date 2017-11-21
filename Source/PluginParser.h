@@ -16,10 +16,9 @@
 class CamomileParser
 {
 public:
-    static StringArray parseList(const std::vector<pd::Atom>& list, const String& name);
-    static String parseString(const std::vector<pd::Atom>& list, const String& name);
-    static float parseFloat(const std::vector<pd::Atom>& list, const String& name, float const def);
-    static int parseInt(const std::vector<pd::Atom>& list, const String& name, int const def);
-    static bool parseBool(const std::vector<pd::Atom>& list, const String& name, bool const def);
+    static void perform(juce::File const& file);
+    
+private:
+    static var perform(String const& line);
 };
 
