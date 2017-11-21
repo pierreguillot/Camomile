@@ -63,10 +63,7 @@ public:
     
 private:
     static CamomileEnvironment& get();
-    
     CamomileEnvironment();
-    void load();
-    void parse(std::string const& line);
     
     std::string     plugin_name = "Camomile";
     std::string     plugin_path = "";

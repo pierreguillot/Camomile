@@ -5,9 +5,12 @@
 */
 
 #include "PluginEnvironment.h"
+#include "PluginParser.h"
 #include "../JuceLibraryCode/JuceHeader.h"
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                      ENVIRONMENT                                         //
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 CamomileEnvironment& CamomileEnvironment::get()
 {
@@ -64,30 +67,8 @@ CamomileEnvironment::CamomileEnvironment()
 #else
         patch_path = plugin_name + String(File::getSeparatorString()).toStdString() + plugin_name;
 #endif
-        juce::File const patch(String(patch_path + patch_name));
-        load();
+        
+        CamomileParser::perform(juce::File(String(patch_path + patch_name)));
     }
 }
 
-void CamomileEnvironment::load()
-{
-    juce::File const patch(String(patch_path + plugin_name));
-    if(patch.exists())
-    {
-        FileInputStream stream(patch);
-        if(stream.openedOk())
-        {
-            String line = stream.readNextLine();
-            while(line.isNotEmpty())
-            {
-                parse(stream.readNextLine().toStdString());
-            }
-        }
-        valid = true;
-    }
-}
-
-void CamomileEnvironment::parse(std::string const& line)
-{
-    
-}
