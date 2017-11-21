@@ -38,8 +38,8 @@ public:
     double getTailLengthSeconds() const final { return static_cast<float>(CamomileEnvironment::getTailLengthSeconds()); }
 
     //==============================================================================
-    int getNumPrograms() override;
-    int getCurrentProgram() override;
+    int getNumPrograms() final { return static_cast<int>(m_programs.size()); };
+    int getCurrentProgram() final { return m_program_current; }
     void setCurrentProgram (int index) override;
     const String getProgramName (int index) override;
     void changeProgramName (int index, const String& newName) override;
@@ -54,26 +54,20 @@ public:
 private:
     
     bool processParameters(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
-    bool processPrograms(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
     bool processMidi(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
-    bool processOption(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
     bool processPost(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
-    bool processChannels(const std::string& msg, const std::vector<pd::Atom>& list);
     
-    MidiBuffer      m_midi_buffer;
+    int m_program_current = 0;
+    MidiBuffer               m_midi_buffer;
+    std::vector<std::string> m_programs;
+    /*
     
-    typedef struct
-    {
-        String       name;
-        String       alias;
-        Array<float> values;
-    } Program;
     
-    Array<Program>  m_programs;
-    int             m_program_current = 0;
+    
     
     StringArray m_input_sets;
     StringArray m_output_sets;
+     */
   
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)
 };

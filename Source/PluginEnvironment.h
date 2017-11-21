@@ -7,6 +7,8 @@
 #pragma once
 
 #include <string>
+#include <utility>
+#include <vector>
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                      ENVIRONMENT                                         //
@@ -61,6 +63,13 @@ public:
     //! @brief Gets the tail length in seconds.
     static float getTailLengthSeconds();
     
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                                      PROGRAMS                                        //
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    //! @brief Gets the programs.
+    static std::vector<std::string> const& getPrograms();
+    
 private:
     static CamomileEnvironment& get();
     CamomileEnvironment();
@@ -78,4 +87,6 @@ private:
     bool    play_head_support = false;
     bool    midi_only         = false;
     float   tail_length_sec   = 0.f;
+    
+    std::vector<std::string> programs;
 };

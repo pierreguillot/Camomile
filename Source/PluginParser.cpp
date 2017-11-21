@@ -32,14 +32,14 @@ var CamomileParser::perform(String const& line)
     {
         start = next+1;
         next = line.indexOfChar(start+1, ' ');
-        StringRef const word = (next == -1)  ? line.substring(0) : line.substring(0, next);
+        String const word = (next == -1)  ? line.substring(0) : line.substring(0, next);
         if(word.startsWithChar('-'))
         {
             array.add(var());
         }
         else
         {
-            JSON::parse(word);
+            JSON::parse(StringRef(word));
         }
     }
     

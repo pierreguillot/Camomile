@@ -16,7 +16,8 @@
 // ======================================================================================== //
 
 
-CamomileAudioProcessor::CamomileAudioProcessor() : AudioProcessor()
+CamomileAudioProcessor::CamomileAudioProcessor() : AudioProcessor(),
+m_programs(CamomileEnvironment::getPrograms())
 {
     bind("camomile");
     if(CamomileEnvironment::isValid())
@@ -27,34 +28,11 @@ CamomileAudioProcessor::CamomileAudioProcessor() : AudioProcessor()
 }
 
 
-
-int CamomileAudioProcessor::getNumPrograms()
-{
-    return m_programs.isEmpty() ? 1 : m_programs.size();
-}
-
-int CamomileAudioProcessor::getCurrentProgram()
-{
-    return m_program_current;
-}
-
 void CamomileAudioProcessor::setCurrentProgram(int index)
 {
     if(index < m_programs.size())
     {
         m_program_current = index;
-        Array<float> const& values = m_programs.getReference(index).values;
-        std::string const sparam("param");
-        OwnedArray<AudioProcessorParameter> const& parameters = AudioProcessor::getParameters();
-        for(int i = 0; i < values.size() && parameters.size(); ++i)
-        {
-            CamomileAudioParameter* p = static_cast<CamomileAudioParameter*>(parameters[i]);
-            if(p)
-            {
-                p->setOriginalScaledValueNotifyingHost(values[i]);
-                sendList(sparam, {float(i+1), p->getOriginalScaledValue()});
-            }
-        }
         sendFloat("program", static_cast<float>(index+1));
     }
     processReceive();
@@ -62,22 +40,13 @@ void CamomileAudioProcessor::setCurrentProgram(int index)
 
 const String CamomileAudioProcessor::getProgramName (int index)
 {
-    if(index < m_programs.size())
-    {
-        if(m_programs[index].alias.isNotEmpty())
-            return m_programs[index].alias;
-        else
-            return m_programs[index].name;
-    }
+    if(index < m_programs.size()) { return String(m_programs[index]); }
     return {};
 }
 
-void CamomileAudioProcessor::changeProgramName (int index, const String& newName)
+void CamomileAudioProcessor::changeProgramName(int index, const String& newName)
 {
-    if(index < m_programs.size())
-    {
-        m_programs[index].alias = newName;
-    }
+    if(index < m_programs.size()) { m_programs[index] = newName.toStdString(); }
 }
 
 //==============================================================================
@@ -88,19 +57,23 @@ bool CamomileAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts)
     {
         const AudioChannelSet& set  = layouts.getMainInputChannelSet();
         String input_desc = set.getDescription().toLowerCase();
+        /*
         for(int i = 0; i < m_input_sets.size() && !pass_in; ++i)
         {
             pass_in = m_input_sets[i] == input_desc || m_input_sets[i].getIntValue() == set.size();
         }
+         */
     }
     bool pass_out = false;
     {
         const AudioChannelSet& set  = layouts.getMainOutputChannelSet();
         String output_desc = set.getDescription().toLowerCase();
+        /*
         for(int i = 0; i < m_input_sets.size() && !pass_out; ++i)
         {
             pass_out = m_input_sets[i] == output_desc || m_input_sets[i].getIntValue() == set.size();
         }
+         */
     }
     return pass_in && pass_out;
 }
@@ -287,15 +260,9 @@ bool CamomileAudioProcessor::processParameters(const std::string& dest, const st
                     {
                         param->setOriginalScaledValueNotifyingHost(list[2].getFloat());
                     }
-                    else
-                    {
-                        std::cerr << "parameter set method index: out of range.\n";
-                    }
+                    else { std::cerr << "parameter set method index: out of range.\n"; }
                 }
-                else
-                {
-                    std::cerr << "parameter set method: wrong argument.\n";
-                }
+                else { std::cerr << "parameter set method: wrong argument.\n"; }
             }
             else if(method == "change")
             {
@@ -304,71 +271,15 @@ bool CamomileAudioProcessor::processParameters(const std::string& dest, const st
                     CamomileAudioParameter* param = static_cast<CamomileAudioParameter *>(getParameters()[index - 1]);
                     if(param)
                     {
-                        if(static_cast<bool>(list[2].getFloat()))
-                        {
-                            param->beginChangeGesture();
-                        }
-                        else
-                        {
-                            param->endChangeGesture();
-                        }
+                        static_cast<bool>(list[2].getFloat()) ? param->beginChangeGesture() : param->endChangeGesture();
                     }
-                    else
-                    {
-                        std::cerr << "parameter change method index: out of range.\n";
-                    }
+                    else { std::cerr << "parameter change method index: out of range.\n"; }
                 }
-                else
-                {
-                    std::cerr << "parameter set method: wrong argument.\n";
-                }
+                else { std::cerr << "parameter change method: wrong argument.\n"; }
             }
-            else if(method == "define")
-            {
-                if(index == getParameters().size()+1)
-                {
-                    std::vector<pd::Atom> args(list.begin()+2, list.end());
-                    addParameter(CamomileAudioParameter::parse(args));
-                }
-                else
-                {
-                    std::cerr << "parameter define method: index out of range.\n";
-                }
-            }
-            else { std::cerr << "param error syntax: method index...\n"; }
+            else { std::cerr << "param no method: " << method << "\n"; }
         }
-        return true;
-    }
-    return false;
-}
-
-bool CamomileAudioProcessor::processPrograms(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
-{
-    if(msg == std::string("program"))
-    {
-        if(list.size() >= 2 && list[0].isSymbol() && list[1].isFloat())
-        {
-            std::string const method = list[0].getSymbol();
-            int const index = static_cast<int>(list[1].getFloat());
-            if(method == "define")
-            {
-                if(list.size() >= 3 && list[2].isSymbol())
-                {
-                    if(index == m_programs.size()+1)
-                    {
-                        m_programs.add({list[2].getSymbol(), "", Array<float>()});
-                        for(int i = 3; i < list.size(); ++i)
-                        {
-                            m_programs.getReference(index-1).values.add(list[i].getFloat());
-                        }
-                    }
-                    else { std::cerr << "program define method: index out of range.\n"; }
-                }
-                else { std::cerr << "program error syntax: define index name...\n"; }
-            }
-            else { std::cerr << "program unknown method: index out of range.\n"; }
-        }
-        else { std::cerr << "program error syntax: method index...\n"; }
+        else { std::cerr << "param error syntax: method index...\n"; }
         return true;
     }
     return false;
@@ -412,7 +323,7 @@ bool CamomileAudioProcessor::processMidi(const std::string& dest, const std::str
         m_midi_buffer.addEvent(MidiMessage::channelPressureChange(static_cast<int>(list[0].getFloat()),
                                                                   static_cast<int>(list[1].getFloat())), 0);
     }
-    else if(msg == "#aftertouch")
+    else if(msg == "#polyaftertouch")
     {
         m_midi_buffer.addEvent(MidiMessage::aftertouchChange(static_cast<int>(list[0].getFloat()),
                                                              static_cast<int>(list[1].getFloat()),
@@ -420,21 +331,6 @@ bool CamomileAudioProcessor::processMidi(const std::string& dest, const std::str
     }
     else { return false; }
     return true;
-}
-
-bool CamomileAudioProcessor::processOption(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
-{
-    if(msg == std::string("option"))
-    {
-        /*
-        m_midi_in_support   = CamomileAtomParser::parseBool(list, "-midiin", m_midi_in_support);
-        m_midi_out_support  = CamomileAtomParser::parseBool(list, "-midiout", m_midi_out_support);
-        m_midi_only         = CamomileAtomParser::parseBool(list, "-midionly", m_midi_only);
-        m_play_head_support = CamomileAtomParser::parseBool(list, "-playhead", m_midi_out_support);
-        */
-        return true;
-    }
-    return false;
 }
 
 bool CamomileAudioProcessor::processPost(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
@@ -451,37 +347,11 @@ bool CamomileAudioProcessor::processPost(const std::string& dest, const std::str
     return false;
 }
 
-bool CamomileAudioProcessor::processChannels(const std::string& msg, const std::vector<pd::Atom>& list)
-{
-    if(msg == std::string("define"))
-    {
-        if(list[0].isSymbol() && list[0].getSymbol() == std::string("channels"))
-        {
-            m_input_sets = CamomileAtomParser::parseList(list, "-inputs");
-            for(int i = 0; i < m_input_sets.size(); ++i)
-            {
-                m_input_sets.getReference(i) = m_input_sets[i].toLowerCase();
-            }
-            m_output_sets = CamomileAtomParser::parseList(list, "-outputs");
-            for(int i = 0; i < m_output_sets.size(); ++i)
-            {
-                m_output_sets.getReference(i) = m_output_sets[i].toLowerCase();
-            }
-            return true;
-        }
-        
-    }
-    return false;
-}
-
 void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
 {
     if(!processParameters(dest, msg, list) &&
        !processMidi(dest, msg, list) &&
-       !processPost(dest, msg, list) &&
-       !processPrograms(dest, msg, list) &&
-       !processOption(dest, msg, list) &&
-       !processChannels(msg, list))
+       !processPost(dest, msg, list))
     {
         std::cerr << "camomile unknow message : "<< msg << "\n";
     }
