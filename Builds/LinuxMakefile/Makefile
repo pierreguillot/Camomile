@@ -99,6 +99,7 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/PluginParameter_b51e717.o \
   $(JUCE_OBJDIR)/PluginChannelsManager_a89a146b.o \
   $(JUCE_OBJDIR)/PluginEditor_94d4fb09.o \
+  $(JUCE_OBJDIR)/x_libpd_multi_ede7788a.o \
   $(JUCE_OBJDIR)/xpd_da08444a.o \
   $(JUCE_OBJDIR)/include_juce_audio_basics_8a4e984a.o \
   $(JUCE_OBJDIR)/include_juce_audio_devices_63111d02.o \
@@ -186,6 +187,11 @@ $(JUCE_OBJDIR)/PluginEditor_94d4fb09.o: ../../Source/PluginEditor.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling PluginEditor.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/x_libpd_multi_ede7788a.o: ../../Source/xpd/x_libpd_multi.c
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling x_libpd_multi.c"
+	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/xpd_da08444a.o: ../../Source/xpd/xpd.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)

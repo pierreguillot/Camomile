@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <queue>
+#include <map>
 #include <utility>
 #include <string>
 #include <mutex>
@@ -91,6 +92,7 @@ namespace pd
         virtual void receiveList(const std::string& dest, const std::vector<Atom>& list) {}
         virtual void receiveMessage(const std::string& dest, const std::string& msg, const std::vector<Atom>& list) {}
         
+        
         void processReceive();
         
         void bind(std::string const& symbol);
@@ -106,15 +108,38 @@ namespace pd
         std::vector<float> m_inputs;
         std::vector<float> m_outputs;
         
-        struct _libpd_multirec;
-        std::mutex                               m_messages_mutex;
-        std::vector<void*>                       m_receivers;
+        
         struct message
         {
             std::string destination;
             std::string selector;
             std::vector<Atom> list;
         };
-        std::queue<message> m_messages;
+        std::queue<message>             m_messages;
+        std::mutex                      m_messages_mutex;
+        std::map<std::string, void*>    m_receivers;
+        
+        typedef struct midievent
+        {
+            enum
+            {
+                NOTEON,
+                CONTROLCHANGE,
+                PROGRAMCHANGE,
+                PITCHBEND,
+                AFTERTOUCH,
+                POLYAFTERTOUCH,
+                MIDIBYTE
+            } type;
+            int  midi1;
+            int  midi2;
+            int  midi3;
+        } midievent;
+        
+        std::queue<midievent> m_midi;
+        std::mutex            m_midi_mutex;
+        void*                 m_midi_receiver;
+        
+        struct internal;
     };
 }

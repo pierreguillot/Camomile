@@ -49,21 +49,20 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     
     
-    void receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list) override;
-
+    void receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list) final;
+    void receiveNoteOn(const int channel, const int pitch, const int velocity) final;
+    void receiveControlChange(const int channel, const int controller, const int value) final;
+    void receiveProgramChange(const int channel, const int value) final;
+    void receivePitchBend(const int channel, const int value) final;
+    void receiveAftertouch(const int channel, const int value) final;
+    void receivePolyAftertouch(const int channel, const int pitch, const int value) final;
+    void receiveMidiByte(const int port, const int byte) final;
 private:
-    
-    bool processParameters(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
-    bool processMidi(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
-    bool processPost(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list);
     
     int m_program_current = 0;
     MidiBuffer               m_midi_buffer;
     std::vector<std::string> m_programs;
     /*
-    
-    
-    
     
     StringArray m_input_sets;
     StringArray m_output_sets;

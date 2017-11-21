@@ -154,6 +154,7 @@
     <ClCompile Include="..\..\Source\PluginParameter.cpp"/>
     <ClCompile Include="..\..\Source\PluginChannelsManager.cpp"/>
     <ClCompile Include="..\..\Source\PluginEditor.cpp"/>
+    <ClCompile Include="..\..\Source\xpd\x_libpd_multi.c"/>
     <ClCompile Include="..\..\Source\xpd\xpd.cpp"/>
     <ClCompile Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
@@ -1793,6 +1794,7 @@
     <ClInclude Include="..\..\Source\PluginParameter.h"/>
     <ClInclude Include="..\..\Source\PluginChannelsManager.h"/>
     <ClInclude Include="..\..\Source\PluginEditor.h"/>
+    <ClInclude Include="..\..\Source\xpd\x_libpd_multi.h"/>
     <ClInclude Include="..\..\Source\xpd\xpd.h"/>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h"/>

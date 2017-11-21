@@ -379,6 +379,9 @@
     <ClCompile Include="..\..\Source\PluginEditor.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\xpd\x_libpd_multi.c">
+      <Filter>Camomile\xpd</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\xpd\xpd.cpp">
       <Filter>Camomile\xpd</Filter>
     </ClCompile>
@@ -2171,6 +2174,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\PluginEditor.h">
       <Filter>Camomile\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\xpd\x_libpd_multi.h">
+      <Filter>Camomile\xpd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\xpd\xpd.h">
       <Filter>Camomile\xpd</Filter>

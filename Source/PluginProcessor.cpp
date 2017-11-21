@@ -215,35 +215,8 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     }
 }
 
-//==============================================================================
-bool CamomileAudioProcessor::hasEditor() const
-{
-    return true;
-}
 
-AudioProcessorEditor* CamomileAudioProcessor::createEditor()
-{
-    return new CamomileAudioProcessorEditor(*this);
-}
-
-
-void CamomileAudioProcessor::getStateInformation(MemoryBlock& destData)
-{
-    XmlElement xml(String("CamomileSettings"));
-    CamomileAudioParameter::saveStateInformation(xml, getParameters());
-    copyXmlToBinary(xml, destData);
-}
-
-void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
-{
-    ScopedPointer<const XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
-    if(xml && xml->hasTagName("CamomileSettings"))
-    {
-        CamomileAudioParameter::loadStateInformation(*xml, getParameters());
-    }
-}
-
-bool CamomileAudioProcessor::processParameters(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
+void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
 {
     if(msg == std::string("param"))
     {
@@ -280,83 +253,76 @@ bool CamomileAudioProcessor::processParameters(const std::string& dest, const st
             else { std::cerr << "param no method: " << method << "\n"; }
         }
         else { std::cerr << "param error syntax: method index...\n"; }
-        return true;
     }
-    return false;
+    else {  std::cerr << "camomile unknow message : "<< msg << "\n"; }
 }
 
-bool CamomileAudioProcessor::processMidi(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
+
+void CamomileAudioProcessor::receiveNoteOn(const int channel, const int pitch, const int velocity)
 {
-    if(msg == "#noteout")
-    {
-        if(static_cast<int>(list[2].getFloat()) == 0)
-        {
-            m_midi_buffer.addEvent(MidiMessage::noteOff(static_cast<int>(list[0].getFloat()),
-                                                        static_cast<int>(list[1].getFloat()),
-                                                        uint8(0)), 0);
-        }
-        else
-        {
-            m_midi_buffer.addEvent(MidiMessage::noteOn(static_cast<int>(list[0].getFloat()),
-                                                       static_cast<int>(list[1].getFloat()),
-                                                       static_cast<uint8>(list[2].getFloat())), 0);
-        }
-    }
-    else if(msg == "#controlchange")
-    {
-        m_midi_buffer.addEvent(MidiMessage::controllerEvent(static_cast<int>(list[0].getFloat()),
-                                                            static_cast<int>(list[1].getFloat()),
-                                                            static_cast<int>(list[2].getFloat())), 0);
-    }
-    else if(msg == "#programchange")
-    {
-        m_midi_buffer.addEvent(MidiMessage::programChange(static_cast<int>(list[0].getFloat()),
-                                                          static_cast<int>(list[1].getFloat())), 0);
-    }
-    else if(msg == "#pitchbend")
-    {
-        m_midi_buffer.addEvent(MidiMessage::pitchWheel(static_cast<int>(list[0].getFloat()),
-                                                       static_cast<int>(list[1].getFloat())), 0);
-    }
-    else if(msg == "#aftertouch")
-    {
-        m_midi_buffer.addEvent(MidiMessage::channelPressureChange(static_cast<int>(list[0].getFloat()),
-                                                                  static_cast<int>(list[1].getFloat())), 0);
-    }
-    else if(msg == "#polyaftertouch")
-    {
-        m_midi_buffer.addEvent(MidiMessage::aftertouchChange(static_cast<int>(list[0].getFloat()),
-                                                             static_cast<int>(list[1].getFloat()),
-                                                             static_cast<int>(list[2].getFloat())), 0);
-    }
-    else { return false; }
+    if(velocity == 0) {
+        m_midi_buffer.addEvent(MidiMessage::noteOff(channel, pitch, uint8(0)), 0); }
+    else {
+        m_midi_buffer.addEvent(MidiMessage::noteOn(channel, pitch, static_cast<uint8>(velocity)), 0); }
+}
+
+void CamomileAudioProcessor::receiveControlChange(const int channel, const int controller, const int value)
+{
+    m_midi_buffer.addEvent(MidiMessage::controllerEvent(channel, controller, value), 0);
+}
+
+void CamomileAudioProcessor::receiveProgramChange(const int channel, const int value)
+{
+    m_midi_buffer.addEvent(MidiMessage::programChange(channel, value), 0);
+}
+
+void CamomileAudioProcessor::receivePitchBend(const int channel, const int value)
+{
+    m_midi_buffer.addEvent(MidiMessage::pitchWheel(channel, value), 0);
+}
+
+void CamomileAudioProcessor::receiveAftertouch(const int channel, const int value)
+{
+    m_midi_buffer.addEvent(MidiMessage::channelPressureChange(channel, value), 0);
+}
+
+void CamomileAudioProcessor::receivePolyAftertouch(const int channel, const int pitch, const int value)
+{
+    m_midi_buffer.addEvent(MidiMessage::aftertouchChange(channel, pitch, value), 0);
+}
+
+void CamomileAudioProcessor::receiveMidiByte(const int port, const int byte)
+{
+    
+}
+
+//==============================================================================
+bool CamomileAudioProcessor::hasEditor() const
+{
     return true;
 }
 
-bool CamomileAudioProcessor::processPost(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
+AudioProcessorEditor* CamomileAudioProcessor::createEditor()
 {
-    if(msg == std::string("#post"))
-    {
-        if(list[0].isSymbol())
-        {
-            std::string const mess = list[0].getSymbol();
-            std::cout << "post :" << mess.size() << " : |" << mess << "| \n";
-        }
-        return true;
-    }
-    return false;
+    return new CamomileAudioProcessorEditor(*this);
 }
 
-void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
+
+void CamomileAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
-    if(!processParameters(dest, msg, list) &&
-       !processMidi(dest, msg, list) &&
-       !processPost(dest, msg, list))
-    {
-        std::cerr << "camomile unknow message : "<< msg << "\n";
-    }
+    XmlElement xml(String("CamomileSettings"));
+    CamomileAudioParameter::saveStateInformation(xml, getParameters());
+    copyXmlToBinary(xml, destData);
 }
 
+void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+{
+    ScopedPointer<const XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
+    if(xml && xml->hasTagName("CamomileSettings"))
+    {
+        CamomileAudioParameter::loadStateInformation(*xml, getParameters());
+    }
+}
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {

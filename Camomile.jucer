@@ -43,6 +43,8 @@
       <FILE id="z4zHjj" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
     </GROUP>
     <GROUP id="{B95EB370-2E00-CCAB-08B5-9B2F13D27F52}" name="xpd">
+      <FILE id="ZtDER4" name="x_libpd_multi.c" compile="1" resource="0" file="Source/xpd/x_libpd_multi.c"/>
+      <FILE id="wXM2uJ" name="x_libpd_multi.h" compile="0" resource="0" file="Source/xpd/x_libpd_multi.h"/>
       <FILE id="r4RKGy" name="xpd.cpp" compile="1" resource="0" file="Source/xpd/xpd.cpp"/>
       <FILE id="kT5hfQ" name="xpd.h" compile="0" resource="0" file="Source/xpd/xpd.h"/>
     </GROUP>

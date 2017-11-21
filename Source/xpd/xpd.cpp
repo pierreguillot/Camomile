@@ -13,254 +13,102 @@ extern "C"
 {
     #include <z_libpd.h>
     #include <m_pd.h>
+    #include "x_libpd_multi.h"
     
-    //////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////
-    // For declare object multi instance support
-    
-    static t_pd *garray_arraytemplatecanvas;  /* written at setup w/ global lock */
-    static const char garray_arraytemplatefile[] = "\
-    canvas 0 0 458 153 10;\n\
-    #X obj 43 31 struct float-array array z float float style\n\
-    float linewidth float color;\n\
-    #X obj 43 70 plot z color linewidth 0 0 1 style;\n\
-    ";
-    static const char garray_floattemplatefile[] = "\
-    canvas 0 0 458 153 10;\n\
-    #X obj 39 26 struct float float y;\n\
-    ";
-    
-    /* create invisible, built-in canvases to supply templates for floats
-     and float-arrays. */
-    
-    static void garray_init(void)
+    struct pd::instance::internal
     {
-        t_binbuf *b;
-        if (garray_arraytemplatecanvas)
-            return;
-        b = binbuf_new();
-        
-        glob_setfilename(0, gensym("_float_template"), gensym("."));
-        binbuf_text(b, garray_floattemplatefile, strlen(garray_floattemplatefile));
-        binbuf_eval(b, &pd_canvasmaker, 0, 0);
-        vmess(s__X.s_thing, gensym("pop"), (char *)"i", 0);
-        
-        glob_setfilename(0, gensym("_float_array_template"), gensym("."));
-        binbuf_text(b, garray_arraytemplatefile, strlen(garray_arraytemplatefile));
-        binbuf_eval(b, &pd_canvasmaker, 0, 0);
-        garray_arraytemplatecanvas = s__X.s_thing;
-        vmess(s__X.s_thing, gensym("pop"), (char *)"i", 0);
-        
-        glob_setfilename(0, &s_, &s_);
-        binbuf_free(b);
-    }
-    
-    static t_pd *text_templatecanvas;
-    static char text_templatefile[] = "\
-    canvas 0 0 458 153 10;\n\
-    #X obj 43 31 struct text float x float y text t;\n\
-    ";
-    
-    /* create invisible, built-in canvas to supply template containing one text
-     field named 't'.  I don't know how to make this not break
-     pre-0.45 patches using templates named 'text'... perhaps this is a minor
-     enough incompatibility that I'll just get away with it. */
-    
-    static void text_template_init(void)
-    {
-        t_binbuf *b;
-        if (text_templatecanvas)
-            return;
-        b = binbuf_new();
-        
-        glob_setfilename(0, gensym("_text_template"), gensym("."));
-        binbuf_text(b, text_templatefile, strlen(text_templatefile));
-        binbuf_eval(b, &pd_canvasmaker, 0, 0);
-        vmess(s__X.s_thing, gensym("pop"), (char *)"i", 0);
-        
-        glob_setfilename(0, &s_, &s_);
-        binbuf_free(b);
-    }
-    
-    //////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////
-    
-    static t_class *libpd_multirec_class;
-    
-    typedef struct pd::instance::_libpd_multirec
-    {
-    public:
-        t_object        x_obj;
-        t_symbol*       x_sym;
-        std::string     x_recv;
-        pd::instance*  x_instance;
-        
-        static void libpd_multirec_bang(struct pd::instance::_libpd_multirec *x)
+        static void instance_multi_bang(pd::instance* ptr, const char *recv)
         {
-            std::vector<Atom> vec;
-            std::lock_guard<std::mutex> lock(x->x_instance->m_messages_mutex);
-            x->x_instance->m_messages.push({x->x_recv, std::string("bang"), vec});
+            std::vector<Atom> const vec;
+            std::lock_guard<std::mutex> lock(ptr->m_messages_mutex);
+            ptr->m_messages.push({std::string(recv), std::string("bang"), vec});
         }
         
-        static void libpd_multirec_float(struct pd::instance::_libpd_multirec *x, t_float f) {
-            std::vector<Atom> vec(1, f);
-            std::lock_guard<std::mutex> lock(x->x_instance->m_messages_mutex);
-            x->x_instance->m_messages.push({x->x_recv, std::string("float"), vec});
+        static void instance_multi_float(pd::instance* ptr, const char *recv, float f)
+        {
+            std::vector<Atom> const vec(1, f);
+            std::lock_guard<std::mutex> lock(ptr->m_messages_mutex);
+            ptr->m_messages.push({std::string(recv), std::string("float"), vec});
         }
         
-        static void libpd_multirec_symbol(struct pd::instance::_libpd_multirec *x, t_symbol *s) {
-            std::vector<Atom> vec(1, std::string(s->s_name));
-            std::lock_guard<std::mutex> lock(x->x_instance->m_messages_mutex);
-            x->x_instance->m_messages.push({x->x_recv, std::string("symbol"), vec});
+        static void instance_multi_symbol(pd::instance* ptr, const char *recv, const char *sym)
+        {
+            std::vector<Atom> vec(1, std::string(sym));
+            std::lock_guard<std::mutex> lock(ptr->m_messages_mutex);
+            ptr->m_messages.push({std::string(recv), std::string("symbol"), vec});
         }
         
-        static void libpd_multirec_list(struct pd::instance::_libpd_multirec *x, t_symbol *s, int argc, t_atom *argv) {
-            std::vector<Atom> vec;
+        static void instance_multi_list(pd::instance* ptr, const char *recv, int argc, t_atom *argv)
+        {
+            std::vector<Atom> vec(argc);
             for(int i = 0; i < argc; ++i)
             {
                 if(argv[i].a_type == A_FLOAT)
                     vec.push_back(Atom(atom_getfloat(argv+i)));
                 else if(argv[i].a_type == A_SYMBOL)
                     vec.push_back(Atom(std::string(atom_getsymbol(argv+i)->s_name)));
-                else
-                    vec.push_back(Atom());
             }
-            std::lock_guard<std::mutex> lock(x->x_instance->m_messages_mutex);
-            x->x_instance->m_messages.push({x->x_recv, std::string("list"), vec});
+            std::lock_guard<std::mutex> lock(ptr->m_messages_mutex);
+            ptr->m_messages.push({std::string(recv), std::string("list"), vec});
         }
         
-        static void libpd_multirec_anything(struct pd::instance::_libpd_multirec *x, t_symbol *s, int argc, t_atom *argv) {
-            std::vector<Atom> vec;
-            std::string const sel(s->s_name);
+        static void instance_multi_message(pd::instance* ptr, const char *recv, const char *msg, int argc, t_atom *argv)
+        {
+            std::vector<Atom> vec(argc);
             for(int i = 0; i < argc; ++i)
             {
                 if(argv[i].a_type == A_FLOAT)
                     vec.push_back(Atom(atom_getfloat(argv+i)));
                 else if(argv[i].a_type == A_SYMBOL)
                     vec.push_back(Atom(std::string(atom_getsymbol(argv+i)->s_name)));
-                else
-                    vec.push_back(Atom());
             }
-            std::lock_guard<std::mutex> lock(x->x_instance->m_messages_mutex);
-            x->x_instance->m_messages.push({x->x_recv, sel, vec});
+            std::lock_guard<std::mutex> lock(ptr->m_messages_mutex);
+            ptr->m_messages.push({std::string(recv), std::string(msg), vec});
+        }
+
+        
+        static void instance_multi_noteon(pd::instance* ptr, int channel, int pitch, int velocity)
+        {
+            std::lock_guard<std::mutex> lock(ptr->m_midi_mutex);
+            ptr->m_midi.push({midievent::NOTEON, channel, pitch, velocity});
         }
         
-        static void libpd_multirec_post(struct pd::instance::_libpd_multirec *x, char const* s) {
-            if(strlen(s) && (strlen(s) > 1 || s[0] != ' '))
-            {
-                //std::lock_guard<std::mutex> lock(x->x_instance->m_messages_mutex);
-                x->x_instance->m_messages.push({x->x_recv, "#post", {Atom(s)}});
-            }
+        static void instance_multi_controlchange(pd::instance* ptr, int channel, int controller, int value)
+        {
+            std::lock_guard<std::mutex> lock(ptr->m_midi_mutex);
+            ptr->m_midi.push({midievent::CONTROLCHANGE, channel, controller, value});
         }
         
-    } t_libpd_multirec;
-    
-    static void libpdmultireceive_free(t_libpd_multirec *x) {
-        pd_unbind(&x->x_obj.ob_pd, x->x_sym);
-    }
-    
-    static void *libpd_multirec_new(t_symbol *s, pd::instance* instance) {
-        t_libpd_multirec *x = NULL;
-        sys_lock();
-        x = (t_libpd_multirec *)pd_new(libpd_multirec_class);
-        if(x)
+        static void instance_multi_programchange(pd::instance* ptr, int channel, int value)
         {
-            x->x_sym = s;
-            x->x_recv = std::string(s->s_name);
-            x->x_instance = instance;
-            pd_bind(&x->x_obj.ob_pd, s);
+            std::lock_guard<std::mutex> lock(ptr->m_midi_mutex);
+            ptr->m_midi.push({midievent::PROGRAMCHANGE, channel, value, 0});
         }
-        sys_unlock();
-        return x;
-    }
-    
-    
-    static void libpd_multirec_setup(void) {
-        sys_lock();
-        libpd_multirec_class = class_new(gensym("libpd_multireceive"), (t_newmethod)NULL, (t_method)libpdmultireceive_free,
-                                         sizeof(t_libpd_multirec), CLASS_DEFAULT, A_DEFSYM, 0);
-        class_addbang(libpd_multirec_class, t_libpd_multirec::libpd_multirec_bang);
-        class_addfloat(libpd_multirec_class,t_libpd_multirec::libpd_multirec_float);
-        class_addsymbol(libpd_multirec_class, t_libpd_multirec::libpd_multirec_symbol);
-        //class_addpointer(libpd_multirec_class, libpd_multirec_pointer);
-        class_addlist(libpd_multirec_class, t_libpd_multirec::libpd_multirec_list);
-        class_addanything(libpd_multirec_class, t_libpd_multirec::libpd_multirec_anything);
-        class_addmethod(libpd_multirec_class, (t_method)t_libpd_multirec::libpd_multirec_post, gensym("#post"), A_CANT, 0);
-        sys_unlock();
-    }
-    
-    //////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////
-    static void libpd_multi_midisend(const char* receiver, const char* msg, int argc, t_atom* argv)
-    {
-        // Avoid thread concurrency. If this function is called, it must be in the right thread.
-        t_symbol *sym = gensym(receiver);
-        if(sym->s_thing)
+        
+        static void instance_multi_pitchbend(pd::instance* ptr, int channel, int value)
         {
-            pd_typedmess(sym->s_thing, gensym(msg), argc, argv);
+            std::lock_guard<std::mutex> lock(ptr->m_midi_mutex);
+            ptr->m_midi.push({midievent::PITCHBEND, channel, value, 0});
         }
-    }
-    
-    static void libpd_multi_noteon(int channel, int pitch, int velocity)
-    {
-        t_atom av[3];
-        SETFLOAT(av, (float)channel);
-        SETFLOAT(av+1, (float)pitch);
-        SETFLOAT(av+2, (float)velocity);
-        libpd_multi_midisend("camomile", "#noteout", 3, av);
-    }
-    
-    static void libpd_multi_controlchange(int channel, int controller, int value)
-    {
-        t_atom av[3];
-        SETFLOAT(av, (float)channel);
-        SETFLOAT(av+1, (float)controller);
-        SETFLOAT(av+2, (float)value);
-        libpd_multi_midisend("camomile", "#controlchange", 3, av);
-    }
-    
-    static void libpd_multi_programchange(int channel, int value)
-    {
-        t_atom av[2];
-        SETFLOAT(av, (float)channel);
-        SETFLOAT(av+1, (float)value);
-        libpd_multi_midisend("camomile", "#programchange", 2, av);
-    }
-    
-    static void libpd_multi_pitchbend(int channel, int value)
-    {
-        t_atom av[2];
-        SETFLOAT(av, (float)channel);
-        SETFLOAT(av+1, (float)value);
-        libpd_multi_midisend("camomile", "#pitchbend", 2, av);
-    }
-    
-    static void libpd_multi_aftertouch(int channel, int value)
-    {
-        t_atom av[2];
-        SETFLOAT(av, (float)channel);
-        SETFLOAT(av+1, (float)value);
-        libpd_multi_midisend("camomile", "#aftertouch", 2, av);
-    }
-    
-    static void libpd_multi_polyaftertouch(int channel, int pitch, int value)
-    {
-        t_atom av[3];
-        SETFLOAT(av, (float)channel);
-        SETFLOAT(av+1, (float)pitch);
-        SETFLOAT(av+2, (float)value);
-        libpd_multi_midisend("camomile", "#polyaftertouch", 3, av);
-    }
-    
-    static void libpd_multi_post(const char* s)
-    {
-        printf("%s", s);
-        t_symbol *sym = gensym("camomile");
-        if(sym->s_thing)
+        
+        static void instance_multi_aftertouch(pd::instance* ptr, int channel, int value)
         {
-            mess1(sym->s_thing, gensym("#post"), (void *)s);
+            std::lock_guard<std::mutex> lock(ptr->m_midi_mutex);
+            ptr->m_midi.push({midievent::AFTERTOUCH, channel, value, 0});
         }
-    }
+        
+        static void instance_multi_polyaftertouch(pd::instance* ptr, int channel, int pitch, int value)
+        {
+            std::lock_guard<std::mutex> lock(ptr->m_midi_mutex);
+            ptr->m_midi.push({midievent::POLYAFTERTOUCH, channel, pitch, value});
+        }
+        
+        static void instance_multi_midibyte(pd::instance* ptr, int port, int byte)
+        {
+            std::lock_guard<std::mutex> lock(ptr->m_midi_mutex);
+            ptr->m_midi.push({midievent::MIDIBYTE, port, byte, 0});
+        }
+    };
     
 }
 
@@ -271,37 +119,28 @@ namespace pd
     
     instance::instance()
     {
-        static int initialized = 0;
-        if(!initialized)
-        {
-            libpd_set_noteonhook(libpd_multi_noteon);
-            libpd_set_controlchangehook(libpd_multi_controlchange);
-            libpd_set_programchangehook(libpd_multi_programchange);
-            libpd_set_pitchbendhook(libpd_multi_pitchbend);
-            libpd_set_aftertouchhook(libpd_multi_aftertouch);
-            libpd_set_polyaftertouchhook(libpd_multi_polyaftertouch);
-            //libpd_set_printhook(libpd_multi_post);
-            
-            assert(PDINSTANCE && "PDINSTANCE undefined");
-            assert(PDTHREADS && "PDTHREADS undefined");
-            libpd_init();
-            libpd_multirec_setup();
-            initialized = 1;
-        }
-        
+        libpd_multi_init();
         m_instance = libpd_new_instance();
-        garray_init();
-        text_template_init();
+        m_midi_receiver = libpd_multi_midi_new(this,
+                                               reinterpret_cast<t_libpd_multi_noteonhook>(internal::instance_multi_noteon),
+                                               reinterpret_cast<t_libpd_multi_controlchangehook>(internal::instance_multi_controlchange),
+                                               reinterpret_cast<t_libpd_multi_programchangehook>(internal::instance_multi_programchange),
+                                               reinterpret_cast<t_libpd_multi_pitchbendhook>(internal::instance_multi_pitchbend),
+                                               reinterpret_cast<t_libpd_multi_aftertouchhook>(internal::instance_multi_aftertouch),
+                                               reinterpret_cast<t_libpd_multi_polyaftertouchhook>(internal::instance_multi_polyaftertouch),
+                                               reinterpret_cast<t_libpd_multi_midibytehook>(internal::instance_multi_midibyte));
+        libpd_instance_init();
     }
     
     instance::~instance()
     {
-        for(size_t i = 0; i < m_receivers.size(); ++i)
+        for(auto it : m_receivers)
         {
-            pd_free((t_pd *)m_receivers[i]);
+            pd_free((t_pd *)it.second);
         }
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_free_instance(static_cast<t_pdinstance *>(m_instance));
+        pd_free((t_pd *)m_midi_receiver);
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -462,31 +301,72 @@ namespace pd
     
     void instance::processReceive()
     {
-        std::lock_guard<std::mutex> lock(m_messages_mutex);
-        while (!m_messages.empty())
         {
-            message const& mess = m_messages.front();
-            if(mess.selector == std::string("bang"))
+            std::lock_guard<std::mutex> lock(m_messages_mutex);
+            while (!m_messages.empty())
             {
-                receiveBang(mess.destination);
+                message const& mess = m_messages.front();
+                if(mess.selector == std::string("bang"))
+                {
+                    receiveBang(mess.destination);
+                }
+                else if(mess.selector == std::string("float"))
+                {
+                    receiveFloat(mess.destination, mess.list[0].getFloat());
+                }
+                else if(mess.selector == std::string("symbol"))
+                {
+                    receiveSymbol(mess.destination, mess.list[0].getSymbol());
+                }
+                else if(mess.selector == std::string("list"))
+                {
+                    receiveList(mess.destination, mess.list);
+                }
+                else
+                {
+                    receiveMessage(mess.destination, mess.selector, mess.list);
+                }
+                m_messages.pop();
             }
-            else if(mess.selector == std::string("float"))
+        }
+        {
+            m_midi_mutex.lock();
+            while (!m_midi.empty())
             {
-                receiveFloat(mess.destination, mess.list[0].getFloat());
+                midievent const event = m_midi.front();
+                m_messages.pop();
+                m_midi_mutex.unlock();
+                if(event.type == midievent::NOTEON)
+                {
+                    receiveNoteOn(event.midi1, event.midi2, event.midi3);
+                }
+                else if(event.type == midievent::CONTROLCHANGE)
+                {
+                    receiveControlChange(event.midi1, event.midi2, event.midi3);
+                }
+                else if(event.type == midievent::PROGRAMCHANGE)
+                {
+                    receiveProgramChange(event.midi1, event.midi2);
+                }
+                else if(event.type == midievent::PITCHBEND)
+                {
+                    receivePitchBend(event.midi1, event.midi2);
+                }
+                else if(event.type == midievent::AFTERTOUCH)
+                {
+                    receiveAftertouch(event.midi1, event.midi2);
+                }
+                else if(event.type == midievent::POLYAFTERTOUCH)
+                {
+                    receivePolyAftertouch(event.midi1, event.midi2, event.midi3);
+                }
+                else if(event.type == midievent::MIDIBYTE)
+                {
+                    receiveMidiByte(event.midi1, event.midi2);
+                }
+                m_midi_mutex.lock();
             }
-            else if(mess.selector == std::string("symbol"))
-            {
-                receiveSymbol(mess.destination, mess.list[0].getSymbol());
-            }
-            else if(mess.selector == std::string("list"))
-            {
-                receiveList(mess.destination, mess.list);
-            }
-            else
-            {
-                receiveMessage(mess.destination, mess.selector, mess.list);
-            }
-            m_messages.pop();
+            m_midi_mutex.unlock();
         }
         
     }
@@ -496,27 +376,28 @@ namespace pd
     
     void instance::bind(std::string const& symbol)
     {
-        t_symbol *s;
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        sys_lock();
-        s = gensym(symbol.c_str());
-        sys_unlock();
-        m_receivers.push_back(libpd_multirec_new(s, this));
+        if(m_receivers.find(symbol) != m_receivers.end())
+        {
+            void* receiver = libpd_multi_receiver_new(this, symbol.c_str(),
+                                                      reinterpret_cast<t_libpd_multi_banghook>(internal::instance_multi_bang),
+                                                      reinterpret_cast<t_libpd_multi_floathook>(internal::instance_multi_float),
+                                                      reinterpret_cast<t_libpd_multi_symbolhook>(internal::instance_multi_symbol),
+                                                      reinterpret_cast<t_libpd_multi_listhook>(internal::instance_multi_list),
+                                                      reinterpret_cast<t_libpd_multi_messagehook>(internal::instance_multi_message));
+            m_receivers[symbol] = receiver;
+        }
     }
     
     void instance::unbind(std::string const& symbol)
     {
-        for(size_t i = 0; i < m_receivers.size(); ++i)
+        auto it = m_receivers.find(symbol);
+        if(it != m_receivers.end())
         {
-            std::string name = static_cast<t_libpd_multirec *>(m_receivers[i])->x_sym->s_name;
-            if(name == symbol)
-            {
-                sys_lock();
-                pd_free((t_pd *)m_receivers[i]);
-                sys_unlock();
-                m_receivers.erase(m_receivers.begin()+i);
-                return;
-            }
+            sys_lock();
+            pd_free((t_pd *)it->second);
+            sys_unlock();
+            m_receivers.erase(it);
         }
     }
     
