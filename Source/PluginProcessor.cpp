@@ -183,7 +183,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////
-    //                                          MIDI                                        //
+    //                                          MIDI IN                                     //
     //////////////////////////////////////////////////////////////////////////////////////////
     if(CamomileEnvironment::wantsMidi())
     {
@@ -232,6 +232,9 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     //////////////////////////////////////////////////////////////////////////////////////////
     processReceive();
     
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                                          MIDI OUT                                    //
+    //////////////////////////////////////////////////////////////////////////////////////////
     if(CamomileEnvironment::producesMidi())
     {
         midiMessages.swapWith(m_midi_buffer);
@@ -265,27 +268,6 @@ void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBy
     {
         CamomileAudioParameter::loadStateInformation(*xml, getParameters());
     }
-}
-
-
-void CamomileAudioProcessor::receiveBang(const std::string& dest)
-{
-    ;
-}
-
-void CamomileAudioProcessor::receiveFloat(const std::string& dest, float num)
-{
-    ;
-}
-
-void CamomileAudioProcessor::receiveSymbol(const std::string& dest, const std::string& symbol)
-{
-    ;
-}
-
-void CamomileAudioProcessor::receiveList(const std::string& dest, const std::vector<pd::Atom>& list)
-{
-    
 }
 
 bool CamomileAudioProcessor::processParameters(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
