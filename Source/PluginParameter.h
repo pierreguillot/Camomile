@@ -7,7 +7,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "xpd/xpd.h"
+#include "xpd/PdInstance.h"
 
 // ======================================================================================== //
 //                                      PARAMETER                                           //
