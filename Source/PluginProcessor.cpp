@@ -23,7 +23,7 @@ m_programs(CamomileEnvironment::getPrograms())
     if(CamomileEnvironment::isValid())
     {
         open(CamomileEnvironment::getPatchPath(), CamomileEnvironment::getPatchName());
-        processReceive();
+        processMessages();
     }
 }
 
@@ -35,7 +35,7 @@ void CamomileAudioProcessor::setCurrentProgram(int index)
         m_program_current = index;
         sendFloat("program", static_cast<float>(index+1));
     }
-    processReceive();
+    processMessages();
 }
 
 const String CamomileAudioProcessor::getProgramName (int index)
@@ -80,36 +80,30 @@ bool CamomileAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts)
 
 void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    try
-    {
-        prepareDSP(AudioProcessor::getTotalNumInputChannels(),
-                   AudioProcessor::getTotalNumOutputChannels(),
-                   samplesPerBlock, sampleRate);
-    }
-    catch(std::exception& e)
-    {
-        std::cerr << e.what() << "\n";
-    }
+    BusesLayout const& layouts(getBusesLayout());
+    AudioChannelSet const inputs  = layouts.getMainInputChannelSet();
+    AudioChannelSet const outputs = layouts.getMainOutputChannelSet();
     
+    if(samplesPerBlock < 64)
     {
-        const BusesLayout& layouts(getBusesLayout());
-        AudioChannelSet inputs  = layouts.getMainInputChannelSet();
-        AudioChannelSet outputs = layouts.getMainOutputChannelSet();
-        String ins_desc     = inputs.getDescription().toLowerCase();
-        String outs_desc    = outputs.getDescription().toLowerCase();
-        if(ins_desc.contains("discrete"))
-        {
-            ins_desc = "discrete";
-        }
-        if(outs_desc.contains("discrete"))
-        {
-            outs_desc = "discrete";
-        }
-        sendMessage(std::string("channels"), std::string("inputs"), {inputs.size(), ins_desc.toStdString()});
-        sendMessage(std::string("channels"), std::string("outputs"), {outputs.size(), outs_desc.toStdString()});
+        std::cerr << "block size must not be inferior to 64, the DSP won't be proceed.\n";
     }
+    prepareDSP(inputs.size(), outputs.size(), samplesPerBlock, sampleRate);
     
-    processReceive();
+    String ins_desc     = inputs.getDescription().toLowerCase();
+    String outs_desc    = outputs.getDescription().toLowerCase();
+    if(ins_desc.contains("discrete"))
+    {
+        ins_desc = "discrete";
+    }
+    if(outs_desc.contains("discrete"))
+    {
+        outs_desc = "discrete";
+    }
+    sendMessage(std::string("channels"), std::string("inputs"), {inputs.size(), ins_desc.toStdString()});
+    sendMessage(std::string("channels"), std::string("outputs"), {outputs.size(), outs_desc.toStdString()});
+    
+    processMessages();
 }
 
 void CamomileAudioProcessor::releaseResources()
@@ -126,6 +120,14 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     for(int i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
     {
         buffer.clear(i, 0, buffer.getNumSamples());
+    }
+    if(buffer.getNumSamples() < 64)
+    {
+        for(int i = 0; i < totalNumInputChannels; ++i)
+        {
+            buffer.clear(i, 0, buffer.getNumSamples());
+        }
+        return;
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -203,13 +205,14 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                          RETRIEVE MESSAGE                             //
     //////////////////////////////////////////////////////////////////////////////////////////
-    processReceive();
+    processMessages();
     
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                          MIDI OUT                                    //
     //////////////////////////////////////////////////////////////////////////////////////////
     if(CamomileEnvironment::producesMidi())
     {
+        processMidi();
         midiMessages.swapWith(m_midi_buffer);
         m_midi_buffer.clear();
     }
@@ -241,7 +244,7 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
             {
                 if(list.size() >= 3 && list[2].isFloat())
                 {
-                    CamomileAudioParameter* param = static_cast<CamomileAudioParameter *>(getParameters()[index - 1]);
+                    AudioProcessorParameter* param = getParameters()[index - 1];
                     if(param)
                     {
                         static_cast<bool>(list[2].getFloat()) ? param->beginChangeGesture() : param->endChangeGesture();
