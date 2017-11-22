@@ -25,6 +25,13 @@ m_programs(CamomileEnvironment::getPrograms())
         open(CamomileEnvironment::getPatchPath(), CamomileEnvironment::getPatchName());
         processMessages();
         setLatencySamples(CamomileEnvironment::getLatencySamples());
+        m_programs = CamomileEnvironment::getPrograms();
+    }
+    
+    std::vector<std::string> const& errors = CamomileEnvironment::getErrors();
+    for(size_t i = 0; i < errors.size(); ++i)
+    {
+        std::cerr << errors[i] << "\n";
     }
 }
 

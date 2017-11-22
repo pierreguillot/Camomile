@@ -77,8 +77,11 @@ public:
     //! @brief Gets the parameters.
     static std::vector<std::string> const& getParams();
     
-    //! @brief Gets the inputs' channels supported.
+    //! @brief Gets the channels buses supported.
     static std::vector<std::pair<std::string, std::string>> const& getBuses();
+    
+    //! @brief Gets the parsing errors.
+    static std::vector<std::string> const& getErrors();
     
 private:
     static CamomileEnvironment& get();

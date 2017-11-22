@@ -63,6 +63,8 @@ std::vector<std::string> const& CamomileEnvironment::getParams() { return get().
 
 std::vector<std::pair<std::string, std::string>> const& CamomileEnvironment::getBuses() { return get().buses; }
 
+std::vector<std::string> const& CamomileEnvironment::getErrors() { return get().errors; }
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                          CONSTRUCTOR                                     //
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -143,15 +145,35 @@ static void parse(std::string const& name, std::vector<std::string> const& value
     {
         for(size_t i = 0; i < values.size(); ++i)
         {
-            std::string first;
-            std::string second;
+            const size_t separator = values[0].find_first_of(" ");
+            if(separator != std::string::npos)
+            {
+                std::string const input = values[0].substr(0, separator);
+                std::string const output = values[0].substr(separator+1);
+                
+            }
+            else { errors.push_back(name + " " + std::to_string(i) + "needs 2 values."); }
         }
-        /*
-        if(isdigit(static_cast<int>(values[0][0])))
-            def = atof(values[0].c_str());
-        else
-            errors.push_back(name + " must be a float.");
-         */
+    }
+    else { errors.push_back(name + " undefined."); }
+}
+
+static void parse(std::string const& name, std::vector<std::string> const& values,
+                  std::vector<std::string>& def, std::vector<std::string>& errors)
+{
+    if(!values.empty())
+    {
+        for(size_t i = 0; i < values.size(); ++i)
+        {
+            if(!values[i].empty())
+            {
+                if(values[i].back() == ';')
+                    def.push_back(values[i].substr(0, values[i].size()-1));
+                else
+                    def.push_back(values[i]);
+            }
+            else { errors.push_back(name + " " + std::to_string(i) + " needs a name."); }
+        }
     }
     else { errors.push_back(name + " undefined."); }
 }
@@ -165,13 +187,13 @@ CamomileEnvironment::CamomileEnvironment()
         plugin_path = plugin.getParentDirectory().getFullPathName().toStdString();
         patch_name = plugin_name + std::string(".pd");
 #ifdef JUCE_MAC
-        patch_path = plugin_path + std::string("/Contents/Resources");
+        patch_path = plugin_path + "/" + plugin.getFileName().toStdString() + std::string("/Contents/Resources");
 #else
         patch_path = plugin_path + String(File::getSeparatorString()).toStdString() + plugin_name;
 #endif
 
+        FileInputStream stream(File(String(patch_path + String(File::getSeparatorString()).toStdString() + plugin_name + ".txt")));
         std::map<std::string, std::vector<std::string>> options;
-        FileInputStream stream(File(String(patch_path + String(File::getSeparatorString()).toStdString() + patch_name)));
         if(stream.openedOk())
         {
             String line = stream.readNextLine();
@@ -179,12 +201,17 @@ CamomileEnvironment::CamomileEnvironment()
             {
                 int const limit = line.indexOfAnyOf(StringRef(" ;\n"));
                 String const name = line.substring(0, limit);
-                if(name.isEmpty())
+                if(name.isNotEmpty())
                 {
+                    line.trimEnd();
                     options[name.toStdString()].push_back(line.substring(limit+1).toStdString());
                 }
                 line = stream.readNextLine();
             }
+        }
+        else
+        {
+            errors.push_back("no configuration file.");
         }
         
         for(auto& it : options)
@@ -195,7 +222,7 @@ CamomileEnvironment::CamomileEnvironment()
             }
             else if(it.first == "program")
             {
-                programs = it.second;
+                parse("program", it.second, programs, errors);
             }
             else if(it.first == "buses")
             {
@@ -232,14 +259,19 @@ CamomileEnvironment::CamomileEnvironment()
             else { errors.push_back("unknown option " + it.first + "."); }
         }
     }
+    else
+    {
+        errors.push_back("plugin is not recognized.");
+    }
     
     if(programs.empty())
     {
         programs.push_back("");
     }
+    
     if(buses.empty())
     {
-        programs.push_back({"stereo", "stereo"});
+        buses.push_back({"stereo", "stereo"});
     }
     
 }
