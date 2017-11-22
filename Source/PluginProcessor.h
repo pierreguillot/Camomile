@@ -7,7 +7,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "xpd/PdInstance.h"
+#include "PdInstance.h"
 
 // ======================================================================================== //
 //                                      PROCESSOR                                           //
@@ -34,7 +34,7 @@ public:
     bool producesMidi() const final { return CamomileEnvironment::producesMidi(); }
     bool isMidiEffect () const final { return CamomileEnvironment::isMidiOnly(); }
     double getTailLengthSeconds() const final { return static_cast<float>(CamomileEnvironment::getTailLengthSeconds()); }
-
+    
     int getNumPrograms() final { return static_cast<int>(m_programs.size()); };
     int getCurrentProgram() final { return m_program_current; }
     void setCurrentProgram (int index) override;

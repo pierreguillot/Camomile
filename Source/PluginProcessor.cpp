@@ -24,6 +24,7 @@ m_programs(CamomileEnvironment::getPrograms())
     {
         open(CamomileEnvironment::getPatchPath(), CamomileEnvironment::getPatchName());
         processMessages();
+        setLatencySamples(CamomileEnvironment::getLatencySamples());
     }
 }
 
@@ -53,7 +54,7 @@ void CamomileAudioProcessor::changeProgramName(int index, const String& newName)
 
 bool CamomileAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
-    bool pass_in = false;
+    bool pass_in = true;
     {
         const AudioChannelSet& set  = layouts.getMainInputChannelSet();
         String input_desc = set.getDescription().toLowerCase();
@@ -64,7 +65,7 @@ bool CamomileAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts)
         }
          */
     }
-    bool pass_out = false;
+    bool pass_out = true;
     {
         const AudioChannelSet& set  = layouts.getMainOutputChannelSet();
         String output_desc = set.getDescription().toLowerCase();

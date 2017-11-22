@@ -17,7 +17,7 @@
 // [BEGIN_USER_CODE_SECTION]
 #include "../Source/PluginEnvironment.h"
 #define JucePlugin_Name CamomileEnvironment::getPluginNameUTF8()
-#define JucePlugin_PluginCode CamomileEnvironment::getPluginID()
+#define JucePlugin_PluginCode CamomileEnvironment::getPluginCode()
 #define JUCE_DISPLAY_SPLASH_SCREEN 0
 // [END_USER_CODE_SECTION]
 
@@ -291,13 +291,13 @@
  #define JucePlugin_Manufacturer           "pierreguillot"
 #endif
 #ifndef  JucePlugin_ManufacturerWebsite
- #define JucePlugin_ManufacturerWebsite    ""
+ #define JucePlugin_ManufacturerWebsite    "https://github.com/pierreguillot/Camomile"
 #endif
 #ifndef  JucePlugin_ManufacturerEmail
  #define JucePlugin_ManufacturerEmail      ""
 #endif
 #ifndef  JucePlugin_ManufacturerCode
- #define JucePlugin_ManufacturerCode       0x4349434d // 'CICM'
+ #define JucePlugin_ManufacturerCode       0x50494755 // 'PIGU'
 #endif
 #ifndef  JucePlugin_PluginCode
  #define JucePlugin_PluginCode             0x4b707139 // 'Kpq9'
