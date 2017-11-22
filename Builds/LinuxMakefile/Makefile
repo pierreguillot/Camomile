@@ -94,7 +94,6 @@ OBJECTS_STANDALONE_PLUGIN := \
 OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/PluginProcessor_a059e380.o \
   $(JUCE_OBJDIR)/PluginEnvironment_8feb641.o \
-  $(JUCE_OBJDIR)/PluginParser_b8236cbb.o \
   $(JUCE_OBJDIR)/PluginAtomParser_bf31656c.o \
   $(JUCE_OBJDIR)/PluginParameter_b51e717.o \
   $(JUCE_OBJDIR)/PluginEditor_94d4fb09.o \
@@ -160,11 +159,6 @@ $(JUCE_OBJDIR)/PluginProcessor_a059e380.o: ../../Source/PluginProcessor.cpp
 $(JUCE_OBJDIR)/PluginEnvironment_8feb641.o: ../../Source/PluginEnvironment.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling PluginEnvironment.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/PluginParser_b8236cbb.o: ../../Source/PluginParser.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling PluginParser.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/PluginAtomParser_bf31656c.o: ../../Source/PluginAtomParser.cpp
