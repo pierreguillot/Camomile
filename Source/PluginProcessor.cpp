@@ -113,8 +113,8 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     {
         outs_desc = "discrete";
     }
-    sendMessage(std::string("channels"), std::string("inputs"), {inputs.size(), ins_desc.toStdString()});
-    sendMessage(std::string("channels"), std::string("outputs"), {outputs.size(), outs_desc.toStdString()});
+    sendMessage(std::string("channels"), std::string("inputs"), {static_cast<float>(inputs.size()), ins_desc.toStdString()});
+    sendMessage(std::string("channels"), std::string("outputs"), {static_cast<float>(outputs.size()), outs_desc.toStdString()});
     
     processMessages();
 }
