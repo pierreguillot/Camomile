@@ -5,105 +5,7 @@
 */
 
 #include "PluginParser.h"
-#include <stdexcept>
-#include <cmath>
-
-StringArray CamomileAtomParser::parseList(const std::vector<pd::Atom>& list, const String& name)
-{
-    StringArray elemslist;
-    String const elems = CamomileAtomParser::parseString(list, name);
-    if(elems.isNotEmpty())
-    {
-        int start = 0, next = elems.indexOfChar(0, '/');
-        while(next != -1)
-        {
-            String const newel = elems.substring(start, next);
-            if(newel.isNotEmpty())
-            {
-                elemslist.add(newel);
-                start = next+1;
-                next = elems.indexOfChar(start, '/');
-            }
-        }
-        String const newel = elems.substring(start);
-        if(newel.isNotEmpty())
-        {
-            elemslist.add(newel);
-        }
-    }
-    return elemslist;
-}
-
-String CamomileAtomParser::parseString(const std::vector<pd::Atom>& list, const String& name)
-{
-    String def;
-    auto it = std::find(list.begin(), list.end(), name.toStdString());
-    if(it != list.end())
-    {
-        while(++it != list.end())
-        {
-            if(it->isSymbol())
-            {
-                const String sym = it->getSymbol();
-                if(sym.isNotEmpty())
-                {
-                    if(sym[0] == '-') {
-                        return def; }
-                    if(def.isEmpty()) {
-                        def = sym; }
-                    else {
-                        def += String(" ") + sym; }
-                }
-            }
-            else if(it->isFloat())
-            {
-                if(!def.isEmpty()) {
-                    def += String(" "); }
-                def += String(it->getFloat());
-            }
-        }
-    }
-    return def;
-}
-
-float CamomileAtomParser::parseFloat(const std::vector<pd::Atom>& list, const String& name, float const def)
-{
-    auto it = std::find(list.begin(), list.end(), name.toStdString());
-    if(it != list.end())
-    {
-        if(++it != list.end() && it->isFloat())
-        {
-            return it->getFloat();
-        }
-    }
-    return def;
-}
-
-int CamomileAtomParser::parseInt(const std::vector<pd::Atom>& list, const String& name, int const def)
-{
-    return static_cast<int>(parseFloat(list, name, static_cast<float>(def)));
-}
-
-bool CamomileAtomParser::parseBool(const std::vector<pd::Atom>& list, const String& name, bool const def)
-{
-    auto it = std::find(list.begin(), list.end(), name.toStdString());
-    if(it != list.end())
-    {
-        if(++it != list.end())
-        {
-            if(it->isFloat())
-                return static_cast<bool>(it->getFloat());
-            else if(it->getSymbol() == "true")
-                return true;
-            else if(it->getSymbol() == "false")
-                return false;
-        }
-    }
-    return def;
-}
-
-
-
+#include <iostream>
 
 std::pair<std::string, std::string> CamomileParser::getLine(std::string const& line)
 {
@@ -241,7 +143,84 @@ std::pair<int, int> CamomileParser::getTwoIntegers(std::string const& value)
     throw std::string("is empty");
 }
 
+std::map<std::string, std::string> CamomileParser::getOptions(std::string const& value)
+{
+    std::map<std::string, std::string> options;
+    size_t key1 = value.find_first_of('-');
+    while(key1 != std::string::npos && ++key1 != std::string::npos)
+    {
+        size_t const key2 = value.find_first_of(' ', key1);
+        if(key2 != std::string::npos)
+        {
+            std::string const name = value.substr(key1, key2-key1);
+            if(!options.count(name))
+            {
+                const size_t value1 = value.find_first_not_of(' ', key2);
+                if(value1 != std::string::npos)
+                {
+                    size_t value2 = value.find_first_of('-', key2);
+                    if(value2 == value1) { throw std::string("option '" + name + "' is empty"); }
+                    else if(value2 != std::string::npos)
+                    {
+                        key1 = value2;
+                        value2 = value.find_last_not_of(' ', value2-1)+1;
+                        std::string const val = value.substr(value1, value2-value1);
+                        options[name] = val;
+                    }
+                    else
+                    {
+                        key1 = value2;
+                        std::string const val = value.substr(value1);
+                        options[name] = val;
+                    }
+                }
+                else { throw std::string("option '" + name + "' is empty"); }
+            }
+            else { throw std::string("option '" + name + "' aleady defined"); }
+        }
+        else { throw std::string("option '" + value.substr(key1) + "' is empty"); }
+    }
+    return options;
+}
 
+std::vector<std::string> CamomileParser::getList(std::string const& value)
+{
+    std::vector<std::string> list;
+    size_t start = 0;
+    if(!value.empty())
+    {
+        while(start != std::string::npos)
+        {
+            size_t const next = value.find_first_of('/', start);
+            if(next != std::string::npos)
+            {
+                size_t end = next;
+                while(value[end-1] == ' ' && (end-1) > start) { --end; }
+                std::string const val = value.substr(start, end-start);
+                if(val.empty())
+                {
+                    throw std::string("'") + value + std::string("' list has an invalid argument");
+                }
+                list.push_back(val);
+                start = value.find_first_not_of(" ", next+1);
+            }
+            else
+            {
+                size_t end = value.size();
+                while(value[end-1] == ' ' && (end-1) > start) { --end; }
+                std::string const val = value.substr(start, end-start);
+                if(val.empty())
+                {
+                    throw std::string("'") + value + std::string("' list has an invalid argument");
+                }
+                list.push_back(val);
+                start = std::string::npos;
+            }
+        }
+        return list;
+    }
+    throw std::string("is empty");
+}
 
 
 

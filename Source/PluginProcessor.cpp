@@ -36,15 +36,16 @@ m_programs(CamomileEnvironment::getPrograms())
         std::vector<std::string> const& params = CamomileEnvironment::getParams();
         for(size_t i = 0; i < params.size(); ++i)
         {
+            AudioProcessorParameter* p = nullptr;
             try
             {
-                CamomileAudioParameter::parse(params[i]);
+                p = CamomileAudioParameter::parse(params[i]);
             }
             catch (std::string const& message)
             {
-                std::cerr << "parameter " << i << ": " << message;
+                std::cerr << "parameter " << i+1 << ": " << message << "\n";
             }
-            
+            if(p) addParameter(p);
         }
         
     }

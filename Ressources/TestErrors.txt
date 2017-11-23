@@ -26,3 +26,10 @@ midionly 12;
 midionly -1;
 midionly ;
 program;
+
+param -list 1/2/3;
+param -name Dummy -name Dummy;
+param -name -label Dummy;
+param -name;
+param -list Odd / / Zaza;
+param -list Odd / /z/;

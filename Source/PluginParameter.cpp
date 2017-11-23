@@ -6,9 +6,7 @@
 
 #include "PluginParameter.h"
 #include "PluginParser.h"
-#include <stdexcept>
 #include <cmath>
-#include <map>
 
 // ======================================================================================== //
 //                                      PARAMETER                                           //
@@ -101,7 +99,10 @@ String CamomileAudioParameter::getText(float value, int maximumStringLength) con
     {
         value = (value > 1.f) ? 1.f : value;
         value = (value < 0.f) ? 0.f : value;
-        return m_elements[static_cast<int>(round(value * m_maximum))].substring(0, maximumStringLength);
+        if(static_cast<int>(m_maximum)%2)
+            return m_elements[static_cast<int>(floor(value * m_maximum))].substring(0, maximumStringLength);
+        else
+            return m_elements[static_cast<int>(ceil(value * m_maximum))].substring(0, maximumStringLength);
     }
 }
 
@@ -134,88 +135,30 @@ bool CamomileAudioParameter::isMetaParameter() const
 
 CamomileAudioParameter* CamomileAudioParameter::parse(const std::string& definition)
 {
-    std::map<std::string, std::string> options;
-    
-    size_t pos = definition.find_first_of('-');
-    while(pos != std::string::npos)
+    auto options = CamomileParser::getOptions(definition);
+    String const name = options.count("name") ? CamomileParser::getString(options["name"]) : "";
+    String const label = options.count("min") ? CamomileParser::getString(options["label"]) : "";
+    if(options.count("list"))
     {
-        size_t const end = definition.find_first_of(" \t\f\v\n\r", pos+1);
-        if(end != std::string::npos)
-        {
-            std::string const name = definition.substr(pos+1, end-(pos+1));
-            const size_t val1 = definition.find_first_not_of(' ', end+1);
-            if(val1 != std::string::npos)
-            {
-                pos = definition.find_first_of("-;\t\f\v\n\r", val1+1);
-                if(pos != std::string::npos)
-                {
-                    size_t val2 = definition.find_last_not_of(" \t\f\v\n\r", pos);
-                    while(definition[val2-1] == ' ')
-                        val2--;
-                    
-                    auto option = options.find(name);
-                    if(option == options.end())
-                    {
-                        options[name] = definition.substr(val1, val2-val1);
-                    }
-                    else
-                    {
-                        throw std::string("option '" + name + "' aleady defined.");
-                        
-                    }
-                }
-            }
-            else { pos = end; }
-        }
-        else { pos = end; }
-    }
-    
-    auto list = options.find("list");
-    if(list != options.end())
-    {
+        StringArray elems;
+        auto const telems = CamomileParser::getList(options["list"]);
+        for(auto const& el : telems) { elems.add(el); }
+        const float def = options.count("default") ? CamomileParser::getFloat(options["default"]) : 0;
+        const bool autom = options.count("auto") ? CamomileParser::getBool(options["auto"]) : true;
+        const bool meta = options.count("meta") ? CamomileParser::getBool(options["meta"]) : false;
+        return new CamomileAudioParameter(name, label, elems, def, autom, meta);
     }
     else
     {
-    }
-    
-    return nullptr;
-}
-/*
-CamomileAudioParameter* CamomileAudioParameter::parse(const std::vector<pd::Atom>& list)
-{
-    String const name = CamomileAtomParser::parseString(list, "-name");
-    String const label = CamomileAtomParser::parseString(list, "-label");
-    StringArray const elems = CamomileAtomParser::parseList(list, "-list");
-    if(!elems.isEmpty())
-    {
-        String def = CamomileAtomParser::parseString(list, "-default");
-        int defn;
-        if(def.isEmpty())
-        {
-            defn = CamomileAtomParser::parseInt(list, "-default", 0);
-        }
-        else
-        {
-            defn = (elems.indexOf(def) != -1) ? static_cast<int>(static_cast<float>(elems.indexOf(def)) / static_cast<float>(elems.size())) : 0;
-        }
-        
-        const bool autom = CamomileAtomParser::parseBool(list, "-auto", true);
-        const bool meta = CamomileAtomParser::parseBool(list, "-meta", false);
-        return new CamomileAudioParameter(name, label, elems, defn, autom, meta);
-    }
-    else
-    {
-        const float min = CamomileAtomParser::parseFloat(list, "-min", 0);
-        const float max = CamomileAtomParser::parseFloat(list, "-max", 1);
-        const float def = CamomileAtomParser::parseFloat(list, "-default", min);
-        const int nsteps = CamomileAtomParser::parseInt(list, "-nsteps", 0);
-        const bool autom = CamomileAtomParser::parseBool(list, "-auto", true);
-        const bool meta = CamomileAtomParser::parseBool(list, "-meta", false);
+        const float min = options.count("min") ? CamomileParser::getFloat(options["min"]) : 0;
+        const float max = options.count("max") ? CamomileParser::getFloat(options["max"]) : 1;
+        const float def = options.count("default") ? CamomileParser::getFloat(options["default"]) : min;
+        const int nsteps = options.count("nsteps") ? CamomileParser::getInteger(options["nsteps"]) : 0;
+        const bool autom = options.count("auto") ? CamomileParser::getBool(options["auto"]) : true;
+        const bool meta = options.count("meta") ? CamomileParser::getBool(options["meta"]) : false;
         return new CamomileAudioParameter(name, label, min, max, def, nsteps, autom, meta);
     }
-    return nullptr;
 }
-*/
 
 void CamomileAudioParameter::saveStateInformation(XmlElement& xml, OwnedArray<AudioProcessorParameter> const& parameters)
 {

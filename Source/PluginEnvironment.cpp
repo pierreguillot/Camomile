@@ -69,27 +69,6 @@ std::vector<std::string> const& CamomileEnvironment::getErrors() { return get().
 //                                          CONSTRUCTOR                                     //
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-
-static void parse(std::string const& name, std::vector<std::string> const& values,
-                  std::vector<std::pair<std::string, std::string>>& def, std::vector<std::string>& errors)
-{
-    if(!values.empty())
-    {
-        for(size_t i = 0; i < values.size(); ++i)
-        {
-            const size_t separator = values[0].find_first_of(" ");
-            if(separator != std::string::npos)
-            {
-                std::string const input = values[0].substr(0, separator);
-                std::string const output = values[0].substr(separator+1);
-                
-            }
-            else { errors.push_back(name + " " + std::to_string(i) + "needs 2 values."); }
-        }
-    }
-    else { errors.push_back(name + " undefined."); }
-}
-
 CamomileEnvironment::CamomileEnvironment()
 {
     File const plugin(File::getSpecialLocation(File::currentApplicationFile));
