@@ -7,6 +7,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "PluginEnvironment.h"
 #include "PdInstance.h"
 
 // ======================================================================================== //

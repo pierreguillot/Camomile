@@ -16,9 +16,9 @@
 //==============================================================================
 // [BEGIN_USER_CODE_SECTION]
 #include "../Source/PluginEnvironment.h"
+#define JUCE_DISPLAY_SPLASH_SCREEN 0
 #define JucePlugin_Name CamomileEnvironment::getPluginNameUTF8()
 #define JucePlugin_PluginCode CamomileEnvironment::getPluginCode()
-#define JUCE_DISPLAY_SPLASH_SCREEN 0
 // [END_USER_CODE_SECTION]
 
 /*
