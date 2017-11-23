@@ -78,7 +78,7 @@ public:
     static std::vector<std::string> const& getParams();
     
     //! @brief Gets the channels buses supported.
-    static std::vector<std::pair<std::string, std::string>> const& getBuses();
+    static std::vector<std::pair<int, int>> const& getBuses();
     
     //! @brief Gets the parsing errors.
     static std::vector<std::string> const& getErrors();
@@ -93,7 +93,7 @@ private:
     std::string     patch_name  = "Camomile.pd";
     std::string     patch_path  = "";
     bool            valid       = false;
-    
+    size_t          initialized = 0;
     
     bool    midi_in_support   = false;
     bool    midi_out_support  = false;
@@ -104,7 +104,7 @@ private:
     
     std::vector<std::string> programs;
     std::vector<std::string> params;
-    std::vector<std::pair<std::string, std::string>> buses;
+    std::vector<std::pair<int, int>> buses;
     
     std::vector<std::string> errors;
 };

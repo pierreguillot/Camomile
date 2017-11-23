@@ -8,6 +8,7 @@
 #include "PluginAtomParser.h"
 #include <stdexcept>
 #include <cmath>
+#include <map>
 
 // ======================================================================================== //
 //                                      PARAMETER                                           //
@@ -129,6 +130,55 @@ bool CamomileAudioParameter::isAutomatable() const
 bool CamomileAudioParameter::isMetaParameter() const
 {
     return m_meta;
+}
+
+CamomileAudioParameter* CamomileAudioParameter::parse(const std::string& definition, std::vector<std::string>& errors)
+{
+    std::map<std::string, std::string> options;
+    
+    size_t pos = definition.find_first_of('-');
+    while(pos != std::string::npos)
+    {
+        size_t const end = definition.find_first_of(" ;\t\f\v\n\r", pos+1);
+        if(end != std::string::npos)
+        {
+            std::string const name = definition.substr(pos+1, end-(pos+1));
+            const size_t val1 = definition.find_first_not_of(' ', end+1);
+            if(val1 != std::string::npos)
+            {
+                pos = definition.find_first_of("-;\t\f\v\n\r", val1+1);
+                if(pos != std::string::npos)
+                {
+                    size_t val2 = definition.find_last_not_of(" \t\f\v\n\r", pos);
+                    while(definition[val2-1] == ' ')
+                        val2--;
+                    
+                    auto option = options.find(name);
+                    if(option == options.end())
+                    {
+                        options[name] = definition.substr(val1, val2-val1);
+                    }
+                    else
+                    {
+                        errors.push_back("parameter option '" + name + "' aleady defined.");
+                        
+                    }
+                }
+            }
+            else { pos = end; }
+        }
+        else { pos = end; }
+    }
+    
+    auto list = options.find("list");
+    if(list != options.end())
+    {
+    }
+    else
+    {
+    }
+    
+    return nullptr;
 }
 
 CamomileAudioParameter* CamomileAudioParameter::parse(const std::vector<pd::Atom>& list)

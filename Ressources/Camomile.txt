@@ -1,12 +1,13 @@
-param 1 -name Frequency -label Hz -min 0 -max 22050 -default 220;
-param 2 -name Volume -label dB -min 0 -max 100 -default 0;
-param 3 -name Mute -list Off/On -default On;
-param 4 -name Dummy -nsteps 5 -default On -auto false -meta false;
+param -name Frequency -label Hz -min 0 -max 22050 -name Frequency -default 220;
+param -name Volume -label dB -min 0 -max 100 -default 0;
+param -name Mute -list Off/On -default On;
+param -name Dummy -nsteps 5 -default On -auto false -meta false;
 program John;
 program Hammond;
-buses mono mono;
-buses stereo stereo;
-buses quadraphonic quadraphonic;
+buse mono mono;
+buse 2 2;
+buse 4 4;
+buse 8 8;
 code zErt;
 midiin true;
 midiout true;
@@ -14,3 +15,14 @@ playhead true;
 midionly false;
 taillength 0;
 latency 0;
+dummy1;
+dummy2
+dummy3 dum dom
+dummy4 dum dom    ;
+
+dummy5 dum dom    ;
+midionly fals;
+midionly 12;
+midionly -1;
+midionly ;
+program;

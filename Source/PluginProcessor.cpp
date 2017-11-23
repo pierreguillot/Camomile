@@ -22,16 +22,21 @@ m_programs(CamomileEnvironment::getPrograms())
     bind("camomile");
     if(CamomileEnvironment::isValid())
     {
+        std::vector<std::string> errors = CamomileEnvironment::getErrors();
         open(CamomileEnvironment::getPatchPath(), CamomileEnvironment::getPatchName());
         processMessages();
         setLatencySamples(CamomileEnvironment::getLatencySamples());
         m_programs = CamomileEnvironment::getPrograms();
-    }
-    
-    std::vector<std::string> const& errors = CamomileEnvironment::getErrors();
-    for(size_t i = 0; i < errors.size(); ++i)
-    {
-        std::cerr << errors[i] << "\n";
+        
+        std::vector<std::string> const& params = CamomileEnvironment::getParams();
+        for(size_t i = 0; i < params.size(); ++i)
+        {
+            CamomileAudioParameter::parse(params[i], errors);
+        }
+        for(size_t i = 0; i < errors.size(); ++i)
+        {
+            std::cerr << errors[i] << "\n";
+        }
     }
 }
 
@@ -59,31 +64,20 @@ void CamomileAudioProcessor::changeProgramName(int index, const String& newName)
 
 //==============================================================================
 
-bool CamomileAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool CamomileAudioProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const
 {
-    bool pass_in = true;
+    const int nins  = layouts.getMainInputChannelSet().size();
+    const int nouts  = layouts.getMainOutputChannelSet().size();
+    auto& buses_supported = CamomileEnvironment::getBuses();
+  
+    for(auto& buse : buses_supported)
     {
-        const AudioChannelSet& set  = layouts.getMainInputChannelSet();
-        String input_desc = set.getDescription().toLowerCase();
-        /*
-        for(int i = 0; i < m_input_sets.size() && !pass_in; ++i)
+        if(buse.first == nins && buse.second == nouts)
         {
-            pass_in = m_input_sets[i] == input_desc || m_input_sets[i].getIntValue() == set.size();
+            return true;
         }
-         */
     }
-    bool pass_out = true;
-    {
-        const AudioChannelSet& set  = layouts.getMainOutputChannelSet();
-        String output_desc = set.getDescription().toLowerCase();
-        /*
-        for(int i = 0; i < m_input_sets.size() && !pass_out; ++i)
-        {
-            pass_out = m_input_sets[i] == output_desc || m_input_sets[i].getIntValue() == set.size();
-        }
-         */
-    }
-    return pass_in && pass_out;
+    return false;
 }
 
 void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)

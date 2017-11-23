@@ -105,3 +105,145 @@ bool CamomileAtomParser::parseBool(const std::vector<pd::Atom>& list, const Stri
 
 
 
+std::pair<std::string, std::string> CamomileParser::getLine(std::string const& line)
+{
+    size_t const start = line.find_first_not_of(' ');
+    if(start != std::string::npos)
+    {
+        size_t const end = line.find_first_of(' ', start+1);
+        if(end != std::string::npos)
+        {
+            std::string const name = line.substr(start, end-start);
+            size_t const start2 = line.find_first_not_of(' ', end);
+            if(start2 != std::string::npos)
+            {
+                std::string value = line.substr(start2);
+                while(value.back() == ';' || value.back() == ' ') { value.pop_back(); }
+                return std::pair<std::string, std::string>(name, value);
+            }
+            else { return std::pair<std::string, std::string>(name, std::string()); }
+        }
+        else
+        {
+            std::string name = line.substr(start);
+            while(name.back() == ';') { name.pop_back(); }
+            return std::pair<std::string, std::string>(name, std::string());
+        }
+    }
+    return std::pair<std::string, std::string>();
+}
+
+bool CamomileParser::getBool(std::string const& value)
+{
+    if(!value.empty())
+    {
+        if(isdigit(static_cast<int>(value[0])))
+        {
+            const int val = atoi(value.c_str());
+            if(val == 0 || val ==  1)
+                return static_cast<bool>(val);
+            throw std::string("'") + value + std::string("' not a boolean");
+        }
+        else
+        {
+            if(value.size() == 4 &&
+               tolower(static_cast<int>(value[0])) == 't' &&
+               tolower(static_cast<int>(value[1])) == 'r' &&
+               tolower(static_cast<int>(value[2])) == 'u' &&
+               tolower(static_cast<int>(value[3])) == 'e')
+                return true;
+            else if(value.size() == 5 &&
+                    tolower(static_cast<int>(value[0])) == 'f' &&
+                    tolower(static_cast<int>(value[1])) == 'a' &&
+                    tolower(static_cast<int>(value[2])) == 'l' &&
+                    tolower(static_cast<int>(value[3])) == 's' &&
+                    tolower(static_cast<int>(value[4])) == 'e')
+                return false;
+            throw std::string("'") + value + std::string("' not a boolean");
+        }
+    }
+    throw std::string("is empty");
+}
+
+int CamomileParser::getInteger(std::string const& value)
+{
+    if(!value.empty())
+    {
+        if(isdigit(static_cast<int>(value[0])))
+        {
+            return atoi(value.c_str());
+        }
+        throw std::string("'") + value + std::string("' not an integer");
+    }
+    throw std::string("is empty");
+}
+
+float CamomileParser::getFloat(std::string const& value)
+{
+    if(!value.empty())
+    {
+        if(isdigit(static_cast<int>(value[0])))
+        {
+            return static_cast<float>(atof(value.c_str()));
+        }
+        throw std::string("'") + value + std::string("' not a float");
+    }
+    throw std::string("is empty");
+}
+
+unsigned int CamomileParser::getHexadecimalCode(std::string const& value)
+{
+    if(!value.empty())
+    {
+        if(value.size() >= 4 &&
+           (isupper(static_cast<int>(value[0])) || isupper(static_cast<int>(value[1])) ||
+            isupper(static_cast<int>(value[2])) || isupper(static_cast<int>(value[3]))))
+        {
+            unsigned int ret = 0;
+            ret = (ret << 8U) | (static_cast<unsigned int>(value[0]) & 0xffU);
+            ret = (ret << 8U) | (static_cast<unsigned int>(value[1]) & 0xffU);
+            ret = (ret << 8U) | (static_cast<unsigned int>(value[2]) & 0xffU);
+            ret = (ret << 8U) | (static_cast<unsigned int>(value[3]) & 0xffU);
+            return ret;
+        }
+        throw std::string("'") + value + std::string("' not a hexadecimal code -  must contain 4 characters with at least one upper case");
+    }
+    throw std::string("is empty");
+}
+
+std::string const& CamomileParser::getString(std::string const& value)
+{
+    if(!value.empty())
+    {
+        return value;
+    }
+    throw std::string("is empty");
+}
+
+std::pair<int, int> CamomileParser::getTwoIntegers(std::string const& value)
+{
+    if(!value.empty())
+    {
+        if(isdigit(static_cast<int>(value[0])))
+        {
+            size_t next = value.find_first_of(' ');
+            if(next != std::string::npos)
+            {
+                next = value.find_first_not_of(' ', next+1);
+                if(next != std::string::npos && isdigit(static_cast<int>(value[next])))
+                {
+                    return std::pair<int, int>(atoi(value.c_str()),atoi(value.c_str()+next));
+                }
+            }
+        }
+        throw std::string("'") + value + std::string("' not a double integer");
+    }
+    throw std::string("is empty");
+}
+
+
+
+
+
+
+

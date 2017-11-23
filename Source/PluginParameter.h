@@ -52,6 +52,7 @@ public:
     bool isList() const { return !m_elements.isEmpty(); }
     
     static CamomileAudioParameter* parse(const std::vector<pd::Atom>& list);
+    static CamomileAudioParameter* parse(const std::string& definition, std::vector<std::string>& errors);
     static void saveStateInformation(XmlElement& xml, OwnedArray<AudioProcessorParameter> const& parameters);
     static void loadStateInformation(XmlElement const& xml, OwnedArray<AudioProcessorParameter> const& parameters);
 private:
