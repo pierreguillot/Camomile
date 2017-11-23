@@ -1,7 +1,7 @@
 param -name Frequency -label Hz   -min 0 -max 22050    -default 220;
 param -name Volume -label dB -min 0 -max 100 -default 0;
 param -name Mute -list Off/On -default 1;
-param -name Dummy -nsteps 5 -default 2 -auto false -meta false;
+param -name Dummy -nsteps 5 -default 2 -auto false;
 program John;
 program Hammond;
 buse 2 2;

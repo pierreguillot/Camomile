@@ -135,27 +135,99 @@ bool CamomileAudioParameter::isMetaParameter() const
 
 CamomileAudioParameter* CamomileAudioParameter::parse(const std::string& definition)
 {
-    auto options = CamomileParser::getOptions(definition);
-    String const name = options.count("name") ? CamomileParser::getString(options["name"]) : "";
-    String const label = options.count("min") ? CamomileParser::getString(options["label"]) : "";
+    auto const options = CamomileParser::getOptions(definition);
     if(options.count("list"))
     {
+        String name, label;
+        float def = 0.f;
+        bool autom = true, meta = false;
+        std::vector<std::string> telems;
+        for(auto const& option : options)
+        {
+            if(option.first == "list")
+            {
+                telems = CamomileParser::getList(option.second);
+            }
+            else if(option.first == "name")
+            {
+                name = CamomileParser::getString(option.second);
+            }
+            else if(option.first == "label")
+            {
+                label = CamomileParser::getString(option.second);
+            }
+            else if(option.first == "default")
+            {
+                def = CamomileParser::getFloat(option.second);
+            }
+            else if(option.first == "auto")
+            {
+                autom = CamomileParser::getBool(option.second);
+            }
+            else if(option.first == "meta")
+            {
+                meta = CamomileParser::getBool(option.second);
+            }
+            else if(option.first == "min" || option.first == "max" || option.first == "nsteps")
+            {
+                throw std::string("enumarated doesn't support the option ") + option.first;
+            }
+            else
+            {
+                throw std::string("unknown option ") + option.first;
+            }
+        }
         StringArray elems;
-        auto const telems = CamomileParser::getList(options["list"]);
         for(auto const& el : telems) { elems.add(el); }
-        const float def = options.count("default") ? CamomileParser::getFloat(options["default"]) : 0;
-        const bool autom = options.count("auto") ? CamomileParser::getBool(options["auto"]) : true;
-        const bool meta = options.count("meta") ? CamomileParser::getBool(options["meta"]) : false;
         return new CamomileAudioParameter(name, label, elems, def, autom, meta);
     }
     else
     {
-        const float min = options.count("min") ? CamomileParser::getFloat(options["min"]) : 0;
-        const float max = options.count("max") ? CamomileParser::getFloat(options["max"]) : 1;
-        const float def = options.count("default") ? CamomileParser::getFloat(options["default"]) : min;
-        const int nsteps = options.count("nsteps") ? CamomileParser::getInteger(options["nsteps"]) : 0;
-        const bool autom = options.count("auto") ? CamomileParser::getBool(options["auto"]) : true;
-        const bool meta = options.count("meta") ? CamomileParser::getBool(options["meta"]) : false;
+        String name, label;
+        float def = 0.f, min = 0.f, max = 1.f;
+        bool autom = true,  meta = false;
+        int nsteps = 0;
+        for(auto const& option : options)
+        {
+            if(option.first == "name")
+            {
+                name = CamomileParser::getString(option.second);
+            }
+            else if(option.first == "label")
+            {
+                label = CamomileParser::getString(option.second);
+            }
+            else if(option.first == "min")
+            {
+                min = CamomileParser::getFloat(option.second);
+                if(!options.count("default"))
+                    def = min;
+            }
+            else if(option.first == "max")
+            {
+                max = CamomileParser::getFloat(option.second);
+            }
+            else if(option.first == "default")
+            {
+                def = CamomileParser::getFloat(option.second);
+            }
+            else if(option.first == "auto")
+            {
+                autom = CamomileParser::getBool(option.second);
+            }
+            else if(option.first == "meta")
+            {
+                meta = CamomileParser::getBool(option.second);
+            }
+            else if(option.first == "nsteps")
+            {
+                nsteps = CamomileParser::getInteger(option.second);
+            }
+            else
+            {
+                throw std::string("unknown option ") + option.first;
+            }
+        }
         return new CamomileAudioParameter(name, label, min, max, def, nsteps, autom, meta);
     }
 }

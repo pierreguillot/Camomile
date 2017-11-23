@@ -33,3 +33,4 @@ param -name -label Dummy;
 param -name;
 param -list Odd / / Zaza;
 param -list Odd / /z/;
+param -zzaza john;
