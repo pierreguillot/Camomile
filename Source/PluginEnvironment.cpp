@@ -5,7 +5,7 @@
 */
 
 #include "PluginEnvironment.h"
-#include "PluginAtomParser.h"
+#include "PluginParser.h"
 #include "../JuceLibraryCode/JuceHeader.h"
 #include <cctype>
 

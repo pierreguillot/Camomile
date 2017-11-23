@@ -5,7 +5,7 @@
 */
 
 #include "PluginProcessor.h"
-#include "PluginAtomParser.h"
+#include "PluginParser.h"
 #include "PluginParameter.h"
 #include "PluginEditor.h"
 #include <iostream>
@@ -22,21 +22,31 @@ m_programs(CamomileEnvironment::getPrograms())
     bind("camomile");
     if(CamomileEnvironment::isValid())
     {
-        std::vector<std::string> errors = CamomileEnvironment::getErrors();
+        
         open(CamomileEnvironment::getPatchPath(), CamomileEnvironment::getPatchName());
         processMessages();
         setLatencySamples(CamomileEnvironment::getLatencySamples());
         m_programs = CamomileEnvironment::getPrograms();
         
-        std::vector<std::string> const& params = CamomileEnvironment::getParams();
-        for(size_t i = 0; i < params.size(); ++i)
-        {
-            CamomileAudioParameter::parse(params[i], errors);
-        }
+        std::vector<std::string> const& errors = CamomileEnvironment::getErrors();
         for(size_t i = 0; i < errors.size(); ++i)
         {
             std::cerr << errors[i] << "\n";
         }
+        std::vector<std::string> const& params = CamomileEnvironment::getParams();
+        for(size_t i = 0; i < params.size(); ++i)
+        {
+            try
+            {
+                CamomileAudioParameter::parse(params[i]);
+            }
+            catch (std::string const& message)
+            {
+                std::cerr << "parameter " << i << ": " << message;
+            }
+            
+        }
+        
     }
 }
 

@@ -4,7 +4,7 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "PluginAtomParser.h"
+#include "PluginParser.h"
 #include <stdexcept>
 #include <cmath>
 

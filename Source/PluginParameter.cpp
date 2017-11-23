@@ -5,7 +5,7 @@
 */
 
 #include "PluginParameter.h"
-#include "PluginAtomParser.h"
+#include "PluginParser.h"
 #include <stdexcept>
 #include <cmath>
 #include <map>
@@ -132,14 +132,14 @@ bool CamomileAudioParameter::isMetaParameter() const
     return m_meta;
 }
 
-CamomileAudioParameter* CamomileAudioParameter::parse(const std::string& definition, std::vector<std::string>& errors)
+CamomileAudioParameter* CamomileAudioParameter::parse(const std::string& definition)
 {
     std::map<std::string, std::string> options;
     
     size_t pos = definition.find_first_of('-');
     while(pos != std::string::npos)
     {
-        size_t const end = definition.find_first_of(" ;\t\f\v\n\r", pos+1);
+        size_t const end = definition.find_first_of(" \t\f\v\n\r", pos+1);
         if(end != std::string::npos)
         {
             std::string const name = definition.substr(pos+1, end-(pos+1));
@@ -160,7 +160,7 @@ CamomileAudioParameter* CamomileAudioParameter::parse(const std::string& definit
                     }
                     else
                     {
-                        errors.push_back("parameter option '" + name + "' aleady defined.");
+                        throw std::string("option '" + name + "' aleady defined.");
                         
                     }
                 }
@@ -180,7 +180,7 @@ CamomileAudioParameter* CamomileAudioParameter::parse(const std::string& definit
     
     return nullptr;
 }
-
+/*
 CamomileAudioParameter* CamomileAudioParameter::parse(const std::vector<pd::Atom>& list)
 {
     String const name = CamomileAtomParser::parseString(list, "-name");
@@ -215,6 +215,7 @@ CamomileAudioParameter* CamomileAudioParameter::parse(const std::vector<pd::Atom
     }
     return nullptr;
 }
+*/
 
 void CamomileAudioParameter::saveStateInformation(XmlElement& xml, OwnedArray<AudioProcessorParameter> const& parameters)
 {
