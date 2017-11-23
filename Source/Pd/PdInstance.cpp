@@ -6,6 +6,7 @@
 
 
 #include "PdInstance.h"
+#include "PdPatch.h"
 #include <cassert>
 #include <algorithm>
 
@@ -134,6 +135,8 @@ namespace pd
     
     Instance::~Instance()
     {
+        if(m_patch)
+            closePatch();
         for(auto it : m_receivers)
         {
             pd_free((t_pd *)it.second);
@@ -407,16 +410,21 @@ namespace pd
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     
-    void Instance::open(std::string const& path, std::string const& name)
+    void Instance::openPatch(std::string const& path, std::string const& name)
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         m_patch = libpd_openfile(name.c_str(), path.c_str());
     }
     
-    void Instance::close()
+    void Instance::closePatch()
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_closefile(m_patch);
+    }
+    
+    Patch Instance::getPatch()
+    {
+        return Patch(m_patch);
     }
 }
 

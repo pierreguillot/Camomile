@@ -97,8 +97,10 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/PluginParser_b8236cbb.o \
   $(JUCE_OBJDIR)/PluginParameter_b51e717.o \
   $(JUCE_OBJDIR)/PluginEditor_94d4fb09.o \
-  $(JUCE_OBJDIR)/PdInstance_9098ebb2.o \
-  $(JUCE_OBJDIR)/x_libpd_multi_baed0a2d.o \
+  $(JUCE_OBJDIR)/PdInstance_ddabcf25.o \
+  $(JUCE_OBJDIR)/PdPatch_69639a82.o \
+  $(JUCE_OBJDIR)/x_libpd_multi_1036951a.o \
+  $(JUCE_OBJDIR)/Gui_edc4c728.o \
   $(JUCE_OBJDIR)/include_juce_audio_basics_8a4e984a.o \
   $(JUCE_OBJDIR)/include_juce_audio_devices_63111d02.o \
   $(JUCE_OBJDIR)/include_juce_audio_formats_15f82001.o \
@@ -176,15 +178,25 @@ $(JUCE_OBJDIR)/PluginEditor_94d4fb09.o: ../../Source/PluginEditor.cpp
 	@echo "Compiling PluginEditor.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/PdInstance_9098ebb2.o: ../../Source/PdInstance.cpp
+$(JUCE_OBJDIR)/PdInstance_ddabcf25.o: ../../Source/Pd/PdInstance.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling PdInstance.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/x_libpd_multi_baed0a2d.o: ../../Source/x_libpd_multi.c
+$(JUCE_OBJDIR)/PdPatch_69639a82.o: ../../Source/Pd/PdPatch.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PdPatch.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/x_libpd_multi_1036951a.o: ../../Source/Pd/x_libpd_multi.c
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling x_libpd_multi.c"
 	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/Gui_edc4c728.o: ../../Source/Gui/Gui.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling Gui.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/include_juce_audio_basics_8a4e984a.o: ../../JuceLibraryCode/include_juce_audio_basics.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)

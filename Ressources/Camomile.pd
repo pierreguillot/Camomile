@@ -108,4 +108,4 @@
 #X connect 51 1 53 0;
 #X connect 52 0 47 0;
 #X connect 53 0 48 0;
-#X coords 0 -1 1 1 85 60 1 100 100;
+#X coords 0 557 1 556 240 120 0;

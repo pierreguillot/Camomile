@@ -33,10 +33,18 @@
       <FILE id="JHFkLz" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="z4zHjj" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
-      <FILE id="rv2VhA" name="PdInstance.cpp" compile="1" resource="0" file="Source/PdInstance.cpp"/>
-      <FILE id="IMbGBZ" name="PdInstance.h" compile="0" resource="0" file="Source/PdInstance.h"/>
-      <FILE id="b5aPaR" name="x_libpd_multi.c" compile="1" resource="0" file="Source/x_libpd_multi.c"/>
-      <FILE id="U449Fi" name="x_libpd_multi.h" compile="0" resource="0" file="Source/x_libpd_multi.h"/>
+      <GROUP id="{72E9D6C6-B562-FE98-40C6-9583CB880B4E}" name="Pd">
+        <FILE id="sArtFN" name="PdInstance.cpp" compile="1" resource="0" file="Source/Pd/PdInstance.cpp"/>
+        <FILE id="SVRyLv" name="PdInstance.h" compile="0" resource="0" file="Source/Pd/PdInstance.h"/>
+        <FILE id="xv8ovv" name="PdPatch.cpp" compile="1" resource="0" file="Source/Pd/PdPatch.cpp"/>
+        <FILE id="yBmkob" name="PdPatch.hpp" compile="0" resource="0" file="Source/Pd/PdPatch.hpp"/>
+        <FILE id="Uukbo7" name="x_libpd_multi.c" compile="1" resource="0" file="Source/Pd/x_libpd_multi.c"/>
+        <FILE id="NF0MrF" name="x_libpd_multi.h" compile="0" resource="0" file="Source/Pd/x_libpd_multi.h"/>
+      </GROUP>
+      <GROUP id="{5C1EE5CB-809C-59DA-56DD-12FB142BFA60}" name="Gui">
+        <FILE id="mLSqQZ" name="Gui.cpp" compile="1" resource="0" file="Source/Gui/Gui.cpp"/>
+        <FILE id="JG41BR" name="Gui.hpp" compile="0" resource="0" file="Source/Gui/Gui.hpp"/>
+      </GROUP>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

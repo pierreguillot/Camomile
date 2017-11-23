@@ -2,6 +2,12 @@
 
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="Camomile\Source\Pd">
+      <UniqueIdentifier>{2EC11BD7-CEBB-B832-8CB3-D70D257E2DEE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camomile\Source\Gui">
+      <UniqueIdentifier>{3AF8F85C-58F5-53F7-00C3-F524890FB4C3}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Camomile\Source">
       <UniqueIdentifier>{33E9C75D-FCFD-D74A-6894-584B92DA1489}</UniqueIdentifier>
     </Filter>
@@ -370,11 +376,17 @@
     <ClCompile Include="..\..\Source\PluginEditor.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PdInstance.cpp">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Pd\PdInstance.cpp">
+      <Filter>Camomile\Source\Pd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\x_libpd_multi.c">
-      <Filter>Camomile\Source</Filter>
+    <ClCompile Include="..\..\Source\Pd\PdPatch.cpp">
+      <Filter>Camomile\Source\Pd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Pd\x_libpd_multi.c">
+      <Filter>Camomile\Source\Pd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\Gui.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <Filter>Juce Modules\juce_audio_basics\buffers</Filter>
@@ -2160,11 +2172,17 @@
     <ClInclude Include="..\..\Source\PluginEditor.h">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\PdInstance.h">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Pd\PdInstance.h">
+      <Filter>Camomile\Source\Pd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\x_libpd_multi.h">
-      <Filter>Camomile\Source</Filter>
+    <ClInclude Include="..\..\Source\Pd\PdPatch.hpp">
+      <Filter>Camomile\Source\Pd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Pd\x_libpd_multi.h">
+      <Filter>Camomile\Source\Pd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\Gui.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
       <Filter>Juce Modules\juce_audio_basics\audio_play_head</Filter>

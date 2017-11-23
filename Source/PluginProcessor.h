@@ -8,14 +8,14 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginEnvironment.h"
-#include "PdInstance.h"
+#include "Pd/PdInstance.h"
 
 // ======================================================================================== //
 //                                      PROCESSOR                                           //
 // ======================================================================================== //
 
 
-class CamomileAudioProcessor : public AudioProcessor, pd::Instance
+class CamomileAudioProcessor : public AudioProcessor, public pd::Instance
 {
 public:
     CamomileAudioProcessor();

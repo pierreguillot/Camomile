@@ -15,6 +15,7 @@
 
 namespace pd
 {
+    class Patch;
     // ==================================================================================== //
     //                                      INSTANCE                                        //
     // ==================================================================================== //
@@ -99,8 +100,11 @@ namespace pd
         void bind(std::string const& symbol);
         void unbind(std::string const& symbol);
         
-        void open(std::string const& path, std::string const& name);
-        void close();
+        void openPatch(std::string const& path, std::string const& name);
+        void closePatch();
+        Patch getPatch();
+    
+        
     private:
         
         void* m_instance    = nullptr;

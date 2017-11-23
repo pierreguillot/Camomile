@@ -23,7 +23,7 @@ m_programs(CamomileEnvironment::getPrograms())
     if(CamomileEnvironment::isValid())
     {
         
-        open(CamomileEnvironment::getPatchPath(), CamomileEnvironment::getPatchName());
+        openPatch(CamomileEnvironment::getPatchPath(), CamomileEnvironment::getPatchName());
         processMessages();
         setLatencySamples(CamomileEnvironment::getLatencySamples());
         m_programs = CamomileEnvironment::getPrograms();
