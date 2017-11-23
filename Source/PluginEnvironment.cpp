@@ -105,7 +105,6 @@ CamomileEnvironment::CamomileEnvironment()
 #endif
 
         FileInputStream stream(File(String(patch_path + String(File::getSeparatorString()).toStdString() + plugin_name + ".txt")));
-        std::map<std::string, std::vector<std::string>> options;
         if(stream.openedOk())
         {
             while(!stream.isExhausted())
@@ -115,7 +114,11 @@ CamomileEnvironment::CamomileEnvironment()
                 {
                     try
                     {
-                        if(entry.first == "program")
+                        if(entry.first == "param")
+                        {
+                            params.push_back(CamomileParser::getString(entry.second));
+                        }
+                        else if(entry.first == "program")
                         {
                             programs.push_back(CamomileParser::getString(entry.second));
                         }
@@ -125,43 +128,62 @@ CamomileEnvironment::CamomileEnvironment()
                         }
                         else if(entry.first == "midiin")
                         {
+                            if(state.test(init_midi_in))
+                                throw std::string("already defined");
                             midi_in_support = CamomileParser::getBool(entry.second);
+                            state.set(init_midi_in);
                         }
                         else if(entry.first == "midiout")
                         {
+                            if(state.test(init_midi_out))
+                                throw std::string("already defined");
                             midi_out_support = CamomileParser::getBool(entry.second);
+                            state.set(init_midi_out);
                         }
                         else if(entry.first == "playhead")
                         {
+                            if(state.test(init_play_head))
+                                throw std::string("already defined");
                             play_head_support = CamomileParser::getBool(entry.second);
+                            state.set(init_play_head);
                         }
                         else if(entry.first == "midionly")
                         {
+                            if(state.test(init_midi_only))
+                                throw std::string("already defined");
                             midi_only = CamomileParser::getBool(entry.second);
+                            state.set(init_midi_only);
                         }
                         else if(entry.first == "latency")
                         {
+                            if(state.test(init_latency))
+                                throw std::string("already defined");
                             latency_samples = CamomileParser::getInteger(entry.second);
+                            state.set(init_latency);
                         }
                         else if(entry.first == "taillength")
                         {
+                            if(state.test(init_tail_length))
+                                throw std::string("already defined");
                             tail_length_sec = CamomileParser::getFloat(entry.second);
+                            state.set(init_tail_length);
                         }
                         else if(entry.first == "code")
                         {
+                            if(state.test(init_code))
+                                throw std::string("already defined");
                             plugin_code = CamomileParser::getHexadecimalCode(entry.second);
+                            state.set(init_code);
                         }
                         else
                         {
-                            options[entry.first].push_back(entry.second);
+                            errors.push_back(entry.first + " unknown option");
                         }
                     }
                     catch(const std::string& message)
                     {
                         errors.push_back(entry.first + " " + message);
                     }
-
-                    
                 }
             }
             valid = true;
@@ -169,15 +191,6 @@ CamomileEnvironment::CamomileEnvironment()
         else
         {
             errors.push_back("no configuration file.");
-        }
-        
-        for(auto& it : options)
-        {
-            if(it.first == "param")
-            {
-                params = it.second;
-            }
-            else { errors.push_back("unknown option " + it.first + "."); }
         }
     }
     else
@@ -189,7 +202,6 @@ CamomileEnvironment::CamomileEnvironment()
     {
         programs.push_back("");
     }
-    
     if(buses.empty())
     {
         buses.push_back({2, 2});

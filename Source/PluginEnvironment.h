@@ -10,6 +10,7 @@
 #include <utility>
 #include <vector>
 #include <map>
+#include <bitset>
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                      ENVIRONMENT                                         //
@@ -93,7 +94,7 @@ private:
     std::string     patch_name  = "Camomile.pd";
     std::string     patch_path  = "";
     bool            valid       = false;
-    size_t          initialized = 0;
+    std::bitset<8>  state;
     
     bool    midi_in_support   = false;
     bool    midi_out_support  = false;
@@ -107,4 +108,15 @@ private:
     std::vector<std::pair<int, int>> buses;
     
     std::vector<std::string> errors;
+    
+    enum init_flags
+    {
+        init_midi_in    = 0,
+        init_midi_out   = 1,
+        init_play_head  = 2,
+        init_midi_only  = 3,
+        init_tail_length= 4,
+        init_latency    = 5,
+        init_code    = 6
+    };
 };

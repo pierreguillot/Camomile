@@ -1,0 +1,78 @@
+Plugin Options
+param -name string -label string -min value -max value -default value -nsteps value -auto boolean -meta boolean -list string;
+program string;
+buse value value;
+code string;
+midiin boolean;
+midiout boolean;
+playhead boolean;
+midionly boolean;
+taillength value;
+latency value;
+
+Channels Configurations (not implemented yet):
+"discrete"
+"disabled"
+"mono"
+"stereo"
+"lcr"
+"lrs"
+"lcrs"
+"5.0 surround"
+"5.1 surround"
+"6.0 surround"
+"6.1 surround"
+"6.0 (music) surround"
+"6.1 (music) surround"
+"7.0 surround"
+"7.1 surround"
+"7.0 surround sdds"
+"7.1 surround sdds"
+"7.0.2 surround"
+"7.1.2 surround"
+"quadraphonic"
+"pentagonal"
+"hexagonal"
+"octagonal"
+"ambisonic"
+"unknown"
+
+
+        /** For timecode, the position of the start of the timeline, in seconds from 00:00:00:00. */
+        double editOriginTime;
+
+        /** The position of the start of the last bar, in pulses-per-quarter-note.
+
+            This is the time from the start of the timeline to the start of the current
+            bar, in ppq units.
+
+            Note - this value may be unavailable on some hosts, e.g. Pro-Tools. If
+            it's not available, the value will be 0.
+        */
+        double ppqPositionOfLastBarStart;
+
+        /** The video frame rate, if applicable. */
+        FrameRateType frameRate;
+
+
+
+Play Head Infos
+- level 1 (Slow rate infos)
+  - playing
+  - recording
+  - timesig
+    - numerator
+    - denominator
+  - looping
+    - state
+    - start (start position in ppq)
+    - end (end position in ppq)
+- Level 2 (Medium rate infos)
+  - bpm
+- Level 3 (Fast and time critical things like)
+  - position
+    - ppq
+    - seconds
+    - samples
+
+where is editOriginTime, ppqPositionOfLastBarStart and videoframeRate ? 
