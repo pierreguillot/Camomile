@@ -36,6 +36,10 @@ CamoLookAndFeel::CamoLookAndFeel()
     setColour(TextEditor::outlineColourId, Gui::getColorInv());
     setColour(TextEditor::shadowColourId,Gui::getColorInv());
     setColour(TextEditor::textColourId, Gui::getColorTxt().withAlpha(0.5f));
+    
+    setColour(ScrollBar::thumbColourId, Gui::getColorTxt().withAlpha(0.5f));
+    setColour(ScrollBar::trackColourId,Gui::getColorInv());
+    setColour(ScrollBar::backgroundColourId, Gui::getColorBg());
 }
 
 CamoLookAndFeel::~CamoLookAndFeel()  {}
@@ -43,7 +47,7 @@ CamoLookAndFeel::~CamoLookAndFeel()  {}
 
 Font CamoLookAndFeel::getPopupMenuFont()
 {
-    return Gui::getFont();
+    return Gui::getFont().withHeight(13);
 }
 
 void CamoLookAndFeel::drawPopupMenuBackground (Graphics& g, int width, int height)

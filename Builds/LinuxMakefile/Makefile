@@ -96,12 +96,12 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/PluginEnvironment_8feb641.o \
   $(JUCE_OBJDIR)/PluginParser_b8236cbb.o \
   $(JUCE_OBJDIR)/PluginParameter_b51e717.o \
+  $(JUCE_OBJDIR)/PluginConsole_d14f8c05.o \
   $(JUCE_OBJDIR)/PluginEditor_94d4fb09.o \
   $(JUCE_OBJDIR)/PdInstance_ddabcf25.o \
   $(JUCE_OBJDIR)/PdPatch_69639a82.o \
   $(JUCE_OBJDIR)/x_libpd_multi_1036951a.o \
   $(JUCE_OBJDIR)/Gui_edc4c728.o \
-  $(JUCE_OBJDIR)/GuiButtons_845e75c3.o \
   $(JUCE_OBJDIR)/GuiConsole_79dfc099.o \
   $(JUCE_OBJDIR)/LookAndFeel_7fdda4eb.o \
   $(JUCE_OBJDIR)/BinaryData_ce4232d4.o \
@@ -177,6 +177,11 @@ $(JUCE_OBJDIR)/PluginParameter_b51e717.o: ../../Source/PluginParameter.cpp
 	@echo "Compiling PluginParameter.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
+$(JUCE_OBJDIR)/PluginConsole_d14f8c05.o: ../../Source/PluginConsole.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PluginConsole.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
 $(JUCE_OBJDIR)/PluginEditor_94d4fb09.o: ../../Source/PluginEditor.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling PluginEditor.cpp"
@@ -200,11 +205,6 @@ $(JUCE_OBJDIR)/x_libpd_multi_1036951a.o: ../../Source/Pd/x_libpd_multi.c
 $(JUCE_OBJDIR)/Gui_edc4c728.o: ../../Source/Gui/Gui.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling Gui.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/GuiButtons_845e75c3.o: ../../Source/Gui/GuiButtons.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling GuiButtons.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/GuiConsole_79dfc099.o: ../../Source/Gui/GuiConsole.cpp

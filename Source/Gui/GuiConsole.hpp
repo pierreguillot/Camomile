@@ -21,20 +21,60 @@ public:
     ~GuiConsole();
     void timerCallback() final;
     void buttonClicked(Button* button) final;
-    
-    int getNumRows() final;
-    void paintRowBackground(Graphics& g, int rowNumber, int width, int height, bool rowIsSelected) final;
+    void paint(Graphics& g) final;
+    int getNumRows() final { return static_cast<int>(m_size); }
+    void paintRowBackground(Graphics& , int , int , int , bool ) final {}
     void paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected) final;
-    bool keyPressed(const KeyPress& key) final;
 private:
-    CamomileAudioProcessor& m_processor;
-    size_t          m_size;
+    typedef CamomileConsole::Message Message;
+    CamomileAudioProcessor& m_history;
+    size_t          m_size = 0;
     TableListBox    m_table;
-    /*
-    GuiClearButton  m_clear_button;
-    GuiCopyButton   m_copy_button;
-    GuiLevelButton  m_level_button;
-     */
+    Message::Level  m_level = Message::Level::Normal;
+    
+    class ClearButton : public Button
+    {
+    public:
+        ClearButton();
+        void paintButton(Graphics& g, bool over, bool down) final {};
+        void buttonStateChanged() final;
+    private:
+        DrawableImage   m_image1;
+        DrawableImage   m_image2;
+        
+        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ClearButton)
+    };
+    
+    class CopyButton : public Button
+    {
+    public:
+        CopyButton();
+        void paintButton(Graphics& g, bool over, bool down) final {};
+        void buttonStateChanged() final;
+    private:
+        DrawableImage   m_image1;
+        DrawableImage   m_image2;
+        
+        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CopyButton)
+    };
+    
+    class LevelButton : public Button
+    {
+    public:
+        LevelButton();
+        void paintButton(Graphics& g, bool over, bool down) final {};
+        void buttonStateChanged() final;
+    private:
+        DrawableImage   m_image1;
+        DrawableImage   m_image2;
+        
+        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LevelButton)
+    };
+    
+    ClearButton  m_clear_button;
+    CopyButton   m_copy_button;
+    LevelButton  m_level_button;
+     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiConsole)
 };
 

@@ -19,7 +19,6 @@
 #include "GuiPatcher.hpp"
 
  */
-#include "GuiButtons.hpp"
 #include "GuiConsole.hpp"
 
 // ==================================================================================== //

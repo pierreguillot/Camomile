@@ -109,3 +109,25 @@ void CamomileAudioProcessorEditor::buttonClicked(Button* button)
     }
 }
 
+CamomileAudioProcessorEditor::FlowerButton::FlowerButton() : Button("CamomileButton")
+{
+    setClickingTogglesState(false);
+    setAlwaysOnTop(true);
+    m_center.setImage(ImageCache::getFromMemory(BinaryData::flower_center_png, BinaryData::flower_center_pngSize));
+    m_petals.setImage(ImageCache::getFromMemory(BinaryData::flower_petals_png, BinaryData::flower_petals_pngSize));
+    m_center.setTransformToFit(juce::Rectangle<float>(0.f, 0.f, 18.f, 18.f), RectanglePlacement::stretchToFit);
+    m_petals.setTransformToFit(juce::Rectangle<float>(0.f, 0.f, 18.f, 18.f), RectanglePlacement::stretchToFit);
+    m_center.setAlwaysOnTop(true);
+    addAndMakeVisible(m_center, -1);
+    addAndMakeVisible(m_petals, 0);
+    m_petals.setOverlayColour(Gui::getColorTxt());
+    m_petals.setAlpha(0.5f);
+    setBounds(3, 3, 18, 18);
+}
+
+void CamomileAudioProcessorEditor::FlowerButton::buttonStateChanged()
+{
+    m_petals.setAlpha((isDown() || isOver()) ? 1.f : 0.5f);
+}
+
+

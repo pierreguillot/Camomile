@@ -151,12 +151,12 @@
     <ClCompile Include="..\..\Source\PluginEnvironment.cpp"/>
     <ClCompile Include="..\..\Source\PluginParser.cpp"/>
     <ClCompile Include="..\..\Source\PluginParameter.cpp"/>
+    <ClCompile Include="..\..\Source\PluginConsole.cpp"/>
     <ClCompile Include="..\..\Source\PluginEditor.cpp"/>
     <ClCompile Include="..\..\Source\Pd\PdInstance.cpp"/>
     <ClCompile Include="..\..\Source\Pd\PdPatch.cpp"/>
     <ClCompile Include="..\..\Source\Pd\x_libpd_multi.c"/>
     <ClCompile Include="..\..\Source\Gui\Gui.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\GuiButtons.cpp"/>
     <ClCompile Include="..\..\Source\Gui\GuiConsole.cpp"/>
     <ClCompile Include="..\..\Source\Gui\LookAndFeel.cpp"/>
     <ClCompile Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
@@ -1795,12 +1795,12 @@
     <ClInclude Include="..\..\Source\PluginEnvironment.h"/>
     <ClInclude Include="..\..\Source\PluginParser.h"/>
     <ClInclude Include="..\..\Source\PluginParameter.h"/>
+    <ClInclude Include="..\..\Source\PluginConsole.h"/>
     <ClInclude Include="..\..\Source\PluginEditor.h"/>
     <ClInclude Include="..\..\Source\Pd\PdInstance.h"/>
     <ClInclude Include="..\..\Source\Pd\PdPatch.h"/>
     <ClInclude Include="..\..\Source\Pd\x_libpd_multi.h"/>
     <ClInclude Include="..\..\Source\Gui\Gui.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\GuiButtons.hpp"/>
     <ClInclude Include="..\..\Source\Gui\GuiConsole.hpp"/>
     <ClInclude Include="..\..\Source\Gui\LookAndFeel.hpp"/>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>

@@ -5,14 +5,13 @@
 */
 
 #include "GuiConsole.hpp"
-#include "GuiButtons.hpp"
 #include "Gui.hpp"
 #include <iostream>
 // ==================================================================================== //
 //                                      GUI CONSOLE                                     //
 // ==================================================================================== //
     
-GuiConsole::GuiConsole(CamomileAudioProcessor& p) : m_processor(p)
+GuiConsole::GuiConsole(CamomileAudioProcessor& p) : m_history(p)
 {
     m_size  = 0;
     setWantsKeyboardFocus(true);
@@ -21,7 +20,7 @@ GuiConsole::GuiConsole(CamomileAudioProcessor& p) : m_processor(p)
     header->setStretchToFitActive(false);
     header->setColumnVisible(1, true);
     
-    m_table.setBounds(0, 0, 300, 350);
+    m_table.setBounds(2, 2, 298, 340);
     m_table.setModel(this);
     m_table.setOutlineThickness(0);
     m_table.setWantsKeyboardFocus(true);
@@ -36,14 +35,12 @@ GuiConsole::GuiConsole(CamomileAudioProcessor& p) : m_processor(p)
     m_table.setHeader(header);
     addAndMakeVisible(m_table);
     
-    /*
     m_clear_button.addListener(this);
     addAndMakeVisible(&m_clear_button);
     m_copy_button.addListener(this);
     addAndMakeVisible(&m_copy_button);
     m_level_button.addListener(this);
     addAndMakeVisible(&m_level_button);
-     */
     startTimer(100);
 }
 
@@ -52,9 +49,14 @@ GuiConsole::~GuiConsole()
     stopTimer();
 }
 
+void GuiConsole::paint(Graphics& g)
+{
+    g.setColour(Gui::getColorTxt().withAlpha(0.5f));
+    g.drawHorizontalLine(342, 2, 298);
+}
+
 void GuiConsole::buttonClicked(Button* button)
 {
-    /*
     if(button == &m_clear_button)
     {
         m_history.clear();
@@ -64,10 +66,10 @@ void GuiConsole::buttonClicked(Button* button)
         String text;
         for(size_t i = 0; i < m_size; i++)
         {
-            Post message(m_history.get_post_to_level(i, m_level));
-            if(!message.text.empty())
+            String const mess = String((m_history.getMessageUntilLevel(m_level, i)).text).trimCharactersAtEnd(" \n");
+            if(mess.isNotEmpty())
             {
-                text += message.text + "\n";
+                text += mess + "\n";
             }
         }
         SystemClipboard::copyTextToClipboard(text);
@@ -75,104 +77,130 @@ void GuiConsole::buttonClicked(Button* button)
     else
     {
         juce::PopupMenu m;
-        m.addItem(1, "Fatal", true, m_level == Level::fatal);
-        m.addItem(2, "Error", true, m_level == Level::error);
-        m.addItem(3, "Normal", true, m_level == Level::normal);
-        m.addItem(4, "All", true, m_level == Level::log);
-        int level = m.showAt(getScreenBounds().translated(0, -6 * (Gui::getFont().getHeight() + 2) - 4),
-                             0, 0, Gui::getFont().getHeight() + 2);
-        if(level && level != int(m_level)+1)
+        m.addItem(1, "Fatal", true, m_level == Message::Level::Fatal);
+        m.addItem(2, "Error", true, m_level == Message::Level::Error);
+        m.addItem(3, "Normal", true, m_level == Message::Level::Normal);
+        m.addItem(4, "All", true, m_level == Message::Level::Log);
+
+        Point<int> pos = Component::getScreenPosition().translated(0, 292);
+        int level = m.showAt(Rectangle<int>(pos.x, pos.y, 100, 48), 0, 0, Gui::getFont().getHeight() + 2);
+        if(bool(level) && Message::Level(level) != m_level)
         {
-            m_level = Level(level-1);
-            m_size = m_history.get_number_of_posts_to_level(m_level);
+            m_level = Message::Level(level);
+            m_size = m_history.getNumberOfMessageUntilLevel(m_level);
             m_table.updateContent();
         }
     }
-     */
-}
-
-bool GuiConsole::keyPressed(const KeyPress& key)
-{
-    /*
-    if(key.getModifiers().isCommandDown() && key.getTextCharacter() == 'c')
-    {
-        SparseSet<int> selection = m_table.getSelectedRows();
-        if(!selection.isEmpty())
-        {
-            String text;
-            for(size_t i = 0; i < selection.size(); i++)
-            {
-                Post message(m_history.get_post_to_level(i ,m_level));
-                if(!message.text.empty())
-                {
-                    text += message.text + "\n";
-                }
-            }
-            SystemClipboard::copyTextToClipboard(text);
-            return true;
-        }
-    }
-     */
-    return false;
-}
-
-int GuiConsole::getNumRows()
-{
-    return int(m_size);
-}
-
-void GuiConsole::paintRowBackground(Graphics& g, int rowNumber, int width, int height, bool rowIsSelected)
-{
-    
 }
 
 void GuiConsole::paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
 {
-    /*
-    Post message(m_history.get_post_to_level(rowNumber, m_level));
+    Message message(m_history.getMessageUntilLevel(m_level, rowNumber));
     if(rowIsSelected)
     {
         g.setColour(Gui::getColorTxt());
         g.fillRect(0, 0, width, height);
     }
     g.setFont(Gui::getFont());
-    if(message.type == Level::fatal)
+    if(message.level == Message::Level::Fatal)
     {
         g.setColour(Colours::red);
     }
-    else if(message.type == Level::error)
+    else if(message.level == Message::Level::Error)
     {
         g.setColour(Colours::orange);
     }
-    else if(message.type == Level::normal)
+    else if(message.level == Message::Level::Normal)
     {
-        g.setColour(rowIsSelected ? Gui::getColorBg() : Gui::getColorTxt());
+        g.setColour(rowIsSelected ? Gui::getColorBg() : Gui::getColorTxt().withAlpha(0.5f));
     }
     else
     {
         g.setColour(Colours::green);
     }
-    */
-    g.setColour(Gui::getColorTxt().withAlpha(0.5f));
-    if(rowNumber < m_processor.getNumPrints())
-    {
-        String const mess = String(m_processor.getPrint(rowNumber)).trimCharactersAtEnd(" \n");
-        if(mess.isNotEmpty())
-        {
-            g.drawText(mess, 2, 0, width, height, juce::Justification::centredLeft);
-        }
-    }
+    
+    g.setFont(Gui::getFont());
+    g.drawText(String(message.text).trimCharactersAtEnd(" \n"), 2, 0, width, height, juce::Justification::centredLeft);
 }
 
 void GuiConsole::timerCallback()
 {
-    const size_t size = m_processor.getNumPrints();
+    m_history.processPrints();
+    const size_t size = m_history.getNumberOfMessageUntilLevel(m_level);
     if(m_size != size)
     {
         m_size = size;
         m_table.updateContent();
     }
 }
+
+
+GuiConsole::LevelButton::LevelButton() : Button("LevelButton")
+{
+    setClickingTogglesState(false);
+    setAlwaysOnTop(true);
+    m_image1.setImage(ImageCache::getFromMemory(BinaryData::option_png, BinaryData::option_pngSize));
+    m_image2.setImage(ImageCache::getFromMemory(BinaryData::flower_center_png, BinaryData::flower_center_pngSize));
+    m_image1.setTransformToFit(juce::Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
+    m_image2.setTransformToFit(juce::Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
+    m_image1.setOverlayColour(Gui::getColorTxt());
+    m_image1.setAlpha(0.5f);
+    addAndMakeVisible(m_image1, -1);
+    addAndMakeVisible(m_image2, 0);
+    m_image1.setAlwaysOnTop(true);
+    setBounds(2, 344, 22, 22);
+}
+
+void GuiConsole::LevelButton::buttonStateChanged()
+{
+    m_image1.setAlpha((isDown() || isOver()) ? 1.f : 0.5f);
+}
+
+
+GuiConsole::ClearButton::ClearButton() : Button("ClearButton")
+{
+    setClickingTogglesState(false);
+    setAlwaysOnTop(true);
+    m_image1.setImage(ImageCache::getFromMemory(BinaryData::clear1_png, BinaryData::clear1_pngSize));
+    m_image2.setImage(ImageCache::getFromMemory(BinaryData::clear2_png, BinaryData::clear2_pngSize));
+    m_image1.setTransformToFit(juce::Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
+    m_image2.setTransformToFit(juce::Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
+    m_image2.setOverlayColour(Gui::getColorTxt());
+    m_image2.setAlpha(0.5f);
+    addAndMakeVisible(m_image1, -1);
+    addAndMakeVisible(m_image2, 0);
+    m_image2.setAlwaysOnTop(true);
+    setBounds(28, 344, 22, 22);
+}
+
+void GuiConsole::ClearButton::buttonStateChanged()
+{
+    m_image2.setAlpha((isDown() || isOver()) ? 1.f : 0.5f);
+}
+
+
+GuiConsole::CopyButton::CopyButton() : Button("CopyButton")
+{
+    setClickingTogglesState(false);
+    setAlwaysOnTop(true);
+    m_image1.setImage(ImageCache::getFromMemory(BinaryData::copy1_png, BinaryData::copy1_pngSize));
+    m_image2.setImage(ImageCache::getFromMemory(BinaryData::copy2_png, BinaryData::copy2_pngSize));
+    m_image1.setTransformToFit(juce::Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
+    m_image2.setTransformToFit(juce::Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
+    m_image1.setOverlayColour(Gui::getColorTxt());
+    m_image1.setAlpha(0.5f);
+    addAndMakeVisible(m_image1, -1);
+    addAndMakeVisible(m_image2, 0);
+    m_image1.setAlwaysOnTop(true);
+    setBounds(52, 344, 22, 22);
+}
+
+void GuiConsole::CopyButton::buttonStateChanged()
+{
+    m_image1.setAlpha((isDown() || isOver()) ? 1.f : 0.5f);
+}
+
+
 
 
 

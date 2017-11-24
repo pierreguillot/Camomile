@@ -30,6 +30,9 @@
             file="Source/PluginParameter.cpp"/>
       <FILE id="kRjX4J" name="PluginParameter.h" compile="0" resource="0"
             file="Source/PluginParameter.h"/>
+      <FILE id="P5RtlS" name="PluginConsole.cpp" compile="1" resource="0"
+            file="Source/PluginConsole.cpp"/>
+      <FILE id="KGRkL5" name="PluginConsole.h" compile="0" resource="0" file="Source/PluginConsole.h"/>
       <FILE id="JHFkLz" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="z4zHjj" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
@@ -44,8 +47,6 @@
       <GROUP id="{5C1EE5CB-809C-59DA-56DD-12FB142BFA60}" name="Gui">
         <FILE id="mLSqQZ" name="Gui.cpp" compile="1" resource="0" file="Source/Gui/Gui.cpp"/>
         <FILE id="JG41BR" name="Gui.hpp" compile="0" resource="0" file="Source/Gui/Gui.hpp"/>
-        <FILE id="YvO2H5" name="GuiButtons.cpp" compile="1" resource="0" file="Source/Gui/GuiButtons.cpp"/>
-        <FILE id="sex2ic" name="GuiButtons.hpp" compile="0" resource="0" file="Source/Gui/GuiButtons.hpp"/>
         <FILE id="NQYjA5" name="GuiConsole.cpp" compile="1" resource="0" file="Source/Gui/GuiConsole.cpp"/>
         <FILE id="hTBXkJ" name="GuiConsole.hpp" compile="0" resource="0" file="Source/Gui/GuiConsole.hpp"/>
         <FILE id="W44AmC" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/Gui/LookAndFeel.cpp"/>

@@ -18,18 +18,32 @@ public:
     void buttonClicked(Button* button) final;
 private:
     
-    class GuiWindow : public DocumentWindow
+    class GWindow : public DocumentWindow
     {
     public:
-        GuiWindow() : DocumentWindow(String(""), Gui::getColorBg(), DocumentWindow::closeButton, false) {}
+        GWindow() : DocumentWindow(String(""), Gui::getColorBg(), DocumentWindow::closeButton, false) {}
         void closeButtonPressed() final { removeFromDesktop(); }
     private:
-        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiWindow)
+        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GWindow)
     };
     
+    class FlowerButton : public Button
+    {
+    public:
+        FlowerButton();
+        void paintButton(Graphics& g, bool over, bool down) final {};
+        void buttonStateChanged() final;
+    private:
+        DrawableImage   m_center;
+        DrawableImage   m_petals;
+        
+        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(FlowerButton)
+    };
+
+    
     CamomileAudioProcessor& processor;
-    GuiWindow               window;
-    GuiFlowerButton         button;
+    GWindow                window;
+    FlowerButton            button;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessorEditor)
 };

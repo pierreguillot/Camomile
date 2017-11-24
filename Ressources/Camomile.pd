@@ -61,6 +61,11 @@
 #X obj 509 382 route mousedown mouseup;
 #X obj 509 404 route \$0-slider-r;
 #X obj 576 434 route \$0-slider-r;
+#X obj 687 296 until;
+#X obj 689 249 loadbang;
+#X msg 689 271 20;
+#X obj 687 318 print;
+#X obj 747 318 noteout;
 #X connect 2 0 42 0;
 #X connect 4 0 33 1;
 #X connect 5 0 33 0;
@@ -108,4 +113,8 @@
 #X connect 51 1 53 0;
 #X connect 52 0 47 0;
 #X connect 53 0 48 0;
+#X connect 54 0 57 0;
+#X connect 55 0 56 0;
+#X connect 55 0 58 0;
+#X connect 56 0 54 0;
 #X coords 0 557 1 556 240 120 0;
