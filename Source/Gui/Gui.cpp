@@ -32,7 +32,7 @@ Colour const& Gui::getColorBd() noexcept
 
 Colour const& Gui::getColorTxt() noexcept
 {
-    return Colours::darkgrey;
+    return Colours::black;
 }
 
 Colour const& Gui::getColorInv() noexcept

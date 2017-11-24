@@ -156,6 +156,10 @@
     <ClCompile Include="..\..\Source\Pd\PdPatch.cpp"/>
     <ClCompile Include="..\..\Source\Pd\x_libpd_multi.c"/>
     <ClCompile Include="..\..\Source\Gui\Gui.cpp"/>
+    <ClCompile Include="..\..\Source\Gui\GuiButtons.cpp"/>
+    <ClCompile Include="..\..\Source\Gui\GuiAbout.cpp"/>
+    <ClCompile Include="..\..\Source\Gui\GuiWindow.cpp"/>
+    <ClCompile Include="..\..\Source\Gui\LookAndFeel.cpp"/>
     <ClCompile Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1773,6 +1777,7 @@
     <ClCompile Include="..\..\Juce\modules\juce_gui_extra\juce_gui_extra.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_devices.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_formats.cpp"/>
@@ -1793,9 +1798,13 @@
     <ClInclude Include="..\..\Source\PluginParameter.h"/>
     <ClInclude Include="..\..\Source\PluginEditor.h"/>
     <ClInclude Include="..\..\Source\Pd\PdInstance.h"/>
-    <ClInclude Include="..\..\Source\Pd\PdPatch.hpp"/>
+    <ClInclude Include="..\..\Source\Pd\PdPatch.h"/>
     <ClInclude Include="..\..\Source\Pd\x_libpd_multi.h"/>
     <ClInclude Include="..\..\Source\Gui\Gui.hpp"/>
+    <ClInclude Include="..\..\Source\Gui\GuiButtons.hpp"/>
+    <ClInclude Include="..\..\Source\Gui\GuiAbout.hpp"/>
+    <ClInclude Include="..\..\Source\Gui\GuiWindow.hpp"/>
+    <ClInclude Include="..\..\Source\Gui\LookAndFeel.hpp"/>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h"/>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h"/>
@@ -2416,9 +2425,17 @@
     <ClInclude Include="..\..\Juce\modules\juce_gui_extra\native\juce_mac_CarbonViewWrapperComponent.h"/>
     <ClInclude Include="..\..\Juce\modules\juce_gui_extra\juce_gui_extra.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\AppConfig.h"/>
+    <ClInclude Include="..\..\JuceLibraryCode\BinaryData.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h"/>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Ressources\Images\flower_center.png"/>
+    <None Include="..\..\Ressources\Images\flower_petals.png"/>
+    <None Include="..\..\Ressources\Images\clear1.png"/>
+    <None Include="..\..\Ressources\Images\clear2.png"/>
+    <None Include="..\..\Ressources\Images\copy1.png"/>
+    <None Include="..\..\Ressources\Images\copy2.png"/>
+    <None Include="..\..\Ressources\Images\option.png"/>
     <None Include="..\..\Juce\modules\juce_audio_formats\codecs\flac\Flac Licence.txt"/>
     <None Include="..\..\Juce\modules\juce_audio_formats\codecs\oggvorbis\Ogg Vorbis Licence.txt"/>
     <None Include="..\..\Juce\modules\juce_graphics\image_formats\jpglib\changes to libjpeg for JUCE.txt"/>

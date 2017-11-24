@@ -5,6 +5,9 @@
     <Filter Include="Camomile\Source\Pd">
       <UniqueIdentifier>{2EC11BD7-CEBB-B832-8CB3-D70D257E2DEE}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Camomile\Source\Gui\Images">
+      <UniqueIdentifier>{022F0A36-E2F4-E01D-C08B-1555FE3DF0AC}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Camomile\Source\Gui">
       <UniqueIdentifier>{3AF8F85C-58F5-53F7-00C3-F524890FB4C3}</UniqueIdentifier>
     </Filter>
@@ -386,6 +389,18 @@
       <Filter>Camomile\Source\Pd</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Gui\Gui.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\GuiButtons.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\GuiAbout.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\GuiWindow.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\LookAndFeel.cpp">
       <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
@@ -2119,6 +2134,9 @@
     <ClCompile Include="..\..\Juce\modules\juce_gui_extra\juce_gui_extra.mm">
       <Filter>Juce Modules\juce_gui_extra</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp">
+      <Filter>Juce Library Code</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp">
       <Filter>Juce Library Code</Filter>
     </ClCompile>
@@ -2175,13 +2193,25 @@
     <ClInclude Include="..\..\Source\Pd\PdInstance.h">
       <Filter>Camomile\Source\Pd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Pd\PdPatch.hpp">
+    <ClInclude Include="..\..\Source\Pd\PdPatch.h">
       <Filter>Camomile\Source\Pd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Pd\x_libpd_multi.h">
       <Filter>Camomile\Source\Pd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Gui\Gui.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\GuiButtons.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\GuiAbout.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\GuiWindow.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\LookAndFeel.hpp">
       <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
@@ -4044,11 +4074,35 @@
     <ClInclude Include="..\..\JuceLibraryCode\AppConfig.h">
       <Filter>Juce Library Code</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\BinaryData.h">
+      <Filter>Juce Library Code</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h">
       <Filter>Juce Library Code</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Ressources\Images\flower_center.png">
+      <Filter>Camomile\Source\Gui\Images</Filter>
+    </None>
+    <None Include="..\..\Ressources\Images\flower_petals.png">
+      <Filter>Camomile\Source\Gui\Images</Filter>
+    </None>
+    <None Include="..\..\Ressources\Images\clear1.png">
+      <Filter>Camomile\Source\Gui\Images</Filter>
+    </None>
+    <None Include="..\..\Ressources\Images\clear2.png">
+      <Filter>Camomile\Source\Gui\Images</Filter>
+    </None>
+    <None Include="..\..\Ressources\Images\copy1.png">
+      <Filter>Camomile\Source\Gui\Images</Filter>
+    </None>
+    <None Include="..\..\Ressources\Images\copy2.png">
+      <Filter>Camomile\Source\Gui\Images</Filter>
+    </None>
+    <None Include="..\..\Ressources\Images\option.png">
+      <Filter>Camomile\Source\Gui\Images</Filter>
+    </None>
     <None Include="..\..\Juce\modules\juce_audio_formats\codecs\flac\Flac Licence.txt">
       <Filter>Juce Modules\juce_audio_formats\codecs\flac</Filter>
     </None>

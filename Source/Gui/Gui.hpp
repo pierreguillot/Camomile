@@ -18,10 +18,12 @@
 #include "GuiComment.hpp"
 #include "GuiPatcher.hpp"
 #include "GuiConsole.hpp"
-#include "GuiAbout.hpp"
-#include "GuiWindow.hpp"
-#include "GuiFlowerButton.hpp"
+
+
  */
+#include "GuiWindow.hpp"
+#include "GuiButtons.hpp"
+#include "GuiAbout.hpp"
 
 // ==================================================================================== //
 //                                      GUI                                      //

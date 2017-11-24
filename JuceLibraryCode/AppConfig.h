@@ -289,7 +289,7 @@
  #define JucePlugin_Desc                   "Camomile"
 #endif
 #ifndef  JucePlugin_Manufacturer
- #define JucePlugin_Manufacturer           "pierreguillot"
+ #define JucePlugin_Manufacturer           "Pierre Guillot"
 #endif
 #ifndef  JucePlugin_ManufacturerWebsite
  #define JucePlugin_ManufacturerWebsite    "https://github.com/pierreguillot/Camomile"
@@ -391,5 +391,5 @@
  #define JucePlugin_IAASubType             JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_IAAName
- #define JucePlugin_IAAName                "pierreguillot: Camomile"
+ #define JucePlugin_IAAName                "Pierre Guillot: Camomile"
 #endif
