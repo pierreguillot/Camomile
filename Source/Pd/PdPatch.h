@@ -28,13 +28,14 @@ namespace pd
         bool isGraph() const noexcept;
         std::pair<int, int> getPosition() const noexcept;
         std::pair<int, int> getSize() const noexcept;
-        /*
+        
         std::vector<Gui> getGuis() const noexcept;
         std::vector<Object> getComments() const noexcept;
-         */
+
     private:
         Patch(void* ptr) noexcept;
         void*  m_ptr;
         friend class Instance;
+        friend class Object;
     };
 }

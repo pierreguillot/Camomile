@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="Kpq9Ee" name="Camomile" displaySplashScreen="1" reportAppUsage="1"
-              splashScreenColour="Dark" projectType="audioplug" version="1.0"
+              splashScreenColour="Dark" projectType="audioplug" version="0.1.0"
               bundleIdentifier="com.pierreguillot.camomile" includeBinaryInAppConfig="1"
               cppLanguageStandard="11" companyCopyright="Pierre Guillot" buildVST="1"
               buildVST3="1" buildAU="1" buildAUv3="1" buildRTAS="0" buildAAX="0"
@@ -41,6 +41,8 @@
         <FILE id="SVRyLv" name="PdInstance.h" compile="0" resource="0" file="Source/Pd/PdInstance.h"/>
         <FILE id="xv8ovv" name="PdPatch.cpp" compile="1" resource="0" file="Source/Pd/PdPatch.cpp"/>
         <FILE id="yBmkob" name="PdPatch.h" compile="0" resource="0" file="Source/Pd/PdPatch.h"/>
+        <FILE id="EZY45w" name="PdObject.cpp" compile="1" resource="0" file="Source/Pd/PdObject.cpp"/>
+        <FILE id="DsxkEc" name="PdObject.h" compile="0" resource="0" file="Source/Pd/PdObject.h"/>
         <FILE id="Uukbo7" name="x_libpd_multi.c" compile="1" resource="0" file="Source/Pd/x_libpd_multi.c"/>
         <FILE id="NF0MrF" name="x_libpd_multi.h" compile="0" resource="0" file="Source/Pd/x_libpd_multi.h"/>
       </GROUP>

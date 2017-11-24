@@ -5,6 +5,7 @@
 */
 
 #include "PdPatch.h"
+#include "PdObject.h"
 
 extern "C"
 {
@@ -42,9 +43,9 @@ namespace pd
         t_canvas const* cnv = static_cast<t_canvas*>(m_ptr);
         if(static_cast<bool>(m_ptr) && cnv->gl_isgraph)
         {
-            return std::pair<int, int>{cnv->gl_xmargin, cnv->gl_ymargin};
+            return {cnv->gl_xmargin, cnv->gl_ymargin};
         }
-        return std::pair<int, int>{0, 0};
+        return {0, 0};
     }
     
     std::pair<int, int> Patch::getSize() const noexcept
@@ -56,45 +57,47 @@ namespace pd
         }
         return std::pair<int, int>{0, 0};
     }
-    /*
+    
     std::vector<Gui> Patch::getGuis() const noexcept
     {
         std::vector<Gui> objects;
-        if(isValid())
+        if(!m_ptr)
+            return objects;
+        
+        for(t_gobj *y = static_cast<t_canvas*>(m_ptr)->gl_list; y; y = y->g_next)
         {
-            z_symbol* hsl = z_pd_symbol_create("hsl");
-            z_symbol* vsl = z_pd_symbol_create("vsl");
-            z_symbol* tgl = z_pd_symbol_create("tgl");
-            z_symbol* nbx = z_pd_symbol_create("nbx");
-            z_symbol* vra = z_pd_symbol_create("vradio");
-            z_symbol* hra = z_pd_symbol_create("hradio");
-            for(z_object *y = z_pd_patch_get_first_object(reinterpret_cast<z_patch *>(m_ptr)); y;
-                y = z_pd_patch_get_next_object(reinterpret_cast<z_patch *>(m_ptr), y))
+            Object obj(*this, y);
+            if(obj.getName() == "bng")
             {
-                if(z_pd_object_get_name(y) == hsl)
-                {
-                    objects.push_back(Gui(*this, Gui::Type::HorizontalSlider, reinterpret_cast<void *>(y)));
-                }
-                else if(z_pd_object_get_name(y) == vsl)
-                {
-                    objects.push_back(Gui(*this, Gui::Type::VerticalSlider, reinterpret_cast<void *>(y)));
-                }
-                else if(z_pd_object_get_name(y) == tgl)
-                {
-                    objects.push_back(Gui(*this, Gui::Type::Toggle, reinterpret_cast<void *>(y)));
-                }
-                else if(z_pd_object_get_name(y) == nbx)
-                {
-                    objects.push_back(Gui(*this, Gui::Type::Number, reinterpret_cast<void *>(y)));
-                }
-                else if(z_pd_object_get_name(y) == vra)
-                {
-                    objects.push_back(Gui(*this, Gui::Type::VerticalRadio, reinterpret_cast<void *>(y)));
-                }
-                else if(z_pd_object_get_name(y) == hra)
-                {
-                    objects.push_back(Gui(*this, Gui::Type::HorizontalRadio, reinterpret_cast<void *>(y)));
-                }
+                objects.push_back(Gui(*this, Gui::Type::Bang, reinterpret_cast<void *>(y)));
+            }
+            else if(obj.getName() == "hsl")
+            {
+                objects.push_back(Gui(*this, Gui::Type::HorizontalSlider, reinterpret_cast<void *>(y)));
+            }
+            else if(obj.getName() == "vsl")
+            {
+                objects.push_back(Gui(*this, Gui::Type::VerticalSlider, reinterpret_cast<void *>(y)));
+            }
+            else if(obj.getName() == "tgl")
+            {
+                objects.push_back(Gui(*this, Gui::Type::Toggle, reinterpret_cast<void *>(y)));
+            }
+            else if(obj.getName() == "nbx")
+            {
+                objects.push_back(Gui(*this, Gui::Type::Number, reinterpret_cast<void *>(y)));
+            }
+            else if(obj.getName() == "vradio")
+            {
+                objects.push_back(Gui(*this, Gui::Type::VerticalRadio, reinterpret_cast<void *>(y)));
+            }
+            else if(obj.getName() == "hradio")
+            {
+                objects.push_back(Gui(*this, Gui::Type::HorizontalRadio, reinterpret_cast<void *>(y)));
+            }
+            else if(obj.getName() == "cnv")
+            {
+                objects.push_back(Gui(*this, Gui::Type::Panel, reinterpret_cast<void *>(y)));
             }
         }
         return objects;
@@ -103,21 +106,19 @@ namespace pd
     std::vector<Object> Patch::getComments() const noexcept
     {
         std::vector<Object> objects;
-        if(isValid())
+        if(!m_ptr)
+            return objects;
+        
+        for(t_gobj *y = static_cast<t_canvas*>(m_ptr)->gl_list; y; y = y->g_next)
         {
-            z_symbol* txt = z_pd_symbol_create("text");
-            for(z_object *y = z_pd_patch_get_first_object(reinterpret_cast<z_patch *>(m_ptr)); y;
-                y = z_pd_patch_get_next_object(reinterpret_cast<z_patch *>(m_ptr), y))
+            Object obj(*this, y);
+            if(obj.getName() == "text")
             {
-                if(z_pd_object_get_name(y)== txt)
-                {
-                    objects.push_back(Object(*this, reinterpret_cast<void *>(y)));
-                }
+                objects.push_back(obj);
             }
         }
         return objects;
     }
-     */
 }
 
 
