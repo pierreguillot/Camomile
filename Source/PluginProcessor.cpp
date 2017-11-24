@@ -151,27 +151,34 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                     PLAY HEAD                                        //
     //////////////////////////////////////////////////////////////////////////////////////////
-    if(CamomileEnvironment::wantsPlayHead())
+    int const phl = CamomileEnvironment::getPlayHeadLevel();
+    if(phl)
     {
         AudioPlayHead* playhead = getPlayHead();
         AudioPlayHead::CurrentPositionInfo infos;
         if(playhead && playhead->getCurrentPosition(infos))
         {
             std::string const splayhead("playhead");
+            sendMessage(splayhead, std::string("playing"), {static_cast<float>(infos.isPlaying)});
+            sendMessage(splayhead, std::string("recording"), {static_cast<float>(infos.isRecording)});
+            sendMessage(splayhead, std::string("looping"), {
+                static_cast<float>(infos.isLooping),
+                static_cast<float>(infos.ppqLoopStart),
+                static_cast<float>(infos.ppqLoopEnd)});
+            sendMessage(splayhead, std::string("edittime"), {static_cast<float>(infos.editOriginTime)});
+            sendMessage(splayhead, std::string("framerate"), {static_cast<float>(infos.frameRate)});
+            
             sendMessage(splayhead, std::string("bpm"), {static_cast<float>(infos.bpm)});
-            sendMessage(splayhead, std::string("timeSigNumerator"), {static_cast<float>(infos.timeSigNumerator)});
-            sendMessage(splayhead, std::string("timeSigDenominator"), {static_cast<float>(infos.timeSigDenominator)});
-            sendMessage(splayhead, std::string("timeInSamples"), {static_cast<float>(infos.timeInSamples)});
-            sendMessage(splayhead, std::string("timeInSeconds"), {static_cast<float>(infos.timeInSeconds)});
-            sendMessage(splayhead, std::string("editOriginTime"), {static_cast<float>(infos.editOriginTime)});
-            sendMessage(splayhead, std::string("ppqPosition"), {static_cast<float>(infos.ppqPosition)});
-            sendMessage(splayhead, std::string("ppqPositionOfLastBarStart"), {static_cast<float>(infos.ppqPositionOfLastBarStart)});
-            sendMessage(splayhead, std::string("frameRate"), {static_cast<float>(infos.frameRate)});
-            sendMessage(splayhead, std::string("isPlaying"), {static_cast<float>(infos.isPlaying)});
-            sendMessage(splayhead, std::string("isRecording"), {static_cast<float>(infos.isRecording)});
-            sendMessage(splayhead, std::string("ppqLoopStart"), {static_cast<float>(infos.ppqLoopStart)});
-            sendMessage(splayhead, std::string("ppqLoopEnd"), {static_cast<float>(infos.ppqLoopEnd)});
-            sendMessage(splayhead, std::string("isLooping"), {static_cast<float>(infos.isLooping)});
+            sendMessage(splayhead, std::string("lastbar"), {static_cast<float>(infos.ppqPositionOfLastBarStart)});
+            sendMessage(splayhead, std::string("timesig"), {
+                static_cast<float>(infos.timeSigNumerator),
+                static_cast<float>(infos.timeSigDenominator)});
+            
+            sendMessage(splayhead, std::string("position"), {
+                static_cast<float>(infos.ppqPosition),
+                static_cast<float>(infos.timeInSamples),
+                static_cast<float>(infos.timeInSeconds)});
+            
         }
     }
     

@@ -52,7 +52,7 @@ bool CamomileEnvironment::wantsMidi() { return get().midi_in_support; }
 
 bool CamomileEnvironment::producesMidi() { return get().midi_out_support; }
 
-bool CamomileEnvironment::wantsPlayHead() { return get().play_head_support; }
+int CamomileEnvironment::getPlayHeadLevel() { return get().play_head_level; }
 
 bool CamomileEnvironment::isMidiOnly() { return get().midi_only; }
 
@@ -130,7 +130,7 @@ CamomileEnvironment::CamomileEnvironment()
                         {
                             if(state.test(init_play_head))
                                 throw std::string("already defined");
-                            play_head_support = CamomileParser::getBool(entry.second);
+                            play_head_level = static_cast<int>(CamomileParser::getBool(entry.second));
                             state.set(init_play_head);
                         }
                         else if(entry.first == "midionly")

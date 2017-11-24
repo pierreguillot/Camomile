@@ -59,20 +59,20 @@ void GuiConsole::buttonClicked(Button* button)
 {
     if(button == &m_clear_button)
     {
+        stopTimer();
         m_history.clear();
+        startTimer(100);
     }
     else if(button == &m_copy_button)
     {
+        stopTimer();
         String text;
-        for(size_t i = 0; i < m_size; i++)
+        for(size_t i = 0; i < m_size && i < 1000; i++)
         {
-            String const mess = String((m_history.getMessageUntilLevel(m_level, i)).text).trimCharactersAtEnd(" \n");
-            if(mess.isNotEmpty())
-            {
-                text += mess + "\n";
-            }
+            text += m_history.getMessageUntilLevel(m_level, i).text + "\n";
         }
         SystemClipboard::copyTextToClipboard(text);
+        startTimer(100);
     }
     else
     {
@@ -84,12 +84,14 @@ void GuiConsole::buttonClicked(Button* button)
 
         Point<int> pos = Component::getScreenPosition().translated(0, 292);
         int level = m.showAt(Rectangle<int>(pos.x, pos.y, 100, 48), 0, 0, Gui::getFont().getHeight() + 2);
+        stopTimer();
         if(bool(level) && Message::Level(level) != m_level)
         {
             m_level = Message::Level(level);
             m_size = m_history.getNumberOfMessageUntilLevel(m_level);
             m_table.updateContent();
         }
+        startTimer(100);
     }
 }
 

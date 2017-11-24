@@ -60,7 +60,7 @@ public:
     static bool producesMidi();
     
     //! @brief Gets if the patch wants play head information.
-    static bool wantsPlayHead();
+    static int getPlayHeadLevel();
     
     //! @brief Gets if the patch is valid (no audio).
     static bool isMidiOnly();
@@ -101,7 +101,7 @@ private:
     
     bool    midi_in_support   = false;
     bool    midi_out_support  = false;
-    bool    play_head_support = false;
+    int     play_head_level = 0;
     bool    midi_only         = false;
     float   tail_length_sec   = 0.f;
     int     latency_samples   = 0;
