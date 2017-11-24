@@ -99,14 +99,12 @@ void CamomileAudioProcessorEditor::buttonClicked(Button* button)
         }
         else if(result == 2)
         {
-            /*
-            m_window.setContentOwned(new GuiConsole(m_processor), false);
-            m_window.setName("Camomile Console");
-            m_window.addToDesktop();
-            m_window.grabKeyboardFocus();
-            m_window.toFront(true);
-            m_window.setAlwaysOnTop(true);
-             */
+            window.setContentOwned(new GuiConsole(processor), false);
+            window.setName("Camomile Console");
+            window.addToDesktop();
+            window.grabKeyboardFocus();
+            window.toFront(true);
+            window.setAlwaysOnTop(true);
         }
     }
 }

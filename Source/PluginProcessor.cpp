@@ -22,18 +22,18 @@ m_programs(CamomileEnvironment::getPrograms())
     bind("camomile");
     if(CamomileEnvironment::isValid())
     {
-        
+        receivePrint(std::string("Camomile ") + std::string(JucePlugin_VersionString) + std::string(" for Pd ") + CamomileEnvironment::getPdVersion());
+        auto const& messages = CamomileEnvironment::getErrors();
+        for(size_t i = 0; i < messages.size(); ++i)
+        {
+            m_prints.push_back(messages[i]);
+        }
         openPatch(CamomileEnvironment::getPatchPath(), CamomileEnvironment::getPatchName());
         processMessages();
         setLatencySamples(CamomileEnvironment::getLatencySamples());
         m_programs = CamomileEnvironment::getPrograms();
         
-        std::vector<std::string> const& errors = CamomileEnvironment::getErrors();
-        for(size_t i = 0; i < errors.size(); ++i)
-        {
-            std::cerr << errors[i] << "\n";
-        }
-        std::vector<std::string> const& params = CamomileEnvironment::getParams();
+        auto const& params = CamomileEnvironment::getParams();
         for(size_t i = 0; i < params.size(); ++i)
         {
             AudioProcessorParameter* p = nullptr;
@@ -43,11 +43,14 @@ m_programs(CamomileEnvironment::getPrograms())
             }
             catch (std::string const& message)
             {
-                std::cerr << "parameter " << i+1 << ": " << message << "\n";
+                receivePrint(std::string("parameter ") + std::to_string(i+1) + std::string(": ") + message);
             }
             if(p) addParameter(p);
         }
-        
+    }
+    else
+    {
+        m_prints = CamomileEnvironment::getErrors();
     }
 }
 
@@ -99,7 +102,7 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     
     if(samplesPerBlock < 64)
     {
-        std::cerr << "block size must not be inferior to 64, the DSP won't be proceed.\n";
+         receivePrint(std::string("block size must not be inferior to 64, the DSP won't be proceed."));
     }
     prepareDSP(inputs.size(), outputs.size(), samplesPerBlock, sampleRate);
     
@@ -249,9 +252,9 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
                     {
                         param->setOriginalScaledValueNotifyingHost(list[2].getFloat());
                     }
-                    else { std::cerr << "parameter set method index: out of range.\n"; }
+                    else { receivePrint("parameter set method index: out of range"); }
                 }
-                else { std::cerr << "parameter set method: wrong argument.\n"; }
+                else { receivePrint("parameter set method: wrong argument"); }
             }
             else if(method == "change")
             {
@@ -262,15 +265,15 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
                     {
                         static_cast<bool>(list[2].getFloat()) ? param->beginChangeGesture() : param->endChangeGesture();
                     }
-                    else { std::cerr << "parameter change method index: out of range.\n"; }
+                    else { receivePrint("parameter change method index: out of range"); }
                 }
-                else { std::cerr << "parameter change method: wrong argument.\n"; }
+                else { receivePrint("parameter change method: wrong argument"); }
             }
-            else { std::cerr << "param no method: " << method << "\n"; }
+            else { receivePrint("param no method: " + method); }
         }
-        else { std::cerr << "param error syntax: method index...\n"; }
+        else { receivePrint("param error syntax: method index..."); }
     }
-    else {  std::cerr << "camomile unknow message : "<< msg << "\n"; }
+    else {  receivePrint("camomile unknow message : " + msg); }
 }
 
 
@@ -310,6 +313,46 @@ void CamomileAudioProcessor::receivePolyAftertouch(const int channel, const int 
 void CamomileAudioProcessor::receiveMidiByte(const int port, const int byte)
 {
     
+}
+
+void CamomileAudioProcessor::receivePrint(const std::string& message)
+{
+    std::string temp(message);
+    while (temp.back() == ' ' || temp.back() == '\n') { temp.pop_back();}
+    if(!temp.empty())
+    {
+        std::lock_guard<std::mutex> guard(m_prints_mutex);
+        m_prints.push_back(message);
+    }
+}
+
+
+std::string CamomileAudioProcessor::getPrint(const size_t index)
+{
+    processPrints();
+    std::string message;
+    {
+        std::lock_guard<std::mutex> guard(m_prints_mutex);
+        message = m_prints.size() > index ? m_prints[index] : "";
+    }
+    return message;
+}
+
+size_t CamomileAudioProcessor::getNumPrints()
+{
+    processPrints();
+    size_t nprints = 0;
+    {
+        std::lock_guard<std::mutex> guard(m_prints_mutex);
+        nprints = m_prints.size();
+    }
+    return nprints;
+}
+
+void CamomileAudioProcessor::clearPrints()
+{
+    std::lock_guard<std::mutex> guard(m_prints_mutex);
+    m_prints.clear();
 }
 
 //==============================================================================

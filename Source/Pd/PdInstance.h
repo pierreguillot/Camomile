@@ -85,7 +85,7 @@ namespace pd
         void sendList(std::string const& receiver, const std::vector<Atom>& list) const;
         void sendMessage(std::string const& receiver, const std::string& msg, const std::vector<Atom>& list) const;
         
-        virtual void print(const std::string& message) {};
+        virtual void receivePrint(const std::string& message) {};
         
         virtual void receiveBang(const std::string& dest) {}
         virtual void receiveFloat(const std::string& dest, float num) {}
@@ -95,6 +95,7 @@ namespace pd
         
         
         void processMessages();
+        void processPrints();
         void processMidi();
         
         void bind(std::string const& symbol);
@@ -103,8 +104,7 @@ namespace pd
         void openPatch(std::string const& path, std::string const& name);
         void closePatch();
         Patch getPatch();
-    
-        
+
     private:
         
         void* m_instance    = nullptr;
@@ -143,6 +143,10 @@ namespace pd
         std::queue<midievent> m_midi;
         std::mutex            m_midi_mutex;
         void*                 m_midi_receiver;
+        
+        std::queue<std::string> m_prints;
+        std::mutex              m_prints_mutex;
+        void*                   m_prints_receiver;
         
         struct internal;
     };

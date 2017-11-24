@@ -43,6 +43,9 @@ public:
     //! @brief Gets the name to the Pd patch.
     static std::string getPatchName();
     
+    //! @brief Gets if the Pd version.
+    static std::string getPdVersion();
+    
     //! @brief Gets if the environment is valid.
     static bool isValid();
     

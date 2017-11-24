@@ -14,3 +14,18 @@ playhead true;
 midionly false;
 taillength 0;
 latency 0;
+
+dummy5 dum dom    ;
+midionly fals;
+midionly 12;
+midionly -1;
+midionly ;
+program;
+
+param -list 1/2/3;
+param -name Dummy -name Dummy;
+param -name -label Dummy;
+param -name;
+param -list Odd / / Zaza;
+param -list Odd / /z/;
+param -zzaza john;

@@ -8,7 +8,11 @@
 #include "PluginParser.h"
 #include "../JuceLibraryCode/JuceHeader.h"
 #include <cctype>
-
+#include <string>
+extern "C"
+{
+#include <m_pd.h>
+}
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                      ENVIRONMENT                                         //
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,6 +40,9 @@ std::string CamomileEnvironment::getPatchPath() { return get().patch_path; }
 std::string CamomileEnvironment::getPatchName() { return get().patch_name; }
 
 bool CamomileEnvironment::isValid() { return get().valid; }
+
+std::string CamomileEnvironment::getPdVersion() {
+    return std::to_string(PD_MAJOR_VERSION) + "." + std::to_string(PD_MINOR_VERSION) + "." + std::to_string(PD_BUGFIX_VERSION); }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                          OPTIONS                                         //

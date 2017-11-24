@@ -46,6 +46,8 @@
         <FILE id="JG41BR" name="Gui.hpp" compile="0" resource="0" file="Source/Gui/Gui.hpp"/>
         <FILE id="YvO2H5" name="GuiButtons.cpp" compile="1" resource="0" file="Source/Gui/GuiButtons.cpp"/>
         <FILE id="sex2ic" name="GuiButtons.hpp" compile="0" resource="0" file="Source/Gui/GuiButtons.hpp"/>
+        <FILE id="NQYjA5" name="GuiConsole.cpp" compile="1" resource="0" file="Source/Gui/GuiConsole.cpp"/>
+        <FILE id="hTBXkJ" name="GuiConsole.hpp" compile="0" resource="0" file="Source/Gui/GuiConsole.hpp"/>
         <FILE id="W44AmC" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/Gui/LookAndFeel.cpp"/>
         <FILE id="o78U0B" name="LookAndFeel.hpp" compile="0" resource="0" file="Source/Gui/LookAndFeel.hpp"/>
         <GROUP id="{6873846F-DFEA-EC58-A5B0-6EA454DBC562}" name="Images">

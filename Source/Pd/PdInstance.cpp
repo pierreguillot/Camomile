@@ -109,6 +109,12 @@ extern "C"
             std::lock_guard<std::mutex> lock(ptr->m_midi_mutex);
             ptr->m_midi.push({midievent::MIDIBYTE, port, byte, 0});
         }
+        
+        static void instance_multi_print(pd::Instance* ptr, char* s)
+        {
+            std::lock_guard<std::mutex> lock(ptr->m_prints_mutex);
+            ptr->m_prints.push(s);
+        }
     };
     
 }
@@ -130,6 +136,8 @@ namespace pd
                                                reinterpret_cast<t_libpd_multi_aftertouchhook>(internal::instance_multi_aftertouch),
                                                reinterpret_cast<t_libpd_multi_polyaftertouchhook>(internal::instance_multi_polyaftertouch),
                                                reinterpret_cast<t_libpd_multi_midibytehook>(internal::instance_multi_midibyte));
+        m_prints_receiver = libpd_multi_print_new(this,
+                                                  reinterpret_cast<t_libpd_multi_printhook>(internal::instance_multi_print));
         libpd_instance_init();
     }
     
@@ -144,6 +152,7 @@ namespace pd
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_free_instance(static_cast<t_pdinstance *>(m_instance));
         pd_free((t_pd *)m_midi_receiver);
+        pd_free((t_pd *)m_prints_receiver);
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -375,6 +384,20 @@ namespace pd
             m_midi_mutex.lock();
         }
         m_midi_mutex.unlock();
+    }
+    
+    void Instance::processPrints()
+    {
+        m_prints_mutex.lock();
+        while (!m_prints.empty())
+        {
+            auto const message = m_prints.front();
+            m_prints.pop();
+            m_prints_mutex.unlock();
+            receivePrint(message);
+            m_prints_mutex.lock();
+        }
+        m_prints_mutex.unlock();
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////

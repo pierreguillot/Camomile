@@ -53,10 +53,17 @@ public:
     void receiveAftertouch(const int channel, const int value) final;
     void receivePolyAftertouch(const int channel, const int pitch, const int value) final;
     void receiveMidiByte(const int port, const int byte) final;
+    void receivePrint(const std::string& message) final;
+    
+    std::string getPrint(const size_t index);
+    size_t getNumPrints();
+    void clearPrints();
 private:
     MidiBuffer               m_midi_buffer;
     int m_program_current    = 0;
     std::vector<std::string> m_programs;
-  
+    std::vector<std::string> m_prints;
+    std::mutex               m_prints_mutex;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)
 };

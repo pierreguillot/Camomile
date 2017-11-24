@@ -295,8 +295,8 @@ void* libpd_multi_midi_new(void* ptr,
     t_libpd_multi_midi *x = (t_libpd_multi_midi *)pd_new(libpd_multi_midi_class);
     if(x)
     {
-        t_symbol* s = gensym("#libpd_multi_midi");
         sys_lock();
+        t_symbol* s = gensym("#libpd_multi_midi");
         sys_unlock();
         pd_bind(&x->x_obj.ob_pd, s);
         x->x_ptr = ptr;
@@ -307,6 +307,53 @@ void* libpd_multi_midi_new(void* ptr,
         x->x_hook_aftertouch    = hook_aftertouch;
         x->x_hook_polyaftertouch= hook_polyaftertouch;
         x->x_hook_midibyte      = hook_midibyte;
+    }
+    return x;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+static t_class *libpd_multi_print_class;
+
+typedef struct _libpd_multi_print
+{
+    t_object    x_obj;
+    void*       x_ptr;
+    t_libpd_multi_printhook x_hook;
+} t_libpd_multi_print;
+
+static void libpd_multi_print(const char* message)
+{
+    t_libpd_multi_print* x = (t_libpd_multi_print*)gensym("#libpd_multi_print")->s_thing;
+    if(x && x->x_hook)
+    {
+        x->x_hook(x->x_ptr, message);
+    }
+}
+
+static void libpd_multi_print_setup(void)
+{
+    sys_lock();
+    libpd_multi_print_class = class_new(gensym("libpd_multi_print"), (t_newmethod)NULL, (t_method)NULL,
+                                       sizeof(t_libpd_multi_print), CLASS_DEFAULT, A_NULL, 0);
+    sys_unlock();
+}
+
+void* libpd_multi_print_new(void* ptr, t_libpd_multi_printhook hook_print)
+{
+    
+    t_libpd_multi_print *x = (t_libpd_multi_print *)pd_new(libpd_multi_print_class);
+    if(x)
+    {
+        sys_lock();
+        t_symbol* s = gensym("#libpd_multi_print");
+        sys_unlock();
+        pd_bind(&x->x_obj.ob_pd, s); 
+        x->x_ptr = ptr;
+        x->x_hook = hook_print;
     }
     return x;
 }
@@ -328,7 +375,7 @@ void libpd_multi_init(void)
         libpd_set_aftertouchhook(libpd_multi_aftertouch);
         libpd_set_polyaftertouchhook(libpd_multi_polyaftertouch);
         libpd_set_midibytehook(libpd_multi_midibyte);
-        //libpd_set_printhook(libpd_multi_post);
+        libpd_set_printhook(libpd_multi_print);
         
         assert(PDINSTANCE && "PDINSTANCE undefined");
         assert(PDTHREADS && "PDTHREADS undefined");
@@ -336,8 +383,10 @@ void libpd_multi_init(void)
         
         libpd_multi_receiver_setup();
         libpd_multi_midi_setup();
+        libpd_multi_print_setup();
         
         initialized = 1;
     }
 }
+
 

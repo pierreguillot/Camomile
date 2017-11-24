@@ -17,11 +17,10 @@
 #include "GuiLabel.hpp"
 #include "GuiComment.hpp"
 #include "GuiPatcher.hpp"
-#include "GuiConsole.hpp"
-
 
  */
 #include "GuiButtons.hpp"
+#include "GuiConsole.hpp"
 
 // ==================================================================================== //
 //                                      GUI                                      //
