@@ -27,10 +27,15 @@
 
 CamoLookAndFeel::CamoLookAndFeel()
 {    
-    setColour(juce::PopupMenu::backgroundColourId, Gui::getColorBg());
-    setColour(juce::PopupMenu::highlightedBackgroundColourId, Gui::getColorBg());
-    setColour(juce::PopupMenu::textColourId, Gui::getColorBd());
-    setColour(juce::PopupMenu::highlightedTextColourId, Gui::getColorTxt());
+    setColour(PopupMenu::backgroundColourId, Gui::getColorBg());
+    setColour(PopupMenu::highlightedBackgroundColourId, Gui::getColorBg());
+    setColour(PopupMenu::textColourId, Gui::getColorTxt().withAlpha(0.5f));
+    setColour(PopupMenu::highlightedTextColourId, Gui::getColorTxt());
+    
+    setColour(TextEditor::backgroundColourId, Gui::getColorBg());
+    setColour(TextEditor::outlineColourId, Gui::getColorInv());
+    setColour(TextEditor::shadowColourId,Gui::getColorInv());
+    setColour(TextEditor::textColourId, Gui::getColorTxt().withAlpha(0.5f));
 }
 
 CamoLookAndFeel::~CamoLookAndFeel()  {}

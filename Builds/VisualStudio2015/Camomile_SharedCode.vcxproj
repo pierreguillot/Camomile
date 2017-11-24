@@ -157,8 +157,6 @@
     <ClCompile Include="..\..\Source\Pd\x_libpd_multi.c"/>
     <ClCompile Include="..\..\Source\Gui\Gui.cpp"/>
     <ClCompile Include="..\..\Source\Gui\GuiButtons.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\GuiAbout.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\GuiWindow.cpp"/>
     <ClCompile Include="..\..\Source\Gui\LookAndFeel.cpp"/>
     <ClCompile Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
@@ -1802,8 +1800,6 @@
     <ClInclude Include="..\..\Source\Pd\x_libpd_multi.h"/>
     <ClInclude Include="..\..\Source\Gui\Gui.hpp"/>
     <ClInclude Include="..\..\Source\Gui\GuiButtons.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\GuiAbout.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\GuiWindow.hpp"/>
     <ClInclude Include="..\..\Source\Gui\LookAndFeel.hpp"/>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h"/>

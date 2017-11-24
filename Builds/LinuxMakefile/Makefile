@@ -102,8 +102,6 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/x_libpd_multi_1036951a.o \
   $(JUCE_OBJDIR)/Gui_edc4c728.o \
   $(JUCE_OBJDIR)/GuiButtons_845e75c3.o \
-  $(JUCE_OBJDIR)/GuiAbout_58af930f.o \
-  $(JUCE_OBJDIR)/GuiWindow_d9aaa4f8.o \
   $(JUCE_OBJDIR)/LookAndFeel_7fdda4eb.o \
   $(JUCE_OBJDIR)/BinaryData_ce4232d4.o \
   $(JUCE_OBJDIR)/include_juce_audio_basics_8a4e984a.o \
@@ -206,16 +204,6 @@ $(JUCE_OBJDIR)/Gui_edc4c728.o: ../../Source/Gui/Gui.cpp
 $(JUCE_OBJDIR)/GuiButtons_845e75c3.o: ../../Source/Gui/GuiButtons.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling GuiButtons.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/GuiAbout_58af930f.o: ../../Source/Gui/GuiAbout.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling GuiAbout.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/GuiWindow_d9aaa4f8.o: ../../Source/Gui/GuiWindow.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling GuiWindow.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/LookAndFeel_7fdda4eb.o: ../../Source/Gui/LookAndFeel.cpp

@@ -21,9 +21,7 @@
 
 
  */
-#include "GuiWindow.hpp"
 #include "GuiButtons.hpp"
-#include "GuiAbout.hpp"
 
 // ==================================================================================== //
 //                                      GUI                                      //

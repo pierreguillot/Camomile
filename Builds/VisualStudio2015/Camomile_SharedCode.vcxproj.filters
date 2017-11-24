@@ -394,12 +394,6 @@
     <ClCompile Include="..\..\Source\Gui\GuiButtons.cpp">
       <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\GuiAbout.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\GuiWindow.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\Gui\LookAndFeel.cpp">
       <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
@@ -2203,12 +2197,6 @@
       <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Gui\GuiButtons.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\GuiAbout.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\GuiWindow.hpp">
       <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Gui\LookAndFeel.hpp">

@@ -26,7 +26,7 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 
-class JUCE_API  CamoLookAndFeel  : public LookAndFeel_V1
+class JUCE_API  CamoLookAndFeel  : public LookAndFeel_V4
 {
 public:
     CamoLookAndFeel();
