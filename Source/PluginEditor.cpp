@@ -56,12 +56,30 @@ processor (p)
     auto guis(p.getPatch().getGuis());
     for(auto& gui : guis)
     {
-        addAndMakeVisible(objects.add(new GuiObject(gui)));
+        addAndMakeVisible(objects.add(new GuiObject(*this, gui)));
     }
 }
 
 CamomileAudioProcessorEditor::~CamomileAudioProcessorEditor()
 {
+    
+}
+
+void CamomileAudioProcessorEditor::startEdition()
+{
+    processor.sendMessage(std::string("gui"), std::string("mouse"), {1.f});
+    processor.processMessages();
+}
+
+void CamomileAudioProcessorEditor::performEdition()
+{
+    processor.processMessages();
+}
+
+void CamomileAudioProcessorEditor::stopEdition()
+{
+    processor.sendMessage(std::string("gui"), std::string("mouse"), {0.f});
+    processor.processMessages();
 }
 
 void CamomileAudioProcessorEditor::paint (Graphics& g)

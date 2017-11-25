@@ -9,13 +9,16 @@
 #include "PluginProcessor.h"
 #include "Gui/Gui.hpp"
 
-class CamomileAudioProcessorEditor : public AudioProcessorEditor, public Button::Listener
+class CamomileAudioProcessorEditor : public AudioProcessorEditor, public Button::Listener, public GuiPatch
 {
 public:
     CamomileAudioProcessorEditor(CamomileAudioProcessor&);
     ~CamomileAudioProcessorEditor();
     void paint(Graphics&) final;
     void buttonClicked(Button* button) final;
+    void startEdition() final;
+    void performEdition() final;
+    void stopEdition() final;
 private:
     
     class GWindow : public DocumentWindow

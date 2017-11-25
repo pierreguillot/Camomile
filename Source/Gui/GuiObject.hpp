@@ -9,6 +9,15 @@
 #include "../PluginProcessor.h"
 #include "../Pd/PdObject.h"
 
+class GuiPatch
+{
+public:
+    virtual ~GuiPatch() {}
+    virtual void startEdition() = 0;
+    virtual void performEdition() = 0;
+    virtual void stopEdition() = 0;
+};
+
 // ==================================================================================== //
 //                                      GUI OBJECT                                      //
 // ==================================================================================== //
@@ -16,7 +25,7 @@
 class GuiObject : public virtual Component, private Timer
 {
 public:
-    GuiObject(pd::Gui& g);
+    GuiObject(GuiPatch& p, pd::Gui& g);
     ~GuiObject() {}
     
 protected:
@@ -39,7 +48,8 @@ private:
     typedef void (*method_paint)(GuiObject& x, Graphics& g);
     typedef void (*method_mouse)(GuiObject& x, const MouseEvent& g);
     
-    pd::Gui gui;
+    pd::Gui   gui;
+    GuiPatch& patch;
     bool  edited = false;
     float value  = 0;
     float min = 0;

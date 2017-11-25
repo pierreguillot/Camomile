@@ -8,7 +8,7 @@
 #include "Gui.hpp"
 #include <limits>
 
-GuiObject::GuiObject(pd::Gui& g) : gui(g), edited(false),
+GuiObject::GuiObject(GuiPatch& p, pd::Gui& g) : gui(g), patch(p), edited(false),
 value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
 {
     if(gui.getType() == pd::Gui::Type::Toggle)
@@ -65,6 +65,7 @@ void GuiObject::setValueOriginal(float v)
 {
     value = (min < max) ? std::max(std::min(v, max), min) : std::max(std::min(v, min), max);
     gui.setValue(value);
+    patch.performEdition();
 }
 
 float GuiObject::getValueScaled() const noexcept
@@ -77,10 +78,12 @@ void GuiObject::setValueScaled(float v)
     value = (min < max) ? std::max(std::min(v, 1.f), 0.f) * (max - min) + min
                         : (1.f - std::max(std::min(v, 1.f), 0.f)) * (min - max) + max;
     gui.setValue(value);
+    patch.performEdition();
 }
 
 void GuiObject::startEdition() noexcept
 {
+    patch.startEdition();
     edited = true;
     stopTimer();
     value = gui.getValue();
@@ -90,6 +93,7 @@ void GuiObject::stopEdition() noexcept
 {
     edited = false;
     startTimer(25);
+    patch.stopEdition();
 }
 
 void GuiObject::paint(Graphics& g)

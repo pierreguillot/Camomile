@@ -45,9 +45,9 @@ extern "C"
             for(int i = 0; i < argc; ++i)
             {
                 if(argv[i].a_type == A_FLOAT)
-                    vec.push_back(Atom(atom_getfloat(argv+i)));
+                    vec[i] = Atom(atom_getfloat(argv+i));
                 else if(argv[i].a_type == A_SYMBOL)
-                    vec.push_back(Atom(std::string(atom_getsymbol(argv+i)->s_name)));
+                    vec[i] = Atom(std::string(atom_getsymbol(argv+i)->s_name));
             }
             std::lock_guard<std::mutex> lock(ptr->m_messages_mutex);
             ptr->m_messages.push({std::string(recv), std::string("list"), vec});
@@ -59,9 +59,9 @@ extern "C"
             for(int i = 0; i < argc; ++i)
             {
                 if(argv[i].a_type == A_FLOAT)
-                    vec.push_back(Atom(atom_getfloat(argv+i)));
+                    vec[i] = Atom(atom_getfloat(argv+i));
                 else if(argv[i].a_type == A_SYMBOL)
-                    vec.push_back(Atom(std::string(atom_getsymbol(argv+i)->s_name)));
+                    vec[i] = Atom(std::string(atom_getsymbol(argv+i)->s_name));
             }
             std::lock_guard<std::mutex> lock(ptr->m_messages_mutex);
             ptr->m_messages.push({std::string(recv), std::string(msg), vec});
@@ -406,7 +406,7 @@ namespace pd
     void Instance::bind(std::string const& symbol)
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        if(m_receivers.find(symbol) != m_receivers.end())
+        if(m_receivers.find(symbol) == m_receivers.end())
         {
             void* receiver = libpd_multi_receiver_new(this, symbol.c_str(),
                                                       reinterpret_cast<t_libpd_multi_banghook>(internal::instance_multi_bang),
