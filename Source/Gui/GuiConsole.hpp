@@ -6,7 +6,6 @@
 
 #pragma once
 
-#include "../../JuceLibraryCode/JuceHeader.h"
 #include "../PluginProcessor.h"
 
 // ==================================================================================== //
@@ -32,48 +31,21 @@ private:
     TableListBox    m_table;
     Message::Level  m_level = Message::Level::Normal;
     
-    class ClearButton : public Button
+    class GButton : public Button
     {
     public:
-        ClearButton();
+        GButton(Image const& image1, Image const& image2, int index);
         void paintButton(Graphics& g, bool over, bool down) final {};
         void buttonStateChanged() final;
     private:
         DrawableImage   m_image1;
         DrawableImage   m_image2;
-        
-        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ClearButton)
+        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GButton)
     };
     
-    class CopyButton : public Button
-    {
-    public:
-        CopyButton();
-        void paintButton(Graphics& g, bool over, bool down) final {};
-        void buttonStateChanged() final;
-    private:
-        DrawableImage   m_image1;
-        DrawableImage   m_image2;
-        
-        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CopyButton)
-    };
-    
-    class LevelButton : public Button
-    {
-    public:
-        LevelButton();
-        void paintButton(Graphics& g, bool over, bool down) final {};
-        void buttonStateChanged() final;
-    private:
-        DrawableImage   m_image1;
-        DrawableImage   m_image2;
-        
-        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LevelButton)
-    };
-    
-    ClearButton  m_clear_button;
-    CopyButton   m_copy_button;
-    LevelButton  m_level_button;
+    GButton m_level_button;
+    GButton m_clear_button;
+    GButton m_copy_button;
      
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiConsole)
 };

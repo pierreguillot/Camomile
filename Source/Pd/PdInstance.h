@@ -12,6 +12,7 @@
 #include <utility>
 #include <string>
 #include <mutex>
+#include <array>
 
 namespace pd
 {
@@ -105,6 +106,7 @@ namespace pd
         void closePatch();
         Patch getPatch();
 
+        void setThis();
     private:
         
         void* m_instance    = nullptr;

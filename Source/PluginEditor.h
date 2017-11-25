@@ -41,9 +41,10 @@ private:
     };
 
     
-    CamomileAudioProcessor& processor;
-    GWindow                window;
-    FlowerButton            button;
+    CamomileAudioProcessor&     processor;
+    GWindow                     window;
+    FlowerButton                button;
+    OwnedArray<GuiObject>       objects;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessorEditor)
 };

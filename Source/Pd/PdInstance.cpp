@@ -420,6 +420,7 @@ namespace pd
     
     void Instance::unbind(std::string const& symbol)
     {
+        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         auto it = m_receivers.find(symbol);
         if(it != m_receivers.end())
         {
@@ -447,7 +448,12 @@ namespace pd
     
     Patch Instance::getPatch()
     {
-        return Patch(m_patch);
+        return Patch(m_patch, this);
+    }
+    
+    void Instance::setThis()
+    {
+        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
     }
 }
 

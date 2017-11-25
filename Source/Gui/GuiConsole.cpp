@@ -11,7 +11,14 @@
 //                                      GUI CONSOLE                                     //
 // ==================================================================================== //
     
-GuiConsole::GuiConsole(CamomileAudioProcessor& p) : m_history(p)
+GuiConsole::GuiConsole(CamomileAudioProcessor& p) :
+m_history(p),
+m_level_button(ImageCache::getFromMemory(BinaryData::option_png, BinaryData::option_pngSize),
+               ImageCache::getFromMemory(BinaryData::flower_center_png, BinaryData::flower_center_pngSize), 0),
+m_clear_button(ImageCache::getFromMemory(BinaryData::clear1_png, BinaryData::clear1_pngSize),
+               ImageCache::getFromMemory(BinaryData::clear2_png, BinaryData::clear2_pngSize), 1),
+m_copy_button(ImageCache::getFromMemory(BinaryData::copy1_png, BinaryData::copy1_pngSize),
+              ImageCache::getFromMemory(BinaryData::copy2_png, BinaryData::copy2_pngSize), 2)
 {
     m_size  = 0;
     setWantsKeyboardFocus(true);
@@ -137,72 +144,26 @@ void GuiConsole::timerCallback()
 }
 
 
-GuiConsole::LevelButton::LevelButton() : Button("LevelButton")
+GuiConsole::GButton::GButton(Image const& image1, Image const& image2, int index) : Button("")
 {
     setClickingTogglesState(false);
     setAlwaysOnTop(true);
-    m_image1.setImage(ImageCache::getFromMemory(BinaryData::option_png, BinaryData::option_pngSize));
-    m_image2.setImage(ImageCache::getFromMemory(BinaryData::flower_center_png, BinaryData::flower_center_pngSize));
-    m_image1.setTransformToFit(juce::Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
-    m_image2.setTransformToFit(juce::Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
+    m_image1.setImage(image1);
+    m_image2.setImage(image2);
+    m_image1.setTransformToFit(Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
+    m_image2.setTransformToFit(Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
     m_image1.setOverlayColour(Gui::getColorTxt());
     m_image1.setAlpha(0.5f);
     addAndMakeVisible(m_image1, -1);
     addAndMakeVisible(m_image2, 0);
     m_image1.setAlwaysOnTop(true);
-    setBounds(2, 344, 22, 22);
+    setBounds(index * 26 + 2, 344, 22, 22);
 }
 
-void GuiConsole::LevelButton::buttonStateChanged()
+void GuiConsole::GButton::buttonStateChanged()
 {
     m_image1.setAlpha((isDown() || isOver()) ? 1.f : 0.5f);
 }
-
-
-GuiConsole::ClearButton::ClearButton() : Button("ClearButton")
-{
-    setClickingTogglesState(false);
-    setAlwaysOnTop(true);
-    m_image1.setImage(ImageCache::getFromMemory(BinaryData::clear1_png, BinaryData::clear1_pngSize));
-    m_image2.setImage(ImageCache::getFromMemory(BinaryData::clear2_png, BinaryData::clear2_pngSize));
-    m_image1.setTransformToFit(juce::Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
-    m_image2.setTransformToFit(juce::Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
-    m_image2.setOverlayColour(Gui::getColorTxt());
-    m_image2.setAlpha(0.5f);
-    addAndMakeVisible(m_image1, -1);
-    addAndMakeVisible(m_image2, 0);
-    m_image2.setAlwaysOnTop(true);
-    setBounds(28, 344, 22, 22);
-}
-
-void GuiConsole::ClearButton::buttonStateChanged()
-{
-    m_image2.setAlpha((isDown() || isOver()) ? 1.f : 0.5f);
-}
-
-
-GuiConsole::CopyButton::CopyButton() : Button("CopyButton")
-{
-    setClickingTogglesState(false);
-    setAlwaysOnTop(true);
-    m_image1.setImage(ImageCache::getFromMemory(BinaryData::copy1_png, BinaryData::copy1_pngSize));
-    m_image2.setImage(ImageCache::getFromMemory(BinaryData::copy2_png, BinaryData::copy2_pngSize));
-    m_image1.setTransformToFit(juce::Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
-    m_image2.setTransformToFit(juce::Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
-    m_image1.setOverlayColour(Gui::getColorTxt());
-    m_image1.setAlpha(0.5f);
-    addAndMakeVisible(m_image1, -1);
-    addAndMakeVisible(m_image2, 0);
-    m_image1.setAlwaysOnTop(true);
-    setBounds(52, 344, 22, 22);
-}
-
-void GuiConsole::CopyButton::buttonStateChanged()
-{
-    m_image1.setAlpha((isDown() || isOver()) ? 1.f : 0.5f);
-}
-
-
 
 
 

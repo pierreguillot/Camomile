@@ -32,10 +32,10 @@ processor (p)
     LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
     setOpaque(true);
     setWantsKeyboardFocus(true);
-    auto size = p.getPatch().getSize();
-    if(size.first && size.second)
+    if(p.getPatch().isGraph())
     {
-        setSize(std::max(size.first, 100), std::max(size.second, 100));
+        auto bounds = p.getPatch().getBounds();
+        setSize(std::max(bounds[2], 100), std::max(bounds[3], 100));
     }
     else
     {
@@ -51,6 +51,13 @@ processor (p)
     window.setDropShadowEnabled(true);
     window.setVisible(true);
     window.setBackgroundColour(Gui::getColorBg());
+    setInterceptsMouseClicks(true, true);
+    
+    auto guis(p.getPatch().getGuis());
+    for(auto& gui : guis)
+    {
+        addAndMakeVisible(objects.add(new GuiObject(gui)));
+    }
 }
 
 CamomileAudioProcessorEditor::~CamomileAudioProcessorEditor()

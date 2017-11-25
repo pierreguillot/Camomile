@@ -15,10 +15,10 @@ namespace BinaryData
     const int            flower_petals_pngSize = 22287;
 
     extern const char*   clear1_png;
-    const int            clear1_pngSize = 10453;
+    const int            clear1_pngSize = 5839;
 
     extern const char*   clear2_png;
-    const int            clear2_pngSize = 5839;
+    const int            clear2_pngSize = 11853;
 
     extern const char*   copy1_png;
     const int            copy1_pngSize = 5601;

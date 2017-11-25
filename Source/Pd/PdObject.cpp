@@ -29,7 +29,7 @@ namespace pd
         
     }
     
-    Object::Object(Patch const& patch, void* ptr) noexcept :
+    Object::Object(void* ptr, Patch const& patch) noexcept :
     m_ptr(ptr), m_patch(patch)
     {
         ;
@@ -52,7 +52,6 @@ namespace pd
     Object::~Object() noexcept
     {
         m_ptr = nullptr;
-        m_patch = Patch();
     }
     
     std::string Object::getText() const
@@ -81,7 +80,7 @@ namespace pd
         return std::string();
     }
     
-    std::pair<std::pair<int, int>, std::pair<int, int>> Object::getBounds() const noexcept
+    std::array<int, 4> Object::getBounds() const noexcept
     {
         if(m_ptr != nullptr)
         {
@@ -94,25 +93,64 @@ namespace pd
                 h = h - y;
                 x = x - static_cast<t_canvas*>(m_patch.m_ptr)->gl_xmargin;
                 y = y - static_cast<t_canvas*>(m_patch.m_ptr)->gl_ymargin;
-                return {{x, y}, {w, h}};
+                return {{x, y, w, h}};
             }
         }
-        return {{0, 0}, {0, 0}};
+        return {{0, 0, 0, 0}};
     }
     
     // ==================================================================================== //
     //                                      GUI                                          //
     // ==================================================================================== //
     
-    Gui::Gui() noexcept : Object(), m_type(Type::Invalid)
+    Gui::Gui() noexcept : Object(), m_type(Type::Undefined)
     {
         
     }
     
-    Gui::Gui(Patch const& patch, Type type, void* ptr) noexcept :
-    Object(patch, ptr), m_type(type)
+    Gui::Gui(void* ptr, Patch const& patch) noexcept :
+    Object(ptr, patch), m_type(Type::Undefined)
     {
-        ;
+        if(getName() == "bng")
+        {
+           m_type = Type::Bang;
+        }
+        else if(getName() == "hsl")
+        {
+           m_type = Type::HorizontalSlider;
+        }
+        else if(getName() == "vsl")
+        {
+           m_type = Type::VerticalSlider;
+        }
+        else if(getName() == "tgl")
+        {
+           m_type = Type::Toggle;
+        }
+        else if(getName() == "nbx")
+        {
+           m_type = Type::Number;
+        }
+        else if(getName() == "vradio")
+        {
+           m_type = Type::VerticalRadio;
+        }
+        else if(getName() == "hradio")
+        {
+           m_type = Type::HorizontalRadio;
+        }
+        else if(getName() == "cnv")
+        {
+           m_type = Type::Panel;
+        }
+        else if(getName() == "vu")
+        {
+           m_type = Type::VuMeter;
+        }
+        else if(getName() == "text")
+        {
+           m_type = Type::Comment;
+        }
     }
     
     Gui::Gui(Gui const& other) noexcept :
@@ -138,20 +176,6 @@ namespace pd
         return m_type;
     }
     
-    /*
-    Tie Gui::getReceiveTie() const
-    {
-        if(isValid())
-        {
-            z_symbol* s = z_pd_gui_get_receive_symbol(reinterpret_cast<z_gui *>(getPtr()));
-            if(s && s != z_pd_symbol_create("empty"))
-            {
-                return Smuggler::createTie(s);
-            }
-        }
-        return Tie();
-    }
-     */
     
     size_t Gui::getNumberOfSteps() const noexcept
     {
@@ -254,7 +278,19 @@ namespace pd
         {
             return (static_cast<t_bng*>(m_ptr))->x_flashed;
         }
+        else if(m_type == Type::VuMeter)
+        {
+            return 0;
+        }
         return 0.f;
+    }
+    
+    void Gui::setValue(float value) noexcept
+    {
+        if(!m_ptr || m_type == Type::Comment)
+            return;
+        m_patch.m_instance->setThis();
+        pd_float(static_cast<t_pd*>(m_ptr), value);
     }
 }
 

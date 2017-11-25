@@ -21,41 +21,33 @@ namespace pd
     //                                          PATCHER                                     //
     // ==================================================================================== //
     
-    Patch::Patch() noexcept : m_ptr(nullptr) {}
+    Patch::Patch() noexcept : m_ptr(nullptr), m_instance(nullptr) {}
     
-    Patch::Patch(void* ptr) noexcept : m_ptr(ptr) {}
+    Patch::Patch(void* ptr, Instance* instance) noexcept : m_ptr(ptr), m_instance(instance) {}
     
-    Patch::Patch(Patch const& other) noexcept : m_ptr(other.m_ptr) {}
+    Patch::Patch(Patch const& other) noexcept : m_ptr(other.m_ptr), m_instance(other.m_instance) {}
     
     Patch& Patch::operator=(Patch const& other) noexcept
     {
         m_ptr = other.m_ptr;
+        m_instance = other.m_instance;
         return *this;
     }
     
     Patch::~Patch() noexcept {}
+    
     int Patch::getDollarZero() { return static_cast<bool>(m_ptr) ? libpd_getdollarzero(m_ptr) : 0; }
     bool Patch::isGraph() const noexcept {
         return static_cast<bool>(m_ptr) ? static_cast<bool>(static_cast<t_canvas*>(m_ptr)->gl_isgraph ): false; }
     
-    std::pair<int, int> Patch::getPosition() const noexcept
+    std::array<int, 4> Patch::getBounds() const noexcept
     {
         t_canvas const* cnv = static_cast<t_canvas*>(m_ptr);
         if(static_cast<bool>(m_ptr) && cnv->gl_isgraph)
         {
-            return {cnv->gl_xmargin, cnv->gl_ymargin};
+            return {cnv->gl_xmargin, cnv->gl_ymargin, cnv->gl_pixwidth, cnv->gl_pixheight};
         }
-        return {0, 0};
-    }
-    
-    std::pair<int, int> Patch::getSize() const noexcept
-    {
-        t_canvas const* cnv = static_cast<t_canvas*>(m_ptr);
-        if(static_cast<bool>(m_ptr) && cnv->gl_isgraph)
-        {
-            return std::pair<int, int>{cnv->gl_pixwidth, cnv->gl_pixheight};
-        }
-        return std::pair<int, int>{0, 0};
+        return {0, 0, 0, 0};
     }
     
     std::vector<Gui> Patch::getGuis() const noexcept
@@ -66,55 +58,10 @@ namespace pd
         
         for(t_gobj *y = static_cast<t_canvas*>(m_ptr)->gl_list; y; y = y->g_next)
         {
-            Object obj(*this, y);
-            if(obj.getName() == "bng")
+            Gui gui(static_cast<void*>(y), *this);
+            if(gui.getType() != Gui::Type::Undefined)
             {
-                objects.push_back(Gui(*this, Gui::Type::Bang, reinterpret_cast<void *>(y)));
-            }
-            else if(obj.getName() == "hsl")
-            {
-                objects.push_back(Gui(*this, Gui::Type::HorizontalSlider, reinterpret_cast<void *>(y)));
-            }
-            else if(obj.getName() == "vsl")
-            {
-                objects.push_back(Gui(*this, Gui::Type::VerticalSlider, reinterpret_cast<void *>(y)));
-            }
-            else if(obj.getName() == "tgl")
-            {
-                objects.push_back(Gui(*this, Gui::Type::Toggle, reinterpret_cast<void *>(y)));
-            }
-            else if(obj.getName() == "nbx")
-            {
-                objects.push_back(Gui(*this, Gui::Type::Number, reinterpret_cast<void *>(y)));
-            }
-            else if(obj.getName() == "vradio")
-            {
-                objects.push_back(Gui(*this, Gui::Type::VerticalRadio, reinterpret_cast<void *>(y)));
-            }
-            else if(obj.getName() == "hradio")
-            {
-                objects.push_back(Gui(*this, Gui::Type::HorizontalRadio, reinterpret_cast<void *>(y)));
-            }
-            else if(obj.getName() == "cnv")
-            {
-                objects.push_back(Gui(*this, Gui::Type::Panel, reinterpret_cast<void *>(y)));
-            }
-        }
-        return objects;
-    }
-    
-    std::vector<Object> Patch::getComments() const noexcept
-    {
-        std::vector<Object> objects;
-        if(!m_ptr)
-            return objects;
-        
-        for(t_gobj *y = static_cast<t_canvas*>(m_ptr)->gl_list; y; y = y->g_next)
-        {
-            Object obj(*this, y);
-            if(obj.getName() == "text")
-            {
-                objects.push_back(obj);
+                objects.push_back(gui);
             }
         }
         return objects;

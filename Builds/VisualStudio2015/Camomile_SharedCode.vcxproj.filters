@@ -400,6 +400,9 @@
     <ClCompile Include="..\..\Source\Gui\GuiConsole.cpp">
       <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Gui\GuiObject.cpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Gui\LookAndFeel.cpp">
       <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
@@ -2209,6 +2212,9 @@
       <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Gui\GuiConsole.hpp">
+      <Filter>Camomile\Source\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Gui\GuiObject.hpp">
       <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Gui\LookAndFeel.hpp">

@@ -43,17 +43,17 @@ namespace pd
         std::string getName() const;
         
         //! @brief The bounds of the Object.
-        std::pair<std::pair<int, int>, std::pair<int, int>> getBounds() const noexcept;
+        std::array<int, 4> getBounds() const noexcept;
         
     protected:
         
         //! @brief The constructor for a new Object.
         //! @details Creates a new valid Object. You should never have to use it. Use the
         //! Patch to retrieve an Object.
-        Object(Patch const& patch, void* ptr) noexcept;
+        Object(void* ptr, Patch const& patch) noexcept;
         
-        void*       m_ptr;
-        Patch       m_patch;
+        void*   m_ptr;
+        Patch   m_patch;
         friend class Patch;
     };
     
@@ -72,7 +72,7 @@ namespace pd
         
         enum class Type : size_t
         {
-            Invalid          = 0,
+            Undefined        = 0,
             HorizontalSlider = 1,
             VerticalSlider   = 2,
             Toggle           = 3,
@@ -80,7 +80,9 @@ namespace pd
             HorizontalRadio  = 5,
             VerticalRadio    = 6,
             Bang             = 7,
-            Panel            = 8
+            Panel            = 8,
+            VuMeter          = 9,
+            Comment          = 10
         };
         
         //! @brief The constructor for an empty Object.
@@ -103,13 +105,13 @@ namespace pd
         //! @brief The class name of the Object.
         Type getType() const noexcept;
         
-       // Tie getReceiveTie() const;
-        
         float getMinimum() const noexcept;
         
         float getMaximum() const noexcept;
         
         float getValue() const noexcept;
+        
+        void setValue(float value) noexcept;
         
         size_t getNumberOfSteps() const noexcept;
         
@@ -118,7 +120,7 @@ namespace pd
         //! @brief The constructor for a new Object.
         //! @details Creates a new valid Object. You should never have to use it. Use the
         //! Patch to retrieve an Object.
-        Gui(Patch const& patch, Type type, void* ptr) noexcept;
+        Gui(void* ptr, Patch const& patch) noexcept;
         
         Type        m_type;
         friend class Patch;

@@ -51,6 +51,8 @@
         <FILE id="JG41BR" name="Gui.hpp" compile="0" resource="0" file="Source/Gui/Gui.hpp"/>
         <FILE id="NQYjA5" name="GuiConsole.cpp" compile="1" resource="0" file="Source/Gui/GuiConsole.cpp"/>
         <FILE id="hTBXkJ" name="GuiConsole.hpp" compile="0" resource="0" file="Source/Gui/GuiConsole.hpp"/>
+        <FILE id="TyR3AO" name="GuiObject.cpp" compile="1" resource="0" file="Source/Gui/GuiObject.cpp"/>
+        <FILE id="EcJ4Oh" name="GuiObject.hpp" compile="0" resource="0" file="Source/Gui/GuiObject.hpp"/>
         <FILE id="W44AmC" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/Gui/LookAndFeel.cpp"/>
         <FILE id="o78U0B" name="LookAndFeel.hpp" compile="0" resource="0" file="Source/Gui/LookAndFeel.hpp"/>
         <GROUP id="{6873846F-DFEA-EC58-A5B0-6EA454DBC562}" name="Images">
@@ -58,8 +60,8 @@
                 file="Ressources/Images/flower_center.png"/>
           <FILE id="FRtPN4" name="flower_petals.png" compile="0" resource="1"
                 file="Ressources/Images/flower_petals.png"/>
-          <FILE id="tPrjbq" name="clear1.png" compile="0" resource="1" file="Ressources/Images/clear1.png"/>
-          <FILE id="XQTPG5" name="clear2.png" compile="0" resource="1" file="Ressources/Images/clear2.png"/>
+          <FILE id="mKyoNS" name="clear1.png" compile="0" resource="1" file="Ressources/Images/clear1.png"/>
+          <FILE id="r6HGK1" name="clear2.png" compile="0" resource="1" file="Ressources/Images/clear2.png"/>
           <FILE id="EFTHRL" name="copy1.png" compile="0" resource="1" file="Ressources/Images/copy1.png"/>
           <FILE id="R1CG4i" name="copy2.png" compile="0" resource="1" file="Ressources/Images/copy2.png"/>
           <FILE id="f8orVk" name="option.png" compile="0" resource="1" file="Ressources/Images/option.png"/>
