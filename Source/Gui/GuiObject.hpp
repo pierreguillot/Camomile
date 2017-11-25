@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "../PluginProcessor.h"
+#include "../../JuceLibraryCode/JuceHeader.h"
 #include "../Pd/PdObject.h"
 
 class GuiPatch
@@ -22,7 +22,7 @@ public:
 //                                      GUI OBJECT                                      //
 // ==================================================================================== //
 
-class GuiObject : public virtual Component, private Timer
+class GuiObject : public virtual Component, private Timer, public Label::Listener
 {
 public:
     GuiObject(GuiPatch& p, pd::Gui& g);
@@ -42,6 +42,11 @@ protected:
     void mouseDown(const MouseEvent& event) final;
     void mouseDrag(const MouseEvent& event) final;
     void mouseUp(const MouseEvent& event) final;
+    
+    void mouseDoubleClick(const MouseEvent&) final;
+    void labelTextChanged(Label* label) final;
+    void editorShown(Label*, TextEditor&) final;
+    void editorHidden(Label*, TextEditor&) final;
 private:
     void timerCallback() final;
     
@@ -54,6 +59,10 @@ private:
     float value  = 0;
     float min = 0;
     float max = 1;
+    // For number
+    bool  shift;
+    ScopedPointer<Label> label;
+    
     method_paint metpaint = nullptr;
     method_mouse metmousedown = nullptr;
     method_mouse metmousedrag = nullptr;
@@ -82,6 +91,13 @@ private:
     static void mouseDownBang(GuiObject& x, const MouseEvent& g);
     
     static void paintPanel(GuiObject& x, Graphics& g);
+    
+    static void paintComment(GuiObject& x, Graphics& g);
+    
+    static void paintNumber(GuiObject& x, Graphics& g);
+    static void mouseDownNumber(GuiObject& x, const MouseEvent& g);
+    static void mouseDragNumber(GuiObject& x, const MouseEvent& g);
+    static void mouseUpNumber(GuiObject& x, const MouseEvent& g);
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiObject)
 };

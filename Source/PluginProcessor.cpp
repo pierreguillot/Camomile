@@ -15,8 +15,31 @@
 //                                      PROCESSOR                                           //
 // ======================================================================================== //
 
+AudioProcessor::BusesProperties CamomileAudioProcessor::getBusesProperties()
+{
+    BusesProperties ioconfig;
+    auto& buses_supported = CamomileEnvironment::getBuses();
+    if(buses_supported.empty())
+    {
+        return BusesProperties().withInput("Input",  AudioChannelSet::stereo())
+        .withOutput ("Output", AudioChannelSet::stereo());
+    }
+    size_t i = 1;
+    for(auto& buse : buses_supported)
+    {
+#if JucePlugin_Build_VST3
+        ioconfig.addBus(true, String("Input ") + String(i), AudioChannelSet::canonicalChannelSet(buse.first), i == 1);
+        ioconfig.addBus(false, String("Ouput ") + String(i), AudioChannelSet::canonicalChannelSet(buse.second), i == 1);
+#else
+        ioconfig.addBus(true, String("Input ") + String(i), AudioChannelSet::discreteChannels(buse.first), i == 1);
+        ioconfig.addBus(false, String("Ouput ") + String(i), AudioChannelSet::discreteChannels(buse.second), i == 1);
+#endif
+        ++i;
+    }
+    return ioconfig;
+}
 
-CamomileAudioProcessor::CamomileAudioProcessor() : AudioProcessor(),
+CamomileAudioProcessor::CamomileAudioProcessor() : AudioProcessor(getBusesProperties()),
 m_programs(CamomileEnvironment::getPrograms())
 {
     bind("camomile");
@@ -82,10 +105,13 @@ void CamomileAudioProcessor::changeProgramName(int index, const String& newName)
 
 bool CamomileAudioProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const
 {
-    const int nins  = layouts.getMainInputChannelSet().size();
-    const int nouts  = layouts.getMainOutputChannelSet().size();
+    const int nins  = layouts.getMainInputChannels();
+    const int nouts  = layouts.getMainOutputChannels();
     auto& buses_supported = CamomileEnvironment::getBuses();
-  
+    if(buses_supported.empty())
+    {
+        return nins <= 2 && nouts <= 2;
+    }
     for(auto& buse : buses_supported)
     {
         if(buse.first == nins && buse.second == nouts)

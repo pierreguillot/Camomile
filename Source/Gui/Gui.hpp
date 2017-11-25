@@ -7,20 +7,6 @@
 #pragma once
 
 #include "../../JuceLibraryCode/JuceHeader.h"
-/*
-#include "../CamomileProcessor.hpp"
-#include "GuiParameter.hpp"
-#include "GuiRadio.hpp"
-#include "GuiToggle.hpp"
-#include "GuiSlider.hpp"
-#include "GuiNumbox.hpp"
-#include "GuiLabel.hpp"
-#include "GuiComment.hpp"
-#include "GuiPatcher.hpp"
-
- */
-#include "GuiConsole.hpp"
-#include "GuiObject.hpp"
 
 // ==================================================================================== //
 //                                      GUI                                      //

@@ -8,6 +8,7 @@
 
 #include "PluginProcessor.h"
 #include "Gui/Gui.hpp"
+#include "Gui/GuiObject.hpp"
 
 class CamomileAudioProcessorEditor : public AudioProcessorEditor, public Button::Listener, public GuiPatch
 {

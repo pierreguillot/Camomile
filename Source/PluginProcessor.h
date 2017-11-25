@@ -57,6 +57,8 @@ public:
     void receivePrint(const std::string& message) final;
 
 private:
+    static BusesProperties getBusesProperties();
+    
     MidiBuffer               m_midi_buffer;
     int m_program_current    = 0;
     std::vector<std::string> m_programs;

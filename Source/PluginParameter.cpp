@@ -76,7 +76,7 @@ void CamomileAudioParameter::setOriginalScaledValueNotifyingHost(float newValue)
 
 float CamomileAudioParameter::getDefaultValue() const
 {
-    return (m_default - m_minimum) / (m_maximum - m_minimum);
+    return std::max(std::min((m_default - m_minimum) / (m_maximum - m_minimum), 1.f), 0.f);
 }
 
 int CamomileAudioParameter::getNumSteps() const
@@ -177,6 +177,8 @@ CamomileAudioParameter* CamomileAudioParameter::parse(const std::string& definit
                 throw std::string("unknown option ") + option.first;
             }
         }
+        if(def >= telems.size())
+            throw std::string("default value superior to list size");
         StringArray elems;
         for(auto const& el : telems) { elems.add(el); }
         return new CamomileAudioParameter(name, label, elems, def, autom, meta);
@@ -228,6 +230,8 @@ CamomileAudioParameter* CamomileAudioParameter::parse(const std::string& definit
                 throw std::string("unknown option ") + option.first;
             }
         }
+        if(def > max || def < min)
+            throw std::string("default value out of range");
         return new CamomileAudioParameter(name, label, min, max, def, nsteps, autom, meta);
     }
 }

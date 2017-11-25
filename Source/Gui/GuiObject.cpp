@@ -11,6 +11,8 @@
 GuiObject::GuiObject(GuiPatch& p, pd::Gui& g) : gui(g), patch(p), edited(false),
 value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
 {
+    std::array<int, 4> const bounds(gui.getBounds());
+    setBounds(int(bounds[0]), int(bounds[1]), int(bounds[2]), int(bounds[3]));
     if(gui.getType() == pd::Gui::Type::Toggle)
     {
         metpaint = GuiObject::paintToggle;
@@ -49,9 +51,39 @@ value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
     {
         metpaint = GuiObject::paintPanel;
     }
+    else if(gui.getType() == pd::Gui::Type::Comment)
+    {
+        metpaint = GuiObject::paintComment;
+        setBounds(int(bounds[0]), int(bounds[1]), bounds[2] < 1.f ? 360 : bounds[2] * 6, 200);
+    }
+    else if(gui.getType() == pd::Gui::Type::Number)
+    {
+        metpaint = GuiObject::paintNumber;
+        metmousedown = GuiObject::mouseDownNumber;
+        metmousedrag = GuiObject::mouseDragNumber;
+        metmouseup = GuiObject::mouseUpNumber;
+        
+        Rectangle<int> bounds(getLocalBounds());
+        label = new Label();
+        label->setBounds(bounds.getHeight() / 2, Gui::getFont().getDescent(), bounds.getWidth() - bounds.getHeight() / 2, bounds.getHeight() - Gui::getFont().getDescent());
+        label->setFont(Gui::getFont().withHeight(11));
+        label->setJustificationType(Justification::centredLeft);
+        label->setColour(Label::textColourId, Gui::getColorTxt());
+        label->setColour(Label::backgroundColourId, Gui::getColorInv());
+        label->setColour(Label::outlineColourId, Gui::getColorInv());
+        label->setColour(Label::textWhenEditingColourId, Gui::getColorTxt());
+        label->setColour(Label::backgroundWhenEditingColourId, Gui::getColorInv());
+        label->setColour(Label::outlineWhenEditingColourId, Gui::getColorInv());
+        label->setBorderSize(BorderSize<int>(Gui::getBorderSize()+1, Gui::getBorderSize(),
+                                               Gui::getBorderSize(), Gui::getBorderSize()));
+        label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+        label->setEditable(false, false);
+        label->setInterceptsMouseClicks(false, false);
+        label->addListener(this);
+        setInterceptsMouseClicks(true, false);
+        addAndMakeVisible(label);
+    }
     
-    std::array<int, 4> const bounds(gui.getBounds());
-    setBounds(int(bounds[0]), int(bounds[1]), int(bounds[2]), int(bounds[3]));
     setOpaque(true);
     startTimer(25);
 }
@@ -136,6 +168,79 @@ void GuiObject::timerCallback()
         value = v;
         repaint();
     }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+void GuiObject::mouseDoubleClick(const MouseEvent&)
+{
+    if(gui.getType() == pd::Gui::Type::Number)
+    {
+        startEdition();
+        label->grabKeyboardFocus();
+        label->showEditor();
+    }
+}
+
+void GuiObject::labelTextChanged(Label* label)
+{
+    const String value = label->getText();
+    if(value.isNotEmpty())
+    {
+        setValueOriginal(value.getDoubleValue());
+        label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+    }
+}
+
+void GuiObject::editorShown(Label*, TextEditor&)
+{
+    startEdition();
+}
+
+void GuiObject::editorHidden(Label*, TextEditor&)
+{
+    stopEdition();
+}
+
+void GuiObject::paintNumber(GuiObject& x, Graphics& g)
+{
+    g.fillAll(Gui::getColorBg());
+    g.setColour(Gui::getColorBd());
+    g.drawRect(x.getLocalBounds(), Gui::getBorderSize());
+    const float h = static_cast<float>(x.getHeight());
+    g.drawLine(0.f, 0.f, h * 0.5f, h * 0.5f, Gui::getBorderSize());
+    g.drawLine(0.f, h, h * 0.5f, h * 0.5f, Gui::getBorderSize());
+}
+
+void GuiObject::mouseDownNumber(GuiObject& x, const MouseEvent& event)
+{
+    if(!x.label->hasKeyboardFocus(true))
+    {
+        x.startEdition();
+        x.shift = event.mods.isShiftDown();
+    }
+}
+
+void GuiObject::mouseUpNumber(GuiObject& x, const MouseEvent& e)
+{
+    if(!x.label->hasKeyboardFocus(true))
+    {
+        x.stopEdition();
+    }
+}
+
+void GuiObject::mouseDragNumber(GuiObject& x, const MouseEvent& e)
+{
+    if(x.shift)
+    {
+        x.setValueOriginal(x.getValueOriginal() + float(e.getDistanceFromDragStartY()) / -100.f);
+    }
+    else
+    {
+        x.setValueOriginal(x.getValueOriginal() + float(e.getDistanceFromDragStartY()) / -10.f);
+    }
+    x.label->setText(String(x.getValueOriginal()), NotificationType::dontSendNotification);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -307,5 +412,15 @@ void GuiObject::paintPanel(GuiObject& x, Graphics& g)
     g.fillAll(Gui::getColorBg());
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+void GuiObject::paintComment(GuiObject& x, Graphics& g)
+{
+    g.fillAll(Gui::getColorBg());
+    g.setFont(Gui::getFont());
+    g.setColour(Gui::getColorTxt());
+    g.drawMultiLineText(x.gui.getText(), 0, 12, x.getWidth());
+}
 
 

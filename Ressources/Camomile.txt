@@ -5,8 +5,6 @@ param -name Dummy -nsteps 5 -default 2 -auto false;
 program John;
 program Hammond;
 buse 2 2;
-buse 4 4;
-buse 8 8;
 code zErt;
 midiin true;
 midiout true;

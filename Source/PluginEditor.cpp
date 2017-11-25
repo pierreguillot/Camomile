@@ -14,6 +14,7 @@
 #include "Gui/LookAndFeel.hpp"
 #include "Gui/Gui.hpp"
 #include "Pd/PdPatch.h"
+#include "Gui/GuiConsole.hpp"
 
 #define Camomile_About "Author:\n" + String(JucePlugin_Manufacturer) + "\n\nOrganizations:\nCICM | Université Paris 8 | Labex Arts H2H\n\nWebsite:\n" + String(JucePlugin_ManufacturerWebsite)+ "/wiki\n\nCredits:\nPure Data by Miller Puckette and others\nJuce by ROLI Ltd.\nlibPd by the Pure Data community"
 
