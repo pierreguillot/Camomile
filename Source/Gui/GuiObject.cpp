@@ -47,7 +47,7 @@ value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
     }
     else if(gui.getType() == pd::Gui::Type::Panel)
     {
-        metpaint = GuiObject::paintPanel);
+        metpaint = GuiObject::paintPanel;
     }
     
     std::array<int, 4> const bounds(gui.getBounds());
