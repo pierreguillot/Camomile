@@ -42,6 +42,8 @@ private:
     pd::Gui gui;
     bool  edited = false;
     float value  = 0;
+    float min = 0;
+    float max = 1;
     method_paint metpaint = nullptr;
     method_mouse metmousedown = nullptr;
     method_mouse metmousedrag = nullptr;
@@ -59,6 +61,17 @@ private:
     static void paintSliderVertical(GuiObject& x, Graphics& g);
     static void mouseDownSliderVertical(GuiObject& x, const MouseEvent& e);
     static void mouseDragSliderVertical(GuiObject& x, const MouseEvent& e);
+    
+    static void paintRadioHorizontal(GuiObject& x, Graphics& g);
+    static void mouseDownRadioHorizontal(GuiObject& x, const MouseEvent& e);
+    
+    static void paintRadioVertical(GuiObject& x, Graphics& g);
+    static void mouseDownRadioVertical(GuiObject& x, const MouseEvent& e);
+    
+    static void paintBang(GuiObject& x, Graphics& g);
+    static void mouseDownBang(GuiObject& x, const MouseEvent& g);
+    
+    static void paintPanel(GuiObject& x, Graphics& g);
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiObject)
 };

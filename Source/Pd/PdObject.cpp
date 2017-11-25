@@ -241,7 +241,7 @@ namespace pd
         }
         else if(m_type == Type::Bang)
         {
-            return 0;
+            return 1;
         }
         return 1.f;
     }
