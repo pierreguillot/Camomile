@@ -21,13 +21,13 @@
 #X obj 27 26 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
 ;
 #X obj 27 46 print toggle;
-#X obj 198 17 vsl 15 80 0 11 0 0 \$0-vslider empty empty 0 -9 0 10
+#X obj 215 37 vsl 15 80 0 11 0 0 \$0-vslider empty empty 0 -9 0 10
 -262144 -1 -1 0 1;
 #X obj 30 69 hsl 128 15 21 2 0 0 empty empty empty -2 -8 0 10 -262144
 -1 -1 0 1;
 #X obj 27 89 print hslider;
 #X obj 325 30 vradio 15 1 0 3 empty empty empty 0 -8 0 10 -262144 -1
--1 0;
+-1 2;
 #X obj 325 80 print vradio;
 #X obj 50 141 hradio 15 1 0 12 empty empty empty 0 -8 0 10 -262144
 -1 -1 7.79747;
@@ -52,15 +52,12 @@
 #X msg 433 139 param set 2 \$1;
 #X obj 638 210 f 1;
 #X text 265 161 Salut Nounou;
-#X obj 284 118 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
-#X obj 284 118 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
+#X obj 279 114 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 2 256;
 #X obj 822 245 r channels;
 #X obj 822 266 route inputs outputs;
 #X obj 822 311 print inputs;
 #X obj 890 289 print outputs;
-#X obj 638 449 print;
 #X obj 638 232 t b f, f 14;
 #N canvas 0 23 156 140 one.time.1 0;
 #X obj 15 62 spigot 1;
@@ -123,22 +120,21 @@
 #X connect 34 1 38 0;
 #X connect 35 0 36 0;
 #X connect 36 0 33 0;
-#X connect 36 0 53 0;
 #X connect 37 0 34 0;
 #X connect 38 0 39 0;
 #X connect 41 0 45 0;
-#X connect 41 1 58 0;
-#X connect 42 0 56 0;
+#X connect 41 1 56 0;
+#X connect 42 0 54 0;
 #X connect 42 1 35 1;
-#X connect 43 0 55 0;
+#X connect 43 0 53 0;
 #X connect 44 0 40 0;
-#X connect 45 0 54 0;
-#X connect 49 0 50 0;
-#X connect 54 0 55 1;
-#X connect 54 1 35 1;
-#X connect 55 0 57 0;
-#X connect 56 0 35 0;
-#X connect 57 0 56 1;
-#X connect 57 1 35 0;
-#X connect 58 0 42 0;
+#X connect 45 0 52 0;
+#X connect 48 0 49 0;
+#X connect 52 0 53 1;
+#X connect 52 1 35 1;
+#X connect 53 0 55 0;
+#X connect 54 0 35 0;
+#X connect 55 0 54 1;
+#X connect 55 1 35 0;
+#X connect 56 0 42 0;
 #X coords 0 -1 1 1 400 240 1 2 2;
