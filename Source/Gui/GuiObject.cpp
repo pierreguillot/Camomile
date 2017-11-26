@@ -55,6 +55,7 @@ value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
     {
         metpaint = GuiObject::paintComment;
         setBounds(int(bounds[0]), int(bounds[1]), bounds[2] < 1.f ? 360 : bounds[2] * 6, 200);
+        setInterceptsMouseClicks(false, false);
     }
     else if(gui.getType() == pd::Gui::Type::Number)
     {
@@ -83,8 +84,7 @@ value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
         setInterceptsMouseClicks(true, false);
         addAndMakeVisible(label);
     }
-    
-    setOpaque(true);
+    setOpaque(false);
     startTimer(25);
 }
 
@@ -166,7 +166,14 @@ void GuiObject::timerCallback()
     if(edited == false && v != value)
     {
         value = v;
-        repaint();
+        if(label)
+        {
+            label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+        }
+        else
+        {
+            repaint();
+        }
     }
 }
 
@@ -417,7 +424,6 @@ void GuiObject::paintPanel(GuiObject& x, Graphics& g)
 
 void GuiObject::paintComment(GuiObject& x, Graphics& g)
 {
-    g.fillAll(Gui::getColorBg());
     g.setFont(Gui::getFont());
     g.setColour(Gui::getColorTxt());
     g.drawMultiLineText(x.gui.getText(), 0, 12, x.getWidth());
