@@ -69,6 +69,8 @@ m_programs(CamomileEnvironment::getPrograms())
             }
             if(p) addParameter(p);
         }
+        m_params_states.resize(getParameters().size());
+        std::fill(m_params_states.begin(), m_params_states.end(), false);
     }
     else
     {
@@ -298,7 +300,30 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
                     AudioProcessorParameter* param = getParameters()[index];
                     if(param)
                     {
-                        static_cast<bool>(list[2].getFloat()) ? param->beginChangeGesture() : param->endChangeGesture();
+                        if(list[2].getFloat() > std::numeric_limits<float>::epsilon())
+                        {
+                            if(m_params_states[index])
+                            {
+                                addError("camomile parameter change " + std::to_string(index+1) + " already started");
+                            }
+                            else
+                            {
+                                param->beginChangeGesture();
+                                m_params_states[index] = true;
+                            }
+                        }
+                        else
+                        {
+                            if(!m_params_states[index])
+                            {
+                                addError("camomile parameter change " + std::to_string(index+1) + " not started");
+                            }
+                            else
+                            {
+                                param->endChangeGesture();
+                                m_params_states[index] = false;
+                            }
+                        }
                     }
                     else { addError("camomile parameter change method index: out of range"); }
                 }

@@ -62,6 +62,7 @@ private:
     MidiBuffer               m_midi_buffer;
     int m_program_current    = 0;
     std::vector<std::string> m_programs;
+    std::vector<bool>        m_params_states;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)
 };
