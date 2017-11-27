@@ -14,13 +14,26 @@
 [![Documentation](https://img.shields.io/badge/wiki-documentation-blue.svg)](https://github.com/pierreguillot/Camomile/wiki)  
 [![License](https://img.shields.io/badge/License-GPL--v3-blue.svg)](https://github.com/pierreguillot/Camomile/blob/master/LICENSE)
 
-### Build
 
-#### MacOSX
+### Compilation
+
+#### MacOS
+To compile the AU, AUv3, VST & VST3 plugins on MacOS, you first need to compile the static version of libPd for multi instances and multi threads. The static library is expected to be in the folder **./libpd/libs**.  Thereafter, you can compile the Camomile plugins. There two options:
+- **Manual**  
+
+For the first step, you can compile the **libpd-osx-multi** from the project **libpd.xcodeproj** located in the **./libpd** folder (don't forget to change the destination folder). Then you can compile all the targets of the the project **Camomile.xcodeproj** located in **./Builds/MacOSX**.
+ At the root of this directory, you can run the two following commands
+
+- **Command Line**
+
 ```
-cd libpd
-xcodebuild -project libpd.xcodeproj -scheme libpd-osx -configuration Release -arch x86_64 ONLY_ACTIVE_ARCH=NO BUILT_PRODUCTS_DIR="./libs" PDINSTANCE=1 PDTHREADS=1
+xcodebuild -project libpd/libpd.xcodeproj -target libpd-osx-multi -configuration Release ONLY_ACTIVE_ARCH=NO CONFIGURATION_BUILD_DIR="./libs" | egrep -A 5 "(error|warning):"
+xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration Release | egrep -A 5 "(error|warning):"
 ```
+
+If you want to modify the Camomile project, you should use **Camomile.jucer** with the Juce's projucer application. If you want to compile the Audio Unit, after generating the XCode project, you must change the type of the **include_juce_audio_plugin_client_AU.r** located in the folder **JuceLibraryCode** to **Objective-C++ preprocessor**.
+
+
 ### License
 
 Copyright (C) 2017, Pierre Guillot
