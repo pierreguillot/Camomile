@@ -65,7 +65,7 @@ namespace pd
             if(text && size)
             {
                 std::string txt(text, size);
-                free(static_cast<void*>(text));
+                freebytes(static_cast<void*>(text), static_cast<size_t>(size) * sizeof(char));
                 return txt;
             }
         }
