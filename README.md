@@ -40,7 +40,7 @@ xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration Release | eg
 If you want to modify the Camomile project, you should use **Camomile.jucer** with the Juce's projucer application. If you want to compile the Audio Unit, after generating the XCode project, you must change the type of the **include_juce_audio_plugin_client_AU.r** located in the folder **JuceLibraryCode** to **Objective-C++ preprocessor**.
 
 #### Linux
-JUCE requires
+To compile VST plugins on Linux, JUCE requires a large set of dependencies, to install everything you should run this command (for further information you should refer to the JUCE documentation):
 ```
 sudo apt-get -qq update
 sudo apt-get install -y -qq libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev python-dev libfreetype6-dev libgtk-3-dev libcurl4-gnutls-dev alsa libasound2-dev ppa:webkit-team/ppa libwebkit2gtk-4.0-37 libwebkit2gtk-4.0-dev
