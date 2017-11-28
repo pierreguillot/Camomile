@@ -1,11 +1,9 @@
 # Camomile
-![](https://cloud.githubusercontent.com/assets/1409918/13611206/9433a744-e561-11e5-8b30-7def4dd19cdd.png)  
-**Camomile is a dynamic plugin made with [Juce](http://www.juce.com) that allows to load and to control [Pure Data](http://msp.ucsd.edu/software.html) patches inside a digital audio workstation.**
+![](https://cloud.githubusercontent.com/assets/1409918/13611206/9433a744-e561-11e5-8b30-7def4dd19cdd.png)
+
+Camomile is a set of dynamic plugins with [Pure Data](http://msp.ucsd.edu/software.html) embedded. The plugins offer to load and to control patches inside a digital audio workstation. The plugin is available as VST, VST3 and Audio Unit for Windows, Linux and Mac.
 
 ![](https://cloud.githubusercontent.com/assets/1409918/13610631/ebdacae8-e55e-11e5-903c-fb3ad342adb8.png)
-
-**The plugin is available as VST, VST3 and Audio Unit for Windows, Linux and Mac.**  
-**See the documentation for further informations and download.**
 
 
 [![Travis](https://img.shields.io/travis/pierreguillot/Camomile.svg?label=travis)](https://travis-ci.org/pierreguillot/Camomile)  
@@ -14,6 +12,11 @@
 [![Documentation](https://img.shields.io/badge/wiki-documentation-blue.svg)](https://github.com/pierreguillot/Camomile/wiki)  
 [![License](https://img.shields.io/badge/License-GPL--v3-blue.svg)](https://github.com/pierreguillot/Camomile/blob/master/LICENSE)
 
+---
+## Dependencies
+
+[libPd](https://github.com/libpd/libpd) 
+[JUCE](http://www.juce.com) by ROLI Ltd.
 
 ---
 ## Compilation
@@ -63,6 +66,12 @@ or you can specify the target and the configuration with **TARGET_ARCH** **CONFI
 ```
 make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=Release
 ```
+---
+## Generating plugins
+Each folder in the folder **patches** contains the files of a plugins (the Pd patches and the text file that describes the functionalities of the plugin). To generates all the plugins based on your current version of Camomile, you only need to run
+### MacOS
+
+
 ---
 ### License
 
