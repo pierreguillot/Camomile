@@ -105,6 +105,8 @@ namespace pd
         //! @brief The class name of the Object.
         Type getType() const noexcept;
         
+        int getFontSize() const noexcept;
+        
         float getMinimum() const noexcept;
         
         float getMaximum() const noexcept;

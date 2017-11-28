@@ -36,10 +36,21 @@ CamoLookAndFeel::CamoLookAndFeel()
     setColour(TextEditor::outlineColourId, Gui::getColorInv());
     setColour(TextEditor::shadowColourId,Gui::getColorInv());
     setColour(TextEditor::textColourId, Gui::getColorTxt().withAlpha(0.5f));
+    setColour(TextEditor::highlightColourId,  Gui::getColorTxt().withAlpha(0.5f));
+    setColour(TextEditor::highlightedTextColourId, Gui::getColorTxt());
     
     setColour(ScrollBar::thumbColourId, Gui::getColorTxt().withAlpha(0.5f));
     setColour(ScrollBar::trackColourId,Gui::getColorInv());
     setColour(ScrollBar::backgroundColourId, Gui::getColorBg());
+    
+    setColour(Label::textColourId, Gui::getColorTxt());
+    setColour(Label::backgroundColourId, Gui::getColorInv());
+    setColour(Label::outlineColourId, Gui::getColorInv());
+    setColour(Label::textWhenEditingColourId, Gui::getColorTxt());
+    setColour(Label::backgroundWhenEditingColourId, Gui::getColorInv());
+    setColour(Label::outlineWhenEditingColourId, Gui::getColorInv());
+    
+    setColour(CaretComponent::caretColourId, Gui::getColorTxt());
 }
 
 CamoLookAndFeel::~CamoLookAndFeel()  {}

@@ -12,7 +12,7 @@
 
 Font Gui::getFont()
 {
-    return Font(String("DejaVu Sans Mono"), 12.f, juce::Font::plain).withStyle(Font::bold);
+    return Font(String("DejaVu Sans Mono"), String("Book"), 12.f);
 }
 
 int Gui::getBorderSize() noexcept

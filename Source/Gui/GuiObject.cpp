@@ -64,17 +64,13 @@ value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
         metmousedrag = GuiObject::mouseDragNumber;
         metmouseup = GuiObject::mouseUpNumber;
         
-        Rectangle<int> bounds(getLocalBounds());
+        Rectangle<int> const b(getLocalBounds());
+        Font const tf = Gui::getFont().withHeight(gui.getFontSize());
         label = new Label();
-        label->setBounds(bounds.getHeight() / 2, Gui::getFont().getDescent(), bounds.getWidth() - bounds.getHeight() / 2, bounds.getHeight() - Gui::getFont().getDescent());
-        label->setFont(Gui::getFont().withHeight(11));
+        label->setBounds(b.getHeight() / 2, tf.getDescent(),
+                         b.getWidth() - b.getHeight() / 2, b.getHeight() - tf.getDescent());
+        label->setFont(tf);
         label->setJustificationType(Justification::centredLeft);
-        label->setColour(Label::textColourId, Gui::getColorTxt());
-        label->setColour(Label::backgroundColourId, Gui::getColorInv());
-        label->setColour(Label::outlineColourId, Gui::getColorInv());
-        label->setColour(Label::textWhenEditingColourId, Gui::getColorTxt());
-        label->setColour(Label::backgroundWhenEditingColourId, Gui::getColorInv());
-        label->setColour(Label::outlineWhenEditingColourId, Gui::getColorInv());
         label->setBorderSize(BorderSize<int>(Gui::getBorderSize()+1, Gui::getBorderSize(),
                                                Gui::getBorderSize(), Gui::getBorderSize()));
         label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
@@ -187,6 +183,12 @@ void GuiObject::mouseDoubleClick(const MouseEvent&)
         startEdition();
         label->grabKeyboardFocus();
         label->showEditor();
+        TextEditor* editor = label->getCurrentTextEditor();
+        if(editor)
+        {
+            editor->setIndents(0, 2);
+            editor->setBorder(BorderSize<int>(0));
+        }
     }
 }
 
@@ -216,8 +218,8 @@ void GuiObject::paintNumber(GuiObject& x, Graphics& g)
     g.setColour(Gui::getColorBd());
     g.drawRect(x.getLocalBounds(), Gui::getBorderSize());
     const float h = static_cast<float>(x.getHeight());
-    g.drawLine(0.f, 0.f, h * 0.5f, h * 0.5f, Gui::getBorderSize());
-    g.drawLine(0.f, h, h * 0.5f, h * 0.5f, Gui::getBorderSize());
+    g.drawLine(0.f, 0.f, h * 0.35f, h * 0.5f, Gui::getBorderSize());
+    g.drawLine(0.f, h, h * 0.35f, h * 0.5f, Gui::getBorderSize());
 }
 
 void GuiObject::mouseDownNumber(GuiObject& x, const MouseEvent& event)
@@ -424,9 +426,9 @@ void GuiObject::paintPanel(GuiObject& x, Graphics& g)
 
 void GuiObject::paintComment(GuiObject& x, Graphics& g)
 {
-    g.setFont(Gui::getFont());
+    g.setFont(Gui::getFont().withHeight(x.gui.getFontSize() + 3));
     g.setColour(Gui::getColorTxt());
-    g.drawMultiLineText(x.gui.getText(), 0, 12, x.getWidth());
+    g.drawMultiLineText(x.gui.getText(), 0, x.gui.getFontSize(), x.getWidth());
 }
 
 

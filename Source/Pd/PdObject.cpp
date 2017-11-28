@@ -292,6 +292,20 @@ namespace pd
         m_patch.m_instance->setThis();
         pd_float(static_cast<t_pd*>(m_ptr), value);
     }
+    
+    int Gui::getFontSize() const noexcept
+    {
+        if(!m_ptr )
+            return 0;
+        if(m_type == Type::Comment)
+        {
+            return (static_cast<t_canvas*>(m_patch.m_ptr))->gl_font;
+        }
+        else
+        {
+            return (static_cast<t_iemgui*>(m_ptr))->x_fontsize;
+        }
+    }
 }
 
 
