@@ -15,7 +15,7 @@ install:
 #- pacman -S msys/make mingw32/mingw-w64-i686-gcc mingw64/mingw-w64-x86_64-gcc
 
 build_script:
-    - %MSYS_PATH%\usr\bin\bash "make -C libpd/ UTIL=true EXTRA=true ADDITIONAL_CFLAGS=\"-DPDINSTANCE=1 -DPDTHREADS=1\""
+    - %MSYS_PATH%\usr\bin\bash make -C libpd/ UTIL=true EXTRA=true ADDITIONAL_CFLAGS="-DPDINSTANCE=1 -DPDTHREADS=1"
 #- msbuild %APPVEYOR_BUILD_FOLDER%\Builds\VisualStudio2015\Camomile.vcxproj /property:Configuration=%TARGET%
 
 notifications:
