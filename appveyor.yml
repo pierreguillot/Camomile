@@ -16,8 +16,8 @@ install:
     - git submodule update --init --recursive
 
 build_script:
-    - 'c:\%MSYS%\usr\bin\bash make -C libpd/ UTIL=true EXTRA=true ADDITIONAL_CFLAGS="-DPDINSTANCE=1 -DPDTHREADS=1"'
-#- msbuild %APPVEYOR_BUILD_FOLDER%\Builds\VisualStudio2015\Camomile.vcxproj /property:Configuration=%TARGET%
+    - c:\%MSYS%\usr\bin\bash "make -C libpd/ UTIL=true EXTRA=true"
+#ADDITIONAL_CFLAGS="-DPDINSTANCE=1 -DPDTHREADS=1"
 
 notifications:
 
