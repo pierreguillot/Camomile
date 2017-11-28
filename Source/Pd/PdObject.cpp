@@ -8,7 +8,6 @@
 
 extern "C"
 {
-#include <stdlib.h>
 #include <z_libpd.h>
 #include <m_pd.h>
 #include <m_imp.h>
