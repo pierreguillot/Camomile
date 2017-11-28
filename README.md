@@ -25,7 +25,7 @@ cd Camomile
 ```
 
 ### MacOS
-To compile the AU, AUv3, VST & VST3 plugins on MacOS, you first need to compile the static version of libPd for multi instances and multi threads. The static library is expected to be in the folder **libpd/libs**.  Thereafter, you can compile the Camomile plugins. There two options:
+To compile the AU, VST & VST3 plugins on MacOS, you first need to compile the static version of libPd for multi instances and multi threads. The static library is expected to be in the folder **libpd/libs**.  Thereafter, you can compile the Camomile plugins. There two options:
 - **Manual**  
 
 For the first step, you can compile the **libpd-osx-multi** from the project **libpd.xcodeproj** located in the **libpd** folder (don't forget to change the destination folder). Then you can compile all the targets of the the project **Camomile.xcodeproj** located in **Builds/MacOSX**.

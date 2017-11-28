@@ -4,7 +4,7 @@
               splashScreenColour="Dark" projectType="audioplug" version="0.1.0"
               bundleIdentifier="com.pierreguillot.camomile" includeBinaryInAppConfig="1"
               cppLanguageStandard="11" companyCopyright="Pierre Guillot" buildVST="1"
-              buildVST3="1" buildAU="1" buildAUv3="1" buildRTAS="0" buildAAX="0"
+              buildVST3="1" buildAU="1" buildAUv3="0" buildRTAS="0" buildAAX="0"
               buildStandalone="1" enableIAA="0" pluginName="Camomile" pluginDesc="Camomile"
               pluginManufacturer="Pierre Guillot" pluginManufacturerCode="PIGU"
               pluginCode="Kpq9" pluginChannelConfigs="" pluginIsSynth="0" pluginWantsMidiIn="1"
