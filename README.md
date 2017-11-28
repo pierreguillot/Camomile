@@ -15,7 +15,7 @@ Camomile is a set of dynamic plugins with [Pure Data](http://msp.ucsd.edu/softwa
 ---
 ## Dependencies
 
-[libPd](https://github.com/libpd/libpd) 
+[libPd](https://github.com/libpd/libpd)
 [JUCE](http://www.juce.com) by ROLI Ltd.
 
 ---
@@ -29,16 +29,19 @@ cd Camomile
 
 ### MacOS
 To compile the AU, VST & VST3 plugins on MacOS, you first need to compile the static version of libPd for multi instances and multi threads. The static library is expected to be in the folder **libpd/libs**.  Thereafter, you can compile the Camomile plugins. There two options:
+
 - **Manual**  
+For the first step, you can compile the **libpd-osx-multi** from the project **libpd.xcodeproj** located in the **libpd** folder (don't forget to change the destination folder). Then you can compile all the targets of the the project **Camomile.xcodeproj** located in **Builds/MacOSX**. If you want the Fx version of the plugin, you must change the configuration to **ReleaseFx** or **DebugFx**.
 
-For the first step, you can compile the **libpd-osx-multi** from the project **libpd.xcodeproj** located in the **libpd** folder (don't forget to change the destination folder). Then you can compile all the targets of the the project **Camomile.xcodeproj** located in **Builds/MacOSX**.
+- **Command Line**  
  At the root of this directory, you can run the two following commands
-
-- **Command Line**
-
 ```
 xcodebuild -project libpd/libpd.xcodeproj -target libpd-osx-multi -configuration Release ONLY_ACTIVE_ARCH=NO CONFIGURATION_BUILD_DIR="./libs" | egrep -A 5 "(error|warning):"
-xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration Release | egrep -A 5 "(error|warning):"
+xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration Release
+```
+And/or for the Fx version of the plugin:
+```
+xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration ReleaseFx
 ```
 
 If you want to modify the Camomile project, you should use **Camomile.jucer** with the Juce's projucer application. If you want to compile the Audio Unit, after generating the XCode project, you must change the type of the **include_juce_audio_plugin_client_AU.r** located in the folder **JuceLibraryCode** to **Objective-C++ preprocessor**.
@@ -58,14 +61,12 @@ First, you should compile libPd with multi instance and multi threads support. T
 ```
 make -C libpd/ UTIL=true EXTRA=true ADDITIONAL_CFLAGS="-DPDINSTANCE=1 -DPDTHREADS=1"
 ```
-Then you can compile the Camomile plugin. The makefile are located in the folder **Builds/LinuxMakefile**. For the default target and the configuration, you can run:
-```
-make -C Builds/LinuxMakefile/
-```
-or you can specify the target and the configuration with **TARGET_ARCH** **CONFIG**. For example:
+Then you can compile the Camomile plugin. The makefile are located in the folder **Builds/LinuxMakefile**. You can specify the target with with **TARGET_ARCH** (-m32 or -m64) and the configuration with **CONFIG** (Debug, DebugFx, Releaseo r ReleaseFx). For example:
 ```
 make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=Release
+make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=ReleaseFx
 ```
+
 ---
 ## Generating plugins
 Each folder in the folder **patches** contains the files of a plugins (the Pd patches and the text file that describes the functionalities of the plugin). To generates all the plugins based on your current version of Camomile, you only need to run
