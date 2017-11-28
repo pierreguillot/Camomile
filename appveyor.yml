@@ -4,18 +4,19 @@ environment:
       - CONFIGURATION: Release
         PLATFORM: Win32
         TARGET: Release32
+        MSYS: msys
       - CONFIGURATION: Release
         PLATFORM: x64
         TARGET: Release64
+        MSYS: msys64
 
 os: Visual Studio 2015
 
 install:
     - git submodule update --init --recursive
-    - c:\msys64\usr\bin\bash -lc "pacman -S msys/make mingw32/mingw-w64-i686-gcc mingw64/mingw-w64-x86_64-gcc" > nul
 
 build_script:
-    - 'c:\msys64\usr\bin\bash make -C libpd/ UTIL=true EXTRA=true ADDITIONAL_CFLAGS="-DPDINSTANCE=1 -DPDTHREADS=1"'
+    - 'c:\%MSYS%\usr\bin\bash make -C libpd/ UTIL=true EXTRA=true ADDITIONAL_CFLAGS="-DPDINSTANCE=1 -DPDTHREADS=1"'
 #- msbuild %APPVEYOR_BUILD_FOLDER%\Builds\VisualStudio2015\Camomile.vcxproj /property:Configuration=%TARGET%
 
 notifications:
