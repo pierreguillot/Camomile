@@ -8,6 +8,7 @@
 
 extern "C"
 {
+#include <stdlib.h>
 #include <z_libpd.h>
 #include <m_pd.h>
 #include <m_imp.h>
@@ -64,7 +65,7 @@ namespace pd
             if(text && size)
             {
                 std::string txt(text, size);
-                free(text);
+                free(static_cast<void*>(text));
                 return txt;
             }
         }
