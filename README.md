@@ -16,6 +16,12 @@
 
 
 ### Compilation
+The cross-platform dependencies (libPd, Pure Data, JUCE and the VST SDK), are integrated as submodules to the repository. You need to pull the repository and its submodules:
+
+```
+git clone --recursive https://github.com/pierreguillot/Camomile.git  
+cd Camomile
+```
 
 #### MacOS
 To compile the AU, AUv3, VST & VST3 plugins on MacOS, you first need to compile the static version of libPd for multi instances and multi threads. The static library is expected to be in the folder **./libpd/libs**.  Thereafter, you can compile the Camomile plugins. There two options:
@@ -33,6 +39,12 @@ xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration Release | eg
 
 If you want to modify the Camomile project, you should use **Camomile.jucer** with the Juce's projucer application. If you want to compile the Audio Unit, after generating the XCode project, you must change the type of the **include_juce_audio_plugin_client_AU.r** located in the folder **JuceLibraryCode** to **Objective-C++ preprocessor**.
 
+#### Linux
+JUCE requires
+```
+sudo apt-get -qq update
+sudo apt-get install -y -qq libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev python-dev libfreetype6-dev libgtk-3-dev libcurl4-gnutls-dev alsa libasound2-dev ppa:webkit-team/ppa libwebkit2gtk-4.0-37 libwebkit2gtk-4.0-dev
+```
 
 ### License
 
