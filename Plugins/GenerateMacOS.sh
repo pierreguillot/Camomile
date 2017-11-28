@@ -1,15 +1,18 @@
 #!/bin/bash
-echo Generates the default plugins
-VstCamomile=Camomile.vst
-Vst3Camomile=Camomile.vst3
-AuCamomile=Camomile.component
+echo Camomile Generates the new plugins
+
+CamomileInst=Camomile
+CamomileFx=CamomileFx
+
+VstExtension=vst
+Vst3Extension=vst3
+AuExtension=component
 
 VstPath=$HOME/Library/Audio/Plug-Ins/VST
 Vst3Path=$HOME/Library/Audio/Plug-Ins/VST3
 AuPath=$HOME/Library/Audio/Plug-Ins/Components
 
 PatchesPath=$(PWD)
-echo "$PatchesPath"
 
 if [ ! -d $VstPath/$VstCamomile ]; then
     echo "Can't find" $VstCamomile "in" $VstPath
@@ -25,37 +28,45 @@ for Patch in $PatchesPath/*
 do
   PatchName=${Patch##*/}
   if [ -d $PatchesPath/$PatchName ]; then
-      echo -n $PatchName " "
-      if [ -d $VstPath/$VstCamomile ]; then
-          if [ -d $VstPath/$PatchName.vst ]; then
-              rm -rf $VstPath/$PatchName.vst
+      echo -n $PatchName
+
+      if [ ${PatchName:(-2)} == "Fx" ]; then
+          echo -n " (Effect):"
+          CamomileName=CamomileFx
+      else
+          echo -n " (Instrument):"
+          CamomileName=Camomile
+      fi
+      if [ -d $VstPath/$CamomileName.$VstExtension ]; then
+          if [ -d $VstPath/$PatchName.$VstExtension ]; then
+              rm -rf $VstPath/$PatchName.$VstExtension
           fi
-          cp -rf $VstPath/$VstCamomile $VstPath/$PatchName.vst
-          rm $VstPath/$PatchName.vst/Contents/Resources/Camomile.pd
-          rm $VstPath/$PatchName.vst/Contents/Resources/Camomile.txt
-          cp -rf $PatchesPath/$PatchName/ $VstPath/$PatchName.vst/Contents/Resources
+          cp -rf $VstPath/$CamomileName.$VstExtension $VstPath/$PatchName.$VstExtension
+          rm $VstPath/$PatchName.$VstExtension/Contents/Resources/Camomile.pd
+          rm $VstPath/$PatchName.$VstExtension/Contents/Resources/Camomile.txt
+          cp -rf $PatchesPath/$PatchName/ $VstPath/$PatchName.$VstExtension/Contents/Resources
           echo -n VST " "
       fi
 
-      if [ -d $Vst3Path/$Vst3Camomile ]; then
-          if [ -d $Vst3Path/$PatchName.vst3 ]; then
-              rm -rf $Vst3Path/$PatchName.vst3
+      if [ -d $Vst3Path/$CamomileName.$Vst3Extension ]; then
+          if [ -d $Vst3Path/$PatchName.$Vst3Extension ]; then
+              rm -rf $Vst3Path/$PatchName.$Vst3Extension
           fi
-          cp -rf $Vst3Path/$Vst3Camomile $Vst3Path/$PatchName.vst3
-          rm $Vst3Path/$PatchName.vst3/Contents/Resources/Camomile.pd
-          rm $Vst3Path/$PatchName.vst3/Contents/Resources/Camomile.txt
-          cp -rf $PatchesPath/$PatchName/ $Vst3Path/$PatchName.vst3/Contents/Resources
+          cp -rf $Vst3Path/$CamomileName.$Vst3Extension $Vst3Path/$PatchName.$Vst3Extension
+          rm $Vst3Path/$PatchName.$Vst3Extension/Contents/Resources/Camomile.pd
+          rm $Vst3Path/$PatchName.$Vst3Extension/Contents/Resources/Camomile.txt
+          cp -rf $PatchesPath/$PatchName/ $Vst3Path/$PatchName.$Vst3Extension/Contents/Resources
           echo -n VST3 " "
       fi
 
-      if [ -d $AuPath/$AuCamomile ]; then
-          if [ -d $AuPath/$PatchName.component ]; then
-              rm -r $AuPath/$PatchName.component
+      if [ -d $AuPath/$CamomileName.$AuExtension ]; then
+          if [ -d $AuPath/$PatchName.$AuExtension ]; then
+              rm -r $AuPath/$PatchName.$AuExtension
           fi
-          cp -r $AuPath/$AuCamomile $AuPath/$PatchName.component
-          rm $AuPath/$PatchName.component/Contents/Resources/Camomile.pd
-          rm $AuPath/$PatchName.component/Contents/Resources/Camomile.txt
-          cp -r $PatchesPath/$PatchName/ $AuPath/$PatchName.component/Contents/Resources
+          cp -r $AuPath/$CamomileName.$AuExtension $AuPath/$PatchName.$AuExtension
+          rm $AuPath/$PatchName.$AuExtension/Contents/Resources/Camomile.pd
+          rm $AuPath/$PatchName.$AuExtension/Contents/Resources/Camomile.txt
+          cp -r $PatchesPath/$PatchName/ $AuPath/$PatchName.$AuExtension/Contents/Resources
           echo -n AudioUnit " "
       fi
       echo ""
