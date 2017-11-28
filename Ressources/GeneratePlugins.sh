@@ -8,8 +8,7 @@ VstPath=$HOME/Library/Audio/Plug-Ins/VST
 Vst3Path=$HOME/Library/Audio/Plug-Ins/VST3
 AuPath=$HOME/Library/Audio/Plug-Ins/Components
 
-PatchesPath=$BASH_SOURCE
-echo "$PatchesPath"
+PatchesPath=$PWD
 
 if [ ! -d $VstPath/$VstCamomile ]; then
     echo "Can't find" $VstCamomile "in" $VstPath
