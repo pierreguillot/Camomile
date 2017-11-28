@@ -1,0 +1,3 @@
+param -name Picth -label ½tone -min -24 -max 24 -default 0;
+buse 2 2;
+code zUrt;
