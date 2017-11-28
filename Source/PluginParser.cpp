@@ -71,7 +71,8 @@ int CamomileParser::getInteger(std::string const& value)
 {
     if(!value.empty())
     {
-        if(isdigit(static_cast<int>(value[0])))
+        if(isdigit(static_cast<int>(value[0])) ||
+           (value.size() > 1 && value[0] == '-'  && isdigit(static_cast<int>(value[1]))))
         {
             return atoi(value.c_str());
         }
@@ -84,7 +85,8 @@ float CamomileParser::getFloat(std::string const& value)
 {
     if(!value.empty())
     {
-        if(isdigit(static_cast<int>(value[0])))
+        if(isdigit(static_cast<int>(value[0])) ||
+           (value.size() > 1 && value[0] == '-'  && isdigit(static_cast<int>(value[1]))))
         {
             return static_cast<float>(atof(value.c_str()));
         }
@@ -126,13 +128,16 @@ std::pair<int, int> CamomileParser::getTwoIntegers(std::string const& value)
 {
     if(!value.empty())
     {
-        if(isdigit(static_cast<int>(value[0])))
+        if(isdigit(static_cast<int>(value[0])) ||
+           (value.size() > 1 && value[0] == '-'  && isdigit(static_cast<int>(value[1]))))
         {
             size_t next = value.find_first_of(' ');
             if(next != std::string::npos)
             {
                 next = value.find_first_not_of(' ', next+1);
-                if(next != std::string::npos && isdigit(static_cast<int>(value[next])))
+                if(next != std::string::npos &&
+                   (isdigit(static_cast<int>(value[next])) ||
+                    (value.size() > next+1 && value[next] == '-'  && isdigit(static_cast<int>(value[next+1])))) )
                 {
                     return std::pair<int, int>(atoi(value.c_str()),atoi(value.c_str()+next));
                 }
@@ -159,6 +164,10 @@ std::map<std::string, std::string> CamomileParser::getOptions(std::string const&
                 if(value1 != std::string::npos)
                 {
                     size_t value2 = value.find_first_of('-', key2);
+                    while(value2+1 < value.size() && isdigit(static_cast<int>(value[value2+1])))
+                    {
+                        value2 = value.find_first_of('-', value2+1);
+                    }
                     if(value2 == value1) { throw std::string("option '" + name + "' is empty"); }
                     else if(value2 != std::string::npos)
                     {
