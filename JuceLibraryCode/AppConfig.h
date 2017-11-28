@@ -286,7 +286,7 @@
  #define JucePlugin_Name                   "Camomile"
 #endif
 #ifndef  JucePlugin_Desc
- #define JucePlugin_Desc                   "Camomile"
+ #define JucePlugin_Desc                   "A plugin that loads Pure Data patches"
 #endif
 #ifndef  JucePlugin_Manufacturer
  #define JucePlugin_Manufacturer           "Pierre Guillot"
@@ -316,7 +316,7 @@
  #define JucePlugin_IsMidiEffect           0
 #endif
 #ifndef  JucePlugin_EditorRequiresKeyboardFocus
- #define JucePlugin_EditorRequiresKeyboardFocus  0
+ #define JucePlugin_EditorRequiresKeyboardFocus  1
 #endif
 #ifndef  JucePlugin_Version
  #define JucePlugin_Version                0.1.0

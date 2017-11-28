@@ -31,7 +31,7 @@
         <key>name</key>
         <string>Pierre Guillot: Camomile</string>
         <key>description</key>
-        <string>Camomile</string>
+        <string>A plugin that loads Pure Data patches</string>
         <key>factoryFunction</key>
         <string>CamomileAUFactory</string>
         <key>manufacturer</key>
