@@ -33,7 +33,7 @@ ifeq ($(CONFIG),Debug)
     TARGET_ARCH := -march=native
   endif
 
-  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DDEBUG=1 -D_DEBUG=1 -DPDINSTANCE=1 -DPDTHREAD=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=0.1.0 -DJUCE_APP_VERSION_HEX=0x100 $(shell pkg-config --cflags alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -pthread -I../../JuceLibraryCode -I../../Juce/modules -I../../libpd/pure-data/src -I../../libpd/libpd_wrapper -I../../libpd/libpd_wrapper/util -I../../libpd/cpp $(CPPFLAGS)
+  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DDEBUG=1 -D_DEBUG=1 -DPDINSTANCE=1 -DPDTHREAD=1 -DJucePlugin_IsSynth=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=0.1.0 -DJUCE_APP_VERSION_HEX=0x100 $(shell pkg-config --cflags alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -pthread -I../../JuceLibraryCode -I../../Juce/modules -I../../libpd/pure-data/src -I../../libpd/libpd_wrapper -I../../libpd/libpd_wrapper/util -I../../libpd/cpp $(CPPFLAGS)
 
   JUCE_CPPFLAGS_VST := -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0
   JUCE_CFLAGS_VST := -fPIC -fvisibility=hidden
@@ -63,7 +63,7 @@ ifeq ($(CONFIG),Release)
     TARGET_ARCH := -march=native
   endif
 
-  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DNDEBUG=1 -DPDINSTANCE=1 -DPDTHREAD=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=0.1.0 -DJUCE_APP_VERSION_HEX=0x100 $(shell pkg-config --cflags alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -pthread -I../../JuceLibraryCode -I../../Juce/modules -I../../libpd/pure-data/src -I../../libpd/libpd_wrapper -I../../libpd/libpd_wrapper/util -I../../libpd/cpp $(CPPFLAGS)
+  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DNDEBUG=1 -DPDINSTANCE=1 -DPDTHREAD=1 -DJucePlugin_IsSynth=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=0.1.0 -DJUCE_APP_VERSION_HEX=0x100 $(shell pkg-config --cflags alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -pthread -I../../JuceLibraryCode -I../../Juce/modules -I../../libpd/pure-data/src -I../../libpd/libpd_wrapper -I../../libpd/libpd_wrapper/util -I../../libpd/cpp $(CPPFLAGS)
 
   JUCE_CPPFLAGS_VST := -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0
   JUCE_CFLAGS_VST := -fPIC -fvisibility=hidden
@@ -75,6 +75,66 @@ ifeq ($(CONFIG),Release)
 
   JUCE_CPPFLAGS_SHARED_CODE := -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=1 -DJUCE_SHARED_CODE=1
   JUCE_TARGET_SHARED_CODE := Camomile.a
+
+  JUCE_CFLAGS += $(JUCE_CPPFLAGS) $(TARGET_ARCH) -fPIC -O3 -flto $(CFLAGS)
+  JUCE_CXXFLAGS += $(JUCE_CFLAGS) -std=c++11 $(CXXFLAGS)
+  JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -L../../libpd/libs $(shell pkg-config --libs alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -fvisibility=hidden -ldl -lpthread -lrt -lpd $(LDFLAGS)
+
+  CLEANCMD = rm -rf $(JUCE_OUTDIR)/$(TARGET) $(JUCE_OBJDIR)
+endif
+
+ifeq ($(CONFIG),DebugFx)
+  JUCE_BINDIR := build
+  JUCE_LIBDIR := build
+  JUCE_OBJDIR := build/intermediate/DebugFx
+  JUCE_OUTDIR := build
+
+  ifeq ($(TARGET_ARCH),)
+    TARGET_ARCH := -march=native
+  endif
+
+  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DDEBUG=1 -D_DEBUG=1 -DPDINSTANCE=1 -DPDTHREAD=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=0.1.0 -DJUCE_APP_VERSION_HEX=0x100 $(shell pkg-config --cflags alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -pthread -I../../JuceLibraryCode -I../../Juce/modules -I../../libpd/pure-data/src -I../../libpd/libpd_wrapper -I../../libpd/libpd_wrapper/util -I../../libpd/cpp $(CPPFLAGS)
+
+  JUCE_CPPFLAGS_VST := -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0
+  JUCE_CFLAGS_VST := -fPIC -fvisibility=hidden
+  JUCE_LDFLAGS_VST := -shared -Wl,--no-undefined
+  JUCE_TARGET_VST := CamomileFx.so
+
+  JUCE_CPPFLAGS_STANDALONE_PLUGIN := -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=1
+  JUCE_TARGET_STANDALONE_PLUGIN := CamomileFx
+
+  JUCE_CPPFLAGS_SHARED_CODE := -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=1 -DJUCE_SHARED_CODE=1
+  JUCE_TARGET_SHARED_CODE := CamomileFx.a
+
+  JUCE_CFLAGS += $(JUCE_CPPFLAGS) $(TARGET_ARCH) -fPIC -g -ggdb -O0 $(CFLAGS)
+  JUCE_CXXFLAGS += $(JUCE_CFLAGS) -std=c++11 $(CXXFLAGS)
+  JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -L../../libpd/libs $(shell pkg-config --libs alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -ldl -lpthread -lrt -lpd $(LDFLAGS)
+
+  CLEANCMD = rm -rf $(JUCE_OUTDIR)/$(TARGET) $(JUCE_OBJDIR)
+endif
+
+ifeq ($(CONFIG),ReleaseFx)
+  JUCE_BINDIR := build
+  JUCE_LIBDIR := build
+  JUCE_OBJDIR := build/intermediate/ReleaseFx
+  JUCE_OUTDIR := build
+
+  ifeq ($(TARGET_ARCH),)
+    TARGET_ARCH := -march=native
+  endif
+
+  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DNDEBUG=1 -DPDINSTANCE=1 -DPDTHREAD=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=0.1.0 -DJUCE_APP_VERSION_HEX=0x100 $(shell pkg-config --cflags alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -pthread -I../../JuceLibraryCode -I../../Juce/modules -I../../libpd/pure-data/src -I../../libpd/libpd_wrapper -I../../libpd/libpd_wrapper/util -I../../libpd/cpp $(CPPFLAGS)
+
+  JUCE_CPPFLAGS_VST := -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0
+  JUCE_CFLAGS_VST := -fPIC -fvisibility=hidden
+  JUCE_LDFLAGS_VST := -shared -Wl,--no-undefined
+  JUCE_TARGET_VST := CamomileFx.so
+
+  JUCE_CPPFLAGS_STANDALONE_PLUGIN := -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=1
+  JUCE_TARGET_STANDALONE_PLUGIN := CamomileFx
+
+  JUCE_CPPFLAGS_SHARED_CODE := -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=1 -DJUCE_SHARED_CODE=1
+  JUCE_TARGET_SHARED_CODE := CamomileFx.a
 
   JUCE_CFLAGS += $(JUCE_CPPFLAGS) $(TARGET_ARCH) -fPIC -O3 -flto $(CFLAGS)
   JUCE_CXXFLAGS += $(JUCE_CFLAGS) -std=c++11 $(CXXFLAGS)

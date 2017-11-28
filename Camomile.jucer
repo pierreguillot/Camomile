@@ -77,19 +77,19 @@
         <CONFIGURATION name="Debug" enablePluginBinaryCopyStep="1" isDebug="1" optimisation="1"
                        linkTimeOptimisation="0" targetName="Camomile" osxCompatibility="10.9 SDK"
                        osxArchitecture="64BitUniversal" libraryPath="../../libpd/libs"
-                       headerPath=""/>
+                       headerPath="" defines="JucePlugin_IsSynth=1"/>
         <CONFIGURATION name="Release" enablePluginBinaryCopyStep="1" isDebug="0" optimisation="3"
                        linkTimeOptimisation="1" targetName="Camomile" osxCompatibility="10.9 SDK"
                        osxArchitecture="64BitUniversal" libraryPath="../../libpd/libs"
-                       headerPath=""/>
+                       headerPath="" defines="JucePlugin_IsSynth=1"/>
         <CONFIGURATION name="DebugFx" enablePluginBinaryCopyStep="1" isDebug="1" optimisation="1"
                        linkTimeOptimisation="0" targetName="CamomileFx" osxCompatibility="10.9 SDK"
                        osxArchitecture="64BitUniversal" libraryPath="../../libpd/libs"
-                       headerPath="" defines="JucePlugin_IsSynth=1"/>
+                       headerPath="" defines=""/>
         <CONFIGURATION name="ReleaseFx" enablePluginBinaryCopyStep="1" isDebug="0" optimisation="3"
                        linkTimeOptimisation="1" targetName="CamomileFx" osxCompatibility="10.9 SDK"
                        osxArchitecture="64BitUniversal" libraryPath="../../libpd/libs"
-                       headerPath="" defines="JucePlugin_IsSynth=1"/>
+                       headerPath="" defines=""/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="Juce/modules"/>
@@ -134,9 +134,13 @@
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraLinkerFlags="" externalLibraries="pd">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" linkTimeOptimisation="0"
-                       targetName="Camomile" libraryPath="../../libpd/libs"/>
+                       targetName="Camomile" libraryPath="../../libpd/libs" defines="JucePlugin_IsSynth=1"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" linkTimeOptimisation="1"
-                       targetName="Camomile" libraryPath="../../libpd/libs"/>
+                       targetName="Camomile" libraryPath="../../libpd/libs" defines="JucePlugin_IsSynth=1"/>
+        <CONFIGURATION name="DebugFx" isDebug="1" optimisation="1" linkTimeOptimisation="0"
+                       targetName="CamomileFx" libraryPath="../../libpd/libs" defines=""/>
+        <CONFIGURATION name="ReleaseFx" isDebug="0" optimisation="3" linkTimeOptimisation="1"
+                       targetName="CamomileFx" libraryPath="../../libpd/libs"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="Juce/modules"/>

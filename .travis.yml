@@ -22,9 +22,11 @@ matrix:
       script:
         - make -C libpd/ UTIL=true EXTRA=true ADDITIONAL_CFLAGS="-DPDINSTANCE=1 -DPDTHREADS=1"
         - make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=Release
+        - make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=ReleaseFx
 
     - os: osx
       compiler: clang++
       script:
         - xcodebuild -project libpd/libpd.xcodeproj -target libpd-osx-multi -configuration Release ONLY_ACTIVE_ARCH=NO CONFIGURATION_BUILD_DIR="./libs" | egrep -A 5 "(error|warning):"
         - xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration Release
+        - xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration ReleaseFx
