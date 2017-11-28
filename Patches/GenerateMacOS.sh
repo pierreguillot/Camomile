@@ -8,7 +8,7 @@ VstPath=$HOME/Library/Audio/Plug-Ins/VST
 Vst3Path=$HOME/Library/Audio/Plug-Ins/VST3
 AuPath=$HOME/Library/Audio/Plug-Ins/Components
 
-PatchesPath=$BASH_SOURCE
+PatchesPath=$(PWD)
 echo "$PatchesPath"
 
 if [ ! -d $VstPath/$VstCamomile ]; then
@@ -24,36 +24,40 @@ fi
 for Patch in $PatchesPath/*
 do
   PatchName=${Patch##*/}
-  if [ -d $VstPath/$VstCamomile ]; then
-      if [ -d $VstPath/$PatchName.vst ]; then
-          rm -rf $VstPath/$PatchName.vst
+  if [ -d $PatchesPath/$PatchName ]; then
+      echo -n $PatchName " "
+      if [ -d $VstPath/$VstCamomile ]; then
+          if [ -d $VstPath/$PatchName.vst ]; then
+              rm -rf $VstPath/$PatchName.vst
+          fi
+          cp -rf $VstPath/$VstCamomile $VstPath/$PatchName.vst
+          rm $VstPath/$PatchName.vst/Contents/Resources/Camomile.pd
+          rm $VstPath/$PatchName.vst/Contents/Resources/Camomile.txt
+          cp -rf $PatchesPath/$PatchName/ $VstPath/$PatchName.vst/Contents/Resources
+          echo -n VST " "
       fi
-      cp -rf $VstPath/$VstCamomile $VstPath/$PatchName.vst
-      rm $VstPath/$PatchName.vst/Contents/Resources/Camomile.pd
-      rm $VstPath/$PatchName.vst/Contents/Resources/Camomile.txt
-      cp -rf $PatchesPath/$PatchName/ $VstPath/$PatchName.vst/Contents/Resources
-      echo $PatchName.vst
-  fi
 
-  if [ -d $Vst3Path/$Vst3Camomile ]; then
-      if [ -d $Vst3Path/$PatchName.vst3 ]; then
-          rm -rf $Vst3Path/$PatchName.vst3
+      if [ -d $Vst3Path/$Vst3Camomile ]; then
+          if [ -d $Vst3Path/$PatchName.vst3 ]; then
+              rm -rf $Vst3Path/$PatchName.vst3
+          fi
+          cp -rf $Vst3Path/$Vst3Camomile $Vst3Path/$PatchName.vst3
+          rm $Vst3Path/$PatchName.vst3/Contents/Resources/Camomile.pd
+          rm $Vst3Path/$PatchName.vst3/Contents/Resources/Camomile.txt
+          cp -rf $PatchesPath/$PatchName/ $Vst3Path/$PatchName.vst3/Contents/Resources
+          echo -n VST3 " "
       fi
-      cp -rf $Vst3Path/$Vst3Camomile $Vst3Path/$PatchName.vst3
-      rm $Vst3Path/$PatchName.vst3/Contents/Resources/Camomile.pd
-      rm $Vst3Path/$PatchName.vst3/Contents/Resources/Camomile.txt
-      cp -rf $PatchesPath/$PatchName/ $Vst3Path/$PatchName.vst3/Contents/Resources
-      echo $PatchName.vst3
-  fi
 
-  if [ -d $AuPath/$AuCamomile ]; then
-      if [ -d $AuPath/$PatchName.component ]; then
-          rm -r $AuPath/$PatchName.component
+      if [ -d $AuPath/$AuCamomile ]; then
+          if [ -d $AuPath/$PatchName.component ]; then
+              rm -r $AuPath/$PatchName.component
+          fi
+          cp -r $AuPath/$AuCamomile $AuPath/$PatchName.component
+          rm $AuPath/$PatchName.component/Contents/Resources/Camomile.pd
+          rm $AuPath/$PatchName.component/Contents/Resources/Camomile.txt
+          cp -r $PatchesPath/$PatchName/ $AuPath/$PatchName.component/Contents/Resources
+          echo -n AudioUnit " "
       fi
-      cp -r $AuPath/$AuCamomile $AuPath/$PatchName.component
-      rm $AuPath/$PatchName.component/Contents/Resources/Camomile.pd
-      rm $AuPath/$PatchName.component/Contents/Resources/Camomile.txt
-      cp -r $PatchesPath/$PatchName/ $AuPath/$PatchName.component/Contents/Resources
-      echo $PatchName.component
+      echo ""
   fi
 done
