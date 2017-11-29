@@ -73,22 +73,28 @@
     <XCODE_MAC targetFolder="Builds/MacOSX" vst3Folder="VST" externalLibraries="pd-osx-multi"
                customXcodeResourceFolders="" postbuildCommand="">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" enablePluginBinaryCopyStep="1" isDebug="1" optimisation="1"
+        <CONFIGURATION name="Debug" enablePluginBinaryCopyStep="0" isDebug="1" optimisation="1"
                        linkTimeOptimisation="0" targetName="Camomile" osxCompatibility="10.9 SDK"
                        osxArchitecture="64BitUniversal" libraryPath="../../libpd/libs"
-                       headerPath="" defines="JucePlugin_IsSynth=1"/>
-        <CONFIGURATION name="Release" enablePluginBinaryCopyStep="1" isDebug="0" optimisation="3"
+                       headerPath="" defines="JucePlugin_IsSynth=1" binaryPath="plugins"
+                       auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/" vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VST3/"
+                       vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"/>
+        <CONFIGURATION name="Release" enablePluginBinaryCopyStep="0" isDebug="0" optimisation="3"
                        linkTimeOptimisation="1" targetName="Camomile" osxCompatibility="10.9 SDK"
                        osxArchitecture="64BitUniversal" libraryPath="../../libpd/libs"
-                       headerPath="" defines="JucePlugin_IsSynth=1"/>
-        <CONFIGURATION name="DebugFx" enablePluginBinaryCopyStep="1" isDebug="1" optimisation="1"
+                       headerPath="" defines="JucePlugin_IsSynth=1" binaryPath="plugins"
+                       auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/" vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VS3/"
+                       vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"/>
+        <CONFIGURATION name="DebugFx" enablePluginBinaryCopyStep="0" isDebug="1" optimisation="1"
                        linkTimeOptimisation="0" targetName="CamomileFx" osxCompatibility="10.9 SDK"
                        osxArchitecture="64BitUniversal" libraryPath="../../libpd/libs"
-                       headerPath="" defines=""/>
-        <CONFIGURATION name="ReleaseFx" enablePluginBinaryCopyStep="1" isDebug="0" optimisation="3"
+                       headerPath="" defines="" binaryPath="plugins" vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"
+                       vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VST3/" auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/"/>
+        <CONFIGURATION name="ReleaseFx" enablePluginBinaryCopyStep="0" isDebug="0" optimisation="3"
                        linkTimeOptimisation="1" targetName="CamomileFx" osxCompatibility="10.9 SDK"
                        osxArchitecture="64BitUniversal" libraryPath="../../libpd/libs"
-                       headerPath="" defines=""/>
+                       headerPath="" defines="" binaryPath="plugins" vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"
+                       vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VST3/" auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="Juce/modules"/>

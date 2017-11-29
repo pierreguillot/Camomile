@@ -49,39 +49,39 @@
 		7E7DAB9EAA3F03D12CC312D5 /* Gui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05B406FA0C33237B4F3E590A /* Gui.cpp */; };
 		8390F31E7B7096D3DA0944D1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBD83515A888D164A72466A /* WebKit.framework */; };
 		8BCF2AF7F852A716F4D00EB0 /* PluginParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5AAD65B542A5DDCE1E5985A4 /* PluginParameter.cpp */; };
-		8F861E471FCEC398009E37F7 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8126A2FEEEADA13BE0FBBEDC /* RecentFilesMenuTemplate.nib */; };
-		8F861E481FCEC398009E37F7 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1E3A85F79B93B336420138 /* Accelerate.framework */; };
-		8F861E491FCEC398009E37F7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8F36AEFDA9E963BDBA6C1C /* AudioToolbox.framework */; };
-		8F861E4A1FCEC398009E37F7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
-		8F861E4B1FCEC398009E37F7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22689D9A7644931A85906FC /* Cocoa.framework */; };
-		8F861E4C1FCEC398009E37F7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE27C1948ACEC6272612D72E /* CoreAudio.framework */; };
-		8F861E4D1FCEC398009E37F7 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF6201286A446C72F198F49 /* CoreMIDI.framework */; };
-		8F861E4E1FCEC398009E37F7 /* DiscRecording.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C463ABD44177594470FFE47 /* DiscRecording.framework */; };
-		8F861E4F1FCEC398009E37F7 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F064420B996DA482F0524 /* IOKit.framework */; };
-		8F861E501FCEC398009E37F7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBF9F7DFC62377D880D402F /* QuartzCore.framework */; };
-		8F861E511FCEC398009E37F7 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBD83515A888D164A72466A /* WebKit.framework */; };
-		8F861E521FCEC398009E37F7 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8126A2FEEEADA13BE0FBBEDC /* RecentFilesMenuTemplate.nib */; };
-		8F861E531FCEC398009E37F7 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1E3A85F79B93B336420138 /* Accelerate.framework */; };
-		8F861E541FCEC398009E37F7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8F36AEFDA9E963BDBA6C1C /* AudioToolbox.framework */; };
-		8F861E551FCEC398009E37F7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
-		8F861E561FCEC398009E37F7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22689D9A7644931A85906FC /* Cocoa.framework */; };
-		8F861E571FCEC398009E37F7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE27C1948ACEC6272612D72E /* CoreAudio.framework */; };
-		8F861E581FCEC398009E37F7 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF6201286A446C72F198F49 /* CoreMIDI.framework */; };
-		8F861E591FCEC398009E37F7 /* DiscRecording.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C463ABD44177594470FFE47 /* DiscRecording.framework */; };
-		8F861E5A1FCEC398009E37F7 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F064420B996DA482F0524 /* IOKit.framework */; };
-		8F861E5B1FCEC398009E37F7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBF9F7DFC62377D880D402F /* QuartzCore.framework */; };
-		8F861E5C1FCEC398009E37F7 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBD83515A888D164A72466A /* WebKit.framework */; };
-		8F861E5D1FCEC398009E37F7 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8126A2FEEEADA13BE0FBBEDC /* RecentFilesMenuTemplate.nib */; };
-		8F861E5E1FCEC398009E37F7 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1E3A85F79B93B336420138 /* Accelerate.framework */; };
-		8F861E5F1FCEC398009E37F7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8F36AEFDA9E963BDBA6C1C /* AudioToolbox.framework */; };
-		8F861E601FCEC398009E37F7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
-		8F861E611FCEC398009E37F7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22689D9A7644931A85906FC /* Cocoa.framework */; };
-		8F861E621FCEC398009E37F7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE27C1948ACEC6272612D72E /* CoreAudio.framework */; };
-		8F861E631FCEC398009E37F7 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF6201286A446C72F198F49 /* CoreMIDI.framework */; };
-		8F861E641FCEC398009E37F7 /* DiscRecording.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C463ABD44177594470FFE47 /* DiscRecording.framework */; };
-		8F861E651FCEC398009E37F7 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F064420B996DA482F0524 /* IOKit.framework */; };
-		8F861E661FCEC398009E37F7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBF9F7DFC62377D880D402F /* QuartzCore.framework */; };
-		8F861E671FCEC398009E37F7 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBD83515A888D164A72466A /* WebKit.framework */; };
+		8F5BC2831FCF1137007FDC8C /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8126A2FEEEADA13BE0FBBEDC /* RecentFilesMenuTemplate.nib */; };
+		8F5BC2841FCF1137007FDC8C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1E3A85F79B93B336420138 /* Accelerate.framework */; };
+		8F5BC2851FCF1137007FDC8C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8F36AEFDA9E963BDBA6C1C /* AudioToolbox.framework */; };
+		8F5BC2861FCF1137007FDC8C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
+		8F5BC2871FCF1137007FDC8C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22689D9A7644931A85906FC /* Cocoa.framework */; };
+		8F5BC2881FCF1137007FDC8C /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE27C1948ACEC6272612D72E /* CoreAudio.framework */; };
+		8F5BC2891FCF1137007FDC8C /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF6201286A446C72F198F49 /* CoreMIDI.framework */; };
+		8F5BC28A1FCF1137007FDC8C /* DiscRecording.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C463ABD44177594470FFE47 /* DiscRecording.framework */; };
+		8F5BC28B1FCF1137007FDC8C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F064420B996DA482F0524 /* IOKit.framework */; };
+		8F5BC28C1FCF1137007FDC8C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBF9F7DFC62377D880D402F /* QuartzCore.framework */; };
+		8F5BC28D1FCF1137007FDC8C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBD83515A888D164A72466A /* WebKit.framework */; };
+		8F5BC28E1FCF1137007FDC8C /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8126A2FEEEADA13BE0FBBEDC /* RecentFilesMenuTemplate.nib */; };
+		8F5BC28F1FCF1137007FDC8C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1E3A85F79B93B336420138 /* Accelerate.framework */; };
+		8F5BC2901FCF1137007FDC8C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8F36AEFDA9E963BDBA6C1C /* AudioToolbox.framework */; };
+		8F5BC2911FCF1137007FDC8C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
+		8F5BC2921FCF1137007FDC8C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22689D9A7644931A85906FC /* Cocoa.framework */; };
+		8F5BC2931FCF1137007FDC8C /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE27C1948ACEC6272612D72E /* CoreAudio.framework */; };
+		8F5BC2941FCF1137007FDC8C /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF6201286A446C72F198F49 /* CoreMIDI.framework */; };
+		8F5BC2951FCF1137007FDC8C /* DiscRecording.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C463ABD44177594470FFE47 /* DiscRecording.framework */; };
+		8F5BC2961FCF1137007FDC8C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F064420B996DA482F0524 /* IOKit.framework */; };
+		8F5BC2971FCF1137007FDC8C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBF9F7DFC62377D880D402F /* QuartzCore.framework */; };
+		8F5BC2981FCF1137007FDC8C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBD83515A888D164A72466A /* WebKit.framework */; };
+		8F5BC2991FCF1137007FDC8C /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8126A2FEEEADA13BE0FBBEDC /* RecentFilesMenuTemplate.nib */; };
+		8F5BC29A1FCF1137007FDC8C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1E3A85F79B93B336420138 /* Accelerate.framework */; };
+		8F5BC29B1FCF1137007FDC8C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8F36AEFDA9E963BDBA6C1C /* AudioToolbox.framework */; };
+		8F5BC29C1FCF1137007FDC8C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
+		8F5BC29D1FCF1137007FDC8C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22689D9A7644931A85906FC /* Cocoa.framework */; };
+		8F5BC29E1FCF1137007FDC8C /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE27C1948ACEC6272612D72E /* CoreAudio.framework */; };
+		8F5BC29F1FCF1137007FDC8C /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF6201286A446C72F198F49 /* CoreMIDI.framework */; };
+		8F5BC2A01FCF1137007FDC8C /* DiscRecording.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C463ABD44177594470FFE47 /* DiscRecording.framework */; };
+		8F5BC2A11FCF1137007FDC8C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F064420B996DA482F0524 /* IOKit.framework */; };
+		8F5BC2A21FCF1137007FDC8C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBF9F7DFC62377D880D402F /* QuartzCore.framework */; };
+		8F5BC2A31FCF1137007FDC8C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBD83515A888D164A72466A /* WebKit.framework */; };
 		930C03DB13CF76EC50EC033B /* PdInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66DA2EC213E47A55A823ABD8 /* PdInstance.cpp */; };
 		9B20A5C81418716EAAB43FDC /* GuiConsole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6379BE7F26B1CED663E5A292 /* GuiConsole.cpp */; };
 		A61216D8707D7655CB3E0EB3 /* include_juce_gui_extra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4B23D166FD3B0C90C6F31FC4 /* include_juce_gui_extra.mm */; };
@@ -108,35 +108,35 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8F861E681FCEC398009E37F7 /* PBXContainerItemProxy */ = {
+		8F5BC2A41FCF1137007FDC8C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 783348B185006D1B6D1CF889;
 			remoteInfo = "Camomile - VST";
 		};
-		8F861E691FCEC398009E37F7 /* PBXContainerItemProxy */ = {
+		8F5BC2A51FCF1137007FDC8C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = DDC710B892FDE37A0F19292D;
 			remoteInfo = "Camomile - Shared Code";
 		};
-		8F861E6A1FCEC398009E37F7 /* PBXContainerItemProxy */ = {
+		8F5BC2A61FCF1137007FDC8C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 074FFE22626A916E5D070022;
 			remoteInfo = "Camomile - VST3";
 		};
-		8F861E6B1FCEC398009E37F7 /* PBXContainerItemProxy */ = {
+		8F5BC2A71FCF1137007FDC8C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 6E51637F255AB3A3BE377A27;
 			remoteInfo = "Camomile - AU";
 		};
-		8F861E6C1FCEC398009E37F7 /* PBXContainerItemProxy */ = {
+		8F5BC2A81FCF1137007FDC8C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
@@ -263,18 +263,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F861E531FCEC398009E37F7 /* Accelerate.framework in Frameworks */,
-				8F861E541FCEC398009E37F7 /* AudioToolbox.framework in Frameworks */,
+				8F5BC28F1FCF1137007FDC8C /* Accelerate.framework in Frameworks */,
+				8F5BC2901FCF1137007FDC8C /* AudioToolbox.framework in Frameworks */,
 				F0E616AAADE2C8DFABCA8F14 /* AudioUnit.framework in Frameworks */,
-				8F861E551FCEC398009E37F7 /* Carbon.framework in Frameworks */,
-				8F861E561FCEC398009E37F7 /* Cocoa.framework in Frameworks */,
-				8F861E571FCEC398009E37F7 /* CoreAudio.framework in Frameworks */,
+				8F5BC2911FCF1137007FDC8C /* Carbon.framework in Frameworks */,
+				8F5BC2921FCF1137007FDC8C /* Cocoa.framework in Frameworks */,
+				8F5BC2931FCF1137007FDC8C /* CoreAudio.framework in Frameworks */,
 				BABB947ED89952F98B386B72 /* CoreAudioKit.framework in Frameworks */,
-				8F861E581FCEC398009E37F7 /* CoreMIDI.framework in Frameworks */,
-				8F861E591FCEC398009E37F7 /* DiscRecording.framework in Frameworks */,
-				8F861E5A1FCEC398009E37F7 /* IOKit.framework in Frameworks */,
-				8F861E5B1FCEC398009E37F7 /* QuartzCore.framework in Frameworks */,
-				8F861E5C1FCEC398009E37F7 /* WebKit.framework in Frameworks */,
+				8F5BC2941FCF1137007FDC8C /* CoreMIDI.framework in Frameworks */,
+				8F5BC2951FCF1137007FDC8C /* DiscRecording.framework in Frameworks */,
+				8F5BC2961FCF1137007FDC8C /* IOKit.framework in Frameworks */,
+				8F5BC2971FCF1137007FDC8C /* QuartzCore.framework in Frameworks */,
+				8F5BC2981FCF1137007FDC8C /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,16 +282,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F861E5E1FCEC398009E37F7 /* Accelerate.framework in Frameworks */,
-				8F861E5F1FCEC398009E37F7 /* AudioToolbox.framework in Frameworks */,
-				8F861E601FCEC398009E37F7 /* Carbon.framework in Frameworks */,
-				8F861E611FCEC398009E37F7 /* Cocoa.framework in Frameworks */,
-				8F861E621FCEC398009E37F7 /* CoreAudio.framework in Frameworks */,
-				8F861E631FCEC398009E37F7 /* CoreMIDI.framework in Frameworks */,
-				8F861E641FCEC398009E37F7 /* DiscRecording.framework in Frameworks */,
-				8F861E651FCEC398009E37F7 /* IOKit.framework in Frameworks */,
-				8F861E661FCEC398009E37F7 /* QuartzCore.framework in Frameworks */,
-				8F861E671FCEC398009E37F7 /* WebKit.framework in Frameworks */,
+				8F5BC29A1FCF1137007FDC8C /* Accelerate.framework in Frameworks */,
+				8F5BC29B1FCF1137007FDC8C /* AudioToolbox.framework in Frameworks */,
+				8F5BC29C1FCF1137007FDC8C /* Carbon.framework in Frameworks */,
+				8F5BC29D1FCF1137007FDC8C /* Cocoa.framework in Frameworks */,
+				8F5BC29E1FCF1137007FDC8C /* CoreAudio.framework in Frameworks */,
+				8F5BC29F1FCF1137007FDC8C /* CoreMIDI.framework in Frameworks */,
+				8F5BC2A01FCF1137007FDC8C /* DiscRecording.framework in Frameworks */,
+				8F5BC2A11FCF1137007FDC8C /* IOKit.framework in Frameworks */,
+				8F5BC2A21FCF1137007FDC8C /* QuartzCore.framework in Frameworks */,
+				8F5BC2A31FCF1137007FDC8C /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,16 +299,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F861E481FCEC398009E37F7 /* Accelerate.framework in Frameworks */,
-				8F861E491FCEC398009E37F7 /* AudioToolbox.framework in Frameworks */,
-				8F861E4A1FCEC398009E37F7 /* Carbon.framework in Frameworks */,
-				8F861E4B1FCEC398009E37F7 /* Cocoa.framework in Frameworks */,
-				8F861E4C1FCEC398009E37F7 /* CoreAudio.framework in Frameworks */,
-				8F861E4D1FCEC398009E37F7 /* CoreMIDI.framework in Frameworks */,
-				8F861E4E1FCEC398009E37F7 /* DiscRecording.framework in Frameworks */,
-				8F861E4F1FCEC398009E37F7 /* IOKit.framework in Frameworks */,
-				8F861E501FCEC398009E37F7 /* QuartzCore.framework in Frameworks */,
-				8F861E511FCEC398009E37F7 /* WebKit.framework in Frameworks */,
+				8F5BC2841FCF1137007FDC8C /* Accelerate.framework in Frameworks */,
+				8F5BC2851FCF1137007FDC8C /* AudioToolbox.framework in Frameworks */,
+				8F5BC2861FCF1137007FDC8C /* Carbon.framework in Frameworks */,
+				8F5BC2871FCF1137007FDC8C /* Cocoa.framework in Frameworks */,
+				8F5BC2881FCF1137007FDC8C /* CoreAudio.framework in Frameworks */,
+				8F5BC2891FCF1137007FDC8C /* CoreMIDI.framework in Frameworks */,
+				8F5BC28A1FCF1137007FDC8C /* DiscRecording.framework in Frameworks */,
+				8F5BC28B1FCF1137007FDC8C /* IOKit.framework in Frameworks */,
+				8F5BC28C1FCF1137007FDC8C /* QuartzCore.framework in Frameworks */,
+				8F5BC28D1FCF1137007FDC8C /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -736,7 +736,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F861E521FCEC398009E37F7 /* RecentFilesMenuTemplate.nib in Resources */,
+				8F5BC28E1FCF1137007FDC8C /* RecentFilesMenuTemplate.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,7 +752,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F861E471FCEC398009E37F7 /* RecentFilesMenuTemplate.nib in Resources */,
+				8F5BC2831FCF1137007FDC8C /* RecentFilesMenuTemplate.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -760,7 +760,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F861E5D1FCEC398009E37F7 /* RecentFilesMenuTemplate.nib in Resources */,
+				8F5BC2991FCF1137007FDC8C /* RecentFilesMenuTemplate.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -852,27 +852,27 @@
 		398955D5066CDD4932E310CA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 783348B185006D1B6D1CF889 /* Camomile - VST */;
-			targetProxy = 8F861E681FCEC398009E37F7 /* PBXContainerItemProxy */;
+			targetProxy = 8F5BC2A41FCF1137007FDC8C /* PBXContainerItemProxy */;
 		};
 		3B6CB08BC817F55EB2060FF0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DDC710B892FDE37A0F19292D /* Camomile - Shared Code */;
-			targetProxy = 8F861E691FCEC398009E37F7 /* PBXContainerItemProxy */;
+			targetProxy = 8F5BC2A51FCF1137007FDC8C /* PBXContainerItemProxy */;
 		};
 		7D367FF9FDC3FA3B59CD142E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6E51637F255AB3A3BE377A27 /* Camomile - AU */;
-			targetProxy = 8F861E6B1FCEC398009E37F7 /* PBXContainerItemProxy */;
+			targetProxy = 8F5BC2A71FCF1137007FDC8C /* PBXContainerItemProxy */;
 		};
 		A1C3BEFB2FD635B36DFEC246 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 074FFE22626A916E5D070022 /* Camomile - VST3 */;
-			targetProxy = 8F861E6A1FCEC398009E37F7 /* PBXContainerItemProxy */;
+			targetProxy = 8F5BC2A61FCF1137007FDC8C /* PBXContainerItemProxy */;
 		};
 		F67E9B8F47BCDE82A8A71A44 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C98FC50E459BFE203A718FB9 /* Camomile - Standalone Plugin */;
-			targetProxy = 8F861E6C1FCEC398009E37F7 /* PBXContainerItemProxy */;
+			targetProxy = 8F5BC2A81FCF1137007FDC8C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -884,7 +884,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				DEAD_CODE_STRIPPING = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -1000,7 +1000,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				DEAD_CODE_STRIPPING = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -1059,10 +1059,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				COPY_PHASE_STRIP = NO;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1097,7 +1095,6 @@
 				);
 				INFOPLIST_FILE = "Info-VST.plist";
 				INFOPLIST_PREPROCESS = NO;
-				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/VST/";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../../libpd/libs\"",
@@ -1124,10 +1121,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				COPY_PHASE_STRIP = NO;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1162,7 +1157,6 @@
 				);
 				INFOPLIST_FILE = "Info-AU.plist";
 				INFOPLIST_PREPROCESS = NO;
-				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../../libpd/libs\"",
@@ -1190,10 +1184,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				COPY_PHASE_STRIP = NO;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1227,7 +1219,6 @@
 				);
 				INFOPLIST_FILE = "Info-AU.plist";
 				INFOPLIST_PREPROCESS = NO;
-				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../../libpd/libs\"",
@@ -1255,7 +1246,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				DEAD_CODE_STRIPPING = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -1312,7 +1303,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1369,10 +1360,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1408,7 +1397,6 @@
 				);
 				INFOPLIST_FILE = "Info-AU.plist";
 				INFOPLIST_PREPROCESS = NO;
-				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../../libpd/libs\"",
@@ -1437,10 +1425,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				COPY_PHASE_STRIP = NO;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1474,7 +1460,6 @@
 				);
 				INFOPLIST_FILE = "Info-VST3.plist";
 				INFOPLIST_PREPROCESS = NO;
-				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/VST3/";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../../libpd/libs\"",
@@ -1501,10 +1486,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1540,7 +1523,6 @@
 				);
 				INFOPLIST_FILE = "Info-VST3.plist";
 				INFOPLIST_PREPROCESS = NO;
-				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/VST3/";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../../libpd/libs\"",
@@ -1568,10 +1550,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1606,7 +1586,6 @@
 				);
 				INFOPLIST_FILE = "Info-VST3.plist";
 				INFOPLIST_PREPROCESS = NO;
-				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/VST3/";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../../libpd/libs\"",
@@ -1723,7 +1702,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1778,10 +1757,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				COPY_PHASE_STRIP = NO;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1816,7 +1793,6 @@
 				);
 				INFOPLIST_FILE = "Info-VST3.plist";
 				INFOPLIST_PREPROCESS = NO;
-				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/VST3/";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../../libpd/libs\"",
@@ -1892,10 +1868,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1930,7 +1904,6 @@
 				);
 				INFOPLIST_FILE = "Info-AU.plist";
 				INFOPLIST_PREPROCESS = NO;
-				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../../libpd/libs\"",
@@ -1959,7 +1932,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2013,7 +1986,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				DEAD_CODE_STRIPPING = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -2069,10 +2042,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2108,7 +2079,6 @@
 				);
 				INFOPLIST_FILE = "Info-VST.plist";
 				INFOPLIST_PREPROCESS = NO;
-				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/VST/";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../../libpd/libs\"",
@@ -2136,10 +2106,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				COPY_PHASE_STRIP = NO;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2173,7 +2141,6 @@
 				);
 				INFOPLIST_FILE = "Info-VST.plist";
 				INFOPLIST_PREPROCESS = NO;
-				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/VST/";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../../libpd/libs\"",
@@ -2200,10 +2167,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2238,7 +2203,6 @@
 				);
 				INFOPLIST_FILE = "Info-VST.plist";
 				INFOPLIST_PREPROCESS = NO;
-				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/VST/";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../../libpd/libs\"",
@@ -2266,7 +2230,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = ../../plugins;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
