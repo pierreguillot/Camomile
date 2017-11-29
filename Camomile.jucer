@@ -12,7 +12,8 @@
               pluginAUExportPrefix="CamomileAU" pluginRTASCategory="" aaxIdentifier="com.pierreguillot.camomile"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.2.0"
               companyName="Pierre Guillot" headerPath="../../libpd/pure-data/src&#10;../../libpd/libpd_wrapper&#10;../../libpd/libpd_wrapper/util&#10;../../libpd/cpp"
-              defines="PDINSTANCE=1&#10;PDTHREAD=1" companyWebsite="https://github.com/pierreguillot/Camomile">
+              defines="PDINSTANCE=1&#10;PDTHREAD=1&#10;HAVE_LIBDL=1&#10;HAVE_UNISTD_H=1&#10;PD_INTERNAL=1"
+              companyWebsite="https://github.com/pierreguillot/Camomile">
   <MAINGROUP id="BLNPyv" name="Camomile">
     <GROUP id="{D4367A82-F269-8F5A-1C22-AB42C90672ED}" name="Source">
       <FILE id="yIk1CH" name="PluginProcessor.cpp" compile="1" resource="0"
@@ -76,24 +77,24 @@
         <CONFIGURATION name="Debug" enablePluginBinaryCopyStep="0" isDebug="1" optimisation="1"
                        linkTimeOptimisation="0" targetName="Camomile" osxCompatibility="10.9 SDK"
                        osxArchitecture="64BitUniversal" libraryPath="../../libpd/libs"
-                       headerPath="" defines="JucePlugin_IsSynth=1" binaryPath="plugins/Camomile"
+                       headerPath="" defines="JucePlugin_IsSynth=1" binaryPath="Plugins/Camomile"
                        auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/" vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VST3/"
                        vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"/>
         <CONFIGURATION name="Release" enablePluginBinaryCopyStep="0" isDebug="0" optimisation="3"
                        linkTimeOptimisation="1" targetName="Camomile" osxCompatibility="10.9 SDK"
                        osxArchitecture="64BitUniversal" libraryPath="../../libpd/libs"
-                       headerPath="" defines="JucePlugin_IsSynth=1" binaryPath="plugins/Camomile"
+                       headerPath="" defines="JucePlugin_IsSynth=1" binaryPath="Plugins/Camomile"
                        auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/" vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VS3/"
                        vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"/>
         <CONFIGURATION name="DebugFx" enablePluginBinaryCopyStep="0" isDebug="1" optimisation="1"
                        linkTimeOptimisation="0" targetName="CamomileFx" osxCompatibility="10.9 SDK"
                        osxArchitecture="64BitUniversal" libraryPath="../../libpd/libs"
-                       headerPath="" defines="" binaryPath="plugins/Camomile" vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"
+                       headerPath="" defines="" binaryPath="Plugins/Camomile" vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"
                        vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VST3/" auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/"/>
         <CONFIGURATION name="ReleaseFx" enablePluginBinaryCopyStep="0" isDebug="0" optimisation="3"
                        linkTimeOptimisation="1" targetName="CamomileFx" osxCompatibility="10.9 SDK"
                        osxArchitecture="64BitUniversal" libraryPath="../../libpd/libs"
-                       headerPath="" defines="" binaryPath="plugins/Camomile" vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"
+                       headerPath="" defines="" binaryPath="Plugins/Camomile" vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"
                        vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VST3/" auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
@@ -140,15 +141,15 @@
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" linkTimeOptimisation="0"
                        targetName="Camomile" libraryPath="../../libpd/libs" defines="JucePlugin_IsSynth=1"
-                       binaryPath="plugins/Camomile"/>
+                       binaryPath="Plugins/Camomile"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" linkTimeOptimisation="1"
                        targetName="Camomile" libraryPath="../../libpd/libs" defines="JucePlugin_IsSynth=1"
-                       binaryPath="plugins/Camomile"/>
+                       binaryPath="Plugins/Camomile"/>
         <CONFIGURATION name="DebugFx" isDebug="1" optimisation="1" linkTimeOptimisation="0"
                        targetName="CamomileFx" libraryPath="../../libpd/libs" defines=""
-                       binaryPath="plugins/Camomile"/>
+                       binaryPath="Plugins/Camomile"/>
         <CONFIGURATION name="ReleaseFx" isDebug="0" optimisation="3" linkTimeOptimisation="1"
-                       targetName="CamomileFx" libraryPath="../../libpd/libs" binaryPath="plugins/Camomile"/>
+                       targetName="CamomileFx" libraryPath="../../libpd/libs" binaryPath="Plugins/Camomile"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="Juce/modules"/>
