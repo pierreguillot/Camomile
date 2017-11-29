@@ -56,9 +56,7 @@ void CamomileAudioParameter::setValue(float newValue)
 {
     if(isDiscrete())
     {
-        std::cout << "newValue : " << newValue << " -> ";
-        newValue = ceil(newValue * static_cast<float>(m_nsteps)) / static_cast<float>(m_nsteps);
-        std::cout << newValue << "\n";
+        newValue = floor(newValue * static_cast<float>(m_nsteps - 1)) / static_cast<float>(m_nsteps - 1);
     }
     m_value = newValue;
 }
@@ -95,13 +93,13 @@ String CamomileAudioParameter::getText(float value, int maximumStringLength) con
         value = value * (m_maximum - m_minimum) + m_minimum;
         if(isDiscrete())
         {
-            value = ceil(value * static_cast<float>(m_nsteps)) / static_cast<float>(m_nsteps);
+            value = floor(value * static_cast<float>(m_nsteps - 1)) / static_cast<float>(m_nsteps - 1);
         }
         return String(value).substring(0, maximumStringLength);
     }
     else
     {
-        value = ceil(std::max(std::min(value, 1.f), 0.f) * m_maximum);
+        value = floor(std::max(std::min(value, 1.f), 0.f) * m_maximum);
         return m_elements[static_cast<int>(value)].substring(0, maximumStringLength);
     }
 }
