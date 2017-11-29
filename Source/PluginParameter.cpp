@@ -56,17 +56,16 @@ void CamomileAudioParameter::setValue(float newValue)
 {
     if(isDiscrete())
     {
-        m_value = round(newValue * static_cast<float>(m_maximum)) / static_cast<float>(m_maximum);
+        std::cout << "newValue : " << newValue << " -> ";
+        newValue = ceil(newValue * static_cast<float>(m_nsteps)) / static_cast<float>(m_nsteps);
+        std::cout << newValue << "\n";
     }
-    else
-    {
-        m_value = newValue;
-    }
+    m_value = newValue;
 }
 
 void CamomileAudioParameter::setOriginalScaledValue(float newValue)
 {
-    m_value = (newValue - m_minimum) / (m_maximum - m_minimum);
+    setValue((newValue - m_minimum) / (m_maximum - m_minimum));
 }
 
 void CamomileAudioParameter::setOriginalScaledValueNotifyingHost(float newValue)
@@ -93,16 +92,17 @@ String CamomileAudioParameter::getText(float value, int maximumStringLength) con
 {
     if(m_elements.isEmpty())
     {
-        return String(value * (m_maximum - m_minimum) + m_minimum).substring(0, maximumStringLength);
+        value = value * (m_maximum - m_minimum) + m_minimum;
+        if(isDiscrete())
+        {
+            value = ceil(value * static_cast<float>(m_nsteps)) / static_cast<float>(m_nsteps);
+        }
+        return String(value).substring(0, maximumStringLength);
     }
     else
     {
-        value = (value > 1.f) ? 1.f : value;
-        value = (value < 0.f) ? 0.f : value;
-        if(static_cast<int>(m_maximum)%2)
-            return m_elements[static_cast<int>(floor(value * m_maximum))].substring(0, maximumStringLength);
-        else
-            return m_elements[static_cast<int>(ceil(value * m_maximum))].substring(0, maximumStringLength);
+        value = ceil(std::max(std::min(value, 1.f), 0.f) * m_maximum);
+        return m_elements[static_cast<int>(value)].substring(0, maximumStringLength);
     }
 }
 
@@ -112,10 +112,7 @@ float CamomileAudioParameter::getValueForText(const String& text) const
     {
         return text.getFloatValue();
     }
-    else
-    {
-        return static_cast<float>(m_elements.indexOf(text)) / static_cast<float>(m_maximum);
-    }
+    return static_cast<float>(m_elements.indexOf(text)) / static_cast<float>(m_maximum);
 }
 
 bool CamomileAudioParameter::isOrientationInverted() const
