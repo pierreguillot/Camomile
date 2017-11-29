@@ -35,7 +35,11 @@ after_success:
   - ls
   - cd Builds/LinuxMakefile/
   - ls
-  - cd ../../Plugins
+  - cd build
+  - ls
+  - cd ../../../plugins
+  - ls
+  - cd ../Plugins
   - ls
   - cd Camomile
   - ls
