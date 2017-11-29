@@ -24,8 +24,6 @@ if [ ! -d $AuPath/$AuCamomile ]; then
     echo "Can't find" $AuCamomile "in" $AuPath
 fi
 
-INTALL=$1
-
 PatchesPath=$ThisPath/Effects
 for Patch in $PatchesPath/*
 do
@@ -35,30 +33,48 @@ do
       echo -n " (Effect):"
       CamomileName=CamomileFx
       if [ -d $ThisPath/Camomile/$CamomileName.$VstExtension ]; then
-          cp -rf $ThisPath/Camomile/$CamomileName.$VstExtension $ThisPath/$PatchName.$VstExtension
+          if [ -d $ThisPath/$PatchName.$VstExtension ]; then
+              rm -rf $ThisPath/$PatchName.$VstExtension
+          fi
+          cp -rf $ThisPath/Camomile/$CamomileName.$VstExtension/ $ThisPath/$PatchName.$VstExtension
           cp -rf $PatchesPath/$PatchName/ $ThisPath/$PatchName.$VstExtension/Contents/Resources
           if [ "$1" == "install" ]; then
-              cp -rf $ThisPath/$PatchName.$VstExtension $VstPath/$PatchName.$VstExtension
+              if [ -d $VstPath/$PatchName.$VstExtension ]; then
+                  rm -rf $VstPath/$PatchName.$VstExtension
+              fi
+              cp -rf $ThisPath/$PatchName.$VstExtension/ $VstPath/$PatchName.$VstExtension
               rm -rf $ThisPath/$PatchName.$VstExtension
           fi
           echo -n VST " "
       fi
 
       if [ -d $ThisPath/Camomile/$CamomileName.$Vst3Extension ]; then
-          cp -rf $ThisPath/Camomile/$CamomileName.$Vst3Extension $ThisPath/$PatchName.$Vst3Extension
+          if [ -d $ThisPath/$PatchName.$Vst3Extension ]; then
+              rm -rf $ThisPath/$PatchName.$Vst3Extension
+          fi
+          cp -rf $ThisPath/Camomile/$CamomileName.$Vst3Extension/ $ThisPath/$PatchName.$Vst3Extension
           cp -rf $PatchesPath/$PatchName/ $ThisPath/$PatchName.$Vst3Extension/Contents/Resources
           if [ "$1" == "install" ]; then
-              cp -rf $ThisPath/$PatchName.$Vst3Extension $Vst3Path/$PatchName.$Vst3Extension
+              if [ -d $Vst3Path/$PatchName.$Vst3Extension ]; then
+                  rm -rf $Vst3Path/$PatchName.$Vst3Extension
+              fi
+              cp -rf $ThisPath/$PatchName.$Vst3Extension/ $Vst3Path/$PatchName.$Vst3Extension
               rm -rf $ThisPath/$PatchName.$Vst3Extension
           fi
           echo -n VST3 " "
       fi
 
       if [ -d $ThisPath/Camomile/$CamomileName.$AuExtension ]; then
-          cp -r $ThisPath/Camomile/$CamomileName.$AuExtension $ThisPath/$PatchName.$AuExtension
-          cp -r $PatchesPath/$PatchName/ $ThisPath/$PatchName.$AuExtension/Contents/Resources
+          if [ -d $ThisPath/$PatchName.$AuExtension ]; then
+              rm -rf $ThisPath/$PatchName.$AuExtension
+          fi
+          cp -rf $ThisPath/Camomile/$CamomileName.$AuExtension/ $ThisPath/$PatchName.$AuExtension
+          cp -rf $PatchesPath/$PatchName/ $ThisPath/$PatchName.$AuExtension/Contents/Resources
           if [ "$1" == "install" ]; then
-              cp -rf $ThisPath/$PatchName.$AuExtension $AuPath/$PatchName.$AuExtension
+              if [ -d $AuPath/$PatchName.$AuExtension ]; then
+                  rm -rf $AuPath/$PatchName.$AuExtension
+              fi
+              cp -rf $ThisPath/$PatchName.$AuExtension/ $AuPath/$PatchName.$AuExtension
               rm -rf $ThisPath/$PatchName.$AuExtension
           fi
           echo -n AudioUnit " "
@@ -79,30 +95,45 @@ do
       echo -n " (Instrument):"
       CamomileName=Camomile
       if [ -d $ThisPath/Camomile/$CamomileName.$VstExtension ]; then
-          cp -rf $ThisPath/Camomile/$CamomileName.$VstExtension $ThisPath/$PatchName.$VstExtension
+          if [ -d $ThisPath/$PatchName.$VstExtension ]; then
+              rm -rf $ThisPath/$PatchName.$VstExtension
+          fi
+          cp -rf $ThisPath/Camomile/$CamomileName.$VstExtension/ $ThisPath/$PatchName.$VstExtension
           cp -rf $PatchesPath/$PatchName/ $ThisPath/$PatchName.$VstExtension/Contents/Resources
           if [ "$1" == "install" ]; then
-              cp -rf $ThisPath/$PatchName.$VstExtension $VstPath/$PatchName.$VstExtension
+              cp -rf $ThisPath/$PatchName.$VstExtension/ $VstPath/$PatchName.$VstExtension
               rm -rf $ThisPath/$PatchName.$VstExtension
           fi
           echo -n VST " "
       fi
 
       if [ -d $ThisPath/Camomile/$CamomileName.$Vst3Extension ]; then
-          cp -rf $ThisPath/Camomile/$CamomileName.$Vst3Extension $ThisPath/$PatchName.$Vst3Extension
+          if [ -d $ThisPath/$PatchName.$Vst3Extension ]; then
+              rm -rf $ThisPath/$PatchName.$Vst3Extension
+          fi
+          cp -rf $ThisPath/Camomile/$CamomileName.$Vst3Extension/ $ThisPath/$PatchName.$Vst3Extension
           cp -rf $PatchesPath/$PatchName/ $ThisPath/$PatchName.$Vst3Extension/Contents/Resources
           if [ "$1" == "install" ]; then
-              cp -rf $ThisPath/$PatchName.$Vst3Extension $Vst3Path/$PatchName.$Vst3Extension
+              if [ -d $Vst3Path/$PatchName.$Vst3Extension ]; then
+                  rm -rf $Vst3Path/$PatchName.$Vst3Extension
+              fi
+              cp -rf $ThisPath/$PatchName.$Vst3Extension/ $Vst3Path/$PatchName.$Vst3Extension
               rm -rf $ThisPath/$PatchName.$Vst3Extension
           fi
           echo -n VST3 " "
       fi
 
       if [ -d $ThisPath/Camomile/$CamomileName.$AuExtension ]; then
-          cp -r $ThisPath/Camomile/$CamomileName.$AuExtension $ThisPath/$PatchName.$AuExtension
-          cp -r $PatchesPath/$PatchName/ $ThisPath/$PatchName.$AuExtension/Contents/Resources
+          if [ -d $ThisPath/$PatchName.$AuExtension ]; then
+              rm -rf $ThisPath/$PatchName.$AuExtension
+          fi
+          cp -rf $ThisPath/Camomile/$CamomileName.$AuExtension/ $ThisPath/$PatchName.$AuExtension
+          cp -rf $PatchesPath/$PatchName/ $ThisPath/$PatchName.$AuExtension/Contents/Resources
           if [ "$1" == "install" ]; then
-              cp -rf $ThisPath/$PatchName.$AuExtension $AuPath/$PatchName.$AuExtension
+              if [ -d $AuPath/$PatchName.$AuExtension ]; then
+                  rm -rf $AuPath/$PatchName.$AuExtension
+              fi
+              cp -rf $ThisPath/$PatchName.$AuExtension/ $AuPath/$PatchName.$AuExtension
               rm -rf $ThisPath/$PatchName.$AuExtension
           fi
           echo -n AudioUnit " "
