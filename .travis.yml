@@ -32,7 +32,10 @@ matrix:
         - xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration ReleaseFx
 
 after_success:
-  - cd Plugins
+  - ls
+  - cd Builds/LinuxMakefile/
+  - ls
+  - cd ../../Plugins
   - ls
   - cd Camomile
   - ls
