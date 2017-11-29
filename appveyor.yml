@@ -16,7 +16,7 @@ install:
     - git submodule update --init --recursive
 
 build_script:
-    - c:\msys64\usr\bin\bash "make -C libpd/ UTIL=true EXTRA=true"
+    - c:\msys64\usr\bin\bash -lc "make -C libpd UTIL=true EXTRA=true"
 #ADDITIONAL_CFLAGS="-DPDINSTANCE=1 -DPDTHREADS=1"
 
 notifications:
