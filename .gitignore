@@ -25,6 +25,9 @@
 *.exe
 *.out
 *.app
+*.component
+*.vst
+*.vst3
 
 # Mac Xcode
 *.xcuserstate
