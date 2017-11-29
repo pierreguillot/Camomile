@@ -37,8 +37,6 @@ do
               rm -rf $VstPath/$PatchName.$VstExtension
           fi
           cp -rf $VstPath/$CamomileName.$VstExtension $VstPath/$PatchName.$VstExtension
-          rm $VstPath/$PatchName.$VstExtension/Contents/Resources/Camomile.pd
-          rm $VstPath/$PatchName.$VstExtension/Contents/Resources/Camomile.txt
           cp -rf $PatchesPath/$PatchName/ $VstPath/$PatchName.$VstExtension/Contents/Resources
           echo -n VST " "
       fi
@@ -48,8 +46,6 @@ do
               rm -rf $Vst3Path/$PatchName.$Vst3Extension
           fi
           cp -rf $Vst3Path/$CamomileName.$Vst3Extension $Vst3Path/$PatchName.$Vst3Extension
-          rm $Vst3Path/$PatchName.$Vst3Extension/Contents/Resources/Camomile.pd
-          rm $Vst3Path/$PatchName.$Vst3Extension/Contents/Resources/Camomile.txt
           cp -rf $PatchesPath/$PatchName/ $Vst3Path/$PatchName.$Vst3Extension/Contents/Resources
           echo -n VST3 " "
       fi
@@ -59,8 +55,6 @@ do
               rm -r $AuPath/$PatchName.$AuExtension
           fi
           cp -r $AuPath/$CamomileName.$AuExtension $AuPath/$PatchName.$AuExtension
-          rm $AuPath/$PatchName.$AuExtension/Contents/Resources/Camomile.pd
-          rm $AuPath/$PatchName.$AuExtension/Contents/Resources/Camomile.txt
           cp -r $PatchesPath/$PatchName/ $AuPath/$PatchName.$AuExtension/Contents/Resources
           echo -n AudioUnit " "
       fi
@@ -81,8 +75,6 @@ do
               rm -rf $VstPath/$PatchName.$VstExtension
           fi
           cp -rf $VstPath/$CamomileName.$VstExtension $VstPath/$PatchName.$VstExtension
-          rm $VstPath/$PatchName.$VstExtension/Contents/Resources/Camomile.pd
-          rm $VstPath/$PatchName.$VstExtension/Contents/Resources/Camomile.txt
           cp -rf $PatchesPath/$PatchName/ $VstPath/$PatchName.$VstExtension/Contents/Resources
           echo -n VST " "
       fi
@@ -92,8 +84,6 @@ do
               rm -rf $Vst3Path/$PatchName.$Vst3Extension
           fi
           cp -rf $Vst3Path/$CamomileName.$Vst3Extension $Vst3Path/$PatchName.$Vst3Extension
-          rm $Vst3Path/$PatchName.$Vst3Extension/Contents/Resources/Camomile.pd
-          rm $Vst3Path/$PatchName.$Vst3Extension/Contents/Resources/Camomile.txt
           cp -rf $PatchesPath/$PatchName/ $Vst3Path/$PatchName.$Vst3Extension/Contents/Resources
           echo -n VST3 " "
       fi
@@ -103,8 +93,6 @@ do
               rm -r $AuPath/$PatchName.$AuExtension
           fi
           cp -r $AuPath/$CamomileName.$AuExtension $AuPath/$PatchName.$AuExtension
-          rm $AuPath/$PatchName.$AuExtension/Contents/Resources/Camomile.pd
-          rm $AuPath/$PatchName.$AuExtension/Contents/Resources/Camomile.txt
           cp -r $PatchesPath/$PatchName/ $AuPath/$PatchName.$AuExtension/Contents/Resources
           echo -n AudioUnit " "
       fi
