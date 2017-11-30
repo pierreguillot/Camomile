@@ -16,7 +16,7 @@ install:
     - git submodule update --init --recursive
 
 build_script:
-    - C:\msys64\usr\bin\bash -lc "pacman -S msys/make mingw32/mingw-w64-i686-gcc mingw64/mingw-w64-x86_64-gcc"
+    - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -S msys/make mingw32/mingw-w64-i686-gcc mingw64/mingw-w64-x86_64-gcc"
     - C:\msys64\usr\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; PATH=$PATH:/mingw64/bin:/mingw32/bin;  make -C libpd UTIL=true EXTRA=true"'
 #ADDITIONAL_CFLAGS="-DPDINSTANCE=1 -DPDTHREADS=1"
 
