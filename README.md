@@ -81,6 +81,9 @@ Then you can compile the Camomile plugin. The makefile are located in the folder
 make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=Release
 make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=ReleaseFx
 ```
+### Windows
+
+Coming soon... I hope
 
 ---
 ## Credits
