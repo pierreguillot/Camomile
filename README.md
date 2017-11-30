@@ -13,12 +13,13 @@ Camomile is a set of dynamic plugins with [Pure Data](http://msp.ucsd.edu/softwa
 [![License](https://img.shields.io/badge/License-GPL--v3-blue.svg)](https://github.com/pierreguillot/Camomile/blob/master/LICENSE)
 
 ---
-## Credits
+## Using plugins
+The Camomile plugins are meta plugins. They are not directly usable in a DAW but can be used to generate plugins with Pure Data patches. The distribution contains a folder *Camomile* with the effect versions and the instruments version of the meta plugins (VST, VST3 & AU on MacOS, VST & VST3 on Windows and VST on Linux). The folders *Effects* and *Instruments* contain each one a set of example patches. To try these examples, you have to generate the plugins. Don't worry, it's very straightforward and easy. It's pretty similar on every OS but there's nevertheless a small difference.
 
-[Pure Data](http://msp.ucsd.edu/software.html) by Miller Puckette and others  
-[JUCE](http://www.juce.com)  by ROLI Ltd.  
-[libPd](https://github.com/libpd/libpd) by the Pure Data community  
-[VST PlugIn Technology](https://www.steinberg.net/en/company/developers.html) by Steinberg Media Technologies
+### Windows & Linux
+
+### MacOS
+The MacOS plugins are bundles, like directories but with an extension.
 
 ---
 ## Compilation
@@ -70,10 +71,12 @@ make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=ReleaseFx
 ```
 
 ---
-## Generating plugins
-Each folder in the folder **patches** contains the files of a plugins (the Pd patches and the text file that describes the functionalities of the plugin). To generates all the plugins based on your current version of Camomile, you only need to run
-### MacOS
+## Credits
 
+[Pure Data](http://msp.ucsd.edu/software.html) by Miller Puckette and others  
+[JUCE](http://www.juce.com)  by ROLI Ltd.  
+[libPd](https://github.com/libpd/libpd) by the Pure Data community  
+[VST PlugIn Technology](https://www.steinberg.net/en/company/developers.html) by Steinberg Media Technologies
 
 ---
 ### License
