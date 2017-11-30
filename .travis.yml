@@ -6,7 +6,7 @@ notifications:
 git:
   submodules: true
   depth: 3
- 
+
 matrix:
   include:
   - os: linux
@@ -47,5 +47,4 @@ deploy:
   file: '*.zip'
   on:
     repo: pierreguillot/Camomile
-    branch: dev/v0.1.0
     tags: true
