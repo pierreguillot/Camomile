@@ -16,9 +16,9 @@ install:
     - git submodule update --init --recursive
     - SET "PATH=C:\msys64\mingw64\bin;C:\msys64\usr\bin;C:\mingw32\usr\bin;%PATH%"
     - bash -lc "pacman --noconfirm -Syu"
-    - bash -lc "pacman --noconfirm -S --needed base"
-    - bash -lc "pacman --noconfirm -S make mingw-w64-i686-gcc mingw-w64-x86_64-gcc"
-    - bash -lc "pacman --noconfirm -S mingw-w64-cross-winpthreads-git"
+    - bash -lc "pacman --noconfirm --needed -S base"
+    - bash -lc "pacman --noconfirm --needed -S make mingw-w64-i686-gcc mingw-w64-x86_64-gcc"
+    - bash -lc "pacman --noconfirm --needed -S mingw-w64-cross-winpthreads-git"
 
 build_script:
     - bash -lc "cd $APPVEYOR_BUILD_FOLDER/libpd; make clobber; make"
