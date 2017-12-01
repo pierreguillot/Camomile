@@ -48,7 +48,6 @@ processor (p)
     window.setUsingNativeTitleBar(true);
     window.setBounds(50, 50, 300, 370);
     window.setResizable(false, false);
-    window.setAlwaysOnTop(false);
     window.setDropShadowEnabled(true);
     window.setVisible(true);
     window.setBackgroundColour(Gui::getColorBg());
@@ -120,7 +119,6 @@ void CamomileAudioProcessorEditor::buttonClicked(Button* button)
                 window.setName("About Camomile " + String(JucePlugin_VersionString));
                 window.addToDesktop();
                 window.toFront(false);
-                window.setAlwaysOnTop(true);
             }
         }
         else if(result == 2)
@@ -128,9 +126,8 @@ void CamomileAudioProcessorEditor::buttonClicked(Button* button)
             window.setContentOwned(new GuiConsole(processor), false);
             window.setName("Camomile Console");
             window.addToDesktop();
-            window.grabKeyboardFocus();
             window.toFront(true);
-            window.setAlwaysOnTop(true);
+            window.grabKeyboardFocus();
         }
     }
 }
@@ -155,5 +152,16 @@ void CamomileAudioProcessorEditor::FlowerButton::buttonStateChanged()
 {
     m_petals.setAlpha((isDown() || isOver()) ? 1.f : 0.5f);
 }
+
+void CamomileAudioProcessorEditor::focusGained(FocusChangeType t)
+{
+    window.toFront(false);
+}
+
+void CamomileAudioProcessorEditor::focusOfChildComponentChanged(FocusChangeType t)
+{
+    window.toFront(false);
+}
+
 
 

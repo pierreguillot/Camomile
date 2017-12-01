@@ -20,6 +20,9 @@ public:
     void startEdition() final;
     void performEdition() final;
     void stopEdition() final;
+    
+    void focusGained(FocusChangeType t) final;
+    void focusOfChildComponentChanged(FocusChangeType t) final;
 private:
     
     class GWindow : public DocumentWindow
