@@ -17,8 +17,8 @@ Camomile is a set of dynamic plugins with [Pure Data](http://msp.ucsd.edu/softwa
 
 The Camomile plugins are a set of meta plugins. They are not directly usable in a DAW but can be used to generate new plugins.
 
-### Fast & Easy Approach
-If you want to generate all the examples, you can run
+### Examples
+The package contains a set of examples in the folders *Effects* and *Instruments*. If you want to generate all the examples, you can run
 ```
 ./Generate.sh
 ```
