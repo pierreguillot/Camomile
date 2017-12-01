@@ -37,6 +37,9 @@ after_success:
   - cp LICENSE Plugins/LICENSE.txt
   - mv Plugins Camomile
   - zip -r $release.zip Camomile
+ before_deploy:
+  - rm Plugins/Camomile/libCamomile.a
+  - rm Plugins/Camomile/libCamomileFx.a
 deploy:
   provider: releases
   skip_cleanup: true
