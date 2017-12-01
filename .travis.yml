@@ -23,6 +23,9 @@ matrix:
     - make -C libpd/ ADDITIONAL_CFLAGS="-DPDINSTANCE=1 -DPDTHREADS=1"
     - make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=Release
     - make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=ReleaseFx
+    before_deploy:
+    - rm Camomile/Camomile/Camomile.a
+    - rm Camomile/Camomile/CamomileFx.a
   - os: osx
     compiler: clang++
     env: release=CamomileMacOS
@@ -31,15 +34,15 @@ matrix:
       Release ONLY_ACTIVE_ARCH=NO CONFIGURATION_BUILD_DIR="./libs" | egrep -A 5 "(error|warning):"
     - xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration Release
     - xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration ReleaseFx
+    before_deploy:
+    - rm Camomile/Camomile/libCamomile.a
+    - rm Camomile/Camomile/libCamomileFx.a
 
 after_success:
   - cp README.md Plugins/README.md
   - cp LICENSE Plugins/LICENSE.txt
   - mv Plugins Camomile
   - zip -r $release.zip Camomile
-before_deploy:
-  - rm Camomile/Camomile/libCamomile.a
-  - rm Camomile/Camomile/libCamomileFx.a
 deploy:
   provider: releases
   skip_cleanup: true
