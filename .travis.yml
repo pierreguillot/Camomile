@@ -38,8 +38,8 @@ after_success:
   - mv Plugins Camomile
   - zip -r $release.zip Camomile
 before_deploy:
-  - rm Plugins/Camomile/libCamomile.a
-  - rm Plugins/Camomile/libCamomileFx.a
+  - rm Camomile/Camomile/libCamomile.a
+  - rm Camomile/Camomile/libCamomileFx.a
 deploy:
   provider: releases
   skip_cleanup: true
