@@ -4088,6 +4088,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Ressources\Polices\DejaVuSansMono.ttf">
+      <Filter>Camomile\Source\Gui\Images</Filter>
+    </None>
     <None Include="..\..\Ressources\Images\flower_center.png">
       <Filter>Camomile\Source\Gui\Images</Filter>
     </None>

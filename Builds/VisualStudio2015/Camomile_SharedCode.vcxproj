@@ -2431,6 +2431,7 @@
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h"/>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Ressources\Polices\DejaVuSansMono.ttf"/>
     <None Include="..\..\Ressources\Images\flower_center.png"/>
     <None Include="..\..\Ressources\Images\flower_petals.png"/>
     <None Include="..\..\Ressources\Images\clear1.png"/>
