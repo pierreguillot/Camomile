@@ -17,7 +17,6 @@
 
 // For declare object multi instance support
 
-static t_pd *garray_arraytemplatecanvas;  /* written at setup w/ global lock */
 static const char garray_arraytemplatefile[] = "\
 canvas 0 0 458 153 10;\n\
 #X obj 43 31 struct float-array array z float float style\n\
@@ -34,10 +33,7 @@ canvas 0 0 458 153 10;\n\
 
 static void garray_init(void)
 {
-    t_binbuf *b;
-    if (garray_arraytemplatecanvas)
-        return;
-    b = binbuf_new();
+    t_binbuf *b = binbuf_new();
     
     glob_setfilename(0, gensym("_float_template"), gensym("."));
     binbuf_text(b, garray_floattemplatefile, strlen(garray_floattemplatefile));
@@ -47,14 +43,12 @@ static void garray_init(void)
     glob_setfilename(0, gensym("_float_array_template"), gensym("."));
     binbuf_text(b, garray_arraytemplatefile, strlen(garray_arraytemplatefile));
     binbuf_eval(b, &pd_canvasmaker, 0, 0);
-    garray_arraytemplatecanvas = s__X.s_thing;
     vmess(s__X.s_thing, gensym("pop"), (char *)"i", 0);
     
     glob_setfilename(0, &s_, &s_);
     binbuf_free(b);
 }
 
-static t_pd *text_templatecanvas;
 static char text_templatefile[] = "\
 canvas 0 0 458 153 10;\n\
 #X obj 43 31 struct text float x float y text t;\n\
@@ -67,10 +61,7 @@ canvas 0 0 458 153 10;\n\
 
 static void text_template_init(void)
 {
-    t_binbuf *b;
-    if (text_templatecanvas)
-        return;
-    b = binbuf_new();
+    t_binbuf *b = binbuf_new();
     
     glob_setfilename(0, gensym("_text_template"), gensym("."));
     binbuf_text(b, text_templatefile, strlen(text_templatefile));
