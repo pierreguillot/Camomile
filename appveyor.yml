@@ -21,7 +21,7 @@ install:
     - bash -lc "pacman --noconfirm -S mingw-w64-cross-winpthreads-git"
 
 build_script:
-    - bash -lc "cd $APPVEYOR_BUILD_FOLDER/libpd; make clobber; make UTIL=true EXTRA=true"
+    - bash -lc "cd $APPVEYOR_BUILD_FOLDER/libpd; make clobber; make"
 
 #ADDITIONAL_CFLAGS=\"-DPDINSTANCE=1 -DPDTHREADS=1\"
 

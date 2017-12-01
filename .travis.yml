@@ -20,7 +20,7 @@ matrix:
     - sudo apt-get -qq update
     - sudo apt-get install -y libwebkit2gtk-4.0-37 libwebkit2gtk-4.0-dev
     script:
-    - make -C libpd/ UTIL=true EXTRA=true ADDITIONAL_CFLAGS="-DPDINSTANCE=1 -DPDTHREADS=1"
+    - make -C libpd/ ADDITIONAL_CFLAGS="-DPDINSTANCE=1 -DPDTHREADS=1"
     - make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=Release
     - make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=ReleaseFx
   - os: osx
