@@ -21,7 +21,7 @@ install:
 
 build_script:
     #- SET "PATH=C:\msys64\mingw64\bin;C:\msys64\usr\bin;C:\msys64\mingw32\usr\bin;%PATH%"
-    - C:\msys64\usr\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER/libpd; PATH=$PATH:/mingw64/bin:/mingw32/bin; make clobber; make"
+    - C:\msys64\usr\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER/libpd; PATH=$PATH:C/mingw64/bin:C/mingw32/bin; make clobber; make"
 
 #ADDITIONAL_CFLAGS=\"-DPDINSTANCE=1 -DPDTHREADS=1\"
 
