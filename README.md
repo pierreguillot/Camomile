@@ -14,15 +14,13 @@ Camomile is a set of dynamic plugins with [Pure Data](http://msp.ucsd.edu/softwa
 
 ---
 ## Use
-The Camomile plugins are a set of meta plugins. They are not directly usable in a DAW but can be used to generate new plugins. The distribution contains a *Camomile* folder with the effect version *CamomileFx* and the instrument version *Camomile* of the Camomile meta plugins and with the *extensions* VST (.vst), VST3 (.vst3) & AU (.component) on MacOS, VST (.dll) & VST3 (.vst3) on Windows and VST (.so) on Linux.
 
-The folders *Effects* and *Instruments* contain each one a set of folders. And each of these folders can be use to generate a plugin. What is important is that the name of a folder corresponds to the name of the new plugin (the name that will appears in your DAW), that it contains one patch identically named (the main patch loaded by the plugin) and one text file identically named that defines the plugins options and functionalities and it can also contain abstraction, sound files, etc (or whatever you want).
+The Camomile plugins are a set of meta plugins. They are not directly usable in a DAW but can be used to generate new plugins.
 
-To generate a new plugin with a folder, it's very straightforward and easy. You simply have to copy the Camomile plugin(s) of your choice (depending on if you want to create an instrument or an effect, an Audio Unit or a VST) and to rename it to the name of the folder. On MacOS, the plugins are bundles so you have to copy the content of the folder (with the patch and the information) inside  the *Resources* folder of the plugin (right click on the plugin, show package contents, open *Contents*, open *Resources*). To use it on MacOS, you only have to move the plugin to your favorite plugins location. And on Windows and Linux, you only have to move the plugin and the folder associated to your favorite plugins location.
-
+### Fast & Easy Approach
 If you want to generate all the examples, on MacOS, you can run
 ```
-./GenerateMacOS.sh
+./GenerateMacOS.sh or
 ```
 or if you also want to install them in the standard plugin location, you can run
 ```
@@ -32,6 +30,16 @@ and on Linux, you can run
 ```
 ./GenerateLinux.sh
 ```
+
+The binaries will be located in the *Builds* folder. On Linux, don't forget to copy the folder associated with the VST plugins next to them.
+
+### Further Information
+
+The distribution contains a *Camomile* folder with the effect version *CamomileFx* and the instrument version *Camomile* of the Camomile meta plugins and with the *extensions* VST (.vst), VST3 (.vst3) & AU (.component) on MacOS, VST (.dll) & VST3 (.vst3) on Windows and VST (.so) on Linux.
+
+The folders *Effects* and *Instruments* contain each one a set of folders. And each of these folders can be use to generate a plugin. What is important is that the name of a folder corresponds to the name of the new plugin (the name that will appears in your DAW), that it contains one patch identically named (the main patch loaded by the plugin) and one text file identically named that defines the plugins options and functionalities and it can also contain abstraction, sound files, etc (or whatever you want).
+
+To generate a new plugin with a folder, it's very straightforward and easy. You simply have to copy the Camomile plugin(s) of your choice (depending on if you want to create an instrument or an effect, an Audio Unit or a VST) and to rename it to the name of the folder. On MacOS, the plugins are bundles so you have to copy the content of the folder (with the patch and the information) inside  the *Resources* folder of the plugin (right click on the plugin, show package contents, open *Contents*, open *Resources*). To use it on MacOS, you only have to move the plugin to your favorite plugins location. And on Windows and Linux, you only have to move the plugin and the folder associated to your favorite plugins location.
 
 ---
 ## Compilation
