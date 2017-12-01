@@ -18,20 +18,15 @@ Camomile is a set of dynamic plugins with [Pure Data](http://msp.ucsd.edu/softwa
 The Camomile plugins are a set of meta plugins. They are not directly usable in a DAW but can be used to generate new plugins.
 
 ### Fast & Easy Approach
-If you want to generate all the examples, on MacOS, you can run
+If you want to generate all the examples, you can run
 ```
-./GenerateMacOS.sh or
+./Generate.sh
 ```
-or if you also want to install them in the standard plugin location, you can run
+The binaries will be located in the *Builds* folder. If you also want to install them in the standard plugin location (*"/usr/lib/vst"* on Linux and *~/Library/Audio/Plug-Ins/* on MacOS), you can run
 ```
-./GenerateMacOS.sh install
+./Generate.sh install
 ```
-and on Linux, you can run
-```
-./GenerateLinux.sh
-```
-
-The binaries will be located in the *Builds* folder. On Linux, don't forget to copy the folder associated with the VST plugins next to them.
+If you want to install the plugin manually, on Linux, don't forget to copy the folder associated with the plugins next to them.
 
 ### Further Information
 
