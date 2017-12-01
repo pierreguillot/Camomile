@@ -24,8 +24,12 @@ matrix:
     - make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=Release
     - make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=ReleaseFx
     before_deploy:
-    - rm Camomile/Camomile/Camomile.a
-    - rm Camomile/Camomile/CamomileFx.a
+    - rm Plugins/Camomile/Camomile.a
+    - rm Plugins/Camomile/CamomileFx.a
+    - cp README.md Plugins/README.md
+    - cp LICENSE Plugins/LICENSE.txt
+    - mv Plugins Camomile
+    - zip -r $release.zip Camomile
   - os: osx
     compiler: clang++
     env: release=CamomileMacOS
@@ -35,14 +39,12 @@ matrix:
     - xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration Release
     - xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration ReleaseFx
     before_deploy:
-    - rm Camomile/Camomile/libCamomile.a
-    - rm Camomile/Camomile/libCamomileFx.a
-
-after_success:
-  - cp README.md Plugins/README.md
-  - cp LICENSE Plugins/LICENSE.txt
-  - mv Plugins Camomile
-  - zip -r $release.zip Camomile
+    - rm Plugins/Camomile/libCamomile.a
+    - rm Plugins/Camomile/libCamomileFx.a
+    - cp README.md Plugins/README.md
+    - cp LICENSE Plugins/LICENSE.txt
+    - mv Plugins Camomile
+    - zip -r $release.zip Camomile
 deploy:
   provider: releases
   skip_cleanup: true
