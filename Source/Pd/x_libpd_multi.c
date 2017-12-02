@@ -298,8 +298,6 @@ void libpd_multi_init(void)
         //assert(PDINSTANCE && "PDINSTANCE undefined");
         //assert(PDTHREADS && "PDTHREADS undefined");
         libpd_init();
-        sys_debuglevel = 1;
-        sys_verbose = 1;
         libpd_multi_receiver_setup();
         libpd_multi_midi_setup();
         libpd_multi_print_setup();
