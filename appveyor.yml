@@ -18,13 +18,13 @@ before_deploy:
     - copy %APPVEYOR_BUILD_FOLDER%\README.md %APPVEYOR_BUILD_FOLDER%\Plugins\README.md
     - copy %APPVEYOR_BUILD_FOLDER%\LICENSE %APPVEYOR_BUILD_FOLDER%\Plugins\LICENSE.txt
     - rename %APPVEYOR_BUILD_FOLDER%\Plugins Camomile
-    - 7z a CamomileWindows64.zip %APPVEYOR_BUILD_FOLDER%\Camomile\
+    - 7z a CamomileWindows.zip %APPVEYOR_BUILD_FOLDER%\Camomile\
 
 deploy:
   provider: GitHub
   auth_token:
     secure: dOi2z1hWIXjc8+TuIZOviwwdVx94sbDnvu/n+70AUcs9tKivL6AoX37oEN2TGigE
-  artifact: /.*\.zip/
+  artifact: CamomileWindows.zip
   draft: false
   prerelease: false
   on:
