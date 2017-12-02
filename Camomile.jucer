@@ -115,16 +115,18 @@
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2015 targetFolder="Builds/VisualStudio2015" windowsTargetPlatformVersion="8.1"
-            vst3Folder="VST" externalLibraries="libpd.lib">
+            vst3Folder="VST" externalLibraries="libpd.lib" extraDefs="PD_LONGINTTYPE=long\ long">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="Camomile"
-                       binaryPath="Plugins/Camomile" libraryPath="../../libpd/libs"/>
+                       binaryPath="Plugins/Camomile" libraryPath="../../libpd/libs"
+                       defines=""/>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="Camomile"
-                       binaryPath="Plugins/Camomile" libraryPath="../../libpd/libs"/>
+                       binaryPath="Plugins/Camomile" libraryPath="../../libpd/libs"
+                       defines=""/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="Juce/modules"/>
