@@ -19,6 +19,17 @@ before_deploy:
     - copy %APPVEYOR_BUILD_FOLDER%\LICENSE.txt %APPVEYOR_BUILD_FOLDER%\Plugins/LICENSE.txt
     - rename %APPVEYOR_BUILD_FOLDER%\Plugins Camomile
     - 7z a CamomileWindows64.zip %APPVEYOR_BUILD_FOLDER%\Camomile\
+
+deploy:
+  provider: GitHub
+  auth_token:
+    secure: dOi2z1hWIXjc8+TuIZOviwwdVx94sbDnvu/n+70AUcs9tKivL6AoX37oEN2TGigE
+  artifact: /.*\.zip/
+  draft: false
+  prerelease: false
+  on:
+    appveyor_repo_tag: true
+
 notifications:
 
   - provider: Email
