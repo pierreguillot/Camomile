@@ -14,7 +14,6 @@ extern "C"
     
 #include <z_libpd.h>
 
-void libpd_instance_init(void);
 void libpd_multi_init(void);
 
 typedef void (*t_libpd_multi_banghook)(void* ptr, const char *recv);

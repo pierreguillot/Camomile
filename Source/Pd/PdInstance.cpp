@@ -141,7 +141,6 @@ namespace pd
                                                reinterpret_cast<t_libpd_multi_midibytehook>(internal::instance_multi_midibyte));
         m_prints_receiver = libpd_multi_print_new(this,
                                                   reinterpret_cast<t_libpd_multi_printhook>(internal::instance_multi_print));
-        libpd_instance_init();
     }
     
     Instance::~Instance()
