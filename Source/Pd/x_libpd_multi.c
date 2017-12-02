@@ -369,8 +369,8 @@ void libpd_multi_init(void)
         libpd_set_midibytehook(libpd_multi_midibyte);
         libpd_set_printhook(libpd_multi_print);
         
-        assert(PDINSTANCE && "PDINSTANCE undefined");
-        assert(PDTHREADS && "PDTHREADS undefined");
+        //assert(PDINSTANCE && "PDINSTANCE undefined");
+        //assert(PDTHREADS && "PDTHREADS undefined");
         libpd_init();
         sys_debuglevel = 1;
         sys_verbose = 1;
