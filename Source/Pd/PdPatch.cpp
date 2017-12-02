@@ -4,8 +4,8 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "PdPatch.h"
-#include "PdObject.h"
+#include "PdPatch.hpp"
+#include "PdObject.hpp"
 
 extern "C"
 {

@@ -5,8 +5,6 @@
  */
 
 
-#include "PdInstance.h"
-#include "PdPatch.h"
 #include <cassert>
 #include <algorithm>
 
@@ -15,6 +13,9 @@ extern "C"
 #include <z_libpd.h>
 #include "x_libpd_multi.h"
 }
+
+#include "PdInstance.hpp"
+#include "PdPatch.hpp"
 
 extern "C"
 {

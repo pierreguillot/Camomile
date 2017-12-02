@@ -7,7 +7,7 @@
 #pragma once
 
 #include "../../JuceLibraryCode/JuceHeader.h"
-#include "../Pd/PdObject.h"
+#include "../Pd/PdObject.hpp"
 
 class GuiPatch
 {

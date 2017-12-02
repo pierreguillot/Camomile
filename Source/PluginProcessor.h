@@ -9,7 +9,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginEnvironment.h"
 #include "PluginConsole.h"
-#include "Pd/PdInstance.h"
+#include "Pd/PdInstance.hpp"
 
 // ======================================================================================== //
 //                                      PROCESSOR                                           //

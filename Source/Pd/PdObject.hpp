@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "PdPatch.h"
+#include "PdPatch.hpp"
 
 namespace pd
 {

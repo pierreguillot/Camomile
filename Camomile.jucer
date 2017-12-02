@@ -39,11 +39,11 @@
       <FILE id="z4zHjj" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
       <GROUP id="{72E9D6C6-B562-FE98-40C6-9583CB880B4E}" name="Pd">
         <FILE id="sArtFN" name="PdInstance.cpp" compile="1" resource="0" file="Source/Pd/PdInstance.cpp"/>
-        <FILE id="SVRyLv" name="PdInstance.h" compile="0" resource="0" file="Source/Pd/PdInstance.h"/>
+        <FILE id="RjbKYs" name="PdInstance.hpp" compile="0" resource="0" file="Source/Pd/PdInstance.hpp"/>
         <FILE id="xv8ovv" name="PdPatch.cpp" compile="1" resource="0" file="Source/Pd/PdPatch.cpp"/>
-        <FILE id="yBmkob" name="PdPatch.h" compile="0" resource="0" file="Source/Pd/PdPatch.h"/>
+        <FILE id="o9UjIo" name="PdPatch.hpp" compile="0" resource="0" file="Source/Pd/PdPatch.hpp"/>
         <FILE id="EZY45w" name="PdObject.cpp" compile="1" resource="0" file="Source/Pd/PdObject.cpp"/>
-        <FILE id="DsxkEc" name="PdObject.h" compile="0" resource="0" file="Source/Pd/PdObject.h"/>
+        <FILE id="onLfIm" name="PdObject.hpp" compile="0" resource="0" file="Source/Pd/PdObject.hpp"/>
         <FILE id="Uukbo7" name="x_libpd_multi.c" compile="1" resource="0" file="Source/Pd/x_libpd_multi.c"/>
         <FILE id="NF0MrF" name="x_libpd_multi.h" compile="0" resource="0" file="Source/Pd/x_libpd_multi.h"/>
       </GROUP>

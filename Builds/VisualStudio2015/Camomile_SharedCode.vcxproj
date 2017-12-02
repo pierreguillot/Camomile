@@ -1811,9 +1811,9 @@
     <ClInclude Include="..\..\Source\PluginParameter.h"/>
     <ClInclude Include="..\..\Source\PluginConsole.h"/>
     <ClInclude Include="..\..\Source\PluginEditor.h"/>
-    <ClInclude Include="..\..\Source\Pd\PdInstance.h"/>
-    <ClInclude Include="..\..\Source\Pd\PdPatch.h"/>
-    <ClInclude Include="..\..\Source\Pd\PdObject.h"/>
+    <ClInclude Include="..\..\Source\Pd\PdInstance.hpp"/>
+    <ClInclude Include="..\..\Source\Pd\PdPatch.hpp"/>
+    <ClInclude Include="..\..\Source\Pd\PdObject.hpp"/>
     <ClInclude Include="..\..\Source\Pd\x_libpd_multi.h"/>
     <ClInclude Include="..\..\Source\Gui\Gui.hpp"/>
     <ClInclude Include="..\..\Source\Gui\GuiConsole.hpp"/>
