@@ -7,6 +7,11 @@
 #ifndef __X_LIBPD_MULI_H__
 #define __X_LIBPD_MULI_H__
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+    
 #include <z_libpd.h>
 
 void libpd_instance_init(void);
@@ -46,5 +51,9 @@ void* libpd_multi_midi_new(void* ptr,
 typedef void (*t_libpd_multi_printhook)(void* ptr, const char *recv);
 
 void* libpd_multi_print_new(void* ptr, t_libpd_multi_printhook hook_print);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -13,7 +13,6 @@
 extern "C"
 {
     #include <z_libpd.h>
-    #include <m_pd.h>
     #include "x_libpd_multi.h"
     
     struct pd::Instance::internal
