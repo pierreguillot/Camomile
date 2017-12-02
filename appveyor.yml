@@ -15,7 +15,7 @@ os: Visual Studio 2015
 install:
     - git submodule update --init --recursive
     - C:\msys64\usr\bin\bash -lc "pacman -Syuu --noconfirm"
-    - C:\msys64\usr\bin\bash -lc "pacman -S --noconfirm --needed make mingw-w64-$MSYS2_ARCH-{gcc,gcc-lib}"
+    - C:\msys64\usr\bin\bash -lc "pacman -S --noconfirm --needed make mingw-w64-i686-gcc mingw-w64-x86_64-gcc""
     - C:\msys64\usr\bin\bash -lc "pacman -S --noconfirm --needed mingw-w64-cross-winpthreads-git"
 build_script:
     - C:\msys64\usr\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER/libpd; PATH=$PATH:/mingw64/bin:/mingw32/bin; make clobber; make csharplib"
