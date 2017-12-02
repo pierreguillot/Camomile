@@ -12,9 +12,12 @@
 
 extern "C"
 {
-    #include <z_libpd.h>
-    #include "x_libpd_multi.h"
-    
+#include <z_libpd.h>
+#include "x_libpd_multi.h"
+}
+
+extern "C"
+{
     struct pd::Instance::internal
     {
         static void instance_multi_bang(pd::Instance* ptr, const char *recv)
