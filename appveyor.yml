@@ -18,7 +18,7 @@ install:
     - C:\msys64\usr\bin\bash -lc "pacman -S --noconfirm --needed make mingw-w64-i686-gcc mingw-w64-x86_64-gcc"
     - C:\msys64\usr\bin\bash -lc "pacman -S --noconfirm --needed mingw-w64-cross-winpthreads-git"
 build_script:
-    - C:\msys64\usr\bin\bash -lc "$APPVEYOR_BUILD_FOLDER%/libpd/mingw64_build_csharp.bat"
+    - C:\msys64\usr\bin\bash -lc "$APPVEYOR_BUILD_FOLDER/libpd/mingw64_build_csharp.bat"
 
 #ADDITIONAL_CFLAGS=\"-DPDINSTANCE=1 -DPDTHREADS=1\"
 
