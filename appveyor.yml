@@ -18,8 +18,9 @@ install:
     - C:\msys64\usr\bin\bash -lc "pacman -S --noconfirm --needed make mingw-w64-i686-gcc mingw-w64-x86_64-gcc"
     - C:\msys64\usr\bin\bash -lc "pacman -S --noconfirm --needed mingw-w64-cross-winpthreads-git"
 build_script:
-    - C:\msys64\usr\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER/libpd; MSYS=:/msys64; MINGW=:$MSYS/mingw64; PATH=$MINGW/bin;$MSYS/usr/bin; make clobber; make csharplib"
+    - C:\msys64\usr\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER/libpd; MSYS=C:/msys64; MINGW=:$MSYS/mingw64; PATH=$MINGW/bin;$MSYS/usr/bin; make clobber; make csharplib"
 
+#  ADDITIONAL_CFLAGS='-DPD_LONGINTTYPE=\"long long\"'
 # MSYS=:/msys64; MINGW=:$MSYS/mingw64; PATH=$MINGW/bin;$MSYS/usr/bin
 # MSYS=C:/\msys64 PATH=$PATH:/mingw64/bin:/mingw32/bin
 #ADDITIONAL_CFLAGS=\"-DPDINSTANCE=1 -DPDTHREADS=1\"
