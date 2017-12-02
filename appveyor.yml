@@ -15,8 +15,8 @@ build_script:
     - msbuild %APPVEYOR_BUILD_FOLDER%\Builds\VisualStudio2015\Camomile.sln /property:Configuration=Release /property:Platform=x64
 before_deploy:
     - cd %APPVEYOR_BUILD_FOLDER%
-    - copy %APPVEYOR_BUILD_FOLDER%\README.md %APPVEYOR_BUILD_FOLDER%\Plugins/README.md
-    - copy %APPVEYOR_BUILD_FOLDER%\LICENSE.txt %APPVEYOR_BUILD_FOLDER%\Plugins/LICENSE.txt
+    - copy %APPVEYOR_BUILD_FOLDER%\README.md %APPVEYOR_BUILD_FOLDER%\Plugins\README.md
+    - copy %APPVEYOR_BUILD_FOLDER%\LICENSE.txt %APPVEYOR_BUILD_FOLDER%\Plugins\LICENSE.txt
     - rename %APPVEYOR_BUILD_FOLDER%\Plugins Camomile
     - 7z a CamomileWindows64.zip %APPVEYOR_BUILD_FOLDER%\Camomile\
 
