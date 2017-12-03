@@ -10,7 +10,6 @@ esac
 
 
 if [ $machine == "Mac" ]; then
-    echo $machine
     ThisPath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     $ThisPath/GenerateMacOS.sh $1
 fi
