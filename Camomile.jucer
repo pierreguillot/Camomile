@@ -12,8 +12,7 @@
               pluginAUExportPrefix="CamomileAU" pluginRTASCategory="" aaxIdentifier="com.pierreguillot.camomile"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.2.0"
               companyName="Pierre Guillot" headerPath="../../libpd/pure-data/src&#10;../../libpd/libpd_wrapper&#10;../../libpd/libpd_wrapper/util&#10;../../libpd/cpp&#10;"
-              defines="HAVE_LIBDL=1&#10;HAVE_UNISTD_H=1&#10;PD_INTERNAL=1"
-              companyWebsite="https://github.com/pierreguillot/Camomile">
+              defines="HAVE_UNISTD_H=1&#10;PD_INTERNAL=1" companyWebsite="https://github.com/pierreguillot/Camomile">
   <MAINGROUP id="BLNPyv" name="Camomile">
     <GROUP id="{D4367A82-F269-8F5A-1C22-AB42C90672ED}" name="Source">
       <FILE id="yIk1CH" name="PluginProcessor.cpp" compile="1" resource="0"
@@ -123,22 +122,22 @@
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="Camomile"
                        binaryPath="Plugins/Camomile" libraryPath="../../libpd/libs"
-                       defines="JucePlugin_IsSynth=1"/>
+                       defines="JucePlugin_IsSynth=1" useRuntimeLibDLL="0"/>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="Camomile"
                        binaryPath="Plugins/Camomile" libraryPath="../../libpd/libs"
-                       defines="JucePlugin_IsSynth=1"/>
+                       defines="JucePlugin_IsSynth=1" useRuntimeLibDLL="0"/>
         <CONFIGURATION name="DebugFx" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="CamomileFx"
                        binaryPath="Plugins/Camomile" libraryPath="../../libpd/libs"
-                       defines=""/>
+                       defines="" useRuntimeLibDLL="0"/>
         <CONFIGURATION name="ReleaseFx" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="CamomileFX"
                        binaryPath="Plugins/Camomile" libraryPath="../../libpd/libs"
-                       defines=""/>
+                       defines="" useRuntimeLibDLL="0"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="Juce/modules"/>
