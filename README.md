@@ -18,11 +18,11 @@ Camomile is a set of dynamic plugins with [Pure Data](http://msp.ucsd.edu/softwa
 The Camomile plugins are a set of meta plugins. They are not directly usable in a DAW but can be used to generate new plugins.
 
 ### Examples
-The package contains a set of examples in the folders *Effects* and *Instruments*. If you want to generate all the examples, you can run
+The package contains a set of examples in the folders *Effects* and *Instruments*. If you want to generate all the examples, you can do
 ```
 ./Generate.sh
 ```
-The binaries will be located in the *Builds* folder. If you also want to install them in the standard plugin location (*"/usr/lib/vst"* on Linux and *~/Library/Audio/Plug-Ins/* on MacOS), you can run
+The binaries will be located in the *Builds* folder. If you also want to install them in the standard plugin location (*"/usr/lib/vst"* on Linux and *~/Library/Audio/Plug-Ins/* on MacOS), you can do
 ```
 ./Generate.sh install
 ```
@@ -52,7 +52,7 @@ To compile the AU, VST & VST3 plugins on MacOS, you first need to compile the st
 For the first step, you can compile the *libpd-osx-multi* from the project *libpd.xcodeproj* located in the *libpd* folder (don't forget to change the destination folder). Then you can compile all the targets of the the project *Camomile.xcodeproj* located in *Builds/MacOSX*. If you want the Fx version of the plugin, you must change the configuration to *ReleaseFx* or *DebugFx*.
 
 - Command Line  
- At the root of this directory, you can run the two following commands
+ At the root of this directory, you can do the two following commands
 ```
 xcodebuild -project libpd/libpd.xcodeproj -target libpd-osx-multi -configuration Release ONLY_ACTIVE_ARCH=NO CONFIGURATION_BUILD_DIR="./libs" | egrep -A 5 "(error|warning):"
 xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration Release
@@ -65,7 +65,7 @@ xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration ReleaseFx
 If you want to modify the Camomile project, you should use *Camomile.jucer* with the Juce's projucer application. If you want to compile the Audio Unit, after generating the XCode project, you must change the type of the *include_juce_audio_plugin_client_AU.r* located in the folder *JuceLibraryCode* to *Objective-C++ preprocessor*.
 
 ### Linux
-To compile VST plugins on Linux, JUCE requires a large set of dependencies, to install everything you should run this command (for further information you should refer to the JUCE documentation):
+To compile VST plugins on Linux, JUCE requires a large set of dependencies, to install everything you should do this command (for further information you should refer to the JUCE documentation):
 ```
 sudo apt-get -qq update
 sudo apt-get install -y libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev python-dev libfreetype6-dev libgtk-3-dev libcurl4-gnutls-dev alsa libasound2-dev
@@ -74,7 +74,7 @@ sudo apt-get -qq update
 sudo apt-get install -y libwebkit2gtk-4.0-37 libwebkit2gtk-4.0-dev
 ```
 
-First, you should compile libPd with multi instance and multi threads support. The static library is expected to be in the folder *libpd/libs*. For this, you can follow the libPd documentation or run:
+First, you should compile libPd with multi instance and multi threads support. The static library is expected to be in the folder *libpd/libs*. For this, you can follow the libPd documentation or do:
 
 ```
 make -C libpd/ UTIL=true EXTRA=true ADDITIONAL_CFLAGS="-DPDINSTANCE=1 -DPDTHREADS=1"
@@ -86,7 +86,15 @@ make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=ReleaseFx
 ```
 ### Windows
 
-Coming soon... I hope
+First, you should compile libPd with multi instance and multi threads support. The static library is expected to be in the folder *libpd/libs*. For this, you can follow the libPd documentation. You have to use [MinGW-w64](http://mingw-w64.org/doku.php) and to install [msys2](http://msys2.github.io/). The batch scripts offered by the libPd distribution are made for the csharp version without multi instance and multi thread supports. To compile the appropriate c version of libPd, you have change the script (or to use *libpd_mingw64_build.bat*):
+```
+make libpd MULTI=true ADDITIONAL_CFLAGS='-DPD_LONGINTTYPE="long long"'
+```
+
+Then you can compile the Camomile plugin. The Visual Studio 2015 solution and projects are located in the folder *Builds\VisualStudio2015*. With command, you can do
+```
+- msbuild Builds\VisualStudio2015\Camomile.sln /property:Configuration=Release /property:Platform=x64
+```
 
 ---
 ## Credits
