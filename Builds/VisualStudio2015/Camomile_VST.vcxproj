@@ -135,15 +135,14 @@
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>Camomile.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalOptions>libpd.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>libpd.lib;Camomile.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\Camomile.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>Camomile.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;Camomile.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -185,15 +184,14 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>Camomile.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalOptions>libpd.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>libpd.lib;Camomile.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\Camomile.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>Camomile.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;Camomile.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -234,15 +232,14 @@
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>CamomileFx.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalOptions>libpd.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>libpd.lib;CamomileFx.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\CamomileFx.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>CamomileFx.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;CamomileFx.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -284,15 +281,14 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>CamomileFX.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalOptions>libpd.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>libpd.lib;CamomileFX.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\CamomileFX.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>CamomileFX.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;CamomileFX.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
