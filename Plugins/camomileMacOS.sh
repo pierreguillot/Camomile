@@ -117,17 +117,6 @@ au_get_plugin_code() {
     echo "0"
 }
 
-au_get_plugin_author() {
-    while IFS='' read -r line || [[ -n "$line" ]]; do
-        local wline=($line)
-        if [ "${wline[0]}" == "author" ]; then
-            echo ${wline[1]}
-            return
-        fi
-    done < "$1"
-    echo "0"
-}
-
 generate_plugin_au() {
     if [ ! -f $2/$3/$3.txt ]; then
         echo -n -e "\033[31m(No config file) \033[0m"
