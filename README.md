@@ -93,7 +93,7 @@ make libpd MULTI=true ADDITIONAL_CFLAGS='-DPD_LONGINTTYPE="long long"'
 
 Then you can compile the Camomile plugin. The Visual Studio 2015 solution and projects are located in the folder *Builds\VisualStudio2015*. With command, you can do
 ```
-- msbuild Builds\VisualStudio2015\Camomile.sln /property:Configuration=Release /property:Platform=x64
+msbuild Builds\VisualStudio2015\Camomile.sln /property:Configuration=Release /property:Platform=x64
 ```
 
 ---
