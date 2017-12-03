@@ -12,25 +12,44 @@ Vst3Path=$HOME/Library/Audio/Plug-Ins/VST3
 AuPath=$HOME/Library/Audio/Plug-Ins/Components
 
 ThisPath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+BuildPath=$ThisPath/Builds
 
 install_plugin() {
-    if [ -d $VstPath/$PatchName ]; then
-        rm -rf $VstPath/$PatchName
+    local InstallationPath
+    if [ "$2" == "$VstExtension" ]; then
+        InstallationPath=$VstPath
+    elif [ "$2" == "$Vst3Extension" ]; then
+        InstallationPath=$Vst3Path
+    elif [ "$2" == "$AuExtension" ]; then
+        InstallationPath=$AuPath
+    else
+        echo -e "\033[31m"$PluginName.$PluginExtension" extension not recognized\033[0m"
+        #
+        return
     fi
-    cp -rf $ThisPath/Builds/$PatchName/ $VstPath/$PatchName
-    rm -rf $ThisPath/Builds/$PatchName
+
+    if [ -d $InstallationPath/$1.$2 ]; then
+        rm -rf $InstallationPath/$1.$2
+    fi
+
+    cp -rf $BuildPath/$1.$2 $InstallationPath/$1.$2
+    echo $PluginName.$PluginExtension" in "$InstallationPath
 }
 
 install_all_plugins() {
-    echo -n "install "
-    for Patch in $ThisPath/Builds/*
+    echo  -e "\033[1;30mInstallation\033[0m"
+    for Plugin in $BuildPath/*
     do
-      PatchName=${Patch##*/}
-      echo -n $PatchName " "
-      install_plugin
+        local PluginName=$(basename "$Plugin")
+        local PluginExtension="${PluginName##*.}"
+        local PluginName="${PluginName%.*}"
+        install_plugin $PluginName $PluginExtension
     done
-    echo " "
+    echo -e "\033[1;30mFinished\033[0m"
 }
+
+
+
 
 generate_plugin() {
     if [ -d $ThisPath/Camomile/$CamomileName.$1 ]; then
