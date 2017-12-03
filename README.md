@@ -3,7 +3,7 @@
 
 Camomile is a set of dynamic plugins with [Pure Data](http://msp.ucsd.edu/software.html) embedded. The plugins offer to load and to control patches inside a digital audio workstation. The plugins are available as VST, VST3 and Audio Unit for Windows, Linux and Mac.
 
-![](https://cloud.githubusercontent.com/assets/1409918/13610631/ebdacae8-e55e-11e5-903c-fb3ad342adb8.png)
+![](https://user-images.githubusercontent.com/1409918/33525056-df370e88-d827-11e7-9a29-db05d3fc61c0.png)
 
 
 [![Travis](https://img.shields.io/travis/pierreguillot/Camomile.svg?label=travis)](https://travis-ci.org/pierreguillot/Camomile)  
@@ -32,7 +32,7 @@ On Windows, there is no script yet to automatically compile the examples. Please
 
 The distribution contains a *Camomile* folder with the effect version *CamomileFx* and the instrument version *Camomile* of the Camomile meta plugins and with the *extensions* VST (.vst), VST3 (.vst3) & AU (.component) on MacOS, VST (.dll) & VST3 (.vst3) on Windows and VST (.so) on Linux.
 
-The folders *Effects* and *Instruments* contain each one a set of folders. And each of these folders can be use to generate a plugin. What is important is that the name of a folder corresponds to the name of the new plugin (the name that will appears in your DAW), that it contains one patch identically named (the main patch loaded by the plugin) and one text file identically named that defines the plugins options and functionalities and it can also contain abstraction, sound files, etc (or whatever you want).
+The folders *Effects* and *Instruments* contain each one a set of folders. And each of these folders can be used to generate a plugin. What is important is that the name of a folder corresponds to the name of the new plugin (the name that will appears in your DAW), that it contains one patch identically named (the main patch loaded by the plugin) and one text file identically named that defines the plugins options and functionalities and it can also contain abstraction, sound files, etc (or whatever you want).
 
 To generate a new plugin with a folder, it's very straightforward and easy. You simply have to copy the Camomile plugin(s) of your choice (depending on if you want to create an instrument or an effect, an Audio Unit or a VST) and to rename it to the name of the folder. On MacOS, the plugins are bundles so you have to copy the content of the folder (with the patch and the information) inside  the *Resources* folder of the plugin (right click on the plugin, show package contents, open *Contents*, open *Resources*). To use it on MacOS, you only have to move the plugin to your favorite plugins location. And on Windows and Linux, you only have to move the plugin and the folder associated to your favorite plugins location.
 
