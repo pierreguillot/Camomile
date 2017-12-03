@@ -24,6 +24,9 @@ after_build:
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\VST3\CamomileFx.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\CamomileFx.vst3
     - copy %APPVEYOR_BUILD_FOLDER%\README.md %APPVEYOR_BUILD_FOLDER%\Plugins\README.md
     - copy %APPVEYOR_BUILD_FOLDER%\LICENSE %APPVEYOR_BUILD_FOLDER%\Plugins\LICENSE.txt
+    - del %APPVEYOR_BUILD_FOLDER%\Plugins\camomile.sh /Q
+    - del %APPVEYOR_BUILD_FOLDER%\Plugins\camomileMacOS.sh /Q
+    - del %APPVEYOR_BUILD_FOLDER%\Plugins\camomileLinux.sh /Q
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\"Shared Code"\ /S /Q
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\VST\ /S /Q
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\VST3\ /S /Q
