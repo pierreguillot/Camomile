@@ -78,7 +78,7 @@ clean_all_plugins() {
 #                       Generate all the plugins from ./Builds                    #
 ################################################################################
 
-generate_plugins_vst() {
+generate_plugin_vst() {
     if [ -d $ThisPath/Camomile/$1.$VstExtension ]; then
         if [ -d $ThisPath/Builds/$3.$VstExtension ]; then
             rm -rf $ThisPath/Builds/$3.$VstExtension
@@ -92,7 +92,7 @@ generate_plugins_vst() {
     fi
 }
 
-generate_plugins_vst3() {
+generate_plugin_vst3() {
     if [ -d $ThisPath/Camomile/$1.$Vst3Extension ]; then
         if [ -d $ThisPath/Builds/$3.$Vst3Extension ]; then
             rm -rf $ThisPath/Builds/$3.$Vst3Extension
@@ -106,7 +106,40 @@ generate_plugins_vst3() {
     fi
 }
 
-generate_plugins_au() {
+au_get_plugin_code() {
+    while IFS='' read -r line || [[ -n "$line" ]]; do
+        local wline=($line)
+        if [ "${wline[0]}" == "code" ]; then
+            echo ${wline[1]}
+            return
+        fi
+    done < "$1"
+    echo "0"
+}
+
+au_get_plugin_author() {
+    while IFS='' read -r line || [[ -n "$line" ]]; do
+        local wline=($line)
+        if [ "${wline[0]}" == "author" ]; then
+            echo ${wline[1]}
+            return
+        fi
+    done < "$1"
+    echo "0"
+}
+
+generate_plugin_au() {
+    if [ ! -f $2/$3/$3.txt ]; then
+        echo -n -e "\033[31m(No config file) \033[0m"
+        return
+    fi
+
+    local code=$(au_get_plugin_code $2/$3/$3.txt)
+    if [ "$code" == "0" ]; then
+        echo -n -e "\033[31mNo plugin code defined\033[0m"
+        return
+    fi
+    code=${code::4}
     if [ -d $ThisPath/Camomile/$1.$AuExtension ]; then
         if [ -d $ThisPath/Builds/$3.$AuExtension ]; then
             rm -rf $ThisPath/Builds/$3.$AuExtension
@@ -114,6 +147,8 @@ generate_plugins_au() {
 
         cp -rf $ThisPath/Camomile/$1.$AuExtension/ $ThisPath/Builds/$3.$AuExtension
         cp -rf $2/$3/ $ThisPath/Builds/$3.$AuExtension/Contents/Resources
+        plutil -replace AudioComponents.name -string $3 $ThisPath/Builds/$3.$AuExtension/Contents/Info.plist
+        plutil -replace AudioComponents.subtype -string $code $ThisPath/Builds/$3.$AuExtension/Contents/Info.plist
         echo -n $AuExtension
     else
         echo -n -e "\033[2;30m"$AuExtension"\033[0m"
@@ -122,9 +157,9 @@ generate_plugins_au() {
 
 generate_plugins() {
     echo -n $PluginName "("
-    generate_plugins_vst $CamomileName $PatchesPath $PluginName
-    generate_plugins_vst3 $CamomileName $PatchesPath $PluginName
-    generate_plugins_au $CamomileName $PatchesPath $PluginName
+    generate_plugin_vst $CamomileName $PatchesPath $PluginName
+    generate_plugin_vst3 $CamomileName $PatchesPath $PluginName
+    generate_plugin_au $CamomileName $PatchesPath $PluginName
     echo ")"
 }
 
