@@ -15,9 +15,9 @@ build_script:
     - msbuild %APPVEYOR_BUILD_FOLDER%\Builds\VisualStudio2015\Camomile.sln /property:Configuration=Release /property:Platform=x64
 after_build:
     - cd %APPVEYOR_BUILD_FOLDER%
-    - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\"Shared Code"\ /S /Q
+    #- rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\"Shared Code"\ /S /Q
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST\Camomile.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.dll
-    - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST\ /S  /Q
+    - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST\ /S /Q
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\Camomile.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.vst3
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\ /S /Q
     - copy %APPVEYOR_BUILD_FOLDER%\README.md %APPVEYOR_BUILD_FOLDER%\Plugins\README.md
