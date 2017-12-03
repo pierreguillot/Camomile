@@ -11,7 +11,7 @@ esac
 
 if [ $machine == "Mac" ]; then
     ThisPath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-    $ThisPath/GenerateMacOS.sh $1
+    $ThisPath/CamomileMacOS.sh $1
 fi
 
 if [ $machine == "Linux" ]; then
