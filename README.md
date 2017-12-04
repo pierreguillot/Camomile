@@ -13,19 +13,30 @@ Camomile is a set of dynamic plugins with [Pure Data](http://msp.ucsd.edu/softwa
 [![License](https://img.shields.io/badge/License-GPL--v3-blue.svg)](https://github.com/pierreguillot/Camomile/blob/master/LICENSE)
 
 ---
-## Use
+## Use (Important)
 
 The Camomile plugins are a set of meta plugins. They are not directly usable in a DAW but can be used to generate new plugins.
 
 ### Examples
 The package contains a set of examples in the folders *Effects* and *Instruments*. On MacOS and Linux, if you want to generate all the examples, you can do
 ```
-./Generate.sh
+./camomile.sh generate
 ```
-The binaries will be located in the *Builds* folder. If you want to install the plugins manually, on Linux and Windows, don't forget to copy the folders associated with the plugins next to them. If you want the script to install automatically the plugins in the standard plugin location (*"/usr/lib/vst"* on Linux and *~/Library/Audio/Plug-Ins/* on MacOS), you can do
+The binaries will be located in the *Builds* folder. If you want to install the plugins manually, on Linux and Windows, don't forget to copy the folders associated with the plugins next to them. You can use the script to install automatically all the plugins in the standard plugin location by default (*"/usr/lib/"* on Linux and *~/Library/Audio/Plug-Ins/* on MacOS) or using an alternative path, you can do
 ```
-./Generate.sh install
+./camomile.sh install (optional-alternative-path)
 ```
+The VST will be installed in the *VST* subfolder (*vst* on Linux), The VST3 will be installed in the *VST3* subfolder and the Audio Units will be installed in the *Components* subfolder.
+If you want to clear the *Build* folder, you can do
+```
+./camomile.sh clear
+```
+
+So for example, to generate and to install everything in *Documents/Myplugins* and clear the *Build* folder, you can do
+```
+./camomile.sh generate && ./camomile.sh install ~/Documents/MyPlugins && ./camomile.sh clear
+```
+
 On Windows, there is no script yet to automatically compile the examples. Please, refer to this next section to generate the plugins manually.
 
 ### Further Information
