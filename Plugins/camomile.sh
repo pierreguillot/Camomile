@@ -55,7 +55,7 @@ install_all_plugins_mac() {
 install_plugin_linux() {
     local InstallationPath
     if [ "$2" == "$LibExtension" ]; then
-        InstallationPath=$3/VST
+        InstallationPath=$3/vst
     else
         echo -e "\033[31m"$1.$2" extension not recognized\033[0m"
         return
@@ -69,7 +69,7 @@ install_plugin_linux() {
     if [ ! -d $InstallationPath ]; then
         mkdir $InstallationPath
     fi
-    
+
     if [ -f $InstallationPath/$1.$2 ]; then
         rm -f $InstallationPath/$1.$2
     fi
