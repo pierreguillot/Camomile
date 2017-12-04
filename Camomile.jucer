@@ -138,6 +138,26 @@
                        linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="CamomileFX"
                        binaryPath="Plugins/Camomile" libraryPath="../../libpd/libs"
                        defines="" useRuntimeLibDLL="0"/>
+        <CONFIGURATION name="Debug32" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
+                       debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="Camomile"
+                       binaryPath="Plugins/Camomile" libraryPath="../../libpd/libs"
+                       defines="JucePlugin_IsSynth=1" useRuntimeLibDLL="0"/>
+        <CONFIGURATION name="Release32" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
+                       debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="Camomile"
+                       binaryPath="Plugins/Camomile" libraryPath="../../libpd/libs"
+                       defines="JucePlugin_IsSynth=1" useRuntimeLibDLL="0"/>
+        <CONFIGURATION name="DebugFx32" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
+                       debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="CamomileFx"
+                       binaryPath="Plugins/Camomile" libraryPath="../../libpd/libs"
+                       defines="" useRuntimeLibDLL="0"/>
+        <CONFIGURATION name="ReleaseFx32" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
+                       debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="CamomileFX"
+                       binaryPath="Plugins/Camomile" libraryPath="../../libpd/libs"
+                       defines="" useRuntimeLibDLL="0"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="Juce/modules"/>
