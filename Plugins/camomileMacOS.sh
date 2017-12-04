@@ -5,12 +5,13 @@ CamomileFx=CamomileFx
 VstExtension=vst
 Vst3Extension=vst3
 AuExtension=component
+LibExtension=so
 ThisPath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 ################################################################################
 #           Install all the plugins from ./Builds to a destination             #
 ################################################################################
-install_plugin() {
+install_plugin_mac() {
     local InstallationPath
     if [ "$2" == "$VstExtension" ]; then
         InstallationPath=$3/VST
@@ -19,7 +20,7 @@ install_plugin() {
     elif [ "$2" == "$AuExtension" ]; then
         InstallationPath=$3/Components
     else
-        echo -e "\033[31m"$PluginName.$PluginExtension" extension not recognized\033[0m"
+        echo -e "\033[31m"$1.$2" extension not recognized\033[0m"
         return
     fi
 
@@ -28,10 +29,10 @@ install_plugin() {
     fi
 
     cp -rf $ThisPath/Builds/$1.$2 $InstallationPath/$1.$2
-    echo $PluginName.$PluginExtension" in "$InstallationPath
+    echo $1.$2" in "$InstallationPath
 }
 
-install_all_plugins() {
+install_all_plugins_mac() {
     if [ -d $1 ]; then
         echo  -e "\033[1;30mInstalling Plugins to "$1"\033[0m"
         for Plugin in $ThisPath/Builds/*
@@ -39,7 +40,7 @@ install_all_plugins() {
             local PluginName=$(basename "$Plugin")
             local PluginExtension="${PluginName##*.}"
             local PluginName="${PluginName%.*}"
-            install_plugin $PluginName $PluginExtension $1
+            install_plugin_mac $PluginName $PluginExtension $1
         done
         echo -e "\033[1;30mFinished\033[0m"
     else
@@ -47,29 +48,99 @@ install_all_plugins() {
     fi
 }
 
+install_plugin_linux() {
+    local InstallationPath
+    if [ "$2" == "$LibExtension" ]; then
+        InstallationPath=$3/VST
+    else
+        echo -e "\033[31m"$1.$2" extension not recognized\033[0m"
+        return
+    fi
+
+    if [ ! -d $ThisPath/Builds/$1 ]; then
+        echo -e "\033[31m"$2" has no folder\033[0m"
+        return
+    fi
+
+    if [ -f $InstallationPath/$1.$2 ]; then
+        rm -f $InstallationPath/$1.$2
+    fi
+    if [ -d $InstallationPath/$1 ]; then
+        rm -rf $InstallationPath/$1
+    fi
+    cp $ThisPath/Builds/$1.$2 $InstallationPath/$1.$2
+    cp -rf $ThisPath/Builds/$1/ $InstallationPath/$1
+
+    echo $1.$2" in "$InstallationPath
+}
+
+install_all_plugins_linux() {
+    if [ -d $1 ]; then
+        echo  -e "\033[1;30mInstalling Plugins to "$1"\033[0m"
+        for Plugin in $ThisPath/Builds/*
+        do
+            if [ ! -d $Plugin ]; then
+                local PluginName=$(basename "$Plugin")
+                local PluginExtension="${PluginName##*.}"
+                local PluginName="${PluginName%.*}"
+                install_plugin_linux $PluginName $PluginExtension $1
+            fi
+        done
+    else
+        echo -e "\033[31m"$1" invalid path\033[0m"
+    fi
+}
+
 ################################################################################
-#                       Clean all the plugins from ./Builds                    #
+#                       clear all the plugins from ./Builds                    #
 ################################################################################
 
-clean_plugin() {
+clear_plugin_mac() {
     if [ "$2" == "$VstExtension" ] || [ "$2" == "$Vst3Extension" ] || [ "$2" == "$AuExtension" ]; then
         rm -rf $ThisPath/Builds/$1.$2
-        echo $PluginName.$PluginExtension
+        echo $1.$2
     else
-        echo -e "\033[31m"$PluginName.$PluginExtension" extension not recognized\033[0m"
+        echo -e "\033[31m"$1.$2" extension not recognized\033[0m"
         return
     fi
 }
 
-clean_all_plugins() {
-    echo  -e "\033[1;30mCleaning Plugins\033[0m"
+clear_plugin_linux() {
+    if [ "$2" == "$LibExtension" ]; then
+        rm -f $ThisPath/Builds/$1.$2
+        if [ -d $ThisPath/Builds/$1 ]; then
+            rm -rf $ThisPath/Builds/$1
+        fi
+        echo $1.$2
+    else
+        echo -e "\033[31m"$1.$2" extension not recognized\033[0m"
+        return
+    fi
+}
+
+clear_all_plugins_mac() {
+    echo  -e "\033[1;30mclearing Plugins\033[0m"
     for Plugin in $ThisPath/Builds/*
     do
         local PluginName=$(basename "$Plugin")
         local PluginExtension="${PluginName##*.}"
         local PluginName="${PluginName%.*}"
-        clean_plugin $PluginName $PluginExtension
+        clear_plugin $PluginName $PluginExtension
 
+    done
+    echo -e "\033[1;30mFinished\033[0m"
+}
+
+clear_all_plugins_linux() {
+    echo  -e "\033[1;30mclearing Plugins\033[0m"
+    for Plugin in $ThisPath/Builds/*
+    do
+        if [ ! -d $Plugin ]; then
+            local PluginName=$(basename "$Plugin")
+            local PluginExtension="${PluginName##*.}"
+            local PluginName="${PluginName%.*}"
+            clear_plugin $PluginName $PluginExtension
+        fi
     done
     echo -e "\033[1;30mFinished\033[0m"
 }
@@ -188,15 +259,33 @@ generate_all_plugins() {
 #                                   Main method                                #
 ################################################################################
 
+
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    CYGWIN*)    machine=Cygwin;;
+    MINGW*)     machine=MinGw;;
+    *)          machine="UNKNOWN:${unameOut}"
+esac
+
 if [ ! -d $ThisPath/Builds ]; then
     mkdir $ThisPath/Builds
 fi
 
 if [ "$1" == "install" ]; then
     if [ -z "$2" ]; then
-        install_all_plugins $HOME/Library/Audio/Plug-Ins
+        if [ $machine == "Mac" ]; then
+            install_all_plugins_mac $HOME/Library/Audio/Plug-Ins
+        else
+            install_all_plugins_linux "/usr/lib/"
+        fi
     else
-        install_all_plugins $2
+        if [ $machine == "Mac" ]; then
+            install_all_plugins_mac $2
+        else
+            install_all_plugins_linux $2
+        fi
     fi
 elif [ "$1" == "generate" ]; then
     if [ "$2" == "effects" ]; then
@@ -209,8 +298,12 @@ elif [ "$1" == "generate" ]; then
     else
         echo -e "\033[31m"$2" wrong arguments\033[0m"
     fi
-elif [ "$1" == "clean" ]; then
-    clean_all_plugins
+elif [ "$1" == "clear" ]; then
+    if [ $machine == "Mac" ]; then
+        clear_all_plugins_mac
+    else
+        clear_all_plugins_linux "/usr/lib/"
+    fi
 elif [ -z "$1" ]; then
     echo -e "\033[31mArguments required\033[0m"
 else
