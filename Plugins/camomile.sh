@@ -24,6 +24,10 @@ install_plugin_mac() {
         return
     fi
 
+    if [ ! -d $InstallationPath ]; then
+        mkdir $InstallationPath
+    fi
+
     if [ -d $InstallationPath/$1.$2 ]; then
         rm -rf $InstallationPath/$1.$2
     fi
@@ -62,6 +66,10 @@ install_plugin_linux() {
         return
     fi
 
+    if [ ! -d $InstallationPath ]; then
+        mkdir $InstallationPath
+    fi
+    
     if [ -f $InstallationPath/$1.$2 ]; then
         rm -f $InstallationPath/$1.$2
     fi
