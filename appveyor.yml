@@ -22,9 +22,6 @@ build_script:
     - 'if "%MINGWARCH%"=="mingw64" msbuild %APPVEYOR_BUILD_FOLDER%\Builds\VisualStudio2015\Camomile.sln /property:Configuration=ReleaseFx /property:Platform=x64'
 after_build:
     - cd %APPVEYOR_BUILD_FOLDER%
-    - cd %APPVEYOR_BUILD_FOLDER%\libpd\libs
-    - dir /s /b /o:gn
-    - cd %APPVEYOR_BUILD_FOLDER%
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\VST\Camomile.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\Camomile.dll
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\VST3\Camomile.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\Camomile.vst3
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\VST\CamomileFx.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\CamomileFx.dll
@@ -34,6 +31,8 @@ after_build:
     - copy %APPVEYOR_BUILD_FOLDER%\libpd\libs\libpd.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\libpd.dll
     - copy %APPVEYOR_BUILD_FOLDER%\libpd\libs\libpd.def %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\libpd.def
     - copy %APPVEYOR_BUILD_FOLDER%\libpd\libs\libpd.lib %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\libpd.lib
+    - 'if "%MINGWARCH%"=="mingw32" copy %APPVEYOR_BUILD_FOLDER%\libpd\libs\mingw32\libwinpthread-1.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\libwinpthread-1.dll
+    - 'if "%MINGWARCH%"=="mingw64" copy %APPVEYOR_BUILD_FOLDER%\libpd\libs\mingw64\libwinpthread-1.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\libwinpthread-1.dll
     - del %APPVEYOR_BUILD_FOLDER%\Plugins\camomile.sh /Q
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\"Shared Code"\ /S /Q
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\VST\ /S /Q
