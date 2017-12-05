@@ -100,10 +100,10 @@ install_all_plugins_linux() {
 }
 
 ################################################################################
-#                       clear all the plugins from ./Builds                    #
+#                       clean all the plugins from ./Builds                    #
 ################################################################################
 
-clear_plugin_mac() {
+clean_plugin_mac() {
     if [ "$2" == "$VstExtension" ] || [ "$2" == "$Vst3Extension" ] || [ "$2" == "$AuExtension" ]; then
         rm -rf $ThisPath/Builds/$1.$2
         echo $1.$2
@@ -113,7 +113,7 @@ clear_plugin_mac() {
     fi
 }
 
-clear_plugin_linux() {
+clean_plugin_linux() {
     if [ "$2" == "$LibExtension" ]; then
         rm -f $ThisPath/Builds/$1.$2
         if [ -d $ThisPath/Builds/$1 ]; then
@@ -126,28 +126,28 @@ clear_plugin_linux() {
     fi
 }
 
-clear_all_plugins_mac() {
-    echo  -e "\033[1;30mclearing Plugins\033[0m"
+clean_all_plugins_mac() {
+    echo  -e "\033[1;30mcleaning Plugins\033[0m"
     for Plugin in $ThisPath/Builds/*
     do
         local PluginName=$(basename "$Plugin")
         local PluginExtension="${PluginName##*.}"
         local PluginName="${PluginName%.*}"
-        clear_plugin $PluginName $PluginExtension
+        clean_plugin $PluginName $PluginExtension
 
     done
     echo -e "\033[1;30mFinished\033[0m"
 }
 
-clear_all_plugins_linux() {
-    echo  -e "\033[1;30mclearing Plugins\033[0m"
+clean_all_plugins_linux() {
+    echo  -e "\033[1;30mcleaning Plugins\033[0m"
     for Plugin in $ThisPath/Builds/*
     do
         if [ ! -d $Plugin ]; then
             local PluginName=$(basename "$Plugin")
             local PluginExtension="${PluginName##*.}"
             local PluginName="${PluginName%.*}"
-            clear_plugin $PluginName $PluginExtension
+            clean_plugin $PluginName $PluginExtension
         fi
     done
     echo -e "\033[1;30mFinished\033[0m"
@@ -374,11 +374,11 @@ elif [ "$1" == "generate" ]; then
             echo -e "\033[31m"$2" wrong arguments\033[0m"
         fi
     fi
-elif [ "$1" == "clear" ]; then
+elif [ "$1" == "clean" ]; then
     if [ $machine == "Mac" ]; then
-        clear_all_plugins_mac
+        clean_all_plugins_mac
     else
-        clear_all_plugins_linux "/usr/lib/"
+        clean_all_plugins_linux "/usr/lib/"
     fi
 elif [ -z "$1" ]; then
     echo -e "\033[31mArguments required\033[0m"
