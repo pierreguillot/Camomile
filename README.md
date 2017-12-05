@@ -27,9 +27,9 @@ The binaries will be located in the *Builds* folder. If you want to install the 
 ./camomile.sh install (optional-alternative-path)
 ```
 The VST will be installed in the *VST* subfolder (*vst* on Linux), The VST3 will be installed in the *VST3* subfolder and the Audio Units will be installed in the *Components* subfolder.
-If you want to clear the *Build* folder, you can do
+If you want to clean the *Build* folder, you can do
 ```
-./camomile.sh clear
+./camomile.sh clean
 ```
 
 So for example, to generate and to install everything in *Documents/Myplugins* and clear the *Build* folder, you can do
