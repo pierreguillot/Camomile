@@ -46,6 +46,7 @@ value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
     {
         metpaint = GuiObject::paintBang;
         metmousedown = GuiObject::mouseDownBang;
+        metmouseup = GuiObject::mouseUpBang;
     }
     else if(gui.getType() == pd::Gui::Type::Panel)
     {
@@ -415,7 +416,6 @@ void GuiObject::mouseUpBang(GuiObject& x, const MouseEvent& e)
 {
     if(x.getValueOriginal() > std::numeric_limits<float>::epsilon())
     {
-        x.setValueOriginal(1);
         x.repaint();
     }
 }
