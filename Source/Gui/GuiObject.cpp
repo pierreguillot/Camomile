@@ -51,6 +51,7 @@ value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
     else if(gui.getType() == pd::Gui::Type::Panel)
     {
         metpaint = GuiObject::paintPanel;
+        setSize(gui.getPanelSize()[0], gui.getPanelSize()[1]);
     }
     else if(gui.getType() == pd::Gui::Type::Comment)
     {

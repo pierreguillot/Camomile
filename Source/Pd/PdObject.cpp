@@ -345,6 +345,13 @@ namespace pd
         }
         return std::string();
     }
+    
+    std::array<int, 2> Gui::getPanelSize() const noexcept
+    {
+        if(m_ptr && m_type == Type::Panel)
+            return {static_cast<t_my_canvas*>(m_ptr)->x_vis_w, static_cast<t_my_canvas*>(m_ptr)->x_vis_h};
+        return {0, 0};
+    }
 }
 
 

@@ -125,6 +125,8 @@ namespace pd
         
         std::string getLabel() const noexcept;
         
+        std::array<int, 2> getPanelSize() const noexcept;
+        
     private:
 
         //! @brief The constructor for a new Object.
