@@ -88,7 +88,8 @@ private:
     static void mouseDownRadioVertical(GuiObject& x, const MouseEvent& e);
     
     static void paintBang(GuiObject& x, Graphics& g);
-    static void mouseDownBang(GuiObject& x, const MouseEvent& g);
+    static void mouseDownBang(GuiObject& x, const MouseEvent& e);
+    static void mouseUpBang(GuiObject& x, const MouseEvent& e);
     
     static void paintPanel(GuiObject& x, Graphics& g);
     

@@ -389,23 +389,21 @@ void GuiObject::mouseDownRadioVertical(GuiObject& x, const MouseEvent& e)
 
 void GuiObject::paintBang(GuiObject& x, Graphics& g)
 {
-    g.fillAll(Gui::getColorBg());
-    g.setColour(Gui::getColorBd());
+    g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
     g.drawRect(x.getLocalBounds(), Gui::getBorderSize());
     const float w = static_cast<float>(x.getWidth() - Gui::getBorderSize() * 2);
     const float o = w * 0.125f;
+
     if(x.getValueOriginal() > std::numeric_limits<float>::epsilon())
     {
+        g.setColour(Colour(static_cast<uint32>(x.gui.getForegroundColor())));
         g.fillEllipse(o + Gui::getBorderSize(), o + Gui::getBorderSize(), o * 6.f, o * 6.f);
     }
-    else
-    {
-        
-        g.drawEllipse(o + Gui::getBorderSize(), o + Gui::getBorderSize(), o * 6.f, o * 6.f, Gui::getBorderSize());
-    }
+    g.setColour(Colours::black);
+    g.drawEllipse(o + Gui::getBorderSize(), o + Gui::getBorderSize(), o * 6.f, o * 6.f, Gui::getBorderSize());
 }
 
-void GuiObject::mouseDownBang(GuiObject& x, const MouseEvent& g)
+void GuiObject::mouseDownBang(GuiObject& x, const MouseEvent& e)
 {
     x.startEdition();
     x.setValueOriginal(1);
@@ -413,12 +411,21 @@ void GuiObject::mouseDownBang(GuiObject& x, const MouseEvent& g)
     x.stopEdition();
 }
 
+void GuiObject::mouseUpBang(GuiObject& x, const MouseEvent& e)
+{
+    if(x.getValueOriginal() > std::numeric_limits<float>::epsilon())
+    {
+        x.setValueOriginal(1);
+        x.repaint();
+    }
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
 void GuiObject::paintPanel(GuiObject& x, Graphics& g)
 {
-    g.fillAll(Gui::getColorBg());
+    g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
