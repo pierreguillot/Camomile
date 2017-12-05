@@ -11,7 +11,7 @@ matrix:
   include:
   - os: linux
     compiler: gcc
-    env: release=CamomileLinux
+    env: release=CamomileLinux64
     before_install:
     - sudo apt-get -qq update
     - sudo apt-get install -y libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev
