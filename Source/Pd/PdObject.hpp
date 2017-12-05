@@ -117,6 +117,14 @@ namespace pd
         
         size_t getNumberOfSteps() const noexcept;
         
+        unsigned int getBackgroundColor() const noexcept;
+        
+        unsigned int getForegroundColor() const noexcept;
+        
+        unsigned int getLabelColor() const noexcept;
+        
+        std::string getLabel() const noexcept;
+        
     private:
 
         //! @brief The constructor for a new Object.

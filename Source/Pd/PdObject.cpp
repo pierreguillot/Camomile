@@ -5,6 +5,7 @@
 */
 
 #include "PdObject.hpp"
+#include <iostream>
 
 extern "C"
 {
@@ -305,6 +306,44 @@ namespace pd
         {
             return (static_cast<t_iemgui*>(m_ptr))->x_fontsize;
         }
+    }
+    
+    static unsigned int fromIemColors(int const color)
+    {
+        unsigned int const c = static_cast<unsigned int>(color << 8 | 0xFF);
+        return ((0xFF << 24) | ((c >> 24) << 16) | ((c >> 16) << 8) | (c >> 8));
+    }
+    
+    unsigned int Gui::getBackgroundColor() const noexcept
+    {
+        if(!m_ptr || m_type == Type::Undefined || m_type >= Type::Comment)
+            return 0;
+        return fromIemColors(((static_cast<t_iemgui*>(m_ptr))->x_bcol));
+    }
+    
+    unsigned int Gui::getForegroundColor() const noexcept
+    {
+        if(!m_ptr || m_type == Type::Undefined || m_type >= Type::Comment)
+            return 0;
+        return fromIemColors(((static_cast<t_iemgui*>(m_ptr))->x_fcol));
+    }
+    
+    unsigned int Gui::getLabelColor() const noexcept
+    {
+        if(!m_ptr || m_type == Type::Undefined || m_type >= Type::Comment)
+            return 0;
+        return fromIemColors(((static_cast<t_iemgui*>(m_ptr))->x_lcol));
+    }
+    
+    std::string Gui::getLabel() const noexcept
+    {
+        if(!m_ptr || m_type == Type::Undefined || m_type >= Type::Comment)
+            return std::string();
+        if((static_cast<t_iemgui*>(m_ptr))->x_lab)
+        {
+            return std::string(static_cast<t_iemgui*>(m_ptr)->x_lab->s_name);
+        }
+        return std::string();
     }
 }
 
