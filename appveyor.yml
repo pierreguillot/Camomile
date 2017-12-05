@@ -31,8 +31,8 @@ after_build:
     - copy %APPVEYOR_BUILD_FOLDER%\libpd\libs\libpd.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\libpd.dll
     - copy %APPVEYOR_BUILD_FOLDER%\libpd\libs\libpd.def %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\libpd.def
     - copy %APPVEYOR_BUILD_FOLDER%\libpd\libs\libpd.lib %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\libpd.lib
-    - 'if "%MINGWARCH%"=="mingw32" copy %APPVEYOR_BUILD_FOLDER%\libpd\libs\mingw32\libwinpthread-1.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\libwinpthread-1.dll
-    - 'if "%MINGWARCH%"=="mingw64" copy %APPVEYOR_BUILD_FOLDER%\libpd\libs\mingw64\libwinpthread-1.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\libwinpthread-1.dll
+    - 'if "%MINGWARCH%"=="mingw32" copy %APPVEYOR_BUILD_FOLDER%\libpd\libs\mingw32\libwinpthread-1.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\libwinpthread-1.dll'
+    - 'if "%MINGWARCH%"=="mingw64" copy %APPVEYOR_BUILD_FOLDER%\libpd\libs\mingw64\libwinpthread-1.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\libwinpthread-1.dll'
     - del %APPVEYOR_BUILD_FOLDER%\Plugins\camomile.sh /Q
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\"Shared Code"\ /S /Q
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\VST\ /S /Q
