@@ -65,7 +65,7 @@ value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
         metmouseup = GuiObject::mouseUpNumber;
         
         Rectangle<int> const b(getLocalBounds());
-        Font const tf = Gui::getFont().withHeight(gui.getFontSize());
+        Font const tf = Gui::getFont().withHeight(gui.getFontSize() + 2);
         label = new Label();
         label->setBounds(b.getHeight() / 2, tf.getDescent(),
                          b.getWidth() - b.getHeight() / 2, b.getHeight() - tf.getDescent());
@@ -426,7 +426,7 @@ void GuiObject::paintPanel(GuiObject& x, Graphics& g)
 
 void GuiObject::paintComment(GuiObject& x, Graphics& g)
 {
-    g.setFont(Gui::getFont().withHeight(x.gui.getFontSize() + 3));
+    g.setFont(Gui::getFont().withHeight(x.gui.getFontSize() + 2));
     g.setColour(Gui::getColorTxt());
     g.drawMultiLineText(x.gui.getText(), 0, x.gui.getFontSize(), x.getWidth());
 }
