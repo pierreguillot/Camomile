@@ -367,7 +367,7 @@ void GuiObject::mouseDownRadioHorizontal(GuiObject& x, const MouseEvent& e)
 void GuiObject::paintRadioVertical(GuiObject& x, Graphics& g)
 {
     g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
-    g.setColour(Gui::getColorBd());
+    g.setColour(Colours::black);
     g.drawRect(x.getLocalBounds(), Gui::getBorderSize());
     const float w = static_cast<float>(x.getWidth());
     for(size_t i = 1; i < size_t(x.max) + 1; ++i)
