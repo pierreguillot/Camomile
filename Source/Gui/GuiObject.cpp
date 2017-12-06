@@ -339,8 +339,8 @@ void GuiObject::mouseDragSliderVertical(GuiObject& x, const MouseEvent& e)
 
 void GuiObject::paintRadioHorizontal(GuiObject& x, Graphics& g)
 {
-    g.fillAll(Gui::getColorBg());
-    g.setColour(Gui::getColorBd());
+    g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
+    g.setColour(Colours::black);
     g.drawRect(x.getLocalBounds(), Gui::getBorderSize());
     const float w = static_cast<float>(x.getHeight());
     for(size_t i = 1; i < size_t(x.max) + 1; ++i)
@@ -349,6 +349,7 @@ void GuiObject::paintRadioHorizontal(GuiObject& x, Graphics& g)
     }
     const float o = std::max(w * 0.125f, Gui::getBorderSize() + 1.f);
     const float l = w - o * 2.f;
+    g.setColour(Colour(static_cast<uint32>(x.gui.getForegroundColor())));
     g.fillRect(w * x.getValueOriginal() + o, o, l, l);
 }
 
@@ -365,7 +366,7 @@ void GuiObject::mouseDownRadioHorizontal(GuiObject& x, const MouseEvent& e)
 
 void GuiObject::paintRadioVertical(GuiObject& x, Graphics& g)
 {
-    g.fillAll(Gui::getColorBg());
+    g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
     g.setColour(Gui::getColorBd());
     g.drawRect(x.getLocalBounds(), Gui::getBorderSize());
     const float w = static_cast<float>(x.getWidth());
@@ -375,6 +376,7 @@ void GuiObject::paintRadioVertical(GuiObject& x, Graphics& g)
     }
     const float o = std::max(w * 0.125f, Gui::getBorderSize() + 1.f);
     const float l = w - o * 2.f;
+    g.setColour(Colour(static_cast<uint32>(x.gui.getForegroundColor())));
     g.fillRect(o, w * x.getValueOriginal() + o, l, l);
 }
 
