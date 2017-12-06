@@ -86,10 +86,10 @@ void CamomileAudioProcessorEditor::stopEdition()
 
 void CamomileAudioProcessorEditor::paint (Graphics& g)
 {
-    g.fillAll(Gui::getColorBg());
+    g.fillAll(Colours::white);
     if(!processor.getPatch().isGraph())
     {
-        g.setColour(Gui::getColorTxt().withAlpha(0.5f));
+        g.setColour(Colours::black);
         g.drawText("No Graph On Parent Available", 0, 0, getWidth(), getHeight(), juce::Justification::centred);
     }
 }

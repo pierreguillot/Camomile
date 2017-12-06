@@ -27,10 +27,10 @@
 
 CamoLookAndFeel::CamoLookAndFeel()
 {    
-    setColour(PopupMenu::backgroundColourId, Gui::getColorBg());
-    setColour(PopupMenu::highlightedBackgroundColourId, Gui::getColorBg());
-    setColour(PopupMenu::textColourId, Gui::getColorTxt().withAlpha(0.5f));
-    setColour(PopupMenu::highlightedTextColourId, Gui::getColorTxt());
+    setColour(PopupMenu::backgroundColourId, Colours::black);
+    setColour(PopupMenu::highlightedBackgroundColourId, Colours::grey);
+    setColour(PopupMenu::textColourId, Colours::grey);
+    setColour(PopupMenu::highlightedTextColourId, Colours::black);
     
     setColour(TextEditor::backgroundColourId, Gui::getColorBg());
     setColour(TextEditor::outlineColourId, Gui::getColorInv());
@@ -63,7 +63,7 @@ Font CamoLookAndFeel::getPopupMenuFont()
 
 void CamoLookAndFeel::drawPopupMenuBackground (Graphics& g, int width, int height)
 {
-    g.fillAll(Gui::getColorBg());
+    ;
 }
 
 
