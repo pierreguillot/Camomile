@@ -79,6 +79,7 @@ value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
         label->setEditable(false, false);
         label->setInterceptsMouseClicks(false, false);
         label->addListener(this);
+        label->setColour(Label::textColourId, Colour(static_cast<uint32>(gui.getForegroundColor())));
         setInterceptsMouseClicks(true, false);
         addAndMakeVisible(label);
     }
@@ -216,12 +217,14 @@ void GuiObject::editorHidden(Label*, TextEditor&)
 
 void GuiObject::paintNumber(GuiObject& x, Graphics& g)
 {
-    g.fillAll(Gui::getColorBg());
-    g.setColour(Gui::getColorBd());
-    g.drawRect(x.getLocalBounds(), Gui::getBorderSize());
+    const float border = 1.f;
     const float h = static_cast<float>(x.getHeight());
-    g.drawLine(0.f, 0.f, h * 0.35f, h * 0.5f, Gui::getBorderSize());
-    g.drawLine(0.f, h, h * 0.35f, h * 0.5f, Gui::getBorderSize());
+    g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
+    g.setColour(Colour(static_cast<uint32>(x.gui.getForegroundColor())));
+    g.drawLine(0.f, 0.f, h * 0.35f, h * 0.5f, border);
+    g.drawLine(0.f, h, h * 0.35f, h * 0.5f, border);
+    g.setColour(Colours::black);
+    g.drawRect(x.getLocalBounds(), border);
 }
 
 void GuiObject::mouseDownNumber(GuiObject& x, const MouseEvent& event)
@@ -353,18 +356,21 @@ void GuiObject::mouseDragSliderVertical(GuiObject& x, const MouseEvent& e)
 
 void GuiObject::paintRadioHorizontal(GuiObject& x, Graphics& g)
 {
+    const float border = 1.f;
+    const float extra  = 2.f;
+    const float h  = static_cast<float>(x.getHeight());
+    const float hs = h - 2.f * (border + extra);
+    const float w = static_cast<float>(x.getWidth()) / static_cast<float>(x.max + 1);
+    const float ws = w - 2.f * (border + extra);
     g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
+    g.setColour(Colour(static_cast<uint32>(x.gui.getForegroundColor())));
+    g.fillRect(w * x.getValueOriginal() + border + extra, border + extra, ws, hs);
     g.setColour(Colours::black);
-    g.drawRect(x.getLocalBounds(), Gui::getBorderSize());
-    const float w = static_cast<float>(x.getHeight());
     for(size_t i = 1; i < size_t(x.max) + 1; ++i)
     {
-        g.drawLine(w * float(i), 0.f, w * float(i), w, Gui::getBorderSize());
+        g.drawLine(w * static_cast<float>(i), 0.f, w * static_cast<float>(i), w, border);
     }
-    const float o = std::max(w * 0.125f, Gui::getBorderSize() + 1.f);
-    const float l = w - o * 2.f;
-    g.setColour(Colour(static_cast<uint32>(x.gui.getForegroundColor())));
-    g.fillRect(w * x.getValueOriginal() + o, o, l, l);
+    g.drawRect(x.getLocalBounds(), border);
 }
 
 void GuiObject::mouseDownRadioHorizontal(GuiObject& x, const MouseEvent& e)
@@ -389,11 +395,11 @@ void GuiObject::paintRadioVertical(GuiObject& x, Graphics& g)
     g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
     g.setColour(Colour(static_cast<uint32>(x.gui.getForegroundColor())));
     g.fillRect(border + extra, h * x.getValueOriginal() + border + extra, ws, hs);
+    g.setColour(Colours::black);
     for(size_t i = 1; i < static_cast<size_t>(x.max) + 1; ++i)
     {
         g.drawLine(0.f, h * static_cast<float>(i), h, h * static_cast<float>(i), border);
     }
-    g.setColour(Colours::black);
     g.drawRect(x.getLocalBounds(), border);
 }
 
@@ -411,7 +417,7 @@ void GuiObject::mouseDownRadioVertical(GuiObject& x, const MouseEvent& e)
 void GuiObject::paintBang(GuiObject& x, Graphics& g)
 {
     const float border = 1.f;
-    const float w = static_cast<float>(x.getWidth() - Gui::getBorderSize() * 2);
+    const float w = static_cast<float>(x.getWidth() - border * 2);
     g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
     if(x.getValueOriginal() > std::numeric_limits<float>::epsilon())
     {
@@ -453,7 +459,7 @@ void GuiObject::paintPanel(GuiObject& x, Graphics& g)
 void GuiObject::paintComment(GuiObject& x, Graphics& g)
 {
     g.setFont(Gui::getFont().withHeight(x.gui.getFontSize() + 2));
-    g.setColour(Gui::getColorTxt());
+    g.setColour(Colours::black);
     g.drawMultiLineText(x.gui.getText(), 0, x.gui.getFontSize(), x.getWidth());
 }
 
