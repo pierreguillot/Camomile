@@ -76,20 +76,111 @@ std::vector<std::string> const& CamomileEnvironment::getErrors() { return get().
 //                                          CONSTRUCTOR                                     //
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-CamomileEnvironment::CamomileEnvironment()
+bool CamomileEnvironment::localize()
 {
-    File const plugin(File::getSpecialLocation(File::currentApplicationFile));
-    if(plugin.exists())
+#ifdef JUCE_MAC
+    File plugin(File::getSpecialLocation(File::currentApplicationFile));
+    if(plugin.exists() && (plugin.hasFileExtension("component") ||
+                           plugin.hasFileExtension("vst") ||
+                           plugin.hasFileExtension("vst3")))
+    {
+        
+        plugin_name = plugin.getFileNameWithoutExtension().toStdString();
+        plugin_path = plugin.getParentDirectory().getFullPathName().toStdString();
+        patch_name = plugin_name + std::string(".pd");
+        patch_path = plugin_path + "/" + plugin.getFileName().toStdString() + std::string("/Contents/Resources");
+        return true;
+    }
+    else
+    {
+        errors.push_back("can't localize the plugin: ");
+        errors.push_back(plugin.getFullPathName().toStdString());
+        
+        plugin = File::getSpecialLocation(File::currentExecutableFile);
+        if(plugin.exists() && (plugin.hasFileExtension("component") ||
+                               plugin.hasFileExtension("vst") ||
+                               plugin.hasFileExtension("vst3")))
+        {
+            errors.clear();
+            plugin_name = plugin.getFileNameWithoutExtension().toStdString();
+            plugin_path = plugin.getParentDirectory().getFullPathName().toStdString();
+            patch_name = plugin_name + std::string(".pd");
+            patch_path = plugin_path;
+            return true;
+        }
+        else
+        {
+            errors.push_back(plugin.getFullPathName().toStdString());
+        }
+    }
+#elif LINUX
+    File plugin(File::getSpecialLocation(File::currentExecutableFile));
+    if(plugin.exists() && plugin.hasFileExtension("so"))
     {
         plugin_name = plugin.getFileNameWithoutExtension().toStdString();
         plugin_path = plugin.getParentDirectory().getFullPathName().toStdString();
         patch_name = plugin_name + std::string(".pd");
-#ifdef JUCE_MAC
-        patch_path = plugin_path + "/" + plugin.getFileName().toStdString() + std::string("/Contents/Resources");
-#else
-        patch_path = plugin_path + String(File::getSeparatorString()).toStdString() + plugin_name;
+        patch_path = plugin_path;
+        return true;
+    }
+    else
+    {
+        errors.push_back("can't localize the plugin: ");
+        errors.push_back(plugin.getFullPathName().toStdString());
+        
+        plugin = File::getSpecialLocation(File::currentApplicationFile);
+        if(plugin.exists() && plugin.hasFileExtension("so"))
+        {
+            errors.clear();
+            plugin_name = plugin.getFileNameWithoutExtension().toStdString();
+            plugin_path = plugin.getParentDirectory().getFullPathName().toStdString();
+            patch_name = plugin_name + std::string(".pd");
+            patch_path = plugin_path;
+            return true;
+        }
+        else
+        {
+            errors.push_back(plugin.getFullPathName().toStdString());
+        }
+    }
+#else // WIN32
+    File plugin(File::getSpecialLocation(File::currentExecutableFile));
+    if(plugin.exists() && (plugin.hasFileExtension("dll") || plugin.hasFileExtension("vst3")))
+    {
+        plugin_name = plugin.getFileNameWithoutExtension().toStdString();
+        plugin_path = plugin.getParentDirectory().getFullPathName().toStdString();
+        patch_name = plugin_name + std::string(".pd");
+        patch_path = plugin_path;
+        return true;
+    }
+    else
+    {
+        errors.push_back("can't localize the plugin: ");
+        errors.push_back(plugin.getFullPathName().toStdString());
+        
+        plugin = File::getSpecialLocation(File::currentApplicationFile);
+        if(plugin.exists() && (plugin.hasFileExtension("dll") || plugin.hasFileExtension("vst3")))
+        {
+            errors.clear();
+            plugin_name = plugin.getFileNameWithoutExtension().toStdString();
+            plugin_path = plugin.getParentDirectory().getFullPathName().toStdString();
+            patch_name = plugin_name + std::string(".pd");
+            patch_path = plugin_path;
+            return true;
+        }
+        else
+        {
+            errors.push_back(plugin.getFullPathName().toStdString());
+        }
+    }
 #endif
+    return false;
+}
 
+CamomileEnvironment::CamomileEnvironment()
+{
+    if(localize())
+    {
         FileInputStream stream(File(String(patch_path + String(File::getSeparatorString()).toStdString() + plugin_name + ".txt")));
         if(stream.openedOk())
         {
@@ -176,12 +267,8 @@ CamomileEnvironment::CamomileEnvironment()
         }
         else
         {
-            errors.push_back("no configuration file.");
+            errors.push_back("can't find the configuration file.");
         }
-    }
-    else
-    {
-        errors.push_back("plugin is not recognized.");
     }
     
     if(programs.empty())

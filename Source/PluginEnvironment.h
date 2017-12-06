@@ -89,6 +89,7 @@ public:
     
 private:
     static CamomileEnvironment& get();
+    bool localize();
     CamomileEnvironment();
     
     std::string     plugin_name = "Camomile";
