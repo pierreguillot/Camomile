@@ -263,7 +263,7 @@ void GuiObject::paintToggle(GuiObject& x, Graphics& g)
     g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
     if(x.getValueOriginal() > std::numeric_limits<float>::epsilon())
     {
-        const float w = static_cast<float>(x.getWidth()) - 2.f * border;
+        const float w = static_cast<float>(x.getWidth() - border * 2);
         g.setColour(Colour(static_cast<uint32>(x.gui.getForegroundColor())));
         g.drawLine(1.f + border, 1.f + border, w, w, border);
         g.drawLine(w, 1.f + border, 1.f + border, w, border);
@@ -398,18 +398,17 @@ void GuiObject::mouseDownRadioVertical(GuiObject& x, const MouseEvent& e)
 
 void GuiObject::paintBang(GuiObject& x, Graphics& g)
 {
-    g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
-    g.drawRect(x.getLocalBounds(), Gui::getBorderSize());
+    const float border = 1.f;
     const float w = static_cast<float>(x.getWidth() - Gui::getBorderSize() * 2);
-    const float o = w * 0.1f;
-
+    g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
     if(x.getValueOriginal() > std::numeric_limits<float>::epsilon())
     {
         g.setColour(Colour(static_cast<uint32>(x.gui.getForegroundColor())));
-        g.fillEllipse(o + Gui::getBorderSize(), o + Gui::getBorderSize(), o * 8.f, o * 8.f);
+        g.fillEllipse(border, border, w, w);
     }
     g.setColour(Colours::black);
-    g.drawEllipse(o + Gui::getBorderSize(), o + Gui::getBorderSize(), o * 8.f, o * 8.f, Gui::getBorderSize());
+    g.drawEllipse(border, border, w, w, border);
+    g.drawRect(x.getLocalBounds(), border);
 }
 
 void GuiObject::mouseDownBang(GuiObject& x, const MouseEvent& e)
