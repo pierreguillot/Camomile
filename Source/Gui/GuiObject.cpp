@@ -293,12 +293,17 @@ void GuiObject::mouseUpSlider(GuiObject& x, const MouseEvent& e)
 
 void GuiObject::paintSliderHorizontal(GuiObject& x, Graphics& g)
 {
+    const float border = 1.f;
+    const float cursor = 3.f;
     g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
-    g.setColour(Colours::black);
-    g.drawRect(x.getLocalBounds(), Gui::getBorderSize());
-    const float pos = x.getValueScaled() * static_cast<float>(x.getWidth() - 4) + 2.f;
+    const float w = static_cast<float>(x.getWidth() - border * 2);
+    const float h = static_cast<float>(x.getHeight() - border * 2);
+    const float pos = x.getValueScaled() * (w - cursor - border) + cursor;
     g.setColour(Colour(static_cast<uint32>(x.gui.getForegroundColor())));
-    g.drawLine(pos, Gui::getBorderSize(), pos, static_cast<float>(x.getHeight()) - Gui::getBorderSize(), 3.f);
+    g.drawLine(pos, border + 0.5f, pos, h + 0.5f, 3.f);
+    
+    g.setColour(Colours::black);
+    g.drawRect(x.getLocalBounds(), border);
 }
 
 void GuiObject::mouseDownSliderHorizontal(GuiObject& x, const MouseEvent& e)
