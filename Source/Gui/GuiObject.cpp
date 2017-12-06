@@ -290,11 +290,12 @@ void GuiObject::mouseUpSlider(GuiObject& x, const MouseEvent& e)
 
 void GuiObject::paintSliderHorizontal(GuiObject& x, Graphics& g)
 {
-    g.fillAll(Gui::getColorBg());
-    g.setColour(Gui::getColorBd());
+    g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
+    g.setColour(Colours::black);
     g.drawRect(x.getLocalBounds(), Gui::getBorderSize());
     const float pos = x.getValueScaled() * static_cast<float>(x.getWidth() - 4) + 2.f;
-    g.drawLine(pos, 0.f, pos, static_cast<float>(x.getHeight()), Gui::getBorderSize());
+    g.setColour(Colour(static_cast<uint32>(x.gui.getForegroundColor())));
+    g.drawLine(pos, Gui::getBorderSize(), pos, static_cast<float>(x.getHeight()) - Gui::getBorderSize(), 3.f);
 }
 
 void GuiObject::mouseDownSliderHorizontal(GuiObject& x, const MouseEvent& e)
@@ -315,11 +316,12 @@ void GuiObject::mouseDragSliderHorizontal(GuiObject& x, const MouseEvent& e)
 
 void GuiObject::paintSliderVertical(GuiObject& x, Graphics& g)
 {
-    g.fillAll(Gui::getColorBg());
-    g.setColour(Gui::getColorBd());
+    g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
+    g.setColour(Colours::black);
     g.drawRect(x.getLocalBounds(), Gui::getBorderSize());
     const float pos = (1.f - x.getValueScaled())* static_cast<float>(x.getHeight() - 4) + 2.f;
-    g.drawLine(0.f, pos, static_cast<float>(x.getWidth()), pos, Gui::getBorderSize());
+    g.setColour(Colour(static_cast<uint32>(x.gui.getForegroundColor())));
+    g.drawLine(Gui::getBorderSize(), pos, static_cast<float>(x.getWidth()) - Gui::getBorderSize(), pos, 3.f);
 }
 
 void GuiObject::mouseDownSliderVertical(GuiObject& x, const MouseEvent& e)
@@ -396,15 +398,15 @@ void GuiObject::paintBang(GuiObject& x, Graphics& g)
     g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
     g.drawRect(x.getLocalBounds(), Gui::getBorderSize());
     const float w = static_cast<float>(x.getWidth() - Gui::getBorderSize() * 2);
-    const float o = w * 0.125f;
+    const float o = w * 0.1f;
 
     if(x.getValueOriginal() > std::numeric_limits<float>::epsilon())
     {
         g.setColour(Colour(static_cast<uint32>(x.gui.getForegroundColor())));
-        g.fillEllipse(o + Gui::getBorderSize(), o + Gui::getBorderSize(), o * 6.f, o * 6.f);
+        g.fillEllipse(o + Gui::getBorderSize(), o + Gui::getBorderSize(), o * 8.f, o * 8.f);
     }
     g.setColour(Colours::black);
-    g.drawEllipse(o + Gui::getBorderSize(), o + Gui::getBorderSize(), o * 6.f, o * 6.f, Gui::getBorderSize());
+    g.drawEllipse(o + Gui::getBorderSize(), o + Gui::getBorderSize(), o * 8.f, o * 8.f, Gui::getBorderSize());
 }
 
 void GuiObject::mouseDownBang(GuiObject& x, const MouseEvent& e)
