@@ -5,13 +5,17 @@
 */
 
 #include "GuiObject.hpp"
-#include "Gui.hpp"
-#include <limits>
+
+static Font getPdFont() {
+    static Font DejaVu = Font(Typeface::createSystemTypefaceFor(BinaryData::DejaVuSansMono_ttf, BinaryData::DejaVuSansMono_ttfSize)).withHeight(12.f);
+    return DejaVu;
+}
 
 GuiObject::GuiObject(GuiPatch& p, pd::Gui& g) : gui(g), patch(p), edited(false),
-value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
+value(g.getValue()), min(g.getMinimum()), max(g.getMaximum()), font(getPdFont())
 {
     std::array<int, 4> const bounds(gui.getBounds());
+    
     setBounds(int(bounds[0]), int(bounds[1]), int(bounds[2]), int(bounds[3]));
     if(gui.getType() == pd::Gui::Type::Toggle)
     {
@@ -57,24 +61,25 @@ value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
     {
         metpaint = GuiObject::paintComment;
         setBounds(int(bounds[0]), int(bounds[1]), bounds[2] < 1.f ? 360 : bounds[2] * 6, 200);
+        font.setHeight(gui.getFontSize() + 2);
         setInterceptsMouseClicks(false, false);
     }
     else if(gui.getType() == pd::Gui::Type::Number)
     {
+        const float border = 1.f;
+        const float w = getWidth();
+        const float h = getHeight();
         metpaint = GuiObject::paintNumber;
         metmousedown = GuiObject::mouseDownNumber;
         metmousedrag = GuiObject::mouseDragNumber;
         metmouseup = GuiObject::mouseUpNumber;
         
-        Rectangle<int> const b(getLocalBounds());
-        Font const tf = Gui::getFont().withHeight(gui.getFontSize() + 2);
+        Font const tf = font.withHeight(gui.getFontSize() + 2);
         label = new Label();
-        label->setBounds(b.getHeight() / 2, tf.getDescent(),
-                         b.getWidth() - b.getHeight() / 2, b.getHeight() - tf.getDescent());
+        label->setBounds(h * 0.5f, tf.getDescent(), w - h * 0.5f, h - tf.getDescent());
         label->setFont(tf);
         label->setJustificationType(Justification::centredLeft);
-        label->setBorderSize(BorderSize<int>(Gui::getBorderSize()+1, Gui::getBorderSize(),
-                                               Gui::getBorderSize(), Gui::getBorderSize()));
+        label->setBorderSize(BorderSize<int>(border+1, border, border, border));
         label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
         label->setEditable(false, false);
         label->setInterceptsMouseClicks(false, false);
@@ -458,7 +463,7 @@ void GuiObject::paintPanel(GuiObject& x, Graphics& g)
 
 void GuiObject::paintComment(GuiObject& x, Graphics& g)
 {
-    g.setFont(Gui::getFont().withHeight(x.gui.getFontSize() + 2));
+    g.setFont(x.font);
     g.setColour(Colours::black);
     g.drawMultiLineText(x.gui.getText(), 0, x.gui.getFontSize(), x.getWidth());
 }

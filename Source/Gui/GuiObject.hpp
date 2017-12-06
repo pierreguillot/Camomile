@@ -59,6 +59,7 @@ private:
     float value  = 0;
     float min = 0;
     float max = 1;
+    Font  font;
     // For number
     bool  shift;
     ScopedPointer<Label> label;

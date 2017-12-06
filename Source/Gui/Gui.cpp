@@ -12,8 +12,8 @@
 
 Font Gui::getFont()
 {
-    static Font DejaVu(Typeface::createSystemTypefaceFor(BinaryData::DejaVuSansMono_ttf, BinaryData::DejaVuSansMono_ttfSize));
-    return DejaVu.withHeight(12.f);
+    static Font DejaVu = Font(Typeface::createSystemTypefaceFor(BinaryData::DejaVuSansMono_ttf, BinaryData::DejaVuSansMono_ttfSize)).withHeight(12.f);
+    return DejaVu;
 }
 
 int Gui::getBorderSize() noexcept
