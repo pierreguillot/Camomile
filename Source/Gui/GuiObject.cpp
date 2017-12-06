@@ -259,15 +259,17 @@ void GuiObject::mouseDragNumber(GuiObject& x, const MouseEvent& e)
 
 void GuiObject::paintToggle(GuiObject& x, Graphics& g)
 {
+    const float border = 1.f;
     g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
     if(x.getValueOriginal() > std::numeric_limits<float>::epsilon())
     {
+        const float w = static_cast<float>(x.getWidth()) - 2.f * border;
         g.setColour(Colour(static_cast<uint32>(x.gui.getForegroundColor())));
-        g.drawLine(0.f, 0.f, static_cast<float>(x.getWidth()), static_cast<float>(x.getHeight()), Gui::getBorderSize());
-        g.drawLine(static_cast<float>(x.getWidth()), 0.f, 0.f, static_cast<float>(x.getHeight()), Gui::getBorderSize());
+        g.drawLine(1.f + border, 1.f + border, w, w, border);
+        g.drawLine(w, 1.f + border, 1.f + border, w, border);
     }
     g.setColour(Colours::black);
-    g.drawRect(x.getLocalBounds(), Gui::getBorderSize());
+    g.drawRect(x.getLocalBounds(), border);
 }
 
 void GuiObject::mouseDownToggle(GuiObject& x, const MouseEvent& event)
