@@ -19,10 +19,12 @@
 -1 -1 7900 1;
 #X obj 172 83 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 33 25 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+#X obj 10 42 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
 -260097 -4160 -1 0 256;
 #X obj 52 93 tgl 18 0 empty empty empty 17 7 0 10 -261682 -258113 -1
 0 1;
 #X obj 131 29 hsl 81 9 0 127 0 0 empty empty empty -2 -8 0 10 -203904
 -1 -1 0 1;
+#X obj 87 5 vsl 11 101 100 10 0 0 empty empty empty 0 -9 0 10 -261234
+-258113 -1 10000 1;
 #X coords 0 -1 1 1 230 120 2 2 2;

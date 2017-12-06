@@ -295,12 +295,12 @@ void GuiObject::paintSliderHorizontal(GuiObject& x, Graphics& g)
 {
     const float border = 1.f;
     const float cursor = 3.f;
-    g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
     const float w = static_cast<float>(x.getWidth() - border * 2);
     const float h = static_cast<float>(x.getHeight() - border * 2);
     const float pos = x.getValueScaled() * (w - cursor - border) + cursor;
+    g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
     g.setColour(Colour(static_cast<uint32>(x.gui.getForegroundColor())));
-    g.drawLine(pos, border + 0.5f, pos, h + 0.5f, 3.f);
+    g.drawLine(pos, border + 0.5f, pos, h + 0.5f, cursor);
     
     g.setColour(Colours::black);
     g.drawRect(x.getLocalBounds(), border);
@@ -324,12 +324,16 @@ void GuiObject::mouseDragSliderHorizontal(GuiObject& x, const MouseEvent& e)
 
 void GuiObject::paintSliderVertical(GuiObject& x, Graphics& g)
 {
+    const float border = 1.f;
+    const float cursor = 3.f;
+    const float w = static_cast<float>(x.getWidth() - border * 2);
+    const float h = static_cast<float>(x.getHeight() - border * 2);
+    const float pos = (1.f - x.getValueScaled()) * (h - cursor - border) + cursor;
     g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
-    g.setColour(Colours::black);
-    g.drawRect(x.getLocalBounds(), Gui::getBorderSize());
-    const float pos = (1.f - x.getValueScaled())* static_cast<float>(x.getHeight() - 4) + 2.f;
     g.setColour(Colour(static_cast<uint32>(x.gui.getForegroundColor())));
-    g.drawLine(Gui::getBorderSize(), pos, static_cast<float>(x.getWidth()) - Gui::getBorderSize(), pos, 3.f);
+    g.drawLine(border + 0.5f, pos, w + 0.5f, pos, cursor);
+    g.setColour(Colours::black);
+    g.drawRect(x.getLocalBounds(), border);
 }
 
 void GuiObject::mouseDownSliderVertical(GuiObject& x, const MouseEvent& e)
