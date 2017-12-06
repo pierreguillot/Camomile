@@ -1,0 +1,2 @@
+buse 2 2;
+code zUkt;

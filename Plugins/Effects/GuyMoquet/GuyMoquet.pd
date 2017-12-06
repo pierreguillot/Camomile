@@ -1,0 +1,18 @@
+#N canvas 681 223 657 412 10;
+#X obj 3 3 cnv 15 114 118 empty empty empty 20 12 0 14 -18931 -66577
+0;
+#X text 122 105 by Pierre Guillot;
+#X obj 14 60 bng 15 250 50 0 empty empty empty 17 7 0 10 -5184 -14513
+-1;
+#X obj 179 81 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 117 3 cnv 15 114 118 empty empty empty 20 12 0 14 -256 -66577
+0;
+#X text 122 105 by Pierre Guillot;
+#X obj 179 81 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 111 3 hradio 15 1 0 8 empty empty empty 0 -8 0 10 -180259 -260097
+-1 2;
+#X obj 101 76 vradio 15 1 0 3 empty empty empty 0 -8 0 10 -2788 -1
+-1 0;
+#X coords 0 -1 1 1 230 120 2 2 2;
