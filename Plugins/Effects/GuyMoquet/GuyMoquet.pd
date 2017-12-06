@@ -11,8 +11,8 @@
 #X text 122 105 by Pierre Guillot;
 #X obj 111 3 hradio 15 1 0 8 empty empty empty 0 -8 0 10 -180259 -260097
 -1 2;
-#X obj 101 76 vradio 15 1 0 3 empty empty empty 0 -8 0 10 -2788 -1
--1 1;
+#X obj 67 32 vradio 15 1 0 3 empty empty empty 0 -8 0 10 -2788 -1 -1
+2;
 #X obj 101 5 vsl 10 100 0 127 0 0 empty empty empty 0 -9 0 10 -261234
 -257985 -1 0 1;
 #X obj 131 18 hsl 80 8 0 127 0 0 empty empty empty -2 -8 0 10 -203904
@@ -25,6 +25,6 @@
 0 1;
 #X obj 131 29 hsl 81 9 0 127 0 0 empty empty empty -2 -8 0 10 -203904
 -1 -1 0 1;
-#X obj 87 5 vsl 11 101 100 10 0 0 empty empty empty 0 -9 0 10 -261234
--258113 -1 10000 1;
+#X obj 86 18 vsl 11 101 100 10 0 0 empty empty empty 0 -9 0 10 -261234
+-258113 -1 0 1;
 #X coords 0 -1 1 1 230 120 2 2 2;
