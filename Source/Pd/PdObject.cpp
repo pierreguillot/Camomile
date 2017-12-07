@@ -89,10 +89,10 @@ namespace pd
             {
                 int x = 0, y = 0, w = 0, h = 0;
                 wb->w_getrectfn(static_cast<t_gobj*>(m_ptr), static_cast<t_canvas*>(m_patch.m_ptr), &x, &y, &w, &h);
-                w = w - x;
-                h = h - y;
-                x = x - static_cast<t_canvas*>(m_patch.m_ptr)->gl_xmargin;
-                y = y - static_cast<t_canvas*>(m_patch.m_ptr)->gl_ymargin;
+                w = w - x + 1;
+                h = h - y + 1;
+                x = x - static_cast<t_canvas*>(m_patch.m_ptr)->gl_xmargin - 1;
+                y = y - static_cast<t_canvas*>(m_patch.m_ptr)->gl_ymargin - 1;
                 return {{x, y, w, h}};
             }
         }
@@ -362,7 +362,7 @@ namespace pd
     std::array<int, 2> Gui::getPanelSize() const noexcept
     {
         if(m_ptr && m_type == Type::Panel)
-            return {static_cast<t_my_canvas*>(m_ptr)->x_vis_w, static_cast<t_my_canvas*>(m_ptr)->x_vis_h};
+            return {static_cast<t_my_canvas*>(m_ptr)->x_vis_w + 1, static_cast<t_my_canvas*>(m_ptr)->x_vis_h + 1};
         return {0, 0};
     }
 }

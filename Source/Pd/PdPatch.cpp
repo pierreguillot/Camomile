@@ -45,7 +45,7 @@ namespace pd
         t_canvas const* cnv = static_cast<t_canvas*>(m_ptr);
         if(static_cast<bool>(m_ptr) && cnv->gl_isgraph)
         {
-            return {cnv->gl_xmargin, cnv->gl_ymargin, cnv->gl_pixwidth, cnv->gl_pixheight};
+            return {cnv->gl_xmargin, cnv->gl_ymargin, cnv->gl_pixwidth - 1, cnv->gl_pixheight - 1};
         }
         return {0, 0, 0, 0};
     }
