@@ -82,7 +82,9 @@ namespace pd
             Bang             = 7,
             Panel            = 8,
             VuMeter          = 9,
-            Comment          = 10
+            Comment          = 10,
+            AtomNumber       = 11,
+            AtomSymbol       = 12
         };
         
         //! @brief The constructor for an empty Object.

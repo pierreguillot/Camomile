@@ -19,7 +19,6 @@ extern "C"
 
 namespace pd
 {
-    
     // ==================================================================================== //
     //                                      COMMENT                                         //
     // ==================================================================================== //
@@ -104,6 +103,13 @@ namespace pd
     //                                      GUI                                          //
     // ==================================================================================== //
     
+    // False GATOM
+    typedef struct _gatom
+    {
+        t_text a_text;
+        t_atom a_atom;
+    } t_gatom;
+    
     Gui::Gui() noexcept : Object(), m_type(Type::Undefined)
     {
         
@@ -151,6 +157,13 @@ namespace pd
         else if(getName() == "text")
         {
            m_type = Type::Comment;
+        }
+        else if(getName() == "gatom")
+        {
+            if(static_cast<t_gatom*>(m_ptr)->a_atom.a_type == A_FLOAT)
+                m_type = Type::AtomNumber;
+            else if(static_cast<t_gatom*>(m_ptr)->a_atom.a_type == A_SYMBOL)
+                m_type = Type::AtomSymbol;
         }
     }
     
@@ -298,7 +311,7 @@ namespace pd
     {
         if(!m_ptr )
             return 0;
-        if(m_type == Type::Comment)
+        if(m_type >= Type::Comment)
         {
             return (static_cast<t_canvas*>(m_patch.m_ptr))->gl_font;
         }
@@ -317,21 +330,21 @@ namespace pd
     unsigned int Gui::getBackgroundColor() const noexcept
     {
         if(!m_ptr || m_type == Type::Undefined || m_type >= Type::Comment)
-            return 0;
+            return 0xffffffff;
         return fromIemColors(((static_cast<t_iemgui*>(m_ptr))->x_bcol));
     }
     
     unsigned int Gui::getForegroundColor() const noexcept
     {
         if(!m_ptr || m_type == Type::Undefined || m_type >= Type::Comment)
-            return 0;
+            return 0xff000000;
         return fromIemColors(((static_cast<t_iemgui*>(m_ptr))->x_fcol));
     }
     
     unsigned int Gui::getLabelColor() const noexcept
     {
         if(!m_ptr || m_type == Type::Undefined || m_type >= Type::Comment)
-            return 0;
+            return 0xff000000;
         return fromIemColors(((static_cast<t_iemgui*>(m_ptr))->x_lcol));
     }
     

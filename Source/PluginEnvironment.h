@@ -43,6 +43,9 @@ public:
     //! @brief Gets the name to the Pd patch.
     static std::string getPatchName();
     
+    //! @brief Gets the name to the Pd patch.
+    static std::string getImageName();
+    
     //! @brief Gets if the Pd version.
     static std::string getPdVersion();
     
@@ -97,6 +100,7 @@ private:
     unsigned int    plugin_code = 0x4b707139;
     std::string     patch_name  = "Camomile.pd";
     std::string     patch_path  = "";
+    std::string     image_name  = "";
     bool            valid       = false;
     std::bitset<8>  state;
     
@@ -121,6 +125,7 @@ private:
         init_midi_only  = 3,
         init_tail_length= 4,
         init_latency    = 5,
-        init_code    = 6
+        init_code       = 6,
+        init_image      = 7
     };
 };
