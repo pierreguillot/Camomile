@@ -77,7 +77,7 @@ value(g.getValue()), min(g.getMinimum()), max(g.getMaximum()), font(getPdFont())
         
         Font const tf = font.withHeight(fs);
         label = new Label();
-        label->setBounds(h * 0.5f, 0, w - h * 0.5f, h);
+        label->setBounds(h * 0.5f, 0.5f, w - h * 0.5f, h);
         label->setFont(tf);
         label->setJustificationType(Justification::centredLeft);
         label->setBorderSize(BorderSize<int>(border+1, border, border, border));
@@ -225,12 +225,21 @@ void GuiObject::paintNumber(GuiObject& x, Graphics& g)
 {
     const float border = 1.f;
     const float h = static_cast<float>(x.getHeight());
-    g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
+    const float w = static_cast<float>(x.getWidth());
+    Path p;
+    p.startNewSubPath(0.5f, 0.5f);
+    p.lineTo(0.5f, h - 0.5f);
+    p.lineTo(w - 0.5f, h - 0.5f);
+    p.lineTo(w - 0.5f, h * 0.25f);
+    p.lineTo(w - (h * 0.25f), 0.5f);
+    p.closeSubPath();
+    g.setColour(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
+    g.fillPath(p);
     g.setColour(Colour(static_cast<uint32>(x.gui.getForegroundColor())));
     g.drawLine(0.f, 0.f, h * 0.5f, h * 0.5f, border);
     g.drawLine(0.f, h, h * 0.5f, h * 0.5f, border);
     g.setColour(Colours::black);
-    g.drawRect(x.getLocalBounds(), border);
+    g.strokePath(p, PathStrokeType(border));
 }
 
 void GuiObject::mouseDownNumber(GuiObject& x, const MouseEvent& event)
