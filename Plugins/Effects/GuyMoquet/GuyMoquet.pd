@@ -1,6 +1,4 @@
 #N canvas 681 223 657 412 10;
-#X obj 3 3 cnv 15 114 118 empty empty empty 20 12 0 14 -18931 -66577
-0;
 #X text 122 105 by Pierre Guillot;
 #X obj 14 60 bng 15 250 50 0 empty empty empty 17 7 0 10 -5184 -14513
 -1;
@@ -27,4 +25,5 @@
 -1 -1 0 1;
 #X obj 86 18 vsl 11 101 100 10 0 0 empty empty empty 0 -9 0 10 -261234
 -258113 -1 0 1;
+#X floatatom 18 14 5 0 0 0 - - -, f 5;
 #X coords 0 -1 1 1 230 120 2 2 2;
