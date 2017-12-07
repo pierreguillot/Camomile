@@ -80,7 +80,7 @@ value(g.getValue()), min(g.getMinimum()), max(g.getMaximum()), font(getPdFont())
         label->setBounds(h * 0.5f, 0.5f, w - h * 0.5f, h);
         label->setFont(tf);
         label->setJustificationType(Justification::centredLeft);
-        label->setBorderSize(BorderSize<int>(border+1, border, border, border));
+        label->setBorderSize(BorderSize<int>(border+2, border, border, border));
         label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
         label->setEditable(false, false);
         label->setInterceptsMouseClicks(false, false);
