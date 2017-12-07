@@ -69,14 +69,15 @@ value(g.getValue()), min(g.getMinimum()), max(g.getMaximum()), font(getPdFont())
         const float border = 1.f;
         const float w = getWidth();
         const float h = getHeight();
+        const float fs = gui.getFontSize() + 2;
         metpaint = GuiObject::paintNumber;
         metmousedown = GuiObject::mouseDownNumber;
         metmousedrag = GuiObject::mouseDragNumber;
         metmouseup = GuiObject::mouseUpNumber;
         
-        Font const tf = font.withHeight(gui.getFontSize() + 2);
+        Font const tf = font.withHeight(fs);
         label = new Label();
-        label->setBounds(h * 0.5f, tf.getDescent(), w - h * 0.5f, h - tf.getDescent());
+        label->setBounds(h * 0.5f, 0, w - h * 0.5f, h);
         label->setFont(tf);
         label->setJustificationType(Justification::centredLeft);
         label->setBorderSize(BorderSize<int>(border+1, border, border, border));
@@ -226,8 +227,8 @@ void GuiObject::paintNumber(GuiObject& x, Graphics& g)
     const float h = static_cast<float>(x.getHeight());
     g.fillAll(Colour(static_cast<uint32>(x.gui.getBackgroundColor())));
     g.setColour(Colour(static_cast<uint32>(x.gui.getForegroundColor())));
-    g.drawLine(0.f, 0.f, h * 0.35f, h * 0.5f, border);
-    g.drawLine(0.f, h, h * 0.35f, h * 0.5f, border);
+    g.drawLine(0.f, 0.f, h * 0.5f, h * 0.5f, border);
+    g.drawLine(0.f, h, h * 0.5f, h * 0.5f, border);
     g.setColour(Colours::black);
     g.drawRect(x.getLocalBounds(), border);
 }
