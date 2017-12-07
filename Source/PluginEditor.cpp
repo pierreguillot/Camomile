@@ -60,6 +60,29 @@ processor (p)
     {
         addAndMakeVisible(objects.add(new GuiObject(*this, gui)));
     }
+   
+    if(!CamomileEnvironment::getImageName().empty())
+    {
+        File f(CamomileEnvironment::getPatchPath() + File::getSeparatorString() + String(CamomileEnvironment::getImageName()));
+        if(f.exists())
+        {
+            Image img = ImageFileFormat::loadFrom(f);
+            if(img.isValid())
+            {
+                background.setImage(img);
+                background.setTransformToFit(getBounds().toType<float>(), RectanglePlacement::stretchToFit);
+                addAndMakeVisible(background, 0);
+            }
+            else
+            {
+                processor.addError("background image " + CamomileEnvironment::getImageName() + " is invalid");
+            }
+        }
+        else
+        {
+            processor.addError("background image " + CamomileEnvironment::getImageName() + " doesn't exist");
+        }
+    }
 }
 
 CamomileAudioProcessorEditor::~CamomileAudioProcessorEditor()

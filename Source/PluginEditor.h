@@ -52,6 +52,7 @@ private:
     GWindow                     window;
     FlowerButton                button;
     OwnedArray<GuiObject>       objects;
+    DrawableImage               background;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessorEditor)
 };
