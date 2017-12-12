@@ -201,7 +201,7 @@ CamomileEnvironment::CamomileEnvironment()
                         {
                             programs.push_back(CamomileParser::getString(entry.second));
                         }
-                        else if(entry.first == "buse")
+                        else if(entry.first == "bus")
                         {
                             buses.push_back(CamomileParser::getTwoIntegers(entry.second));
                         }

@@ -38,6 +38,6 @@ param -name Controler Slide Time -label ms -min 0 -max 500 -default 20;
 param -name Controler Bend -label ½tones -min 0 -max 12 -default 2;
 param -name Controler Volume -label dB -min 0 -max 100 -default 80;
 
-buse 0 2;
+bus 0 2;
 code zWry;
 midiin true;
