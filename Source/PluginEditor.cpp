@@ -58,7 +58,7 @@ processor (p)
     auto guis(p.getPatch().getGuis());
     for(auto& gui : guis)
     {
-        addAndMakeVisible(objects.add(new GuiObject(*this, gui)));
+        addAndMakeVisible(objects.add(GuiObject::createTyped(*this, gui)));
     }
    
     if(!CamomileEnvironment::getImageName().empty())
