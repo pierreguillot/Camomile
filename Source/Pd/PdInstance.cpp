@@ -302,16 +302,19 @@ namespace pd
     void Instance::sendMessage(std::string const& receiver, const std::string& msg, const std::vector<Atom>& list) const
     {
         t_atom* argv = (t_atom *)getbytes(sizeof(t_atom) * list.size());
-        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        for(size_t i = 0; i < list.size(); ++i)
+        if(argv)
         {
-            if(list[i].isFloat())
-                libpd_set_float(argv+i, list[i].getFloat());
-            else
-                libpd_set_symbol(argv+i, list[i].getSymbol().c_str());
+            libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
+            for(size_t i = 0; i < list.size(); ++i)
+            {
+                if(list[i].isFloat())
+                    libpd_set_float(argv+i, list[i].getFloat());
+                else
+                    libpd_set_symbol(argv+i, list[i].getSymbol().c_str());
+            }
+            libpd_message(receiver.c_str(), msg.c_str(), (int)list.size(), argv);
+            freebytes(argv, sizeof(t_atom) * list.size());
         }
-        libpd_message(receiver.c_str(), msg.c_str(), (int)list.size(), argv);
-        freebytes(argv, sizeof(t_atom) * list.size());
     }
     
     void Instance::processMessages()
