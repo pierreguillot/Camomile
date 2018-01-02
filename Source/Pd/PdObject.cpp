@@ -88,7 +88,10 @@ namespace pd
             if(static_cast<t_text*>(m_ptr)->te_g.g_pd->c_patchable && wb && wb->w_getrectfn)
             {
                 int x = 0, y = 0, w = 0, h = 0;
+                sys_lock();
+                m_patch.m_instance->setThis();
                 wb->w_getrectfn(static_cast<t_gobj*>(m_ptr), static_cast<t_canvas*>(m_patch.m_ptr), &x, &y, &w, &h);
+                sys_unlock();
                 w = w - x + 1;
                 h = h - y + 1;
                 x = x - static_cast<t_canvas*>(m_patch.m_ptr)->gl_xmargin - 1;
@@ -303,8 +306,10 @@ namespace pd
     {
         if(!m_ptr || m_type == Type::Comment)
             return;
+        sys_lock();
         m_patch.m_instance->setThis();
         pd_float(static_cast<t_pd*>(m_ptr), value);
+        sys_unlock();
     }
     
     int Gui::getFontSize() const noexcept
