@@ -129,6 +129,10 @@ namespace pd
         
         std::array<int, 2> getPanelSize() const noexcept;
         
+        std::string getSymbol() const noexcept;
+        
+        void setSymbol(std::string const& value) noexcept;
+        
     private:
 
         //! @brief The constructor for a new Object.

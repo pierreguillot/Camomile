@@ -111,6 +111,10 @@ namespace pd
     {
         t_text a_text;
         t_atom a_atom;
+        t_glist *a_glist;
+        t_float a_toggle;
+        t_float a_draghi;
+        t_float a_draglo;
     } t_gatom;
     
     Gui::Gui() noexcept : Object(), m_type(Type::Undefined)
@@ -229,6 +233,10 @@ namespace pd
         {
             return (static_cast<t_my_numbox*>(m_ptr))->x_min;
         }
+        else if(m_type == Type::AtomNumber)
+        {
+            return (static_cast<t_gatom*>(m_ptr))->a_draglo;
+        }
         return 0.f;
     }
     
@@ -259,6 +267,10 @@ namespace pd
         else if(m_type == Type::Bang)
         {
             return 1;
+        }
+        else if(m_type == Type::AtomNumber)
+        {
+            return (static_cast<t_gatom*>(m_ptr))->a_draghi;
         }
         return 1.f;
     }
@@ -299,16 +311,38 @@ namespace pd
         {
             return 0;
         }
+        else if(m_type == Type::AtomNumber)
+        {
+            return atom_getfloat(&(static_cast<t_gatom*>(m_ptr)->a_atom));
+        }
         return 0.f;
     }
     
     void Gui::setValue(float value) noexcept
     {
-        if(!m_ptr || m_type == Type::Comment)
+        if(!m_ptr || m_type == Type::Comment || m_type == Type::AtomSymbol)
             return;
         sys_lock();
         m_patch.m_instance->setThis();
         pd_float(static_cast<t_pd*>(m_ptr), value);
+        sys_unlock();
+    }
+    
+    std::string Gui::getSymbol() const noexcept
+    {
+        if(!m_ptr || m_type != Type::AtomSymbol)
+            return std::string();
+        else
+            return std::string(atom_getsymbol(&(static_cast<t_gatom*>(m_ptr)->a_atom))->s_name);
+    }
+    
+    void Gui::setSymbol(std::string const& value) noexcept
+    {
+        if(!m_ptr || m_type != Type::AtomSymbol)
+            return;
+        sys_lock();
+        m_patch.m_instance->setThis();
+        pd_symbol(static_cast<t_pd*>(m_ptr), gensym(value.c_str()));
         sys_unlock();
     }
     
