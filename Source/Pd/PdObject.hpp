@@ -43,7 +43,7 @@ namespace pd
         std::string getName() const;
         
         //! @brief The bounds of the Object.
-        std::array<int, 4> getBounds() const noexcept;
+        virtual std::array<int, 4> getBounds() const noexcept;
         
     protected:
         
@@ -127,11 +127,11 @@ namespace pd
         
         std::string getLabel() const noexcept;
         
-        std::array<int, 2> getPanelSize() const noexcept;
-        
         std::string getSymbol() const noexcept;
         
         void setSymbol(std::string const& value) noexcept;
+        
+        std::array<int, 4> getBounds() const noexcept override;
         
     private:
 

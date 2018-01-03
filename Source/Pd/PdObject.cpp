@@ -109,12 +109,13 @@ namespace pd
     // False GATOM
     typedef struct _gatom
     {
-        t_text a_text;
-        t_atom a_atom;
-        t_glist *a_glist;
-        t_float a_toggle;
-        t_float a_draghi;
-        t_float a_draglo;
+        t_text      a_text;
+        t_atom      a_atom;
+        t_glist*    a_glist;
+        t_float     a_toggle;
+        t_float     a_draghi;
+        t_float     a_draglo;
+        t_symbol*   a_label;
     } t_gatom;
     
     Gui::Gui() noexcept : Object(), m_type(Type::Undefined)
@@ -196,7 +197,6 @@ namespace pd
     {
         return m_type;
     }
-    
     
     size_t Gui::getNumberOfSteps() const noexcept
     {
@@ -352,11 +352,11 @@ namespace pd
             return 0;
         if(m_type >= Type::Comment)
         {
-            return (static_cast<t_canvas*>(m_patch.m_ptr))->gl_font;
+            return glist_getfont(static_cast<t_canvas*>(m_patch.m_ptr)) + 2;
         }
         else
         {
-            return (static_cast<t_iemgui*>(m_ptr))->x_fontsize;
+            return (static_cast<t_iemgui*>(m_ptr))->x_fontsize + 2;
         }
     }
     
@@ -398,11 +398,26 @@ namespace pd
         return std::string();
     }
     
-    std::array<int, 2> Gui::getPanelSize() const noexcept
+
+    std::array<int, 4> Gui::getBounds() const noexcept
     {
-        if(m_ptr && m_type == Type::Panel)
-            return {static_cast<t_my_canvas*>(m_ptr)->x_vis_w + 1, static_cast<t_my_canvas*>(m_ptr)->x_vis_h + 1};
-        return {0, 0};
+        std::array<int, 4> bounds = Object::getBounds();
+        if(m_type == Type::Panel)
+        {
+            bounds[2] = static_cast<t_my_canvas*>(m_ptr)->x_vis_w + 1;
+            bounds[3] = static_cast<t_my_canvas*>(m_ptr)->x_vis_h + 1;
+        }
+        else if(m_type == Type::Comment)
+        {
+            bounds[2] = bounds[2] < 1.f ? 360 : bounds[2] * 6;
+            bounds[3] = 200;
+        }
+        else if(m_type == Type::AtomNumber)
+        {
+            bounds[2] = bounds[2] * 4 + 2;//static_cast<int>(static_cast<t_gatom*>(m_ptr)->a_text.te_width) + 2;
+            bounds[3] = bounds[3] * 2 + 4;//getFontSize() + 20;
+        }
+        return bounds;
     }
 }
 
