@@ -134,3 +134,21 @@ private:
     ScopedPointer<Label> label;
 };
 
+class GuiAtomNumber : public GuiObject, public Label::Listener
+{
+public:
+    GuiAtomNumber(GuiPatch& p, pd::Gui& g);
+    void paint(Graphics& g) final;
+    void mouseDown(const MouseEvent& e) final;
+    void mouseDrag(const MouseEvent& e) final;
+    void mouseUp(const MouseEvent& e) final;
+    void mouseDoubleClick(const MouseEvent&) final;
+    void labelTextChanged(Label* label) final;
+    void editorShown(Label*, TextEditor&) final;
+    void editorHidden(Label*, TextEditor&) final;
+    void timerCallback() final;
+private:
+    bool                 shift;
+    ScopedPointer<Label> label;
+};
+
