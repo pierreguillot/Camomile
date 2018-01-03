@@ -43,7 +43,7 @@ GuiObject* GuiObject::createTyped(GuiPatch& p, pd::Gui& g)
     }
     else if(g.getType() == pd::Gui::Type::Comment)
     {
-        return new GuiPanel(p, g);
+        return new GuiComment(p, g);
     }
     else if(g.getType() == pd::Gui::Type::Number)
     {
