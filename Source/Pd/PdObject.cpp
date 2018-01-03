@@ -412,6 +412,13 @@ namespace pd
             bounds[2] = bounds[2] < 1.f ? 360 : bounds[2] * 6;
             bounds[3] = 200;
         }
+        else if(m_type == Type::AtomNumber || m_type == Type::AtomSymbol)
+        {
+            const int ow = static_cast<t_text*>(m_ptr)->te_width;
+            const int offset = (ow + ow % 2) - 4;
+            bounds[2] = (bounds[2] - offset) / 2;
+            bounds[3] = bounds[3] - 1;
+        }
         return bounds;
     }
 }
