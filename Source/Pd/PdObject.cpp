@@ -6,6 +6,8 @@
 
 #include "PdObject.hpp"
 #include <iostream>
+#include <limits>
+#include <cmath>
 
 extern "C"
 {
@@ -214,6 +216,10 @@ namespace pd
         {
             return (static_cast<t_vdial*>(m_ptr))->x_number;
         }
+        else if(m_type == Type::AtomNumber)
+        {
+            return static_cast<t_text*>(m_ptr)->te_width == 1;
+        }
         return 0.f;
     }
     
@@ -235,7 +241,13 @@ namespace pd
         }
         else if(m_type == Type::AtomNumber)
         {
-            return (static_cast<t_gatom*>(m_ptr))->a_draglo;
+            t_gatom const* gatom = static_cast<t_gatom const*>(m_ptr);
+            if(std::abs(gatom->a_draglo) > std::numeric_limits<float>::epsilon() &&
+               std::abs(gatom->a_draghi) > std::numeric_limits<float>::epsilon())
+            {
+                return gatom->a_draglo;
+            }
+            return -std::numeric_limits<float>::max();
         }
         return 0.f;
     }
@@ -270,7 +282,13 @@ namespace pd
         }
         else if(m_type == Type::AtomNumber)
         {
-            return (static_cast<t_gatom*>(m_ptr))->a_draghi;
+            t_gatom const* gatom = static_cast<t_gatom const*>(m_ptr);
+            if(std::abs(gatom->a_draglo) > std::numeric_limits<float>::epsilon() &&
+               std::abs(gatom->a_draghi) > std::numeric_limits<float>::epsilon())
+            {
+                return gatom->a_draghi;
+            }
+            return std::numeric_limits<float>::max();
         }
         return 1.f;
     }

@@ -397,6 +397,7 @@ void GuiNumber::mouseDown(const MouseEvent& event)
     {
         startEdition();
         shift = event.mods.isShiftDown();
+        last  = getValueOriginal();
     }
 }
 
@@ -410,13 +411,14 @@ void GuiNumber::mouseUp(const MouseEvent& e)
 
 void GuiNumber::mouseDrag(const MouseEvent& e)
 {
+    const float inc = static_cast<float>(-e.getDistanceFromDragStartY());
     if(shift)
     {
-        setValueOriginal(getValueOriginal() + float(e.getDistanceFromDragStartY()) / -100.f);
+        setValueOriginal(last + inc * 0.1f);
     }
     else
     {
-        setValueOriginal(getValueOriginal() + float(e.getDistanceFromDragStartY()) / -10.f);
+        setValueOriginal(last + inc);
     }
     label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
 }
@@ -475,7 +477,7 @@ GuiAtomNumber::GuiAtomNumber(GuiPatch& p, pd::Gui& g) : GuiObject(p, g)
     Font const tf = getPdFont().withHeight(fs);
     
     label = new Label();
-    label->setBounds(getBounds());
+    label->setBounds(0.5f, 0.5f, getWidth() - 0.5f, getHeight() - 1.f);
     label->setFont(tf);
     label->setJustificationType(Justification::centredLeft);
     label->setBorderSize(BorderSize<int>(border+2, border, border, border));
@@ -491,23 +493,41 @@ GuiAtomNumber::GuiAtomNumber(GuiPatch& p, pd::Gui& g) : GuiObject(p, g)
 void GuiAtomNumber::paint(Graphics& g)
 {
     const float border = 1.f;
-    g.fillAll(Colour(static_cast<uint32>(gui.getBackgroundColor())));
+    const float h = static_cast<float>(getHeight());
+    const float w = static_cast<float>(getWidth());
+    const float o = h * 0.25f;
+    Path p;
+    p.startNewSubPath(0.5f, 0.5f);
+    p.lineTo(0.5f, h - 0.5f);
+    p.lineTo(w - 0.5f, h - 0.5f);
+    p.lineTo(w - 0.5f, o);
+    p.lineTo(w - o, 0.5f);
+    p.closeSubPath();
+    g.setColour(Colour(static_cast<uint32>(gui.getBackgroundColor())));
+    g.fillPath(p);
     g.setColour(Colours::black);
-    g.drawRect(getLocalBounds(), border);
+    g.strokePath(p, PathStrokeType(border));
 }
 
 void GuiAtomNumber::mouseDown(const MouseEvent& event)
 {
-    if(!label->hasKeyboardFocus(true))
+    if(gui.getNumberOfSteps() == 1)
+    {
+        startEdition();
+        setValueOriginal(static_cast<float>(getValueOriginal() <= std::numeric_limits<float>::epsilon()));
+        label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+    }
+    else if(!label->hasKeyboardFocus(true))
     {
         startEdition();
         shift = event.mods.isShiftDown();
+        last  = getValueOriginal();
     }
 }
 
 void GuiAtomNumber::mouseUp(const MouseEvent& e)
 {
-    if(!label->hasKeyboardFocus(true))
+    if(gui.getNumberOfSteps() == 1 || !label->hasKeyboardFocus(true))
     {
         stopEdition();
     }
@@ -515,27 +535,34 @@ void GuiAtomNumber::mouseUp(const MouseEvent& e)
 
 void GuiAtomNumber::mouseDrag(const MouseEvent& e)
 {
-    if(shift)
+    if(!gui.getNumberOfSteps())
     {
-        setValueOriginal(getValueOriginal() + float(e.getDistanceFromDragStartY()) / -100.f);
+        const float inc = static_cast<float>(-e.getDistanceFromDragStartY());
+        if(shift)
+        {
+            setValueOriginal(last + inc * 0.1f);
+        }
+        else
+        {
+            setValueOriginal(last + inc);
+        }
+        label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
     }
-    else
-    {
-        setValueOriginal(getValueOriginal() + float(e.getDistanceFromDragStartY()) / -10.f);
-    }
-    label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
 }
 
 void GuiAtomNumber::mouseDoubleClick(const MouseEvent&)
 {
-    startEdition();
-    label->grabKeyboardFocus();
-    label->showEditor();
-    TextEditor* editor = label->getCurrentTextEditor();
-    if(editor)
+    if(!gui.getNumberOfSteps())
     {
-        editor->setIndents(0, 2);
-        editor->setBorder(BorderSize<int>(0));
+        startEdition();
+        label->grabKeyboardFocus();
+        label->showEditor();
+        TextEditor* editor = label->getCurrentTextEditor();
+        if(editor)
+        {
+            editor->setIndents(0, 2);
+            editor->setBorder(BorderSize<int>(0));
+        }
     }
 }
 

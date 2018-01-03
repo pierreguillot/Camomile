@@ -131,6 +131,7 @@ public:
     void timerCallback() final;
 private:
     bool                 shift;
+    float                last;
     ScopedPointer<Label> label;
 };
 
@@ -149,6 +150,7 @@ public:
     void timerCallback() final;
 private:
     bool                 shift;
+    float                last;
     ScopedPointer<Label> label;
 };
 
