@@ -314,7 +314,8 @@ void GuiRadioVertical::mouseDown(const MouseEvent& e)
 
 GuiPanel::GuiPanel(GuiPatch& p, pd::Gui& g) : GuiObject(p, g)
 {
-    setSize(gui.getPanelSize()[0], gui.getPanelSize()[1]);
+    setInterceptsMouseClicks(false, false);
+    stopTimer();
 }
 
 void GuiPanel::paint(Graphics& g)
@@ -328,15 +329,13 @@ void GuiPanel::paint(Graphics& g)
 
 GuiComment::GuiComment(GuiPatch& p, pd::Gui& g) : GuiObject(p, g)
 {
-    std::array<int, 4> const bounds(gui.getBounds());
-    setBounds(int(bounds[0]), int(bounds[1]), bounds[2] < 1.f ? 360 : bounds[2] * 6, 200);
     setInterceptsMouseClicks(false, false);
     stopTimer();
 }
 
 void GuiComment::paint(Graphics& g)
 {
-    g.setFont(getPdFont().withHeight(gui.getFontSize() + 2));
+    g.setFont(getPdFont().withHeight(gui.getFontSize()));
     g.setColour(Colours::black);
     g.drawMultiLineText(gui.getText(), 0, gui.getFontSize(), getWidth());
 }
@@ -350,7 +349,7 @@ GuiNumber::GuiNumber(GuiPatch& p, pd::Gui& g) : GuiObject(p, g)
     const float border = 1.f;
     const float w = getWidth();
     const float h = getHeight();
-    const float fs = gui.getFontSize() + 2;
+    const float fs = gui.getFontSize();
     
     Font const tf = getPdFont().withHeight(fs);
     label = new Label();
