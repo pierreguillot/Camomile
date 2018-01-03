@@ -352,7 +352,7 @@ namespace pd
             return 0;
         if(m_type >= Type::Comment)
         {
-            return glist_getfont(static_cast<t_canvas*>(m_patch.m_ptr)) + 2;
+            return glist_fontheight(static_cast<t_canvas*>(m_patch.m_ptr));
         }
         else
         {
@@ -411,11 +411,6 @@ namespace pd
         {
             bounds[2] = bounds[2] < 1.f ? 360 : bounds[2] * 6;
             bounds[3] = 200;
-        }
-        else if(m_type == Type::AtomNumber)
-        {
-            bounds[2] = bounds[2] * 4 + 2;//static_cast<int>(static_cast<t_gatom*>(m_ptr)->a_text.te_width) + 2;
-            bounds[3] = bounds[3] * 2 + 4;//getFontSize() + 20;
         }
         return bounds;
     }
