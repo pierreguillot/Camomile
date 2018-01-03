@@ -53,6 +53,10 @@ GuiObject* GuiObject::createTyped(GuiPatch& p, pd::Gui& g)
     {
         return new GuiAtomNumber(p, g);
     }
+    else if(g.getType() == pd::Gui::Type::AtomSymbol)
+    {
+        return new GuiAtomSymbol(p, g);
+    }
     return new GuiObject(p, g);
 }
 
@@ -345,19 +349,17 @@ void GuiComment::paint(Graphics& g)
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////     NUMBER              /////////////////////////////
+////////////////////////////////////     TEXT EDITOR         /////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
-GuiNumber::GuiNumber(GuiPatch& p, pd::Gui& g) : GuiObject(p, g)
+GuiTextEditor::GuiTextEditor(GuiPatch& p, pd::Gui& g) : GuiObject(p, g)
 {
     const float border = 1.f;
-    const float w = getWidth();
-    const float h = getHeight();
     const float fs = gui.getFontSize();
-    
     Font const tf = getPdFont().withHeight(fs);
+    
     label = new Label();
-    label->setBounds(h * 0.5f, 0.5f, w - h * 0.5f, h);
+    label->setBounds(2.5f, 0.5f, getWidth() - 2.5f, getHeight() - 1.f);
     label->setFont(tf);
     label->setJustificationType(Justification::centredLeft);
     label->setBorderSize(BorderSize<int>(border+2, border, border, border));
@@ -368,6 +370,48 @@ GuiNumber::GuiNumber(GuiPatch& p, pd::Gui& g) : GuiObject(p, g)
     label->setColour(Label::textColourId, Colour(static_cast<uint32>(gui.getForegroundColor())));
     setInterceptsMouseClicks(true, false);
     addAndMakeVisible(label);
+}
+
+void GuiTextEditor::labelTextChanged(Label* label)
+{
+    const String value = label->getText();
+    if(value.isNotEmpty())
+    {
+        setValueOriginal(value.getDoubleValue());
+        label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+    }
+}
+
+void GuiTextEditor::editorShown(Label*, TextEditor&)
+{
+    startEdition();
+}
+
+void GuiTextEditor::editorHidden(Label*, TextEditor&)
+{
+    stopEdition();
+}
+
+void GuiTextEditor::timerCallback()
+{
+    float const v = gui.getValue();
+    if(edited == false && v != value)
+    {
+        value = v;
+        label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+    }
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////     NUMBER              /////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+GuiNumber::GuiNumber(GuiPatch& p, pd::Gui& g) : GuiTextEditor(p, g)
+{
+    const float w = getWidth();
+    const float h = getHeight();
+    label->setBounds(h * 0.5f, 0.5f, w - h * 0.5f, h);
 }
 
 void GuiNumber::paint(Graphics& g)
@@ -436,58 +480,13 @@ void GuiNumber::mouseDoubleClick(const MouseEvent&)
     }
 }
 
-void GuiNumber::labelTextChanged(Label* label)
-{
-    const String value = label->getText();
-    if(value.isNotEmpty())
-    {
-        setValueOriginal(value.getDoubleValue());
-        label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
-    }
-}
-
-void GuiNumber::editorShown(Label*, TextEditor&)
-{
-    startEdition();
-}
-
-void GuiNumber::editorHidden(Label*, TextEditor&)
-{
-    stopEdition();
-}
-
-void GuiNumber::timerCallback()
-{
-    float const v = gui.getValue();
-    if(edited == false && v != value)
-    {
-        value = v;
-        label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
-    }
-}
-
 //////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////     GATOM NUMBER        /////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
-GuiAtomNumber::GuiAtomNumber(GuiPatch& p, pd::Gui& g) : GuiObject(p, g)
+GuiAtomNumber::GuiAtomNumber(GuiPatch& p, pd::Gui& g) : GuiTextEditor(p, g)
 {
-    const float border = 1.f;
-    const float fs = gui.getFontSize();
-    Font const tf = getPdFont().withHeight(fs);
-    
-    label = new Label();
-    label->setBounds(0.5f, 0.5f, getWidth() - 0.5f, getHeight() - 1.f);
-    label->setFont(tf);
-    label->setJustificationType(Justification::centredLeft);
-    label->setBorderSize(BorderSize<int>(border+2, border, border, border));
-    label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
-    label->setEditable(false, false);
-    label->setInterceptsMouseClicks(false, false);
-    label->addListener(this);
-    label->setColour(Label::textColourId, Colour(static_cast<uint32>(gui.getForegroundColor())));
-    setInterceptsMouseClicks(true, false);
-    addAndMakeVisible(label);
+    ;
 }
 
 void GuiAtomNumber::paint(Graphics& g)
@@ -560,41 +559,76 @@ void GuiAtomNumber::mouseDoubleClick(const MouseEvent&)
         TextEditor* editor = label->getCurrentTextEditor();
         if(editor)
         {
-            editor->setIndents(0, 2);
+            editor->setIndents(0.5, 2);
             editor->setBorder(BorderSize<int>(0));
         }
     }
 }
 
-void GuiAtomNumber::labelTextChanged(Label* label)
+//////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////     GATOM SYMBOL        /////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+GuiAtomSymbol::GuiAtomSymbol(GuiPatch& p, pd::Gui& g) : GuiTextEditor(p, g)
+{
+    last = gui.getSymbol();
+    label->setText(String(last), NotificationType::dontSendNotification);
+}
+
+void GuiAtomSymbol::paint(Graphics& g)
+{
+    const float border = 1.f;
+    const float h = static_cast<float>(getHeight());
+    const float w = static_cast<float>(getWidth());
+    const float o = h * 0.25f;
+    Path p;
+    p.startNewSubPath(0.5f, 0.5f);
+    p.lineTo(0.5f, h - 0.5f);
+    p.lineTo(w - 0.5f, h - 0.5f);
+    p.lineTo(w - 0.5f, o);
+    p.lineTo(w - o, 0.5f);
+    p.closeSubPath();
+    g.setColour(Colour(static_cast<uint32>(gui.getBackgroundColor())));
+    g.fillPath(p);
+    g.setColour(Colours::black);
+    g.strokePath(p, PathStrokeType(border));
+}
+
+void GuiAtomSymbol::mouseDoubleClick(const MouseEvent&)
+{
+    startEdition();
+    label->grabKeyboardFocus();
+    label->showEditor();
+    TextEditor* editor = label->getCurrentTextEditor();
+    if(editor)
+    {
+        editor->setIndents(0.5, 2);
+        editor->setBorder(BorderSize<int>(0));
+    }
+}
+
+void GuiAtomSymbol::labelTextChanged(Label* label)
 {
     const String value = label->getText();
     if(value.isNotEmpty())
     {
-        setValueOriginal(value.getDoubleValue());
-        label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+        gui.setSymbol(value.toStdString());
+        patch.performEdition();
+        label->setText(String(gui.getSymbol()), NotificationType::dontSendNotification);
+        last = gui.getSymbol();
     }
 }
 
-void GuiAtomNumber::editorShown(Label*, TextEditor&)
+void GuiAtomSymbol::timerCallback()
 {
-    startEdition();
-}
-
-void GuiAtomNumber::editorHidden(Label*, TextEditor&)
-{
-    stopEdition();
-}
-
-void GuiAtomNumber::timerCallback()
-{
-    float const v = gui.getValue();
-    if(edited == false && v != value)
+    std::string const v = gui.getSymbol();
+    if(edited == false && v != last)
     {
-        value = v;
-        label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+        last = v;
+        label->setText(String(last), NotificationType::dontSendNotification);
     }
 }
+
 
 
 

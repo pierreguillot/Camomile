@@ -116,7 +116,19 @@ public:
     void paint(Graphics& g) final;
 };
 
-class GuiNumber : public GuiObject, public Label::Listener
+class GuiTextEditor : public GuiObject, public Label::Listener
+{
+public:
+    GuiTextEditor(GuiPatch& p, pd::Gui& g);
+    void labelTextChanged(Label* label) override;
+    void editorShown(Label*, TextEditor&) final;
+    void editorHidden(Label*, TextEditor&) final;
+    void timerCallback() override;
+protected:
+    ScopedPointer<Label> label;
+};
+
+class GuiNumber : public GuiTextEditor
 {
 public:
     GuiNumber(GuiPatch& p, pd::Gui& g);
@@ -125,17 +137,12 @@ public:
     void mouseDrag(const MouseEvent& e) final;
     void mouseUp(const MouseEvent& e) final;
     void mouseDoubleClick(const MouseEvent&) final;
-    void labelTextChanged(Label* label) final;
-    void editorShown(Label*, TextEditor&) final;
-    void editorHidden(Label*, TextEditor&) final;
-    void timerCallback() final;
 private:
     bool                 shift;
     float                last;
-    ScopedPointer<Label> label;
 };
 
-class GuiAtomNumber : public GuiObject, public Label::Listener
+class GuiAtomNumber : public GuiTextEditor
 {
 public:
     GuiAtomNumber(GuiPatch& p, pd::Gui& g);
@@ -144,13 +151,21 @@ public:
     void mouseDrag(const MouseEvent& e) final;
     void mouseUp(const MouseEvent& e) final;
     void mouseDoubleClick(const MouseEvent&) final;
-    void labelTextChanged(Label* label) final;
-    void editorShown(Label*, TextEditor&) final;
-    void editorHidden(Label*, TextEditor&) final;
-    void timerCallback() final;
 private:
     bool                 shift;
     float                last;
-    ScopedPointer<Label> label;
+};
+
+class GuiAtomSymbol : public GuiTextEditor
+{
+public:
+    GuiAtomSymbol(GuiPatch& p, pd::Gui& g);
+    void paint(Graphics& g) final;
+    void mouseDoubleClick(const MouseEvent&) final;
+    void labelTextChanged(Label* label) final;
+    void timerCallback() final;
+private:
+    bool                 shift;
+    std::string          last;
 };
 
