@@ -279,6 +279,31 @@ void* libpd_multi_print_new(void* ptr, t_libpd_multi_printhook hook_print)
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
+//
+// font char metric triples: pointsize width(pixels) height(pixels)
+static int defaultfontshit[] = {
+    8,  5, 11, 10,  6, 13, 12,  7, 16, 16, 10, 19, 24, 14, 29, 36, 22, 44,
+    16, 10, 22, 20, 12, 26, 24, 14, 32, 32, 20, 38, 48, 28, 58, 72, 44, 88
+}; // normal & zoomed (2x)
+#define NDEFAULTFONT (sizeof(defaultfontshit)/sizeof(*defaultfontshit))
+
+static void libpd_defaultfont_init(void)
+{
+    int i;
+    t_atom zz[NDEFAULTFONT+2];
+    SETSYMBOL(zz, gensym("."));
+    for (i = 0; i < (int)NDEFAULTFONT; i++)
+    {
+        SETFLOAT(zz+i+1, defaultfontshit[i]);
+    }
+    SETFLOAT(zz+NDEFAULTFONT+1,0);
+    pd_typedmess(gensym("pd")->s_thing, gensym("init"), 2+NDEFAULTFONT, zz);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 void libpd_multi_init(void)
 {
@@ -298,6 +323,7 @@ void libpd_multi_init(void)
         libpd_multi_receiver_setup();
         libpd_multi_midi_setup();
         libpd_multi_print_setup();
+        libpd_defaultfont_init();
         
         initialized = 1;
     }
