@@ -294,8 +294,6 @@ void libpd_multi_init(void)
         libpd_set_midibytehook(libpd_multi_midibyte);
         libpd_set_printhook(libpd_multi_print);
         
-        //assert(PDINSTANCE && "PDINSTANCE undefined");
-        //assert(PDTHREADS && "PDTHREADS undefined");
         libpd_init();
         libpd_multi_receiver_setup();
         libpd_multi_midi_setup();
