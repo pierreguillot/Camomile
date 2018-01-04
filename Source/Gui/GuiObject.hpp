@@ -165,7 +165,6 @@ public:
     void labelTextChanged(Label* label) final;
     void timerCallback() final;
 private:
-    bool                 shift;
     std::string          last;
 };
 
