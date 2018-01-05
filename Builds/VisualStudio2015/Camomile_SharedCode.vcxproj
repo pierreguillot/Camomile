@@ -201,14 +201,14 @@
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>libpd.lib;libpd.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\Camomile.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>libpd.lib;libpd.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -250,14 +250,14 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>libpd.lib;libpd.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\Camomile.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>libpd.lib;libpd.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -298,14 +298,14 @@
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>libpd.lib;libpd.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\CamomileFx.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>libpd.lib;libpd.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -347,14 +347,14 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>libpd.lib;libpd.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\CamomileFX.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>libpd.lib;libpd.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -396,14 +396,14 @@
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>libpd.lib;libpd.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\Camomile.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>libpd.lib;libpd.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <Lib>
@@ -449,14 +449,14 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>libpd.lib;libpd.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\Camomile.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>libpd.lib;libpd.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <Lib>
@@ -501,14 +501,14 @@
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>libpd.lib;libpd.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\CamomileFx.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>libpd.lib;libpd.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <Lib>
@@ -554,14 +554,14 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>libpd.lib;libpd.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\CamomileFX.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>libpd.lib;libpd.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../libpd/libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <Lib>
