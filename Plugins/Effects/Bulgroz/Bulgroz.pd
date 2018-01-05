@@ -1,7 +1,7 @@
 #N canvas 266 300 570 392 10;
 #X obj 34 190 delwrite~ \$0-del-1 22000;
 #X obj 34 264 line~;
-#X obj 87 166 delwrite~ \$0-del-2 22000;
+#X obj 79 166 delwrite~ \$0-del-2 22000;
 #X obj 323 10 param.change;
 #X obj 34 349 dac~ 1 2, f 13;
 #X obj 34 143 adc~ 1 2;
@@ -146,7 +146,7 @@
 #X connect 13 0 4 0;
 #X connect 13 0 1 0;
 #X restore 256 228 pd gen.array;
-#X obj 3 3 cnv 15 298 118 empty empty empty 20 12 0 14 -13330 -66577
+#X obj 3 3 cnv 15 298 118 empty empty empty 20 12 0 14 -18142 -66577
 0;
 #X obj 36 86 hsl 180 15 0 10000 0 0 \$0-window-size-s \$0-window-size-r
 empty -2 -8 0 10 -262144 -1 -1 0 1;
