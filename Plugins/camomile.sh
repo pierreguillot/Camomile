@@ -240,36 +240,50 @@ generate_plugin_lib() {
     fi
 }
 
-generate_plugins_mac() {
-    echo -n $PluginName "("
-    generate_plugin_vst $CamomileName $PatchesPath $PluginName
-    generate_plugin_vst3 $CamomileName $PatchesPath $PluginName
-    generate_plugin_au $CamomileName $PatchesPath $PluginName
-    echo ")"
+plugin_get_type() {
+    while IFS='' read -r line || [[ -n "$line" ]]; do
+        local wline=($line)
+        if [ "${wline[0]}" == "type" ]; then
+            echo ${wline[1]}
+            return
+        fi
+    done < "$1"
+    echo "0"
 }
 
-generate_plugins_linux() {
-    echo -n $PluginName "("
-    generate_plugin_lib $CamomileName $PatchesPath $PluginName
+generate_plugins_mac() {
+    CamomileName=$CamomileFx
+    local type="effect"
+    if [ -f $1/$2/$2.txt ]; then
+        type=$(plugin_get_type $1/$2/$2.txt)
+        type="${type%?}"
+        if [ "$type" == "0" ]; then
+            CamomileName=$CamomileFx
+        elif [ "$type" == "instrument" ] || [ "$type" == "synthesizer" ] || [ "$type" == "inst" ] || [ "$type" == "syn" ]; then
+            CamomileName=$CamomileInst
+            CamomileName=$CamomileInst
+        elif [ "$type" == "effect" ] || [ "$type" == "fx" ]; then
+            CamomileName=$CamomileFx
+        else
+            echo -n -e "\033[31mNo plugin type defined\033[0m"
+            return
+        fi
+    else
+        echo -e $2 " \033[31mNo config file defined\033[0m"
+        return
+    fi
+    echo -n $2 "-" $type "- ("
+    generate_plugin_vst $CamomileName $1 $2
+    generate_plugin_vst3 $CamomileName $1 $2
+    generate_plugin_au $CamomileName $1 $2
     echo ")"
 }
 
 generate_all_plugins_mac() {
-    local CamomileName
-    local PatchesPath
-    if [ "$1" == "Effects" ]; then
-        CamomileName=$CamomileFx
-        PatchesPath=$ThisPath/Effects
-    elif [ "$1" == "Instruments" ]; then
-        CamomileName=$CamomileInst
-        PatchesPath=$ThisPath/Instruments
-    else
-        echo -e "\033[31mWrong type of plugins\033[0m"
-    fi
-
+    local PatchesPath=$ThisPath/Examples
 
     if [ ! -d $PatchesPath ]; then
-        echo -e "\033[31m"$2" wrong arguments\033[0m"
+        echo -e "\033[31m"$PatchesPath" wrong path\033[0m"
         return
     fi
 
@@ -280,25 +294,28 @@ generate_all_plugins_mac() {
           local PluginName=$(basename "$Patch")
           local PluginExtension="${PluginName##*.}"
           local PluginName="${PluginName%.*}"
-          generate_plugins_mac $CamomileName $PatchesPath $PluginName
+          generate_plugins_mac $PatchesPath $PluginName
       fi
     done
     echo -e "\033[1;30mFinished\033[0m"
 }
 
-generate_all_plugins_linux() {
-    local CamomileName
-    local PatchesPath
+generate_plugins_linux() {
     if [ "$1" == "Effects" ]; then
         CamomileName=$CamomileFx
-        PatchesPath=$ThisPath/Effects
     elif [ "$1" == "Instruments" ]; then
         CamomileName=$CamomileInst
-        PatchesPath=$ThisPath/Instruments
     else
         echo -e "\033[31mWrong type of plugins\033[0m"
     fi
+    echo -n $PluginName "("
+    generate_plugin_lib $CamomileName $PatchesPath $PluginName
+    echo ")"
+}
 
+generate_all_plugins_linux() {
+    local CamomileName
+    local PatchesPath=$ThisPath/Examples
 
     if [ ! -d $PatchesPath ]; then
         echo -e "\033[31m"$2" wrong arguments\033[0m"
@@ -352,24 +369,14 @@ if [ "$1" == "install" ]; then
     fi
 elif [ "$1" == "generate" ]; then
     if [ $machine == "Mac" ]; then
-        if [ "$2" == "effects" ]; then
-            generate_all_plugins_mac Effects
-        elif [ "$2" == "instruments" ]; then
-            generate_all_plugins_mac Instruments
-        elif [ -z "$2" ]; then
-            generate_all_plugins_mac Effects
-            generate_all_plugins_mac Instruments
+        if [ -z "$2" ]; then
+            generate_all_plugins_mac
         else
             echo -e "\033[31m"$2" wrong arguments\033[0m"
         fi
     else
-        if [ "$2" == "effects" ]; then
-            generate_all_plugins_linux Effects
-        elif [ "$2" == "instruments" ]; then
-            generate_all_plugins_linux Instruments
-        elif [ -z "$2" ]; then
-            generate_all_plugins_linux Effects
-            generate_all_plugins_linux Instruments
+        if [ -z "$2" ]; then
+            generate_all_plugins_linux
         else
             echo -e "\033[31m"$2" wrong arguments\033[0m"
         fi
