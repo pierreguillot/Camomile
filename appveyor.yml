@@ -22,17 +22,17 @@ build_script:
     - 'if "%MINGWARCH%"=="mingw64" msbuild %APPVEYOR_BUILD_FOLDER%\Builds\VisualStudio2015\Camomile.sln /property:Configuration=ReleaseFx /property:Platform=x64'
 after_build:
     - cd %APPVEYOR_BUILD_FOLDER%
-    - copy %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\VST\Camomile.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\Camomile.dll
-    - copy %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\VST3\Camomile.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\Camomile.vst3
-    - copy %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\VST\CamomileFx.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\CamomileFx.dll
-    - copy %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\VST3\CamomileFx.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\CamomileFx.vst3
+    - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST\Camomile.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.dll
+    - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\Camomile.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.vst3
+    - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST\CamomileFx.dll %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileFx.dll
+    - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\CamomileFx.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileFx.vst3
+    - copy %APPVEYOR_BUILD_FOLDER%\libpd\libs\libpd.dll %APPVEYOR_BUILD_FOLDER%\Plugins\libpd.dll
     - copy %APPVEYOR_BUILD_FOLDER%\README.md %APPVEYOR_BUILD_FOLDER%\Plugins\README.md
     - copy %APPVEYOR_BUILD_FOLDER%\LICENSE %APPVEYOR_BUILD_FOLDER%\Plugins\LICENSE.txt
-    - copy %APPVEYOR_BUILD_FOLDER%\libpd\libs\libpd.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\libpd.dll
     - del %APPVEYOR_BUILD_FOLDER%\Plugins\camomile.sh /Q
-    - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\"Shared Code"\ /S /Q
-    - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\VST\ /S /Q
-    - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile\VST3\ /S /Q
+    - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\"Shared Code"\ /S /Q
+    - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST\ /S /Q
+    - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\ /S /Q
     - rename %APPVEYOR_BUILD_FOLDER%\Plugins Camomile
     - 'if "%MINGWARCH%"=="mingw32" 7z a CamomileWindows32.zip %APPVEYOR_BUILD_FOLDER%\Camomile\'
     - 'if "%MINGWARCH%"=="mingw64" 7z a CamomileWindows64.zip %APPVEYOR_BUILD_FOLDER%\Camomile\'

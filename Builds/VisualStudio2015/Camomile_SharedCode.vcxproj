@@ -121,42 +121,42 @@
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
     <TargetExt>.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\..\Plugins\Camomile\Shared Code\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\..\Plugins\Shared Code\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\Shared Code\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Camomile</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(LibraryPath);../../libpd/libs</LibraryPath>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\..\Plugins\Camomile\Shared Code\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\..\Plugins\Shared Code\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\Shared Code\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Camomile</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(LibraryPath);../../libpd/libs</LibraryPath>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugFx|x64'">.\..\..\Plugins\Camomile\Shared Code\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugFx|x64'">.\..\..\Plugins\Shared Code\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugFx|x64'">$(Platform)\$(Configuration)\Shared Code\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='DebugFx|x64'">CamomileFx</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='DebugFx|x64'">true</GenerateManifest>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='DebugFx|x64'">$(LibraryPath);../../libpd/libs</LibraryPath>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='ReleaseFx|x64'">.\..\..\Plugins\Camomile\Shared Code\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='ReleaseFx|x64'">.\..\..\Plugins\Shared Code\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='ReleaseFx|x64'">$(Platform)\$(Configuration)\Shared Code\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='ReleaseFx|x64'">CamomileFX</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='ReleaseFx|x64'">true</GenerateManifest>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='ReleaseFx|x64'">$(LibraryPath);../../libpd/libs</LibraryPath>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">.\..\..\Plugins\Camomile\Shared Code\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">.\..\..\Plugins\Shared Code\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">$(Platform)\$(Configuration)\Shared Code\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">Camomile</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">true</GenerateManifest>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">$(LibraryPath);../../libpd/libs</LibraryPath>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">.\..\..\Plugins\Camomile\Shared Code\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">.\..\..\Plugins\Shared Code\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">$(Platform)\$(Configuration)\Shared Code\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">Camomile</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">true</GenerateManifest>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">$(LibraryPath);../../libpd/libs</LibraryPath>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugFx32|Win32'">.\..\..\Plugins\Camomile\Shared Code\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugFx32|Win32'">.\..\..\Plugins\Shared Code\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugFx32|Win32'">$(Platform)\$(Configuration)\Shared Code\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='DebugFx32|Win32'">CamomileFx</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='DebugFx32|Win32'">true</GenerateManifest>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='DebugFx32|Win32'">$(LibraryPath);../../libpd/libs</LibraryPath>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='ReleaseFx32|Win32'">.\..\..\Plugins\Camomile\Shared Code\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='ReleaseFx32|Win32'">.\..\..\Plugins\Shared Code\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='ReleaseFx32|Win32'">$(Platform)\$(Configuration)\Shared Code\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='ReleaseFx32|Win32'">CamomileFX</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='ReleaseFx32|Win32'">true</GenerateManifest>
