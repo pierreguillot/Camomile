@@ -158,12 +158,12 @@ clean_all_plugins_linux() {
 ################################################################################
 
 generate_plugin_vst() {
-    if [ -d $ThisPath/$1.$VstExtension ]; then
+    if [ -d $ThisPath/../$1.$VstExtension ]; then
         if [ -d $ThisPath/Builds/$3.$VstExtension ]; then
             rm -rf $ThisPath/Builds/$3.$VstExtension
         fi
 
-        cp -rf $ThisPath/$1.$VstExtension/ $ThisPath/Builds/$3.$VstExtension
+        cp -rf $ThisPath/../$1.$VstExtension/ $ThisPath/Builds/$3.$VstExtension
         cp -rf $2/$3/ $ThisPath/Builds/$3.$VstExtension/Contents/Resources
         echo -n $VstExtension " "
     else
@@ -172,12 +172,12 @@ generate_plugin_vst() {
 }
 
 generate_plugin_vst3() {
-    if [ -d $ThisPath/$1.$Vst3Extension ]; then
+    if [ -d $ThisPath/../$1.$Vst3Extension ]; then
         if [ -d $ThisPath/Builds/$3.$Vst3Extension ]; then
             rm -rf $ThisPath/Builds/$3.$Vst3Extension
         fi
 
-        cp -rf $ThisPath/$1.$Vst3Extension/ $ThisPath/Builds/$3.$Vst3Extension
+        cp -rf $ThisPath/../$1.$Vst3Extension/ $ThisPath/Builds/$3.$Vst3Extension
         cp -rf $2/$3/ $ThisPath/Builds/$3.$Vst3Extension/Contents/Resources
         echo -n $Vst3Extension " "
     else
@@ -208,12 +208,12 @@ generate_plugin_au() {
         return
     fi
     code=${code::4}
-    if [ -d $ThisPath/$1.$AuExtension ]; then
+    if [ -d $ThisPath/../$1.$AuExtension ]; then
         if [ -d $ThisPath/Builds/$3.$AuExtension ]; then
             rm -rf $ThisPath/Builds/$3.$AuExtension
         fi
 
-        cp -rf $ThisPath/$1.$AuExtension/ $ThisPath/Builds/$3.$AuExtension
+        cp -rf $ThisPath/../$1.$AuExtension/ $ThisPath/Builds/$3.$AuExtension
         cp -rf $2/$3/ $ThisPath/Builds/$3.$AuExtension/Contents/Resources
         plutil -replace AudioComponents.name -string $3 $ThisPath/Builds/$3.$AuExtension/Contents/Info.plist
         plutil -replace AudioComponents.subtype -string $code $ThisPath/Builds/$3.$AuExtension/Contents/Info.plist
@@ -280,21 +280,14 @@ generate_plugins_mac() {
 }
 
 generate_all_plugins_mac() {
-    local PatchesPath=$ThisPath/Examples
-
-    if [ ! -d $PatchesPath ]; then
-        echo -e "\033[31m"$PatchesPath" wrong path\033[0m"
-        return
-    fi
-
     echo  -e "\033[1;30mGenerating Effects Plugins\033[0m"
-    for Patch in $PatchesPath/*
+    for Patch in $ThisPath/*
     do
       if [ -d $Patch ]; then
           local PluginName=$(basename "$Patch")
           local PluginExtension="${PluginName##*.}"
           local PluginName="${PluginName%.*}"
-          generate_plugins_mac $PatchesPath $PluginName
+          generate_plugins_mac $ThisPath $PluginName
       fi
     done
     echo -e "\033[1;30mFinished\033[0m"
@@ -309,13 +302,12 @@ generate_plugins_linux() {
         echo -e "\033[31mWrong type of plugins\033[0m"
     fi
     echo -n $PluginName "("
-    generate_plugin_lib $CamomileName $PatchesPath $PluginName
+    generate_plugin_lib $1 $2 $3
     echo ")"
 }
 
 generate_all_plugins_linux() {
     local CamomileName
-    local PatchesPath=$ThisPath/Examples
 
     if [ ! -d $PatchesPath ]; then
         echo -e "\033[31m"$2" wrong arguments\033[0m"
@@ -323,13 +315,13 @@ generate_all_plugins_linux() {
     fi
 
     echo  -e "\033[1;30mGenerating Effects Plugins\033[0m"
-    for Patch in $PatchesPath/*
+    for Patch in $ThisPath/*
     do
       if [ -d $Patch ]; then
           local PluginName=$(basename "$Patch")
           local PluginExtension="${PluginName##*.}"
           local PluginName="${PluginName%.*}"
-          generate_plugins_linux $CamomileName $PatchesPath $PluginName
+          generate_plugins_linux $CamomileName $ThisPath $PluginName
       fi
     done
     echo -e "\033[1;30mFinished\033[0m"
