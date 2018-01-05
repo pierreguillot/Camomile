@@ -196,7 +196,7 @@ CamomileEnvironment::CamomileEnvironment()
             if(!file.exists())
             {
                 errors.push_back("can't find the configuration file \"" + patch_path + sep + plugin_name + ext + "\"");
-                errors.push_back("can't find the configuration file \"" + patch_path + sep + patch_path + sep  + plugin_name + ext + "\"");
+                errors.push_back("can't find the configuration file \"" + patch_path + sep + plugin_name + sep  + plugin_name + ext + "\"");
                 return;
             }
 #endif
