@@ -377,8 +377,10 @@ void GuiTextEditor::labelTextChanged(Label* label)
     const String value = label->getText();
     if(value.isNotEmpty())
     {
+        startEdition();
         setValueOriginal(value.getDoubleValue());
         label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+        stopEdition();
     }
 }
 
