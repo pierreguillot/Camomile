@@ -183,7 +183,8 @@ CamomileEnvironment::CamomileEnvironment()
 {
     if(localize())
     {
-        FileInputStream stream(File(String(patch_path + String(File::getSeparatorString()).toStdString() + plugin_name + ".txt")));
+        std::string filename = patch_path + String(File::getSeparatorString()).toStdString() + plugin_name + std::string(".txt");
+        FileInputStream stream((File(filename)));
         if(stream.openedOk())
         {
             while(!stream.isExhausted())
@@ -276,7 +277,7 @@ CamomileEnvironment::CamomileEnvironment()
         }
         else
         {
-            errors.push_back("can't find the configuration file.");
+            errors.push_back("can't find the configuration file \"" + filename + "\"");
         }
     }
     
