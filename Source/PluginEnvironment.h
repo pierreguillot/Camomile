@@ -102,7 +102,7 @@ private:
     std::string     patch_path  = "";
     std::string     image_name  = "";
     bool            valid       = false;
-    std::bitset<8>  state;
+    std::bitset<9>  state;
     
     bool    midi_in_support   = false;
     bool    midi_out_support  = false;
@@ -126,6 +126,7 @@ private:
         init_tail_length= 4,
         init_latency    = 5,
         init_code       = 6,
-        init_image      = 7
+        init_image      = 7,
+        init_type       = 8
     };
 };

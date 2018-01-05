@@ -279,6 +279,25 @@ CamomileEnvironment::CamomileEnvironment()
                             image_name = CamomileParser::getString(entry.second);
                             state.set(init_image);
                         }
+                        else if(entry.first == "type")
+                        {
+                            if(state.test(init_type))
+                                throw std::string("already defined");
+                            state.set(init_type);
+                            std::string const type = CamomileParser::getString(entry.second);
+                            if((type == "instrument" || type == "synthesizer" || type == "inst" || type == "syn") && !JucePlugin_IsSynth)
+                            {
+                                throw std::string("wrong: effect binary expected.");
+                            }
+                            else if((type == "effect" || type == "fx") && JucePlugin_IsSynth)
+                            {
+                                throw std::string("wrong: instrument binary expected.");
+                            }
+                            else
+                            {
+                                throw std::string("unknown.");
+                            }
+                        }
                         else
                         {
                             errors.push_back(entry.first + " unknown option");
