@@ -183,8 +183,25 @@ CamomileEnvironment::CamomileEnvironment()
 {
     if(localize())
     {
-        std::string filename = patch_path + String(File::getSeparatorString()).toStdString() + plugin_name + std::string(".txt");
-        FileInputStream stream((File(filename)));
+        std::string const sep = String(File::getSeparatorString()).toStdString();
+        std::string const ext = std::string(".txt");
+        File file(patch_path + sep + plugin_name + ext);
+        if(!file.exists())
+        {
+#ifdef JUCE_MAC
+            errors.push_back("can't find the configuration file \"" + patch_path + sep + plugin_name + ext + "\"");
+            return;
+#else
+            file = File(patch_path + sep + plugin_name + sep + plugin_name + ext);
+            if(!file.exists())
+            {
+                errors.push_back("can't find the configuration file \"" + patch_path + sep + plugin_name + ext + "\"");
+                errors.push_back("can't find the configuration file \"" + patch_path + sep + patch_path + sep  + plugin_name + ext + "\"");
+                return;
+            }
+#endif
+        }
+        FileInputStream stream(file);
         if(stream.openedOk())
         {
             while(!stream.isExhausted())
@@ -277,7 +294,7 @@ CamomileEnvironment::CamomileEnvironment()
         }
         else
         {
-            errors.push_back("can't find the configuration file \"" + filename + "\"");
+            errors.push_back("can't open the stream \"" + patch_path + sep + "\"");
         }
     }
     
