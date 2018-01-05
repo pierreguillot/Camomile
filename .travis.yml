@@ -39,8 +39,8 @@ matrix:
     - xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration Release
     - xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration ReleaseFx
     before_deploy:
-    - rm Plugins/Camomile/libCamomile.a
-    - rm Plugins/Camomile/libCamomileFx.a
+    - rm Plugins/libCamomile.a
+    - rm Plugins/libCamomileFx.a
     - cp README.md Plugins/README.md
     - cp LICENSE Plugins/LICENSE.txt
     - mv Plugins Camomile

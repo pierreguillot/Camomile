@@ -158,12 +158,12 @@ clean_all_plugins_linux() {
 ################################################################################
 
 generate_plugin_vst() {
-    if [ -d $ThisPath/Camomile/$1.$VstExtension ]; then
+    if [ -d $ThisPath/$1.$VstExtension ]; then
         if [ -d $ThisPath/Builds/$3.$VstExtension ]; then
             rm -rf $ThisPath/Builds/$3.$VstExtension
         fi
 
-        cp -rf $ThisPath/Camomile/$1.$VstExtension/ $ThisPath/Builds/$3.$VstExtension
+        cp -rf $ThisPath/$1.$VstExtension/ $ThisPath/Builds/$3.$VstExtension
         cp -rf $2/$3/ $ThisPath/Builds/$3.$VstExtension/Contents/Resources
         echo -n $VstExtension " "
     else
@@ -172,12 +172,12 @@ generate_plugin_vst() {
 }
 
 generate_plugin_vst3() {
-    if [ -d $ThisPath/Camomile/$1.$Vst3Extension ]; then
+    if [ -d $ThisPath/$1.$Vst3Extension ]; then
         if [ -d $ThisPath/Builds/$3.$Vst3Extension ]; then
             rm -rf $ThisPath/Builds/$3.$Vst3Extension
         fi
 
-        cp -rf $ThisPath/Camomile/$1.$Vst3Extension/ $ThisPath/Builds/$3.$Vst3Extension
+        cp -rf $ThisPath/$1.$Vst3Extension/ $ThisPath/Builds/$3.$Vst3Extension
         cp -rf $2/$3/ $ThisPath/Builds/$3.$Vst3Extension/Contents/Resources
         echo -n $Vst3Extension " "
     else
@@ -208,12 +208,12 @@ generate_plugin_au() {
         return
     fi
     code=${code::4}
-    if [ -d $ThisPath/Camomile/$1.$AuExtension ]; then
+    if [ -d $ThisPath/$1.$AuExtension ]; then
         if [ -d $ThisPath/Builds/$3.$AuExtension ]; then
             rm -rf $ThisPath/Builds/$3.$AuExtension
         fi
 
-        cp -rf $ThisPath/Camomile/$1.$AuExtension/ $ThisPath/Builds/$3.$AuExtension
+        cp -rf $ThisPath/$1.$AuExtension/ $ThisPath/Builds/$3.$AuExtension
         cp -rf $2/$3/ $ThisPath/Builds/$3.$AuExtension/Contents/Resources
         plutil -replace AudioComponents.name -string $3 $ThisPath/Builds/$3.$AuExtension/Contents/Info.plist
         plutil -replace AudioComponents.subtype -string $code $ThisPath/Builds/$3.$AuExtension/Contents/Info.plist
@@ -224,7 +224,7 @@ generate_plugin_au() {
 }
 
 generate_plugin_lib() {
-    if [ -d $ThisPath/Camomile/$1.$LibExtension ]; then
+    if [ -d $ThisPath/$1.$LibExtension ]; then
         if [ -f $ThisPath/Builds/$3.$LibExtension ]; then
             rm -f $ThisPath/Builds/$3.$LibExtension
         fi
@@ -232,7 +232,7 @@ generate_plugin_lib() {
             rm -rf $ThisPath/Builds/$3
         fi
 
-        cp -f $ThisPath/Camomile/$1.$LibExtension/ $ThisPath/Builds/$3.$LibExtension
+        cp -f $ThisPath/$1.$LibExtension/ $ThisPath/Builds/$3.$LibExtension
         cp -rf $2/$3/ $ThisPath/Builds/$3
         echo -n $LibExtension " "
     else
