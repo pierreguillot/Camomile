@@ -40,4 +40,5 @@ param -name Controler Volume -label dB -min 0 -max 100 -default 80;
 
 bus 0 2;
 code zWry;
+type instrument;
 midiin true;
