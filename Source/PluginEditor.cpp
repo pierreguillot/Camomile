@@ -55,10 +55,13 @@ processor (p)
     window.setBackgroundColour(Gui::getColorBg());
     setInterceptsMouseClicks(true, true);
     
-    auto guis(p.getPatch().getGuis());
-    for(auto& gui : guis)
+    if(processor.getPatch().isGraph())
     {
-        addAndMakeVisible(objects.add(GuiObject::createTyped(*this, gui)));
+        auto guis(p.getPatch().getGuis());
+        for(auto& gui : guis)
+        {
+            addAndMakeVisible(objects.add(GuiObject::createTyped(*this, gui)));
+        }
     }
    
     if(!CamomileEnvironment::getImageName().empty())
@@ -110,7 +113,12 @@ void CamomileAudioProcessorEditor::stopEdition()
 void CamomileAudioProcessorEditor::paint (Graphics& g)
 {
     g.fillAll(Colours::white);
-    if(!processor.getPatch().isGraph())
+    if(!CamomileEnvironment::isValid())
+    {
+        g.setColour(Colours::black);
+        g.drawText("Plugin Not Valid", 0, 0, getWidth(), getHeight(), juce::Justification::centred);
+    }
+    else if(!processor.getPatch().isGraph())
     {
         g.setColour(Colours::black);
         g.drawText("No Graph On Parent Available", 0, 0, getWidth(), getHeight(), juce::Justification::centred);
