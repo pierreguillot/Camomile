@@ -397,7 +397,6 @@ void CamomileAudioProcessor::receivePrint(const std::string& message)
         }
         else if(!temp.compare(0, 5, "tried"))
         {
-            temp.erase(temp.begin(), temp.begin()+6);
             addLog(temp);
         }
         else if(!temp.compare(0, 16, "input channels ="))
