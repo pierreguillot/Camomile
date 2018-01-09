@@ -169,7 +169,7 @@ namespace pd
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_init_audio((int)nins, (int)nouts, (int)samplerate);
 
-        SETFLOAT(&av, 1.f);
+        libpd_set_float(&av, 1.f);
         libpd_message("pd", "dsp", 1, &av);
     }
     
@@ -178,7 +178,7 @@ namespace pd
         t_atom av;
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         
-        SETFLOAT(&av, 1.f);
+        libpd_set_float(&av, 1.f);
         libpd_message("pd", "dsp", 1, &av);
     }
     
