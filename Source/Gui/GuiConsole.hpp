@@ -21,6 +21,8 @@ public:
     void timerCallback() final;
     void buttonClicked(Button* button) final;
     void paint(Graphics& g) final;
+    bool keyPressed(const KeyPress& key) final;
+    
     int getNumRows() final { return static_cast<int>(m_size); }
     void paintRowBackground(Graphics& , int , int , int , bool ) final {}
     void paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected) final;

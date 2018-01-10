@@ -55,12 +55,6 @@ GuiConsole::~GuiConsole()
     stopTimer();
 }
 
-void GuiConsole::paint(Graphics& g)
-{
-    g.setColour(Gui::getColorTxt().withAlpha(0.5f));
-    g.drawHorizontalLine(342, 2, 298);
-}
-
 void GuiConsole::clearSelection()
 {
     stopTimer();
@@ -81,6 +75,22 @@ void GuiConsole::copySelection()
         text += m_history.get(m_level, sels[i]).second + "\n"; }
     SystemClipboard::copyTextToClipboard(text);
     startTimer(100);
+}
+
+void GuiConsole::paint(Graphics& g)
+{
+    g.setColour(Gui::getColorTxt().withAlpha(0.5f));
+    g.drawHorizontalLine(342, 2, 298);
+}
+
+bool GuiConsole::keyPressed(const KeyPress& key)
+{
+    if(key.getModifiers() == ModifierKeys::commandModifier && key.getTextCharacter() == 'c')
+    {
+        copySelection();
+        return true;
+    }
+    return false;
 }
 
 void GuiConsole::deleteKeyPressed(int lastRowSelected)
