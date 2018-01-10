@@ -1,4 +1,4 @@
-#N canvas 775 125 537 473 10;
+#N canvas 775 125 556 552 10;
 #X obj 34 230 delwrite~ \$0-del-1 22000;
 #X obj 34 304 line~;
 #X obj 79 206 delwrite~ \$0-del-2 22000;
@@ -8,9 +8,9 @@
 #X obj 34 257 param.get 1;
 #X msg 77 279 set \$1;
 #X obj 208 120 hsl 180 15 0 10000 0 0 \$0-size-sld-s \$0-size-sld-r
-empty -2 -8 0 10 -92394 -1 -1 0 1;
+empty -2 -8 0 10 -92394 -1 -1 17900 1;
 #X obj 401 120 nbx 5 15 -1e+37 1e+37 0 0 \$0-size-nbx-s \$0-size-nbx-r
-empty 0 -8 0 10 -92394 -1 -1 0 256;
+empty 0 -8 0 10 -92394 -1 -1 10000 256;
 #X text 289 83 R170: ETITEPNOITINUP ESODNU;
 #X text 366 66 EVIV BULGROZ !;
 #X text 372 48 REVERSE DELAY;
@@ -27,6 +27,12 @@ empty 0 -8 0 10 -92394 -1 -1 0 256;
 #X obj 109 374 delback~ \$0-del-2;
 #X obj 34 354 delback~ \$0-del-1;
 #X text 312 143 Patch by Pierre Guillot;
+#X obj 242 380 sel 1 2, f 11;
+#X msg 242 401 200;
+#X msg 273 401 2000;
+#X msg 305 401 10000;
+#X obj 242 422 s \$0-size-nbx-r;
+#X obj 242 357 program.get;
 #X connect 1 0 23 0;
 #X connect 1 0 24 0;
 #X connect 5 0 0 0;
@@ -41,4 +47,11 @@ empty 0 -8 0 10 -92394 -1 -1 0 256;
 #X connect 21 0 22 0;
 #X connect 23 0 4 1;
 #X connect 24 0 4 0;
+#X connect 26 0 27 0;
+#X connect 26 1 28 0;
+#X connect 26 2 29 0;
+#X connect 27 0 30 0;
+#X connect 28 0 30 0;
+#X connect 29 0 30 0;
+#X connect 31 0 26 0;
 #X coords 0 -1 1 1 460 160 1 2 2;
