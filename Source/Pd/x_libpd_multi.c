@@ -319,13 +319,13 @@ void libpd_multi_init(void)
         libpd_set_midibytehook(libpd_multi_midibyte);
         libpd_set_printhook(libpd_multi_print);
         
-        libpd_set_loglevel(0);
+        libpd_set_verbose(0);
         libpd_init();
         libpd_multi_receiver_setup();
         libpd_multi_midi_setup();
         libpd_multi_print_setup();
         libpd_defaultfont_init();
-        libpd_set_loglevel(4);
+        libpd_set_verbose(4);
         
         initialized = 1;
     }
