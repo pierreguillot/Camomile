@@ -573,7 +573,6 @@
     <ClCompile Include="..\..\Source\PluginEnvironment.cpp"/>
     <ClCompile Include="..\..\Source\PluginParser.cpp"/>
     <ClCompile Include="..\..\Source\PluginParameter.cpp"/>
-    <ClCompile Include="..\..\Source\PluginConsole.cpp"/>
     <ClCompile Include="..\..\Source\PluginEditor.cpp"/>
     <ClCompile Include="..\..\Source\Pd\PdInstance.cpp"/>
     <ClCompile Include="..\..\Source\Pd\PdPatch.cpp"/>

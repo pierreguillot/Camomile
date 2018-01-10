@@ -49,10 +49,12 @@ m_programs(CamomileEnvironment::getPrograms())
     bind("camomile");
     if(CamomileEnvironment::isValid())
     {
-        addNormal(std::string("Camomile ") + std::string(JucePlugin_VersionString) + std::string(" for Pd ") + CamomileEnvironment::getPdVersion());
+        add(ConsoleLevel::Normal,
+            std::string("Camomile ") + std::string(JucePlugin_VersionString) + std::string(" for Pd ") + CamomileEnvironment::getPdVersion());
         for(auto const& error : CamomileEnvironment::getErrors())
         {
-            addError(std::string("camomile ") + error);
+            add(ConsoleLevel::Error,
+                std::string("camomile ") + error);
         }
         openPatch(CamomileEnvironment::getPatchPath(), CamomileEnvironment::getPatchName());
         processMessages();
@@ -69,7 +71,8 @@ m_programs(CamomileEnvironment::getPrograms())
             }
             catch (std::string const& message)
             {
-                addError(std::string("camomile parameter ") + std::to_string(i+1) + std::string(": ") + message);
+                add(ConsoleLevel::Error,
+                    std::string("camomile parameter ") + std::to_string(i+1) + std::string(": ") + message);
             }
             if(p) addParameter(p);
         }
@@ -80,7 +83,8 @@ m_programs(CamomileEnvironment::getPrograms())
     {
         for(auto const& error : CamomileEnvironment::getErrors())
         {
-            addError(std::string("camomile ") + error);
+            add(ConsoleLevel::Error,
+                std::string("camomile ") + error);
         }
     }
 }
@@ -136,7 +140,8 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     
     if(samplesPerBlock < 64)
     {
-         addError(std::string("camomile block size must not be inferior to 64, the DSP won't be proceed."));
+        add(ConsoleLevel::Error,
+            std::string("camomile block size must not be inferior to 64, the DSP won't be proceed."));
     }
     prepareDSP(inputs.size(), outputs.size(), samplesPerBlock, sampleRate);
     
@@ -293,9 +298,11 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
                     {
                         param->setOriginalScaledValueNotifyingHost(list[2].getFloat());
                     }
-                    else { addError("camomile parameter set method index: out of range"); }
+                    else { add(ConsoleLevel::Error,
+                                    "camomile parameter set method index: out of range"); }
                 }
-                else { addError("camomile parameter set method: wrong argument"); }
+                else { add(ConsoleLevel::Error,
+                           "camomile parameter set method: wrong argument"); }
             }
             else if(method == "change")
             {
@@ -308,7 +315,8 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
                         {
                             if(m_params_states[index])
                             {
-                                addError("camomile parameter change " + std::to_string(index+1) + " already started");
+                                add(ConsoleLevel::Error,
+                                    "camomile parameter change " + std::to_string(index+1) + " already started");
                             }
                             else
                             {
@@ -320,7 +328,8 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
                         {
                             if(!m_params_states[index])
                             {
-                                addError("camomile parameter change " + std::to_string(index+1) + " not started");
+                                add(ConsoleLevel::Error,
+                                    "camomile parameter change " + std::to_string(index+1) + " not started");
                             }
                             else
                             {
@@ -329,15 +338,20 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
                             }
                         }
                     }
-                    else { addError("camomile parameter change method index: out of range"); }
+                    else { add(ConsoleLevel::Error,
+                               "camomile parameter change method index: out of range"); }
                 }
-                else { addError("camomile parameter change method: wrong argument"); }
+                else { add(ConsoleLevel::Error,
+                           "camomile parameter change method: wrong argument"); }
             }
-            else { addError("camomile param no method: " + method); }
+            else { add(ConsoleLevel::Error,
+                       "camomile param no method: " + method); }
         }
-        else { addError("camomile param error syntax: method index..."); }
+        else { add(ConsoleLevel::Error,
+                   "camomile param error syntax: method index..."); }
     }
-    else {  addError("camomile unknow message : " + msg); }
+    else {  add(ConsoleLevel::Error,
+                "camomile unknow message : " + msg); }
 }
 
 
@@ -388,24 +402,24 @@ void CamomileAudioProcessor::receivePrint(const std::string& message)
         if(!temp.compare(0, 6, "error:"))
         {
             temp.erase(temp.begin(), temp.begin()+7);
-            addError(temp);
+            add(ConsoleLevel::Error, temp);
         }
         else if(!temp.compare(0, 11, "verbose(4):"))
         {
             temp.erase(temp.begin(), temp.begin()+12);
-            addError(temp);
+            add(ConsoleLevel::Error, temp);
         }
         else if(!temp.compare(0, 5, "tried"))
         {
-            addLog(temp);
+            add(ConsoleLevel::Log, temp);
         }
         else if(!temp.compare(0, 16, "input channels ="))
         {
-            addLog(temp);
+            add(ConsoleLevel::Log, temp);
         }
         else
         {
-            addNormal(temp);
+            add(ConsoleLevel::Normal, temp);
         }
         return;
     }

@@ -376,9 +376,6 @@
     <ClCompile Include="..\..\Source\PluginParameter.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PluginConsole.cpp">
-      <Filter>Camomile\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\PluginEditor.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>

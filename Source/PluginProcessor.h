@@ -16,7 +16,7 @@
 // ======================================================================================== //
 
 
-class CamomileAudioProcessor : public AudioProcessor, public pd::Instance, public CamomileConsole::History
+class CamomileAudioProcessor : public AudioProcessor, public pd::Instance, public CamomileConsole<4>
 {
 public:
     CamomileAudioProcessor();
@@ -56,6 +56,15 @@ public:
     void receiveMidiByte(const int port, const int byte) final;
     void receivePrint(const std::string& message) final;
 
+    enum ConsoleLevel
+    {
+        Fatal   = 0,
+        Error   = 1,
+        Normal  = 2,
+        Log     = 3,
+        All     = 4
+        
+    };
 private:
     static BusesProperties getBusesProperties();
     

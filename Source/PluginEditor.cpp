@@ -78,12 +78,14 @@ processor (p)
             }
             else
             {
-                processor.addError("background image " + CamomileEnvironment::getImageName() + " is invalid");
+                processor.add(CamomileAudioProcessor::ConsoleLevel::Error,
+                              "background image " + CamomileEnvironment::getImageName() + " is invalid");
             }
         }
         else
         {
-            processor.addError("background image " + CamomileEnvironment::getImageName() + " doesn't exist");
+            processor.add(CamomileAudioProcessor::ConsoleLevel::Error,
+                               "background image " + CamomileEnvironment::getImageName() + " doesn't exist");
         }
     }
 }

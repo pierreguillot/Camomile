@@ -10,98 +10,65 @@
 #include <utility>
 #include <vector>
 #include <mutex>
+#include <array>
+#include <cassert>
 
 //! @brief A class that manages the console
-class CamomileConsole
+template<size_t SIZE> class CamomileConsole
 {
 public:
-    //! @brief A small class that describes a message in the console
-    class Message
-    {
     public:
-        enum class Level
-        {
-            Unknown = 0,
-            Fatal = 1,
-            Error = 2,
-            Normal = 3,
-            Log = 4
-        };
-        Level       level;
-        std::string text;
-    };
+    static const size_t limit = -1;
     
-    //! @brief A small class that manages the history of message in the console
-    class History
-    {
-    public:
-        typedef Message::Level Level;
-        //! @brief the constructor.
-        History();
-        
-        //! @brief Gets the number of all messages.
-        inline size_t getNumberOfMessages() const noexcept {return m_messages.size();}
-        
-        //! @brief Gets the number of fatal messages.
-        inline size_t getNumberOfFatalMessages() const noexcept {return m_fatal_count;}
-        
-        //! @brief Gets the number of error messages.
-        inline size_t getNumberOfErrorMessages() const noexcept {return m_error_count;}
-        
-        //! @brief Gets the number of post messages.
-        inline size_t getNumberOfNormalMessages() const noexcept {return m_post_count;}
-        
-        //! @brief Gets the number of log messages.
-        inline size_t getNumberOfLogMessages() const noexcept {return m_log_count;}
-        
-        //! @brief Gets the number of messages until a level.
-        size_t getNumberOfMessageUntilLevel(Level level) const noexcept;
-        
-        //! @brief Gets a message at an index.
-        Message getMessage(size_t index) const noexcept;
-        
-        //! @brief Gets a fatal message at an index.
-        std::string getFatal(size_t index) const noexcept;
-        
-        //! @brief Gets an error message at an index.
-        std::string getError(size_t index) const noexcept;
-        
-        //! @brief Gets a post message at an index.
-        std::string getNormal(size_t index) const noexcept;
-        
-        //! @brief Gets a log message at an index.
-        std::string getLog(size_t index) const noexcept;
-        
-        //! @brief Gets a message at an index until a level.
-        Message getMessageUntilLevel(Level level, size_t index) const noexcept;
-        
-        //! @brief Clears the history.
-        void clear() noexcept;
-        
-        //! @brief Retrieves a copy of the history.
-        inline std::vector<Message> getMessages() const {return m_messages;}
-        
-        //! @brief Adds a message in the history.
-        void add(Message message) noexcept;
-        
-        //! @brief Adds a fatal message in the history.
-        void addFatal(std::string message) noexcept;
-        
-        //! @brief Adds an error message in the history.
-        void addError(std::string message) noexcept;
-        
-        //! @brief Adds a normal message in the history.
-        void addNormal(std::string message) noexcept;
-        
-        //! @brief Adds a log message in the history.
-        void addLog(std::string message) noexcept;
-        
-    private:
-        mutable std::mutex   m_mutex;
-        size_t               m_fatal_count;
-        size_t               m_error_count;
-        size_t               m_post_count;
-        size_t               m_log_count;
-        std::vector<Message> m_messages;
-    };
+    //! @brief the constructor.
+    CamomileConsole(size_t const preallocate = 512) : m_messages() {
+        m_messages.reserve(preallocate), m_counters.fill(0); }
+    
+    //! @brief Gets the number of all messages.
+    size_t size(size_t level) const noexcept {
+        assert(level <= SIZE && "wrong level of message");
+        std::lock_guard<std::mutex> guard(m_mutex);
+        size_t size = m_counters[level];
+        while (level--) { size += m_counters[level]; }
+        return size;
+    }
+    
+    //! @brief Gets a message at an index until a level.
+    std::pair<size_t, std::string> get(size_t level, size_t index) const noexcept {
+        assert(level <= SIZE && "wrong level of message");
+        std::lock_guard<std::mutex> guard(m_mutex);
+        for(size_t i = 0, c = 0; i < m_messages.size(); ++i) {
+            if(m_messages[i].first <= level) {
+                if(c++ == index) { return m_messages[i]; }
+            }
+        }
+        return std::pair<size_t, std::string>();
+    }
+    
+    //! @brief Clears the history.
+    void clear(size_t level = SIZE, size_t index = limit) noexcept {
+        std::lock_guard<std::mutex> guard(m_mutex);
+        size_t c = 0;
+        for(auto it = m_messages.begin(); it != m_messages.end(); ++it) {
+            if(it->first <= level) {
+                if(c++ == index) {
+                    --m_counters[it->first];
+                    m_messages.erase(it); return; }
+            }
+        }
+    }
+
+    
+    //! @brief Adds a message to the history.
+    void add(size_t level, std::string message) noexcept {
+        assert(level < SIZE && "wrong level of message");
+        std::lock_guard<std::mutex> guard(m_mutex);
+        ++m_counters[level];
+        m_messages.push_back(std::pair<size_t, std::string>({level, std::move(message)}));
+    }
+    
+private:
+    mutable std::mutex       m_mutex;
+    std::array<size_t, SIZE> m_counters;
+    std::vector<std::pair<size_t, std::string>> m_messages;
 };

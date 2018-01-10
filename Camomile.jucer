@@ -30,8 +30,6 @@
             file="Source/PluginParameter.cpp"/>
       <FILE id="kRjX4J" name="PluginParameter.h" compile="0" resource="0"
             file="Source/PluginParameter.h"/>
-      <FILE id="P5RtlS" name="PluginConsole.cpp" compile="1" resource="0"
-            file="Source/PluginConsole.cpp"/>
       <FILE id="KGRkL5" name="PluginConsole.h" compile="0" resource="0" file="Source/PluginConsole.h"/>
       <FILE id="JHFkLz" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>

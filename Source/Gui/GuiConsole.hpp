@@ -24,12 +24,17 @@ public:
     int getNumRows() final { return static_cast<int>(m_size); }
     void paintRowBackground(Graphics& , int , int , int , bool ) final {}
     void paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected) final;
+    void deleteKeyPressed(int lastRowSelected) final;
 private:
-    typedef CamomileConsole::Message Message;
+    
+    void clearSelection();
+    void copySelection();
+    
+    typedef CamomileAudioProcessor::ConsoleLevel ConsoleLevel;
     CamomileAudioProcessor& m_history;
     size_t          m_size = 0;
     TableListBox    m_table;
-    Message::Level  m_level = Message::Level::Normal;
+    ConsoleLevel    m_level = ConsoleLevel::Normal;
     
     class GButton : public Button
     {

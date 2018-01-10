@@ -31,14 +31,13 @@ m_copy_button(ImageCache::getFromMemory(BinaryData::copy1_png, BinaryData::copy1
     m_table.setModel(this);
     m_table.setOutlineThickness(0);
     m_table.setWantsKeyboardFocus(true);
-    m_table.setMultipleSelectionEnabled(false);
+    m_table.setMultipleSelectionEnabled(true);
     m_table.setMouseMoveSelectsRows(false);
     m_table.setHeaderHeight(0);
     m_table.setRowHeight(Gui::getFont().getHeight() + 2);
     m_table.setColour(ListBox::ColourIds::backgroundColourId, Colours::transparentWhite);
     m_table.getViewport()->setScrollBarsShown(true, false, true, false);
     m_table.getViewport()->setScrollBarThickness(4);
-    m_table.setModel(this);
     m_table.setHeader(header);
     addAndMakeVisible(m_table);
     
@@ -62,40 +61,58 @@ void GuiConsole::paint(Graphics& g)
     g.drawHorizontalLine(342, 2, 298);
 }
 
+void GuiConsole::clearSelection()
+{
+    stopTimer();
+    SparseSet<int> sels = m_table.getSelectedRows();
+    for(int i = sels.size(); i > 0; --i) {
+        m_history.clear(m_level, sels[i-1]); }
+    m_table.deselectAllRows();
+    timerCallback();
+    startTimer(100);
+}
+
+void GuiConsole::copySelection()
+{
+    String text;
+    stopTimer();
+    SparseSet<int> sels = m_table.getSelectedRows();
+    for(int i = 0; i < sels.size(); ++i) {
+        text += m_history.get(m_level, sels[i]).second + "\n"; }
+    SystemClipboard::copyTextToClipboard(text);
+    startTimer(100);
+}
+
+void GuiConsole::deleteKeyPressed(int lastRowSelected)
+{
+    clearSelection();
+}
+
 void GuiConsole::buttonClicked(Button* button)
 {
     if(button == &m_clear_button)
     {
-        stopTimer();
-        m_history.clear();
-        startTimer(100);
+        clearSelection();
     }
     else if(button == &m_copy_button)
     {
-        stopTimer();
-        String text;
-        for(size_t i = 0; i < m_size && i < 1000; i++)
-        {
-            text += m_history.getMessageUntilLevel(m_level, i).text + "\n";
-        }
-        SystemClipboard::copyTextToClipboard(text);
-        startTimer(100);
+        copySelection();
     }
     else
     {
         juce::PopupMenu m;
-        m.addItem(1, "Fatal", true, m_level == Message::Level::Fatal);
-        m.addItem(2, "Error", true, m_level == Message::Level::Error);
-        m.addItem(3, "Normal", true, m_level == Message::Level::Normal);
-        m.addItem(4, "All", true, m_level == Message::Level::Log);
+        m.addItem(1, "Fatal", true, m_level == ConsoleLevel::Fatal);
+        m.addItem(2, "Error", true, m_level == ConsoleLevel::Error);
+        m.addItem(3, "Normal", true, m_level == ConsoleLevel::Normal);
+        m.addItem(4, "All", true, m_level == ConsoleLevel::Log);
 
         Point<int> pos = Component::getScreenPosition().translated(0, 292);
         int level = m.showAt(Rectangle<int>(pos.x, pos.y, 100, 48), 0, 0, Gui::getFont().getHeight() + 2);
         stopTimer();
-        if(bool(level) && Message::Level(level) != m_level)
+        if(bool(level) && ConsoleLevel(level - 1) != m_level)
         {
-            m_level = Message::Level(level);
-            m_size = m_history.getNumberOfMessageUntilLevel(m_level);
+            m_level = ConsoleLevel(level - 1);
+            m_size = m_history.size(m_level);
             m_table.updateContent();
         }
         startTimer(100);
@@ -104,22 +121,22 @@ void GuiConsole::buttonClicked(Button* button)
 
 void GuiConsole::paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
 {
-    Message message(m_history.getMessageUntilLevel(m_level, rowNumber));
+    std::pair<size_t, std::string> const message(m_history.get(m_level, rowNumber));
     if(rowIsSelected)
     {
         g.setColour(Gui::getColorTxt());
         g.fillRect(0, 0, width, height);
     }
     g.setFont(Gui::getFont());
-    if(message.level == Message::Level::Fatal)
+    if(message.first == ConsoleLevel::Fatal)
     {
         g.setColour(Colours::red);
     }
-    else if(message.level == Message::Level::Error)
+    else if(message.first == ConsoleLevel::Error)
     {
         g.setColour(Colours::orange);
     }
-    else if(message.level == Message::Level::Normal)
+    else if(message.first == ConsoleLevel::Normal)
     {
         g.setColour(rowIsSelected ? Gui::getColorBg() : Gui::getColorTxt().withAlpha(0.5f));
     }
@@ -127,15 +144,15 @@ void GuiConsole::paintCell(Graphics& g, int rowNumber, int columnId, int width, 
     {
         g.setColour(Colours::green);
     }
-    
+    String const mess = String(message.second).trimCharactersAtEnd(" \n");
     g.setFont(Gui::getFont());
-    g.drawText(String(message.text).trimCharactersAtEnd(" \n"), 2, 0, width, height, juce::Justification::centredLeft);
+    g.drawText(mess, 2, 0, width, height, juce::Justification::centredLeft, 0);
 }
 
 void GuiConsole::timerCallback()
 {
     m_history.processPrints();
-    const size_t size = m_history.getNumberOfMessageUntilLevel(m_level);
+    const size_t size = m_history.size(m_level);
     if(m_size != size)
     {
         m_size = size;
