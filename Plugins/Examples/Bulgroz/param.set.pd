@@ -12,7 +12,8 @@
 #X obj 116 50 loadbang;
 #X obj 116 118 f 1;
 #X obj 71 28 receive \$2;
-#X connect 0 0 3 0;
+#X obj 26 49 spigot \$1;
+#X connect 0 0 13 0;
 #X connect 2 0 6 0;
 #X connect 3 0 2 0;
 #X connect 3 1 4 0;
@@ -24,3 +25,4 @@
 #X connect 10 0 7 0;
 #X connect 11 0 8 1;
 #X connect 12 0 8 0;
+#X connect 13 0 3 0;

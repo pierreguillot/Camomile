@@ -8,9 +8,9 @@
 #X obj 34 257 param.get 1;
 #X msg 77 279 set \$1;
 #X obj 208 120 hsl 180 15 0 10000 0 0 \$0-size-sld-s \$0-size-sld-r
-empty -2 -8 0 10 -92394 -1 -1 17900 1;
+empty -2 -8 0 10 -92394 -1 -1 0 1;
 #X obj 401 120 nbx 5 15 -1e+37 1e+37 0 0 \$0-size-nbx-s \$0-size-nbx-r
-empty 0 -8 0 10 -92394 -1 -1 10000 256;
+empty 0 -8 0 10 -92394 -1 -1 0 256;
 #X text 289 83 R170: ETITEPNOITINUP ESODNU;
 #X text 366 66 EVIV BULGROZ !;
 #X text 372 48 REVERSE DELAY;
@@ -32,7 +32,7 @@ empty 0 -8 0 10 -92394 -1 -1 10000 256;
 #X msg 273 401 2000;
 #X msg 305 401 10000;
 #X obj 242 422 s \$0-size-nbx-r;
-#X obj 242 357 program.get;
+#X obj 242 357 program.get 1;
 #X connect 1 0 23 0;
 #X connect 1 0 24 0;
 #X connect 5 0 0 0;
