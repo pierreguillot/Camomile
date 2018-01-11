@@ -96,8 +96,8 @@ void CamomileAudioProcessor::setCurrentProgram(int index)
     {
         m_program_current = index;
         sendFloat("program", static_cast<float>(index+1));
+        processMessages();
     }
-    processMessages();
 }
 
 const String CamomileAudioProcessor::getProgramName (int index)
