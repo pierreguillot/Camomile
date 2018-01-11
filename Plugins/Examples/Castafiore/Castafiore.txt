@@ -1,4 +1,8 @@
 param -name Picth -label ½tone -min -24 -max 24 -default 0;
+program fundamental;
+program major-third;
+program fifth;
+program octave;
 bus 2 2;
 code zUrt;
 type effect;
