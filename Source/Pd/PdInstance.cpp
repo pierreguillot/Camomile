@@ -284,38 +284,30 @@ namespace pd
     
     void Instance::sendList(std::string const& receiver, const std::vector<Atom>& list) const
     {
-        t_atom* argv = (t_atom *)getbytes(sizeof(t_atom) * list.size());
-        if(argv)
+        t_atom* argv = static_cast<t_atom*>(m_atoms);
+        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
+        for(size_t i = 0; i < list.size(); ++i)
         {
-            libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-            for(size_t i = 0; i < list.size(); ++i)
-            {
-                if(list[i].isFloat())
-                    libpd_set_float(argv+i, list[i].getFloat());
-                else
-                    libpd_set_symbol(argv+i, list[i].getSymbol().c_str());
-            }
-            libpd_list(receiver.c_str(), (int)list.size(), argv);
-            freebytes(argv, sizeof(t_atom) * list.size());
+            if(list[i].isFloat())
+                libpd_set_float(argv+i, list[i].getFloat());
+            else
+                libpd_set_symbol(argv+i, list[i].getSymbol().c_str());
         }
+        libpd_list(receiver.c_str(), (int)list.size(), argv);
     }
     
     void Instance::sendMessage(std::string const& receiver, const std::string& msg, const std::vector<Atom>& list) const
     {
-        t_atom* argv = (t_atom *)getbytes(sizeof(t_atom) * list.size());
-        if(argv)
+        t_atom* argv = static_cast<t_atom*>(m_atoms);
+        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
+        for(size_t i = 0; i < list.size(); ++i)
         {
-            libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-            for(size_t i = 0; i < list.size(); ++i)
-            {
-                if(list[i].isFloat())
-                    libpd_set_float(argv+i, list[i].getFloat());
-                else
-                    libpd_set_symbol(argv+i, list[i].getSymbol().c_str());
-            }
-            libpd_message(receiver.c_str(), msg.c_str(), (int)list.size(), argv);
-            freebytes(argv, sizeof(t_atom) * list.size());
+            if(list[i].isFloat())
+                libpd_set_float(argv+i, list[i].getFloat());
+            else
+                libpd_set_symbol(argv+i, list[i].getSymbol().c_str());
         }
+        libpd_message(receiver.c_str(), msg.c_str(), (int)list.size(), argv);
     }
     
     void Instance::processMessages()

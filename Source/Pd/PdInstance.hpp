@@ -111,7 +111,7 @@ namespace pd
         
         void* m_instance    = nullptr;
         void* m_patch       = nullptr;
-        
+        void* m_atoms       = nullptr;
         std::vector<float> m_inputs;
         std::vector<float> m_outputs;
         
