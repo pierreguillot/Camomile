@@ -26,7 +26,7 @@ class GuiObject : public virtual Component, protected Timer
 {
 public:
     GuiObject(GuiPatch& p, pd::Gui& g);
-    virtual ~GuiObject() {}
+    virtual ~GuiObject();
     
     static GuiObject* createTyped(GuiPatch& p, pd::Gui& g);
 protected:

@@ -69,6 +69,11 @@ value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
     startTimer(25);
 }
 
+GuiObject::~GuiObject()
+{
+    stopTimer();
+}
+
 float GuiObject::getValueOriginal() const noexcept
 {
     return value;

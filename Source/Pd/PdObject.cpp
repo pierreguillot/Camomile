@@ -62,13 +62,17 @@ namespace pd
         {
             char* text = nullptr;
             int size = 0;
+            sys_lock();
+            m_patch.m_instance->setThis();
             binbuf_gettext(static_cast<t_text*>(m_ptr)->te_binbuf, &text, &size);
+            sys_unlock();
             if(text && size)
             {
                 std::string txt(text, size);
                 freebytes(static_cast<void*>(text), static_cast<size_t>(size) * sizeof(char));
                 return txt;
             }
+            
         }
         return std::string();
     }
@@ -351,7 +355,10 @@ namespace pd
         if(!m_ptr || m_type != Type::AtomSymbol)
             return std::string();
         else
-            return std::string(atom_getsymbol(&(static_cast<t_gatom*>(m_ptr)->a_atom))->s_name);
+        {
+            m_patch.m_instance->setThis();
+            return atom_getsymbol(&(static_cast<t_gatom*>(m_ptr)->a_atom))->s_name;
+        }
     }
     
     void Gui::setSymbol(std::string const& value) noexcept
@@ -370,6 +377,7 @@ namespace pd
             return 0;
         if(m_type >= Type::Comment)
         {
+            m_patch.m_instance->setThis();
             return glist_fontheight(static_cast<t_canvas*>(m_patch.m_ptr));
         }
         else
