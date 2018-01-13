@@ -7,3 +7,6 @@
 [submodule "libpd"]
 	path = libpd
 	url = https://github.com/pierreguillot/libpd.git
+[submodule "readerwriterqueue"]
+	path = readerwriterqueue
+	url = https://github.com/cameron314/readerwriterqueue.git
