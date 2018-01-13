@@ -341,7 +341,9 @@ namespace pd
     {
         if(!m_ptr || m_type == Type::Comment || m_type == Type::AtomSymbol)
             return;
-        m_patch.m_instance->appendMessage(m_ptr, value);    }
+        m_patch.m_instance->appendMessage(m_ptr, value);
+        
+    }
     
     std::string Gui::getSymbol() const noexcept
     {
