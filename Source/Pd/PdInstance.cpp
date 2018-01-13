@@ -131,6 +131,7 @@ namespace pd
     {
         libpd_multi_init();
         m_instance = libpd_new_instance();
+        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         m_midi_receiver = libpd_multi_midi_new(this,
                                                reinterpret_cast<t_libpd_multi_noteonhook>(internal::instance_multi_noteon),
                                                reinterpret_cast<t_libpd_multi_controlchangehook>(internal::instance_multi_controlchange),
@@ -141,6 +142,7 @@ namespace pd
                                                reinterpret_cast<t_libpd_multi_midibytehook>(internal::instance_multi_midibyte));
         m_prints_receiver = libpd_multi_print_new(this,
                                                   reinterpret_cast<t_libpd_multi_printhook>(internal::instance_multi_print));
+        m_atoms = malloc(sizeof(t_atom) * 512);
     }
     
     Instance::~Instance()
@@ -422,9 +424,7 @@ namespace pd
         auto it = m_receivers.find(symbol);
         if(it != m_receivers.end())
         {
-            sys_lock();
             pd_free((t_pd *)it->second);
-            sys_unlock();
             m_receivers.erase(it);
         }
     }
