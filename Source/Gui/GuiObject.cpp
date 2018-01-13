@@ -66,13 +66,9 @@ value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
     std::array<int, 4> const bounds(gui.getBounds());
     setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
     setOpaque(false);
-    startTimer(25);
 }
 
-GuiObject::~GuiObject()
-{
-    stopTimer();
-}
+GuiObject::~GuiObject() {}
 
 float GuiObject::getValueOriginal() const noexcept
 {
@@ -101,26 +97,27 @@ void GuiObject::setValueScaled(float v)
 
 void GuiObject::startEdition() noexcept
 {
-    patch.startEdition();
     edited = true;
-    stopTimer();
+    patch.startEdition();
     value = gui.getValue();
 }
 
 void GuiObject::stopEdition() noexcept
 {
     edited = false;
-    startTimer(25);
     patch.stopEdition();
 }
 
-void GuiObject::timerCallback()
+void GuiObject::update()
 {
-    float const v = gui.getValue();
-    if(edited == false && v != value)
+    if(edited == false)
     {
-        value = v;
-        repaint();
+        float const v = gui.getValue();
+        if(v != value)
+        {
+            value = v;
+            repaint();
+        }
     }
 }
 
@@ -328,7 +325,7 @@ void GuiRadioVertical::mouseDown(const MouseEvent& e)
 GuiPanel::GuiPanel(GuiPatch& p, pd::Gui& g) : GuiObject(p, g)
 {
     setInterceptsMouseClicks(false, false);
-    stopTimer();
+    edited = true;
 }
 
 void GuiPanel::paint(Graphics& g)
@@ -343,7 +340,7 @@ void GuiPanel::paint(Graphics& g)
 GuiComment::GuiComment(GuiPatch& p, pd::Gui& g) : GuiObject(p, g)
 {
     setInterceptsMouseClicks(false, false);
-    stopTimer();
+    edited = true;
 }
 
 void GuiComment::paint(Graphics& g)
@@ -399,13 +396,16 @@ void GuiTextEditor::editorHidden(Label*, TextEditor&)
     stopEdition();
 }
 
-void GuiTextEditor::timerCallback()
+void GuiTextEditor::update()
 {
-    float const v = gui.getValue();
-    if(edited == false && v != value)
+    if(edited == false)
     {
-        value = v;
-        label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+        float const v = gui.getValue();
+        if(v != value)
+        {
+            value = v;
+            label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+        }
     }
 }
 
@@ -626,13 +626,16 @@ void GuiAtomSymbol::labelTextChanged(Label* label)
     }
 }
 
-void GuiAtomSymbol::timerCallback()
+void GuiAtomSymbol::update()
 {
-    std::string const v = gui.getSymbol();
-    if(edited == false && v != last)
+    if(edited == false)
     {
-        last = v;
-        label->setText(String(last), NotificationType::dontSendNotification);
+        std::string const v = gui.getSymbol();
+        if(v != last)
+        {
+            last = v;
+            label->setText(String(last), NotificationType::dontSendNotification);
+        }
     }
 }
 

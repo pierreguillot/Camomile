@@ -88,11 +88,20 @@ processor (p)
                                "background image " + CamomileEnvironment::getImageName() + " doesn't exist");
         }
     }
+    startTimer(25);
 }
 
 CamomileAudioProcessorEditor::~CamomileAudioProcessorEditor()
 {
-    
+    stopTimer();
+}
+
+void CamomileAudioProcessorEditor::timerCallback()
+{
+    for(auto object : objects)
+    {
+        object->update();
+    }
 }
 
 void CamomileAudioProcessorEditor::startEdition()

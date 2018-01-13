@@ -8,6 +8,7 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "../Pd/PdObject.hpp"
+#include <atomic>
 
 class GuiPatch
 {
@@ -22,13 +23,14 @@ public:
 //                                      GUI OBJECT                                      //
 // ==================================================================================== //
 
-class GuiObject : public virtual Component, protected Timer
+class GuiObject : public virtual Component
 {
 public:
     GuiObject(GuiPatch& p, pd::Gui& g);
     virtual ~GuiObject();
     
     static GuiObject* createTyped(GuiPatch& p, pd::Gui& g);
+    virtual void update();
 protected:
     float getValueOriginal() const noexcept;
     void setValueOriginal(float v);
@@ -37,11 +39,10 @@ protected:
     
     void startEdition() noexcept;
     void stopEdition() noexcept;
-    void timerCallback() override;
     
     pd::Gui     gui;
     GuiPatch&   patch;
-    bool        edited  = false;
+    std::atomic<bool> edited;
     float       value   = 0;
     float       min     = 0;
     float       max     = 1;
@@ -123,7 +124,7 @@ public:
     void labelTextChanged(Label* label) override;
     void editorShown(Label*, TextEditor&) final;
     void editorHidden(Label*, TextEditor&) final;
-    void timerCallback() override;
+    void update() override;
 protected:
     ScopedPointer<Label> label;
 };
@@ -163,7 +164,7 @@ public:
     void paint(Graphics& g) final;
     void mouseDoubleClick(const MouseEvent&) final;
     void labelTextChanged(Label* label) final;
-    void timerCallback() final;
+    void update() final;
 private:
     std::string          last;
 };

@@ -10,7 +10,7 @@
 #include "Gui/Gui.hpp"
 #include "Gui/GuiObject.hpp"
 
-class CamomileAudioProcessorEditor : public AudioProcessorEditor, public Button::Listener, public GuiPatch
+class CamomileAudioProcessorEditor : public AudioProcessorEditor, public Button::Listener, public GuiPatch, protected Timer
 {
 public:
     CamomileAudioProcessorEditor(CamomileAudioProcessor&);
@@ -20,6 +20,7 @@ public:
     void startEdition() final;
     void performEdition() final;
     void stopEdition() final;
+    void timerCallback() final;
     
     void focusGained(FocusChangeType t) final;
     void focusOfChildComponentChanged(FocusChangeType t) final;
