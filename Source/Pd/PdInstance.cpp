@@ -23,100 +23,86 @@ extern "C"
     {
         static void instance_multi_bang(pd::Instance* ptr, const char *recv)
         {
-            std::vector<Atom> const vec;
-            std::lock_guard<std::mutex> lock(ptr->m_messages_mutex);
-            ptr->m_messages.push({std::string(recv), std::string("bang"), vec});
+            ptr->m_message_queue.try_enqueue({std::string(recv), std::string("bang"), std::vector<Atom>()});
         }
         
         static void instance_multi_float(pd::Instance* ptr, const char *recv, float f)
         {
-            std::vector<Atom> const vec(1, f);
-            std::lock_guard<std::mutex> lock(ptr->m_messages_mutex);
-            ptr->m_messages.push({std::string(recv), std::string("float"), vec});
+            ptr->m_message_queue.try_enqueue({std::string(recv), std::string("float"), std::vector<Atom>(1, f)});
         }
         
         static void instance_multi_symbol(pd::Instance* ptr, const char *recv, const char *sym)
         {
-            std::vector<Atom> vec(1, std::string(sym));
-            std::lock_guard<std::mutex> lock(ptr->m_messages_mutex);
-            ptr->m_messages.push({std::string(recv), std::string("symbol"), vec});
+            ptr->m_message_queue.try_enqueue({std::string(recv), std::string("float"), std::vector<Atom>(1, std::string(sym))});
         }
         
         static void instance_multi_list(pd::Instance* ptr, const char *recv, int argc, t_atom *argv)
         {
-            std::vector<Atom> vec(argc);
+            message mess{std::string(recv), std::string("list"), std::vector<Atom>(argc)};
             for(int i = 0; i < argc; ++i)
             {
                 if(argv[i].a_type == A_FLOAT)
-                    vec[i] = Atom(atom_getfloat(argv+i));
+                    mess.list[i] = Atom(atom_getfloat(argv+i));
                 else if(argv[i].a_type == A_SYMBOL)
-                    vec[i] = Atom(std::string(atom_getsymbol(argv+i)->s_name));
+                    mess.list[i] = Atom(std::string(atom_getsymbol(argv+i)->s_name));
             }
-            std::lock_guard<std::mutex> lock(ptr->m_messages_mutex);
-            ptr->m_messages.push({std::string(recv), std::string("list"), vec});
+            ptr->m_message_queue.try_enqueue(std::move(mess));
         }
         
         static void instance_multi_message(pd::Instance* ptr, const char *recv, const char *msg, int argc, t_atom *argv)
         {
-            std::vector<Atom> vec(argc);
+            message mess{std::string(recv), std::string("msg"), std::vector<Atom>(argc)};
             for(int i = 0; i < argc; ++i)
             {
                 if(argv[i].a_type == A_FLOAT)
-                    vec[i] = Atom(atom_getfloat(argv+i));
+                    mess.list[i] = Atom(atom_getfloat(argv+i));
                 else if(argv[i].a_type == A_SYMBOL)
-                    vec[i] = Atom(std::string(atom_getsymbol(argv+i)->s_name));
+                    mess.list[i] = Atom(std::string(atom_getsymbol(argv+i)->s_name));
             }
-            std::lock_guard<std::mutex> lock(ptr->m_messages_mutex);
-            ptr->m_messages.push({std::string(recv), std::string(msg), vec});
+            ptr->m_message_queue.try_enqueue(std::move(mess));
         }
 
+        //////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////
         
         static void instance_multi_noteon(pd::Instance* ptr, int channel, int pitch, int velocity)
         {
-            std::lock_guard<std::mutex> lock(ptr->m_midi_mutex);
-            ptr->m_midi.push({midievent::NOTEON, channel, pitch, velocity});
+            ptr->m_midi_queue.try_enqueue({midievent::NOTEON, channel, pitch, velocity});
         }
         
         static void instance_multi_controlchange(pd::Instance* ptr, int channel, int controller, int value)
         {
-            std::lock_guard<std::mutex> lock(ptr->m_midi_mutex);
-            ptr->m_midi.push({midievent::CONTROLCHANGE, channel, controller, value});
+            ptr->m_midi_queue.try_enqueue({midievent::CONTROLCHANGE, channel, controller, value});
         }
         
         static void instance_multi_programchange(pd::Instance* ptr, int channel, int value)
         {
-            std::lock_guard<std::mutex> lock(ptr->m_midi_mutex);
-            ptr->m_midi.push({midievent::PROGRAMCHANGE, channel, value, 0});
+            ptr->m_midi_queue.try_enqueue({midievent::PROGRAMCHANGE, channel, value, 0});
         }
         
         static void instance_multi_pitchbend(pd::Instance* ptr, int channel, int value)
         {
-            std::lock_guard<std::mutex> lock(ptr->m_midi_mutex);
-            ptr->m_midi.push({midievent::PITCHBEND, channel, value, 0});
+            ptr->m_midi_queue.try_enqueue({midievent::PITCHBEND, channel, value, 0});
         }
         
         static void instance_multi_aftertouch(pd::Instance* ptr, int channel, int value)
         {
-            std::lock_guard<std::mutex> lock(ptr->m_midi_mutex);
-            ptr->m_midi.push({midievent::AFTERTOUCH, channel, value, 0});
+            ptr->m_midi_queue.try_enqueue({midievent::AFTERTOUCH, channel, value, 0});
         }
         
         static void instance_multi_polyaftertouch(pd::Instance* ptr, int channel, int pitch, int value)
         {
-            std::lock_guard<std::mutex> lock(ptr->m_midi_mutex);
-            ptr->m_midi.push({midievent::POLYAFTERTOUCH, channel, pitch, value});
+            ptr->m_midi_queue.try_enqueue({midievent::POLYAFTERTOUCH, channel, pitch, value});
         }
         
         static void instance_multi_midibyte(pd::Instance* ptr, int port, int byte)
         {
-            std::lock_guard<std::mutex> lock(ptr->m_midi_mutex);
-            ptr->m_midi.push({midievent::MIDIBYTE, port, byte, 0});
+            ptr->m_midi_queue.try_enqueue({midievent::MIDIBYTE, port, byte, 0});
         }
         
         static void instance_multi_print(pd::Instance* ptr, char* s)
         {
-            std::lock_guard<std::mutex> lock(ptr->m_prints_mutex);
-            ptr->m_prints.push(s);
+            ptr->m_print_queue.try_enqueue(std::string(s));
         }
     };
     
@@ -140,7 +126,7 @@ namespace pd
                                                reinterpret_cast<t_libpd_multi_aftertouchhook>(internal::instance_multi_aftertouch),
                                                reinterpret_cast<t_libpd_multi_polyaftertouchhook>(internal::instance_multi_polyaftertouch),
                                                reinterpret_cast<t_libpd_multi_midibytehook>(internal::instance_multi_midibyte));
-        m_prints_receiver = libpd_multi_print_new(this,
+        m_print_receiver = libpd_multi_print_new(this,
                                                   reinterpret_cast<t_libpd_multi_printhook>(internal::instance_multi_print));
         m_atoms = malloc(sizeof(t_atom) * 512);
     }
@@ -149,14 +135,14 @@ namespace pd
     {
         if(m_patch)
             closePatch();
-        for(auto it : m_receivers)
+        for(auto it : m_message_receivers)
         {
             pd_free((t_pd *)it.second);
         }
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_free_instance(static_cast<t_pdinstance *>(m_instance));
         pd_free((t_pd *)m_midi_receiver);
-        pd_free((t_pd *)m_prints_receiver);
+        pd_free((t_pd *)m_print_receiver);
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -314,90 +300,51 @@ namespace pd
     
     void Instance::processMessages()
     {
-        m_messages_mutex.lock();
-        while (!m_messages.empty())
+        message mess;
+        while(m_message_queue.try_dequeue(mess))
         {
-            message const mess = m_messages.front();
-            m_messages.pop();
-            m_messages_mutex.unlock();
             if(mess.selector == std::string("bang"))
-            {
                 receiveBang(mess.destination);
-            }
             else if(mess.selector == std::string("float"))
-            {
                 receiveFloat(mess.destination, mess.list[0].getFloat());
-            }
             else if(mess.selector == std::string("symbol"))
-            {
                 receiveSymbol(mess.destination, mess.list[0].getSymbol());
-            }
             else if(mess.selector == std::string("list"))
-            {
                 receiveList(mess.destination, mess.list);
-            }
             else
-            {
                 receiveMessage(mess.destination, mess.selector, mess.list);
-            }
-            m_messages_mutex.lock();
         }
-        m_messages_mutex.unlock();
     }
     
     void Instance::processMidi()
     {
-        m_midi_mutex.lock();
-        while (!m_midi.empty())
+        midievent event;
+        while(m_midi_queue.try_dequeue(event))
         {
-            midievent const event = m_midi.front();
-            m_midi.pop();
-            m_midi_mutex.unlock();
             if(event.type == midievent::NOTEON)
-            {
                 receiveNoteOn(event.midi1, event.midi2, event.midi3);
-            }
             else if(event.type == midievent::CONTROLCHANGE)
-            {
                 receiveControlChange(event.midi1, event.midi2, event.midi3);
-            }
             else if(event.type == midievent::PROGRAMCHANGE)
-            {
                 receiveProgramChange(event.midi1, event.midi2);
-            }
             else if(event.type == midievent::PITCHBEND)
-            {
                 receivePitchBend(event.midi1, event.midi2);
-            }
             else if(event.type == midievent::AFTERTOUCH)
-            {
                 receiveAftertouch(event.midi1, event.midi2);
-            }
             else if(event.type == midievent::POLYAFTERTOUCH)
-            {
                 receivePolyAftertouch(event.midi1, event.midi2, event.midi3);
-            }
             else if(event.type == midievent::MIDIBYTE)
-            {
                 receiveMidiByte(event.midi1, event.midi2);
-            }
-            m_midi_mutex.lock();
         }
-        m_midi_mutex.unlock();
     }
     
     void Instance::processPrints()
     {
-        m_prints_mutex.lock();
-        while (!m_prints.empty())
+        std::string print;
+        while(m_print_queue.try_dequeue(print))
         {
-            std::string const message = m_prints.front();
-            m_prints.pop();
-            m_prints_mutex.unlock();
-            receivePrint(message);
-            m_prints_mutex.lock();
+            receivePrint(print);
         }
-        m_prints_mutex.unlock();
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -406,7 +353,7 @@ namespace pd
     void Instance::bind(std::string const& symbol)
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        if(m_receivers.find(symbol) == m_receivers.end())
+        if(m_message_receivers.find(symbol) == m_message_receivers.end())
         {
             void* receiver = libpd_multi_receiver_new(this, symbol.c_str(),
                                                       reinterpret_cast<t_libpd_multi_banghook>(internal::instance_multi_bang),
@@ -414,18 +361,18 @@ namespace pd
                                                       reinterpret_cast<t_libpd_multi_symbolhook>(internal::instance_multi_symbol),
                                                       reinterpret_cast<t_libpd_multi_listhook>(internal::instance_multi_list),
                                                       reinterpret_cast<t_libpd_multi_messagehook>(internal::instance_multi_message));
-            m_receivers[symbol] = receiver;
+            m_message_receivers[symbol] = receiver;
         }
     }
     
     void Instance::unbind(std::string const& symbol)
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        auto it = m_receivers.find(symbol);
-        if(it != m_receivers.end())
+        auto it = m_message_receivers.find(symbol);
+        if(it != m_message_receivers.end())
         {
             pd_free((t_pd *)it->second);
-            m_receivers.erase(it);
+            m_message_receivers.erase(it);
         }
     }
     

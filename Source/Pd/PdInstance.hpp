@@ -13,6 +13,7 @@
 #include <string>
 #include <mutex>
 #include <array>
+#include "../../readerwriterqueue/readerwriterqueue.h"
 
 namespace pd
 {
@@ -121,9 +122,6 @@ namespace pd
             std::string selector;
             std::vector<Atom> list;
         };
-        std::queue<message>             m_messages;
-        std::mutex                      m_messages_mutex;
-        std::map<std::string, void*>    m_receivers;
         
         typedef struct midievent
         {
@@ -142,13 +140,14 @@ namespace pd
             int  midi3;
         } midievent;
         
-        std::queue<midievent> m_midi;
-        std::mutex            m_midi_mutex;
-        void*                 m_midi_receiver;
+        moodycamel::ReaderWriterQueue<message> m_message_queue = moodycamel::ReaderWriterQueue<message>(4096);
+        std::map<std::string, void*>           m_message_receivers;
         
-        std::queue<std::string> m_prints;
-        std::mutex              m_prints_mutex;
-        void*                   m_prints_receiver;
+        moodycamel::ReaderWriterQueue<midievent> m_midi_queue = moodycamel::ReaderWriterQueue<midievent>(4096);
+        void*                                    m_midi_receiver;
+        
+        moodycamel::ReaderWriterQueue<std::string> m_print_queue = moodycamel::ReaderWriterQueue<std::string>(4096);
+        void*                                      m_print_receiver;
         
         struct internal;
     };
