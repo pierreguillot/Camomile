@@ -7,12 +7,9 @@
 #pragma once
 
 #include <vector>
-#include <queue>
 #include <map>
 #include <utility>
 #include <string>
-#include <mutex>
-#include <array>
 #include "../../readerwriterqueue/readerwriterqueue.h"
 
 namespace pd
@@ -94,7 +91,6 @@ namespace pd
         virtual void receiveSymbol(const std::string& dest, const std::string& symbol) {}
         virtual void receiveList(const std::string& dest, const std::vector<Atom>& list) {}
         virtual void receiveMessage(const std::string& dest, const std::string& msg, const std::vector<Atom>& list) {}
-        
         
         void processMessages();
         void processPrints();

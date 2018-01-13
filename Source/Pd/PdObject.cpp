@@ -8,6 +8,7 @@
 #include <iostream>
 #include <limits>
 #include <cmath>
+#include <array>
 
 extern "C"
 {
