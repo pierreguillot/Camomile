@@ -440,12 +440,12 @@ void CamomileAudioProcessor::receivePrint(const std::string& message)
 //==============================================================================
 bool CamomileAudioProcessor::hasEditor() const
 {
-    return false;//true;
+    return true;
 }
 
 AudioProcessorEditor* CamomileAudioProcessor::createEditor()
 {
-    return nullptr;// new CamomileAudioProcessorEditor(*this);
+    return new CamomileAudioProcessorEditor(*this);
 }
 
 
