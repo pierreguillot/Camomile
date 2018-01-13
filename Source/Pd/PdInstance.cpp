@@ -51,7 +51,7 @@ extern "C"
         
         static void instance_multi_message(pd::Instance* ptr, const char *recv, const char *msg, int argc, t_atom *argv)
         {
-            message mess{std::string(recv), std::string("msg"), std::vector<Atom>(argc)};
+            message mess{std::string(recv), msg, std::vector<Atom>(argc)};
             for(int i = 0; i < argc; ++i)
             {
                 if(argv[i].a_type == A_FLOAT)
