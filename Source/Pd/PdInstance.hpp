@@ -15,39 +15,10 @@
 namespace pd
 {
     class Patch;
+    class Atom;
     // ==================================================================================== //
     //                                      INSTANCE                                        //
     // ==================================================================================== //
-    
-    class Atom
-    {
-    public:
-        
-        inline Atom() : type(FLOAT), value(0), symbol() {}
-        inline Atom(const float val) : type(FLOAT), value(val), symbol() {}
-        inline Atom(const std::string& sym) : type(SYMBOL), value(0), symbol(sym) {}
-        inline Atom(const char* sym) : type(SYMBOL), value(0), symbol(sym) {}
-        
-        inline bool isFloat() const noexcept { return type == FLOAT; }
-        inline bool isSymbol() const noexcept { return type == SYMBOL; }
-        inline float getFloat() const noexcept { return value; }
-        inline std::string const& getSymbol() const noexcept { return symbol; }
-        
-        inline bool operator==(Atom const& other) const noexcept {
-            if(type == SYMBOL) { return other.type == SYMBOL && symbol == other.symbol; }
-            else { return other.type == FLOAT && value == other.value; } }
-    private:
-        
-        enum Type
-        {
-            FLOAT,
-            SYMBOL
-        };
-        
-        Type        type = FLOAT;
-        float       value = 0;
-        std::string symbol;
-    };
     
     class Instance
     {
@@ -92,6 +63,11 @@ namespace pd
         virtual void receiveList(const std::string& dest, const std::vector<Atom>& list) {}
         virtual void receiveMessage(const std::string& dest, const std::string& msg, const std::vector<Atom>& list) {}
         
+        void appendMessage(const std::string& dest, const std::string& msg, std::vector<Atom>&& list);
+        void appendMessage(void* object, const std::string& msg);
+        void appendMessage(void* object, const float msg);
+        
+        void enqueueMessages();
         void processMessages();
         void processPrints();
         void processMidi();
@@ -119,6 +95,14 @@ namespace pd
             std::vector<Atom> list;
         };
         
+        struct dmessage
+        {
+            void*       object;
+            std::string destination;
+            std::string selector;
+            std::vector<Atom> list;
+        };
+        
         typedef struct midievent
         {
             enum
@@ -136,15 +120,44 @@ namespace pd
             int  midi3;
         } midievent;
         
+        moodycamel::ReaderWriterQueue<dmessage> m_send_queue = moodycamel::ReaderWriterQueue<dmessage>(4096);
         moodycamel::ReaderWriterQueue<message> m_message_queue = moodycamel::ReaderWriterQueue<message>(4096);
-        std::map<std::string, void*>           m_message_receivers;
-        
         moodycamel::ReaderWriterQueue<midievent> m_midi_queue = moodycamel::ReaderWriterQueue<midievent>(4096);
-        void*                                    m_midi_receiver;
-        
         moodycamel::ReaderWriterQueue<std::string> m_print_queue = moodycamel::ReaderWriterQueue<std::string>(4096);
-        void*                                      m_print_receiver;
+        
+        std::map<std::string, void*> m_message_receivers;
+        void*   m_midi_receiver;
+        void*   m_print_receiver;
         
         struct internal;
+    };
+    
+    class Atom
+    {
+    public:
+        inline Atom() : type(FLOAT), value(0), symbol() {}
+        inline Atom(const float val) : type(FLOAT), value(val), symbol() {}
+        inline Atom(const std::string& sym) : type(SYMBOL), value(0), symbol(sym) {}
+        inline Atom(const char* sym) : type(SYMBOL), value(0), symbol(sym) {}
+        
+        inline bool isFloat() const noexcept { return type == FLOAT; }
+        inline bool isSymbol() const noexcept { return type == SYMBOL; }
+        inline float getFloat() const noexcept { return value; }
+        inline std::string const& getSymbol() const noexcept { return symbol; }
+        
+        inline bool operator==(Atom const& other) const noexcept {
+            if(type == SYMBOL) { return other.type == SYMBOL && symbol == other.symbol; }
+            else { return other.type == FLOAT && value == other.value; } }
+    private:
+        
+        enum Type
+        {
+            FLOAT,
+            SYMBOL
+        };
+        
+        Type        type = FLOAT;
+        float       value = 0;
+        std::string symbol;
     };
 }

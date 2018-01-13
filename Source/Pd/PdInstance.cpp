@@ -347,6 +347,49 @@ namespace pd
         }
     }
     
+    void Instance::appendMessage(const std::string& dest, const std::string& msg, std::vector<Atom>&& list)
+    {
+        m_send_queue.try_enqueue({nullptr, dest, msg, std::move(list)});
+    }
+    
+    void Instance::appendMessage(void* object, const std::string& msg)
+    {
+        m_send_queue.try_enqueue({object, std::string(), std::string(), std::vector<Atom>(1, msg)});
+    }
+    
+    void Instance::appendMessage(void* object, const float msg)
+    {
+        m_send_queue.try_enqueue({object, std::string(), std::string(), std::vector<Atom>(1, msg)});
+    }
+    
+    void Instance::enqueueMessages()
+    {
+        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
+        dmessage mess;
+        while(m_send_queue.try_dequeue(mess))
+        {
+            if(mess.object && !mess.list.empty())
+            {
+                if(mess.list[0].isFloat())
+                {
+                    sys_lock();
+                    pd_float(static_cast<t_pd *>(mess.object), mess.list[0].getFloat());
+                    sys_unlock();
+                }
+                else
+                {
+                    sys_lock();
+                    pd_symbol(static_cast<t_pd *>(mess.object), gensym(mess.list[0].getSymbol().c_str()));
+                    sys_unlock();
+                }
+            }
+            else
+            {
+                sendMessage(mess.destination, mess.selector, mess.list);
+            }
+        }
+    }
+    
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     
