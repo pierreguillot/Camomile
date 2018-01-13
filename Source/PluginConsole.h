@@ -63,8 +63,11 @@ public:
     void add(size_t level, std::string message) noexcept {
         assert(level < SIZE && "wrong level of message");
         std::lock_guard<std::mutex> guard(m_mutex);
-        ++m_counters[level];
-        m_messages.push_back(std::pair<size_t, std::string>({level, std::move(message)}));
+        if(m_messages.size() < 511)
+        {
+            ++m_counters[level];
+            m_messages.push_back(std::pair<size_t, std::string>({level, std::move(message)}));
+        }
     }
     
 private:
