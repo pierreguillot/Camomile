@@ -109,11 +109,6 @@ void CamomileAudioProcessorEditor::startEdition()
     processor.appendMessage(std::string("gui"), std::string("mouse"), {1.f});
 }
 
-void CamomileAudioProcessorEditor::performEdition()
-{
-    ;
-}
-
 void CamomileAudioProcessorEditor::stopEdition()
 {
     processor.appendMessage(std::string("gui"), std::string("mouse"), {0.f});

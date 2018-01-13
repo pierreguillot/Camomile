@@ -79,7 +79,6 @@ void GuiObject::setValueOriginal(float v)
 {
     value = (min < max) ? std::max(std::min(v, max), min) : std::max(std::min(v, min), max);
     gui.setValue(value);
-    patch.performEdition();
 }
 
 float GuiObject::getValueScaled() const noexcept
@@ -92,7 +91,6 @@ void GuiObject::setValueScaled(float v)
     value = (min < max) ? std::max(std::min(v, 1.f), 0.f) * (max - min) + min
                         : (1.f - std::max(std::min(v, 1.f), 0.f)) * (min - max) + max;
     gui.setValue(value);
-    patch.performEdition();
 }
 
 void GuiObject::startEdition() noexcept
@@ -620,7 +618,6 @@ void GuiAtomSymbol::labelTextChanged(Label* label)
     if(value.isNotEmpty())
     {
         gui.setSymbol(value.toStdString());
-        patch.performEdition();
         label->setText(String(gui.getSymbol()), NotificationType::dontSendNotification);
         last = gui.getSymbol();
     }

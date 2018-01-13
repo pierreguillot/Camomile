@@ -15,7 +15,6 @@ class GuiPatch
 public:
     virtual ~GuiPatch() {}
     virtual void startEdition() = 0;
-    virtual void performEdition() = 0;
     virtual void stopEdition() = 0;
 };
 

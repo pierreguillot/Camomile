@@ -18,7 +18,6 @@ public:
     void paint(Graphics&) final;
     void buttonClicked(Button* button) final;
     void startEdition() final;
-    void performEdition() final;
     void stopEdition() final;
     void timerCallback() final;
     
