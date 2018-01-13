@@ -18,116 +18,116 @@
 #X text 677 220 1'1/3;
 #X text 677 240 1';
 #X obj 18 80 hsl 128 15 0 100 0 0 \$0-attack-sld-s \$0-attack-sld-r
-empty -2 -8 0 10 -111368 -1 -1 0 1;
+empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 18 112 hsl 128 15 0 1000 0 0 \$0-decay-sld-s \$0-decay-sld-r
-empty -2 -8 0 10 -262144 -1 -1 0 1;
+empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 18 176 hsl 128 15 0 1000 0 0 \$0-release-sld-s \$0-release-sld-r
-empty -2 -8 0 10 -262144 -1 -1 0 1;
+empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 153 80 nbx 5 15 0 100 0 0 \$0-attack-nbx-s \$0-attack-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 153 112 nbx 5 15 0 1000 0 0 \$0-decay-nbx-s \$0-decay-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 153 176 nbx 5 15 0 1000 0 0 \$0-release-nbx-s \$0-release-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 18 144 hsl 128 15 0 100 0 0 \$0-sustain-sld-s \$0-sustain-sld-r
-empty -2 -8 0 10 -262144 -1 -1 0 1;
+empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 153 144 nbx 5 15 0 100 0 0 \$0-sustain-nbx-s \$0-sustain-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 16 765 dac~, f 13;
 #X obj 152 241 nbx 5 15 0 100 0 0 \$0-overdrive-nbx-s \$0-overdrive-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 16 273 hsl 128 15 0 15 0 0 \$0-leslie-rate-sld-s \$0-leslie-rate-sld-r
-empty -2 -8 0 10 -262144 -1 -1 0 1;
+empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 151 273 nbx 5 15 0 15 0 0 \$0-leslie-rate-nbx-s \$0-leslie-rate-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 16 305 hsl 128 15 0 100 0 0 \$0-volume-sld-s \$0-volume-sld-r
-empty -2 -8 0 10 -262144 -1 -1 0 1;
+empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 151 305 nbx 5 15 0 100 0 0 \$0-volume-nbx-s \$0-volume-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 627 614 param.change;
 #X obj 243 80 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-1-sld-s
-\$0-harmonic-percussive-1-sld-r empty -2 -8 0 10 -262144 -1 -1 0 1
+\$0-harmonic-percussive-1-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
 ;
 #X obj 243 101 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-2-sld-s
-\$0-harmonic-percussive-2-sld-r empty -2 -8 0 10 -262144 -1 -1 0 1
+\$0-harmonic-percussive-2-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
 ;
 #X obj 243 121 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-3-sld-s
-\$0-harmonic-percussive-3-sld-r empty -2 -8 0 10 -262144 -1 -1 0 1
+\$0-harmonic-percussive-3-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
 ;
 #X obj 243 141 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-4-sld-s
-\$0-harmonic-percussive-4-sld-r empty -2 -8 0 10 -262144 -1 -1 0 1
+\$0-harmonic-percussive-4-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
 ;
 #X obj 243 161 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-5-sld-s
-\$0-harmonic-percussive-5-sld-r empty -2 -8 0 10 -262144 -1 -1 0 1
+\$0-harmonic-percussive-5-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
 ;
 #X obj 243 181 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-6-sld-s
-\$0-harmonic-percussive-6-sld-r empty -2 -8 0 10 -262144 -1 -1 0 1
+\$0-harmonic-percussive-6-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
 ;
 #X obj 243 201 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-7-sld-s
-\$0-harmonic-percussive-7-sld-r empty -2 -8 0 10 -262144 -1 -1 0 1
+\$0-harmonic-percussive-7-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
 ;
 #X obj 243 221 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-8-sld-s
-\$0-harmonic-percussive-8-sld-r empty -2 -8 0 10 -262144 -1 -1 0 1
+\$0-harmonic-percussive-8-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
 ;
 #X obj 243 241 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-9-sld-s
-\$0-harmonic-percussive-9-sld-r empty -2 -8 0 10 -262144 -1 -1 0 1
+\$0-harmonic-percussive-9-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
 ;
 #X obj 378 80 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-1-nbx-s \$0-harmonic-percussive-1-nbx-r
-empty -8 0 0 10 -262144 -1 -262144 0 256;
+empty -8 0 0 10 -195023 -1 -195023 0 256;
 #X obj 378 101 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-2-nbx-s \$0-harmonic-percussive-2-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 378 121 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-3-nbx-s \$0-harmonic-percussive-3-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 378 141 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-4-nbx-s \$0-harmonic-percussive-4-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 378 161 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-5-nbx-s \$0-harmonic-percussive-5-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 378 181 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-6-nbx-s \$0-harmonic-percussive-6-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 378 201 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-7-nbx-s \$0-harmonic-percussive-7-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 378 221 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-8-nbx-s \$0-harmonic-percussive-8-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 378 241 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-9-nbx-s \$0-harmonic-percussive-9-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 485 80 hsl 128 15 0 100 0 0 \$0-harmonic-organ-1-sld-s \$0-harmonic-organ-1-sld-r
-empty -2 -8 0 10 -262144 -1 -1 0 1;
+empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 485 100 hsl 128 15 0 100 0 0 \$0-harmonic-organ-2-sld-s \$0-harmonic-organ-2-sld-r
-empty -2 -8 0 10 -262144 -1 -1 0 1;
+empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 485 120 hsl 128 15 0 100 0 0 \$0-harmonic-organ-3-sld-s \$0-harmonic-organ-3-sld-r
-empty -2 -8 0 10 -262144 -1 -1 0 1;
+empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 485 140 hsl 128 15 0 100 0 0 \$0-harmonic-organ-4-sld-s \$0-harmonic-organ-4-sld-r
-empty -2 -8 0 10 -262144 -1 -1 0 1;
+empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 485 160 hsl 128 15 0 100 0 0 \$0-harmonic-organ-5-sld-s \$0-harmonic-organ-5-sld-r
-empty -2 -8 0 10 -262144 -1 -1 0 1;
+empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 485 180 hsl 128 15 0 100 0 0 \$0-harmonic-organ-6-sld-s \$0-harmonic-organ-6-sld-r
-empty -2 -8 0 10 -262144 -1 -1 0 1;
+empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 485 200 hsl 128 15 0 100 0 0 \$0-harmonic-organ-7-sld-s \$0-harmonic-organ-7-sld-r
-empty -2 -8 0 10 -262144 -1 -1 0 1;
+empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 485 220 hsl 128 15 0 100 0 0 \$0-harmonic-organ-8-sld-s \$0-harmonic-organ-8-sld-r
-empty -2 -8 0 10 -262144 -1 -1 0 1;
+empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 485 240 hsl 128 15 0 100 0 0 \$0-harmonic-organ-9-sld-s \$0-harmonic-organ-9-sld-r
-empty -2 -8 0 10 -262144 -1 -1 0 1;
+empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 621 80 nbx 5 15 0 100 0 0 \$0-harmonic-organ-1-nbx-s \$0-harmonic-organ-1-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 621 100 nbx 5 15 0 100 0 0 \$0-harmonic-organ-2-nbx-s \$0-harmonic-organ-2-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 621 120 nbx 5 15 0 100 0 0 \$0-harmonic-organ-3-nbx-s \$0-harmonic-organ-3-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 621 140 nbx 5 15 0 100 0 0 \$0-harmonic-organ-4-nbx-s \$0-harmonic-organ-4-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 621 160 nbx 5 15 0 100 0 0 \$0-harmonic-organ-5-nbx-s \$0-harmonic-organ-5-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 621 180 nbx 5 15 0 100 0 0 \$0-harmonic-organ-6-nbx-s \$0-harmonic-organ-6-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 621 200 nbx 5 15 0 100 0 0 \$0-harmonic-organ-7-nbx-s \$0-harmonic-organ-7-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 621 220 nbx 5 15 0 100 0 0 \$0-harmonic-organ-8-nbx-s \$0-harmonic-organ-8-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 621 240 nbx 5 15 0 100 0 0 \$0-harmonic-organ-9-nbx-s \$0-harmonic-organ-9-nbx-r
-empty 0 -8 0 10 -262144 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 17 241 hsl 128 15 0 100 0 0 \$0-overdrive-sld-s \$0-overdrive-sld-r
-empty -2 -8 0 10 -262144 -1 -1 0 1;
+empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X text 12 225 Overdrive;
 #X text 11 257 Leslie LFO rate;
 #X text 207 273 Hz;
