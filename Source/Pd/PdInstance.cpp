@@ -397,7 +397,7 @@ namespace pd
         m_prints_mutex.lock();
         while (!m_prints.empty())
         {
-            auto const message = m_prints.front();
+            std::string const message = m_prints.front();
             m_prints.pop();
             m_prints_mutex.unlock();
             receivePrint(message);
