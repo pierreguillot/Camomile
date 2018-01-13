@@ -1,0 +1,16 @@
+#N canvas 775 125 138 199 10;
+#X obj 17 115 line~;
+#X obj 17 160 dac~ 1 2, f 13;
+#X msg 17 90 \$1 20;
+#X obj 56 115 noise~;
+#X obj 17 136 *~, f 7;
+#X obj 17 65 dbtorms;
+#X obj 17 40 param.get 1;
+#X connect 0 0 4 0;
+#X connect 2 0 0 0;
+#X connect 3 0 4 1;
+#X connect 4 0 1 0;
+#X connect 4 0 1 1;
+#X connect 5 0 2 0;
+#X connect 6 0 5 0;
+#X coords 0 199 1 198 460 160 0;
