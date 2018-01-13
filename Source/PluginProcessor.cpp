@@ -51,6 +51,9 @@ m_programs(CamomileEnvironment::getPrograms())
     {
         add(ConsoleLevel::Normal,
             std::string("Camomile ") + std::string(JucePlugin_VersionString) + std::string(" for Pd ") + CamomileEnvironment::getPdVersion());
+        m_atoms_param.resize(2);
+        m_atoms_playhead.reserve(3);
+        m_atoms_playhead.resize(1);
         for(auto const& error : CamomileEnvironment::getErrors())
         {
             add(ConsoleLevel::Error,
@@ -196,26 +199,33 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         if(playhead && playhead->getCurrentPosition(infos))
         {
             std::string const splayhead("playhead");
-            sendMessage(splayhead, std::string("playing"), {static_cast<float>(infos.isPlaying)});
-            sendMessage(splayhead, std::string("recording"), {static_cast<float>(infos.isRecording)});
-            sendMessage(splayhead, std::string("looping"), {
-                static_cast<float>(infos.isLooping),
-                static_cast<float>(infos.ppqLoopStart),
-                static_cast<float>(infos.ppqLoopEnd)});
-            sendMessage(splayhead, std::string("edittime"), {static_cast<float>(infos.editOriginTime)});
-            sendMessage(splayhead, std::string("framerate"), {static_cast<float>(infos.frameRate)});
+            m_atoms_playhead[0] = static_cast<float>(infos.isPlaying);
+            sendMessage(splayhead, std::string("playing"), m_atoms_playhead);
+            m_atoms_playhead[0] = static_cast<float>(infos.isRecording);
+            sendMessage(splayhead, std::string("recording"), m_atoms_playhead);
+            m_atoms_playhead[0] = static_cast<float>(infos.isLooping);
+            m_atoms_playhead.push_back(static_cast<float>(infos.ppqLoopStart));
+            m_atoms_playhead.push_back(static_cast<float>(infos.ppqLoopEnd));
+            sendMessage(splayhead, std::string("looping"), m_atoms_playhead);
+            m_atoms_playhead.resize(1);
+            m_atoms_playhead[0] = static_cast<float>(infos.editOriginTime);
+            sendMessage(splayhead, std::string("edittime"), m_atoms_playhead);
+            m_atoms_playhead[0] = static_cast<float>(infos.frameRate);
+            sendMessage(splayhead, std::string("framerate"), m_atoms_playhead);
             
-            sendMessage(splayhead, std::string("bpm"), {static_cast<float>(infos.bpm)});
-            sendMessage(splayhead, std::string("lastbar"), {static_cast<float>(infos.ppqPositionOfLastBarStart)});
-            sendMessage(splayhead, std::string("timesig"), {
-                static_cast<float>(infos.timeSigNumerator),
-                static_cast<float>(infos.timeSigDenominator)});
+            m_atoms_playhead[0] = static_cast<float>(infos.bpm);
+            sendMessage(splayhead, std::string("bpm"), m_atoms_playhead);
+            m_atoms_playhead[0] = static_cast<float>(infos.ppqPositionOfLastBarStart);
+            sendMessage(splayhead, std::string("lastbar"), m_atoms_playhead);
+            m_atoms_playhead[0] = static_cast<float>(infos.timeSigNumerator);
+            m_atoms_playhead.push_back(static_cast<float>(infos.timeSigDenominator));
+            sendMessage(splayhead, std::string("timesig"), m_atoms_playhead);
             
-            sendMessage(splayhead, std::string("position"), {
-                static_cast<float>(infos.ppqPosition),
-                static_cast<float>(infos.timeInSamples),
-                static_cast<float>(infos.timeInSeconds)});
-            
+            m_atoms_playhead[0] = static_cast<float>(infos.ppqPosition);
+            m_atoms_playhead[1] = static_cast<float>(infos.timeInSamples);
+            m_atoms_playhead.push_back(static_cast<float>(infos.timeInSeconds));
+            sendMessage(splayhead, std::string("position"), m_atoms_playhead);
+            m_atoms_playhead.resize(1);
         }
     }
     
@@ -246,7 +256,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////
-    //                                          RETRIEVE MESSAGE                             //
+    //                                          RETRIEVE MESSAGES                           //
     //////////////////////////////////////////////////////////////////////////////////////////
     processMessages();
     
@@ -258,7 +268,9 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         OwnedArray<AudioProcessorParameter> const& parameters = AudioProcessor::getParameters();
         for(int i = 0; i < parameters.size(); ++i)
         {
-            sendList(sparam, {float(i+1), static_cast<CamomileAudioParameter const*>(parameters.getUnchecked(i))->getOriginalScaledValue()});
+            m_atoms_param[0] = static_cast<float>(i+1);
+            m_atoms_param[1] = static_cast<CamomileAudioParameter const*>(parameters.getUnchecked(i))->getOriginalScaledValue();
+            sendList(sparam, m_atoms_param);
         }
     }
     
@@ -428,12 +440,12 @@ void CamomileAudioProcessor::receivePrint(const std::string& message)
 //==============================================================================
 bool CamomileAudioProcessor::hasEditor() const
 {
-    return true;
+    return false;//true;
 }
 
 AudioProcessorEditor* CamomileAudioProcessor::createEditor()
 {
-    return new CamomileAudioProcessorEditor(*this);
+    return nullptr;// new CamomileAudioProcessorEditor(*this);
 }
 
 
