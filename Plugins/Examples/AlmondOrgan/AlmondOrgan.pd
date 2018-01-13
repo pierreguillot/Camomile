@@ -67,11 +67,11 @@ empty 0 -8 0 10 -195023 -1 -1 0 256;
 \$0-harmonic-percussive-7-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
 ;
 #X obj 243 221 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-8-sld-s
-\$0-harmonic-percussive-8-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
-;
+\$0-harmonic-percussive-8-sld-r empty -2 -8 0 10 -195023 -1 -1 7900
+1;
 #X obj 243 241 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-9-sld-s
-\$0-harmonic-percussive-9-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
-;
+\$0-harmonic-percussive-9-sld-r empty -2 -8 0 10 -195023 -1 -1 6900
+1;
 #X obj 378 80 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-1-nbx-s \$0-harmonic-percussive-1-nbx-r
 empty -8 0 0 10 -195023 -1 -195023 0 256;
 #X obj 378 101 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-2-nbx-s \$0-harmonic-percussive-2-nbx-r
@@ -87,9 +87,9 @@ empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 378 201 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-7-nbx-s \$0-harmonic-percussive-7-nbx-r
 empty 0 -8 0 10 -195023 -1 -1 0 256;
 #X obj 378 221 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-8-nbx-s \$0-harmonic-percussive-8-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 62.2047 256;
 #X obj 378 241 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-9-nbx-s \$0-harmonic-percussive-9-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 0 256;
+empty 0 -8 0 10 -195023 -1 -1 54.3307 256;
 #X obj 485 80 hsl 128 15 0 100 0 0 \$0-harmonic-organ-1-sld-s \$0-harmonic-organ-1-sld-r
 empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 485 100 hsl 128 15 0 100 0 0 \$0-harmonic-organ-2-sld-s \$0-harmonic-organ-2-sld-r
@@ -169,6 +169,20 @@ empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 32 536 sel 0;
 #X msg 32 557 all 0;
 #X obj 16 600 clone -s 1 12 voice~ \$0-wf-1 \$0-wf-2, f 40;
+#X obj 588 425 gui.link 17 \$0-harmonic-organ-1;
+#X obj 32 516 change;
+#X obj 358 623 midi.ctrl.link 1 7 \$0-leslie-rate 8.46667;
+#X obj 358 643 midi.ctrl.link 2 6 \$0-overdrive 1.27;
+#X obj 358 663 midi.ctrl.link 7 1 \$0-volume 1.27;
+#X obj 16 427 poly 12 1, f 11;
+#X text 13 48 Envelope;
+#X text 12 211 Effects;
+#X text 223 27 A twelve voices synthesizer inpired by the Hammond organ
+;
+#X text 238 48 Harmonics;
+#X text 238 61 Percussion;
+#X text 478 61 Organ;
+#X text 293 14 Almond Organ by Pierre Guillot;
 #X obj 358 585 gui.link 16 \$0-harmonic-percussive-9;
 #X obj 627 655 gui.link 3 \$0-decay;
 #X obj 627 635 gui.link 2 \$0-attack;
@@ -177,7 +191,6 @@ empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 627 675 gui.link 4 \$0-sustain;
 #X obj 627 695 gui.link 5 \$0-release;
 #X obj 627 755 gui.link 7 \$0-leslie-rate;
-#X obj 588 425 gui.link 17 \$0-harmonic-organ-1;
 #X obj 358 425 gui.link 8 \$0-harmonic-percussive-1;
 #X obj 358 445 gui.link 9 \$0-harmonic-percussive-2;
 #X obj 358 465 gui.link 10 \$0-harmonic-percussive-3;
@@ -194,19 +207,6 @@ empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X obj 588 545 gui.link 23 \$0-harmonic-organ-7;
 #X obj 588 565 gui.link 24 \$0-harmonic-organ-8;
 #X obj 588 585 gui.link 25 \$0-harmonic-organ-9;
-#X obj 32 516 change;
-#X obj 358 623 midi.ctrl.link 1 7 \$0-leslie-rate 8.46667;
-#X obj 358 643 midi.ctrl.link 2 6 \$0-overdrive 1.27;
-#X obj 358 663 midi.ctrl.link 7 1 \$0-volume 1.27;
-#X obj 16 427 poly 12 1, f 11;
-#X text 13 48 Envelope;
-#X text 12 211 Effects;
-#X text 223 27 A twelve voices synthesizer inpired by the Hammond organ
-;
-#X text 238 48 Harmonics;
-#X text 238 61 Percussion;
-#X text 478 61 Organ;
-#X text 293 14 Almond Organ by Pierre Guillot;
 #X connect 84 0 86 0;
 #X connect 85 0 84 1;
 #X connect 86 0 88 0;
@@ -215,10 +215,10 @@ empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X connect 88 0 26 0;
 #X connect 88 1 26 1;
 #X connect 89 0 88 2;
-#X connect 90 0 140 0;
+#X connect 90 0 116 0;
 #X connect 90 1 92 0;
 #X connect 91 0 110 0;
-#X connect 92 0 140 1;
+#X connect 92 0 116 1;
 #X connect 96 0 84 0;
 #X connect 97 0 98 0;
 #X connect 98 0 110 1;
@@ -229,12 +229,12 @@ empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X connect 103 0 110 4;
 #X connect 104 0 103 0;
 #X connect 106 0 107 0;
-#X connect 107 0 136 0;
+#X connect 107 0 112 0;
 #X connect 108 0 109 0;
 #X connect 109 0 110 0;
 #X connect 110 0 96 0;
-#X connect 136 0 108 0;
-#X connect 140 0 91 0;
-#X connect 140 1 91 1;
-#X connect 140 2 91 2;
+#X connect 112 0 108 0;
+#X connect 116 0 91 0;
+#X connect 116 1 91 1;
+#X connect 116 2 91 2;
 #X coords 0 -1 1 1 721 324 2 5 5;
