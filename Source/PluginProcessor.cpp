@@ -98,8 +98,15 @@ void CamomileAudioProcessor::setCurrentProgram(int index)
     if(index < m_programs.size())
     {
         m_program_current = index;
-        sendFloat("program", static_cast<float>(index+1));
-        processMessages();
+        if(isSuspended())
+        {
+            sendFloat("program", static_cast<float>(index+1));
+            processMessages();
+        }
+        else
+        {
+            appendMessage("program", "float", {static_cast<float>(index+1)});
+        }
     }
 }
 
