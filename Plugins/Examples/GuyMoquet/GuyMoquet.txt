@@ -1,4 +1,0 @@
-bus 2 2;
-code zUkt;
-image Lapin.jpg;
-type effect;

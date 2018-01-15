@@ -1,3 +1,0 @@
-bus 0 2;
-code zUrY;
-type instrument;

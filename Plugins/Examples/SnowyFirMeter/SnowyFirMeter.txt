@@ -1,4 +1,0 @@
-bus 2 0;
-code zUit;
-image snow.jpg;
-type effect;
