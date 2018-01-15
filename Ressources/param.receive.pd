@@ -1,8 +1,0 @@
-#N canvas 835 417 164 169 10;
-#X obj 26 28 r param;
-#X obj 26 50 route \$1;
-#X obj 26 94 outlet;
-#X obj 26 72 change -1e+37;
-#X connect 0 0 1 0;
-#X connect 1 0 3 0;
-#X connect 3 0 2 0;
