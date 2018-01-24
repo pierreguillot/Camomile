@@ -11,6 +11,7 @@
 #include <utility>
 #include <string>
 #include "../../readerwriterqueue/readerwriterqueue.h"
+#include "../../concurrentqueue/concurrentqueue.h"
 
 namespace pd
 {
@@ -120,8 +121,8 @@ namespace pd
             int  midi3;
         } midievent;
         
-        typedef moodycamel::ReaderWriterQueue<dmessage> message_queue;
-        message_queue m_send_queue = moodycamel::ReaderWriterQueue<dmessage>(4096);
+        typedef moodycamel::ConcurrentQueue<dmessage> message_queue;
+        message_queue m_send_queue = message_queue(4096);
         moodycamel::ReaderWriterQueue<message> m_message_queue = moodycamel::ReaderWriterQueue<message>(4096);
         moodycamel::ReaderWriterQueue<midievent> m_midi_queue = moodycamel::ReaderWriterQueue<midievent>(4096);
         moodycamel::ReaderWriterQueue<std::string> m_print_queue = moodycamel::ReaderWriterQueue<std::string>(4096);
