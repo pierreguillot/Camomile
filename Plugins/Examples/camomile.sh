@@ -165,6 +165,8 @@ generate_plugin_vst() {
 
         cp -rf $ThisPath/../$1.$VstExtension/ $ThisPath/Builds/$3.$VstExtension
         cp -rf $2/$3/ $ThisPath/Builds/$3.$VstExtension/Contents/Resources
+        plutil -replace CFBundleName -string $3 $ThisPath/Builds/$3.$VstExtension/Contents/Info.plist
+        plutil -replace CFBundleDisplayName -string $3 $ThisPath/Builds/$3.$VstExtension/Contents/Info.plist
         echo -n $VstExtension " "
     else
         echo -n -e "\033[2;30m"$VstExtension" \033[0m"
@@ -179,6 +181,8 @@ generate_plugin_vst3() {
 
         cp -rf $ThisPath/../$1.$Vst3Extension/ $ThisPath/Builds/$3.$Vst3Extension
         cp -rf $2/$3/ $ThisPath/Builds/$3.$Vst3Extension/Contents/Resources
+        plutil -replace CFBundleName -string $3 $ThisPath/Builds/$3.$Vst3Extension/Contents/Info.plist
+        plutil -replace CFBundleDisplayName -string $3 $ThisPath/Builds/$3.$Vst3Extension/Contents/Info.plist
         echo -n $Vst3Extension " "
     else
         echo -n -e "\033[2;30m"$Vst3Extension" \033[0m"
@@ -215,6 +219,8 @@ generate_plugin_au() {
 
         cp -rf $ThisPath/../$1.$AuExtension/ $ThisPath/Builds/$3.$AuExtension
         cp -rf $2/$3/ $ThisPath/Builds/$3.$AuExtension/Contents/Resources
+        plutil -replace CFBundleName -string $3 $ThisPath/Builds/$3.$AuExtension/Contents/Info.plist
+        plutil -replace CFBundleDisplayName -string $3 $ThisPath/Builds/$3.$AuExtension/Contents/Info.plist
         plutil -replace AudioComponents.name -string $3 $ThisPath/Builds/$3.$AuExtension/Contents/Info.plist
         plutil -replace AudioComponents.subtype -string $code $ThisPath/Builds/$3.$AuExtension/Contents/Info.plist
         echo -n $AuExtension
