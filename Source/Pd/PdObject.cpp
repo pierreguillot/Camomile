@@ -341,7 +341,7 @@ namespace pd
     {
         if(!m_ptr || m_type == Type::Comment || m_type == Type::AtomSymbol)
             return;
-        m_patch.m_instance->appendMessage(m_ptr, value);
+        m_patch.m_instance->enqueueDirectMessages(m_ptr, value);
         
     }
     
@@ -360,7 +360,7 @@ namespace pd
     {
         if(!m_ptr || m_type != Type::AtomSymbol)
             return;
-        m_patch.m_instance->appendMessage(m_ptr, value);
+        m_patch.m_instance->enqueueDirectMessages(m_ptr, value);
     }
     
     int Gui::getFontSize() const noexcept

@@ -106,12 +106,12 @@ void CamomileAudioProcessorEditor::timerCallback()
 
 void CamomileAudioProcessorEditor::startEdition()
 {
-    processor.appendMessage(std::string("gui"), std::string("mouse"), {1.f});
+    processor.enqueueMessages(std::string("gui"), std::string("mouse"), {1.f});
 }
 
 void CamomileAudioProcessorEditor::stopEdition()
 {
-    processor.appendMessage(std::string("gui"), std::string("mouse"), {0.f});
+    processor.enqueueMessages(std::string("gui"), std::string("mouse"), {0.f});
 }
 
 void CamomileAudioProcessorEditor::paint (Graphics& g)

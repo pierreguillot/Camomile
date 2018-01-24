@@ -347,22 +347,22 @@ namespace pd
         }
     }
     
-    void Instance::appendMessage(const std::string& dest, const std::string& msg, std::vector<Atom>&& list)
+    void Instance::enqueueMessages(const std::string& dest, const std::string& msg, std::vector<Atom>&& list)
     {
         m_send_queue.try_enqueue({nullptr, dest, msg, std::move(list)});
     }
     
-    void Instance::appendMessage(void* object, const std::string& msg)
+    void Instance::enqueueDirectMessages(void* object, const std::string& msg)
     {
         m_send_queue.try_enqueue({object, std::string(), std::string(), std::vector<Atom>(1, msg)});
     }
     
-    void Instance::appendMessage(void* object, const float msg)
+    void Instance::enqueueDirectMessages(void* object, const float msg)
     {
         m_send_queue.try_enqueue({object, std::string(), std::string(), std::vector<Atom>(1, msg)});
     }
     
-    void Instance::enqueueMessages()
+    void Instance::dequeueMessages()
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         dmessage mess;

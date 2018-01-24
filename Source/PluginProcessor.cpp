@@ -105,7 +105,7 @@ void CamomileAudioProcessor::setCurrentProgram(int index)
         }
         else
         {
-            appendMessage("program", "float", {static_cast<float>(index+1)});
+            enqueueMessages("program", "float", {static_cast<float>(index+1)});
         }
     }
 }
@@ -195,7 +195,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         return;
     }
     
-    enqueueMessages();
+    dequeueMessages();
     
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                     PLAY HEAD                                        //

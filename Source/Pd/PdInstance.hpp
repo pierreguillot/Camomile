@@ -63,11 +63,11 @@ namespace pd
         virtual void receiveList(const std::string& dest, const std::vector<Atom>& list) {}
         virtual void receiveMessage(const std::string& dest, const std::string& msg, const std::vector<Atom>& list) {}
         
-        void appendMessage(const std::string& dest, const std::string& msg, std::vector<Atom>&& list);
-        void appendMessage(void* object, const std::string& msg);
-        void appendMessage(void* object, const float msg);
+        void enqueueMessages(const std::string& dest, const std::string& msg, std::vector<Atom>&& list);
+        void enqueueDirectMessages(void* object, const std::string& msg);
+        void enqueueDirectMessages(void* object, const float msg);
         
-        void enqueueMessages();
+        void dequeueMessages();
         void processMessages();
         void processPrints();
         void processMidi();
@@ -120,7 +120,8 @@ namespace pd
             int  midi3;
         } midievent;
         
-        moodycamel::ReaderWriterQueue<dmessage> m_send_queue = moodycamel::ReaderWriterQueue<dmessage>(4096);
+        typedef moodycamel::ReaderWriterQueue<dmessage> message_queue;
+        message_queue m_send_queue = moodycamel::ReaderWriterQueue<dmessage>(4096);
         moodycamel::ReaderWriterQueue<message> m_message_queue = moodycamel::ReaderWriterQueue<message>(4096);
         moodycamel::ReaderWriterQueue<midievent> m_midi_queue = moodycamel::ReaderWriterQueue<midievent>(4096);
         moodycamel::ReaderWriterQueue<std::string> m_print_queue = moodycamel::ReaderWriterQueue<std::string>(4096);
