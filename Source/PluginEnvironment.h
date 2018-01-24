@@ -49,6 +49,12 @@ public:
     //! @brief Gets if the Pd version.
     static std::string getPdVersion();
     
+    //! @brief Gets a description of the plugin.
+    static std::string getPluginDescription();
+    
+    //! @brief Gets a description of the plugin.
+    static std::string getPluginDescriptionUTF8();
+    
     //! @brief Gets if the environment is valid.
     static bool isValid();
     
@@ -97,12 +103,13 @@ private:
     
     std::string     plugin_name = "Camomile";
     std::string     plugin_path = "";
+    std::string     plugin_desc = "A plugin that loads Pure Data patches";
     unsigned int    plugin_code = 0x4b707139;
     std::string     patch_name  = "Camomile.pd";
     std::string     patch_path  = "";
     std::string     image_name  = "";
     bool            valid       = false;
-    std::bitset<9>  state;
+    std::bitset<10>  state;
     
     bool    midi_in_support   = false;
     bool    midi_out_support  = false;
@@ -127,6 +134,7 @@ private:
         init_latency    = 5,
         init_code       = 6,
         init_image      = 7,
-        init_type       = 8
+        init_type       = 8,
+        init_desc       = 9
     };
 };

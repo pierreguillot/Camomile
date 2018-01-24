@@ -20,6 +20,7 @@
 #define JUCE_REPORT_APP_USAGE 0
 #define JucePlugin_Name CamomileEnvironment::getPluginNameUTF8()
 #define JucePlugin_PluginCode CamomileEnvironment::getPluginCode()
+#define JucePlugin_Desc CamomileEnvironment::getPluginDescriptionUTF8()
 // [END_USER_CODE_SECTION]
 
 /*

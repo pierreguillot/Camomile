@@ -41,6 +41,10 @@ std::string CamomileEnvironment::getPatchName() { return get().patch_name; }
 
 std::string CamomileEnvironment::getImageName() { return get().image_name; }
 
+std::string CamomileEnvironment::getPluginDescriptionUTF8() { return get().plugin_desc.c_str(); }
+
+std::string CamomileEnvironment::getPluginDescription() { return get().plugin_desc; }
+
 bool CamomileEnvironment::isValid() { return get().valid; }
 
 std::string CamomileEnvironment::getPdVersion() {
@@ -278,6 +282,13 @@ CamomileEnvironment::CamomileEnvironment()
                                 throw std::string("already defined");
                             image_name = CamomileParser::getString(entry.second);
                             state.set(init_image);
+                        }
+                        else if(entry.first == "description")
+                        {
+                            if(state.test(init_desc))
+                                throw std::string("already defined");
+                            plugin_desc = CamomileParser::getString(entry.second);
+                            state.set(init_desc);
                         }
                         else if(entry.first == "type")
                         {
