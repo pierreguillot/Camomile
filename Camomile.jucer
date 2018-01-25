@@ -12,7 +12,7 @@
               pluginAUExportPrefix="CamomileAU" pluginRTASCategory="" aaxIdentifier="com.pierreguillot.camomile"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.2.0"
               companyName="Pierre Guillot" headerPath="../../libpd/pure-data/src&#10;../../libpd/libpd_wrapper&#10;../../libpd/libpd_wrapper/util&#10;../../libpd/cpp&#10;"
-              defines="HAVE_UNISTD_H=1" companyWebsite="https://github.com/pierreguillot/Camomile">
+              defines="HAVE_UNISTD_H=1" companyWebsite="github.com/pierreguillot/camomile">
   <MAINGROUP id="BLNPyv" name="Camomile">
     <GROUP id="{D4367A82-F269-8F5A-1C22-AB42C90672ED}" name="Source">
       <FILE id="yIk1CH" name="PluginProcessor.cpp" compile="1" resource="0"
