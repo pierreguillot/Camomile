@@ -36,3 +36,6 @@
 # Juce & ThirdParty
 /Builds/MacOSX/build/
 /Builds/LinuxMakefile/build/
+
+#Examples
+/Plugins/Examples/GuyMoquet/
