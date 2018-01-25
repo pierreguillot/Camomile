@@ -98,9 +98,41 @@ CamomileAudioProcessorEditor::~CamomileAudioProcessorEditor()
 
 void CamomileAudioProcessorEditor::timerCallback()
 {
+    bool fcopen = false;
+    CamomileAudioProcessor::MessageGui message;
+    while(processor.dequeueGui(message))
+    {
+        if(!fcopen)
+        {
+            stopTimer();
+            fcopen = true;
+        }
+        if(message.first == std::string("openpanel"))
+        {
+            FileChooser fc("Open...", File(message.second));
+            if(fc.browseForFileToOpen())
+            {
+                File const f(fc.getResult());
+                processor.enqueueMessages(std::string("openpanel"), f.getFullPathName().toStdString(), {});
+            }
+        }
+        else if(message.first == std::string("savepanel"))
+        {
+            FileChooser fc("Open...", File(message.second));
+            if(fc.browseForFileToSave(true))
+            {
+                File const f(fc.getResult());
+                processor.enqueueMessages(std::string("savepanel"), f.getFullPathName().toStdString(), {});
+            }
+        }
+    }
     for(auto object : objects)
     {
         object->update();
+    }
+    if(fcopen)
+    {
+        startTimer(25);
     }
 }
 
