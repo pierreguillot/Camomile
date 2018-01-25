@@ -28,6 +28,7 @@ matrix:
     - rm Plugins/CamomileFx.a
     - rm Plugins/Examples/camomile.sh
     - cp README.md Plugins/README.md
+    - cp ChangeLog.md Plugins/ChangeLog.md
     - cp LICENSE Plugins/LICENSE.txt
     - cp Documentation.pdf Plugins/Documentation.pdf
     - mv Plugins Camomile
@@ -45,6 +46,7 @@ matrix:
     - rm Plugins/libCamomileFx.a
     - rm Plugins/Examples/camomile.sh
     - cp README.md Plugins/README.md
+    - cp ChangeLog.md Plugins/ChangeLog.md
     - cp LICENSE Plugins/LICENSE.txt
     - cp Documentation.pdf Plugins/Documentation.pdf
     - mv Plugins Camomile
