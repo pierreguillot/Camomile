@@ -12,11 +12,8 @@
 
 Font Gui::getFont()
 {
-#ifdef __APPLE__
-    return Font(String("Monaco"), 13.f, juce::Font::plain).withStyle(Font::bold);
-#else
-    return Font(String("DejaVu Sans Mono"), 12.f, juce::Font::plain).withStyle(Font::bold);
-#endif
+    static Font DejaVu = Font(Typeface::createSystemTypefaceFor(BinaryData::DejaVuSansMono_ttf, BinaryData::DejaVuSansMono_ttfSize)).withHeight(12.f);
+    return DejaVu;
 }
 
 int Gui::getBorderSize() noexcept
@@ -36,7 +33,7 @@ Colour const& Gui::getColorBd() noexcept
 
 Colour const& Gui::getColorTxt() noexcept
 {
-    return Colours::darkgrey;
+    return Colours::black;
 }
 
 Colour const& Gui::getColorInv() noexcept

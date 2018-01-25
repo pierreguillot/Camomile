@@ -9,7 +9,10 @@
 
 extern "C"
 {
-#include "z_pd.h"
+#include <z_libpd.h>
+#include <m_pd.h>
+#include <g_canvas.h>
+#include "x_libpd_multi.h"
 }
 
 namespace pd
@@ -18,183 +21,47 @@ namespace pd
     //                                          PATCHER                                     //
     // ==================================================================================== //
     
-    Patch::Patch() noexcept : m_ptr(nullptr), m_count(nullptr), m_instance()
-    {
-        
-    }
+    Patch::Patch() noexcept : m_ptr(nullptr), m_instance(nullptr) {}
     
-    Patch::Patch(Instance& instance, std::string const& name, std::string const& path) noexcept :
-    m_ptr(nullptr), m_count(nullptr), m_instance(instance)
-    {
-        if(m_instance.isValid())
-        {
-            m_instance.lock();
-            m_ptr = z_pd_patch_new(name.c_str(), path.c_str());
-            if(m_ptr)
-            {
-                m_count = new std::atomic<size_t>(1);
-            }
-            m_instance.unlock();
-        }
-    }
+    Patch::Patch(void* ptr, Instance* instance) noexcept : m_ptr(ptr), m_instance(instance) {}
     
-    Patch::Patch(Patch const& other) noexcept :
-    m_ptr(other.m_ptr), m_count(other.m_count), m_instance(other.m_instance)
-    {
-        if(m_ptr && m_count)
-        {
-            ++(*m_count);
-        }
-    }
-    
-    Patch::Patch(Patch&& other) noexcept :
-    m_ptr(other.m_ptr), m_count(other.m_count), m_instance(other.m_instance)
-    {
-        other.m_ptr     = nullptr;
-        other.m_count   = nullptr;
-        other.m_instance = Instance();
-    }
-    
-    void Patch::release() noexcept
-    {
-        if(m_ptr && m_count && m_count->operator--() == 0)
-        {
-            m_instance.lock();
-            z_pd_patch_free(reinterpret_cast<z_patch *>(m_ptr));
-            m_instance.unlock();
-            delete m_count;
-            m_ptr           = nullptr;
-            m_count         = nullptr;
-        }
-    }
+    Patch::Patch(Patch const& other) noexcept : m_ptr(other.m_ptr), m_instance(other.m_instance) {}
     
     Patch& Patch::operator=(Patch const& other) noexcept
     {
-        release();
-        if(other.m_ptr && other.m_count && other.m_count->operator++() > 0)
-        {
-            m_ptr       = other.m_ptr;
-            m_count     = other.m_count;
-            m_instance  = other.m_instance;
-        }
+        m_ptr = other.m_ptr;
+        m_instance = other.m_instance;
         return *this;
     }
     
-    Patch& Patch::operator=(Patch&& other) noexcept
-    {
-        std::swap(m_count, other.m_count);
-        std::swap(m_ptr, other.m_ptr);
-        std::swap(m_instance, other.m_instance);
-        return *this;
-    }
+    Patch::~Patch() noexcept {}
     
-    Patch::~Patch() noexcept
-    {
-        release();
-    }
+    int Patch::getDollarZero() { return static_cast<bool>(m_ptr) ? libpd_getdollarzero(m_ptr) : 0; }
+    bool Patch::isGraph() const noexcept {
+        return static_cast<bool>(m_ptr) ? static_cast<bool>(static_cast<t_canvas*>(m_ptr)->gl_isgraph ): false; }
     
-    bool Patch::isValid() const noexcept
+    std::array<int, 4> Patch::getBounds() const noexcept
     {
-        return bool(m_ptr) && bool(m_count) && m_instance.isValid();
-    }
-    
-    Instance Patch::getInstance() const noexcept
-    {
-        return m_instance;
-    }
-    
-    std::string Patch::getName() const
-    {
-        return isValid() ? z_pd_patch_get_name(reinterpret_cast<z_patch *>(m_ptr)) : std::string();
-    }
-    
-    std::string Patch::getPath() const
-    {
-        return isValid() ? z_pd_patch_get_path(reinterpret_cast<z_patch *>(m_ptr)) : std::string();
-    }
-    
-    int Patch::getDollarZero()
-    {
-        int value = 0;
-        if(isValid())
+        t_canvas const* cnv = static_cast<t_canvas*>(m_ptr);
+        if(static_cast<bool>(m_ptr) && cnv->gl_isgraph)
         {
-            m_instance.lock();
-            value = z_pd_patch_get_dollarzero(reinterpret_cast<z_patch *>(m_ptr));
-            m_instance.unlock();
+            return {cnv->gl_xmargin, cnv->gl_ymargin, cnv->gl_pixwidth - 1, cnv->gl_pixheight - 1};
         }
-        return value;
-    }
-    
-    std::array<int, 2> Patch::getPosition() const noexcept
-    {
-        return isValid() ?
-        std::array<int, 2>{z_pd_patch_get_x(reinterpret_cast<z_patch *>(m_ptr)), z_pd_patch_get_y(reinterpret_cast<z_patch *>(m_ptr))} :
-        std::array<int, 2>{0, 0};
-    }
-    
-    std::array<int, 2> Patch::getSize() const noexcept
-    {
-        return isValid() ?
-        std::array<int, 2>{z_pd_patch_get_width(reinterpret_cast<z_patch *>(m_ptr)), z_pd_patch_get_height(reinterpret_cast<z_patch *>(m_ptr))} :
-        std::array<int, 2>{0, 0};
+        return {0, 0, 0, 0};
     }
     
     std::vector<Gui> Patch::getGuis() const noexcept
     {
         std::vector<Gui> objects;
-        if(isValid())
+        if(!m_ptr)
+            return objects;
+        
+        for(t_gobj *y = static_cast<t_canvas*>(m_ptr)->gl_list; y; y = y->g_next)
         {
-            z_symbol* hsl = z_pd_symbol_create("hsl");
-            z_symbol* vsl = z_pd_symbol_create("vsl");
-            z_symbol* tgl = z_pd_symbol_create("tgl");
-            z_symbol* nbx = z_pd_symbol_create("nbx");
-            z_symbol* vra = z_pd_symbol_create("vradio");
-            z_symbol* hra = z_pd_symbol_create("hradio");
-            for(z_object *y = z_pd_patch_get_first_object(reinterpret_cast<z_patch *>(m_ptr)); y;
-                y = z_pd_patch_get_next_object(reinterpret_cast<z_patch *>(m_ptr), y))
+            Gui gui(static_cast<void*>(y), *this);
+            if(gui.getType() != Gui::Type::Undefined)
             {
-                if(z_pd_object_get_name(y) == hsl)
-                {
-                    objects.push_back(Gui(*this, Gui::Type::HorizontalSlider, reinterpret_cast<void *>(y)));
-                }
-                else if(z_pd_object_get_name(y) == vsl)
-                {
-                    objects.push_back(Gui(*this, Gui::Type::VerticalSlider, reinterpret_cast<void *>(y)));
-                }
-                else if(z_pd_object_get_name(y) == tgl)
-                {
-                    objects.push_back(Gui(*this, Gui::Type::Toggle, reinterpret_cast<void *>(y)));
-                }
-                else if(z_pd_object_get_name(y) == nbx)
-                {
-                    objects.push_back(Gui(*this, Gui::Type::Number, reinterpret_cast<void *>(y)));
-                }
-                else if(z_pd_object_get_name(y) == vra)
-                {
-                    objects.push_back(Gui(*this, Gui::Type::VerticalRadio, reinterpret_cast<void *>(y)));
-                }
-                else if(z_pd_object_get_name(y) == hra)
-                {
-                    objects.push_back(Gui(*this, Gui::Type::HorizontalRadio, reinterpret_cast<void *>(y)));
-                }
-            }
-        }
-        return objects;
-    }
-    
-    std::vector<Object> Patch::getComments() const noexcept
-    {
-        std::vector<Object> objects;
-        if(isValid())
-        {
-            z_symbol* txt = z_pd_symbol_create("text");
-            for(z_object *y = z_pd_patch_get_first_object(reinterpret_cast<z_patch *>(m_ptr)); y;
-                y = z_pd_patch_get_next_object(reinterpret_cast<z_patch *>(m_ptr), y))
-            {
-                if(z_pd_object_get_name(y)== txt)
-                {
-                    objects.push_back(Object(*this, reinterpret_cast<void *>(y)));
-                }
+                objects.push_back(gui);
             }
         }
         return objects;

@@ -4,8 +4,7 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef Z_PD_OBJECT_HPP
-#define Z_PD_OBJECT_HPP
+#pragma once
 
 #include "PdPatch.hpp"
 
@@ -29,48 +28,32 @@ namespace pd
         //! @details Creates a copy of an Object and increments his counter.
         Object(Object const& other) noexcept;
         
-        //! @brief The move constructor.
-        //! @details Creates a copy of an Object without incrementing his counter. The
-        //! Object Patch will be useless.
-        Object(Object&& other) noexcept;
-        
         //! @brief The copy operator.
         //! @details Copies the Object and increments his counter.
         Object& operator=(Object const& other) noexcept;
-        
-        //! @brief The move operator.
-        //! @details Copies the Object without incrementing his counter. The other
-        //! Object will be destroyed if needed.
-        Object& operator=(Object&& other) noexcept;
         
         //! @brief The destructor.
         //! @details The Object will be destroyed if no other copy exists.
         virtual ~Object() noexcept;
         
-        //! @brief Gets if the Object is valid.
-        bool isValid() const noexcept;
-        
         //! @brief The text of the Object.
         std::string getText() const;
         
+        //! @brief The name of the Object.
+        std::string getName() const;
+        
         //! @brief The bounds of the Object.
-        std::array<int, 4> getBounds() const noexcept;
+        virtual std::array<int, 4> getBounds() const noexcept;
         
     protected:
-        
-        void* getPatchPtr() const noexcept;
-        
-        void* getPtr() const noexcept;
         
         //! @brief The constructor for a new Object.
         //! @details Creates a new valid Object. You should never have to use it. Use the
         //! Patch to retrieve an Object.
-        Object(Patch const& patch, void* ptr) noexcept;
+        Object(void* ptr, Patch const& patch) noexcept;
         
-    private:
-        
-        void*       m_ptr;
-        Patch       m_patch;
+        void*   m_ptr;
+        Patch   m_patch;
         friend class Patch;
     };
     
@@ -83,19 +66,25 @@ namespace pd
     //! With the default constructor, the Gui won't be initialized. A valid
     //! Gui should be created via a Patch. The Gui should be used as tempory object,
     //! because it locks the Patch.
-    class Gui : public Object, private Smuggler
+    class Gui : public Object
     {
     public:
         
         enum class Type : size_t
         {
-            Invalid          = 0,
+            Undefined        = 0,
             HorizontalSlider = 1,
             VerticalSlider   = 2,
             Toggle           = 3,
             Number           = 4,
             HorizontalRadio  = 5,
-            VerticalRadio    = 6
+            VerticalRadio    = 6,
+            Bang             = 7,
+            Panel            = 8,
+            VuMeter          = 9,
+            Comment          = 10,
+            AtomNumber       = 11,
+            AtomSymbol       = 12
         };
         
         //! @brief The constructor for an empty Object.
@@ -107,19 +96,9 @@ namespace pd
         //! @details Creates a copy of an Object and increments his counter.
         Gui(Gui const& other) noexcept;
         
-        //! @brief The move constructor.
-        //! @details Creates a copy of an Object without incrementing his counter. The
-        //! Object Patch will be useless.
-        Gui(Gui&& other) noexcept;
-        
         //! @brief The copy operator.
         //! @details Copies the Object and increments his counter.
         Gui& operator=(Gui const& other) noexcept;
-        
-        //! @brief The move operator.
-        //! @details Copies the Object without incrementing his counter. The other
-        //! Object will be destroyed if needed.
-        Gui& operator=(Gui&& other) noexcept;
         
         //! @brief The destructor.
         //! @details The Object will be destroyed if no other copy exists.
@@ -128,14 +107,7 @@ namespace pd
         //! @brief The class name of the Object.
         Type getType() const noexcept;
         
-        //! @brief The Name of the Object.
-        std::string getName() const;
-        
-        std::string getLabel() const;
-        
-        Tie getReceiveTie() const;
-        
-        bool isParameter() const noexcept;
+        int getFontSize() const noexcept;
         
         float getMinimum() const noexcept;
         
@@ -143,20 +115,33 @@ namespace pd
         
         float getValue() const noexcept;
         
+        void setValue(float value) noexcept;
+        
         size_t getNumberOfSteps() const noexcept;
         
-        std::array<int, 2> getLabelPosition() const noexcept;
+        unsigned int getBackgroundColor() const noexcept;
+        
+        unsigned int getForegroundColor() const noexcept;
+        
+        unsigned int getLabelColor() const noexcept;
+        
+        std::string getLabel() const noexcept;
+        
+        std::string getSymbol() const noexcept;
+        
+        void setSymbol(std::string const& value) noexcept;
+        
+        std::array<int, 4> getBounds() const noexcept override;
         
     private:
 
         //! @brief The constructor for a new Object.
         //! @details Creates a new valid Object. You should never have to use it. Use the
         //! Patch to retrieve an Object.
-        Gui(Patch const& patch, Type type, void* ptr) noexcept;
+        Gui(void* ptr, Patch const& patch) noexcept;
         
         Type        m_type;
         friend class Patch;
     };
 }
 
-#endif

@@ -4,25 +4,12 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef __CAMOMILE_GUI__
-#define __CAMOMILE_GUI__
+#pragma once
 
-#include "../InstanceProcessor.hpp"
-#include "GuiParameter.hpp"
-#include "GuiRadio.hpp"
-#include "GuiToggle.hpp"
-#include "GuiSlider.hpp"
-#include "GuiNumbox.hpp"
-#include "GuiLabel.hpp"
-#include "GuiComment.hpp"
-#include "GuiPatcher.hpp"
-#include "GuiConsole.hpp"
-#include "GuiAbout.hpp"
-#include "GuiWindow.hpp"
-#include "GuiFlowerButton.hpp"
+#include "../../JuceLibraryCode/JuceHeader.h"
 
 // ==================================================================================== //
-//                                      GUI TOGGLE                                      //
+//                                      GUI                                      //
 // ==================================================================================== //
 
 class Gui
@@ -36,4 +23,3 @@ public:
     static Colour const& getColorInv() noexcept;
 };
 
-#endif

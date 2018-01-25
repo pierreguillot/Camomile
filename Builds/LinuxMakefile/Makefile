@@ -1,772 +1,342 @@
-# Automatically generated makefile, created by the Introjucer
-# Don't edit this file! Your changes will be overwritten when you re-save the Introjucer project!
+# Automatically generated makefile, created by the Projucer
+# Don't edit this file! Your changes will be overwritten when you re-save the Projucer project!
+
+# build with "V=1" for verbose builds
+ifeq ($(V), 1)
+V_AT =
+else
+V_AT = @
+endif
 
 # (this disables dependency generation if multiple architectures are set)
 DEPFLAGS := $(if $(word 2, $(TARGET_ARCH)), , -MMD)
+
+ifndef STRIP
+  STRIP=strip
+endif
+
+ifndef AR
+  AR=ar
+endif
 
 ifndef CONFIG
   CONFIG=Debug
 endif
 
 ifeq ($(CONFIG),Debug)
-  BINDIR := build
-  LIBDIR := build
-  OBJDIR := build/intermediate/Debug
-  OUTDIR := build
+  JUCE_BINDIR := build
+  JUCE_LIBDIR := build
+  JUCE_OBJDIR := build/intermediate/Debug
+  JUCE_OUTDIR := ../../Plugins
 
   ifeq ($(TARGET_ARCH),)
-    TARGET_ARCH := 
+    TARGET_ARCH := -march=native
   endif
 
-  CPPFLAGS := $(DEPFLAGS) -D "LINUX=1" -D "DEBUG=1" -D "_DEBUG=1" -D "PD=1" -D "USEAPI_DUMMY=1" -D "PD_INTERNAL=1" -D "HAVE_UNISTD_H=1" -D "HAVE_LIBDL=1" -D "HAVE_ALLOCA_H=1" -D "JUCER_LINUX_MAKE_6D53C8B4=1" -D "JUCE_APP_VERSION=0.0.7" -D "JUCE_APP_VERSION_HEX=0x7" -I /usr/include -I /usr/include/freetype2 -I ../../ThirdParty/Vst -I ../../ThirdParty/Vst/vstsdk2.4 -I ../../JuceLibraryCode -I ../../ThirdParty/Juce/modules -I ../../ThirdParty/PureData/src
-  CFLAGS += $(CPPFLAGS) $(TARGET_ARCH) -g -ggdb -fPIC -O0
-  CXXFLAGS += $(CFLAGS) -std=c++11
-  LDFLAGS += $(TARGET_ARCH) -L$(BINDIR) -L$(LIBDIR) -Wl,--no-undefined -shared -L/usr/X11R6/lib/ -lX11 -lXext -lXinerama -ldl -lfreetype -lpthread -lrt 
+  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DDEBUG=1 -D_DEBUG=1 -DHAVE_UNISTD_H=1 -DJucePlugin_IsSynth=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=1.0.1 -DJUCE_APP_VERSION_HEX=0x10001 $(shell pkg-config --cflags alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -pthread -I../../JuceLibraryCode -I../../Juce/modules -I../../libpd/pure-data/src -I../../libpd/libpd_wrapper -I../../libpd/libpd_wrapper/util -I../../libpd/cpp $(CPPFLAGS)
 
-  TARGET := Camomile.so
-  BLDCMD = $(CXX) -o $(OUTDIR)/$(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(TARGET_ARCH)
-  CLEANCMD = rm -rf $(OUTDIR)/$(TARGET) $(OBJDIR)
+  JUCE_CPPFLAGS_VST := -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0
+  JUCE_CFLAGS_VST := -fPIC -fvisibility=hidden
+  JUCE_LDFLAGS_VST := -shared -Wl,--no-undefined
+  JUCE_TARGET_VST := Camomile.so
+
+  JUCE_CPPFLAGS_SHARED_CODE := -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0 -DJUCE_SHARED_CODE=1
+  JUCE_TARGET_SHARED_CODE := Camomile.a
+
+  JUCE_CFLAGS += $(JUCE_CPPFLAGS) $(TARGET_ARCH) -fPIC -g -ggdb -O0 $(CFLAGS)
+  JUCE_CXXFLAGS += $(JUCE_CFLAGS) -std=c++11 $(CXXFLAGS)
+  JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -L../../libpd/libs $(shell pkg-config --libs alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -ldl -lpthread -lrt -lpd $(LDFLAGS)
+
+  CLEANCMD = rm -rf $(JUCE_OUTDIR)/$(TARGET) $(JUCE_OBJDIR)
 endif
 
 ifeq ($(CONFIG),Release)
-  BINDIR := build
-  LIBDIR := build
-  OBJDIR := build/intermediate/Release
-  OUTDIR := build
+  JUCE_BINDIR := build
+  JUCE_LIBDIR := build
+  JUCE_OBJDIR := build/intermediate/Release
+  JUCE_OUTDIR := ../../Plugins
 
   ifeq ($(TARGET_ARCH),)
-    TARGET_ARCH := 
+    TARGET_ARCH := -march=native
   endif
 
-  CPPFLAGS := $(DEPFLAGS) -D "LINUX=1" -D "NDEBUG=1" -D "PD=1" -D "USEAPI_DUMMY=1" -D "PD_INTERNAL=1" -D "HAVE_UNISTD_H=1" -D "HAVE_LIBDL=1" -D "HAVE_ALLOCA_H=1" -D "JUCER_LINUX_MAKE_6D53C8B4=1" -D "JUCE_APP_VERSION=0.0.7" -D "JUCE_APP_VERSION_HEX=0x7" -I /usr/include -I /usr/include/freetype2 -I ../../ThirdParty/Vst -I ../../ThirdParty/Vst/vstsdk2.4 -I ../../JuceLibraryCode -I ../../ThirdParty/Juce/modules -I ../../ThirdParty/PureData/src
-  CFLAGS += $(CPPFLAGS) $(TARGET_ARCH) -fPIC -O3
-  CXXFLAGS += $(CFLAGS) -std=c++11
-  LDFLAGS += $(TARGET_ARCH) -L$(BINDIR) -L$(LIBDIR) -Wl,--no-undefined -shared -fvisibility=hidden -L/usr/X11R6/lib/ -lX11 -lXext -lXinerama -ldl -lfreetype -lpthread -lrt 
+  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DNDEBUG=1 -DHAVE_UNISTD_H=1 -DJucePlugin_IsSynth=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=1.0.1 -DJUCE_APP_VERSION_HEX=0x10001 $(shell pkg-config --cflags alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -pthread -I../../JuceLibraryCode -I../../Juce/modules -I../../libpd/pure-data/src -I../../libpd/libpd_wrapper -I../../libpd/libpd_wrapper/util -I../../libpd/cpp $(CPPFLAGS)
 
-  TARGET := Camomile.so
-  BLDCMD = $(CXX) -o $(OUTDIR)/$(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(TARGET_ARCH)
-  CLEANCMD = rm -rf $(OUTDIR)/$(TARGET) $(OBJDIR)
+  JUCE_CPPFLAGS_VST := -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0
+  JUCE_CFLAGS_VST := -fPIC -fvisibility=hidden
+  JUCE_LDFLAGS_VST := -shared -Wl,--no-undefined
+  JUCE_TARGET_VST := Camomile.so
+
+  JUCE_CPPFLAGS_SHARED_CODE := -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0 -DJUCE_SHARED_CODE=1
+  JUCE_TARGET_SHARED_CODE := Camomile.a
+
+  JUCE_CFLAGS += $(JUCE_CPPFLAGS) $(TARGET_ARCH) -fPIC -O3 -flto $(CFLAGS)
+  JUCE_CXXFLAGS += $(JUCE_CFLAGS) -std=c++11 $(CXXFLAGS)
+  JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -L../../libpd/libs $(shell pkg-config --libs alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -fvisibility=hidden -ldl -lpthread -lrt -lpd $(LDFLAGS)
+
+  CLEANCMD = rm -rf $(JUCE_OUTDIR)/$(TARGET) $(JUCE_OBJDIR)
 endif
 
-OBJECTS := \
-  $(OBJDIR)/LookAndFeel_40552bdf.o \
-  $(OBJDIR)/InstanceProcessor_bc7e525e.o \
-  $(OBJDIR)/InstanceEditor_fa2c28eb.o \
-  $(OBJDIR)/Gui_edc4c728.o \
-  $(OBJDIR)/GuiAbout_58af930f.o \
-  $(OBJDIR)/GuiComment_699305a1.o \
-  $(OBJDIR)/GuiConsole_79dfc099.o \
-  $(OBJDIR)/GuiFlowerButton_5b7395b5.o \
-  $(OBJDIR)/GuiLabel_844fe2f6.o \
-  $(OBJDIR)/GuiNumbox_64ab530d.o \
-  $(OBJDIR)/GuiParameter_d0a746ab.o \
-  $(OBJDIR)/GuiPatcher_2b7a1737.o \
-  $(OBJDIR)/GuiRadio_6eb49c7d.o \
-  $(OBJDIR)/GuiSlider_ac956169.o \
-  $(OBJDIR)/GuiToggle_37d7325c.o \
-  $(OBJDIR)/GuiWindow_d9aaa4f8.o \
-  $(OBJDIR)/PdConsole_4bdc72d1.o \
-  $(OBJDIR)/PdEnvironment_11e3570d.o \
-  $(OBJDIR)/PdInstance_ddabcf25.o \
-  $(OBJDIR)/PdObject_b945538f.o \
-  $(OBJDIR)/PdParameter_16404ae3.o \
-  $(OBJDIR)/PdPatch_69639a82.o \
-  $(OBJDIR)/PdPatchManager_e2506355.o \
-  $(OBJDIR)/PdTypes_a7fd5233.o \
-  $(OBJDIR)/z_pd_9c06b4b5.o \
-  $(OBJDIR)/bob~_dea63fa8.o \
-  $(OBJDIR)/bonk~_1c54edf2.o \
-  $(OBJDIR)/choice_9a48dd28.o \
-  $(OBJDIR)/fiddle~_d178694e.o \
-  $(OBJDIR)/loop~_d8d5c53e.o \
-  $(OBJDIR)/lrshift~_770f74c8.o \
-  $(OBJDIR)/pique_a2bbb35a.o \
-  $(OBJDIR)/sigmund~_e0efd768.o \
-  $(OBJDIR)/stdout_6bc4f9e8.o \
-  $(OBJDIR)/d_arithmetic_a26d0d62.o \
-  $(OBJDIR)/d_array_bff0f6eb.o \
-  $(OBJDIR)/d_ctl_3e61b16d.o \
-  $(OBJDIR)/d_dac_3e670418.o \
-  $(OBJDIR)/d_delay_48201b95.o \
-  $(OBJDIR)/d_fft_3e85b8c6.o \
-  $(OBJDIR)/d_fft_fftsg_20e099cf.o \
-  $(OBJDIR)/d_filter_60423e30.o \
-  $(OBJDIR)/d_global_6af5179b.o \
-  $(OBJDIR)/d_math_9dddaa80.o \
-  $(OBJDIR)/d_misc_9e4ddf64.o \
-  $(OBJDIR)/d_osc_3f0a3551.o \
-  $(OBJDIR)/d_resample_72c3aa55.o \
-  $(OBJDIR)/d_soundfile_871e089d.o \
-  $(OBJDIR)/d_ugen_abd24173.o \
-  $(OBJDIR)/g_all_guis_13eaa90b.o \
-  $(OBJDIR)/g_array_7cbe43ee.o \
-  $(OBJDIR)/g_bang_c2b9244d.o \
-  $(OBJDIR)/g_canvas_61cd436d.o \
-  $(OBJDIR)/g_editor_c7a43e42.o \
-  $(OBJDIR)/g_graph_b93aa9a3.o \
-  $(OBJDIR)/g_guiconnect_76e73ba4.o \
-  $(OBJDIR)/g_hdial_d6a705ad.o \
-  $(OBJDIR)/g_hslider_8b2fe8de.o \
-  $(OBJDIR)/g_io_f6a02fbb.o \
-  $(OBJDIR)/g_mycanvas_ddb3dd19.o \
-  $(OBJDIR)/g_numbox_f7ae935a.o \
-  $(OBJDIR)/g_readwrite_9053c19e.o \
-  $(OBJDIR)/g_rtext_2c514b4.o \
-  $(OBJDIR)/g_scalar_32f09901.o \
-  $(OBJDIR)/g_template_1a1d520f.o \
-  $(OBJDIR)/g_text_e1ad7a02.o \
-  $(OBJDIR)/g_toggle_1f97fa69.o \
-  $(OBJDIR)/g_traversal_b8014513.o \
-  $(OBJDIR)/g_vdial_bb3e433b.o \
-  $(OBJDIR)/g_vslider_a6edfaec.o \
-  $(OBJDIR)/g_vumeter_a5a4a57f.o \
-  $(OBJDIR)/m_atom_3157a260.o \
-  $(OBJDIR)/m_binbuf_59c5a7db.o \
-  $(OBJDIR)/m_class_5500c953.o \
-  $(OBJDIR)/m_conf_347a4f73.o \
-  $(OBJDIR)/m_glob_3b23d0c7.o \
-  $(OBJDIR)/m_memory_fbdaeb90.o \
-  $(OBJDIR)/m_obj_1b1aaa92.o \
-  $(OBJDIR)/m_pd_e048c3.o \
-  $(OBJDIR)/m_sched_9464eed2.o \
-  $(OBJDIR)/s_audio_74503637.o \
-  $(OBJDIR)/s_audio_dummy_cb209e20.o \
-  $(OBJDIR)/s_file_a88a6d05.o \
-  $(OBJDIR)/s_inter_106fd5bd.o \
-  $(OBJDIR)/s_loader_499588dc.o \
-  $(OBJDIR)/s_main_b40a6202.o \
-  $(OBJDIR)/s_path_b92dd56e.o \
-  $(OBJDIR)/s_print_88f7f34e.o \
-  $(OBJDIR)/s_utf8_c2babdba.o \
-  $(OBJDIR)/x_acoustics_ccbfba76.o \
-  $(OBJDIR)/x_arithmetic_47c0cdce.o \
-  $(OBJDIR)/x_array_5549a2ff.o \
-  $(OBJDIR)/x_connective_b4ac63d2.o \
-  $(OBJDIR)/x_gui_609719a1.o \
-  $(OBJDIR)/x_interface_d15855f.o \
-  $(OBJDIR)/x_list_ba30c802.o \
-  $(OBJDIR)/x_midi_bbdea5c5.o \
-  $(OBJDIR)/x_misc_bbe560d0.o \
-  $(OBJDIR)/x_net_60f2a183.o \
-  $(OBJDIR)/x_scalar_6bd11c10.o \
-  $(OBJDIR)/x_text_c7a174d1.o \
-  $(OBJDIR)/x_time_c7d49a71.o \
-  $(OBJDIR)/x_vexp_fun_e64128cb.o \
-  $(OBJDIR)/x_vexp_if_624547db.o \
-  $(OBJDIR)/x_vexp_cb0b170b.o \
-  $(OBJDIR)/BinaryData_ce4232d4.o \
-  $(OBJDIR)/juce_audio_basics_4f86222c.o \
-  $(OBJDIR)/juce_audio_processors_4fc0fe4.o \
-  $(OBJDIR)/juce_core_d990830e.o \
-  $(OBJDIR)/juce_data_structures_aa53984a.o \
-  $(OBJDIR)/juce_events_e5eeb882.o \
-  $(OBJDIR)/juce_graphics_369f86e6.o \
-  $(OBJDIR)/juce_gui_basics_39990b62.o \
-  $(OBJDIR)/juce_gui_extra_302aad6a.o \
-  $(OBJDIR)/juce_PluginUtilities_829ccaf6.o \
-  $(OBJDIR)/juce_VST_Wrapper_d073fbff.o \
-  $(OBJDIR)/juce_VST3_Wrapper_8cff317d.o \
+ifeq ($(CONFIG),DebugFx)
+  JUCE_BINDIR := build
+  JUCE_LIBDIR := build
+  JUCE_OBJDIR := build/intermediate/DebugFx
+  JUCE_OUTDIR := ../../Plugins
 
-.PHONY: clean
+  ifeq ($(TARGET_ARCH),)
+    TARGET_ARCH := -march=native
+  endif
 
-$(OUTDIR)/$(TARGET): $(OBJECTS) $(RESOURCES)
-	@echo Linking Camomile
-	-@mkdir -p $(BINDIR)
-	-@mkdir -p $(LIBDIR)
-	-@mkdir -p $(OUTDIR)
-	@$(BLDCMD)
+  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DDEBUG=1 -D_DEBUG=1 -DHAVE_UNISTD_H=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=1.0.1 -DJUCE_APP_VERSION_HEX=0x10001 $(shell pkg-config --cflags alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -pthread -I../../JuceLibraryCode -I../../Juce/modules -I../../libpd/pure-data/src -I../../libpd/libpd_wrapper -I../../libpd/libpd_wrapper/util -I../../libpd/cpp $(CPPFLAGS)
+
+  JUCE_CPPFLAGS_VST := -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0
+  JUCE_CFLAGS_VST := -fPIC -fvisibility=hidden
+  JUCE_LDFLAGS_VST := -shared -Wl,--no-undefined
+  JUCE_TARGET_VST := CamomileFx.so
+
+  JUCE_CPPFLAGS_SHARED_CODE := -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0 -DJUCE_SHARED_CODE=1
+  JUCE_TARGET_SHARED_CODE := CamomileFx.a
+
+  JUCE_CFLAGS += $(JUCE_CPPFLAGS) $(TARGET_ARCH) -fPIC -g -ggdb -O0 $(CFLAGS)
+  JUCE_CXXFLAGS += $(JUCE_CFLAGS) -std=c++11 $(CXXFLAGS)
+  JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -L../../libpd/libs $(shell pkg-config --libs alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -ldl -lpthread -lrt -lpd $(LDFLAGS)
+
+  CLEANCMD = rm -rf $(JUCE_OUTDIR)/$(TARGET) $(JUCE_OBJDIR)
+endif
+
+ifeq ($(CONFIG),ReleaseFx)
+  JUCE_BINDIR := build
+  JUCE_LIBDIR := build
+  JUCE_OBJDIR := build/intermediate/ReleaseFx
+  JUCE_OUTDIR := ../../Plugins
+
+  ifeq ($(TARGET_ARCH),)
+    TARGET_ARCH := -march=native
+  endif
+
+  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DNDEBUG=1 -DHAVE_UNISTD_H=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=1.0.1 -DJUCE_APP_VERSION_HEX=0x10001 $(shell pkg-config --cflags alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -pthread -I../../JuceLibraryCode -I../../Juce/modules -I../../libpd/pure-data/src -I../../libpd/libpd_wrapper -I../../libpd/libpd_wrapper/util -I../../libpd/cpp $(CPPFLAGS)
+
+  JUCE_CPPFLAGS_VST := -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0
+  JUCE_CFLAGS_VST := -fPIC -fvisibility=hidden
+  JUCE_LDFLAGS_VST := -shared -Wl,--no-undefined
+  JUCE_TARGET_VST := CamomileFx.so
+
+  JUCE_CPPFLAGS_SHARED_CODE := -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0 -DJUCE_SHARED_CODE=1
+  JUCE_TARGET_SHARED_CODE := CamomileFx.a
+
+  JUCE_CFLAGS += $(JUCE_CPPFLAGS) $(TARGET_ARCH) -fPIC -O3 -flto $(CFLAGS)
+  JUCE_CXXFLAGS += $(JUCE_CFLAGS) -std=c++11 $(CXXFLAGS)
+  JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -L../../libpd/libs $(shell pkg-config --libs alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -fvisibility=hidden -ldl -lpthread -lrt -lpd $(LDFLAGS)
+
+  CLEANCMD = rm -rf $(JUCE_OUTDIR)/$(TARGET) $(JUCE_OBJDIR)
+endif
+
+OBJECTS_ALL := \
+
+OBJECTS_VST := \
+  $(JUCE_OBJDIR)/include_juce_audio_plugin_client_VST2_dd551e08.o \
+
+OBJECTS_SHARED_CODE := \
+  $(JUCE_OBJDIR)/PluginProcessor_a059e380.o \
+  $(JUCE_OBJDIR)/PluginEnvironment_8feb641.o \
+  $(JUCE_OBJDIR)/PluginParser_b8236cbb.o \
+  $(JUCE_OBJDIR)/PluginParameter_b51e717.o \
+  $(JUCE_OBJDIR)/PluginEditor_94d4fb09.o \
+  $(JUCE_OBJDIR)/PluginInformation_f27ac4da.o \
+  $(JUCE_OBJDIR)/PdInstance_ddabcf25.o \
+  $(JUCE_OBJDIR)/PdPatch_69639a82.o \
+  $(JUCE_OBJDIR)/PdObject_b945538f.o \
+  $(JUCE_OBJDIR)/x_libpd_multi_1036951a.o \
+  $(JUCE_OBJDIR)/Gui_edc4c728.o \
+  $(JUCE_OBJDIR)/GuiConsole_79dfc099.o \
+  $(JUCE_OBJDIR)/GuiObject_aa3d2cc7.o \
+  $(JUCE_OBJDIR)/LookAndFeel_7fdda4eb.o \
+  $(JUCE_OBJDIR)/BinaryData_ce4232d4.o \
+  $(JUCE_OBJDIR)/include_juce_audio_basics_8a4e984a.o \
+  $(JUCE_OBJDIR)/include_juce_audio_devices_63111d02.o \
+  $(JUCE_OBJDIR)/include_juce_audio_formats_15f82001.o \
+  $(JUCE_OBJDIR)/include_juce_audio_plugin_client_utils_e32edaee.o \
+  $(JUCE_OBJDIR)/include_juce_audio_processors_10c03666.o \
+  $(JUCE_OBJDIR)/include_juce_audio_utils_9f9fb2d6.o \
+  $(JUCE_OBJDIR)/include_juce_core_f26d17db.o \
+  $(JUCE_OBJDIR)/include_juce_data_structures_7471b1e3.o \
+  $(JUCE_OBJDIR)/include_juce_events_fd7d695.o \
+  $(JUCE_OBJDIR)/include_juce_graphics_f817e147.o \
+  $(JUCE_OBJDIR)/include_juce_gui_basics_e3f79785.o \
+  $(JUCE_OBJDIR)/include_juce_gui_extra_6dee1c1a.o \
+
+.PHONY: clean all VST
+
+all : VST
+
+VST : $(JUCE_OUTDIR)/$(JUCE_TARGET_VST)
+
+
+$(JUCE_OUTDIR)/$(JUCE_TARGET_VST) : check-pkg-config $(OBJECTS_VST) $(RESOURCES) $(JUCE_OUTDIR)/$(JUCE_TARGET_SHARED_CODE)
+	@echo Linking "Camomile - VST"
+	-$(V_AT)mkdir -p $(JUCE_BINDIR)
+	-$(V_AT)mkdir -p $(JUCE_LIBDIR)
+	-$(V_AT)mkdir -p $(JUCE_OUTDIR)
+	$(V_AT)$(CXX) -o $(JUCE_OUTDIR)/$(JUCE_TARGET_VST) $(OBJECTS_VST) $(JUCE_OUTDIR)/$(JUCE_TARGET_SHARED_CODE) $(JUCE_LDFLAGS) $(JUCE_LDFLAGS_VST) $(RESOURCES) $(TARGET_ARCH)
+
+$(JUCE_OUTDIR)/$(JUCE_TARGET_SHARED_CODE) : check-pkg-config $(OBJECTS_SHARED_CODE) $(RESOURCES)
+	@echo Linking "Camomile - Shared Code"
+	-$(V_AT)mkdir -p $(JUCE_BINDIR)
+	-$(V_AT)mkdir -p $(JUCE_LIBDIR)
+	-$(V_AT)mkdir -p $(JUCE_OUTDIR)
+	$(V_AT)$(AR) -rcs $(JUCE_OUTDIR)/$(JUCE_TARGET_SHARED_CODE) $(OBJECTS_SHARED_CODE)
+
+$(JUCE_OBJDIR)/include_juce_audio_plugin_client_VST2_dd551e08.o: ../../JuceLibraryCode/include_juce_audio_plugin_client_VST2.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling include_juce_audio_plugin_client_VST2.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_VST) $(JUCE_CFLAGS_VST) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/PluginProcessor_a059e380.o: ../../Source/PluginProcessor.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PluginProcessor.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/PluginEnvironment_8feb641.o: ../../Source/PluginEnvironment.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PluginEnvironment.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/PluginParser_b8236cbb.o: ../../Source/PluginParser.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PluginParser.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/PluginParameter_b51e717.o: ../../Source/PluginParameter.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PluginParameter.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/PluginEditor_94d4fb09.o: ../../Source/PluginEditor.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PluginEditor.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/PluginInformation_f27ac4da.o: ../../Source/PluginInformation.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PluginInformation.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/PdInstance_ddabcf25.o: ../../Source/Pd/PdInstance.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PdInstance.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/PdPatch_69639a82.o: ../../Source/Pd/PdPatch.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PdPatch.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/PdObject_b945538f.o: ../../Source/Pd/PdObject.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PdObject.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/x_libpd_multi_1036951a.o: ../../Source/Pd/x_libpd_multi.c
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling x_libpd_multi.c"
+	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/Gui_edc4c728.o: ../../Source/Gui/Gui.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling Gui.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/GuiConsole_79dfc099.o: ../../Source/Gui/GuiConsole.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling GuiConsole.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/GuiObject_aa3d2cc7.o: ../../Source/Gui/GuiObject.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling GuiObject.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/LookAndFeel_7fdda4eb.o: ../../Source/Gui/LookAndFeel.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling LookAndFeel.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/BinaryData_ce4232d4.o: ../../JuceLibraryCode/BinaryData.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling BinaryData.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/include_juce_audio_basics_8a4e984a.o: ../../JuceLibraryCode/include_juce_audio_basics.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling include_juce_audio_basics.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/include_juce_audio_devices_63111d02.o: ../../JuceLibraryCode/include_juce_audio_devices.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling include_juce_audio_devices.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/include_juce_audio_formats_15f82001.o: ../../JuceLibraryCode/include_juce_audio_formats.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling include_juce_audio_formats.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/include_juce_audio_plugin_client_utils_e32edaee.o: ../../JuceLibraryCode/include_juce_audio_plugin_client_utils.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling include_juce_audio_plugin_client_utils.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/include_juce_audio_processors_10c03666.o: ../../JuceLibraryCode/include_juce_audio_processors.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling include_juce_audio_processors.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/include_juce_audio_utils_9f9fb2d6.o: ../../JuceLibraryCode/include_juce_audio_utils.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling include_juce_audio_utils.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/include_juce_core_f26d17db.o: ../../JuceLibraryCode/include_juce_core.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling include_juce_core.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/include_juce_data_structures_7471b1e3.o: ../../JuceLibraryCode/include_juce_data_structures.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling include_juce_data_structures.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/include_juce_events_fd7d695.o: ../../JuceLibraryCode/include_juce_events.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling include_juce_events.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/include_juce_graphics_f817e147.o: ../../JuceLibraryCode/include_juce_graphics.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling include_juce_graphics.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/include_juce_gui_basics_e3f79785.o: ../../JuceLibraryCode/include_juce_gui_basics.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling include_juce_gui_basics.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/include_juce_gui_extra_6dee1c1a.o: ../../JuceLibraryCode/include_juce_gui_extra.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling include_juce_gui_extra.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+check-pkg-config:
+	@command -v pkg-config >/dev/null 2>&1 || { echo >&2 "pkg-config not installed. Please, install it."; exit 1; }
+	@pkg-config --print-errors alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0
 
 clean:
 	@echo Cleaning Camomile
-	@$(CLEANCMD)
+	$(V_AT)$(CLEANCMD)
 
 strip:
 	@echo Stripping Camomile
-	-@strip --strip-unneeded $(OUTDIR)/$(TARGET)
+	-$(V_AT)$(STRIP) --strip-unneeded $(JUCE_OUTDIR)/$(TARGET)
 
-$(OBJDIR)/LookAndFeel_40552bdf.o: ../../Source/LookAndFeel.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling LookAndFeel.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/InstanceProcessor_bc7e525e.o: ../../Source/InstanceProcessor.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling InstanceProcessor.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/InstanceEditor_fa2c28eb.o: ../../Source/InstanceEditor.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling InstanceEditor.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/Gui_edc4c728.o: ../../Source/Gui/Gui.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling Gui.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiAbout_58af930f.o: ../../Source/Gui/GuiAbout.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiAbout.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiComment_699305a1.o: ../../Source/Gui/GuiComment.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiComment.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiConsole_79dfc099.o: ../../Source/Gui/GuiConsole.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiConsole.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiFlowerButton_5b7395b5.o: ../../Source/Gui/GuiFlowerButton.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiFlowerButton.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiLabel_844fe2f6.o: ../../Source/Gui/GuiLabel.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiLabel.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiNumbox_64ab530d.o: ../../Source/Gui/GuiNumbox.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiNumbox.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiParameter_d0a746ab.o: ../../Source/Gui/GuiParameter.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiParameter.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiPatcher_2b7a1737.o: ../../Source/Gui/GuiPatcher.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiPatcher.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiRadio_6eb49c7d.o: ../../Source/Gui/GuiRadio.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiRadio.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiSlider_ac956169.o: ../../Source/Gui/GuiSlider.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiSlider.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiToggle_37d7325c.o: ../../Source/Gui/GuiToggle.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiToggle.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/GuiWindow_d9aaa4f8.o: ../../Source/Gui/GuiWindow.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling GuiWindow.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PdConsole_4bdc72d1.o: ../../Source/Pd/PdConsole.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdConsole.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PdEnvironment_11e3570d.o: ../../Source/Pd/PdEnvironment.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdEnvironment.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PdInstance_ddabcf25.o: ../../Source/Pd/PdInstance.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdInstance.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PdObject_b945538f.o: ../../Source/Pd/PdObject.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdObject.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PdParameter_16404ae3.o: ../../Source/Pd/PdParameter.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdParameter.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PdPatch_69639a82.o: ../../Source/Pd/PdPatch.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdPatch.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PdPatchManager_e2506355.o: ../../Source/Pd/PdPatchManager.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdPatchManager.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PdTypes_a7fd5233.o: ../../Source/Pd/PdTypes.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PdTypes.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/z_pd_9c06b4b5.o: ../../Source/Pd/z_pd.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling z_pd.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/bob~_dea63fa8.o: ../../ThirdParty/PureData/extra/bob~/bob~.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling bob~.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/bonk~_1c54edf2.o: ../../ThirdParty/PureData/extra/bonk~/bonk~.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling bonk~.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/choice_9a48dd28.o: ../../ThirdParty/PureData/extra/choice/choice.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling choice.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/fiddle~_d178694e.o: ../../ThirdParty/PureData/extra/fiddle~/fiddle~.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling fiddle~.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/loop~_d8d5c53e.o: ../../ThirdParty/PureData/extra/loop~/loop~.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling loop~.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/lrshift~_770f74c8.o: ../../ThirdParty/PureData/extra/lrshift~/lrshift~.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling lrshift~.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/pique_a2bbb35a.o: ../../ThirdParty/PureData/extra/pique/pique.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling pique.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/sigmund~_e0efd768.o: ../../ThirdParty/PureData/extra/sigmund~/sigmund~.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling sigmund~.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/stdout_6bc4f9e8.o: ../../ThirdParty/PureData/extra/stdout/stdout.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling stdout.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/d_arithmetic_a26d0d62.o: ../../ThirdParty/PureData/src/d_arithmetic.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling d_arithmetic.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/d_array_bff0f6eb.o: ../../ThirdParty/PureData/src/d_array.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling d_array.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/d_ctl_3e61b16d.o: ../../ThirdParty/PureData/src/d_ctl.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling d_ctl.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/d_dac_3e670418.o: ../../ThirdParty/PureData/src/d_dac.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling d_dac.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/d_delay_48201b95.o: ../../ThirdParty/PureData/src/d_delay.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling d_delay.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/d_fft_3e85b8c6.o: ../../ThirdParty/PureData/src/d_fft.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling d_fft.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/d_fft_fftsg_20e099cf.o: ../../ThirdParty/PureData/src/d_fft_fftsg.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling d_fft_fftsg.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/d_filter_60423e30.o: ../../ThirdParty/PureData/src/d_filter.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling d_filter.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/d_global_6af5179b.o: ../../ThirdParty/PureData/src/d_global.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling d_global.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/d_math_9dddaa80.o: ../../ThirdParty/PureData/src/d_math.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling d_math.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/d_misc_9e4ddf64.o: ../../ThirdParty/PureData/src/d_misc.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling d_misc.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/d_osc_3f0a3551.o: ../../ThirdParty/PureData/src/d_osc.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling d_osc.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/d_resample_72c3aa55.o: ../../ThirdParty/PureData/src/d_resample.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling d_resample.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/d_soundfile_871e089d.o: ../../ThirdParty/PureData/src/d_soundfile.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling d_soundfile.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/d_ugen_abd24173.o: ../../ThirdParty/PureData/src/d_ugen.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling d_ugen.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_all_guis_13eaa90b.o: ../../ThirdParty/PureData/src/g_all_guis.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_all_guis.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_array_7cbe43ee.o: ../../ThirdParty/PureData/src/g_array.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_array.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_bang_c2b9244d.o: ../../ThirdParty/PureData/src/g_bang.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_bang.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_canvas_61cd436d.o: ../../ThirdParty/PureData/src/g_canvas.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_canvas.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_editor_c7a43e42.o: ../../ThirdParty/PureData/src/g_editor.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_editor.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_graph_b93aa9a3.o: ../../ThirdParty/PureData/src/g_graph.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_graph.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_guiconnect_76e73ba4.o: ../../ThirdParty/PureData/src/g_guiconnect.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_guiconnect.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_hdial_d6a705ad.o: ../../ThirdParty/PureData/src/g_hdial.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_hdial.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_hslider_8b2fe8de.o: ../../ThirdParty/PureData/src/g_hslider.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_hslider.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_io_f6a02fbb.o: ../../ThirdParty/PureData/src/g_io.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_io.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_mycanvas_ddb3dd19.o: ../../ThirdParty/PureData/src/g_mycanvas.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_mycanvas.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_numbox_f7ae935a.o: ../../ThirdParty/PureData/src/g_numbox.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_numbox.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_readwrite_9053c19e.o: ../../ThirdParty/PureData/src/g_readwrite.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_readwrite.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_rtext_2c514b4.o: ../../ThirdParty/PureData/src/g_rtext.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_rtext.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_scalar_32f09901.o: ../../ThirdParty/PureData/src/g_scalar.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_scalar.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_template_1a1d520f.o: ../../ThirdParty/PureData/src/g_template.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_template.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_text_e1ad7a02.o: ../../ThirdParty/PureData/src/g_text.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_text.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_toggle_1f97fa69.o: ../../ThirdParty/PureData/src/g_toggle.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_toggle.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_traversal_b8014513.o: ../../ThirdParty/PureData/src/g_traversal.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_traversal.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_vdial_bb3e433b.o: ../../ThirdParty/PureData/src/g_vdial.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_vdial.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_vslider_a6edfaec.o: ../../ThirdParty/PureData/src/g_vslider.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_vslider.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/g_vumeter_a5a4a57f.o: ../../ThirdParty/PureData/src/g_vumeter.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling g_vumeter.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/m_atom_3157a260.o: ../../ThirdParty/PureData/src/m_atom.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling m_atom.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/m_binbuf_59c5a7db.o: ../../ThirdParty/PureData/src/m_binbuf.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling m_binbuf.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/m_class_5500c953.o: ../../ThirdParty/PureData/src/m_class.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling m_class.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/m_conf_347a4f73.o: ../../ThirdParty/PureData/src/m_conf.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling m_conf.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/m_glob_3b23d0c7.o: ../../ThirdParty/PureData/src/m_glob.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling m_glob.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/m_memory_fbdaeb90.o: ../../ThirdParty/PureData/src/m_memory.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling m_memory.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/m_obj_1b1aaa92.o: ../../ThirdParty/PureData/src/m_obj.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling m_obj.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/m_pd_e048c3.o: ../../ThirdParty/PureData/src/m_pd.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling m_pd.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/m_sched_9464eed2.o: ../../ThirdParty/PureData/src/m_sched.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling m_sched.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/s_audio_74503637.o: ../../ThirdParty/PureData/src/s_audio.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling s_audio.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/s_audio_dummy_cb209e20.o: ../../ThirdParty/PureData/src/s_audio_dummy.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling s_audio_dummy.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/s_file_a88a6d05.o: ../../ThirdParty/PureData/src/s_file.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling s_file.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/s_inter_106fd5bd.o: ../../ThirdParty/PureData/src/s_inter.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling s_inter.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/s_loader_499588dc.o: ../../ThirdParty/PureData/src/s_loader.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling s_loader.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/s_main_b40a6202.o: ../../ThirdParty/PureData/src/s_main.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling s_main.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/s_path_b92dd56e.o: ../../ThirdParty/PureData/src/s_path.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling s_path.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/s_print_88f7f34e.o: ../../ThirdParty/PureData/src/s_print.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling s_print.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/s_utf8_c2babdba.o: ../../ThirdParty/PureData/src/s_utf8.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling s_utf8.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/x_acoustics_ccbfba76.o: ../../ThirdParty/PureData/src/x_acoustics.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling x_acoustics.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/x_arithmetic_47c0cdce.o: ../../ThirdParty/PureData/src/x_arithmetic.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling x_arithmetic.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/x_array_5549a2ff.o: ../../ThirdParty/PureData/src/x_array.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling x_array.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/x_connective_b4ac63d2.o: ../../ThirdParty/PureData/src/x_connective.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling x_connective.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/x_gui_609719a1.o: ../../ThirdParty/PureData/src/x_gui.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling x_gui.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/x_interface_d15855f.o: ../../ThirdParty/PureData/src/x_interface.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling x_interface.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/x_list_ba30c802.o: ../../ThirdParty/PureData/src/x_list.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling x_list.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/x_midi_bbdea5c5.o: ../../ThirdParty/PureData/src/x_midi.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling x_midi.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/x_misc_bbe560d0.o: ../../ThirdParty/PureData/src/x_misc.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling x_misc.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/x_net_60f2a183.o: ../../ThirdParty/PureData/src/x_net.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling x_net.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/x_scalar_6bd11c10.o: ../../ThirdParty/PureData/src/x_scalar.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling x_scalar.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/x_text_c7a174d1.o: ../../ThirdParty/PureData/src/x_text.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling x_text.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/x_time_c7d49a71.o: ../../ThirdParty/PureData/src/x_time.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling x_time.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/x_vexp_fun_e64128cb.o: ../../ThirdParty/PureData/src/x_vexp_fun.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling x_vexp_fun.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/x_vexp_if_624547db.o: ../../ThirdParty/PureData/src/x_vexp_if.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling x_vexp_if.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/x_vexp_cb0b170b.o: ../../ThirdParty/PureData/src/x_vexp.c
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling x_vexp.c"
-	@$(CC) $(CFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/BinaryData_ce4232d4.o: ../../JuceLibraryCode/BinaryData.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling BinaryData.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/juce_audio_basics_4f86222c.o: ../../ThirdParty/Juce/modules/juce_audio_basics/juce_audio_basics.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling juce_audio_basics.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/juce_audio_processors_4fc0fe4.o: ../../ThirdParty/Juce/modules/juce_audio_processors/juce_audio_processors.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling juce_audio_processors.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/juce_core_d990830e.o: ../../ThirdParty/Juce/modules/juce_core/juce_core.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling juce_core.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/juce_data_structures_aa53984a.o: ../../ThirdParty/Juce/modules/juce_data_structures/juce_data_structures.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling juce_data_structures.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/juce_events_e5eeb882.o: ../../ThirdParty/Juce/modules/juce_events/juce_events.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling juce_events.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/juce_graphics_369f86e6.o: ../../ThirdParty/Juce/modules/juce_graphics/juce_graphics.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling juce_graphics.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/juce_gui_basics_39990b62.o: ../../ThirdParty/Juce/modules/juce_gui_basics/juce_gui_basics.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling juce_gui_basics.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/juce_gui_extra_302aad6a.o: ../../ThirdParty/Juce/modules/juce_gui_extra/juce_gui_extra.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling juce_gui_extra.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/juce_PluginUtilities_829ccaf6.o: ../../ThirdParty/Juce/modules/juce_audio_plugin_client/utility/juce_PluginUtilities.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling juce_PluginUtilities.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/juce_VST_Wrapper_d073fbff.o: ../../ThirdParty/Juce/modules/juce_audio_plugin_client/VST/juce_VST_Wrapper.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling juce_VST_Wrapper.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/juce_VST3_Wrapper_8cff317d.o: ../../ThirdParty/Juce/modules/juce_audio_plugin_client/VST3/juce_VST3_Wrapper.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling juce_VST3_Wrapper.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
--include $(OBJECTS:%.o=%.d)
+-include $(OBJECTS_VST:%.o=%.d)
+-include $(OBJECTS_SHARED_CODE:%.o=%.d)

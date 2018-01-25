@@ -1,278 +1,225 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="y2ndru" name="Camomile" projectType="audioplug" version="0.0.7"
-              bundleIdentifier="com.cicm.Camomile" includeBinaryInAppConfig="1"
-              buildVST="1" buildVST3="1" buildAU="0" buildRTAS="0" buildAAX="0"
-              pluginName="Camomile" pluginDesc="Camomile" pluginManufacturer="Pierre Guillot"
-              pluginManufacturerCode="CICM" pluginCode="PGCA" pluginChannelConfigs=""
-              pluginIsSynth="0" pluginWantsMidiIn="1" pluginProducesMidiOut="1"
-              pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="1"
-              pluginAUExportPrefix="CamomileAU" pluginRTASCategory="" aaxIdentifier="com.cicm.Camomile"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.1.0"
-              companyName="CICM" companyEmail="" companyWebsite="https://github.com/pierreguillot/Camomile"
-              defines="PD=1&#10;USEAPI_DUMMY=1&#10;PD_INTERNAL=1&#10;" pluginIsMidiEffectPlugin="0">
-  <MAINGROUP id="Lkdhlo" name="Camomile">
-    <GROUP id="{6858D652-D432-5FB6-C946-D9F3FA76E6E9}" name="Source">
-      <FILE id="HhHZI4" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
-      <FILE id="C0BhX9" name="LookAndFeel.hpp" compile="0" resource="0" file="Source/LookAndFeel.hpp"/>
-      <FILE id="BUNrem" name="InstanceProcessor.cpp" compile="1" resource="0"
-            file="Source/InstanceProcessor.cpp"/>
-      <FILE id="shFm3X" name="InstanceProcessor.hpp" compile="0" resource="0"
-            file="Source/InstanceProcessor.hpp"/>
-      <FILE id="dCEF9M" name="InstanceEditor.cpp" compile="1" resource="0"
-            file="Source/InstanceEditor.cpp"/>
-      <FILE id="tLvOP3" name="InstanceEditor.hpp" compile="0" resource="0"
-            file="Source/InstanceEditor.hpp"/>
-      <GROUP id="{E043833F-89BF-72B1-385E-CBEDCD7AF99E}" name="Gui">
-        <FILE id="dV8HAr" name="Gui.cpp" compile="1" resource="0" file="Source/Gui/Gui.cpp"/>
-        <FILE id="dzXDy4" name="Gui.hpp" compile="0" resource="0" file="Source/Gui/Gui.hpp"/>
-        <FILE id="XzQolr" name="GuiAbout.cpp" compile="1" resource="0" file="Source/Gui/GuiAbout.cpp"/>
-        <FILE id="LvbDJX" name="GuiAbout.hpp" compile="0" resource="0" file="Source/Gui/GuiAbout.hpp"/>
-        <FILE id="zELK2I" name="GuiComment.cpp" compile="1" resource="0" file="Source/Gui/GuiComment.cpp"/>
-        <FILE id="BGggUV" name="GuiComment.hpp" compile="0" resource="0" file="Source/Gui/GuiComment.hpp"/>
-        <FILE id="oC33uj" name="GuiConsole.cpp" compile="1" resource="0" file="Source/Gui/GuiConsole.cpp"/>
-        <FILE id="xzP0n8" name="GuiConsole.hpp" compile="0" resource="0" file="Source/Gui/GuiConsole.hpp"/>
-        <FILE id="WPX2aw" name="GuiFlowerButton.cpp" compile="1" resource="0"
-              file="Source/Gui/GuiFlowerButton.cpp"/>
-        <FILE id="dPQh6a" name="GuiFlowerButton.hpp" compile="0" resource="0"
-              file="Source/Gui/GuiFlowerButton.hpp"/>
-        <FILE id="qlPKm4" name="GuiLabel.cpp" compile="1" resource="0" file="Source/Gui/GuiLabel.cpp"/>
-        <FILE id="cHVgdP" name="GuiLabel.hpp" compile="0" resource="0" file="Source/Gui/GuiLabel.hpp"/>
-        <FILE id="DcHzC7" name="GuiNumbox.cpp" compile="1" resource="0" file="Source/Gui/GuiNumbox.cpp"/>
-        <FILE id="N5TCrs" name="GuiNumbox.hpp" compile="0" resource="0" file="Source/Gui/GuiNumbox.hpp"/>
-        <FILE id="GXZZvd" name="GuiParameter.cpp" compile="1" resource="0"
-              file="Source/Gui/GuiParameter.cpp"/>
-        <FILE id="HP8MxI" name="GuiParameter.hpp" compile="0" resource="0"
-              file="Source/Gui/GuiParameter.hpp"/>
-        <FILE id="eFDrOW" name="GuiPatcher.cpp" compile="1" resource="0" file="Source/Gui/GuiPatcher.cpp"/>
-        <FILE id="GBDME6" name="GuiPatcher.hpp" compile="0" resource="0" file="Source/Gui/GuiPatcher.hpp"/>
-        <FILE id="uhftxL" name="GuiRadio.cpp" compile="1" resource="0" file="Source/Gui/GuiRadio.cpp"/>
-        <FILE id="tdiuNC" name="GuiRadio.hpp" compile="0" resource="0" file="Source/Gui/GuiRadio.hpp"/>
-        <FILE id="lDwk2k" name="GuiSlider.cpp" compile="1" resource="0" file="Source/Gui/GuiSlider.cpp"/>
-        <FILE id="zAVwWz" name="GuiSlider.hpp" compile="0" resource="0" file="Source/Gui/GuiSlider.hpp"/>
-        <FILE id="cGa9hy" name="GuiToggle.cpp" compile="1" resource="0" file="Source/Gui/GuiToggle.cpp"/>
-        <FILE id="lpVqgT" name="GuiToggle.hpp" compile="0" resource="0" file="Source/Gui/GuiToggle.hpp"/>
-        <FILE id="crqUQt" name="GuiWindow.cpp" compile="1" resource="0" file="Source/Gui/GuiWindow.cpp"/>
-        <FILE id="ctApEd" name="GuiWindow.hpp" compile="0" resource="0" file="Source/Gui/GuiWindow.hpp"/>
+<JUCERPROJECT id="Kpq9Ee" name="Camomile" displaySplashScreen="1" reportAppUsage="1"
+              splashScreenColour="Dark" projectType="audioplug" version="1.0.1"
+              bundleIdentifier="com.pierreguillot.camomile" includeBinaryInAppConfig="1"
+              cppLanguageStandard="11" companyCopyright="Pierre Guillot" buildVST="1"
+              buildVST3="1" buildAU="1" buildAUv3="0" buildRTAS="0" buildAAX="0"
+              buildStandalone="0" enableIAA="0" pluginName="Camomile" pluginDesc="A plugin that loads Pure Data patches"
+              pluginManufacturer="Pierre Guillot" pluginManufacturerCode="PIGU"
+              pluginCode="Kpq9" pluginChannelConfigs="" pluginIsSynth="0" pluginWantsMidiIn="1"
+              pluginProducesMidiOut="1" pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="1"
+              pluginAUExportPrefix="CamomileAU" pluginRTASCategory="" aaxIdentifier="com.pierreguillot.camomile"
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.2.0"
+              companyName="Pierre Guillot" headerPath="../../libpd/pure-data/src&#10;../../libpd/libpd_wrapper&#10;../../libpd/libpd_wrapper/util&#10;../../libpd/cpp&#10;"
+              defines="HAVE_UNISTD_H=1" companyWebsite="github.com/pierreguillot/camomile">
+  <MAINGROUP id="BLNPyv" name="Camomile">
+    <GROUP id="{D4367A82-F269-8F5A-1C22-AB42C90672ED}" name="Source">
+      <FILE id="yIk1CH" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="kaSsak" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+      <FILE id="ZK6PhQ" name="PluginEnvironment.cpp" compile="1" resource="0"
+            file="Source/PluginEnvironment.cpp"/>
+      <FILE id="ApycZA" name="PluginEnvironment.h" compile="0" resource="0"
+            file="Source/PluginEnvironment.h"/>
+      <FILE id="fQ2chP" name="PluginParser.cpp" compile="1" resource="0"
+            file="Source/PluginParser.cpp"/>
+      <FILE id="qRATrR" name="PluginParser.h" compile="0" resource="0" file="Source/PluginParser.h"/>
+      <FILE id="P6bHhc" name="PluginParameter.cpp" compile="1" resource="0"
+            file="Source/PluginParameter.cpp"/>
+      <FILE id="kRjX4J" name="PluginParameter.h" compile="0" resource="0"
+            file="Source/PluginParameter.h"/>
+      <FILE id="KGRkL5" name="PluginConsole.h" compile="0" resource="0" file="Source/PluginConsole.h"/>
+      <FILE id="JHFkLz" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="z4zHjj" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="qY0A4K" name="PluginInformation.cpp" compile="1" resource="0"
+            file="Source/PluginInformation.cpp"/>
+      <FILE id="QjVgv2" name="PluginInformation.h" compile="0" resource="0"
+            file="Source/PluginInformation.h"/>
+      <GROUP id="{72E9D6C6-B562-FE98-40C6-9583CB880B4E}" name="Pd">
+        <FILE id="sArtFN" name="PdInstance.cpp" compile="1" resource="0" file="Source/Pd/PdInstance.cpp"/>
+        <FILE id="RjbKYs" name="PdInstance.hpp" compile="0" resource="0" file="Source/Pd/PdInstance.hpp"/>
+        <FILE id="xv8ovv" name="PdPatch.cpp" compile="1" resource="0" file="Source/Pd/PdPatch.cpp"/>
+        <FILE id="o9UjIo" name="PdPatch.hpp" compile="0" resource="0" file="Source/Pd/PdPatch.hpp"/>
+        <FILE id="EZY45w" name="PdObject.cpp" compile="1" resource="0" file="Source/Pd/PdObject.cpp"/>
+        <FILE id="onLfIm" name="PdObject.hpp" compile="0" resource="0" file="Source/Pd/PdObject.hpp"/>
+        <FILE id="Uukbo7" name="x_libpd_multi.c" compile="1" resource="0" file="Source/Pd/x_libpd_multi.c"/>
+        <FILE id="NF0MrF" name="x_libpd_multi.h" compile="0" resource="0" file="Source/Pd/x_libpd_multi.h"/>
       </GROUP>
-      <GROUP id="{54169745-384E-0695-75EC-6098DBFF0534}" name="Pd">
-        <FILE id="Sk2bkw" name="Pd.hpp" compile="0" resource="0" file="Source/Pd/Pd.hpp"/>
-        <FILE id="ows8zT" name="PdConsole.cpp" compile="1" resource="0" file="Source/Pd/PdConsole.cpp"/>
-        <FILE id="M2wrm9" name="PdConsole.hpp" compile="0" resource="0" file="Source/Pd/PdConsole.hpp"/>
-        <FILE id="XAxBih" name="PdEnvironment.cpp" compile="1" resource="0"
-              file="Source/Pd/PdEnvironment.cpp"/>
-        <FILE id="zpzoUl" name="PdEnvironment.hpp" compile="0" resource="0"
-              file="Source/Pd/PdEnvironment.hpp"/>
-        <FILE id="yz6bgC" name="PdInstance.cpp" compile="1" resource="0" file="Source/Pd/PdInstance.cpp"/>
-        <FILE id="zyjFjN" name="PdInstance.hpp" compile="0" resource="0" file="Source/Pd/PdInstance.hpp"/>
-        <FILE id="AJPlWv" name="PdObject.cpp" compile="1" resource="0" file="Source/Pd/PdObject.cpp"/>
-        <FILE id="FQGlHP" name="PdObject.hpp" compile="0" resource="0" file="Source/Pd/PdObject.hpp"/>
-        <FILE id="pdfJBZ" name="PdParameter.cpp" compile="1" resource="0" file="Source/Pd/PdParameter.cpp"/>
-        <FILE id="Jvledu" name="PdParameter.hpp" compile="0" resource="0" file="Source/Pd/PdParameter.hpp"/>
-        <FILE id="lDZ2UG" name="PdPatch.cpp" compile="1" resource="0" file="Source/Pd/PdPatch.cpp"/>
-        <FILE id="XZtiXM" name="PdPatch.hpp" compile="0" resource="0" file="Source/Pd/PdPatch.hpp"/>
-        <FILE id="p7fLwd" name="PdPatchManager.cpp" compile="1" resource="0"
-              file="Source/Pd/PdPatchManager.cpp"/>
-        <FILE id="a2S2gw" name="PdPatchManager.hpp" compile="0" resource="0"
-              file="Source/Pd/PdPatchManager.hpp"/>
-        <FILE id="Nx3HCd" name="PdTypes.cpp" compile="1" resource="0" file="Source/Pd/PdTypes.cpp"/>
-        <FILE id="HSh45O" name="PdTypes.hpp" compile="0" resource="0" file="Source/Pd/PdTypes.hpp"/>
-        <FILE id="njegb7" name="z_pd.c" compile="1" resource="0" file="Source/Pd/z_pd.c"/>
-        <FILE id="cDqoiv" name="z_pd.h" compile="0" resource="0" file="Source/Pd/z_pd.h"/>
+      <GROUP id="{5C1EE5CB-809C-59DA-56DD-12FB142BFA60}" name="Gui">
+        <FILE id="mLSqQZ" name="Gui.cpp" compile="1" resource="0" file="Source/Gui/Gui.cpp"/>
+        <FILE id="JG41BR" name="Gui.hpp" compile="0" resource="0" file="Source/Gui/Gui.hpp"/>
+        <FILE id="NQYjA5" name="GuiConsole.cpp" compile="1" resource="0" file="Source/Gui/GuiConsole.cpp"/>
+        <FILE id="hTBXkJ" name="GuiConsole.hpp" compile="0" resource="0" file="Source/Gui/GuiConsole.hpp"/>
+        <FILE id="TyR3AO" name="GuiObject.cpp" compile="1" resource="0" file="Source/Gui/GuiObject.cpp"/>
+        <FILE id="EcJ4Oh" name="GuiObject.hpp" compile="0" resource="0" file="Source/Gui/GuiObject.hpp"/>
+        <FILE id="W44AmC" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/Gui/LookAndFeel.cpp"/>
+        <FILE id="o78U0B" name="LookAndFeel.hpp" compile="0" resource="0" file="Source/Gui/LookAndFeel.hpp"/>
+        <GROUP id="{6873846F-DFEA-EC58-A5B0-6EA454DBC562}" name="Images">
+          <FILE id="XBlGur" name="DejaVuSansMono.ttf" compile="0" resource="1"
+                file="Ressources/Polices/DejaVuSansMono.ttf"/>
+          <FILE id="gRUYXd" name="flower_center.png" compile="0" resource="1"
+                file="Ressources/Images/flower_center.png"/>
+          <FILE id="FRtPN4" name="flower_petals.png" compile="0" resource="1"
+                file="Ressources/Images/flower_petals.png"/>
+          <FILE id="mKyoNS" name="clear1.png" compile="0" resource="1" file="Ressources/Images/clear1.png"/>
+          <FILE id="r6HGK1" name="clear2.png" compile="0" resource="1" file="Ressources/Images/clear2.png"/>
+          <FILE id="EFTHRL" name="copy1.png" compile="0" resource="1" file="Ressources/Images/copy1.png"/>
+          <FILE id="R1CG4i" name="copy2.png" compile="0" resource="1" file="Ressources/Images/copy2.png"/>
+          <FILE id="f8orVk" name="option.png" compile="0" resource="1" file="Ressources/Images/option.png"/>
+        </GROUP>
       </GROUP>
-    </GROUP>
-    <GROUP id="{13D75516-E697-ECB1-605C-FB3746C267F8}" name="PureData">
-      <GROUP id="{E169D560-E0FD-D9AB-34FF-826654976AD0}" name="extra">
-        <FILE id="MHTfOs" name="bob~.c" compile="1" resource="0" file="ThirdParty/PureData/extra/bob~/bob~.c"/>
-        <FILE id="Elu9TX" name="bonk~.c" compile="1" resource="0" file="ThirdParty/PureData/extra/bonk~/bonk~.c"/>
-        <FILE id="EE57Ga" name="choice.c" compile="1" resource="0" file="ThirdParty/PureData/extra/choice/choice.c"/>
-        <FILE id="PdKXgp" name="fiddle~.c" compile="1" resource="0" file="ThirdParty/PureData/extra/fiddle~/fiddle~.c"/>
-        <FILE id="BVJVGZ" name="loop~.c" compile="1" resource="0" file="ThirdParty/PureData/extra/loop~/loop~.c"/>
-        <FILE id="m8v6it" name="lrshift~.c" compile="1" resource="0" file="ThirdParty/PureData/extra/lrshift~/lrshift~.c"/>
-        <FILE id="WcqLK5" name="pique.c" compile="1" resource="0" file="ThirdParty/PureData/extra/pique/pique.c"/>
-        <FILE id="eTftwR" name="sigmund~.c" compile="1" resource="0" file="ThirdParty/PureData/extra/sigmund~/sigmund~.c"/>
-        <FILE id="xNNvFh" name="stdout.c" compile="1" resource="0" file="ThirdParty/PureData/extra/stdout/stdout.c"/>
-      </GROUP>
-      <GROUP id="{BED4B764-3C85-CB1B-256B-BDE0F8878F41}" name="src">
-        <FILE id="kR1ZxD" name="d_arithmetic.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_arithmetic.c"/>
-        <FILE id="uAiw5G" name="d_array.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_array.c"/>
-        <FILE id="dEfAgp" name="d_ctl.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_ctl.c"/>
-        <FILE id="P3344D" name="d_dac.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_dac.c"/>
-        <FILE id="KQSBzD" name="d_delay.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_delay.c"/>
-        <FILE id="lZdtUQ" name="d_fft.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_fft.c"/>
-        <FILE id="LF67tY" name="d_fft_fftsg.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_fft_fftsg.c"/>
-        <FILE id="XPgN0F" name="d_filter.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_filter.c"/>
-        <FILE id="KcrKfH" name="d_global.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_global.c"/>
-        <FILE id="RQaxRr" name="d_math.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_math.c"/>
-        <FILE id="ub2DxW" name="d_misc.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_misc.c"/>
-        <FILE id="KMJfRv" name="d_osc.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_osc.c"/>
-        <FILE id="M8CqO1" name="d_resample.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_resample.c"/>
-        <FILE id="ts5PYv" name="d_soundfile.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_soundfile.c"/>
-        <FILE id="wnB45e" name="d_ugen.c" compile="1" resource="0" file="ThirdParty/PureData/src/d_ugen.c"/>
-        <FILE id="vDC2PQ" name="g_all_guis.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_all_guis.c"/>
-        <FILE id="kqpZwI" name="g_all_guis.h" compile="0" resource="0" file="ThirdParty/PureData/src/g_all_guis.h"/>
-        <FILE id="aEOE8p" name="g_array.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_array.c"/>
-        <FILE id="LbhS7n" name="g_bang.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_bang.c"/>
-        <FILE id="V8y9am" name="g_canvas.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_canvas.c"/>
-        <FILE id="Si8Lft" name="g_canvas.h" compile="0" resource="0" file="ThirdParty/PureData/src/g_canvas.h"/>
-        <FILE id="kpJAIs" name="g_editor.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_editor.c"/>
-        <FILE id="REA2VX" name="g_graph.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_graph.c"/>
-        <FILE id="CmYMPy" name="g_guiconnect.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_guiconnect.c"/>
-        <FILE id="n7GDRi" name="g_hdial.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_hdial.c"/>
-        <FILE id="MFASO0" name="g_hslider.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_hslider.c"/>
-        <FILE id="uKUf5Z" name="g_io.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_io.c"/>
-        <FILE id="ZzI7SX" name="g_mycanvas.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_mycanvas.c"/>
-        <FILE id="wcZ2w1" name="g_numbox.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_numbox.c"/>
-        <FILE id="ovv0E2" name="g_readwrite.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_readwrite.c"/>
-        <FILE id="bHYHLz" name="g_rtext.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_rtext.c"/>
-        <FILE id="WU3Cyc" name="g_scalar.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_scalar.c"/>
-        <FILE id="NR3YQh" name="g_template.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_template.c"/>
-        <FILE id="XIABCv" name="g_text.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_text.c"/>
-        <FILE id="NTfzGK" name="g_toggle.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_toggle.c"/>
-        <FILE id="QHQNH4" name="g_traversal.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_traversal.c"/>
-        <FILE id="paFlIh" name="g_vdial.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_vdial.c"/>
-        <FILE id="PHUt77" name="g_vslider.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_vslider.c"/>
-        <FILE id="AjebFo" name="g_vumeter.c" compile="1" resource="0" file="ThirdParty/PureData/src/g_vumeter.c"/>
-        <FILE id="vMdwnc" name="m_atom.c" compile="1" resource="0" file="ThirdParty/PureData/src/m_atom.c"/>
-        <FILE id="RAXq3e" name="m_binbuf.c" compile="1" resource="0" file="ThirdParty/PureData/src/m_binbuf.c"/>
-        <FILE id="j3jRr9" name="m_class.c" compile="1" resource="0" file="ThirdParty/PureData/src/m_class.c"/>
-        <FILE id="LV1lMp" name="m_conf.c" compile="1" resource="0" file="ThirdParty/PureData/src/m_conf.c"/>
-        <FILE id="nTbvjz" name="m_glob.c" compile="1" resource="0" file="ThirdParty/PureData/src/m_glob.c"/>
-        <FILE id="qHTJkL" name="m_imp.h" compile="0" resource="0" file="ThirdParty/PureData/src/m_imp.h"/>
-        <FILE id="PcNDVV" name="m_memory.c" compile="1" resource="0" file="ThirdParty/PureData/src/m_memory.c"/>
-        <FILE id="O1zqe5" name="m_obj.c" compile="1" resource="0" file="ThirdParty/PureData/src/m_obj.c"/>
-        <FILE id="kfOHyQ" name="m_pd.c" compile="1" resource="0" file="ThirdParty/PureData/src/m_pd.c"/>
-        <FILE id="esQzpq" name="m_pd.h" compile="0" resource="0" file="ThirdParty/PureData/src/m_pd.h"/>
-        <FILE id="yc6Hlc" name="m_sched.c" compile="1" resource="0" file="ThirdParty/PureData/src/m_sched.c"/>
-        <FILE id="itkRaT" name="s_audio.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_audio.c"/>
-        <FILE id="hvIayS" name="s_audio_dummy.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_audio_dummy.c"/>
-        <FILE id="EzrxUU" name="s_file.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_file.c"/>
-        <FILE id="EQZawY" name="s_inter.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_inter.c"/>
-        <FILE id="WsEHMF" name="s_loader.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_loader.c"/>
-        <FILE id="Ic6LsD" name="s_main.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_main.c"/>
-        <FILE id="CfZaK0" name="s_path.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_path.c"/>
-        <FILE id="PvtjZi" name="s_print.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_print.c"/>
-        <FILE id="vIreZA" name="s_stuff.h" compile="0" resource="0" file="ThirdParty/PureData/src/s_stuff.h"/>
-        <FILE id="sTN2Xt" name="s_utf8.c" compile="1" resource="0" file="ThirdParty/PureData/src/s_utf8.c"/>
-        <FILE id="ihPbo6" name="s_utf8.h" compile="0" resource="0" file="ThirdParty/PureData/src/s_utf8.h"/>
-        <FILE id="D7ZFJU" name="x_acoustics.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_acoustics.c"/>
-        <FILE id="bPvh2P" name="x_arithmetic.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_arithmetic.c"/>
-        <FILE id="Hdg82n" name="x_array.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_array.c"/>
-        <FILE id="laW1pp" name="x_connective.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_connective.c"/>
-        <FILE id="Qrh3jF" name="x_gui.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_gui.c"/>
-        <FILE id="p3XZN4" name="x_interface.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_interface.c"/>
-        <FILE id="sh66lY" name="x_list.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_list.c"/>
-        <FILE id="MT7Mvo" name="x_midi.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_midi.c"/>
-        <FILE id="dYY6Vj" name="x_misc.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_misc.c"/>
-        <FILE id="zltkHa" name="x_net.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_net.c"/>
-        <FILE id="YDMF0S" name="x_scalar.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_scalar.c"/>
-        <FILE id="ynfMat" name="x_text.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_text.c"/>
-        <FILE id="Yh5zvF" name="x_time.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_time.c"/>
-        <FILE id="AONfwM" name="x_vexp_fun.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_vexp_fun.c"/>
-        <FILE id="DLarYz" name="x_vexp_if.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_vexp_if.c"/>
-        <FILE id="xxzU7t" name="x_vexp.c" compile="1" resource="0" file="ThirdParty/PureData/src/x_vexp.c"/>
-        <FILE id="yOSnli" name="x_vexp.h" compile="0" resource="0" file="ThirdParty/PureData/src/x_vexp.h"/>
-      </GROUP>
-    </GROUP>
-    <GROUP id="{8DE6AA0C-11D5-0E76-0B00-0843C90E25ED}" name="Ressources">
-      <FILE id="aAL7Sj" name="clear1.png" compile="0" resource="1" file="Ressources/clear1.png"/>
-      <FILE id="oqcUsT" name="clear2.png" compile="0" resource="1" file="Ressources/clear2.png"/>
-      <FILE id="zA26MM" name="copy1.png" compile="0" resource="1" file="Ressources/copy1.png"/>
-      <FILE id="t9Tix1" name="copy2.png" compile="0" resource="1" file="Ressources/copy2.png"/>
-      <FILE id="SOv1mR" name="option.png" compile="0" resource="1" file="Ressources/option.png"/>
-      <FILE id="pAFpl1" name="flower1.png" compile="0" resource="1" file="Ressources/flower1.png"/>
-      <FILE id="aZl9d4" name="flower2.png" compile="0" resource="1" file="Ressources/flower2.png"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX" vstFolder="ThirdParty/Vst/vstsdk2.4"
-               postbuildCommand="&#10;# This script takes the build product and copies it to the AU, VST, VST3, RTAS and AAX folders, depending on &#10;# which plugin types you've built&#10;&#10;original=$CONFIGURATION_BUILD_DIR/$FULL_PRODUCT_NAME&#10;&#10;# this looks inside the binary to detect which platforms are needed.. &#10;copyAU=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'AudioUnit' | wc -l&#96;&#10;copyVST=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'VSTPlugin' | wc -l&#96;&#10;copyVST3=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'GetPluginFactory' | wc -l&#96;&#10;copyRTAS=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'CProcess' | wc -l&#96;&#10;copyAAX=&#96;nm -g &quot;$CONFIGURATION_BUILD_DIR/$EXECUTABLE_PATH&quot; | grep -i 'ACFStartup' | wc -l&#96;&#10;&#10;if [ $copyAU -gt 0 ]; then&#10;  echo &quot;Copying to AudioUnit folder...&quot;&#10;  AUDir=~/Library/Audio/Plug-Ins/Components&#10;  mkdir -p &quot;$AUDir&quot;&#10;  AU=$AUDir/$PRODUCT_NAME.component&#10;  if [ -d &quot;$AU&quot; ]; then &#10;    rm -r &quot;$AU&quot;&#10;  fi&#10;&#10;  cp -r &quot;$original&quot; &quot;$AU&quot;&#10;  sed -i &quot;&quot; -e 's/TDMwPTul/BNDLPTul/g' &quot;$AU/Contents/PkgInfo&quot;&#10;  sed -i &quot;&quot; -e 's/TDMw/BNDL/g' &quot;$AU/Contents/$INFOPLIST_FILE&quot;&#10;fi&#10;&#10;if [ $copyVST -gt 0 ]; then&#10;  echo &quot;Copying to VST folder...&quot;&#10;  VSTDir=~/Library/Audio/Plug-Ins/VST&#10;  mkdir -p &quot;$VSTDir&quot;&#10;  VST=$VSTDir/$PRODUCT_NAME.vst&#10;  if [ -d &quot;$VST&quot; ]; then &#10;    rm -r &quot;$VST&quot;&#10;  fi&#10;&#10;  cp -r &quot;$original&quot; &quot;$VST&quot;&#10;  sed -i &quot;&quot; -e 's/TDMwPTul/BNDLPTul/g' &quot;$VST/Contents/PkgInfo&quot;&#10;  sed -i &quot;&quot; -e 's/TDMw/BNDL/g' &quot;$VST/Contents/$INFOPLIST_FILE&quot;&#10;fi&#10;&#10;if [ $copyVST3 -gt 0 ]; then&#10;  echo &quot;Copying to VST3 folder...&quot;&#10;  VST3Dir=~/Library/Audio/Plug-Ins/VST3&#10;  mkdir -p &quot;$VST3Dir&quot;&#10;  VST3=$VST3Dir/$PRODUCT_NAME.vst3&#10;  if [ -d &quot;$VST3&quot; ]; then &#10;    rm -r &quot;$VST3&quot;&#10;  fi&#10;&#10;  cp -r &quot;$original&quot; &quot;$VST3&quot;&#10;  sed -i &quot;&quot; -e 's/TDMwPTul/BNDLPTul/g' &quot;$VST3/Contents/PkgInfo&quot;&#10;  sed -i &quot;&quot; -e 's/TDMw/BNDL/g' &quot;$VST3/Contents/$INFOPLIST_FILE&quot;&#10;fi&#10;&#10;if [ $copyRTAS -gt 0 ]; then&#10;  echo &quot;Copying to RTAS folder...&quot;&#10;  RTASDir=/Library/Application\ Support/Digidesign/Plug-Ins&#10;  if [ -d &quot;$RTASDir&quot; ]; then&#10;    RTAS=$RTASDir/$PRODUCT_NAME.dpm&#10;    if [ -d &quot;$RTAS&quot; ]; then&#10;      rm -r &quot;$RTAS&quot;&#10;    fi&#10;&#10;    cp -r &quot;$original&quot; &quot;$RTAS&quot;&#10;  fi&#10;fi&#10;&#10;if [ $copyAAX -gt 0 ]; then&#10;  echo &quot;Copying to AAX folder...&quot;&#10;&#10;  if [ -d &quot;/Applications/ProTools_3PDev/Plug-Ins&quot; ]; then&#10;    AAX1=&quot;/Applications/ProTools_3PDev/Plug-Ins/$PRODUCT_NAME.aaxplugin&quot;&#10;&#10;    if [ -d &quot;$AAX1&quot; ]; then&#10;      rm -r &quot;$AAX1&quot;&#10;    fi&#10;&#10;    cp -R -H &quot;$original&quot; &quot;$AAX1&quot;&#10;  fi&#10;&#10;  if [ -d &quot;/Library/Application Support/Avid/Audio/Plug-Ins&quot; ]; then&#10;    AAX2=&quot;/Library/Application Support/Avid/Audio/Plug-Ins/$PRODUCT_NAME.aaxplugin&quot;&#10;&#10;    if [ -d &quot;$AAX2&quot; ]; then&#10;      rm -r &quot;$AAX2&quot;&#10;    fi&#10;&#10;    cp -R -H &quot;$original&quot; &quot;$AAX2&quot;&#10;  fi&#10;fi&#10;"
-               vst3Folder="ThirdParty/Vst/" externalLibraries="" extraDefs="HAVE_UNISTD_H=1&#10;HAVE_ALLOCA_H=1&#10;HAVE_LIBDL=1"
-               extraLinkerFlags="" extraCompilerFlags="">
+    <XCODE_MAC targetFolder="Builds/MacOSX" vst3Folder="VST" externalLibraries="pd-osx-multi"
+               customXcodeResourceFolders="" postbuildCommand="">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"
-                       isDebug="1" optimisation="1" targetName="Camomile" headerPath="../../ThirdParty/PureData/src"
-                       libraryPath="" defines="" binaryPath="/Library/Audio/Plug-Ins"/>
-        <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"
-                       isDebug="0" optimisation="3" targetName="Camomile" headerPath="../../ThirdParty/PureData/src"
-                       libraryPath="" defines="" binaryPath="/Library/Audio/Plug-Ins"
-                       linkTimeOptimisation="1"/>
+        <CONFIGURATION name="Debug" enablePluginBinaryCopyStep="0" isDebug="1" optimisation="1"
+                       linkTimeOptimisation="0" targetName="Camomile" osxCompatibility="10.9 SDK"
+                       osxArchitecture="64BitUniversal" libraryPath="../../libpd/libs"
+                       headerPath="" defines="JucePlugin_IsSynth=1" binaryPath="Plugins"
+                       auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/" vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VST3/"
+                       vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"/>
+        <CONFIGURATION name="Release" enablePluginBinaryCopyStep="0" isDebug="0" optimisation="3"
+                       linkTimeOptimisation="1" targetName="Camomile" osxCompatibility="10.9 SDK"
+                       osxArchitecture="64BitUniversal" libraryPath="../../libpd/libs"
+                       headerPath="" defines="JucePlugin_IsSynth=1" binaryPath="Plugins"
+                       auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/" vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VS3/"
+                       vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"/>
+        <CONFIGURATION name="DebugFx" enablePluginBinaryCopyStep="0" isDebug="1" optimisation="1"
+                       linkTimeOptimisation="0" targetName="CamomileFx" osxCompatibility="10.9 SDK"
+                       osxArchitecture="64BitUniversal" libraryPath="../../libpd/libs"
+                       headerPath="" defines="" binaryPath="Plugins" vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"
+                       vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VST3/" auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/"/>
+        <CONFIGURATION name="ReleaseFx" enablePluginBinaryCopyStep="0" isDebug="0" optimisation="3"
+                       linkTimeOptimisation="1" targetName="CamomileFx" osxCompatibility="10.9 SDK"
+                       osxArchitecture="64BitUniversal" libraryPath="../../libpd/libs"
+                       headerPath="" defines="" binaryPath="Plugins" vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"
+                       vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VST3/" auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_core" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_graphics" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_audio_basics" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_data_structures" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_events" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_core" path="Juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="Juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="Juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="Juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="Juce/modules"/>
+        <MODULEPATH id="juce_events" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="Juce/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" vstFolder="ThirdParty/Vst/vstsdk2.4"
-                vst3Folder="ThirdParty/Vst/" extraDefs="HAVE_UNISTD_H=1&#10;HAVE_LIBDL=1&#10;HAVE_ALLOCA_H=1">
+    <VS2015 targetFolder="Builds/VisualStudio2015" windowsTargetPlatformVersion="8.1"
+            vst3Folder="VST" externalLibraries="libpd.lib" extraDefs="PD_LONGINTTYPE=long\ long"
+            extraCompilerFlags="/wd4091 &#10;/wd4996&#10;/wd4100&#10;/wd4706&#10;/wd4210"
+            extraLinkerFlags="">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
-                       targetName="Camomile" linuxArchitecture="" headerPath="../../ThirdParty/PureData/src"/>
-        <CONFIGURATION name="Release" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="3"
-                       targetName="Camomile" linuxArchitecture="" headerPath="../../ThirdParty/PureData/src"/>
+        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
+                       debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="Camomile"
+                       binaryPath="Plugins" libraryPath="../../libpd/libs" defines="JucePlugin_IsSynth=1"
+                       useRuntimeLibDLL=""/>
+        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
+                       debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="Camomile"
+                       binaryPath="Plugins" libraryPath="../../libpd/libs" defines="JucePlugin_IsSynth=1"
+                       useRuntimeLibDLL=""/>
+        <CONFIGURATION name="DebugFx" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
+                       debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="CamomileFx"
+                       binaryPath="Plugins" libraryPath="../../libpd/libs" defines=""
+                       useRuntimeLibDLL=""/>
+        <CONFIGURATION name="ReleaseFx" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
+                       debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="CamomileFX"
+                       binaryPath="Plugins" libraryPath="../../libpd/libs" defines=""
+                       useRuntimeLibDLL=""/>
+        <CONFIGURATION name="Debug32" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
+                       debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="Camomile"
+                       binaryPath="Plugins" libraryPath="../../libpd/libs" defines="JucePlugin_IsSynth=1"
+                       useRuntimeLibDLL=""/>
+        <CONFIGURATION name="Release32" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
+                       debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="Camomile"
+                       binaryPath="Plugins" libraryPath="../../libpd/libs" defines="JucePlugin_IsSynth=1"
+                       useRuntimeLibDLL=""/>
+        <CONFIGURATION name="DebugFx32" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
+                       debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="CamomileFx"
+                       binaryPath="Plugins" libraryPath="../../libpd/libs" defines=""
+                       useRuntimeLibDLL=""/>
+        <CONFIGURATION name="ReleaseFx32" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
+                       debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="CamomileFX"
+                       binaryPath="Plugins" libraryPath="../../libpd/libs" defines=""
+                       useRuntimeLibDLL=""/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_gui_extra" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_graphics" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_events" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_data_structures" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_core" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_audio_basics" path="ThirdParty/Juce/modules"/>
-      </MODULEPATHS>
-    </LINUX_MAKE>
-    <VS2015 targetFolder="Builds/VisualStudio2015" vstFolder="ThirdParty\Vst\vstsdk2.4"
-            vst3Folder="ThirdParty\Vst" extraDefs="HAVE_STRUCT_TIMESPEC=1&#10;PTW32_STATIC_LIB=1"
-            externalLibraries="pthread_lib.lib">
-      <CONFIGURATIONS>
-        <CONFIGURATION name="Debug32" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
-                       isDebug="1" optimisation="1" targetName="Camomile" headerPath="../../ThirdParty/PureData/src&#10;../../ThirdParty/PthreadWindows/include"
-                       useRuntimeLibDLL="0" libraryPath="../../ThirdParty/PthreadWindows/lib/x86"/>
-        <CONFIGURATION name="Release32" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
-                       isDebug="0" optimisation="3" targetName="Camomile" headerPath="../../ThirdParty/PureData/src&#10;../../ThirdParty/PthreadWindows/include"
-                       useRuntimeLibDLL="0" libraryPath="../../ThirdParty/PthreadWindows/lib/x86"/>
-        <CONFIGURATION name="Debug64" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
-                       isDebug="1" optimisation="1" targetName="Camomile" headerPath="../../ThirdParty/PureData/src&#10;../../ThirdParty/PthreadWindows/include"
-                       useRuntimeLibDLL="0" libraryPath="../../ThirdParty/PthreadWindows/lib/x64&#10;"/>
-        <CONFIGURATION name="Release64" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
-                       isDebug="0" optimisation="3" targetName="Camomile" headerPath="../../ThirdParty/PureData/src&#10;../../ThirdParty/PthreadWindows/include"
-                       useRuntimeLibDLL="0" libraryPath="../../ThirdParty/PthreadWindows/lib/x64&#10;"/>
-      </CONFIGURATIONS>
-      <MODULEPATHS>
-        <MODULEPATH id="juce_gui_extra" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_graphics" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_events" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_data_structures" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_core" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="ThirdParty/Juce/modules"/>
-        <MODULEPATH id="juce_audio_basics" path="ThirdParty/Juce/modules"/>
+        <MODULEPATH id="juce_core" path="Juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="Juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="Juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="Juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="Juce/modules"/>
+        <MODULEPATH id="juce_events" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="Juce/modules"/>
       </MODULEPATHS>
     </VS2015>
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraLinkerFlags="" externalLibraries="pd">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" linkTimeOptimisation="0"
+                       targetName="Camomile" libraryPath="../../libpd/libs" defines="JucePlugin_IsSynth=1"
+                       binaryPath="Plugins"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" linkTimeOptimisation="1"
+                       targetName="Camomile" libraryPath="../../libpd/libs" defines="JucePlugin_IsSynth=1"
+                       binaryPath="Plugins"/>
+        <CONFIGURATION name="DebugFx" isDebug="1" optimisation="1" linkTimeOptimisation="0"
+                       targetName="CamomileFx" libraryPath="../../libpd/libs" defines=""
+                       binaryPath="Plugins"/>
+        <CONFIGURATION name="ReleaseFx" isDebug="0" optimisation="3" linkTimeOptimisation="1"
+                       targetName="CamomileFx" libraryPath="../../libpd/libs" binaryPath="Plugins"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="Juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="Juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="Juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="Juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="Juce/modules"/>
+        <MODULEPATH id="juce_events" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="Juce/modules"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
   </EXPORTFORMATS>
   <MODULES>
-    <MODULES id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_core" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
   <JUCEOPTIONS JUCE_QUICKTIME="disabled"/>
-  <LIVE_SETTINGS>
-    <OSX/>
-  </LIVE_SETTINGS>
 </JUCERPROJECT>

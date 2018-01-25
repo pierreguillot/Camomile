@@ -14,8 +14,6 @@
 *.dll
 *.pd_darwin
 
-# Fortran module files
-*.mod
 
 # Compiled Static libraries
 *.lai
@@ -27,21 +25,17 @@
 *.exe
 *.out
 *.app
+*.component
+*.vst
+*.vst3
 
 # Mac Xcode
-*.plist
-*.nib
-*.pbxproj
-*.xcworkspacedata
 *.xcuserstate
-*.xcscheme
 *.xcuserdatad
 
 # Juce & ThirdParty
-ThirdParty/Vst/*
-!ThirdParty/Vst/README.txt
-ThirdParty/PthreadWindows/*
-!ThirdParty/PthreadWindows/README.txt
-/Binaries
 /Builds/MacOSX/build/
 /Builds/LinuxMakefile/build/
+
+#Examples
+/Plugins/Examples/GuyMoquet/

@@ -1,216 +1,165 @@
 /*
-// Copyright (c) 2015 Pierre Guillot.
-// For information on usage and redistribution, and for a DISCLAIMER OF ALL
-// WARRANTIES, see the file, "LICENSE.txt," in this distribution.
-*/
+ // Copyright (c) 2015-2017 Pierre Guillot.
+ // For information on usage and redistribution, and for a DISCLAIMER OF ALL
+ // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
+ */
 
-#ifndef Z_PD_INSTANCE_HPP
-#define Z_PD_INSTANCE_HPP
+#pragma once
 
-#include "PdEnvironment.hpp"
+#include <vector>
+#include <map>
+#include <utility>
+#include <string>
+#include "../../readerwriterqueue/readerwriterqueue.h"
+#include "../../concurrentqueue/concurrentqueue.h"
 
 namespace pd
 {
     class Patch;
+    class Atom;
     // ==================================================================================== //
-    //                                          INSTANCE                                    //
+    //                                      INSTANCE                                        //
     // ==================================================================================== //
     
-    //! @brief The Pure Data instance.
-    //! @details The Instance is a wrapper for the Pure Data's native instance.
-    //! With the default constructor, the Instance won't be initialized. The Instance has some
-    //! kind of smart pointer behavior so when an Instance object is no more useful the object
-    //! is deleted.
-    class Instance : private Smuggler
+    class Instance
     {
     public:
         
-        //! @brief The constructor for an empty Instance.
-        //! @details Creates an Instance that can be used as an empty reference inside
-        //! another class.
-        Instance() noexcept;
-        
-        //! @brief The copy constructor.
-        //! Creates a copy of an Instance and increments his counter.
-        Instance(Instance const& other) noexcept;
-        
-        //! @brief The move constructor.
-        //! @details Creates a copy of an Instance without incrementing his counter. The
-        //! other Instance will be useless.
-        Instance(Instance&& other) noexcept;
-        
-        //! @brief The copy operator.
-        //! Copies the Instance and increments his counter.
-        Instance& operator=(Instance const& other) noexcept;
-        
-        //! @brief The move operator.
-        //! @details Copies the Instance without incrementing his counter. The other
-        //! Instance will be destroyed if needed.
-        Instance& operator=(Instance&& other) noexcept;
-        
-        //! @brief The destructor.
-        //! @details The Instance will be destroyed if no other copy exists.
-        virtual ~Instance() noexcept;
-        
-        //! @brief Retrieves if the Instance is valid.
-        bool isValid() const noexcept;
-        
-        //! @brief Retrieves the sample rate of the Instance.
-        int getSampleRate() const noexcept;
-        
-        
-        
-        
-        //! @brief Sends a normal post to the Pure Data console.
-        void sendConsolePost(std::string const& message) noexcept;
-        
-        //! @brief Sends a log post to the Pure Data console.
-        void sendConsoleLog(std::string const& message) noexcept;
-        
-        //! @brief Sends an error to the Pure Data console.
-        void sendConsoleError(std::string const& message) noexcept;
-        
-        //! @brief Sends a fatal error to the Pure Data console.
-        void sendConsoleFatal(std::string const& message) noexcept;
-        
-        
-        //! @brief Receives a normal post to the Pure Data console.
-        virtual void receiveConsolePost(std::string const& message) {};
-        
-        //! @brief Receives a log post to the Pure Data console.
-        virtual void receiveConsoleLog(std::string const& message) {};
-        
-        //! @brief Receives a error to the Pure Data console.
-        virtual void receiveConsoleError(std::string const& message) {};
-        
-        //! @brief Receives a fatal error to the Pure Data console.
-        virtual void receiveConsoleFatal(std::string const& message) {};
-    protected:
-        
-        //! @brief The real constructor.
-        Instance(const std::string& name) noexcept;
-        
-        //! @brief Locks Instance.
-        void lock() noexcept;
-        
-        //! @brief Unlocks Instance.
-        void unlock() noexcept;
-        
-        
-        
-        
-        //! @brief Prepares the digital signal processing chain of the Instance.
-        void prepareDsp(const int nins, const int nouts, const int samplerate, const int nsamples) noexcept;
-        
-        //! @brief Performs the digital signal processing chain of the Instance.
-        //! @details You should locks the Instance to ensure thread safety.
-        void performDsp(int nsamples, const int nins, const float** inputs, const int nouts, float** outputs) noexcept;
-        
-        //! @brief Releases the digital signal processing chain of the Instance.
-        void releaseDsp() noexcept;
-        
-        
-        
-        //! @brief Sends midi note on.
-        void sendMidiNote(int channel, int pitch, int velocity) const;
-        
-        //! @brief Sends midi control change.
-        void sendMidiControlChange(int channel, int controller, int value) const;
-        
-        //! @brief Sends midi program change.
-        void sendMidiProgramChange(int channel, int value) const;
-        
-        //! @brief Sends midi pitch bend.
-        void sendMidiPitchBend(int channel, int value) const;
-        
-        //! @brief Sends midi after touch.
-        void sendMidiAfterTouch(int channel, int value) const;
-        
-        //! @brief Sends midi poly after touch.
-        void sendMidiPolyAfterTouch(int channel, int pitch, int value) const;
-        
-        //! @brief Sends midi byte.
-        void sendMidiByte(int port, int byte) const;
-        
-        //! @brief Sends midi sys ex.
-        void sendMidiSysEx(int port, int byte) const;
-        
-        //! @brief Sends midi sys real time.
-        void sendMidiSysRealtime(int port, int byte) const;
-        
-        
-        
-        
-        //! @brief Receives midi note on.
-        virtual void receiveMidiNoteOn(int channel, int pitch, int velocity) {};
-        
-        //! @brief Receives midi control change.
-        virtual void receiveMidiControlChange(int channel, int control, int value) {}
-        
-        //! @brief Receives midi program change.
-        virtual void receiveMidiProgramChange(int channel, int value) {}
-        
-        //! @brief Receives midi pitch bend.
-        virtual void receiveMidiPitchBend(int channel, int value) {}
-        
-        //! @brief Receives midi after touch.
-        virtual void receiveMidiAfterTouch(int channel, int value) {}
-        
-        //! @brief Receives midi poly after touch.
-        virtual void receiveMidiPolyAfterTouch(int channel, int pitch, int value) {}
-        
-        //! @brief Receives midi byte.
-        virtual void receiveMidiByte(int port, int value) {}
-        
-        
-        
-        
-        //! @brief Sends bang.
-        void sendMessageBang(Tie const& name) const;
-        
-        //! @brief Sends float.
-        void sendMessageFloat(Tie const& name, float f) const;
-        
-        //! @brief Sends symbol.
-        void sendMessageSymbol(Tie const& name, Symbol const& s) const;
-        
-        //! @brief Sends gpointer.
-        void sendMessageGpointer(Tie const& name, Gpointer const& g) const;
-        
-        //! @brief Sends list.
-        void sendMessageList(Tie const& name, List const& list) const;
-        
-        //! @brief Sends anything.
-        void sendMessageAnything(Tie const& name, Symbol const& s, List const& list) const;
-        
-        //! @brief Receives bang.
-        virtual void receiveMessageBang(Tie const& tie) {}
-        
-        //! @brief Receives float.
-        virtual void receiveMessageFloat(Tie const& tie, float f) {}
-        
-        //! @brief Receives symbol.
-        virtual void receiveMessageSymbol(Tie const& tie, Symbol const& s) {}
-        
-        //! @brief Receives gpointer.
-        virtual void receiveMessageGpointer(Tie const& tie, Gpointer const& g) {}
-        
-        //! @brief Receives list.
-        virtual void receiveMessageList(Tie const& tie, List const& list) {}
-        
-        //! @brief Receives anything.
-        virtual void receiveMessageAnything(Tie const& tie, Symbol const& s, List const& list) {}
-        
+        Instance();
+        virtual ~Instance();
+        
+        void prepareDSP(const int nins, const int nouts, const int blksize, const double samplerate);
+        void releaseDSP();
+        void performDSP(const int blksize, const int nins, float const** inputs, const int nouts, float** outputs);
+        
+        void sendNoteOn(const int channel, const int pitch, const int velocity) const;
+        void sendControlChange(const int channel, const int controller, const int value) const;
+        void sendProgramChange(const int channel, const int value) const;
+        void sendPitchBend(const int channel, const int value) const;
+        void sendAfterTouch(const int channel, const int value) const;
+        void sendPolyAfterTouch(const int channel, const int pitch, const int value) const;
+        void sendSysEx(const int port, const int byte) const;
+        void sendSysRealTime(const int port, const int byte) const;
+        void sendMidiByte(const int port, const int byte) const;
+        
+        virtual void receiveNoteOn(const int channel, const int pitch, const int velocity) {}
+        virtual void receiveControlChange(const int channel, const int controller, const int value) {}
+        virtual void receiveProgramChange(const int channel, const int value) {}
+        virtual void receivePitchBend(const int channel, const int value) {}
+        virtual void receiveAftertouch(const int channel, const int value) {}
+        virtual void receivePolyAftertouch(const int channel, const int pitch, const int value) {}
+        virtual void receiveMidiByte(const int port, const int byte) {}
+        
+        void sendBang(std::string const& receiver) const;
+        void sendFloat(std::string const& receiver, float const value) const;
+        void sendSymbol(std::string const& receiver, std::string const& symbol) const;
+        void sendList(std::string const& receiver, const std::vector<Atom>& list) const;
+        void sendMessage(std::string const& receiver, const std::string& msg, const std::vector<Atom>& list) const;
+        
+        virtual void receivePrint(const std::string& message) {};
+        
+        virtual void receiveBang(const std::string& dest) {}
+        virtual void receiveFloat(const std::string& dest, float num) {}
+        virtual void receiveSymbol(const std::string& dest, const std::string& symbol) {}
+        virtual void receiveList(const std::string& dest, const std::vector<Atom>& list) {}
+        virtual void receiveMessage(const std::string& dest, const std::string& msg, const std::vector<Atom>& list) {}
+        
+        void enqueueMessages(const std::string& dest, const std::string& msg, std::vector<Atom>&& list);
+        void enqueueDirectMessages(void* object, const std::string& msg);
+        void enqueueDirectMessages(void* object, const float msg);
+        
+        void dequeueMessages();
+        void processMessages();
+        void processPrints();
+        void processMidi();
+        
+        void bind(std::string const& symbol);
+        void unbind(std::string const& symbol);
+        
+        void openPatch(std::string const& path, std::string const& name);
+        void closePatch();
+        Patch getPatch();
+
+        void setThis();
     private:
-        struct Internal;
-        void release() noexcept;
         
-        void*               m_ptr;
-        std::atomic<long>*  m_count;
-        friend class Patch;
+        void* m_instance    = nullptr;
+        void* m_patch       = nullptr;
+        void* m_atoms       = nullptr;
+        std::vector<float> m_inputs;
+        std::vector<float> m_outputs;
         
+        struct message
+        {
+            std::string destination;
+            std::string selector;
+            std::vector<Atom> list;
+        };
+        
+        struct dmessage
+        {
+            void*       object;
+            std::string destination;
+            std::string selector;
+            std::vector<Atom> list;
+        };
+        
+        typedef struct midievent
+        {
+            enum
+            {
+                NOTEON,
+                CONTROLCHANGE,
+                PROGRAMCHANGE,
+                PITCHBEND,
+                AFTERTOUCH,
+                POLYAFTERTOUCH,
+                MIDIBYTE
+            } type;
+            int  midi1;
+            int  midi2;
+            int  midi3;
+        } midievent;
+        
+        typedef moodycamel::ConcurrentQueue<dmessage> message_queue;
+        message_queue m_send_queue = message_queue(4096);
+        moodycamel::ReaderWriterQueue<message> m_message_queue = moodycamel::ReaderWriterQueue<message>(4096);
+        moodycamel::ReaderWriterQueue<midievent> m_midi_queue = moodycamel::ReaderWriterQueue<midievent>(4096);
+        moodycamel::ReaderWriterQueue<std::string> m_print_queue = moodycamel::ReaderWriterQueue<std::string>(4096);
+        
+        std::map<std::string, void*> m_message_receivers;
+        void*   m_midi_receiver;
+        void*   m_print_receiver;
+        
+        struct internal;
     };
-
+    
+    class Atom
+    {
+    public:
+        inline Atom() : type(FLOAT), value(0), symbol() {}
+        inline Atom(const float val) : type(FLOAT), value(val), symbol() {}
+        inline Atom(const std::string& sym) : type(SYMBOL), value(0), symbol(sym) {}
+        inline Atom(const char* sym) : type(SYMBOL), value(0), symbol(sym) {}
+        
+        inline bool isFloat() const noexcept { return type == FLOAT; }
+        inline bool isSymbol() const noexcept { return type == SYMBOL; }
+        inline float getFloat() const noexcept { return value; }
+        inline std::string const& getSymbol() const noexcept { return symbol; }
+        
+        inline bool operator==(Atom const& other) const noexcept {
+            if(type == SYMBOL) { return other.type == SYMBOL && symbol == other.symbol; }
+            else { return other.type == FLOAT && value == other.value; } }
+    private:
+        
+        enum Type
+        {
+            FLOAT,
+            SYMBOL
+        };
+        
+        Type        type = FLOAT;
+        float       value = 0;
+        std::string symbol;
+    };
 }
-
-#endif // Z_PD_INSTANCE_HPP
