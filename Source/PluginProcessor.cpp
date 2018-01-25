@@ -377,10 +377,38 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
         else { add(ConsoleLevel::Error,
                    "camomile param error syntax: method index..."); }
     }
+    else if(msg == std::string("openpanel"))
+    {
+        if(list.size() >= 1) {
+            if(list[0].isSymbol()) {
+                m_queue_gui.try_enqueue({std::string("openpanel"), list[0].getSymbol()});
+                if(list.size() > 1) { add(ConsoleLevel::Error,
+                                          "camomile openpanel method extra arguments"); }
+            }
+        }
+        else {
+            m_queue_gui.try_enqueue({std::string("openpanel"), std::string()}); }
+    }
+    else if(msg == std::string("savepanel"))
+    {
+        if(list.size() >= 1) {
+            if(list[0].isSymbol()) {
+                m_queue_gui.try_enqueue({std::string("savepanel"), list[0].getSymbol()});
+                if(list.size() > 1) { add(ConsoleLevel::Error,
+                                          "camomile savepanel method extra arguments"); }
+            }
+        }
+        else {
+            m_queue_gui.try_enqueue({std::string("savepanel"), std::string()}); }
+    }
     else {  add(ConsoleLevel::Error,
                 "camomile unknow message : " + msg); }
 }
 
+bool CamomileAudioProcessor::dequeueGui(MessageGui& message)
+{
+    return m_queue_gui.try_dequeue(message);
+}
 
 void CamomileAudioProcessor::receiveNoteOn(const int channel, const int pitch, const int velocity)
 {

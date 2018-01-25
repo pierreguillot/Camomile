@@ -55,6 +55,9 @@ public:
     void receivePolyAftertouch(const int channel, const int pitch, const int value) final;
     void receiveMidiByte(const int port, const int byte) final;
     void receivePrint(const std::string& message) final;
+    
+    typedef std::pair<std::string, std::string> MessageGui;
+    bool dequeueGui(MessageGui& message);
 
     enum ConsoleLevel
     {
@@ -67,6 +70,7 @@ public:
     };
 private:
     static BusesProperties getBusesProperties();
+    typedef moodycamel::ReaderWriterQueue<MessageGui> QueueGui;
     
     std::vector<pd::Atom>    m_atoms_param;
     std::vector<pd::Atom>    m_atoms_playhead;
@@ -74,7 +78,7 @@ private:
     int m_program_current    = 0;
     std::vector<std::string> m_programs;
     std::vector<bool>        m_params_states;
-    
+    QueueGui                 m_queue_gui = QueueGui(64);
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)
 };
