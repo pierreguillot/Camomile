@@ -18,15 +18,20 @@
 #include "Pd/PdPatch.hpp"
 
 
-#define Camomile_About "Author:\n" + String(JucePlugin_Manufacturer) + "\n\nOrganizations:\nCICM | Université Paris 8 | Labex Arts H2H\n\nWebsite:\n" + String(JucePlugin_ManufacturerWebsite)+ "/wiki\n\nCredits:\nPure Data by Miller Puckette and others\nJuce by ROLI Ltd.\nlibPd by the Pure Data community"
-
-#ifdef JucePlugin_Build_VST
-#define Steinberg_About "\nVST PlugIn Technology by Steinberg Media Technologies"
-#elif JucePlugin_Build_VST3
-#define Steinberg_About"\nVST PlugIn Technology by Steinberg Media Technologies"
+#define Camomile_Author_UTF8 "Camomile Author: " + String(JucePlugin_Manufacturer) + "\n\n"
+#define Camomile_Organizations_UTF8 "Organizations: CICM | Université Paris 8 \n\n"
+#define Camomile_Website_UTF8 "Website: " + String(JucePlugin_ManufacturerWebsite) + "\n\n"
+#define Camomile_Credits_Pd_UTF8 "Pure Data by Miller Puckette and others\n"
+#define Camomile_Credits_libpd_UTF8 "libpd by the Peter Brinkmann, Dan Wilcox and others"
+#define Camomile_Credits_JUCE_UTF8 "JUCE by ROLI Ltd.\n"
+#if defined(JucePlugin_Build_VST) || defined(JucePlugin_Build_VST3)
+#define Camomile_Credits_Steinberg_UTF8 "VST PlugIn Technology by Steinberg Media Technologies"
 #else
-#define Steinberg_About ""
+#define Camomile_Credits_Steinberg_UTF8 ""
 #endif
+#define Camomile_Credits_UTF8 "Credits:\n" + Camomile_Credits_Pd_UTF8 + Camomile_Credits_libpd_UTF8 + Camomile_Credits_JUCE_UTF8 + Camomile_Credits_Steinberg_UTF8
+
+#define Camomile_About_UTF8 Camomile_Author_UTF8 + Camomile_Organizations_UTF8 + Camomile_Website_UTF8 + Camomile_Credits_UTF8
 
 CamomileAudioProcessorEditor::CamomileAudioProcessorEditor(CamomileAudioProcessor& p) : AudioProcessorEditor (&p),
 processor (p)
@@ -180,7 +185,7 @@ void CamomileAudioProcessorEditor::buttonClicked(Button* button)
                 about->setCaretVisible(false);
                 about->setPopupMenuEnabled(true);
                 about->setFont(Gui::getFont());
-                about->setText(Camomile_About + Steinberg_About);
+                about->setText(Camomile_About_UTF8);
                 about->setBounds(0, 0, 300, 370);
                 
                 window.setContentOwned(about, false);
