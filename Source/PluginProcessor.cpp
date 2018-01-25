@@ -318,6 +318,8 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
                     if(param)
                     {
                         param->setOriginalScaledValueNotifyingHost(list[2].getFloat());
+                        if(list.size() > 3) { add(ConsoleLevel::Error,
+                                                  "camomile parameter set method extra arguments"); }
                     }
                     else { add(ConsoleLevel::Error,
                                     "camomile parameter set method index: out of range"); }
@@ -343,6 +345,8 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
                             {
                                 param->beginChangeGesture();
                                 m_params_states[index] = true;
+                                if(list.size() > 3) { add(ConsoleLevel::Error,
+                                                          "camomile parameter change method extra arguments"); }
                             }
                         }
                         else
@@ -356,6 +360,8 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
                             {
                                 param->endChangeGesture();
                                 m_params_states[index] = false;
+                                if(list.size() > 3) { add(ConsoleLevel::Error,
+                                                          "camomile parameter change method extra arguments"); }
                             }
                         }
                     }
