@@ -137,7 +137,6 @@ void CamomileAudioProcessorEditor::buttonClicked(Button* button)
         m.addItem(1, "About");
         m.addItem(2, "Console");
         const int result = m.showAt(button->getScreenBounds().translated(-2, 3));
-        
         if(result == 1)
         {
             TextEditor* about = new TextEditor();
