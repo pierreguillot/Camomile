@@ -40,8 +40,11 @@ public:
     //! @brief Gets the path to the Pd patch.
     static std::string getPatchPath();
     
-    //! @brief Gets the name to the Pd patch.
+    //! @brief Gets the name of the Pd patch.
     static std::string getPatchName();
+    
+    //! @brief Gets a description of the Pd patch.
+    static std::string getPatchDescription();
     
     //! @brief Gets the name to the Pd patch.
     static std::string getImageName();
@@ -54,6 +57,9 @@ public:
     
     //! @brief Gets a description of the plugin.
     static std::string getPluginDescriptionUTF8();
+    
+    //! @brief Gets a description of the plugin.
+    static std::string getPatchCredits();
     
     //! @brief Gets if the environment is valid.
     static bool isValid();
@@ -107,9 +113,10 @@ private:
     unsigned int    plugin_code = 0x4b707139;
     std::string     patch_name  = "Camomile.pd";
     std::string     patch_path  = "";
+    std::string     patch_credits = "";
     std::string     image_name  = "";
     bool            valid       = false;
-    std::bitset<10>  state;
+    std::bitset<11>  state;
     
     bool    midi_in_support   = false;
     bool    midi_out_support  = false;
@@ -135,6 +142,7 @@ private:
         init_code       = 6,
         init_image      = 7,
         init_type       = 8,
-        init_desc       = 9
+        init_desc       = 9,
+        init_credits    = 10
     };
 };
