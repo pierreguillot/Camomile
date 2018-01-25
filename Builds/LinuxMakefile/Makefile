@@ -142,6 +142,7 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/PluginParser_b8236cbb.o \
   $(JUCE_OBJDIR)/PluginParameter_b51e717.o \
   $(JUCE_OBJDIR)/PluginEditor_94d4fb09.o \
+  $(JUCE_OBJDIR)/PluginInformation_f27ac4da.o \
   $(JUCE_OBJDIR)/PdInstance_ddabcf25.o \
   $(JUCE_OBJDIR)/PdPatch_69639a82.o \
   $(JUCE_OBJDIR)/PdObject_b945538f.o \
@@ -213,6 +214,11 @@ $(JUCE_OBJDIR)/PluginParameter_b51e717.o: ../../Source/PluginParameter.cpp
 $(JUCE_OBJDIR)/PluginEditor_94d4fb09.o: ../../Source/PluginEditor.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling PluginEditor.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/PluginInformation_f27ac4da.o: ../../Source/PluginInformation.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PluginInformation.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/PdInstance_ddabcf25.o: ../../Source/Pd/PdInstance.cpp

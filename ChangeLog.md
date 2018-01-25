@@ -5,5 +5,6 @@ v1.0.1
 - Improve the whole documentation (#72) and start "How to Create Patches" (#73).
 - Add more warning when there are extra arguments in parameters' methods.
 - Add support for "openpanel" and "savepanel" methods.
+- Update examples Bulgroz, AlmondOrgan, Castafiore, MiniMock
 
-There is no ChangeLog for previous versions sorry
+There is no ChangeLog for previous versions, sorry.
