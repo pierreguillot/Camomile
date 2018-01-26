@@ -11,8 +11,8 @@ v1.0.1
 
 v1.0.0
 Only main changes are presented. Most of the changes will be presented during the JIM 2018 and perhaps the LAC 2018.
-- Use libpd instead of personal wrapper.
-- Use TLS appraoch of Pd to manage thread concurrency issues.
+- Use libpd instead of my personal wrapper.
+- Use TLS approach of Pd to manage thread concurrency issues.
 - Use a text file to define the properties of the plugins.
 - Generate plugins with the patches included.
 - Separate the GUI and the parameters' definitions.
