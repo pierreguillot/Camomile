@@ -473,33 +473,30 @@ void CamomileAudioProcessor::receiveMidiByte(const int port, const int byte)
 
 void CamomileAudioProcessor::receivePrint(const std::string& message)
 {
-    std::string temp(message);
-    while (temp.back() == '\n' || temp.back() == ' ') { temp.pop_back(); }
-    if(!temp.empty())
+    if(!message.empty())
     {
-        if(!temp.compare(0, 6, "error:"))
+        if(!message.compare(0, 6, "error:"))
         {
-            temp.erase(temp.begin(), temp.begin()+7);
+            std::string const temp(message.begin()+7, message.end());
             add(ConsoleLevel::Error, temp);
         }
-        else if(!temp.compare(0, 11, "verbose(4):"))
+        else if(!message.compare(0, 11, "verbose(4):"))
         {
-            temp.erase(temp.begin(), temp.begin()+12);
+            std::string const temp(message.begin()+12, message.end());
             add(ConsoleLevel::Error, temp);
         }
-        else if(!temp.compare(0, 5, "tried"))
+        else if(!message.compare(0, 5, "tried"))
         {
-            add(ConsoleLevel::Log, temp);
+            add(ConsoleLevel::Log, message);
         }
-        else if(!temp.compare(0, 16, "input channels ="))
+        else if(!message.compare(0, 16, "input channels ="))
         {
-            add(ConsoleLevel::Log, temp);
+            add(ConsoleLevel::Log, message);
         }
         else
         {
-            add(ConsoleLevel::Normal, temp);
+            add(ConsoleLevel::Normal, message);
         }
-        return;
     }
 }
 

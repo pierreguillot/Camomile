@@ -100,6 +100,9 @@ extern "C"
             ptr->m_midi_queue.try_enqueue({midievent::MIDIBYTE, port, byte, 0});
         }
         
+        //////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////
+        
         static void instance_multi_print(pd::Instance* ptr, char* s)
         {
             ptr->m_print_queue.try_enqueue(std::string(s));
@@ -342,10 +345,23 @@ namespace pd
     
     void Instance::processPrints()
     {
+        std::string temp;
         std::string print;
         while(m_print_queue.try_dequeue(print))
         {
-            receivePrint(print);
+            if(print.back() == '\n')
+            {
+                while(print.back() == '\n' || print.back() == ' ') {
+                    print.pop_back();
+                }
+                temp += print;
+                receivePrint(temp);
+                temp.clear();
+            }
+            else
+            {
+                temp += print;
+            }
         }
     }
     
