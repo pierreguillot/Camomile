@@ -173,7 +173,6 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     }
     sendMessage(std::string("channels"), std::string("inputs"), {static_cast<float>(inputs.size()), ins_desc.toStdString()});
     sendMessage(std::string("channels"), std::string("outputs"), {static_cast<float>(outputs.size()), outs_desc.toStdString()});
-    
     processMessages();
 }
 
@@ -185,20 +184,23 @@ void CamomileAudioProcessor::releaseResources()
 void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
     ScopedNoDenormals noDenormals;
+    const int numSamples  = buffer.getNumSamples();
+    const float ** arrayOfReadPointers = buffer.getArrayOfReadPointers();
+    float ** arrayOfWritePointers = buffer.getArrayOfWritePointers();
     const int totalNumInputChannels  = getTotalNumInputChannels();
     const int totalNumOutputChannels = getTotalNumOutputChannels();
-
-    for(int i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
+    
+    if(numSamples < 64)
     {
-        buffer.clear(i, 0, buffer.getNumSamples());
-    }
-    if(buffer.getNumSamples() < 64)
-    {
-        for(int i = 0; i < totalNumInputChannels; ++i)
+        for(int i = 0; i < totalNumOutputChannels; ++i)
         {
-            buffer.clear(i, 0, buffer.getNumSamples());
+            buffer.clear(i, 0, numSamples);
         }
         return;
+    }
+    for(int i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
+    {
+        buffer.clear(i, 0, numSamples);
     }
     
     dequeueMessages();
@@ -292,9 +294,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                          AUDIO                                       //
     //////////////////////////////////////////////////////////////////////////////////////////
-    performDSP(buffer.getNumSamples(),
-            getTotalNumInputChannels(), buffer.getArrayOfReadPointers(),
-            getTotalNumOutputChannels(), buffer.getArrayOfWritePointers());
+    performDSP(numSamples, totalNumInputChannels, arrayOfReadPointers, totalNumOutputChannels, arrayOfWritePointers);
     
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                          MIDI OUT                                    //
