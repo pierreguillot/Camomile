@@ -304,7 +304,47 @@ void CamomileAudioProcessorEditor::modifierKeysChanged(const ModifierKeys& modif
 {
     if(CamomileEnvironment::wantsKey())
     {
-        
+        if(modifiers.isShiftDown() && !modifiers_press.isShiftDown())
+        {
+            processor.enqueueMessages(std::string("#key"), std::string("float"), {0.f});
+            processor.enqueueMessages(std::string("#keyname"), std::string("list"), {0.f, std::string("Shift_L")});
+        }
+        else if(!modifiers.isShiftDown() && modifiers_press.isShiftDown())
+        {
+            processor.enqueueMessages(std::string("#keyup"), std::string("float"), {0.f});
+            processor.enqueueMessages(std::string("#keyname"), std::string("list"), {0.f, std::string("Shift_L")});
+        }
+        else if(modifiers.isCtrlDown() && !modifiers_press.isCtrlDown())
+        {
+            processor.enqueueMessages(std::string("#key"), std::string("float"), {0.f});
+            processor.enqueueMessages(std::string("#keyname"), std::string("list"), {0.f, std::string("Control_L")});
+        }
+        else if(!modifiers.isCtrlDown() && modifiers_press.isCtrlDown())
+        {
+            processor.enqueueMessages(std::string("#keyup"), std::string("float"), {0.f});
+            processor.enqueueMessages(std::string("#keyname"), std::string("list"), {0.f, std::string("Control_L")});
+        }
+        else if(modifiers.isAltDown() && !modifiers_press.isAltDown())
+        {
+            processor.enqueueMessages(std::string("#key"), std::string("float"), {0.f});
+            processor.enqueueMessages(std::string("#keyname"), std::string("list"), {0.f, std::string("Alt_L")});
+        }
+        else if(!modifiers.isAltDown() && modifiers_press.isAltDown())
+        {
+            processor.enqueueMessages(std::string("#keyup"), std::string("float"), {0.f});
+            processor.enqueueMessages(std::string("#keyname"), std::string("list"), {0.f, std::string("Alt_L")});
+        }
+        else if(modifiers.isCommandDown() && !modifiers_press.isCommandDown())
+        {
+            processor.enqueueMessages(std::string("#key"), std::string("float"), {0.f});
+            processor.enqueueMessages(std::string("#keyname"), std::string("list"), {0.f, std::string("Meta_L")});
+        }
+        else if(!modifiers.isCommandDown() && modifiers_press.isCommandDown())
+        {
+            processor.enqueueMessages(std::string("#keyup"), std::string("float"), {0.f});
+            processor.enqueueMessages(std::string("#keyname"), std::string("list"), {0.f, std::string("Meta_L")});
+        }
+        modifiers_press = modifiers;
     }
 }
 
