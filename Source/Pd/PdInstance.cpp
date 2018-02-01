@@ -150,8 +150,9 @@ namespace pd
 
     void Instance::prepareDSP(const int nins, const int nouts, const int blksize, const double samplerate)
     {
-        m_inputs.resize(blksize * nins);
-        m_outputs.resize(blksize * nouts);
+        const int pdblksize = libpd_blocksize();
+        m_inputs.resize(pdblksize * nins);
+        m_outputs.resize(pdblksize * nouts);
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_init_audio((int)nins, (int)nouts, (int)samplerate);
     }
@@ -176,20 +177,19 @@ namespace pd
                            const int nins, float const** inputs,
                            const int nouts, float** outputs)
     {
-        for(int i = 0; i < nins; ++i)
-        {
-            for(int j = 0; j < blksize; ++j)
-            {
-                m_inputs[j*nins+i] = inputs[i][j];
-            }
-        }
+        const int pdblksize = libpd_blocksize();
+        const int nticks    = blksize / pdblksize;
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        libpd_process_float(blksize / libpd_blocksize(), m_inputs.data(), m_outputs.data());
-        for(int i = 0; i < nouts; ++i)
+        for(int i = 0; i < nticks; ++i)
         {
-            for(int j = 0; j < blksize; ++j)
+            for(int j = 0; j < nins; ++j)
             {
-                outputs[i][j] = m_outputs[j*nouts+i];
+                std::copy(inputs[j]+i*pdblksize, inputs[j]+(i+1)*pdblksize, m_inputs.data()+j*pdblksize);
+            }
+            libpd_process_raw(m_inputs.data(), m_outputs.data());
+            for(int j = 0; j < nouts; ++j)
+            {
+                std::copy(m_outputs.data()+j*pdblksize, m_outputs.data()+(j+1)*pdblksize, outputs[j]+i*pdblksize);
             }
         }
     }

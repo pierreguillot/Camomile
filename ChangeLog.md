@@ -2,6 +2,7 @@ v1.0.2
 - Fix DSP off message to Pd (0fcc8d5)
 - Prepare the DSP before opening the patch (#83)
 - Initialize parameters and programs before opening the patch (#82)
+- Use libpd_process_raw in the DSP perform method to optimize
 
 v1.0.1
 - Fix thread concurrency issue that occurred when selecting a program (#77).
