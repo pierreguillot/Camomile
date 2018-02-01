@@ -184,7 +184,7 @@ namespace pd
             }
         }
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        libpd_process_float(blksize / 64, m_inputs.data(), m_outputs.data());
+        libpd_process_float(blksize / libpd_blocksize(), m_inputs.data(), m_outputs.data());
         for(int i = 0; i < nouts; ++i)
         {
             for(int j = 0; j < blksize; ++j)
