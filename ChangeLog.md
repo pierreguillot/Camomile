@@ -6,6 +6,8 @@ v1.0.2
 - Add support for MIDI In SysEx, SysRealTime & Byte
 - Add support for MIDI Out Byte
 - Improve console prints for lists (remove line breaks)
+- Add keys objects support for [key], [keyup] (#80)
+- Start support for [keyname] - some names are still missing
 
 v1.0.1
 - Fix thread concurrency issue that occurred when selecting a program (#77).
