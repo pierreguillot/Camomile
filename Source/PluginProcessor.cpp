@@ -436,39 +436,39 @@ bool CamomileAudioProcessor::dequeueGui(MessageGui& message)
 void CamomileAudioProcessor::receiveNoteOn(const int channel, const int pitch, const int velocity)
 {
     if(velocity == 0) {
-        m_midi_buffer.addEvent(MidiMessage::noteOff(channel, pitch, uint8(0)), 0); }
+        m_midi_buffer.addEvent(MidiMessage::noteOff(channel, pitch, uint8(0)), 0.); }
     else {
-        m_midi_buffer.addEvent(MidiMessage::noteOn(channel, pitch, static_cast<uint8>(velocity)), 0); }
+        m_midi_buffer.addEvent(MidiMessage::noteOn(channel, pitch, static_cast<uint8>(velocity)), 0.); }
 }
 
 void CamomileAudioProcessor::receiveControlChange(const int channel, const int controller, const int value)
 {
-    m_midi_buffer.addEvent(MidiMessage::controllerEvent(channel, controller, value), 0);
+    m_midi_buffer.addEvent(MidiMessage::controllerEvent(channel, controller, value), 0.);
 }
 
 void CamomileAudioProcessor::receiveProgramChange(const int channel, const int value)
 {
-    m_midi_buffer.addEvent(MidiMessage::programChange(channel, value), 0);
+    m_midi_buffer.addEvent(MidiMessage::programChange(channel, value), 0.);
 }
 
 void CamomileAudioProcessor::receivePitchBend(const int channel, const int value)
 {
-    m_midi_buffer.addEvent(MidiMessage::pitchWheel(channel, value), 0);
+    m_midi_buffer.addEvent(MidiMessage::pitchWheel(channel, value), 0.);
 }
 
 void CamomileAudioProcessor::receiveAftertouch(const int channel, const int value)
 {
-    m_midi_buffer.addEvent(MidiMessage::channelPressureChange(channel, value), 0);
+    m_midi_buffer.addEvent(MidiMessage::channelPressureChange(channel, value), 0.);
 }
 
 void CamomileAudioProcessor::receivePolyAftertouch(const int channel, const int pitch, const int value)
 {
-    m_midi_buffer.addEvent(MidiMessage::aftertouchChange(channel, pitch, value), 0);
+    m_midi_buffer.addEvent(MidiMessage::aftertouchChange(channel, pitch, value), 0.);
 }
 
 void CamomileAudioProcessor::receiveMidiByte(const int port, const int byte)
 {
-    
+    m_midi_buffer.addEvent(MidiMessage(byte), 0.);
 }
 
 void CamomileAudioProcessor::receivePrint(const std::string& message)
