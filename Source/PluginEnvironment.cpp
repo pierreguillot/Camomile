@@ -70,6 +70,8 @@ float CamomileEnvironment::getTailLengthSeconds() { return get().tail_length_sec
 
 int CamomileEnvironment::getLatencySamples() { return get().latency_samples; }
 
+bool CamomileEnvironment::wantsKey() { return get().key_support; }
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                          PROGRAMS                                        //
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -258,6 +260,13 @@ CamomileEnvironment::CamomileEnvironment()
                                 throw std::string("already defined");
                             midi_only = CamomileParser::getBool(entry.second);
                             state.set(init_midi_only);
+                        }
+                        else if(entry.first == "key")
+                        {
+                            if(state.test(init_key))
+                                throw std::string("already defined");
+                            key_support = CamomileParser::getBool(entry.second);
+                            state.set(init_key);
                         }
                         else if(entry.first == "latency")
                         {

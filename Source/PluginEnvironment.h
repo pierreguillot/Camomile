@@ -86,6 +86,9 @@ public:
     //! @brief Gets the latency in samples.
     static int getLatencySamples();
     
+    //! @brief Gets if the patch wants Key events.
+    static bool wantsKey();
+    
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                      PROGRAMS                                        //
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -116,11 +119,12 @@ private:
     std::string     patch_credits = "";
     std::string     image_name  = "";
     bool            valid       = false;
-    std::bitset<11>  state;
+    std::bitset<12>  state;
     
     bool    midi_in_support   = false;
     bool    midi_out_support  = false;
-    int     play_head_level = 0;
+    bool    key_support       = false;
+    int     play_head_level   = 0;
     bool    midi_only         = false;
     float   tail_length_sec   = 0.f;
     int     latency_samples   = 0;
@@ -143,6 +147,7 @@ private:
         init_image      = 7,
         init_type       = 8,
         init_desc       = 9,
-        init_credits    = 10
+        init_credits    = 10,
+        init_key        = 11
     };
 };
