@@ -16,6 +16,7 @@
 #include "Gui/GuiConsole.hpp"
 
 #include "Pd/PdPatch.hpp"
+#include <locale>
 
 
 #define Camomile_Author_UTF8 "Camomile Author: " + String(JucePlugin_Manufacturer) + "\n\n"
@@ -192,6 +193,11 @@ void CamomileAudioProcessorEditor::buttonClicked(Button* button)
                 window.setName("About Camomile " + String(JucePlugin_VersionString));
                 window.addToDesktop();
                 window.toFront(false);
+                window.grabKeyboardFocus();
+                if(CamomileEnvironment::wantsKey())
+                {
+                    window.addKeyListener(this);
+                }
             }
         }
         else if(result == 2)
@@ -201,6 +207,10 @@ void CamomileAudioProcessorEditor::buttonClicked(Button* button)
             window.addToDesktop();
             window.toFront(true);
             window.grabKeyboardFocus();
+            if(CamomileEnvironment::wantsKey())
+            {
+                window.addKeyListener(this);
+            }
         }
     }
 }
@@ -228,12 +238,84 @@ void CamomileAudioProcessorEditor::FlowerButton::buttonStateChanged()
 
 void CamomileAudioProcessorEditor::focusGained(FocusChangeType t)
 {
-    window.toFront(false);
+    window.toFront(true);
 }
 
 void CamomileAudioProcessorEditor::focusOfChildComponentChanged(FocusChangeType t)
 {
     window.toFront(false);
+}
+
+static std::string juce_wchar_to_stdstring(juce_wchar wc)
+{
+    std::locale const loc;
+    return std::string(1, std::use_facet<std::ctype<juce_wchar>>(loc).narrow(wc, '?' ));
+}
+
+bool CamomileAudioProcessorEditor::keyPressed(const KeyPress& key)
+{
+    if(CamomileEnvironment::wantsKey() && key.isCurrentlyDown())
+    {
+        const int keycode = key.getKeyCode();
+        const std::string keystrg(juce_wchar_to_stdstring(key.getTextCharacter()));
+        const int keysize = keys_press.size();
+        for(int i = 0; i < keysize; ++i)
+        {
+            if(keys_press.getUnchecked(i).getKeyCode() == keycode)
+            {
+                processor.enqueueMessages(std::string("#key"), std::string("float"), {static_cast<float>(keycode)});
+                processor.enqueueMessages(std::string("#keyname"), std::string("list"), {1.f, keystrg});
+                return true;
+            }
+        }
+        keys_press.add(key);
+        processor.enqueueMessages(std::string("#key"), std::string("float"), {static_cast<float>(keycode)});
+        processor.enqueueMessages(std::string("#keyname"), std::string("list"), {1.f, keystrg});
+        return true;
+    }
+    return false;
+}
+
+bool CamomileAudioProcessorEditor::keyStateChanged(bool isKeyDown)
+{
+    if(CamomileEnvironment::wantsKey())
+    {
+        bool changed = false;
+        int keysize = keys_press.size();
+        for(int i = 0; i < keysize; ++i)
+        {
+            const int keycode = keys_press.getUnchecked(i).getKeyCode();
+            if(!KeyPress::isKeyCurrentlyDown(keycode))
+            {
+                const std::string keystrg(juce_wchar_to_stdstring(keys_press.getUnchecked(i).getTextCharacter()));
+                processor.enqueueMessages(std::string("#keyup"), std::string("float"), {static_cast<float>(keycode)});
+                processor.enqueueMessages(std::string("#keyname"), std::string("list"), {0.f, keystrg});
+                keys_press.remove(i);
+                --i;
+                --keysize;
+            }
+        }
+        return changed;
+    }
+    return false;
+}
+
+void CamomileAudioProcessorEditor::modifierKeysChanged(const ModifierKeys& modifiers)
+{
+    if(CamomileEnvironment::wantsKey())
+    {
+        
+    }
+}
+
+bool CamomileAudioProcessorEditor::keyPressed(const KeyPress& key, Component* originatingComponent)
+{
+    return keyPressed(key);
+}
+
+bool CamomileAudioProcessorEditor::keyStateChanged(bool isKeyDown, Component* originatingComponent)
+{
+    return keyStateChanged(isKeyDown);
 }
 
 

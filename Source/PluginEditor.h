@@ -10,7 +10,7 @@
 #include "Gui/Gui.hpp"
 #include "Gui/GuiObject.hpp"
 
-class CamomileAudioProcessorEditor : public AudioProcessorEditor, public Button::Listener, public GuiPatch, protected Timer
+class CamomileAudioProcessorEditor : public AudioProcessorEditor, public Button::Listener, public GuiPatch, protected Timer, public KeyListener
 {
 public:
     CamomileAudioProcessorEditor(CamomileAudioProcessor&);
@@ -20,6 +20,12 @@ public:
     void startEdition() final;
     void stopEdition() final;
     void timerCallback() final;
+    
+    bool keyPressed(const KeyPress& key) final;
+    bool keyStateChanged(bool isKeyDown) final;
+    void modifierKeysChanged(const ModifierKeys& modifiers) final;
+    bool keyPressed(const KeyPress& key, Component* originatingComponent) final;
+    bool keyStateChanged(bool isKeyDown, Component* originatingComponent) final;
     
     void focusGained(FocusChangeType t) final;
     void focusOfChildComponentChanged(FocusChangeType t) final;
@@ -53,6 +59,7 @@ private:
     FlowerButton                button;
     OwnedArray<GuiObject>       objects;
     DrawableImage               background;
+    Array<KeyPress>             keys_press;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessorEditor)
 };
