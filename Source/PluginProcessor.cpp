@@ -59,6 +59,10 @@ m_programs(CamomileEnvironment::getPrograms())
             add(ConsoleLevel::Error,
                 std::string("camomile ") + error);
         }
+        prepareDSP(getBusesLayout().getMainInputChannelSet().size(),
+                   getBusesLayout().getMainOutputChannelSet().size(),
+                   getBlockSize() < 64 ? 64 : getBlockSize(), getSampleRate());
+        
         openPatch(CamomileEnvironment::getPatchPath(), CamomileEnvironment::getPatchName());
         processMessages();
         setLatencySamples(CamomileEnvironment::getLatencySamples());
@@ -154,6 +158,7 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
             std::string("camomile block size must not be inferior to 64, the DSP won't be proceed."));
     }
     prepareDSP(inputs.size(), outputs.size(), samplesPerBlock, sampleRate);
+    startDSP();
     
     String ins_desc     = inputs.getDescription().toLowerCase();
     String outs_desc    = outputs.getDescription().toLowerCase();

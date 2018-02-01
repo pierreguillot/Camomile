@@ -150,13 +150,15 @@ namespace pd
 
     void Instance::prepareDSP(const int nins, const int nouts, const int blksize, const double samplerate)
     {
-        t_atom av;
         m_inputs.resize(blksize * nins);
         m_outputs.resize(blksize * nouts);
-        
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_init_audio((int)nins, (int)nouts, (int)samplerate);
-
+    }
+    
+    void Instance::startDSP()
+    {
+        t_atom av;
         libpd_set_float(&av, 1.f);
         libpd_message("pd", "dsp", 1, &av);
     }
