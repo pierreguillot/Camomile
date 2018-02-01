@@ -269,6 +269,23 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
                 sendPolyAfterTouch(message.getChannel(), message.getNoteNumber(), message.getAfterTouchValue()); }
             else if(message.isProgramChange()) {
                 sendProgramChange(message.getChannel(), message.getProgramChangeNumber()); }
+            else if(message.isSysEx()) {
+                for(int i = 0; i < message.getSysExDataSize(); ++i)  {
+                    sendSysEx(0, static_cast<int>(message.getSysExData()[i]));
+                }
+            }
+            else if(message.isMidiClock() || message.isMidiStart() || message.isMidiStop() || message.isMidiContinue() ||
+                    message.isActiveSense() || (message.getRawDataSize() == 1 && message.getRawData()[0] == 0xff)) {
+                for(int i = 0; i < message.getRawDataSize(); ++i)  {
+                    sendSysRealTime(0, static_cast<int>(message.getRawData()[i]));
+                }
+            }
+            else
+            {
+                for(int i = 0; i < message.getRawDataSize(); ++i)  {
+                    sendMidiByte(0, static_cast<int>(message.getRawData()[i]));
+                }
+            }
         }
     }
 
