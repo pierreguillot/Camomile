@@ -1,6 +1,8 @@
 v1.0.2
 - Fix DSP off message to Pd (0fcc8d5)
 - Prepare the DSP before opening the patch (#83)
+- Initialize parameters and programs before opening the patch (#82)
+
 v1.0.1
 - Fix thread concurrency issue that occurred when selecting a program (#77).
 - Fix stack overflow issue due to concurrent access to the Pd's stack counter (#69).

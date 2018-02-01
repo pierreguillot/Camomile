@@ -63,8 +63,6 @@ m_programs(CamomileEnvironment::getPrograms())
                    getBusesLayout().getMainOutputChannelSet().size(),
                    getBlockSize() < 64 ? 64 : getBlockSize(), getSampleRate());
         
-        openPatch(CamomileEnvironment::getPatchPath(), CamomileEnvironment::getPatchName());
-        processMessages();
         setLatencySamples(CamomileEnvironment::getLatencySamples());
         m_programs = CamomileEnvironment::getPrograms();
         
@@ -85,6 +83,9 @@ m_programs(CamomileEnvironment::getPrograms())
         }
         m_params_states.resize(getParameters().size());
         std::fill(m_params_states.begin(), m_params_states.end(), false);
+        
+        openPatch(CamomileEnvironment::getPatchPath(), CamomileEnvironment::getPatchName());
+        processMessages();
     }
     else
     {
