@@ -50,6 +50,32 @@ private:
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////
+//                                      MOUSE MANAGER                                       //
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+//! @brief The class manages the mouse events
+//! @details The class is used send notifications that the mouse is pressed or released to Pd.
+//! @see CamomileAudioPluginEditor
+//! &todo Later see if the class can be used for other mouse events
+class CamomileEditorMouseManager
+{
+public:
+    CamomileEditorMouseManager(CamomileAudioProcessor& processor);
+    ~CamomileEditorMouseManager();
+    
+    void startEdition();
+    void stopEdition();
+private:
+    CamomileAudioProcessor& m_processor;
+    
+    static const std::string string_gui;
+    static const std::string string_mouse;
+    
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorMouseManager)
+};
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
 //                                      PANEL MANAGER                                       //
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -57,6 +83,7 @@ private:
 //! @details The class is used to display open and receive panel and send the results to Pd
 //! via the symbols openpanel and savepanel.
 //! @see CamomileAudioPluginEditor
+//! @todo Later this class could also manage other messages from Pd.
 class CamomileEditorPanelManager
 {
 public:

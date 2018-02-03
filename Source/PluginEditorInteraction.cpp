@@ -119,7 +119,26 @@ bool CamomileEditorKeyManager::keyModifiersChanged(const ModifierKeys& modifiers
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
-//                                      ¨PANEL MANAGER                                      //
+//                                      MOUSE MANAGER                                       //
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+const std::string CamomileEditorMouseManager::string_gui = std::string("gui");
+const std::string CamomileEditorMouseManager::string_mouse = std::string("mouse");
+
+CamomileEditorMouseManager::CamomileEditorMouseManager(CamomileAudioProcessor& processor) : m_processor(processor) {}
+
+CamomileEditorMouseManager::~CamomileEditorMouseManager() {}
+
+void CamomileEditorMouseManager::startEdition() {
+    m_processor.enqueueMessages(string_gui, string_mouse, {1.f});
+}
+
+void CamomileEditorMouseManager::stopEdition() {
+    m_processor.enqueueMessages(string_gui, string_mouse, {0.f});
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                      PANEL MANAGER                                       //
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 const std::string CamomileEditorPanelManager::string_openpanel = std::string("openpanel");
@@ -161,7 +180,6 @@ bool CamomileEditorPanelManager::processMessages()
     }
     return true;
 }
-
 
 
 
