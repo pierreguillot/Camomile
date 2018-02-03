@@ -11,8 +11,8 @@
 #include "Gui/GuiConsole.hpp"
 #include "Pd/PdPatch.hpp"
 
-CamomileAudioProcessorEditor::CamomileAudioProcessorEditor(CamomileAudioProcessor& p) :
-AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), processor (p), button(p)
+CamomileEditor::CamomileEditor(CamomileAudioProcessor& p) :
+AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), m_processor (p), m_button(p)
 {
     static CamoLookAndFeel lookAndFeel;
     LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
@@ -33,44 +33,44 @@ AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), processor (p), b
     Image const& img = Gui::getImage();
     if(img.isValid())
     {
-        background.setImage(img);
-        background.setTransformToFit(getBounds().toType<float>(), RectanglePlacement::stretchToFit);
-        addAndMakeVisible(background, 0);
+        m_image.setImage(img);
+        m_image.setTransformToFit(getBounds().toType<float>(), RectanglePlacement::stretchToFit);
+        addAndMakeVisible(m_image, 0);
     }
     else
     {
-        processor.add(CamomileAudioProcessor::ConsoleLevel::Error,
+        p.add(CamomileAudioProcessor::ConsoleLevel::Error,
                       "background image " + CamomileEnvironment::getImageName() + " is invalid or doesn't exist.");
     }
     
-    if(processor.getPatch().isGraph())
+    if(p.getPatch().isGraph())
     {
         auto guis(p.getPatch().getGuis());
         for(auto& gui : guis)
         {
-            addAndMakeVisible(objects.add(GuiObject::createTyped(*this, gui)));
+            addAndMakeVisible(m_objects.add(GuiObject::createTyped(*this, gui)));
         }
     }
-    addAndMakeVisible(button);
+    addAndMakeVisible(m_button);
     startTimer(25);
 }
 
-CamomileAudioProcessorEditor::~CamomileAudioProcessorEditor()
+CamomileEditor::~CamomileEditor()
 {
     ;
 }
 
-void CamomileAudioProcessorEditor::timerCallback()
+void CamomileEditor::timerCallback()
 {
     CamomileEditorPanelManager::processMessages();
-    for(auto object : objects)
+    for(auto object : m_objects)
     {
         object->update();
     }
 }
 
 
-void CamomileAudioProcessorEditor::paint (Graphics& g)
+void CamomileEditor::paint (Graphics& g)
 {
     g.fillAll(Colours::white);
     if(!CamomileEnvironment::isValid())
@@ -78,7 +78,7 @@ void CamomileAudioProcessorEditor::paint (Graphics& g)
         g.setColour(Colours::black);
         g.drawText("Plugin Not Valid", 0, 0, getWidth(), getHeight(), juce::Justification::centred);
     }
-    else if(!processor.getPatch().isGraph())
+    else if(!m_processor.getPatch().isGraph())
     {
         g.setColour(Colours::black);
         g.drawText("No Graphical User Interface Available", 0, 0, getWidth(), getHeight(), juce::Justification::centred);
@@ -89,17 +89,17 @@ void CamomileAudioProcessorEditor::paint (Graphics& g)
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-bool CamomileAudioProcessorEditor::keyPressed(const KeyPress& key)
+bool CamomileEditor::keyPressed(const KeyPress& key)
 {
     return CamomileEditorKeyManager::keyPressed(key);
 }
 
-bool CamomileAudioProcessorEditor::keyStateChanged(bool isKeyDown)
+bool CamomileEditor::keyStateChanged(bool isKeyDown)
 {
     return CamomileEditorKeyManager::keyStateChanged(isKeyDown);
 }
 
-void CamomileAudioProcessorEditor::modifierKeysChanged(const ModifierKeys& modifiers)
+void CamomileEditor::modifierKeysChanged(const ModifierKeys& modifiers)
 {
     CamomileEditorKeyManager::keyModifiersChanged(modifiers);
 }

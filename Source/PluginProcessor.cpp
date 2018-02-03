@@ -508,7 +508,7 @@ bool CamomileAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* CamomileAudioProcessor::createEditor()
 {
-    return new CamomileAudioProcessorEditor(*this);
+    return new CamomileEditor(*this);
 }
 
 

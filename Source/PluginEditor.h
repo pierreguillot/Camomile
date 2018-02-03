@@ -11,11 +11,11 @@
 #include "PluginEditorComponents.h"
 #include "Gui/GuiObject.hpp"
 
-class CamomileAudioProcessorEditor : public AudioProcessorEditor, protected Timer, public CamomileEditorInteractionManager
+class CamomileEditor : public AudioProcessorEditor, protected Timer, public CamomileEditorInteractionManager
 {
 public:
-    CamomileAudioProcessorEditor(CamomileAudioProcessor&);
-    ~CamomileAudioProcessorEditor();
+    CamomileEditor(CamomileAudioProcessor&);
+    ~CamomileEditor();
     void paint(Graphics&) final;
     void timerCallback() final;
     
@@ -24,10 +24,10 @@ public:
     bool keyStateChanged(bool isKeyDown) final;
     void modifierKeysChanged(const ModifierKeys& modifiers) final;
 private:
-    CamomileAudioProcessor&     processor;
-    CamomileEditorButton        button;
-    OwnedArray<GuiObject>       objects;
-    DrawableImage               background;
+    CamomileAudioProcessor&     m_processor;
+    CamomileEditorButton        m_button;
+    OwnedArray<GuiObject>       m_objects;
+    DrawableImage               m_image;
     
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileEditor)
 };
