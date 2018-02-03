@@ -11,7 +11,7 @@
 #include "Gui/Gui.hpp"
 #include "Gui/GuiObject.hpp"
 
-class CamomileAudioProcessorEditor : public AudioProcessorEditor, public Button::Listener, public GuiPatch, protected Timer, public KeyListener,  public CamomileEditorKeyManager
+class CamomileAudioProcessorEditor : public AudioProcessorEditor, public Button::Listener, public GuiPatch, protected Timer, public KeyListener,  public CamomileEditorKeyManager,  public CamomileEditorPanelManager
 {
 public:
     CamomileAudioProcessorEditor(CamomileAudioProcessor&);
