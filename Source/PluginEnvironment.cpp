@@ -39,8 +39,6 @@ std::string CamomileEnvironment::getPatchPath() { return get().patch_path; }
 
 std::string CamomileEnvironment::getPatchName() { return get().patch_name; }
 
-std::string CamomileEnvironment::getPatchCredits() { return get().patch_credits; }
-
 std::string CamomileEnvironment::getPatchDescription() { return get().plugin_desc; }
 
 std::string CamomileEnvironment::getImageName() { return get().image_name; }
