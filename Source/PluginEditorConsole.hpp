@@ -12,8 +12,7 @@
 //                                          CONSOLE                                         //
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-class PluginEditorConsole : public juce::Component, public juce::Timer,
-public juce::Button::Listener, public juce::ListBoxModel
+class PluginEditorConsole : public Component, public Timer, public Button::Listener, public ListBoxModel
 {
 public:
     PluginEditorConsole(CamomileAudioProcessor& p);
