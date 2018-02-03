@@ -10,7 +10,8 @@ v1.0.2
 - Improve the console (resizable)
 - Improve prints for lists (remove line breaks)
 - Floating Window always on top
-- Floating Window with tabs (Console/About the Patch/About Camomile)
+- Floating Window with tabs (Console/Patch/Camomile)
+- Display patch description
 
 v1.0.1
 - Fix thread concurrency issue that occurred when selecting a program (#77).
