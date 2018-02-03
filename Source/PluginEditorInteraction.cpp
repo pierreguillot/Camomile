@@ -10,6 +10,10 @@
 
 #include "PluginEditorInteraction.h"
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                      KEY MANAGER                                         //
+//////////////////////////////////////////////////////////////////////////////////////////////
+
 const std::string CamomileEditorKeyManager::string_key       = std::string("#key");
 const std::string CamomileEditorKeyManager::string_keyup     = std::string("#keyup");
 const std::string CamomileEditorKeyManager::string_keyname   = std::string("#keyname");
@@ -112,6 +116,50 @@ bool CamomileEditorKeyManager::keyModifiersChanged(const ModifierKeys& modifiers
         return true;
     }
     return false;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                      ¨PANEL MANAGER                                      //
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+const std::string CamomileEditorPanelManager::string_openpanel = std::string("openpanel");
+const std::string CamomileEditorPanelManager::string_savepanel = std::string("savepanel");
+
+CamomileEditorPanelManager::CamomileEditorPanelManager(CamomileAudioProcessor& processor) : m_processor(processor)
+{
+    
+}
+
+CamomileEditorPanelManager::~CamomileEditorPanelManager()
+{
+    ;
+}
+
+bool CamomileEditorPanelManager::processMessages()
+{
+    CamomileAudioProcessor::MessageGui message;
+    while(m_processor.dequeueGui(message))
+    {
+        if(message.first == string_openpanel)
+        {
+            FileChooser fc("Open...", File(message.second));
+            if(fc.browseForFileToOpen())
+            {
+                File const f(fc.getResult());
+                m_processor.enqueueMessages(string_openpanel, f.getFullPathName().toStdString(), {});
+            }
+        }
+        else if(message.first == string_savepanel)
+        {
+            FileChooser fc("Open...", File(message.second));
+            if(fc.browseForFileToSave(true))
+            {
+                File const f(fc.getResult());
+                m_processor.enqueueMessages(string_savepanel, f.getFullPathName().toStdString(), {});
+            }
+        }
+    }
+    return true;
 }
 
 

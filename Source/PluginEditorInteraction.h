@@ -14,6 +14,10 @@
 //                                      INTERACTION                                         //
 //////////////////////////////////////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                      KEY MANAGER                                         //
+//////////////////////////////////////////////////////////////////////////////////////////////
+
 //! @brief The class manages the key events
 //! @details The class is used to wrap and send the key events from JUCE to Pd via the objects
 //! key, keyup and keyname.
@@ -43,5 +47,29 @@ private:
     static const std::string string_float;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorKeyManager)
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                      PANEL MANAGER                                       //
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+//! @brief The class manages the panel
+//! @details The class is used to display open and receive panel and send the results to Pd
+//! via the symbols openpanel and savepanel.
+//! @see CamomileAudioPluginEditor
+class CamomileEditorPanelManager
+{
+public:
+    CamomileEditorPanelManager(CamomileAudioProcessor& processor);
+    ~CamomileEditorPanelManager();
+    
+    bool processMessages();
+private:
+    CamomileAudioProcessor& m_processor;
+    
+    static const std::string string_openpanel;
+    static const std::string string_savepanel;
+    
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorPanelManager)
 };
 
