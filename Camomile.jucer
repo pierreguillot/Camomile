@@ -65,7 +65,9 @@
         <FILE id="EcJ4Oh" name="GuiObject.hpp" compile="0" resource="0" file="Source/Gui/GuiObject.hpp"/>
         <FILE id="W44AmC" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/Gui/LookAndFeel.cpp"/>
         <FILE id="o78U0B" name="LookAndFeel.hpp" compile="0" resource="0" file="Source/Gui/LookAndFeel.hpp"/>
-        <GROUP id="{6873846F-DFEA-EC58-A5B0-6EA454DBC562}" name="Images">
+        <GROUP id="{6873846F-DFEA-EC58-A5B0-6EA454DBC562}" name="Resources">
+          <FILE id="O8GgK9" name="CreditsAU" compile="0" resource="1" file="Ressources/Credits/CreditsAU"/>
+          <FILE id="VvLO4b" name="CreditsVST" compile="0" resource="1" file="Ressources/Credits/CreditsVST"/>
           <FILE id="XBlGur" name="DejaVuSansMono.ttf" compile="0" resource="1"
                 file="Ressources/Polices/DejaVuSansMono.ttf"/>
           <FILE id="gRUYXd" name="flower_center.png" compile="0" resource="1"

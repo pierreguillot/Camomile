@@ -2858,6 +2858,8 @@
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h"/>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Ressources\Credits\CreditsAU"/>
+    <None Include="..\..\Ressources\Credits\CreditsVST"/>
     <None Include="..\..\Ressources\Polices\DejaVuSansMono.ttf"/>
     <None Include="..\..\Ressources\Images\flower_center.png"/>
     <None Include="..\..\Ressources\Images\flower_petals.png"/>

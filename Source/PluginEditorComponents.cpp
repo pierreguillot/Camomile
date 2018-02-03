@@ -5,11 +5,33 @@
  */
 
 #include "PluginEditorComponents.h"
+#include "Gui/Gui.hpp"
+#include "Gui/GuiConsole.hpp"
 
 //////////////////////////////////////////////////////////////////////////////////////////////
-//                                      INTERACTION                                         //
+//                                      WINDOW                                              //
 //////////////////////////////////////////////////////////////////////////////////////////////
-CamomileEditorButton::CamomileEditorButton() : Button("CamomileButton")
+
+CamomileEditorWindow::CamomileEditorWindow() :
+DocumentWindow(String(""), Colours::lightgrey, DocumentWindow::closeButton, false)
+{
+    setAlwaysOnTop(true);
+    setUsingNativeTitleBar(true);
+    setBounds(50, 50, 300, 370);
+    setResizable(true, true);
+    setDropShadowEnabled(true);
+    setVisible(true);
+    setWantsKeyboardFocus(true);
+}
+
+void CamomileEditorWindow::closeButtonPressed() { removeFromDesktop(); }
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                      BUTTON                                              //
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+CamomileEditorButton::CamomileEditorButton(CamomileAudioProcessor& processor) : Button("CamomileButton"),
+m_processor(processor)
 {
     setClickingTogglesState(false);
     setAlwaysOnTop(true);
@@ -29,13 +51,13 @@ void CamomileEditorButton::buttonStateChanged()
 {
     m_petals.setAlpha((isDown() || isOver()) ? 1.f : 0.5f);
 }
-/*
+
 void CamomileEditorButton::clicked()
 {
     juce::PopupMenu m;
     m.addItem(1, "About");
     m.addItem(2, "Console");
-    const int result = m.showAt(button->getScreenBounds().translated(-2, 3));
+    const int result = m.showAt(getScreenBounds().translated(-2, 3));
     if(result == 1)
     {
         TextEditor* about = new TextEditor();
@@ -47,32 +69,29 @@ void CamomileEditorButton::clicked()
             about->setCaretVisible(false);
             about->setPopupMenuEnabled(true);
             about->setFont(Gui::getFont());
-            about->setText(Camomile_About_UTF8);
-            about->setBounds(0, 0, 300, 370);
             
-            window.setContentOwned(about, false);
-            window.setName("About Camomile " + String(JucePlugin_VersionString));
-            window.addToDesktop();
-            window.toFront(false);
-            window.grabKeyboardFocus();
-            if(CamomileEnvironment::wantsKey())
-            {
-                window.addKeyListener(this);
-            }
+#if defined(JucePlugin_Build_VST) || defined(JucePlugin_Build_VST3)
+            about->setText(String::createStringFromData(BinaryData::CreditsVST, BinaryData::CreditsVSTSize));
+#else
+            about->setText(String::createStringFromData(BinaryData::CreditsAU, BinaryData::CreditsAUSize));
+#endif
+            about->setBounds(0, 0, 300, 370);
+            about->setWantsKeyboardFocus(true);
+            
+            m_window.setContentOwned(about, false);
+            m_window.setName("About Camomile " + String(JucePlugin_VersionString));
+            m_window.addToDesktop();
+            m_window.toFront(true);
+            m_window.grabKeyboardFocus();
         }
     }
     else if(result == 2)
     {
-        window.setContentOwned(new GuiConsole(processor), false);
-        window.setName("Camomile Console");
-        window.addToDesktop();
-        window.toFront(true);
-        window.grabKeyboardFocus();
-        if(CamomileEnvironment::wantsKey())
-        {
-            window.addKeyListener(this);
-        }
+        m_window.setContentOwned(new GuiConsole(m_processor), false);
+        m_window.setName("Camomile Console");
+        m_window.addToDesktop();
+        m_window.toFront(true);
+        m_window.grabKeyboardFocus();
     }
 }
-*/
 

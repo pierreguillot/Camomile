@@ -6,23 +6,39 @@
 
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "PluginProcessor.h"
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                      WINDOW                                              //
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+class CamomileEditorWindow : public DocumentWindow
+{
+public:
+    CamomileEditorWindow();
+    void closeButtonPressed();
+private:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorWindow)
+};
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                      BUTTON                                              //
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 //! @brief The flower button
+//! The only button of the editor that's not a Pd object.
 class CamomileEditorButton : public Button
 {
 public:
-    CamomileEditorButton();
+    CamomileEditorButton(CamomileAudioProcessor& processor);
     void paintButton(Graphics& g, bool over, bool down) final {};
     void buttonStateChanged() final;
-    //void clicked() final;
+    void clicked() final;
 private:
-    DrawableImage   m_center;
-    DrawableImage   m_petals;
+    CamomileAudioProcessor& m_processor;
+    DrawableImage           m_center;
+    DrawableImage           m_petals;
+    CamomileEditorWindow    m_window;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorButton)
 };
 
