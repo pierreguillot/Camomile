@@ -6,17 +6,9 @@
 
 #pragma once
 
-#include "../../JuceLibraryCode/JuceHeader.h"
+#include "../PluginEditorInteraction.h"
 #include "../Pd/PdObject.hpp"
 #include <atomic>
-
-class GuiPatch
-{
-public:
-    virtual ~GuiPatch() {}
-    virtual void startEdition() = 0;
-    virtual void stopEdition() = 0;
-};
 
 // ==================================================================================== //
 //                                      GUI OBJECT                                      //
@@ -25,10 +17,10 @@ public:
 class GuiObject : public virtual Component
 {
 public:
-    GuiObject(GuiPatch& p, pd::Gui& g);
+    GuiObject(CamomileEditorMouseManager& p, pd::Gui& g);
     virtual ~GuiObject();
     
-    static GuiObject* createTyped(GuiPatch& p, pd::Gui& g);
+    static GuiObject* createTyped(CamomileEditorMouseManager& p, pd::Gui& g);
     virtual void update();
 protected:
     float getValueOriginal() const noexcept;
@@ -40,7 +32,7 @@ protected:
     void stopEdition() noexcept;
     
     pd::Gui     gui;
-    GuiPatch&   patch;
+    CamomileEditorMouseManager&   patch;
     std::atomic<bool> edited;
     float       value   = 0;
     float       min     = 0;
@@ -52,7 +44,7 @@ private:
 class GuiBang : public GuiObject
 {
 public:
-    GuiBang(GuiPatch& p, pd::Gui& g) : GuiObject(p, g) {}
+    GuiBang(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p, g) {}
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
     void mouseUp(const MouseEvent& e) final;
@@ -61,7 +53,7 @@ public:
 class GuiToggle : public GuiObject
 {
 public:
-    GuiToggle(GuiPatch& p, pd::Gui& g) : GuiObject(p, g) {}
+    GuiToggle(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p, g) {}
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
 };
@@ -69,7 +61,7 @@ public:
 class GuiSliderHorizontal : public GuiObject
 {
 public:
-    GuiSliderHorizontal(GuiPatch& p, pd::Gui& g) : GuiObject(p, g) {}
+    GuiSliderHorizontal(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p, g) {}
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
     void mouseDrag(const MouseEvent& e) final;
@@ -79,7 +71,7 @@ public:
 class GuiSliderVertical : public GuiObject
 {
 public:
-    GuiSliderVertical(GuiPatch& p, pd::Gui& g) : GuiObject(p, g) {}
+    GuiSliderVertical(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p, g) {}
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
     void mouseDrag(const MouseEvent& e) final;
@@ -89,7 +81,7 @@ public:
 class GuiRadioHorizontal : public GuiObject
 {
 public:
-    GuiRadioHorizontal(GuiPatch& p, pd::Gui& g) : GuiObject(p, g) {}
+    GuiRadioHorizontal(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p, g) {}
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
 };
@@ -97,7 +89,7 @@ public:
 class GuiRadioVertical : public GuiObject
 {
 public:
-    GuiRadioVertical(GuiPatch& p, pd::Gui& g) : GuiObject(p, g) {}
+    GuiRadioVertical(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p, g) {}
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
 };
@@ -105,21 +97,21 @@ public:
 class GuiPanel : public GuiObject
 {
 public:
-    GuiPanel(GuiPatch& p, pd::Gui& g);
+    GuiPanel(CamomileEditorMouseManager& p, pd::Gui& g);
     void paint(Graphics& g) final;
 };
 
 class GuiComment : public GuiObject
 {
 public:
-    GuiComment(GuiPatch& p, pd::Gui& g);
+    GuiComment(CamomileEditorMouseManager& p, pd::Gui& g);
     void paint(Graphics& g) final;
 };
 
 class GuiTextEditor : public GuiObject, public Label::Listener
 {
 public:
-    GuiTextEditor(GuiPatch& p, pd::Gui& g);
+    GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g);
     void labelTextChanged(Label* label) override;
     void editorShown(Label*, TextEditor&) final;
     void editorHidden(Label*, TextEditor&) final;
@@ -131,7 +123,7 @@ protected:
 class GuiNumber : public GuiTextEditor
 {
 public:
-    GuiNumber(GuiPatch& p, pd::Gui& g);
+    GuiNumber(CamomileEditorMouseManager& p, pd::Gui& g);
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
     void mouseDrag(const MouseEvent& e) final;
@@ -145,7 +137,7 @@ private:
 class GuiAtomNumber : public GuiTextEditor
 {
 public:
-    GuiAtomNumber(GuiPatch& p, pd::Gui& g);
+    GuiAtomNumber(CamomileEditorMouseManager& p, pd::Gui& g);
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
     void mouseDrag(const MouseEvent& e) final;
@@ -159,7 +151,7 @@ private:
 class GuiAtomSymbol : public GuiTextEditor
 {
 public:
-    GuiAtomSymbol(GuiPatch& p, pd::Gui& g);
+    GuiAtomSymbol(CamomileEditorMouseManager& p, pd::Gui& g);
     void paint(Graphics& g) final;
     void mouseDoubleClick(const MouseEvent&) final;
     void labelTextChanged(Label* label) final;

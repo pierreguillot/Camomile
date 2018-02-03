@@ -11,6 +11,16 @@
 #include "PluginEditorInteraction.h"
 
 //////////////////////////////////////////////////////////////////////////////////////////////
+//                                      INTERACTION                                         //
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+CamomileEditorInteractionManager::CamomileEditorInteractionManager(CamomileAudioProcessor& processor) :
+CamomileEditorKeyManager(processor), CamomileEditorMouseManager(processor), CamomileEditorPanelManager(processor)
+{
+    
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
 //                                      KEY MANAGER                                         //
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -19,16 +29,6 @@ const std::string CamomileEditorKeyManager::string_keyup     = std::string("#key
 const std::string CamomileEditorKeyManager::string_keyname   = std::string("#keyname");
 const std::string CamomileEditorKeyManager::string_list      = std::string("list");
 const std::string CamomileEditorKeyManager::string_float     = std::string("float");
-
-CamomileEditorKeyManager::CamomileEditorKeyManager(CamomileAudioProcessor& processor) : m_processor(processor)
-{
-    
-}
-
-CamomileEditorKeyManager::~CamomileEditorKeyManager()
-{
-    ;
-}
 
 bool CamomileEditorKeyManager::sendKey(const bool down, const int code, const juce_wchar c)
 {
@@ -125,10 +125,6 @@ bool CamomileEditorKeyManager::keyModifiersChanged(const ModifierKeys& modifiers
 const std::string CamomileEditorMouseManager::string_gui = std::string("gui");
 const std::string CamomileEditorMouseManager::string_mouse = std::string("mouse");
 
-CamomileEditorMouseManager::CamomileEditorMouseManager(CamomileAudioProcessor& processor) : m_processor(processor) {}
-
-CamomileEditorMouseManager::~CamomileEditorMouseManager() {}
-
 void CamomileEditorMouseManager::startEdition() {
     m_processor.enqueueMessages(string_gui, string_mouse, {1.f});
 }
@@ -143,16 +139,6 @@ void CamomileEditorMouseManager::stopEdition() {
 
 const std::string CamomileEditorPanelManager::string_openpanel = std::string("openpanel");
 const std::string CamomileEditorPanelManager::string_savepanel = std::string("savepanel");
-
-CamomileEditorPanelManager::CamomileEditorPanelManager(CamomileAudioProcessor& processor) : m_processor(processor)
-{
-    
-}
-
-CamomileEditorPanelManager::~CamomileEditorPanelManager()
-{
-    ;
-}
 
 bool CamomileEditorPanelManager::processMessages()
 {

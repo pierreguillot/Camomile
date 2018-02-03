@@ -35,10 +35,7 @@
 #define Camomile_About_UTF8 Camomile_Author_UTF8 + Camomile_Organizations_UTF8 + Camomile_Website_UTF8 + Camomile_Credits_UTF8
 
 CamomileAudioProcessorEditor::CamomileAudioProcessorEditor(CamomileAudioProcessor& p) :
-AudioProcessorEditor (&p),
-CamomileEditorKeyManager(p),
-CamomileEditorPanelManager(p),
-processor (p)
+AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), processor (p)
 {
     static CamoLookAndFeel lookAndFeel;
     LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
@@ -114,15 +111,6 @@ void CamomileAudioProcessorEditor::timerCallback()
     }
 }
 
-void CamomileAudioProcessorEditor::startEdition()
-{
-    processor.enqueueMessages(std::string("gui"), std::string("mouse"), {1.f});
-}
-
-void CamomileAudioProcessorEditor::stopEdition()
-{
-    processor.enqueueMessages(std::string("gui"), std::string("mouse"), {0.f});
-}
 
 void CamomileAudioProcessorEditor::paint (Graphics& g)
 {
@@ -217,6 +205,10 @@ void CamomileAudioProcessorEditor::focusOfChildComponentChanged(FocusChangeType 
 {
     window.toFront(false);
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 bool CamomileAudioProcessorEditor::keyPressed(const KeyPress& key)
 {

@@ -11,15 +11,14 @@
 #include "Gui/Gui.hpp"
 #include "Gui/GuiObject.hpp"
 
-class CamomileAudioProcessorEditor : public AudioProcessorEditor, public Button::Listener, public GuiPatch, protected Timer, public KeyListener,  public CamomileEditorKeyManager,  public CamomileEditorPanelManager
+class CamomileAudioProcessorEditor : public AudioProcessorEditor, public Button::Listener,
+protected Timer, public KeyListener,  public CamomileEditorInteractionManager
 {
 public:
     CamomileAudioProcessorEditor(CamomileAudioProcessor&);
     ~CamomileAudioProcessorEditor();
     void paint(Graphics&) final;
     void buttonClicked(Button* button) final;
-    void startEdition() final;
-    void stopEdition() final;
     void timerCallback() final;
     
     //////////////////////////////////////////////////////////////////////////////////////////

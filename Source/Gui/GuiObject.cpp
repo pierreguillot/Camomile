@@ -11,7 +11,7 @@ static Font getPdFont() {
     return DejaVu;
 }
 
-GuiObject* GuiObject::createTyped(GuiPatch& p, pd::Gui& g)
+GuiObject* GuiObject::createTyped(CamomileEditorMouseManager& p, pd::Gui& g)
 {
     if(g.getType() == pd::Gui::Type::Bang)
     {
@@ -60,7 +60,7 @@ GuiObject* GuiObject::createTyped(GuiPatch& p, pd::Gui& g)
     return new GuiObject(p, g);
 }
 
-GuiObject::GuiObject(GuiPatch& p, pd::Gui& g) : gui(g), patch(p), edited(false),
+GuiObject::GuiObject(CamomileEditorMouseManager& p, pd::Gui& g) : gui(g), patch(p), edited(false),
 value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
 {
     std::array<int, 4> const bounds(gui.getBounds());
@@ -320,7 +320,7 @@ void GuiRadioVertical::mouseDown(const MouseEvent& e)
 ////////////////////////////////////     PANEL               /////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
-GuiPanel::GuiPanel(GuiPatch& p, pd::Gui& g) : GuiObject(p, g)
+GuiPanel::GuiPanel(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p, g)
 {
     setInterceptsMouseClicks(false, false);
     edited = true;
@@ -335,7 +335,7 @@ void GuiPanel::paint(Graphics& g)
 ////////////////////////////////////     COMMENT             /////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
-GuiComment::GuiComment(GuiPatch& p, pd::Gui& g) : GuiObject(p, g)
+GuiComment::GuiComment(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p, g)
 {
     setInterceptsMouseClicks(false, false);
     edited = true;
@@ -352,7 +352,7 @@ void GuiComment::paint(Graphics& g)
 ////////////////////////////////////     TEXT EDITOR         /////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
-GuiTextEditor::GuiTextEditor(GuiPatch& p, pd::Gui& g) : GuiObject(p, g)
+GuiTextEditor::GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p, g)
 {
     const float border = 1.f;
     const float fs = gui.getFontSize();
@@ -412,7 +412,7 @@ void GuiTextEditor::update()
 ////////////////////////////////////     NUMBER              /////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
-GuiNumber::GuiNumber(GuiPatch& p, pd::Gui& g) : GuiTextEditor(p, g)
+GuiNumber::GuiNumber(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(p, g)
 {
     const float w = getWidth();
     const float h = getHeight();
@@ -489,7 +489,7 @@ void GuiNumber::mouseDoubleClick(const MouseEvent&)
 ////////////////////////////////////     GATOM NUMBER        /////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
-GuiAtomNumber::GuiAtomNumber(GuiPatch& p, pd::Gui& g) : GuiTextEditor(p, g)
+GuiAtomNumber::GuiAtomNumber(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(p, g)
 {
     ;
 }
@@ -574,7 +574,7 @@ void GuiAtomNumber::mouseDoubleClick(const MouseEvent&)
 ////////////////////////////////////     GATOM SYMBOL        /////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
-GuiAtomSymbol::GuiAtomSymbol(GuiPatch& p, pd::Gui& g) : GuiTextEditor(p, g)
+GuiAtomSymbol::GuiAtomSymbol(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(p, g)
 {
     last = gui.getSymbol();
     label->setText(String(last), NotificationType::dontSendNotification);

@@ -10,9 +10,6 @@
 #include <set>
 #include <bitset>
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-//                                      INTERACTION                                         //
-//////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                      KEY MANAGER                                         //
@@ -26,8 +23,7 @@
 class CamomileEditorKeyManager
 {
 public:
-    CamomileEditorKeyManager(CamomileAudioProcessor& processor);
-    ~CamomileEditorKeyManager();
+    CamomileEditorKeyManager(CamomileAudioProcessor& processor) : m_processor(processor) {}
     
     bool keyPressed(const KeyPress& key);
     bool keyStateChanged(bool isKeyDown);
@@ -60,9 +56,7 @@ private:
 class CamomileEditorMouseManager
 {
 public:
-    CamomileEditorMouseManager(CamomileAudioProcessor& processor);
-    ~CamomileEditorMouseManager();
-    
+    CamomileEditorMouseManager(CamomileAudioProcessor& processor) : m_processor(processor) {}
     void startEdition();
     void stopEdition();
 private:
@@ -87,9 +81,7 @@ private:
 class CamomileEditorPanelManager
 {
 public:
-    CamomileEditorPanelManager(CamomileAudioProcessor& processor);
-    ~CamomileEditorPanelManager();
-    
+    CamomileEditorPanelManager(CamomileAudioProcessor& processor) : m_processor(processor) {}
     bool processMessages();
 private:
     CamomileAudioProcessor& m_processor;
@@ -100,3 +92,20 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorPanelManager)
 };
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                      INTERACTION                                         //
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+//! @brief The class manages the all the "interactions" with Pd for the editor
+//! @see CamomileAudioPluginEditor
+class CamomileEditorInteractionManager :
+    public CamomileEditorKeyManager,
+    public CamomileEditorMouseManager,
+    public CamomileEditorPanelManager
+{
+public:
+    CamomileEditorInteractionManager(CamomileAudioProcessor& processor);
+private:
+    
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorInteractionManager)
+};
