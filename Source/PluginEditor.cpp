@@ -165,7 +165,7 @@ void CamomileAudioProcessorEditor::paint (Graphics& g)
     else if(!processor.getPatch().isGraph())
     {
         g.setColour(Colours::black);
-        g.drawText("No Graph On Parent Available", 0, 0, getWidth(), getHeight(), juce::Justification::centred);
+        g.drawText("No Graphical User Interface Available", 0, 0, getWidth(), getHeight(), juce::Justification::centred);
     }
 }
 
