@@ -7,10 +7,11 @@
 #pragma once
 
 #include "PluginProcessor.h"
+#include "PluginEditorInteraction.h"
 #include "Gui/Gui.hpp"
 #include "Gui/GuiObject.hpp"
 
-class CamomileAudioProcessorEditor : public AudioProcessorEditor, public Button::Listener, public GuiPatch, protected Timer, public KeyListener
+class CamomileAudioProcessorEditor : public AudioProcessorEditor, public Button::Listener, public GuiPatch, protected Timer, public KeyListener,  public CamomileEditorKeyManager
 {
 public:
     CamomileAudioProcessorEditor(CamomileAudioProcessor&);
@@ -59,8 +60,6 @@ private:
     FlowerButton                button;
     OwnedArray<GuiObject>       objects;
     DrawableImage               background;
-    Array<KeyPress>             keys_press;
-    ModifierKeys                modifiers_press;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessorEditor)
 };

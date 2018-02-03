@@ -34,7 +34,9 @@
 
 #define Camomile_About_UTF8 Camomile_Author_UTF8 + Camomile_Organizations_UTF8 + Camomile_Website_UTF8 + Camomile_Credits_UTF8
 
-CamomileAudioProcessorEditor::CamomileAudioProcessorEditor(CamomileAudioProcessor& p) : AudioProcessorEditor (&p),
+CamomileAudioProcessorEditor::CamomileAudioProcessorEditor(CamomileAudioProcessor& p) :
+AudioProcessorEditor (&p),
+CamomileEditorKeyManager(p),
 processor (p)
 {
     static CamoLookAndFeel lookAndFeel;
@@ -246,116 +248,29 @@ void CamomileAudioProcessorEditor::focusOfChildComponentChanged(FocusChangeType 
     window.toFront(false);
 }
 
-static std::string juce_wchar_to_stdstring(juce_wchar wc)
-{
-    std::locale const loc;
-    return std::string(1, std::use_facet<std::ctype<juce_wchar>>(loc).narrow(wc, '?' ));
-}
-
 bool CamomileAudioProcessorEditor::keyPressed(const KeyPress& key)
 {
-    if(CamomileEnvironment::wantsKey() && key.isCurrentlyDown())
-    {
-        const int keycode = key.getKeyCode();
-        const std::string keystrg(juce_wchar_to_stdstring(key.getTextCharacter()));
-        const int keysize = keys_press.size();
-        for(int i = 0; i < keysize; ++i)
-        {
-            if(keys_press.getUnchecked(i).getKeyCode() == keycode)
-            {
-                processor.enqueueMessages(std::string("#key"), std::string("float"), {static_cast<float>(keycode)});
-                processor.enqueueMessages(std::string("#keyname"), std::string("list"), {1.f, keystrg});
-                return true;
-            }
-        }
-        keys_press.add(key);
-        processor.enqueueMessages(std::string("#key"), std::string("float"), {static_cast<float>(keycode)});
-        processor.enqueueMessages(std::string("#keyname"), std::string("list"), {1.f, keystrg});
-        return true;
-    }
-    return false;
+    return CamomileEditorKeyManager::keyPressed(key);
 }
 
 bool CamomileAudioProcessorEditor::keyStateChanged(bool isKeyDown)
 {
-    if(CamomileEnvironment::wantsKey())
-    {
-        bool changed = false;
-        int keysize = keys_press.size();
-        for(int i = 0; i < keysize; ++i)
-        {
-            const int keycode = keys_press.getUnchecked(i).getKeyCode();
-            if(!KeyPress::isKeyCurrentlyDown(keycode))
-            {
-                const std::string keystrg(juce_wchar_to_stdstring(keys_press.getUnchecked(i).getTextCharacter()));
-                processor.enqueueMessages(std::string("#keyup"), std::string("float"), {static_cast<float>(keycode)});
-                processor.enqueueMessages(std::string("#keyname"), std::string("list"), {0.f, keystrg});
-                keys_press.remove(i);
-                --i;
-                --keysize;
-            }
-        }
-        return changed;
-    }
-    return false;
+    return CamomileEditorKeyManager::keyStateChanged(isKeyDown);
 }
 
 void CamomileAudioProcessorEditor::modifierKeysChanged(const ModifierKeys& modifiers)
 {
-    if(CamomileEnvironment::wantsKey())
-    {
-        if(modifiers.isShiftDown() && !modifiers_press.isShiftDown())
-        {
-            processor.enqueueMessages(std::string("#key"), std::string("float"), {0.f});
-            processor.enqueueMessages(std::string("#keyname"), std::string("list"), {0.f, std::string("Shift_L")});
-        }
-        else if(!modifiers.isShiftDown() && modifiers_press.isShiftDown())
-        {
-            processor.enqueueMessages(std::string("#keyup"), std::string("float"), {0.f});
-            processor.enqueueMessages(std::string("#keyname"), std::string("list"), {0.f, std::string("Shift_L")});
-        }
-        else if(modifiers.isCtrlDown() && !modifiers_press.isCtrlDown())
-        {
-            processor.enqueueMessages(std::string("#key"), std::string("float"), {0.f});
-            processor.enqueueMessages(std::string("#keyname"), std::string("list"), {0.f, std::string("Control_L")});
-        }
-        else if(!modifiers.isCtrlDown() && modifiers_press.isCtrlDown())
-        {
-            processor.enqueueMessages(std::string("#keyup"), std::string("float"), {0.f});
-            processor.enqueueMessages(std::string("#keyname"), std::string("list"), {0.f, std::string("Control_L")});
-        }
-        else if(modifiers.isAltDown() && !modifiers_press.isAltDown())
-        {
-            processor.enqueueMessages(std::string("#key"), std::string("float"), {0.f});
-            processor.enqueueMessages(std::string("#keyname"), std::string("list"), {0.f, std::string("Alt_L")});
-        }
-        else if(!modifiers.isAltDown() && modifiers_press.isAltDown())
-        {
-            processor.enqueueMessages(std::string("#keyup"), std::string("float"), {0.f});
-            processor.enqueueMessages(std::string("#keyname"), std::string("list"), {0.f, std::string("Alt_L")});
-        }
-        else if(modifiers.isCommandDown() && !modifiers_press.isCommandDown())
-        {
-            processor.enqueueMessages(std::string("#key"), std::string("float"), {0.f});
-            processor.enqueueMessages(std::string("#keyname"), std::string("list"), {0.f, std::string("Meta_L")});
-        }
-        else if(!modifiers.isCommandDown() && modifiers_press.isCommandDown())
-        {
-            processor.enqueueMessages(std::string("#keyup"), std::string("float"), {0.f});
-            processor.enqueueMessages(std::string("#keyname"), std::string("list"), {0.f, std::string("Meta_L")});
-        }
-        modifiers_press = modifiers;
-    }
+    CamomileEditorKeyManager::modifierKeysChanged(modifiers);
 }
 
 bool CamomileAudioProcessorEditor::keyPressed(const KeyPress& key, Component* originatingComponent)
 {
-    return keyPressed(key);
+    return CamomileEditorKeyManager::keyPressed(key);
 }
 
 bool CamomileAudioProcessorEditor::keyStateChanged(bool isKeyDown, Component* originatingComponent)
 {
-    return keyStateChanged(isKeyDown);
+    return CamomileEditorKeyManager::keyStateChanged(isKeyDown);
 }
 
 
