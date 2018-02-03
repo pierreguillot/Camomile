@@ -8,7 +8,6 @@
 #include "PluginEnvironment.h"
 #include "Gui/LookAndFeel.hpp"
 #include "Gui/Gui.hpp"
-#include "Gui/GuiConsole.hpp"
 #include "Pd/PdPatch.hpp"
 
 CamomileEditor::CamomileEditor(CamomileAudioProcessor& p) :

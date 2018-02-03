@@ -42,6 +42,10 @@
             file="Source/PluginEditorComponents.cpp"/>
       <FILE id="DApFBS" name="PluginEditorComponents.h" compile="0" resource="0"
             file="Source/PluginEditorComponents.h"/>
+      <FILE id="pGz50D" name="PluginEditorConsole.cpp" compile="1" resource="0"
+            file="Source/PluginEditorConsole.cpp"/>
+      <FILE id="uVYmTN" name="PluginEditorConsole.hpp" compile="0" resource="0"
+            file="Source/PluginEditorConsole.hpp"/>
       <GROUP id="{72E9D6C6-B562-FE98-40C6-9583CB880B4E}" name="Pd">
         <FILE id="sArtFN" name="PdInstance.cpp" compile="1" resource="0" file="Source/Pd/PdInstance.cpp"/>
         <FILE id="RjbKYs" name="PdInstance.hpp" compile="0" resource="0" file="Source/Pd/PdInstance.hpp"/>
@@ -55,8 +59,6 @@
       <GROUP id="{5C1EE5CB-809C-59DA-56DD-12FB142BFA60}" name="Gui">
         <FILE id="mLSqQZ" name="Gui.cpp" compile="1" resource="0" file="Source/Gui/Gui.cpp"/>
         <FILE id="JG41BR" name="Gui.hpp" compile="0" resource="0" file="Source/Gui/Gui.hpp"/>
-        <FILE id="NQYjA5" name="GuiConsole.cpp" compile="1" resource="0" file="Source/Gui/GuiConsole.cpp"/>
-        <FILE id="hTBXkJ" name="GuiConsole.hpp" compile="0" resource="0" file="Source/Gui/GuiConsole.hpp"/>
         <FILE id="TyR3AO" name="GuiObject.cpp" compile="1" resource="0" file="Source/Gui/GuiObject.cpp"/>
         <FILE id="EcJ4Oh" name="GuiObject.hpp" compile="0" resource="0" file="Source/Gui/GuiObject.hpp"/>
         <FILE id="W44AmC" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/Gui/LookAndFeel.cpp"/>

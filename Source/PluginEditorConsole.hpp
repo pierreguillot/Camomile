@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "../PluginProcessor.h"
+#include "PluginProcessor.h"
 
 // ==================================================================================== //
 //                                      GUI CONSOLE                                      //

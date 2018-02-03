@@ -5,8 +5,9 @@
  */
 
 #include "PluginEditorComponents.h"
+#include "PluginEditorConsole.hpp"
 #include "Gui/Gui.hpp"
-#include "Gui/GuiConsole.hpp"
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                      ABOUT CAMOMILE                                      //
@@ -98,8 +99,8 @@ void CamomileEditorButton::clicked()
         {
             tc->setBounds(0, 0, 300, 370);
             tc->addTab("Console", Gui::getColorBg(), new GuiConsole(m_processor), true);
-            tc->addTab("About Camomile", Gui::getColorBg(), new AboutCamomile(), true);
             tc->addTab("About " + CamomileEnvironment::getPluginName(), Gui::getColorBg(), new AboutCamomile(), true);
+            tc->addTab("About Camomile", Gui::getColorBg(), new AboutCamomile(), true);
             tc->setTabBarDepth(24);
             
             m_window->setContentOwned(tc, false);

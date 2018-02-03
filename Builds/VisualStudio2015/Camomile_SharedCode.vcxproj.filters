@@ -385,6 +385,9 @@
     <ClCompile Include="..\..\Source\PluginEditorComponents.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\PluginEditorConsole.cpp">
+      <Filter>Camomile\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Pd\PdInstance.cpp">
       <Filter>Camomile\Source\Pd</Filter>
     </ClCompile>
@@ -398,9 +401,6 @@
       <Filter>Camomile\Source\Pd</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Gui\Gui.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\GuiConsole.cpp">
       <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Gui\GuiObject.cpp">
@@ -2205,6 +2205,9 @@
     <ClInclude Include="..\..\Source\PluginEditorComponents.h">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\PluginEditorConsole.hpp">
+      <Filter>Camomile\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Pd\PdInstance.hpp">
       <Filter>Camomile\Source\Pd</Filter>
     </ClInclude>
@@ -2218,9 +2221,6 @@
       <Filter>Camomile\Source\Pd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Gui\Gui.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\GuiConsole.hpp">
       <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Gui\GuiObject.hpp">

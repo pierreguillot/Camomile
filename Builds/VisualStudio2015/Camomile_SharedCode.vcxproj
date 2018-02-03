@@ -576,12 +576,12 @@
     <ClCompile Include="..\..\Source\PluginEditor.cpp"/>
     <ClCompile Include="..\..\Source\PluginEditorInteraction.cpp"/>
     <ClCompile Include="..\..\Source\PluginEditorComponents.cpp"/>
+    <ClCompile Include="..\..\Source\PluginEditorConsole.cpp"/>
     <ClCompile Include="..\..\Source\Pd\PdInstance.cpp"/>
     <ClCompile Include="..\..\Source\Pd\PdPatch.cpp"/>
     <ClCompile Include="..\..\Source\Pd\PdObject.cpp"/>
     <ClCompile Include="..\..\Source\Pd\x_libpd_multi.c"/>
     <ClCompile Include="..\..\Source\Gui\Gui.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\GuiConsole.cpp"/>
     <ClCompile Include="..\..\Source\Gui\GuiObject.cpp"/>
     <ClCompile Include="..\..\Source\Gui\LookAndFeel.cpp"/>
     <ClCompile Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
@@ -2224,12 +2224,12 @@
     <ClInclude Include="..\..\Source\PluginEditor.h"/>
     <ClInclude Include="..\..\Source\PluginEditorInteraction.h"/>
     <ClInclude Include="..\..\Source\PluginEditorComponents.h"/>
+    <ClInclude Include="..\..\Source\PluginEditorConsole.hpp"/>
     <ClInclude Include="..\..\Source\Pd\PdInstance.hpp"/>
     <ClInclude Include="..\..\Source\Pd\PdPatch.hpp"/>
     <ClInclude Include="..\..\Source\Pd\PdObject.hpp"/>
     <ClInclude Include="..\..\Source\Pd\x_libpd_multi.h"/>
     <ClInclude Include="..\..\Source\Gui\Gui.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\GuiConsole.hpp"/>
     <ClInclude Include="..\..\Source\Gui\GuiObject.hpp"/>
     <ClInclude Include="..\..\Source\Gui\LookAndFeel.hpp"/>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>

@@ -144,12 +144,12 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/PluginEditor_94d4fb09.o \
   $(JUCE_OBJDIR)/PluginEditorInteraction_a14c4ad3.o \
   $(JUCE_OBJDIR)/PluginEditorComponents_d5c3763f.o \
+  $(JUCE_OBJDIR)/PluginEditorConsole_e9a89d98.o \
   $(JUCE_OBJDIR)/PdInstance_ddabcf25.o \
   $(JUCE_OBJDIR)/PdPatch_69639a82.o \
   $(JUCE_OBJDIR)/PdObject_b945538f.o \
   $(JUCE_OBJDIR)/x_libpd_multi_1036951a.o \
   $(JUCE_OBJDIR)/Gui_edc4c728.o \
-  $(JUCE_OBJDIR)/GuiConsole_79dfc099.o \
   $(JUCE_OBJDIR)/GuiObject_aa3d2cc7.o \
   $(JUCE_OBJDIR)/LookAndFeel_7fdda4eb.o \
   $(JUCE_OBJDIR)/BinaryData_ce4232d4.o \
@@ -227,6 +227,11 @@ $(JUCE_OBJDIR)/PluginEditorComponents_d5c3763f.o: ../../Source/PluginEditorCompo
 	@echo "Compiling PluginEditorComponents.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
+$(JUCE_OBJDIR)/PluginEditorConsole_e9a89d98.o: ../../Source/PluginEditorConsole.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PluginEditorConsole.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
 $(JUCE_OBJDIR)/PdInstance_ddabcf25.o: ../../Source/Pd/PdInstance.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling PdInstance.cpp"
@@ -250,11 +255,6 @@ $(JUCE_OBJDIR)/x_libpd_multi_1036951a.o: ../../Source/Pd/x_libpd_multi.c
 $(JUCE_OBJDIR)/Gui_edc4c728.o: ../../Source/Gui/Gui.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling Gui.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/GuiConsole_79dfc099.o: ../../Source/Gui/GuiConsole.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling GuiConsole.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/GuiObject_aa3d2cc7.o: ../../Source/Gui/GuiObject.cpp
