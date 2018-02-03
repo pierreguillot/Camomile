@@ -30,7 +30,6 @@ public:
     //////////////////////////////////////////////////////////////////////////////////////////
     
     void focusGained(FocusChangeType t) final;
-    void focusOfChildComponentChanged(FocusChangeType t) final;
 private:
     
     class GWindow : public DocumentWindow
