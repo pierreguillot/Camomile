@@ -14,20 +14,20 @@
 GuiConsole::GuiConsole(CamomileAudioProcessor& p) :
 m_history(p),
 m_level_button(ImageCache::getFromMemory(BinaryData::option_png, BinaryData::option_pngSize),
-               ImageCache::getFromMemory(BinaryData::flower_center_png, BinaryData::flower_center_pngSize), 0),
+               ImageCache::getFromMemory(BinaryData::flower_center_png, BinaryData::flower_center_pngSize)),
 m_clear_button(ImageCache::getFromMemory(BinaryData::clear1_png, BinaryData::clear1_pngSize),
-               ImageCache::getFromMemory(BinaryData::clear2_png, BinaryData::clear2_pngSize), 1),
+               ImageCache::getFromMemory(BinaryData::clear2_png, BinaryData::clear2_pngSize)),
 m_copy_button(ImageCache::getFromMemory(BinaryData::copy1_png, BinaryData::copy1_pngSize),
-              ImageCache::getFromMemory(BinaryData::copy2_png, BinaryData::copy2_pngSize), 2)
+              ImageCache::getFromMemory(BinaryData::copy2_png, BinaryData::copy2_pngSize))
 {
     m_size  = 0;
     setWantsKeyboardFocus(true);
     TableHeaderComponent* header = new TableHeaderComponent();
-    header->addColumn(String("ID"), 1, 300, 300, 300, TableHeaderComponent::notResizableOrSortable, -1);
-    header->setStretchToFitActive(false);
+    header->addColumn(String("ID"), 1, 300, 0, 0, TableHeaderComponent::notResizableOrSortable, -1);
+    header->setStretchToFitActive(true);
     header->setColumnVisible(1, true);
     
-    m_table.setBounds(2, 2, 298, 340);
+    m_table.setBounds(2, 2, getWidth() - 2, getHeight() - 30);
     m_table.setModel(this);
     m_table.setOutlineThickness(0);
     m_table.setWantsKeyboardFocus(true);
@@ -36,7 +36,7 @@ m_copy_button(ImageCache::getFromMemory(BinaryData::copy1_png, BinaryData::copy1
     m_table.setHeaderHeight(0);
     m_table.setRowHeight(Gui::getFont().getHeight() + 2);
     m_table.setColour(ListBox::ColourIds::backgroundColourId, Colours::transparentWhite);
-    m_table.getViewport()->setScrollBarsShown(true, false, true, false);
+    m_table.getViewport()->setScrollBarsShown(true, true, true, true);
     m_table.getViewport()->setScrollBarThickness(4);
     m_table.setHeader(header);
     addAndMakeVisible(m_table);
@@ -80,7 +80,15 @@ void GuiConsole::copySelection()
 void GuiConsole::paint(Graphics& g)
 {
     g.setColour(Gui::getColorTxt().withAlpha(0.5f));
-    g.drawHorizontalLine(342, 2, 298);
+    g.drawHorizontalLine(getHeight() - 28, 2, getWidth() - 2);
+}
+
+void GuiConsole::resized()
+{
+    m_level_button.setTopLeftPosition(2, getHeight() - 26);
+    m_clear_button.setTopLeftPosition(28, getHeight() - 26);
+    m_copy_button.setTopLeftPosition(54, getHeight() - 26);
+    m_table.setSize(getWidth() - 2, getHeight() - 30);
 }
 
 bool GuiConsole::keyPressed(const KeyPress& key)
@@ -171,7 +179,7 @@ void GuiConsole::timerCallback()
 }
 
 
-GuiConsole::GButton::GButton(Image const& image1, Image const& image2, int index) : Button("")
+GuiConsole::GButton::GButton(Image const& image1, Image const& image2) : Button("")
 {
     setClickingTogglesState(false);
     setAlwaysOnTop(true);
@@ -184,7 +192,7 @@ GuiConsole::GButton::GButton(Image const& image1, Image const& image2, int index
     addAndMakeVisible(m_image1, -1);
     addAndMakeVisible(m_image2, 0);
     m_image1.setAlwaysOnTop(true);
-    setBounds(index * 26 + 2, 344, 22, 22);
+    setSize(22, 22);
 }
 
 void GuiConsole::GButton::buttonStateChanged()

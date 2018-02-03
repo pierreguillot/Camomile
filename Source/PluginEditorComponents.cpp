@@ -9,29 +9,61 @@
 #include "Gui/GuiConsole.hpp"
 
 //////////////////////////////////////////////////////////////////////////////////////////////
+//                                      ABOUT CAMOMILE                                      //
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+class AboutCamomile : public TextEditor
+{
+public:
+    AboutCamomile()
+    {
+        setMultiLine(true);
+        setReadOnly(true);
+        setScrollbarsShown(false);
+        setCaretVisible(false);
+        setPopupMenuEnabled(true);
+        setFont(Gui::getFont());
+        //setBounds(0, 0, 300, 370);
+        setWantsKeyboardFocus(true);
+#if defined(JucePlugin_Build_VST) || defined(JucePlugin_Build_VST3)
+        setText(String::createStringFromData(BinaryData::CreditsVST, BinaryData::CreditsVSTSize));
+#else
+        setText(String::createStringFromData(BinaryData::CreditsAU, BinaryData::CreditsAUSize));
+#endif
+    }
+private:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AboutCamomile)
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////
 //                                      WINDOW                                              //
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-CamomileEditorWindow::CamomileEditorWindow() :
-DocumentWindow(String(""), Colours::lightgrey, DocumentWindow::closeButton, false)
+class CamomileEditorWindow : public DocumentWindow
 {
-    setAlwaysOnTop(true);
-    setUsingNativeTitleBar(true);
-    setBounds(50, 50, 300, 370);
-    setResizable(true, true);
-    setDropShadowEnabled(true);
-    setVisible(true);
-    setWantsKeyboardFocus(true);
-}
+public:
+    CamomileEditorWindow() : DocumentWindow(String(""), Colours::lightgrey, DocumentWindow::closeButton, false)
+    {
+        setAlwaysOnTop(true);
+        setUsingNativeTitleBar(true);
+        setBounds(50, 50, 300, 370);
+        setResizable(true, true);
+        setDropShadowEnabled(true);
+        setVisible(true);
+        setWantsKeyboardFocus(true);
+    }
 
-void CamomileEditorWindow::closeButtonPressed() { removeFromDesktop(); }
+    void closeButtonPressed() { removeFromDesktop(); }
+private:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorWindow)
+};
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                      BUTTON                                              //
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 CamomileEditorButton::CamomileEditorButton(CamomileAudioProcessor& processor) : Button("CamomileButton"),
-m_processor(processor)
+m_processor(processor), m_window(new CamomileEditorWindow())
 {
     setClickingTogglesState(false);
     setAlwaysOnTop(true);
@@ -54,44 +86,29 @@ void CamomileEditorButton::buttonStateChanged()
 
 void CamomileEditorButton::clicked()
 {
-    juce::PopupMenu m;
-    m.addItem(1, "About");
-    m.addItem(2, "Console");
-    const int result = m.showAt(getScreenBounds().translated(-2, 3));
-    if(result == 1)
+    if(m_window->isVisible() && m_window->isShowing())
     {
-        TextEditor* about = new TextEditor();
-        if(about)
-        {
-            about->setMultiLine(true);
-            about->setReadOnly(true);
-            about->setScrollbarsShown(false);
-            about->setCaretVisible(false);
-            about->setPopupMenuEnabled(true);
-            about->setFont(Gui::getFont());
-            
-#if defined(JucePlugin_Build_VST) || defined(JucePlugin_Build_VST3)
-            about->setText(String::createStringFromData(BinaryData::CreditsVST, BinaryData::CreditsVSTSize));
-#else
-            about->setText(String::createStringFromData(BinaryData::CreditsAU, BinaryData::CreditsAUSize));
-#endif
-            about->setBounds(0, 0, 300, 370);
-            about->setWantsKeyboardFocus(true);
-            
-            m_window.setContentOwned(about, false);
-            m_window.setName("About Camomile " + String(JucePlugin_VersionString));
-            m_window.addToDesktop();
-            m_window.toFront(true);
-            m_window.grabKeyboardFocus();
-        }
+        m_window->toFront(true);
+        m_window->grabKeyboardFocus();
     }
-    else if(result == 2)
+    else
     {
-        m_window.setContentOwned(new GuiConsole(m_processor), false);
-        m_window.setName("Camomile Console");
-        m_window.addToDesktop();
-        m_window.toFront(true);
-        m_window.grabKeyboardFocus();
+        TabbedComponent* tc = new TabbedComponent(TabbedButtonBar::TabsAtTop);
+        if(tc)
+        {
+            tc->setBounds(0, 0, 300, 370);
+            tc->addTab("Console", Gui::getColorBg(), new GuiConsole(m_processor), true);
+            tc->addTab("About Camomile", Gui::getColorBg(), new AboutCamomile(), true);
+            tc->addTab("About " + CamomileEnvironment::getPluginName(), Gui::getColorBg(), new AboutCamomile(), true);
+            tc->setTabBarDepth(24);
+            
+            m_window->setContentOwned(tc, false);
+            m_window->setName(CamomileEnvironment::getPluginName());
+            m_window->addToDesktop();
+            m_window->toFront(true);
+            m_window->grabKeyboardFocus();
+        }
+        
     }
 }
 

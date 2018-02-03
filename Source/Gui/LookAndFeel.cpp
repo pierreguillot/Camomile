@@ -43,6 +43,11 @@ Font CamoLookAndFeel::getPopupMenuFont()
     return Gui::getFont().withHeight(13);
 }
 
+Font CamoLookAndFeel::getTabButtonFont(TabBarButton&, float height)
+{
+    return Gui::getFont().withHeight(height);
+}
+
 void CamoLookAndFeel::drawPopupMenuBackground (Graphics& g, int width, int height)
 {
     ;

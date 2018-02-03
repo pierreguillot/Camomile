@@ -16,7 +16,8 @@ public:
 
     void drawPopupMenuBackground (Graphics&, int width, int height) override;
     Font getPopupMenuFont() override;
-
+    Font getTabButtonFont(TabBarButton&, float height) override;
+    
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamoLookAndFeel)
 };

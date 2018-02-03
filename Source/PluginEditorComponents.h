@@ -9,19 +9,6 @@
 #include "PluginProcessor.h"
 
 //////////////////////////////////////////////////////////////////////////////////////////////
-//                                      WINDOW                                              //
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-class CamomileEditorWindow : public DocumentWindow
-{
-public:
-    CamomileEditorWindow();
-    void closeButtonPressed();
-private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorWindow)
-};
-
-//////////////////////////////////////////////////////////////////////////////////////////////
 //                                      BUTTON                                              //
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -38,7 +25,7 @@ private:
     CamomileAudioProcessor& m_processor;
     DrawableImage           m_center;
     DrawableImage           m_petals;
-    CamomileEditorWindow    m_window;
+    ScopedPointer<DocumentWindow> m_window;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorButton)
 };
 

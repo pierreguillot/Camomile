@@ -22,6 +22,7 @@ public:
     void buttonClicked(Button* button) final;
     void paint(Graphics& g) final;
     bool keyPressed(const KeyPress& key) final;
+    void resized() final;
     
     int getNumRows() final { return static_cast<int>(m_size); }
     void paintRowBackground(Graphics& , int , int , int , bool ) final {}
@@ -41,7 +42,7 @@ private:
     class GButton : public Button
     {
     public:
-        GButton(Image const& image1, Image const& image2, int index);
+        GButton(Image const& image1, Image const& image2);
         void paintButton(Graphics& g, bool over, bool down) final {};
         void buttonStateChanged() final;
     private:
