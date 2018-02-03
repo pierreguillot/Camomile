@@ -22,11 +22,13 @@ public:
     void stopEdition() final;
     void timerCallback() final;
     
+    //////////////////////////////////////////////////////////////////////////////////////////
     bool keyPressed(const KeyPress& key) final;
     bool keyStateChanged(bool isKeyDown) final;
     void modifierKeysChanged(const ModifierKeys& modifiers) final;
     bool keyPressed(const KeyPress& key, Component* originatingComponent) final;
     bool keyStateChanged(bool isKeyDown, Component* originatingComponent) final;
+    //////////////////////////////////////////////////////////////////////////////////////////
     
     void focusGained(FocusChangeType t) final;
     void focusOfChildComponentChanged(FocusChangeType t) final;

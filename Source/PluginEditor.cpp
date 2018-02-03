@@ -260,7 +260,7 @@ bool CamomileAudioProcessorEditor::keyStateChanged(bool isKeyDown)
 
 void CamomileAudioProcessorEditor::modifierKeysChanged(const ModifierKeys& modifiers)
 {
-    CamomileEditorKeyManager::modifierKeysChanged(modifiers);
+    CamomileEditorKeyManager::keyModifiersChanged(modifiers);
 }
 
 bool CamomileAudioProcessorEditor::keyPressed(const KeyPress& key, Component* originatingComponent)

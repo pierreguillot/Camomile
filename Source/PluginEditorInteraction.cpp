@@ -73,7 +73,7 @@ bool CamomileEditorKeyManager::keyStateChanged(bool isKeyDown)
     return false;
 }
 
-void CamomileEditorKeyManager::modifierKeysChanged(const ModifierKeys& modifiers)
+bool CamomileEditorKeyManager::keyModifiersChanged(const ModifierKeys& modifiers)
 {
     if(CamomileEnvironment::wantsKey())
     {
@@ -105,11 +105,13 @@ void CamomileEditorKeyManager::modifierKeysChanged(const ModifierKeys& modifiers
             m_modifiers.reset(static_cast<size_t>(ModifierKeys::commandModifier));
             stringname = "Meta_L"; down = false; }
         else
-            return;
+            return false;
         
         m_processor.enqueueMessages(down ? string_key : string_keyup, string_float, {static_cast<float>(0)});
         m_processor.enqueueMessages(string_keyname, string_list, {static_cast<float>(down), stringname});
+        return true;
     }
+    return false;
 }
 
 

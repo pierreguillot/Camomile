@@ -15,6 +15,10 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 //! @brief The class manages the key events
+//! @details The class is used to wrap and send the key events from JUCE to Pd via the objects
+//! key, keyup and keyname.
+//! @see CamomileAudioPluginEditor
+//! @todo I didn't check all the keyname yet because it's OS dependant and pretty boring to do.
 class CamomileEditorKeyManager
 {
 public:
@@ -23,7 +27,7 @@ public:
     
     bool keyPressed(const KeyPress& key);
     bool keyStateChanged(bool isKeyDown);
-    void modifierKeysChanged(const ModifierKeys& modifiers);
+    bool keyModifiersChanged(const ModifierKeys& modifiers);
 private:
     typedef std::pair<int, juce_wchar> ikey;
     CamomileAudioProcessor& m_processor;
