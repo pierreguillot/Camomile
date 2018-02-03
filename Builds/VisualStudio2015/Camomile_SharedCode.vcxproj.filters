@@ -382,6 +382,9 @@
     <ClCompile Include="..\..\Source\PluginEditorInteraction.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\PluginEditorComponents.cpp">
+      <Filter>Camomile\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\PluginInformation.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
@@ -2200,6 +2203,9 @@
       <Filter>Camomile\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PluginEditorInteraction.h">
+      <Filter>Camomile\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\PluginEditorComponents.h">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PluginInformation.h">

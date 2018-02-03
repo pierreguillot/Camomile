@@ -8,6 +8,7 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditorInteraction.h"
+#include "PluginEditorComponents.h"
 #include "Gui/Gui.hpp"
 #include "Gui/GuiObject.hpp"
 
@@ -41,23 +42,9 @@ private:
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GWindow)
     };
     
-    class FlowerButton : public Button
-    {
-    public:
-        FlowerButton();
-        void paintButton(Graphics& g, bool over, bool down) final {};
-        void buttonStateChanged() final;
-    private:
-        DrawableImage   m_center;
-        DrawableImage   m_petals;
-        
-        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(FlowerButton)
-    };
-
-    
     CamomileAudioProcessor&     processor;
     GWindow                     window;
-    FlowerButton                button;
+    CamomileEditorButton        button;
     OwnedArray<GuiObject>       objects;
     DrawableImage               background;
     

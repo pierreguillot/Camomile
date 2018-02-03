@@ -38,6 +38,10 @@
             file="Source/PluginEditorInteraction.cpp"/>
       <FILE id="VMgVwd" name="PluginEditorInteraction.h" compile="0" resource="0"
             file="Source/PluginEditorInteraction.h"/>
+      <FILE id="WsuQgc" name="PluginEditorComponents.cpp" compile="1" resource="0"
+            file="Source/PluginEditorComponents.cpp"/>
+      <FILE id="DApFBS" name="PluginEditorComponents.h" compile="0" resource="0"
+            file="Source/PluginEditorComponents.h"/>
       <FILE id="qY0A4K" name="PluginInformation.cpp" compile="1" resource="0"
             file="Source/PluginInformation.cpp"/>
       <FILE id="QjVgv2" name="PluginInformation.h" compile="0" resource="0"

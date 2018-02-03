@@ -5,6 +5,7 @@
  */
 
 #include "PluginEditorInteraction.h"
+#include <locale> // std::locale;
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                      INTERACTION                                         //
