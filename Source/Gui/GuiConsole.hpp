@@ -13,7 +13,7 @@
 // ==================================================================================== //
 
 class GuiConsole : public juce::Component, public juce::Timer,
-public juce::Button::Listener, public juce::TableListBoxModel
+public juce::Button::Listener, public juce::ListBoxModel
 {
 public:
     GuiConsole(CamomileAudioProcessor& p);
@@ -25,8 +25,7 @@ public:
     void resized() final;
     
     int getNumRows() final { return static_cast<int>(m_size); }
-    void paintRowBackground(Graphics& , int , int , int , bool ) final {}
-    void paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected) final;
+    void paintListBoxItem(int rowNumber, Graphics& g, int width, int height, bool rowIsSelected) final;
     void deleteKeyPressed(int lastRowSelected) final;
 private:
     
@@ -36,7 +35,7 @@ private:
     typedef CamomileAudioProcessor::ConsoleLevel ConsoleLevel;
     CamomileAudioProcessor& m_history;
     size_t          m_size = 0;
-    TableListBox    m_table;
+    ListBox         m_table;
     ConsoleLevel    m_level = ConsoleLevel::Normal;
     
     class GButton : public Button

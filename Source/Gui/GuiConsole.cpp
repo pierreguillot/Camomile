@@ -22,10 +22,12 @@ m_copy_button(ImageCache::getFromMemory(BinaryData::copy1_png, BinaryData::copy1
 {
     m_size  = 0;
     setWantsKeyboardFocus(true);
+    /*
     TableHeaderComponent* header = new TableHeaderComponent();
-    header->addColumn(String("ID"), 1, 300, 0, 0, TableHeaderComponent::notResizableOrSortable, -1);
+    header->addColumn(String("ID"), 1, 300, 300, 0, TableHeaderComponent::notResizableOrSortable, -1);
     header->setStretchToFitActive(true);
     header->setColumnVisible(1, true);
+     */
     
     m_table.setBounds(2, 2, getWidth() - 2, getHeight() - 30);
     m_table.setModel(this);
@@ -33,12 +35,12 @@ m_copy_button(ImageCache::getFromMemory(BinaryData::copy1_png, BinaryData::copy1
     m_table.setWantsKeyboardFocus(true);
     m_table.setMultipleSelectionEnabled(true);
     m_table.setMouseMoveSelectsRows(false);
-    m_table.setHeaderHeight(0);
+    //m_table.setHeaderHeight(0);
     m_table.setRowHeight(Gui::getFont().getHeight() + 2);
     m_table.setColour(ListBox::ColourIds::backgroundColourId, Colours::transparentWhite);
     m_table.getViewport()->setScrollBarsShown(true, true, true, true);
     m_table.getViewport()->setScrollBarThickness(4);
-    m_table.setHeader(header);
+    //m_table.setHeader(header);
     addAndMakeVisible(m_table);
     
     m_clear_button.addListener(this);
@@ -89,6 +91,7 @@ void GuiConsole::resized()
     m_clear_button.setTopLeftPosition(28, getHeight() - 26);
     m_copy_button.setTopLeftPosition(54, getHeight() - 26);
     m_table.setSize(getWidth() - 2, getHeight() - 30);
+    //m_table.getHeader().set
 }
 
 bool GuiConsole::keyPressed(const KeyPress& key)
@@ -137,7 +140,7 @@ void GuiConsole::buttonClicked(Button* button)
     }
 }
 
-void GuiConsole::paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
+void GuiConsole::paintListBoxItem(int rowNumber, Graphics& g, int width, int height, bool rowIsSelected)
 {
     std::pair<size_t, std::string> const message(m_history.get(m_level, rowNumber));
     if(rowIsSelected)
