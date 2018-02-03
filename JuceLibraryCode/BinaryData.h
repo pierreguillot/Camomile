@@ -9,10 +9,10 @@
 namespace BinaryData
 {
     extern const char*   CreditsAU;
-    const int            CreditsAUSize = 291;
+    const int            CreditsAUSize = 443;
 
     extern const char*   CreditsVST;
-    const int            CreditsVSTSize = 349;
+    const int            CreditsVSTSize = 501;
 
     extern const char*   clear1_png;
     const int            clear1_pngSize = 5839;

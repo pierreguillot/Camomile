@@ -4,14 +4,10 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "GuiObject.hpp"
+#include "PluginEditorObject.hpp"
+#include "PluginLookAndFeel.hpp"
 
-static Font getPdFont() {
-    static Font DejaVu = Font(Typeface::createSystemTypefaceFor(BinaryData::DejaVuSansMono_ttf, BinaryData::DejaVuSansMono_ttfSize)).withHeight(12.f);
-    return DejaVu;
-}
-
-GuiObject* GuiObject::createTyped(CamomileEditorMouseManager& p, pd::Gui& g)
+PluginEditorObject* PluginEditorObject::createTyped(CamomileEditorMouseManager& p, pd::Gui& g)
 {
     if(g.getType() == pd::Gui::Type::Bang)
     {
@@ -57,10 +53,10 @@ GuiObject* GuiObject::createTyped(CamomileEditorMouseManager& p, pd::Gui& g)
     {
         return new GuiAtomSymbol(p, g);
     }
-    return new GuiObject(p, g);
+    return new PluginEditorObject(p, g);
 }
 
-GuiObject::GuiObject(CamomileEditorMouseManager& p, pd::Gui& g) : gui(g), patch(p), edited(false),
+PluginEditorObject::PluginEditorObject(CamomileEditorMouseManager& p, pd::Gui& g) : gui(g), patch(p), edited(false),
 value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
 {
     std::array<int, 4> const bounds(gui.getBounds());
@@ -68,45 +64,45 @@ value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
     setOpaque(false);
 }
 
-GuiObject::~GuiObject() {}
+PluginEditorObject::~PluginEditorObject() {}
 
-float GuiObject::getValueOriginal() const noexcept
+float PluginEditorObject::getValueOriginal() const noexcept
 {
     return value;
 }
 
-void GuiObject::setValueOriginal(float v)
+void PluginEditorObject::setValueOriginal(float v)
 {
     value = (min < max) ? std::max(std::min(v, max), min) : std::max(std::min(v, min), max);
     gui.setValue(value);
 }
 
-float GuiObject::getValueScaled() const noexcept
+float PluginEditorObject::getValueScaled() const noexcept
 {
     return (min < max) ? (value - min) / (max - min) : 1.f - (value - max) / (min - max);
 }
 
-void GuiObject::setValueScaled(float v)
+void PluginEditorObject::setValueScaled(float v)
 {
     value = (min < max) ? std::max(std::min(v, 1.f), 0.f) * (max - min) + min
                         : (1.f - std::max(std::min(v, 1.f), 0.f)) * (min - max) + max;
     gui.setValue(value);
 }
 
-void GuiObject::startEdition() noexcept
+void PluginEditorObject::startEdition() noexcept
 {
     edited = true;
     patch.startEdition();
     value = gui.getValue();
 }
 
-void GuiObject::stopEdition() noexcept
+void PluginEditorObject::stopEdition() noexcept
 {
     edited = false;
     patch.stopEdition();
 }
 
-void GuiObject::update()
+void PluginEditorObject::update()
 {
     if(edited == false)
     {
@@ -320,7 +316,7 @@ void GuiRadioVertical::mouseDown(const MouseEvent& e)
 ////////////////////////////////////     PANEL               /////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
-GuiPanel::GuiPanel(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p, g)
+GuiPanel::GuiPanel(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g)
 {
     setInterceptsMouseClicks(false, false);
     edited = true;
@@ -335,7 +331,7 @@ void GuiPanel::paint(Graphics& g)
 ////////////////////////////////////     COMMENT             /////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
-GuiComment::GuiComment(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p, g)
+GuiComment::GuiComment(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g)
 {
     setInterceptsMouseClicks(false, false);
     edited = true;
@@ -343,7 +339,7 @@ GuiComment::GuiComment(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p,
 
 void GuiComment::paint(Graphics& g)
 {
-    g.setFont(getPdFont().withHeight(gui.getFontSize()));
+    g.setFont(CamoLookAndFeel::getDefaultFont().withHeight(gui.getFontSize()));
     g.setColour(Colours::black);
     g.drawMultiLineText(gui.getText(), 0, gui.getFontSize(), getWidth());
 }
@@ -352,11 +348,11 @@ void GuiComment::paint(Graphics& g)
 ////////////////////////////////////     TEXT EDITOR         /////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
-GuiTextEditor::GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p, g)
+GuiTextEditor::GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g)
 {
     const float border = 1.f;
     const float fs = gui.getFontSize();
-    Font const tf = getPdFont().withHeight(fs);
+    Font const tf = CamoLookAndFeel::getDefaultFont().withHeight(fs);
     
     label = new Label();
     label->setBounds(2.5f, 0.5f, getWidth() - 2.5f, getHeight() - 1.f);

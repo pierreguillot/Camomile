@@ -9,7 +9,7 @@
 #include "PluginProcessor.h"
 #include "PluginEditorInteraction.h"
 #include "PluginEditorComponents.h"
-#include "Gui/GuiObject.hpp"
+#include "PluginEditorObject.hpp"
 
 class CamomileEditor : public AudioProcessorEditor, protected Timer, public CamomileEditorInteractionManager
 {
@@ -24,10 +24,10 @@ public:
     bool keyStateChanged(bool isKeyDown) final;
     void modifierKeysChanged(const ModifierKeys& modifiers) final;
 private:
-    CamomileAudioProcessor&     m_processor;
-    CamomileEditorButton        m_button;
-    OwnedArray<GuiObject>       m_objects;
-    DrawableImage               m_image;
+    CamomileAudioProcessor&         m_processor;
+    OwnedArray<PluginEditorObject>  m_objects;
+    CamomileEditorButton            m_button;
+    DrawableImage                   m_image;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileEditor)
 };

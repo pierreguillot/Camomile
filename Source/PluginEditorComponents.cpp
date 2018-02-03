@@ -6,8 +6,29 @@
 
 #include "PluginEditorComponents.h"
 #include "PluginEditorConsole.hpp"
-#include "Gui/Gui.hpp"
+#include "PluginLookAndFeel.hpp"
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                      ABOUT PATCH                                         //
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+class AboutPatch : public TextEditor
+{
+public:
+    AboutPatch()
+    {
+        setMultiLine(true);
+        setReadOnly(true);
+        setScrollbarsShown(false);
+        setCaretVisible(false);
+        setPopupMenuEnabled(true);
+        setFont(CamoLookAndFeel::getDefaultFont());
+        setWantsKeyboardFocus(true);
+        setText(CamoLookAndFeel::getDescription());
+    }
+private:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AboutPatch)
+};
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                      ABOUT CAMOMILE                                      //
@@ -23,8 +44,7 @@ public:
         setScrollbarsShown(false);
         setCaretVisible(false);
         setPopupMenuEnabled(true);
-        setFont(Gui::getFont());
-        //setBounds(0, 0, 300, 370);
+        setFont(CamoLookAndFeel::getDefaultFont());
         setWantsKeyboardFocus(true);
 #if defined(JucePlugin_Build_VST) || defined(JucePlugin_Build_VST3)
         setText(String::createStringFromData(BinaryData::CreditsVST, BinaryData::CreditsVSTSize));
@@ -98,9 +118,9 @@ void CamomileEditorButton::clicked()
         if(tc)
         {
             tc->setBounds(0, 0, 300, 370);
-            tc->addTab("Console", Gui::getColorBg(), new PluginEditorConsole(m_processor), true);
-            tc->addTab("About " + CamomileEnvironment::getPluginName(), Gui::getColorBg(), new AboutCamomile(), true);
-            tc->addTab("About Camomile", Gui::getColorBg(), new AboutCamomile(), true);
+            tc->addTab("Console", Colours::lightgrey, new PluginEditorConsole(m_processor), true);
+            tc->addTab(CamomileEnvironment::getPluginName(), Colours::lightgrey, new AboutPatch(), true);
+            tc->addTab("About Camomile", Colours::lightgrey, new AboutCamomile(), true);
             tc->setTabBarDepth(24);
             
             m_window->setContentOwned(tc, false);

@@ -145,13 +145,12 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/PluginEditorInteraction_a14c4ad3.o \
   $(JUCE_OBJDIR)/PluginEditorComponents_d5c3763f.o \
   $(JUCE_OBJDIR)/PluginEditorConsole_e9a89d98.o \
+  $(JUCE_OBJDIR)/PluginEditorObject_217533e8.o \
+  $(JUCE_OBJDIR)/PluginLookAndFeel_c7d4572c.o \
   $(JUCE_OBJDIR)/PdInstance_ddabcf25.o \
   $(JUCE_OBJDIR)/PdPatch_69639a82.o \
   $(JUCE_OBJDIR)/PdObject_b945538f.o \
   $(JUCE_OBJDIR)/x_libpd_multi_1036951a.o \
-  $(JUCE_OBJDIR)/Gui_edc4c728.o \
-  $(JUCE_OBJDIR)/GuiObject_aa3d2cc7.o \
-  $(JUCE_OBJDIR)/LookAndFeel_7fdda4eb.o \
   $(JUCE_OBJDIR)/BinaryData_ce4232d4.o \
   $(JUCE_OBJDIR)/include_juce_audio_basics_8a4e984a.o \
   $(JUCE_OBJDIR)/include_juce_audio_devices_63111d02.o \
@@ -232,6 +231,16 @@ $(JUCE_OBJDIR)/PluginEditorConsole_e9a89d98.o: ../../Source/PluginEditorConsole.
 	@echo "Compiling PluginEditorConsole.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
+$(JUCE_OBJDIR)/PluginEditorObject_217533e8.o: ../../Source/PluginEditorObject.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PluginEditorObject.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/PluginLookAndFeel_c7d4572c.o: ../../Source/PluginLookAndFeel.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PluginLookAndFeel.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
 $(JUCE_OBJDIR)/PdInstance_ddabcf25.o: ../../Source/Pd/PdInstance.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling PdInstance.cpp"
@@ -251,21 +260,6 @@ $(JUCE_OBJDIR)/x_libpd_multi_1036951a.o: ../../Source/Pd/x_libpd_multi.c
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling x_libpd_multi.c"
 	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/Gui_edc4c728.o: ../../Source/Gui/Gui.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling Gui.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/GuiObject_aa3d2cc7.o: ../../Source/Gui/GuiObject.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling GuiObject.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/LookAndFeel_7fdda4eb.o: ../../Source/Gui/LookAndFeel.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling LookAndFeel.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/BinaryData_ce4232d4.o: ../../JuceLibraryCode/BinaryData.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)

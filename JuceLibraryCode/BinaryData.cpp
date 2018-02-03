@@ -9,6 +9,8 @@ namespace BinaryData
 
 //================== CreditsAU ==================
 static const unsigned char temp_binary_data_0[] =
+"Camomile is a free and open-source audio plugin with Pure Data embedded that offers to load and to control patches inside a digital audio workstation.\n"
+"\n"
 "Version: 1.0.2\n"
 "Author: Pierre Guillot\n"
 "Organizations: CICM | Universit\xc3\xa9 Paris 8\n"
@@ -23,6 +25,8 @@ const char* CreditsAU = (const char*) temp_binary_data_0;
 
 //================== CreditsVST ==================
 static const unsigned char temp_binary_data_1[] =
+"Camomile is a free and open-source audio plugin with Pure Data embedded that offers to load and to control patches inside a digital audio workstation.\n"
+"\n"
 "Version: 1.0.2\n"
 "Author: Pierre Guillot\n"
 "Organizations: CICM | Universit\xc3\xa9 Paris 8\n"
@@ -5368,8 +5372,8 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes) throw
 
     switch (hash)
     {
-        case 0x9fa71e2e:  numBytes = 291; return CreditsAU;
-        case 0x553cf67d:  numBytes = 349; return CreditsVST;
+        case 0x9fa71e2e:  numBytes = 443; return CreditsAU;
+        case 0x553cf67d:  numBytes = 501; return CreditsVST;
         case 0xd1c092ee:  numBytes = 5839; return clear1_png;
         case 0xd1ceaa6f:  numBytes = 11853; return clear2_png;
         case 0x572d12c6:  numBytes = 5601; return copy1_png;

@@ -112,7 +112,7 @@ private:
     
     std::string     plugin_name = "Camomile";
     std::string     plugin_path = "";
-    std::string     plugin_desc = "A plugin that loads Pure Data patches";
+    std::string     plugin_desc = "";
     unsigned int    plugin_code = 0x4b707139;
     std::string     patch_name  = "Camomile.pd";
     std::string     patch_path  = "";

@@ -6,8 +6,7 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 #include "PluginEnvironment.h"
-#include "Gui/LookAndFeel.hpp"
-#include "Gui/Gui.hpp"
+#include "PluginLookAndFeel.hpp"
 #include "Pd/PdPatch.hpp"
 
 CamomileEditor::CamomileEditor(CamomileAudioProcessor& p) :
@@ -29,7 +28,7 @@ AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), m_processor (p),
         setSize(400, 300);
     }
     
-    Image const& img = Gui::getImage();
+    Image const& img = CamoLookAndFeel::getImage();
     if(img.isValid())
     {
         m_image.setImage(img);
@@ -47,7 +46,7 @@ AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), m_processor (p),
         auto guis(p.getPatch().getGuis());
         for(auto& gui : guis)
         {
-            addAndMakeVisible(m_objects.add(GuiObject::createTyped(*this, gui)));
+            addAndMakeVisible(m_objects.add(PluginEditorObject::createTyped(*this, gui)));
         }
     }
     addAndMakeVisible(m_button);

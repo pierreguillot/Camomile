@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "../../JuceLibraryCode/JuceHeader.h"
+#include "../JuceLibraryCode/JuceHeader.h"
 
 class JUCE_API  CamoLookAndFeel  : public LookAndFeel_V4
 {
@@ -17,6 +17,9 @@ public:
     void drawPopupMenuBackground (Graphics&, int width, int height) override;
     Font getPopupMenuFont() override;
     Font getTabButtonFont(TabBarButton&, float height) override;
+    static Font getDefaultFont();
+    static Image const& getImage();
+    static String const& getDescription();
     
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamoLookAndFeel)

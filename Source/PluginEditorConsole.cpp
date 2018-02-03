@@ -5,7 +5,7 @@
 */
 
 #include "PluginEditorConsole.hpp"
-#include "Gui/Gui.hpp"
+#include "PluginLookAndFeel.hpp"
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                          CONSOLE BUTTON                                  //
@@ -22,7 +22,7 @@ public:
         m_image2.setImage(image2);
         m_image1.setTransformToFit(Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
         m_image2.setTransformToFit(Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
-        m_image1.setOverlayColour(Gui::getColorTxt());
+        m_image1.setOverlayColour(Colours::black);
         m_image1.setAlpha(0.5f);
         addAndMakeVisible(m_image1, -1);
         addAndMakeVisible(m_image2, 0);
@@ -63,7 +63,7 @@ m_copy_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::copy1_png,
     m_table.setWantsKeyboardFocus(true);
     m_table.setMultipleSelectionEnabled(true);
     m_table.setMouseMoveSelectsRows(false);
-    m_table.setRowHeight(Gui::getFont().getHeight() + 2);
+    m_table.setRowHeight(CamoLookAndFeel::getDefaultFont().getHeight() + 2);
     m_table.setColour(ListBox::ColourIds::backgroundColourId, Colours::transparentWhite);
     m_table.getViewport()->setScrollBarsShown(true, true, true, true);
     m_table.getViewport()->setScrollBarThickness(4);
@@ -107,7 +107,7 @@ void PluginEditorConsole::copySelection()
 
 void PluginEditorConsole::paint(Graphics& g)
 {
-    g.setColour(Gui::getColorTxt().withAlpha(0.5f));
+    g.setColour(Colours::black.withAlpha(0.5f));
     g.drawHorizontalLine(getHeight() - 28, 2, getWidth() - 2);
 }
 
@@ -153,7 +153,7 @@ void PluginEditorConsole::buttonClicked(Button* button)
         m.addItem(4, "All", true, m_level == ConsoleLevel::Log);
 
         Point<int> pos = Component::getScreenPosition().translated(0, 292);
-        int level = m.showAt(Rectangle<int>(pos.x, pos.y, 100, 48), 0, 0, Gui::getFont().getHeight() + 2);
+        int level = m.showAt(Rectangle<int>(pos.x, pos.y, 100, 48), 0, 0, CamoLookAndFeel::getDefaultFont().getHeight() + 2);
         stopTimer();
         if(bool(level) && ConsoleLevel(level - 1) != m_level)
         {
@@ -170,10 +170,10 @@ void PluginEditorConsole::paintListBoxItem(int rowNumber, Graphics& g, int width
     std::pair<size_t, std::string> const message(m_history.get(m_level, rowNumber));
     if(rowIsSelected)
     {
-        g.setColour(Gui::getColorTxt());
+        g.setColour(Colours::black);
         g.fillRect(0, 0, width, height);
     }
-    g.setFont(Gui::getFont());
+    g.setFont(CamoLookAndFeel::getDefaultFont());
     if(message.first == ConsoleLevel::Fatal)
     {
         g.setColour(Colours::red);
@@ -184,14 +184,14 @@ void PluginEditorConsole::paintListBoxItem(int rowNumber, Graphics& g, int width
     }
     else if(message.first == ConsoleLevel::Normal)
     {
-        g.setColour(rowIsSelected ? Gui::getColorBg() : Gui::getColorTxt().withAlpha(0.5f));
+        g.setColour(rowIsSelected ? Colours::lightgrey : Colours::black.withAlpha(0.5f));
     }
     else
     {
         g.setColour(Colours::green);
     }
     String const mess = String(message.second).trimCharactersAtEnd(" \n");
-    g.setFont(Gui::getFont());
+    g.setFont(CamoLookAndFeel::getDefaultFont());
     g.drawText(mess, 2, 0, width, height, juce::Justification::centredLeft, 0);
 }
 

@@ -6,21 +6,21 @@
 
 #pragma once
 
-#include "../PluginEditorInteraction.h"
-#include "../Pd/PdObject.hpp"
+#include "PluginEditorInteraction.h"
+#include "Pd/PdObject.hpp"
 #include <atomic>
 
 // ==================================================================================== //
 //                                      GUI OBJECT                                      //
 // ==================================================================================== //
 
-class GuiObject : public virtual Component
+class PluginEditorObject : public virtual Component
 {
 public:
-    GuiObject(CamomileEditorMouseManager& p, pd::Gui& g);
-    virtual ~GuiObject();
+    PluginEditorObject(CamomileEditorMouseManager& p, pd::Gui& g);
+    virtual ~PluginEditorObject();
     
-    static GuiObject* createTyped(CamomileEditorMouseManager& p, pd::Gui& g);
+    static PluginEditorObject* createTyped(CamomileEditorMouseManager& p, pd::Gui& g);
     virtual void update();
 protected:
     float getValueOriginal() const noexcept;
@@ -38,77 +38,77 @@ protected:
     float       min     = 0;
     float       max     = 1;
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiObject)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PluginEditorObject)
 };
 
-class GuiBang : public GuiObject
+class GuiBang : public PluginEditorObject
 {
 public:
-    GuiBang(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p, g) {}
+    GuiBang(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g) {}
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
     void mouseUp(const MouseEvent& e) final;
 };
 
-class GuiToggle : public GuiObject
+class GuiToggle : public PluginEditorObject
 {
 public:
-    GuiToggle(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p, g) {}
+    GuiToggle(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g) {}
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
 };
 
-class GuiSliderHorizontal : public GuiObject
+class GuiSliderHorizontal : public PluginEditorObject
 {
 public:
-    GuiSliderHorizontal(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p, g) {}
+    GuiSliderHorizontal(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g) {}
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
     void mouseDrag(const MouseEvent& e) final;
     void mouseUp(const MouseEvent& e) final;
 };
 
-class GuiSliderVertical : public GuiObject
+class GuiSliderVertical : public PluginEditorObject
 {
 public:
-    GuiSliderVertical(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p, g) {}
+    GuiSliderVertical(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g) {}
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
     void mouseDrag(const MouseEvent& e) final;
     void mouseUp(const MouseEvent& e) final;
 };
 
-class GuiRadioHorizontal : public GuiObject
+class GuiRadioHorizontal : public PluginEditorObject
 {
 public:
-    GuiRadioHorizontal(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p, g) {}
+    GuiRadioHorizontal(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g) {}
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
 };
 
-class GuiRadioVertical : public GuiObject
+class GuiRadioVertical : public PluginEditorObject
 {
 public:
-    GuiRadioVertical(CamomileEditorMouseManager& p, pd::Gui& g) : GuiObject(p, g) {}
+    GuiRadioVertical(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g) {}
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
 };
 
-class GuiPanel : public GuiObject
+class GuiPanel : public PluginEditorObject
 {
 public:
     GuiPanel(CamomileEditorMouseManager& p, pd::Gui& g);
     void paint(Graphics& g) final;
 };
 
-class GuiComment : public GuiObject
+class GuiComment : public PluginEditorObject
 {
 public:
     GuiComment(CamomileEditorMouseManager& p, pd::Gui& g);
     void paint(Graphics& g) final;
 };
 
-class GuiTextEditor : public GuiObject, public Label::Listener
+class GuiTextEditor : public PluginEditorObject, public Label::Listener
 {
 public:
     GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g);

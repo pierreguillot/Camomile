@@ -5,9 +5,12 @@ v1.0.2
 - Use libpd_process_raw in the DSP perform method for optimization
 - Add support for MIDI In SysEx, SysRealTime & Byte
 - Add support for MIDI Out Byte
-- Improve console prints for lists (remove line breaks)
 - Add full support for keys objects [key], [keyup] (#80)
-- Add partial support for key objects[keyname] (perhaps some names are still missing names are missing).
+- Add partial support for key objects[keyname] (perhaps some names are still missing names are missing)
+- Improve the console (resizable)
+- Improve prints for lists (remove line breaks)
+- Floating Window always on top
+- Floating Window with tabs (Console/About the Patch/About Camomile)
 
 v1.0.1
 - Fix thread concurrency issue that occurred when selecting a program (#77).
