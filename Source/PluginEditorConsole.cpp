@@ -7,18 +7,53 @@
 #include "PluginEditorConsole.hpp"
 #include "Gui/Gui.hpp"
 
-// ==================================================================================== //
-//                                      GUI CONSOLE                                     //
-// ==================================================================================== //
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                          CONSOLE BUTTON                                  //
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+class ConsoleButton : public Button
+{
+public:
+    ConsoleButton(Image const& image1, Image const& image2) : Button("")
+    {
+        setClickingTogglesState(false);
+        setAlwaysOnTop(true);
+        m_image1.setImage(image1);
+        m_image2.setImage(image2);
+        m_image1.setTransformToFit(Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
+        m_image2.setTransformToFit(Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
+        m_image1.setOverlayColour(Gui::getColorTxt());
+        m_image1.setAlpha(0.5f);
+        addAndMakeVisible(m_image1, -1);
+        addAndMakeVisible(m_image2, 0);
+        m_image1.setAlwaysOnTop(true);
+        setSize(22, 22);
+    }
     
-GuiConsole::GuiConsole(CamomileAudioProcessor& p) :
+    void buttonStateChanged() final
+    {
+        m_image1.setAlpha((isDown() || isOver()) ? 1.f : 0.5f);
+    }
+    
+    void paintButton(Graphics& g, bool over, bool down) final {};
+private:
+    DrawableImage   m_image1;
+    DrawableImage   m_image2;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ConsoleButton)
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                          CONSOLE                                         //
+//////////////////////////////////////////////////////////////////////////////////////////////
+    
+PluginEditorConsole::PluginEditorConsole(CamomileAudioProcessor& p) :
 m_history(p),
-m_level_button(ImageCache::getFromMemory(BinaryData::option_png, BinaryData::option_pngSize),
-               ImageCache::getFromMemory(BinaryData::flower_center_png, BinaryData::flower_center_pngSize)),
-m_clear_button(ImageCache::getFromMemory(BinaryData::clear1_png, BinaryData::clear1_pngSize),
-               ImageCache::getFromMemory(BinaryData::clear2_png, BinaryData::clear2_pngSize)),
-m_copy_button(ImageCache::getFromMemory(BinaryData::copy1_png, BinaryData::copy1_pngSize),
-              ImageCache::getFromMemory(BinaryData::copy2_png, BinaryData::copy2_pngSize))
+m_level_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::option_png, BinaryData::option_pngSize),
+               ImageCache::getFromMemory(BinaryData::flower_center_png, BinaryData::flower_center_pngSize))),
+m_clear_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::clear1_png, BinaryData::clear1_pngSize),
+               ImageCache::getFromMemory(BinaryData::clear2_png, BinaryData::clear2_pngSize))),
+m_copy_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::copy1_png, BinaryData::copy1_pngSize),
+              ImageCache::getFromMemory(BinaryData::copy2_png, BinaryData::copy2_pngSize)))
 {
     m_size  = 0;
     setWantsKeyboardFocus(true);
@@ -34,21 +69,21 @@ m_copy_button(ImageCache::getFromMemory(BinaryData::copy1_png, BinaryData::copy1
     m_table.getViewport()->setScrollBarThickness(4);
     addAndMakeVisible(m_table);
     
-    m_clear_button.addListener(this);
-    addAndMakeVisible(&m_clear_button);
-    m_copy_button.addListener(this);
-    addAndMakeVisible(&m_copy_button);
-    m_level_button.addListener(this);
-    addAndMakeVisible(&m_level_button);
+    m_clear_button->addListener(this);
+    addAndMakeVisible(m_clear_button);
+    m_copy_button->addListener(this);
+    addAndMakeVisible(m_copy_button);
+    m_level_button->addListener(this);
+    addAndMakeVisible(m_level_button);
     startTimer(100);
 }
 
-GuiConsole::~GuiConsole()
+PluginEditorConsole::~PluginEditorConsole()
 {
     stopTimer();
 }
 
-void GuiConsole::clearSelection()
+void PluginEditorConsole::clearSelection()
 {
     stopTimer();
     SparseSet<int> sels = m_table.getSelectedRows();
@@ -59,7 +94,7 @@ void GuiConsole::clearSelection()
     startTimer(100);
 }
 
-void GuiConsole::copySelection()
+void PluginEditorConsole::copySelection()
 {
     String text;
     stopTimer();
@@ -70,21 +105,21 @@ void GuiConsole::copySelection()
     startTimer(100);
 }
 
-void GuiConsole::paint(Graphics& g)
+void PluginEditorConsole::paint(Graphics& g)
 {
     g.setColour(Gui::getColorTxt().withAlpha(0.5f));
     g.drawHorizontalLine(getHeight() - 28, 2, getWidth() - 2);
 }
 
-void GuiConsole::resized()
+void PluginEditorConsole::resized()
 {
-    m_level_button.setTopLeftPosition(2, getHeight() - 26);
-    m_clear_button.setTopLeftPosition(28, getHeight() - 26);
-    m_copy_button.setTopLeftPosition(54, getHeight() - 26);
+    m_level_button->setTopLeftPosition(2, getHeight() - 26);
+    m_clear_button->setTopLeftPosition(28, getHeight() - 26);
+    m_copy_button->setTopLeftPosition(54, getHeight() - 26);
     m_table.setSize(getWidth() - 2, getHeight() - 30);
 }
 
-bool GuiConsole::keyPressed(const KeyPress& key)
+bool PluginEditorConsole::keyPressed(const KeyPress& key)
 {
     if(key.getModifiers() == ModifierKeys::commandModifier && key.getTextCharacter() == 'c')
     {
@@ -94,18 +129,18 @@ bool GuiConsole::keyPressed(const KeyPress& key)
     return false;
 }
 
-void GuiConsole::deleteKeyPressed(int lastRowSelected)
+void PluginEditorConsole::deleteKeyPressed(int lastRowSelected)
 {
     clearSelection();
 }
 
-void GuiConsole::buttonClicked(Button* button)
+void PluginEditorConsole::buttonClicked(Button* button)
 {
-    if(button == &m_clear_button)
+    if(button == m_clear_button)
     {
         clearSelection();
     }
-    else if(button == &m_copy_button)
+    else if(button == m_copy_button)
     {
         copySelection();
     }
@@ -130,7 +165,7 @@ void GuiConsole::buttonClicked(Button* button)
     }
 }
 
-void GuiConsole::paintListBoxItem(int rowNumber, Graphics& g, int width, int height, bool rowIsSelected)
+void PluginEditorConsole::paintListBoxItem(int rowNumber, Graphics& g, int width, int height, bool rowIsSelected)
 {
     std::pair<size_t, std::string> const message(m_history.get(m_level, rowNumber));
     if(rowIsSelected)
@@ -160,7 +195,7 @@ void GuiConsole::paintListBoxItem(int rowNumber, Graphics& g, int width, int hei
     g.drawText(mess, 2, 0, width, height, juce::Justification::centredLeft, 0);
 }
 
-void GuiConsole::timerCallback()
+void PluginEditorConsole::timerCallback()
 {
     m_history.processPrints();
     const size_t size = m_history.size(m_level);
@@ -171,27 +206,6 @@ void GuiConsole::timerCallback()
     }
 }
 
-
-GuiConsole::GButton::GButton(Image const& image1, Image const& image2) : Button("")
-{
-    setClickingTogglesState(false);
-    setAlwaysOnTop(true);
-    m_image1.setImage(image1);
-    m_image2.setImage(image2);
-    m_image1.setTransformToFit(Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
-    m_image2.setTransformToFit(Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
-    m_image1.setOverlayColour(Gui::getColorTxt());
-    m_image1.setAlpha(0.5f);
-    addAndMakeVisible(m_image1, -1);
-    addAndMakeVisible(m_image2, 0);
-    m_image1.setAlwaysOnTop(true);
-    setSize(22, 22);
-}
-
-void GuiConsole::GButton::buttonStateChanged()
-{
-    m_image1.setAlpha((isDown() || isOver()) ? 1.f : 0.5f);
-}
 
 
 

@@ -9,19 +9,10 @@
 namespace BinaryData
 {
     extern const char*   CreditsAU;
-    const int            CreditsAUSize = 292;
+    const int            CreditsAUSize = 291;
 
     extern const char*   CreditsVST;
-    const int            CreditsVSTSize = 350;
-
-    extern const char*   DejaVuSansMono_ttf;
-    const int            DejaVuSansMono_ttfSize = 340712;
-
-    extern const char*   flower_center_png;
-    const int            flower_center_pngSize = 3299;
-
-    extern const char*   flower_petals_png;
-    const int            flower_petals_pngSize = 22287;
+    const int            CreditsVSTSize = 349;
 
     extern const char*   clear1_png;
     const int            clear1_pngSize = 5839;
@@ -35,8 +26,17 @@ namespace BinaryData
     extern const char*   copy2_png;
     const int            copy2_pngSize = 13753;
 
+    extern const char*   flower_center_png;
+    const int            flower_center_pngSize = 3299;
+
+    extern const char*   flower_petals_png;
+    const int            flower_petals_pngSize = 22287;
+
     extern const char*   option_png;
     const int            option_pngSize = 29484;
+
+    extern const char*   DejaVuSansMono_ttf;
+    const int            DejaVuSansMono_ttfSize = 340712;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

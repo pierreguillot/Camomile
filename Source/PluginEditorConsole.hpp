@@ -8,16 +8,16 @@
 
 #include "PluginProcessor.h"
 
-// ==================================================================================== //
-//                                      GUI CONSOLE                                      //
-// ==================================================================================== //
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                          CONSOLE                                         //
+//////////////////////////////////////////////////////////////////////////////////////////////
 
-class GuiConsole : public juce::Component, public juce::Timer,
+class PluginEditorConsole : public juce::Component, public juce::Timer,
 public juce::Button::Listener, public juce::ListBoxModel
 {
 public:
-    GuiConsole(CamomileAudioProcessor& p);
-    ~GuiConsole();
+    PluginEditorConsole(CamomileAudioProcessor& p);
+    ~PluginEditorConsole();
     void timerCallback() final;
     void buttonClicked(Button* button) final;
     void paint(Graphics& g) final;
@@ -31,29 +31,15 @@ private:
     
     void clearSelection();
     void copySelection();
-    
     typedef CamomileAudioProcessor::ConsoleLevel ConsoleLevel;
     CamomileAudioProcessor& m_history;
     size_t          m_size = 0;
     ListBox         m_table;
     ConsoleLevel    m_level = ConsoleLevel::Normal;
+    ScopedPointer<Button> m_level_button;
+    ScopedPointer<Button> m_clear_button;
+    ScopedPointer<Button> m_copy_button;
     
-    class GButton : public Button
-    {
-    public:
-        GButton(Image const& image1, Image const& image2);
-        void paintButton(Graphics& g, bool over, bool down) final {};
-        void buttonStateChanged() final;
-    private:
-        DrawableImage   m_image1;
-        DrawableImage   m_image2;
-        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GButton)
-    };
-    
-    GButton m_level_button;
-    GButton m_clear_button;
-    GButton m_copy_button;
-     
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiConsole)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PluginEditorConsole)
 };
 

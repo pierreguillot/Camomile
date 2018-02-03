@@ -98,7 +98,7 @@ void CamomileEditorButton::clicked()
         if(tc)
         {
             tc->setBounds(0, 0, 300, 370);
-            tc->addTab("Console", Gui::getColorBg(), new GuiConsole(m_processor), true);
+            tc->addTab("Console", Gui::getColorBg(), new PluginEditorConsole(m_processor), true);
             tc->addTab("About " + CamomileEnvironment::getPluginName(), Gui::getColorBg(), new AboutCamomile(), true);
             tc->addTab("About Camomile", Gui::getColorBg(), new AboutCamomile(), true);
             tc->setTabBarDepth(24);
