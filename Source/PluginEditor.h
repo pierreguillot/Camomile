@@ -9,7 +9,6 @@
 #include "PluginProcessor.h"
 #include "PluginEditorInteraction.h"
 #include "PluginEditorComponents.h"
-#include "Gui/Gui.hpp"
 #include "Gui/GuiObject.hpp"
 
 class CamomileAudioProcessorEditor : public AudioProcessorEditor, protected Timer, public CamomileEditorInteractionManager

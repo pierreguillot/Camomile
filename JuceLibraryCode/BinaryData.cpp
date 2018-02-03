@@ -9,19 +9,22 @@ namespace BinaryData
 
 //================== CreditsAU ==================
 static const unsigned char temp_binary_data_0[] =
-"Camomile Author: Pierre Guillot\n"
+"Camomile v1.0.2\n"
+"Author: Pierre Guillot\n"
 "Organizations: CICM | Universit\xc3\xa9 Paris 8\n"
 "Website: github.com/pierreguillot/camomile\n"
 "Credits:\n"
 "\xe2\x80\xa2 Pure Data by Miller Puckette and others\n"
 "\xe2\x80\xa2 libpd by the Peter Brinkmann, Dan Wilcox and others\n"
-"\xe2\x80\xa2 JUCE by ROLI Ltd.\n";
+"\xe2\x80\xa2 JUCE by ROLI Ltd.\n"
+"\xe2\x80\xa2 MoodyCamel by Cameron Desrochers\n";
 
 const char* CreditsAU = (const char*) temp_binary_data_0;
 
 //================== CreditsVST ==================
 static const unsigned char temp_binary_data_1[] =
-"Camomile Author: Pierre Guillot\n"
+"Camomile v1.0.2\n"
+"Author: Pierre Guillot\n"
 "Organizations: CICM | Universit\xc3\xa9 Paris 8\n"
 "Website: github.com/pierreguillot/camomile\n"
 "Credits:\n"
@@ -5365,8 +5368,8 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes) throw
 
     switch (hash)
     {
-        case 0x9fa71e2e:  numBytes = 248; return CreditsAU;
-        case 0x553cf67d:  numBytes = 343; return CreditsVST;
+        case 0x9fa71e2e:  numBytes = 292; return CreditsAU;
+        case 0x553cf67d:  numBytes = 350; return CreditsVST;
         case 0xcacab454:  numBytes = 340712; return DejaVuSansMono_ttf;
         case 0x4e66dfa3:  numBytes = 3299; return flower_center_png;
         case 0x44524977:  numBytes = 22287; return flower_petals_png;

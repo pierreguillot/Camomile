@@ -21,5 +21,7 @@ public:
     static Colour const& getColorBd() noexcept;
     static Colour const& getColorTxt() noexcept;
     static Colour const& getColorInv() noexcept;
+    
+    static Image const& getImage();
 };
 

@@ -5,6 +5,7 @@
 */
 
 #include "Gui.hpp"
+#include "../PluginEnvironment.h"
 
 // ==================================================================================== //
 //                                          GUI                                         //
@@ -40,6 +41,21 @@ Colour const& Gui::getColorInv() noexcept
 {
     static Colour c(Colour::fromFloatRGBA(0.f, 0.f, 0.f, 0.f));
     return c;
+}
+
+Image const& Gui::getImage()
+{
+    static bool loaded = false;
+    static Image img;
+    if(!loaded && !CamomileEnvironment::getImageName().empty())
+    {
+        File const f(CamomileEnvironment::getPatchPath() + File::getSeparatorString() + String(CamomileEnvironment::getImageName()));
+        if(f.exists())
+        {
+            img = ImageFileFormat::loadFrom(f);
+        }
+    }
+    return img;
 }
 
 

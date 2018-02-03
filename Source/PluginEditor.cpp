@@ -16,8 +16,10 @@ AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), processor (p), b
 {
     static CamoLookAndFeel lookAndFeel;
     LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
+    
     setOpaque(true);
     setWantsKeyboardFocus(true);
+    setInterceptsMouseClicks(true, true);
     if(p.getPatch().isGraph())
     {
         auto bounds = p.getPatch().getBounds();
@@ -27,8 +29,19 @@ AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), processor (p), b
     {
         setSize(400, 300);
     }
-    addAndMakeVisible(button);
-    setInterceptsMouseClicks(true, true);
+    
+    Image const& img = Gui::getImage();
+    if(img.isValid())
+    {
+        background.setImage(img);
+        background.setTransformToFit(getBounds().toType<float>(), RectanglePlacement::stretchToFit);
+        addAndMakeVisible(background, 0);
+    }
+    else
+    {
+        processor.add(CamomileAudioProcessor::ConsoleLevel::Error,
+                      "background image " + CamomileEnvironment::getImageName() + " is invalid or doesn't exist.");
+    }
     
     if(processor.getPatch().isGraph())
     {
@@ -38,31 +51,7 @@ AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), processor (p), b
             addAndMakeVisible(objects.add(GuiObject::createTyped(*this, gui)));
         }
     }
-   
-    if(!CamomileEnvironment::getImageName().empty())
-    {
-        File f(CamomileEnvironment::getPatchPath() + File::getSeparatorString() + String(CamomileEnvironment::getImageName()));
-        if(f.exists())
-        {
-            Image img = ImageFileFormat::loadFrom(f);
-            if(img.isValid())
-            {
-                background.setImage(img);
-                background.setTransformToFit(getBounds().toType<float>(), RectanglePlacement::stretchToFit);
-                addAndMakeVisible(background, 0);
-            }
-            else
-            {
-                processor.add(CamomileAudioProcessor::ConsoleLevel::Error,
-                              "background image " + CamomileEnvironment::getImageName() + " is invalid");
-            }
-        }
-        else
-        {
-            processor.add(CamomileAudioProcessor::ConsoleLevel::Error,
-                               "background image " + CamomileEnvironment::getImageName() + " doesn't exist");
-        }
-    }
+    addAndMakeVisible(button);
     startTimer(25);
 }
 
