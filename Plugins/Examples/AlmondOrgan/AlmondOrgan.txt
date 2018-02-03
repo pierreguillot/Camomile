@@ -4,6 +4,7 @@ code zWOt;
 midiin true;
 playhead true;
 image Spip.png;
+description Infos.txt;
 param -name Volume -label dB -min 0 -max 100 -default 80;
 param -name Attack -label ms -min 0 -max 100 -default 20;
 param -name Decay -label ms -min 0 -max 1000 -default 60;
