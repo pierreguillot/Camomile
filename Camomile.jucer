@@ -42,10 +42,6 @@
             file="Source/PluginEditorComponents.cpp"/>
       <FILE id="DApFBS" name="PluginEditorComponents.h" compile="0" resource="0"
             file="Source/PluginEditorComponents.h"/>
-      <FILE id="qY0A4K" name="PluginInformation.cpp" compile="1" resource="0"
-            file="Source/PluginInformation.cpp"/>
-      <FILE id="QjVgv2" name="PluginInformation.h" compile="0" resource="0"
-            file="Source/PluginInformation.h"/>
       <GROUP id="{72E9D6C6-B562-FE98-40C6-9583CB880B4E}" name="Pd">
         <FILE id="sArtFN" name="PdInstance.cpp" compile="1" resource="0" file="Source/Pd/PdInstance.cpp"/>
         <FILE id="RjbKYs" name="PdInstance.hpp" compile="0" resource="0" file="Source/Pd/PdInstance.hpp"/>

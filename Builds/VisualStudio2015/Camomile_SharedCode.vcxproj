@@ -576,7 +576,6 @@
     <ClCompile Include="..\..\Source\PluginEditor.cpp"/>
     <ClCompile Include="..\..\Source\PluginEditorInteraction.cpp"/>
     <ClCompile Include="..\..\Source\PluginEditorComponents.cpp"/>
-    <ClCompile Include="..\..\Source\PluginInformation.cpp"/>
     <ClCompile Include="..\..\Source\Pd\PdInstance.cpp"/>
     <ClCompile Include="..\..\Source\Pd\PdPatch.cpp"/>
     <ClCompile Include="..\..\Source\Pd\PdObject.cpp"/>
@@ -2225,7 +2224,6 @@
     <ClInclude Include="..\..\Source\PluginEditor.h"/>
     <ClInclude Include="..\..\Source\PluginEditorInteraction.h"/>
     <ClInclude Include="..\..\Source\PluginEditorComponents.h"/>
-    <ClInclude Include="..\..\Source\PluginInformation.h"/>
     <ClInclude Include="..\..\Source\Pd\PdInstance.hpp"/>
     <ClInclude Include="..\..\Source\Pd\PdPatch.hpp"/>
     <ClInclude Include="..\..\Source\Pd\PdObject.hpp"/>
