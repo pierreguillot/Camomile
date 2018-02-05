@@ -108,17 +108,19 @@ public:
 private:
     static CamomileEnvironment& get();
     bool localize();
+    static size_t get_version(std::string const& v);
     CamomileEnvironment();
     
     std::string     plugin_name = "Camomile";
     std::string     plugin_path = "";
     std::string     plugin_desc = "";
     unsigned int    plugin_code = 0x4b707139;
+    std::string     plugin_version  = "";
     std::string     patch_name  = "Camomile.pd";
     std::string     patch_path  = "";
     std::string     image_name  = "";
     bool            valid       = false;
-    std::bitset<11>  state;
+    std::bitset<12>  state;
     
     bool    midi_in_support   = false;
     bool    midi_out_support  = false;
@@ -146,6 +148,7 @@ private:
         init_image      = 7,
         init_type       = 8,
         init_desc       = 9,
-        init_key        = 10
+        init_key        = 10,
+        init_compatibilty = 11
     };
 };

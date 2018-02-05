@@ -301,6 +301,13 @@ CamomileEnvironment::CamomileEnvironment()
                             plugin_desc = CamomileParser::getString(entry.second);
                             state.set(init_desc);
                         }
+                        else if(entry.first == "compatibility")
+                        {
+                            if(state.test(init_compatibilty))
+                                throw std::string("already defined");
+                            plugin_version = CamomileParser::getString(entry.second);
+                            state.set(init_compatibilty);
+                        }
                         else if(entry.first == "type")
                         {
                             if(state.test(init_type))
@@ -341,6 +348,25 @@ CamomileEnvironment::CamomileEnvironment()
         }
     }
     
+    if(!state.test(init_compatibilty))
+    {
+        errors.push_back("compatibility not defined.");
+    }
+    else
+    {
+        size_t vpatch = 0, vplugin = 0;
+        try {
+            vpatch = get_version(plugin_version);
+            vplugin = get_version(JucePlugin_VersionString);
+        }
+        catch(...) {
+            errors.push_back("compatibility version wrong syntax, should be \"major.minor.bug\".");
+        }
+        if(vpatch > vplugin)
+        {
+            errors.push_back("patch has been created for a newer version of the plugin v" + plugin_version);
+        }
+    }
     if(programs.empty())
     {
         programs.push_back("");
@@ -349,6 +375,18 @@ CamomileEnvironment::CamomileEnvironment()
     {
         buses.push_back({2, 2});
     }
+}
+
+size_t CamomileEnvironment::get_version(std::string const& v)
+{
+    size_t index;
+    std::string temp = v;
+    const int vmajor = std::stoi(temp, &index);
+    temp.erase(temp.begin(), temp.begin()+index+1);
+    const int vminor = std::stoi(temp, &index);
+    temp.erase(temp.begin(), temp.begin()+index+1);
+    const int vbug = std::stoi(temp);
+    return vmajor*100+vminor*10+vbug;
 }
 
 
