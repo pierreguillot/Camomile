@@ -69,6 +69,8 @@ namespace pd
         void enqueueDirectMessages(void* object, const std::string& msg);
         void enqueueDirectMessages(void* object, const float msg);
         
+        virtual void messageEnqueued() {};
+        
         void dequeueMessages();
         void processMessages();
         void processPrints();

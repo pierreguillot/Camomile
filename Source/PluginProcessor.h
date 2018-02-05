@@ -56,6 +56,7 @@ public:
     void receiveMidiByte(const int port, const int byte) final;
     void receivePrint(const std::string& message) final;
     
+    void messageEnqueued() final;
     typedef std::pair<std::string, std::string> MessageGui;
     bool dequeueGui(MessageGui& message);
 

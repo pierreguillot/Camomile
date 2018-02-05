@@ -475,6 +475,15 @@ void CamomileAudioProcessor::receivePrint(const std::string& message)
     }
 }
 
+void CamomileAudioProcessor::messageEnqueued()
+{
+    if(isNonRealtime())
+    {
+        dequeueMessages();
+        processMessages();
+    }
+}
+
 //==============================================================================
 bool CamomileAudioProcessor::hasEditor() const
 {
