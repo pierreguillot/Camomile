@@ -6,3 +6,4 @@ bus 2 2;
 code zWrt;
 type effect;
 image Bulgroz.png;
+description Infos.txt;
