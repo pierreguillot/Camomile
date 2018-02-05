@@ -82,7 +82,7 @@ String const& CamoLookAndFeel::getDescription()
     {
         if(CamomileEnvironment::getPatchName() == "Camomile")
         {
-            desc = "Hey! Are you in a hurry? You're not supposed to use the plugin like this ! The Camomile plugin is a meta plugins. It means that the plugin of the Camomile distribution can't be directly loaded in a digital audio workstation but must be used to generate new plugins associated with Pure Data patches that will be loadable in the digital audio workstations. Please Read the documentation to generate your first plugins.";
+            desc = "Hey! Are you in a hurry? You're not supposed to use the plugin like this! The Camomile plugin is a meta plugins. It means that the plugin of the Camomile distribution can't be directly loaded in a digital audio workstation but must be used to generate new plugins associated with Pure Data patches that will be loadable in the digital audio workstations. Please Read the documentation to generate your first plugins.";
         }
         else if(CamomileEnvironment::getPatchDescription().empty())
         {

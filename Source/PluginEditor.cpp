@@ -18,16 +18,8 @@ AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), m_processor (p),
     setOpaque(true);
     setWantsKeyboardFocus(true);
     setInterceptsMouseClicks(true, true);
-    if(p.getPatch().isGraph())
-    {
-        auto bounds = p.getPatch().getBounds();
-        setSize(std::max(bounds[2], 100), std::max(bounds[3], 100));
-    }
-    else
-    {
-        setSize(400, 300);
-    }
-    
+    auto const bounds = p.getPatch().getBounds();
+    setSize(bounds[2] > 0 ? std::max(bounds[2], 100) : 400, bounds[3] > 0 ? std::max(bounds[3], 100) : 300);
     Image const& img = CamoLookAndFeel::getImage();
     if(img.isValid())
     {
@@ -41,11 +33,8 @@ AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), m_processor (p),
                       "background image " + CamomileEnvironment::getImageName() + " is invalid or doesn't exist.");
     }
     
-    if(p.getPatch().isGraph())
-    {
-        for(auto& gui : p.getPatch().getGuis()) {
-            addAndMakeVisible(m_objects.add(PluginEditorObject::createTyped(*this, gui))); }
-    }
+    for(auto& gui : p.getPatch().getGuis()) {
+        addAndMakeVisible(m_objects.add(PluginEditorObject::createTyped(*this, gui))); }
     addAndMakeVisible(m_button);
     startTimer(25);
 }
