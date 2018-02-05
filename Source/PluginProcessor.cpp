@@ -47,18 +47,16 @@ CamomileAudioProcessor::CamomileAudioProcessor() : AudioProcessor(getBusesProper
 m_programs(CamomileEnvironment::getPrograms())
 {
     bind("camomile");
+    add(ConsoleLevel::Normal, std::string("Camomile ") + std::string(JucePlugin_VersionString)
+        + std::string(" for Pd ") + CamomileEnvironment::getPdVersion());
+    for(auto const& error : CamomileEnvironment::getErrors()) {
+        add(ConsoleLevel::Error, std::string("camomile ") + error); }
+    
     if(CamomileEnvironment::isValid())
     {
-        add(ConsoleLevel::Normal,
-            std::string("Camomile ") + std::string(JucePlugin_VersionString) + std::string(" for Pd ") + CamomileEnvironment::getPdVersion());
         m_atoms_param.resize(2);
         m_atoms_playhead.reserve(3);
         m_atoms_playhead.resize(1);
-        for(auto const& error : CamomileEnvironment::getErrors())
-        {
-            add(ConsoleLevel::Error,
-                std::string("camomile ") + error);
-        }
         prepareDSP(getBusesLayout().getMainInputChannelSet().size(),
                    getBusesLayout().getMainOutputChannelSet().size(),
                    getBlockSize() < 64 ? 64 : getBlockSize(), getSampleRate());
