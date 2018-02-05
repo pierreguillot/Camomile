@@ -43,28 +43,20 @@ AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), m_processor (p),
     
     if(p.getPatch().isGraph())
     {
-        auto guis(p.getPatch().getGuis());
-        for(auto& gui : guis)
-        {
-            addAndMakeVisible(m_objects.add(PluginEditorObject::createTyped(*this, gui)));
-        }
+        for(auto& gui : p.getPatch().getGuis()) {
+            addAndMakeVisible(m_objects.add(PluginEditorObject::createTyped(*this, gui))); }
     }
     addAndMakeVisible(m_button);
     startTimer(25);
 }
 
-CamomileEditor::~CamomileEditor()
-{
-    ;
-}
+CamomileEditor::~CamomileEditor() {}
 
 void CamomileEditor::timerCallback()
 {
     CamomileEditorPanelManager::processMessages();
-    for(auto object : m_objects)
-    {
-        object->update();
-    }
+    for(auto object : m_objects) {
+        object->update(); }
 }
 
 
@@ -87,20 +79,14 @@ void CamomileEditor::paint (Graphics& g)
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-bool CamomileEditor::keyPressed(const KeyPress& key)
-{
-    return CamomileEditorKeyManager::keyPressed(key);
-}
+bool CamomileEditor::keyPressed(const KeyPress& key) {
+    return CamomileEditorKeyManager::keyPressed(key); }
 
-bool CamomileEditor::keyStateChanged(bool isKeyDown)
-{
-    return CamomileEditorKeyManager::keyStateChanged(isKeyDown);
-}
+bool CamomileEditor::keyStateChanged(bool isKeyDown) {
+    return CamomileEditorKeyManager::keyStateChanged(isKeyDown); }
 
-void CamomileEditor::modifierKeysChanged(const ModifierKeys& modifiers)
-{
-    CamomileEditorKeyManager::keyModifiersChanged(modifiers);
-}
+void CamomileEditor::modifierKeysChanged(const ModifierKeys& modifiers) {
+    CamomileEditorKeyManager::keyModifiersChanged(modifiers); }
 
 
 
