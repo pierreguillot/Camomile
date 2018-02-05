@@ -27,7 +27,7 @@ AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), m_processor (p),
         m_image.setTransformToFit(getBounds().toType<float>(), RectanglePlacement::stretchToFit);
         addAndMakeVisible(m_image, 0);
     }
-    else
+    else if(!CamomileEnvironment::getImageName().empty())
     {
         p.add(CamomileAudioProcessor::ConsoleLevel::Error,
                       "background image " + CamomileEnvironment::getImageName() + " is invalid or doesn't exist.");
