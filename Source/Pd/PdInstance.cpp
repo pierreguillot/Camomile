@@ -156,6 +156,9 @@ namespace pd
         const int pdblksize = libpd_blocksize();
         m_inputs.resize(pdblksize * nins);
         m_outputs.resize(pdblksize * nouts);
+        std::fill(m_inputs.begin(), m_inputs.end(), 0.f);
+        std::fill(m_outputs.begin(), m_outputs.end(), 0.f);
+        m_advance = 0;
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_init_audio((int)nins, (int)nouts, (int)samplerate);
     }
@@ -171,7 +174,6 @@ namespace pd
     {
         t_atom av;
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        
         libpd_set_float(&av, 0.f);
         libpd_message("pd", "dsp", 1, &av);
     }
@@ -181,18 +183,37 @@ namespace pd
                            const int nouts, float** outputs)
     {
         const int pdblksize = libpd_blocksize();
-        const int nticks    = blksize / pdblksize;
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        for(int i = 0; i < nticks; ++i)
+        if(blksize < pdblksize)
         {
             for(int j = 0; j < nins; ++j)
             {
-                std::copy(inputs[j]+i*pdblksize, inputs[j]+(i+1)*pdblksize, m_inputs.data()+j*pdblksize);
+                std::copy(inputs[j], inputs[j]+blksize, m_inputs.data()+j*pdblksize+m_advance);
             }
-            libpd_process_raw(m_inputs.data(), m_outputs.data());
+            m_advance = (m_advance+blksize)%pdblksize;
+            if(m_advance == 0)
+            {
+                libpd_process_raw(m_inputs.data(), m_outputs.data());
+            }
             for(int j = 0; j < nouts; ++j)
             {
-                std::copy(m_outputs.data()+j*pdblksize, m_outputs.data()+(j+1)*pdblksize, outputs[j]+i*pdblksize);
+                std::copy(m_outputs.data()+j*pdblksize+m_advance, m_outputs.data()+(j+1)*pdblksize+m_advance, outputs[j]);
+            }
+        }
+        else
+        {
+            const int nticks    = blksize / pdblksize;
+            for(int i = 0; i < nticks; ++i)
+            {
+                for(int j = 0; j < nins; ++j)
+                {
+                    std::copy(inputs[j]+i*pdblksize, inputs[j]+(i+1)*pdblksize, m_inputs.data()+j*pdblksize);
+                }
+                libpd_process_raw(m_inputs.data(), m_outputs.data());
+                for(int j = 0; j < nouts; ++j)
+                {
+                    std::copy(m_outputs.data()+j*pdblksize, m_outputs.data()+(j+1)*pdblksize, outputs[j]+i*pdblksize);
+                }
             }
         }
     }

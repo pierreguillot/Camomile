@@ -72,26 +72,17 @@ m_programs(CamomileEnvironment::getPrograms())
             {
                 p = CamomileAudioParameter::parse(params[i]);
             }
-            catch (std::string const& message)
+            catch(std::string const& message)
             {
-                add(ConsoleLevel::Error,
-                    std::string("camomile parameter ") + std::to_string(i+1) + std::string(": ") + message);
+                add(ConsoleLevel::Error, std::string("camomile parameter ") + std::to_string(i+1) + std::string(": ") + message);
             }
-            if(p) addParameter(p);
+            if(p) {
+                addParameter(p); }
         }
         m_params_states.resize(getParameters().size());
         std::fill(m_params_states.begin(), m_params_states.end(), false);
-        
         openPatch(CamomileEnvironment::getPatchPath(), CamomileEnvironment::getPatchName());
         processMessages();
-    }
-    else
-    {
-        for(auto const& error : CamomileEnvironment::getErrors())
-        {
-            add(ConsoleLevel::Error,
-                std::string("camomile ") + error);
-        }
     }
 }
 
@@ -151,26 +142,20 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     AudioChannelSet const inputs  = layouts.getMainInputChannelSet();
     AudioChannelSet const outputs = layouts.getMainOutputChannelSet();
     
-    if(samplesPerBlock < 64)
-    {
-        add(ConsoleLevel::Error,
-            std::string("camomile block size must not be inferior to 64, the DSP won't be proceed."));
-    }
+    if(samplesPerBlock < 64) {
+        add(ConsoleLevel::Error, "DSP block is inferior to 64 samples implying "
+            + std::to_string(64 - samplesPerBlock) + " samples delay.."); }
     prepareDSP(inputs.size(), outputs.size(), samplesPerBlock, sampleRate);
     startDSP();
     
-    String ins_desc     = inputs.getDescription().toLowerCase();
-    String outs_desc    = outputs.getDescription().toLowerCase();
-    if(ins_desc.contains("discrete"))
-    {
-        ins_desc = "discrete";
-    }
-    if(outs_desc.contains("discrete"))
-    {
-        outs_desc = "discrete";
-    }
-    sendMessage(std::string("channels"), std::string("inputs"), {static_cast<float>(inputs.size()), ins_desc.toStdString()});
-    sendMessage(std::string("channels"), std::string("outputs"), {static_cast<float>(outputs.size()), outs_desc.toStdString()});
+    String insdesc  = inputs.getDescription().toLowerCase();
+    String outsdesc = outputs.getDescription().toLowerCase();
+    if(insdesc.contains("discrete")) {
+        insdesc = "discrete"; }
+    if(outsdesc.contains("discrete")) {
+        outsdesc = "discrete"; }
+    sendMessage(std::string("channels"), std::string("inputs"), {static_cast<float>(inputs.size()), insdesc.toStdString()});
+    sendMessage(std::string("channels"), std::string("outputs"), {static_cast<float>(outputs.size()), outsdesc.toStdString()});
     processMessages();
 }
 
@@ -188,14 +173,6 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     const int totalNumInputChannels  = getTotalNumInputChannels();
     const int totalNumOutputChannels = getTotalNumOutputChannels();
     
-    if(numSamples < 64)
-    {
-        for(int i = 0; i < totalNumOutputChannels; ++i)
-        {
-            buffer.clear(i, 0, numSamples);
-        }
-        return;
-    }
     for(int i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
     {
         buffer.clear(i, 0, numSamples);

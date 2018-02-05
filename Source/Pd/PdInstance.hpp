@@ -87,8 +87,9 @@ namespace pd
         void* m_instance    = nullptr;
         void* m_patch       = nullptr;
         void* m_atoms       = nullptr;
-        std::vector<float> m_inputs;
-        std::vector<float> m_outputs;
+        std::vector<float> m_inputs  = std::vector<float>(64);
+        std::vector<float> m_outputs = std::vector<float>(64);
+        int                m_advance = 0;
         
         struct message
         {
