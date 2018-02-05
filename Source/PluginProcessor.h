@@ -57,6 +57,9 @@ public:
     void receivePrint(const std::string& message) final;
     
     void messageEnqueued() final;
+    void updateTrackProperties(const TrackProperties& properties) final;
+    const TrackProperties& getTrackProperties() const { return m_track_properties; }
+    
     typedef std::pair<std::string, std::string> MessageGui;
     bool dequeueGui(MessageGui& message);
 
@@ -80,6 +83,7 @@ private:
     std::vector<std::string> m_programs;
     std::vector<bool>        m_params_states;
     QueueGui                 m_queue_gui = QueueGui(64);
+    TrackProperties          m_track_properties;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)
 };

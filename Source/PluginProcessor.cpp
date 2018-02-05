@@ -512,6 +512,11 @@ void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBy
     }
 }
 
+void CamomileAudioProcessor::updateTrackProperties(const TrackProperties& properties)
+{
+    m_track_properties = properties;
+}
+
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new CamomileAudioProcessor();

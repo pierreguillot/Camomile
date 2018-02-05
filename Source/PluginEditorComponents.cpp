@@ -111,6 +111,8 @@ void CamomileEditorButton::clicked()
     {
         m_window->toFront(true);
         m_window->grabKeyboardFocus();
+        if(m_processor.getTrackProperties().name.isNotEmpty()) {
+            m_window->setName(CamomileEnvironment::getPluginName() + ": " + m_processor.getTrackProperties().name); }
     }
     else
     {
@@ -124,7 +126,10 @@ void CamomileEditorButton::clicked()
             tc->setTabBarDepth(24);
             
             m_window->setContentOwned(tc, false);
-            m_window->setName(CamomileEnvironment::getPluginName());
+            if(m_processor.getTrackProperties().name.isNotEmpty()) {
+                m_window->setName(CamomileEnvironment::getPluginName() + ": " + m_processor.getTrackProperties().name); }
+            else {
+                m_window->setName(CamomileEnvironment::getPluginName()); }
             m_window->addToDesktop();
             m_window->toFront(true);
             m_window->grabKeyboardFocus();

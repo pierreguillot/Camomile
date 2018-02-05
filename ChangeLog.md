@@ -14,6 +14,8 @@ v1.0.2
 - Display patch description
 - Add support for compatibility versions (plugin's version of the patch <= plugin's version used)
 - Add support for block size inferior to 64 samples (implies delay)
+- Add support for non-real time processing
+- Improve name of the UI Window
 
 v1.0.1
 - Fix thread concurrency issue that occurred when selecting a program (#77).
