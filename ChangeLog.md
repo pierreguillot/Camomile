@@ -12,6 +12,7 @@ v1.0.2
 - Floating Window always on top
 - Floating Window with tabs (Console/Patch/Camomile)
 - Display patch description
+- Add support for compatibility versions (plugin's version of the patch <= plugin's version used)
 
 v1.0.1
 - Fix thread concurrency issue that occurred when selecting a program (#77).
