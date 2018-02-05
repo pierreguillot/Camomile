@@ -7,3 +7,4 @@ code zWrt;
 type effect;
 image Bulgroz.png;
 description Infos.txt;
+compatibility 1.0.2;
