@@ -28,6 +28,7 @@
 *.component
 *.vst
 *.vst3
+*.lv2
 
 # Mac Xcode
 *.xcuserstate
@@ -36,6 +37,7 @@
 # Juce & ThirdParty
 /Builds/MacOSX/build/
 /Builds/LinuxMakefile/build/
+/Builds/.backup/
 
 #Examples
 /Plugins/Examples/GuyMoquet/
