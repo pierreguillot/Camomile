@@ -1,4 +1,4 @@
-#N canvas 78 38 1343 757 10;
+#N canvas 761 52 1343 757 10;
 #X obj 88 493 notein, f 8;
 #X obj 110 545 pack;
 #X obj 110 567 s \$0-note;
@@ -2337,9 +2337,9 @@
 #X restore 220 553 pd synthesizers;
 #X obj 31 69 hradio 15 1 0 7 \$0-osc1-hr-s \$0-osc1-hr-r empty 0 -8
 0 10 -262144 -1 -1 6;
-#X obj 34 319 hsl 100 15 0 100 0 0 \$0-osc-mod-1-s \$0-osc-mod-1 empty
+#X obj 34 259 hsl 100 15 0 100 0 0 \$0-osc-mod-1-s \$0-osc-mod-1 empty
 -2 -8 0 10 -262144 -1 -1 0 1;
-#X obj 34 359 hsl 100 15 0 100 0 0 \$0-osc-volume-1-s \$0-osc-volume-1
+#X obj 34 299 hsl 100 15 0 100 0 0 \$0-osc-volume-1-s \$0-osc-volume-1
 empty -2 -8 0 10 -262144 -1 -1 0 1;
 #X obj 156 69 hradio 15 1 0 7 \$0-osc2-hr-s \$0-osc2-hr-r empty 0 -8
 0 10 -262144 -1 -1 0;
@@ -2633,8 +2633,8 @@ empty -2 -8 0 10 -262144 -1 -1 0 1;
 #X obj 345 541 param.get 39;
 #X text 31 48 Waveform;
 #X text 443 49 Waveform;
-#X text 31 300 Modulation %;
-#X text 31 340 Volume dB;
+#X text 31 240 Modulation %;
+#X text 31 280 Volume dB;
 #X text 443 89 Rate Hz;
 #X text 443 169 Modulation %;
 #X text 653 49 Minimum Hz;
@@ -3231,16 +3231,16 @@ Rectangular/Narrow Rectangular/Reverse Sawtooth \;;
 #X obj 606 660 param.get 2;
 #X obj 649 680 param.get 3;
 #X obj 692 702 param.get 4;
-#X floatatom 33 126 2 -4 4 0 - #0-osc1-oct-nbx-r #0-osc1-oct-nbx-s
-, f 2;
 #X obj 30 457 pitch/gui \$0-osc1;
-#X floatatom 54 126 3 -11 11 0 - #0-osc1-hto-nbx-r #0-osc1-hto-nbx-s
+#X floatatom 82 110 3 0 0 0 - #0-osc1-htone-nbx-r #0-osc1-htone-nbx-s
 , f 3;
-#X floatatom 81 126 4 -100 100 0 - #0-osc1-cent-nbx-r #0-osc1-cent-nbx-s
+#X floatatom 109 110 4 0 0 0 - #0-osc1-cent-nbx-r #0-osc1-cent-nbx-s
 , f 4;
-#X text 46 127 .;
-#X text 73 127 .;
-#X text 31 109 Pitch;
+#X text 74 111 .;
+#X text 101 111 .;
+#X text 11 109 Pitch;
+#X floatatom 61 110 2 -4 4 0 - #0-osc1-oct-nbx-r #0-osc1-oct-nbx-s
+, f 2;
 #X connect 0 0 13 0;
 #X connect 0 1 13 1;
 #X connect 1 0 2 0;
