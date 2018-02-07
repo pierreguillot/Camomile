@@ -40,6 +40,8 @@
 /Builds/.backup/
 
 #Examples
-/Plugins/Examples/GuyMoquet/
-/Plugins/Examples/SampleRateTester/
-/Plugins/Examples/Nox2FX/
+/Plugins/Examples/*
+!/Plugins/Examples/AlmondOrgan/
+!/Plugins/Examples/Bulgroz/
+!/Plugins/Examples/Castafiore/
+!/Plugins/Examples/MiniMock/
