@@ -16,6 +16,7 @@ v1.0.2
 - Add support for block size inferior to 64 samples (implies delay)
 - Add support for non-real time processing
 - Improve name of the UI Window
+- Fix the FFT objects for multithreading support
 
 v1.0.1
 - Fix thread concurrency issue that occurred when selecting a program (#77).
