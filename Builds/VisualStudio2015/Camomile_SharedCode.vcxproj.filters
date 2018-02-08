@@ -5,14 +5,20 @@
     <Filter Include="Camomile\Source\Pd">
       <UniqueIdentifier>{2EC11BD7-CEBB-B832-8CB3-D70D257E2DEE}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Camomile\Source\Gui\Images">
-      <UniqueIdentifier>{022F0A36-E2F4-E01D-C08B-1555FE3DF0AC}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Camomile\Source\Gui">
-      <UniqueIdentifier>{3AF8F85C-58F5-53F7-00C3-F524890FB4C3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Camomile\Source">
       <UniqueIdentifier>{33E9C75D-FCFD-D74A-6894-584B92DA1489}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camomile\Ressources\Credits">
+      <UniqueIdentifier>{A6E39D94-22B8-E2C9-3999-ABA3C7B5B10D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camomile\Ressources\Images">
+      <UniqueIdentifier>{1A007D8C-60F3-4DC7-2209-EED5AE781656}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camomile\Ressources\Polices">
+      <UniqueIdentifier>{3E79AD8E-CF7E-8227-08EE-67ECCB0DA4A3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camomile\Ressources">
+      <UniqueIdentifier>{60196A5C-D261-843B-7545-3666A27AF9DC}</UniqueIdentifier>
     </Filter>
     <Filter Include="Camomile">
       <UniqueIdentifier>{AE2AEEA8-98A7-4FFF-924A-E091915F5128}</UniqueIdentifier>
@@ -379,7 +385,19 @@
     <ClCompile Include="..\..\Source\PluginEditor.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PluginInformation.cpp">
+    <ClCompile Include="..\..\Source\PluginEditorInteraction.cpp">
+      <Filter>Camomile\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\PluginEditorComponents.cpp">
+      <Filter>Camomile\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\PluginEditorConsole.cpp">
+      <Filter>Camomile\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\PluginEditorObject.cpp">
+      <Filter>Camomile\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\PluginLookAndFeel.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Pd\PdInstance.cpp">
@@ -393,18 +411,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Pd\x_libpd_multi.c">
       <Filter>Camomile\Source\Pd</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\Gui.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\GuiConsole.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\GuiObject.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Gui\LookAndFeel.cpp">
-      <Filter>Camomile\Source\Gui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <Filter>Juce Modules\juce_audio_basics\buffers</Filter>
@@ -2196,7 +2202,19 @@
     <ClInclude Include="..\..\Source\PluginEditor.h">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\PluginInformation.h">
+    <ClInclude Include="..\..\Source\PluginEditorInteraction.h">
+      <Filter>Camomile\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\PluginEditorComponents.h">
+      <Filter>Camomile\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\PluginEditorConsole.hpp">
+      <Filter>Camomile\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\PluginEditorObject.hpp">
+      <Filter>Camomile\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\PluginLookAndFeel.hpp">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Pd\PdInstance.hpp">
@@ -2210,18 +2228,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Pd\x_libpd_multi.h">
       <Filter>Camomile\Source\Pd</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\Gui.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\GuiConsole.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\GuiObject.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Gui\LookAndFeel.hpp">
-      <Filter>Camomile\Source\Gui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
       <Filter>Juce Modules\juce_audio_basics\audio_play_head</Filter>
@@ -4091,29 +4097,35 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Ressources\Polices\DejaVuSansMono.ttf">
-      <Filter>Camomile\Source\Gui\Images</Filter>
+    <None Include="..\..\Ressources\Credits\CreditsAU">
+      <Filter>Camomile\Ressources\Credits</Filter>
     </None>
-    <None Include="..\..\Ressources\Images\flower_center.png">
-      <Filter>Camomile\Source\Gui\Images</Filter>
-    </None>
-    <None Include="..\..\Ressources\Images\flower_petals.png">
-      <Filter>Camomile\Source\Gui\Images</Filter>
+    <None Include="..\..\Ressources\Credits\CreditsVST">
+      <Filter>Camomile\Ressources\Credits</Filter>
     </None>
     <None Include="..\..\Ressources\Images\clear1.png">
-      <Filter>Camomile\Source\Gui\Images</Filter>
+      <Filter>Camomile\Ressources\Images</Filter>
     </None>
     <None Include="..\..\Ressources\Images\clear2.png">
-      <Filter>Camomile\Source\Gui\Images</Filter>
+      <Filter>Camomile\Ressources\Images</Filter>
     </None>
     <None Include="..\..\Ressources\Images\copy1.png">
-      <Filter>Camomile\Source\Gui\Images</Filter>
+      <Filter>Camomile\Ressources\Images</Filter>
     </None>
     <None Include="..\..\Ressources\Images\copy2.png">
-      <Filter>Camomile\Source\Gui\Images</Filter>
+      <Filter>Camomile\Ressources\Images</Filter>
+    </None>
+    <None Include="..\..\Ressources\Images\flower_center.png">
+      <Filter>Camomile\Ressources\Images</Filter>
+    </None>
+    <None Include="..\..\Ressources\Images\flower_petals.png">
+      <Filter>Camomile\Ressources\Images</Filter>
     </None>
     <None Include="..\..\Ressources\Images\option.png">
-      <Filter>Camomile\Source\Gui\Images</Filter>
+      <Filter>Camomile\Ressources\Images</Filter>
+    </None>
+    <None Include="..\..\Ressources\Polices\DejaVuSansMono.ttf">
+      <Filter>Camomile\Ressources\Polices</Filter>
     </None>
     <None Include="..\..\Juce\modules\juce_audio_formats\codecs\flac\Flac Licence.txt">
       <Filter>Juce Modules\juce_audio_formats\codecs\flac</Filter>

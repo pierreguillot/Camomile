@@ -1,5 +1,5 @@
 /*
- // Copyright (c) 2015-2017 Pierre Guillot.
+ // Copyright (c) 2015-2018 Pierre Guillot.
  // For information on usage and redistribution, and for a DISCLAIMER OF ALL
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
@@ -39,8 +39,6 @@ std::string CamomileEnvironment::getPatchPath() { return get().patch_path; }
 
 std::string CamomileEnvironment::getPatchName() { return get().patch_name; }
 
-std::string CamomileEnvironment::getPatchCredits() { return get().patch_credits; }
-
 std::string CamomileEnvironment::getPatchDescription() { return get().plugin_desc; }
 
 std::string CamomileEnvironment::getImageName() { return get().image_name; }
@@ -69,6 +67,8 @@ bool CamomileEnvironment::isMidiOnly() { return get().midi_only; }
 float CamomileEnvironment::getTailLengthSeconds() { return get().tail_length_sec; }
 
 int CamomileEnvironment::getLatencySamples() { return get().latency_samples; }
+
+bool CamomileEnvironment::wantsKey() { return get().key_support; }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                          PROGRAMS                                        //
@@ -259,6 +259,13 @@ CamomileEnvironment::CamomileEnvironment()
                             midi_only = CamomileParser::getBool(entry.second);
                             state.set(init_midi_only);
                         }
+                        else if(entry.first == "key")
+                        {
+                            if(state.test(init_key))
+                                throw std::string("already defined");
+                            key_support = CamomileParser::getBool(entry.second);
+                            state.set(init_key);
+                        }
                         else if(entry.first == "latency")
                         {
                             if(state.test(init_latency))
@@ -293,6 +300,13 @@ CamomileEnvironment::CamomileEnvironment()
                                 throw std::string("already defined");
                             plugin_desc = CamomileParser::getString(entry.second);
                             state.set(init_desc);
+                        }
+                        else if(entry.first == "compatibility")
+                        {
+                            if(state.test(init_compatibilty))
+                                throw std::string("already defined");
+                            plugin_version = CamomileParser::getString(entry.second);
+                            state.set(init_compatibilty);
                         }
                         else if(entry.first == "type")
                         {
@@ -334,6 +348,25 @@ CamomileEnvironment::CamomileEnvironment()
         }
     }
     
+    if(!state.test(init_compatibilty))
+    {
+        errors.push_back("compatibility not defined.");
+    }
+    else
+    {
+        size_t vpatch = 0, vplugin = 0;
+        try {
+            vpatch = get_version(plugin_version);
+            vplugin = get_version(JucePlugin_VersionString);
+        }
+        catch(...) {
+            errors.push_back("compatibility version wrong syntax, should be \"major.minor.bug\".");
+        }
+        if(vpatch > vplugin)
+        {
+            errors.push_back("patch has been created for a newer version of the plugin v" + plugin_version);
+        }
+    }
     if(programs.empty())
     {
         programs.push_back("");
@@ -342,6 +375,18 @@ CamomileEnvironment::CamomileEnvironment()
     {
         buses.push_back({2, 2});
     }
+}
+
+size_t CamomileEnvironment::get_version(std::string const& v)
+{
+    size_t index;
+    std::string temp = v;
+    const int vmajor = std::stoi(temp, &index);
+    temp.erase(temp.begin(), temp.begin()+index+1);
+    const int vminor = std::stoi(temp, &index);
+    temp.erase(temp.begin(), temp.begin()+index+1);
+    const int vbug = std::stoi(temp);
+    return vmajor*100+vminor*10+vbug;
 }
 
 

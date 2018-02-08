@@ -176,7 +176,7 @@
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>..\..\VST;..\..\JuceLibraryCode;..\..\Juce\modules;../../libpd/pure-data/src;../../libpd/libpd_wrapper;../../libpd/libpd_wrapper/util;../../libpd/cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;HAVE_UNISTD_H=1;JucePlugin_IsSynth=1;PD_LONGINTTYPE=long long;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.1;JUCE_APP_VERSION_HEX=0x10001;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;HAVE_UNISTD_H=1;JucePlugin_IsSynth=1;PD_LONGINTTYPE=long long;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.2;JUCE_APP_VERSION_HEX=0x10002;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -223,7 +223,7 @@
     <ClCompile>
       <Optimization>Full</Optimization>
       <AdditionalIncludeDirectories>..\..\VST;..\..\JuceLibraryCode;..\..\Juce\modules;../../libpd/pure-data/src;../../libpd/libpd_wrapper;../../libpd/libpd_wrapper/util;../../libpd/cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;HAVE_UNISTD_H=1;JucePlugin_IsSynth=1;PD_LONGINTTYPE=long long;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.1;JUCE_APP_VERSION_HEX=0x10001;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;HAVE_UNISTD_H=1;JucePlugin_IsSynth=1;PD_LONGINTTYPE=long long;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.2;JUCE_APP_VERSION_HEX=0x10002;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -273,7 +273,7 @@
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>..\..\VST;..\..\JuceLibraryCode;..\..\Juce\modules;../../libpd/pure-data/src;../../libpd/libpd_wrapper;../../libpd/libpd_wrapper/util;../../libpd/cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;HAVE_UNISTD_H=1;PD_LONGINTTYPE=long long;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.1;JUCE_APP_VERSION_HEX=0x10001;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;HAVE_UNISTD_H=1;PD_LONGINTTYPE=long long;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.2;JUCE_APP_VERSION_HEX=0x10002;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -320,7 +320,7 @@
     <ClCompile>
       <Optimization>Full</Optimization>
       <AdditionalIncludeDirectories>..\..\VST;..\..\JuceLibraryCode;..\..\Juce\modules;../../libpd/pure-data/src;../../libpd/libpd_wrapper;../../libpd/libpd_wrapper/util;../../libpd/cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;HAVE_UNISTD_H=1;PD_LONGINTTYPE=long long;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.1;JUCE_APP_VERSION_HEX=0x10001;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;HAVE_UNISTD_H=1;PD_LONGINTTYPE=long long;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.2;JUCE_APP_VERSION_HEX=0x10002;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -370,7 +370,7 @@
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>..\..\VST;..\..\JuceLibraryCode;..\..\Juce\modules;../../libpd/pure-data/src;../../libpd/libpd_wrapper;../../libpd/libpd_wrapper/util;../../libpd/cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;HAVE_UNISTD_H=1;JucePlugin_IsSynth=1;PD_LONGINTTYPE=long long;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.1;JUCE_APP_VERSION_HEX=0x10001;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;HAVE_UNISTD_H=1;JucePlugin_IsSynth=1;PD_LONGINTTYPE=long long;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.2;JUCE_APP_VERSION_HEX=0x10002;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -421,7 +421,7 @@
     <ClCompile>
       <Optimization>Full</Optimization>
       <AdditionalIncludeDirectories>..\..\VST;..\..\JuceLibraryCode;..\..\Juce\modules;../../libpd/pure-data/src;../../libpd/libpd_wrapper;../../libpd/libpd_wrapper/util;../../libpd/cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;HAVE_UNISTD_H=1;JucePlugin_IsSynth=1;PD_LONGINTTYPE=long long;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.1;JUCE_APP_VERSION_HEX=0x10001;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;HAVE_UNISTD_H=1;JucePlugin_IsSynth=1;PD_LONGINTTYPE=long long;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.2;JUCE_APP_VERSION_HEX=0x10002;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -475,7 +475,7 @@
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>..\..\VST;..\..\JuceLibraryCode;..\..\Juce\modules;../../libpd/pure-data/src;../../libpd/libpd_wrapper;../../libpd/libpd_wrapper/util;../../libpd/cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;HAVE_UNISTD_H=1;PD_LONGINTTYPE=long long;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.1;JUCE_APP_VERSION_HEX=0x10001;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;HAVE_UNISTD_H=1;PD_LONGINTTYPE=long long;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.2;JUCE_APP_VERSION_HEX=0x10002;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -526,7 +526,7 @@
     <ClCompile>
       <Optimization>Full</Optimization>
       <AdditionalIncludeDirectories>..\..\VST;..\..\JuceLibraryCode;..\..\Juce\modules;../../libpd/pure-data/src;../../libpd/libpd_wrapper;../../libpd/libpd_wrapper/util;../../libpd/cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;HAVE_UNISTD_H=1;PD_LONGINTTYPE=long long;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.1;JUCE_APP_VERSION_HEX=0x10001;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;HAVE_UNISTD_H=1;PD_LONGINTTYPE=long long;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.2;JUCE_APP_VERSION_HEX=0x10002;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -574,15 +574,15 @@
     <ClCompile Include="..\..\Source\PluginParser.cpp"/>
     <ClCompile Include="..\..\Source\PluginParameter.cpp"/>
     <ClCompile Include="..\..\Source\PluginEditor.cpp"/>
-    <ClCompile Include="..\..\Source\PluginInformation.cpp"/>
+    <ClCompile Include="..\..\Source\PluginEditorInteraction.cpp"/>
+    <ClCompile Include="..\..\Source\PluginEditorComponents.cpp"/>
+    <ClCompile Include="..\..\Source\PluginEditorConsole.cpp"/>
+    <ClCompile Include="..\..\Source\PluginEditorObject.cpp"/>
+    <ClCompile Include="..\..\Source\PluginLookAndFeel.cpp"/>
     <ClCompile Include="..\..\Source\Pd\PdInstance.cpp"/>
     <ClCompile Include="..\..\Source\Pd\PdPatch.cpp"/>
     <ClCompile Include="..\..\Source\Pd\PdObject.cpp"/>
     <ClCompile Include="..\..\Source\Pd\x_libpd_multi.c"/>
-    <ClCompile Include="..\..\Source\Gui\Gui.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\GuiConsole.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\GuiObject.cpp"/>
-    <ClCompile Include="..\..\Source\Gui\LookAndFeel.cpp"/>
     <ClCompile Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -2221,15 +2221,15 @@
     <ClInclude Include="..\..\Source\PluginParameter.h"/>
     <ClInclude Include="..\..\Source\PluginConsole.h"/>
     <ClInclude Include="..\..\Source\PluginEditor.h"/>
-    <ClInclude Include="..\..\Source\PluginInformation.h"/>
+    <ClInclude Include="..\..\Source\PluginEditorInteraction.h"/>
+    <ClInclude Include="..\..\Source\PluginEditorComponents.h"/>
+    <ClInclude Include="..\..\Source\PluginEditorConsole.hpp"/>
+    <ClInclude Include="..\..\Source\PluginEditorObject.hpp"/>
+    <ClInclude Include="..\..\Source\PluginLookAndFeel.hpp"/>
     <ClInclude Include="..\..\Source\Pd\PdInstance.hpp"/>
     <ClInclude Include="..\..\Source\Pd\PdPatch.hpp"/>
     <ClInclude Include="..\..\Source\Pd\PdObject.hpp"/>
     <ClInclude Include="..\..\Source\Pd\x_libpd_multi.h"/>
-    <ClInclude Include="..\..\Source\Gui\Gui.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\GuiConsole.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\GuiObject.hpp"/>
-    <ClInclude Include="..\..\Source\Gui\LookAndFeel.hpp"/>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h"/>
     <ClInclude Include="..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h"/>
@@ -2854,14 +2854,16 @@
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h"/>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Ressources\Polices\DejaVuSansMono.ttf"/>
-    <None Include="..\..\Ressources\Images\flower_center.png"/>
-    <None Include="..\..\Ressources\Images\flower_petals.png"/>
+    <None Include="..\..\Ressources\Credits\CreditsAU"/>
+    <None Include="..\..\Ressources\Credits\CreditsVST"/>
     <None Include="..\..\Ressources\Images\clear1.png"/>
     <None Include="..\..\Ressources\Images\clear2.png"/>
     <None Include="..\..\Ressources\Images\copy1.png"/>
     <None Include="..\..\Ressources\Images\copy2.png"/>
+    <None Include="..\..\Ressources\Images\flower_center.png"/>
+    <None Include="..\..\Ressources\Images\flower_petals.png"/>
     <None Include="..\..\Ressources\Images\option.png"/>
+    <None Include="..\..\Ressources\Polices\DejaVuSansMono.ttf"/>
     <None Include="..\..\Juce\modules\juce_audio_formats\codecs\flac\Flac Licence.txt"/>
     <None Include="..\..\Juce\modules\juce_audio_formats\codecs\oggvorbis\Ogg Vorbis Licence.txt"/>
     <None Include="..\..\Juce\modules\juce_graphics\image_formats\jpglib\changes to libjpeg for JUCE.txt"/>

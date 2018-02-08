@@ -1,219 +1,216 @@
 #N canvas 412 35 999 807 10;
-#X text 435 80 16';
-#X text 435 101 5'1/3;
-#X text 435 121 8';
-#X text 435 141 4';
-#X text 435 161 2'2/3;
-#X text 435 182 2';
-#X text 435 201 1'3/5;
-#X text 435 221 1'1/3;
-#X text 435 241 1';
-#X text 677 80 16';
-#X text 677 100 5'1/3;
-#X text 677 120 8';
-#X text 677 140 4';
-#X text 677 160 2'2/3;
-#X text 677 181 2';
-#X text 677 200 1'3/5;
-#X text 677 220 1'1/3;
-#X text 677 240 1';
-#X obj 18 80 hsl 128 15 0 100 0 0 \$0-attack-sld-s \$0-attack-sld-r
-empty -2 -8 0 10 -195023 -1 -1 2540 1;
-#X obj 18 112 hsl 128 15 0 1000 0 0 \$0-decay-sld-s \$0-decay-sld-r
-empty -2 -8 0 10 -195023 -1 -1 762 1;
-#X obj 18 176 hsl 128 15 0 1000 0 0 \$0-release-sld-s \$0-release-sld-r
-empty -2 -8 0 10 -195023 -1 -1 508 1;
-#X obj 153 80 nbx 5 15 0 100 0 0 \$0-attack-nbx-s \$0-attack-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 20 256;
-#X obj 153 112 nbx 5 15 0 1000 0 0 \$0-decay-nbx-s \$0-decay-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 60 256;
-#X obj 153 176 nbx 5 15 0 1000 0 0 \$0-release-nbx-s \$0-release-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 40 256;
-#X obj 18 144 hsl 128 15 0 100 0 0 \$0-sustain-sld-s \$0-sustain-sld-r
-empty -2 -8 0 10 -195023 -1 -1 4100 1;
-#X obj 153 144 nbx 5 15 0 100 0 0 \$0-sustain-nbx-s \$0-sustain-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 32.2835 256;
-#X obj 16 765 dac~, f 13;
-#X obj 152 241 nbx 5 15 0 100 0 0 \$0-overdrive-nbx-s \$0-overdrive-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 0 256;
-#X obj 16 273 hsl 128 15 0 15 0 0 \$0-leslie-rate-sld-s \$0-leslie-rate-sld-r
+#X text 435 67 16';
+#X text 435 88 5'1/3;
+#X text 435 108 8';
+#X text 435 128 4';
+#X text 435 148 2'2/3;
+#X text 435 169 2';
+#X text 435 188 1'3/5;
+#X text 435 208 1'1/3;
+#X text 435 228 1';
+#X text 677 67 16';
+#X text 677 87 5'1/3;
+#X text 677 107 8';
+#X text 677 127 4';
+#X text 677 147 2'2/3;
+#X text 677 168 2';
+#X text 677 187 1'3/5;
+#X text 677 207 1'1/3;
+#X text 677 227 1';
+#X obj 18 67 hsl 128 15 0 100 0 0 \$0-attack-sld-s \$0-attack-sld-r
 empty -2 -8 0 10 -195023 -1 -1 0 1;
-#X obj 151 273 nbx 5 15 0 15 0 0 \$0-leslie-rate-nbx-s \$0-leslie-rate-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 0 256;
-#X obj 16 305 hsl 128 15 0 100 0 0 \$0-volume-sld-s \$0-volume-sld-r
+#X obj 18 99 hsl 128 15 0 1000 0 0 \$0-decay-sld-s \$0-decay-sld-r
 empty -2 -8 0 10 -195023 -1 -1 0 1;
-#X obj 151 305 nbx 5 15 0 100 0 0 \$0-volume-nbx-s \$0-volume-nbx-r
+#X obj 18 163 hsl 128 15 0 1000 0 0 \$0-release-sld-s \$0-release-sld-r
+empty -2 -8 0 10 -195023 -1 -1 0 1;
+#X obj 153 67 nbx 5 15 0 100 0 0 \$0-attack-nbx-s \$0-attack-nbx-r
 empty 0 -8 0 10 -195023 -1 -1 0 256;
-#X obj 627 614 param.change;
-#X obj 243 80 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-1-sld-s
-\$0-harmonic-percussive-1-sld-r empty -2 -8 0 10 -195023 -1 -1 12700
-1;
-#X obj 243 101 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-2-sld-s
-\$0-harmonic-percussive-2-sld-r empty -2 -8 0 10 -195023 -1 -1 12700
-1;
-#X obj 243 121 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-3-sld-s
-\$0-harmonic-percussive-3-sld-r empty -2 -8 0 10 -195023 -1 -1 12700
-1;
-#X obj 243 141 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-4-sld-s
-\$0-harmonic-percussive-4-sld-r empty -2 -8 0 10 -195023 -1 -1 12700
-1;
-#X obj 243 161 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-5-sld-s
+#X obj 153 99 nbx 5 15 0 1000 0 0 \$0-decay-nbx-s \$0-decay-nbx-r empty
+0 -8 0 10 -195023 -1 -1 0 256;
+#X obj 153 163 nbx 5 15 0 1000 0 0 \$0-release-nbx-s \$0-release-nbx-r
+empty 0 -8 0 10 -195023 -1 -1 0 256;
+#X obj 18 131 hsl 128 15 0 100 0 0 \$0-sustain-sld-s \$0-sustain-sld-r
+empty -2 -8 0 10 -195023 -1 -1 0 1;
+#X obj 153 131 nbx 5 15 0 100 0 0 \$0-sustain-nbx-s \$0-sustain-nbx-r
+empty 0 -8 0 10 -195023 -1 -1 0 256;
+#X obj 16 752 dac~, f 13;
+#X obj 152 228 nbx 5 15 0 100 0 0 \$0-overdrive-nbx-s \$0-overdrive-nbx-r
+empty 0 -8 0 10 -195023 -1 -1 0 256;
+#X obj 16 260 hsl 128 15 0 15 0 0 \$0-leslie-rate-sld-s \$0-leslie-rate-sld-r
+empty -2 -8 0 10 -195023 -1 -1 0 1;
+#X obj 151 260 nbx 5 15 0 15 0 0 \$0-leslie-rate-nbx-s \$0-leslie-rate-nbx-r
+empty 0 -8 0 10 -195023 -1 -1 0 256;
+#X obj 16 292 hsl 128 15 0 100 0 0 \$0-volume-sld-s \$0-volume-sld-r
+empty -2 -8 0 10 -195023 -1 -1 0 1;
+#X obj 151 292 nbx 5 15 0 100 0 0 \$0-volume-nbx-s \$0-volume-nbx-r
+empty 0 -8 0 10 -195023 -1 -1 0 256;
+#X obj 627 601 param.change;
+#X obj 243 67 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-1-sld-s
+\$0-harmonic-percussive-1-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
+;
+#X obj 243 88 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-2-sld-s
+\$0-harmonic-percussive-2-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
+;
+#X obj 243 108 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-3-sld-s
+\$0-harmonic-percussive-3-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
+;
+#X obj 243 128 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-4-sld-s
+\$0-harmonic-percussive-4-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
+;
+#X obj 243 148 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-5-sld-s
 \$0-harmonic-percussive-5-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
 ;
-#X obj 243 181 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-6-sld-s
+#X obj 243 168 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-6-sld-s
 \$0-harmonic-percussive-6-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
 ;
-#X obj 243 201 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-7-sld-s
+#X obj 243 188 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-7-sld-s
 \$0-harmonic-percussive-7-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
 ;
-#X obj 243 221 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-8-sld-s
+#X obj 243 208 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-8-sld-s
 \$0-harmonic-percussive-8-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
 ;
-#X obj 243 241 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-9-sld-s
+#X obj 243 228 hsl 128 15 0 100 0 0 \$0-harmonic-percussive-9-sld-s
 \$0-harmonic-percussive-9-sld-r empty -2 -8 0 10 -195023 -1 -1 0 1
 ;
-#X obj 378 80 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-1-nbx-s \$0-harmonic-percussive-1-nbx-r
-empty -8 0 0 10 -195023 -1 -195023 100 256;
-#X obj 378 101 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-2-nbx-s \$0-harmonic-percussive-2-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 100 256;
-#X obj 378 121 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-3-nbx-s \$0-harmonic-percussive-3-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 100 256;
-#X obj 378 141 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-4-nbx-s \$0-harmonic-percussive-4-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 100 256;
-#X obj 378 161 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-5-nbx-s \$0-harmonic-percussive-5-nbx-r
+#X obj 378 67 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-1-nbx-s \$0-harmonic-percussive-1-nbx-r
+empty -8 0 0 10 -195023 -1 -195023 0 256;
+#X obj 378 88 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-2-nbx-s \$0-harmonic-percussive-2-nbx-r
 empty 0 -8 0 10 -195023 -1 -1 0 256;
-#X obj 378 181 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-6-nbx-s \$0-harmonic-percussive-6-nbx-r
+#X obj 378 108 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-3-nbx-s \$0-harmonic-percussive-3-nbx-r
 empty 0 -8 0 10 -195023 -1 -1 0 256;
-#X obj 378 201 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-7-nbx-s \$0-harmonic-percussive-7-nbx-r
+#X obj 378 128 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-4-nbx-s \$0-harmonic-percussive-4-nbx-r
 empty 0 -8 0 10 -195023 -1 -1 0 256;
-#X obj 378 221 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-8-nbx-s \$0-harmonic-percussive-8-nbx-r
+#X obj 378 148 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-5-nbx-s \$0-harmonic-percussive-5-nbx-r
 empty 0 -8 0 10 -195023 -1 -1 0 256;
-#X obj 378 241 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-9-nbx-s \$0-harmonic-percussive-9-nbx-r
+#X obj 378 168 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-6-nbx-s \$0-harmonic-percussive-6-nbx-r
 empty 0 -8 0 10 -195023 -1 -1 0 256;
-#X obj 485 80 hsl 128 15 0 100 0 0 \$0-harmonic-organ-1-sld-s \$0-harmonic-organ-1-sld-r
-empty -2 -8 0 10 -195023 -1 -1 12700 1;
-#X obj 485 100 hsl 128 15 0 100 0 0 \$0-harmonic-organ-2-sld-s \$0-harmonic-organ-2-sld-r
-empty -2 -8 0 10 -195023 -1 -1 12700 1;
-#X obj 485 120 hsl 128 15 0 100 0 0 \$0-harmonic-organ-3-sld-s \$0-harmonic-organ-3-sld-r
-empty -2 -8 0 10 -195023 -1 -1 12700 1;
-#X obj 485 140 hsl 128 15 0 100 0 0 \$0-harmonic-organ-4-sld-s \$0-harmonic-organ-4-sld-r
-empty -2 -8 0 10 -195023 -1 -1 12700 1;
-#X obj 485 160 hsl 128 15 0 100 0 0 \$0-harmonic-organ-5-sld-s \$0-harmonic-organ-5-sld-r
+#X obj 378 188 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-7-nbx-s \$0-harmonic-percussive-7-nbx-r
+empty 0 -8 0 10 -195023 -1 -1 0 256;
+#X obj 378 208 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-8-nbx-s \$0-harmonic-percussive-8-nbx-r
+empty 0 -8 0 10 -195023 -1 -1 0 256;
+#X obj 378 228 nbx 5 15 0 100 0 0 \$0-harmonic-percussive-9-nbx-s \$0-harmonic-percussive-9-nbx-r
+empty 0 -8 0 10 -195023 -1 -1 0 256;
+#X obj 485 67 hsl 128 15 0 100 0 0 \$0-harmonic-organ-1-sld-s \$0-harmonic-organ-1-sld-r
 empty -2 -8 0 10 -195023 -1 -1 0 1;
-#X obj 485 180 hsl 128 15 0 100 0 0 \$0-harmonic-organ-6-sld-s \$0-harmonic-organ-6-sld-r
+#X obj 485 87 hsl 128 15 0 100 0 0 \$0-harmonic-organ-2-sld-s \$0-harmonic-organ-2-sld-r
 empty -2 -8 0 10 -195023 -1 -1 0 1;
-#X obj 485 200 hsl 128 15 0 100 0 0 \$0-harmonic-organ-7-sld-s \$0-harmonic-organ-7-sld-r
+#X obj 485 107 hsl 128 15 0 100 0 0 \$0-harmonic-organ-3-sld-s \$0-harmonic-organ-3-sld-r
 empty -2 -8 0 10 -195023 -1 -1 0 1;
-#X obj 485 220 hsl 128 15 0 100 0 0 \$0-harmonic-organ-8-sld-s \$0-harmonic-organ-8-sld-r
+#X obj 485 127 hsl 128 15 0 100 0 0 \$0-harmonic-organ-4-sld-s \$0-harmonic-organ-4-sld-r
 empty -2 -8 0 10 -195023 -1 -1 0 1;
-#X obj 485 240 hsl 128 15 0 100 0 0 \$0-harmonic-organ-9-sld-s \$0-harmonic-organ-9-sld-r
+#X obj 485 147 hsl 128 15 0 100 0 0 \$0-harmonic-organ-5-sld-s \$0-harmonic-organ-5-sld-r
 empty -2 -8 0 10 -195023 -1 -1 0 1;
-#X obj 621 80 nbx 5 15 0 100 0 0 \$0-harmonic-organ-1-nbx-s \$0-harmonic-organ-1-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 100 256;
-#X obj 621 100 nbx 5 15 0 100 0 0 \$0-harmonic-organ-2-nbx-s \$0-harmonic-organ-2-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 100 256;
-#X obj 621 120 nbx 5 15 0 100 0 0 \$0-harmonic-organ-3-nbx-s \$0-harmonic-organ-3-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 100 256;
-#X obj 621 140 nbx 5 15 0 100 0 0 \$0-harmonic-organ-4-nbx-s \$0-harmonic-organ-4-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 100 256;
-#X obj 621 160 nbx 5 15 0 100 0 0 \$0-harmonic-organ-5-nbx-s \$0-harmonic-organ-5-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 0 256;
-#X obj 621 180 nbx 5 15 0 100 0 0 \$0-harmonic-organ-6-nbx-s \$0-harmonic-organ-6-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 0 256;
-#X obj 621 200 nbx 5 15 0 100 0 0 \$0-harmonic-organ-7-nbx-s \$0-harmonic-organ-7-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 0 256;
-#X obj 621 220 nbx 5 15 0 100 0 0 \$0-harmonic-organ-8-nbx-s \$0-harmonic-organ-8-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 0 256;
-#X obj 621 240 nbx 5 15 0 100 0 0 \$0-harmonic-organ-9-nbx-s \$0-harmonic-organ-9-nbx-r
-empty 0 -8 0 10 -195023 -1 -1 0 256;
-#X obj 17 241 hsl 128 15 0 100 0 0 \$0-overdrive-sld-s \$0-overdrive-sld-r
+#X obj 485 167 hsl 128 15 0 100 0 0 \$0-harmonic-organ-6-sld-s \$0-harmonic-organ-6-sld-r
 empty -2 -8 0 10 -195023 -1 -1 0 1;
-#X text 12 225 Overdrive;
-#X text 11 257 Leslie LFO rate;
-#X text 207 273 Hz;
-#X text 207 305 dB;
-#X text 11 289 Volume;
-#X text 208 80 ms;
-#X text 13 64 Attack;
-#X text 208 112 ms;
-#X text 13 96 Decay;
-#X text 208 144 %;
-#X text 13 128 Sustain;
-#X text 208 176 ms;
-#X text 13 160 Release;
-#X text 208 241 %;
-#X obj 16 671 overdrive~;
-#X obj 73 650 r \$0-overdrive;
-#X obj 16 716 leslie~;
-#X obj 55 695 r \$0-leslie-rate;
-#X obj 16 740 volume~, f 13;
-#X obj 92 718 r \$0-volume;
-#X obj 16 378 notein, f 22;
-#X obj 16 449 pack f f f, f 11;
-#X obj 80 404 / 127;
-#X obj 129 413 array define \$0-wf-1 2051;
-#X obj 129 434 array define \$0-wf-2 2051;
-#X obj 16 621 *~ 0.0631;
-#X obj 75 556 r \$0-attack;
-#X msg 75 577 all \$1;
-#X msg 134 538 all \$1;
-#X obj 134 517 r \$0-decay;
-#X msg 193 558 all \$1;
-#X obj 193 537 r \$0-sustain;
-#X msg 253 578 all \$1;
-#X obj 253 557 r \$0-release;
-#X obj 32 474 r playhead;
-#X obj 32 495 route playing;
-#X obj 32 536 sel 0;
-#X msg 32 557 all 0;
-#X obj 588 425 gui.link 17 \$0-harmonic-organ-1;
-#X obj 32 516 change;
-#X obj 358 623 midi.ctrl.link 1 7 \$0-leslie-rate 8.46667;
-#X obj 358 643 midi.ctrl.link 2 6 \$0-overdrive 1.27;
-#X obj 358 663 midi.ctrl.link 7 1 \$0-volume 1.27;
-#X obj 16 427 poly 12 1, f 11;
-#X text 13 48 Envelope;
-#X text 12 211 Effects;
-#X text 223 27 A twelve voices synthesizer inpired by the Hammond organ
-;
-#X text 238 48 Harmonics;
-#X text 238 61 Percussion;
-#X text 478 61 Organ;
-#X text 293 14 Almond Organ by Pierre Guillot;
-#X obj 358 585 gui.link 16 \$0-harmonic-percussive-9;
-#X obj 627 655 gui.link 3 \$0-decay;
-#X obj 627 635 gui.link 2 \$0-attack;
-#X obj 627 735 gui.link 6 \$0-overdrive;
-#X obj 627 775 gui.link 1 \$0-volume;
-#X obj 627 675 gui.link 4 \$0-sustain;
-#X obj 627 695 gui.link 5 \$0-release;
-#X obj 627 755 gui.link 7 \$0-leslie-rate;
-#X obj 358 425 gui.link 8 \$0-harmonic-percussive-1;
-#X obj 358 445 gui.link 9 \$0-harmonic-percussive-2;
-#X obj 358 465 gui.link 10 \$0-harmonic-percussive-3;
-#X obj 358 485 gui.link 11 \$0-harmonic-percussive-4;
-#X obj 358 505 gui.link 12 \$0-harmonic-percussive-5;
-#X obj 358 525 gui.link 13 \$0-harmonic-percussive-6;
-#X obj 358 545 gui.link 14 \$0-harmonic-percussive-7;
-#X obj 358 565 gui.link 15 \$0-harmonic-percussive-8;
-#X obj 588 445 gui.link 18 \$0-harmonic-organ-2;
-#X obj 588 465 gui.link 19 \$0-harmonic-organ-3;
-#X obj 588 485 gui.link 20 \$0-harmonic-organ-4;
-#X obj 588 505 gui.link 21 \$0-harmonic-organ-5;
-#X obj 588 525 gui.link 22 \$0-harmonic-organ-6;
-#X obj 588 545 gui.link 23 \$0-harmonic-organ-7;
-#X obj 588 565 gui.link 24 \$0-harmonic-organ-8;
-#X obj 588 585 gui.link 25 \$0-harmonic-organ-9;
-#X obj 768 322 text define -k \$0-programs;
+#X obj 485 187 hsl 128 15 0 100 0 0 \$0-harmonic-organ-7-sld-s \$0-harmonic-organ-7-sld-r
+empty -2 -8 0 10 -195023 -1 -1 0 1;
+#X obj 485 207 hsl 128 15 0 100 0 0 \$0-harmonic-organ-8-sld-s \$0-harmonic-organ-8-sld-r
+empty -2 -8 0 10 -195023 -1 -1 0 1;
+#X obj 485 227 hsl 128 15 0 100 0 0 \$0-harmonic-organ-9-sld-s \$0-harmonic-organ-9-sld-r
+empty -2 -8 0 10 -195023 -1 -1 0 1;
+#X obj 621 67 nbx 5 15 0 100 0 0 \$0-harmonic-organ-1-nbx-s \$0-harmonic-organ-1-nbx-r
+empty 0 -8 0 10 -195023 -1 -1 0 256;
+#X obj 621 87 nbx 5 15 0 100 0 0 \$0-harmonic-organ-2-nbx-s \$0-harmonic-organ-2-nbx-r
+empty 0 -8 0 10 -195023 -1 -1 0 256;
+#X obj 621 107 nbx 5 15 0 100 0 0 \$0-harmonic-organ-3-nbx-s \$0-harmonic-organ-3-nbx-r
+empty 0 -8 0 10 -195023 -1 -1 0 256;
+#X obj 621 127 nbx 5 15 0 100 0 0 \$0-harmonic-organ-4-nbx-s \$0-harmonic-organ-4-nbx-r
+empty 0 -8 0 10 -195023 -1 -1 0 256;
+#X obj 621 147 nbx 5 15 0 100 0 0 \$0-harmonic-organ-5-nbx-s \$0-harmonic-organ-5-nbx-r
+empty 0 -8 0 10 -195023 -1 -1 0 256;
+#X obj 621 167 nbx 5 15 0 100 0 0 \$0-harmonic-organ-6-nbx-s \$0-harmonic-organ-6-nbx-r
+empty 0 -8 0 10 -195023 -1 -1 0 256;
+#X obj 621 187 nbx 5 15 0 100 0 0 \$0-harmonic-organ-7-nbx-s \$0-harmonic-organ-7-nbx-r
+empty 0 -8 0 10 -195023 -1 -1 0 256;
+#X obj 621 207 nbx 5 15 0 100 0 0 \$0-harmonic-organ-8-nbx-s \$0-harmonic-organ-8-nbx-r
+empty 0 -8 0 10 -195023 -1 -1 0 256;
+#X obj 621 227 nbx 5 15 0 100 0 0 \$0-harmonic-organ-9-nbx-s \$0-harmonic-organ-9-nbx-r
+empty 0 -8 0 10 -195023 -1 -1 0 256;
+#X obj 17 228 hsl 128 15 0 100 0 0 \$0-overdrive-sld-s \$0-overdrive-sld-r
+empty -2 -8 0 10 -195023 -1 -1 0 1;
+#X text 12 212 Overdrive;
+#X text 11 244 Leslie LFO rate;
+#X text 207 260 Hz;
+#X text 207 292 dB;
+#X text 11 276 Volume;
+#X text 208 67 ms;
+#X text 13 51 Attack;
+#X text 208 99 ms;
+#X text 13 83 Decay;
+#X text 208 131 %;
+#X text 13 115 Sustain;
+#X text 208 163 ms;
+#X text 13 147 Release;
+#X text 208 228 %;
+#X obj 16 658 overdrive~;
+#X obj 73 637 r \$0-overdrive;
+#X obj 16 703 leslie~;
+#X obj 55 682 r \$0-leslie-rate;
+#X obj 16 727 volume~, f 13;
+#X obj 92 705 r \$0-volume;
+#X obj 16 365 notein, f 22;
+#X obj 16 436 pack f f f, f 11;
+#X obj 80 391 / 127;
+#X obj 129 400 array define \$0-wf-1 2051;
+#X obj 129 421 array define \$0-wf-2 2051;
+#X obj 16 608 *~ 0.0631;
+#X obj 75 543 r \$0-attack;
+#X msg 75 564 all \$1;
+#X msg 134 525 all \$1;
+#X obj 134 504 r \$0-decay;
+#X msg 193 545 all \$1;
+#X obj 193 524 r \$0-sustain;
+#X msg 253 565 all \$1;
+#X obj 253 544 r \$0-release;
+#X obj 32 461 r playhead;
+#X obj 32 482 route playing;
+#X obj 32 523 sel 0;
+#X msg 32 544 all 0;
+#X obj 588 412 gui.link 17 \$0-harmonic-organ-1;
+#X obj 32 503 change;
+#X obj 358 610 midi.ctrl.link 1 7 \$0-leslie-rate 8.46667;
+#X obj 358 630 midi.ctrl.link 2 6 \$0-overdrive 1.27;
+#X obj 358 650 midi.ctrl.link 7 1 \$0-volume 1.27;
+#X obj 16 414 poly 12 1, f 11;
+#X text 13 35 Envelope;
+#X text 12 198 Effects;
+#X text 238 35 Harmonics;
+#X text 238 48 Percussion;
+#X text 478 48 Organ;
+#X obj 358 572 gui.link 16 \$0-harmonic-percussive-9;
+#X obj 627 642 gui.link 3 \$0-decay;
+#X obj 627 622 gui.link 2 \$0-attack;
+#X obj 627 722 gui.link 6 \$0-overdrive;
+#X obj 627 762 gui.link 1 \$0-volume;
+#X obj 627 662 gui.link 4 \$0-sustain;
+#X obj 627 682 gui.link 5 \$0-release;
+#X obj 627 742 gui.link 7 \$0-leslie-rate;
+#X obj 358 412 gui.link 8 \$0-harmonic-percussive-1;
+#X obj 358 432 gui.link 9 \$0-harmonic-percussive-2;
+#X obj 358 452 gui.link 10 \$0-harmonic-percussive-3;
+#X obj 358 472 gui.link 11 \$0-harmonic-percussive-4;
+#X obj 358 492 gui.link 12 \$0-harmonic-percussive-5;
+#X obj 358 512 gui.link 13 \$0-harmonic-percussive-6;
+#X obj 358 532 gui.link 14 \$0-harmonic-percussive-7;
+#X obj 358 552 gui.link 15 \$0-harmonic-percussive-8;
+#X obj 588 432 gui.link 18 \$0-harmonic-organ-2;
+#X obj 588 452 gui.link 19 \$0-harmonic-organ-3;
+#X obj 588 472 gui.link 20 \$0-harmonic-organ-4;
+#X obj 588 492 gui.link 21 \$0-harmonic-organ-5;
+#X obj 588 512 gui.link 22 \$0-harmonic-organ-6;
+#X obj 588 532 gui.link 23 \$0-harmonic-organ-7;
+#X obj 588 552 gui.link 24 \$0-harmonic-organ-8;
+#X obj 588 572 gui.link 25 \$0-harmonic-organ-9;
+#X obj 768 309 text define -k \$0-programs;
 #A set empty 20 60 80 40 0 0 100 100 100 100 0 0 0 0 0 100 100 100
 100 0 0 0 0 0 \; empty 20 60 100 40 0 0 100 100 100 100 0 0 0 100 100
 100 100 100 100 0 0 0 100 100 \; empty 10 500 40 40 0 1.2 100 100 100
 75 50 37.5 25 0 0 100 100 100 75 50 37.5 25 0 0 \; empty 20 20 100
 40 0 0.2 100 62.5 0 0 0 62.5 0 0 0 100 62.5 0 0 0 62.5 0 0 0 \;;
-#X obj 767 345 program.manager \$0-programs;
-#X obj 16 600 clone -s 1 12 voice~ \$0-wf-1 \$0-wf-2, f 40;
-#X obj 358 383 harmonic.fill \$0-wf-1 \$0-harmonic-percussive;
-#X obj 358 403 harmonic.fill \$0-wf-2 \$0-harmonic-organ;
+#X obj 767 332 program.manager \$0-programs;
+#X obj 16 587 clone -s 1 12 voice~ \$0-wf-1 \$0-wf-2, f 40;
+#X obj 358 370 harmonic.fill \$0-wf-1 \$0-harmonic-percussive;
+#X obj 358 390 harmonic.fill \$0-wf-2 \$0-harmonic-organ;
 #X connect 84 0 86 0;
 #X connect 85 0 84 1;
 #X connect 86 0 88 0;
@@ -224,24 +221,24 @@ empty -2 -8 0 10 -195023 -1 -1 0 1;
 #X connect 89 0 88 2;
 #X connect 90 0 113 0;
 #X connect 90 1 92 0;
-#X connect 91 0 147 0;
+#X connect 91 0 145 0;
 #X connect 92 0 113 1;
 #X connect 95 0 84 0;
 #X connect 96 0 97 0;
-#X connect 97 0 147 1;
-#X connect 98 0 147 2;
+#X connect 97 0 145 1;
+#X connect 98 0 145 2;
 #X connect 99 0 98 0;
-#X connect 100 0 147 3;
+#X connect 100 0 145 3;
 #X connect 101 0 100 0;
-#X connect 102 0 147 4;
+#X connect 102 0 145 4;
 #X connect 103 0 102 0;
 #X connect 104 0 105 0;
 #X connect 105 0 109 0;
 #X connect 106 0 107 0;
-#X connect 107 0 147 0;
+#X connect 107 0 145 0;
 #X connect 109 0 106 0;
 #X connect 113 0 91 0;
 #X connect 113 1 91 1;
 #X connect 113 2 91 2;
-#X connect 147 0 95 0;
+#X connect 145 0 95 0;
 #X coords 0 -1 1 1 721 324 2 5 5;

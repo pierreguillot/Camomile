@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="Kpq9Ee" name="Camomile" displaySplashScreen="1" reportAppUsage="1"
-              splashScreenColour="Dark" projectType="audioplug" version="1.0.1"
+              splashScreenColour="Dark" projectType="audioplug" version="1.0.2"
               bundleIdentifier="com.pierreguillot.camomile" includeBinaryInAppConfig="1"
               cppLanguageStandard="11" companyCopyright="Pierre Guillot" buildVST="1"
               buildVST3="1" buildAU="1" buildAUv3="0" buildRTAS="0" buildAAX="0"
@@ -34,10 +34,26 @@
       <FILE id="JHFkLz" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="z4zHjj" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
-      <FILE id="qY0A4K" name="PluginInformation.cpp" compile="1" resource="0"
-            file="Source/PluginInformation.cpp"/>
-      <FILE id="QjVgv2" name="PluginInformation.h" compile="0" resource="0"
-            file="Source/PluginInformation.h"/>
+      <FILE id="iT9w9i" name="PluginEditorInteraction.cpp" compile="1" resource="0"
+            file="Source/PluginEditorInteraction.cpp"/>
+      <FILE id="VMgVwd" name="PluginEditorInteraction.h" compile="0" resource="0"
+            file="Source/PluginEditorInteraction.h"/>
+      <FILE id="WsuQgc" name="PluginEditorComponents.cpp" compile="1" resource="0"
+            file="Source/PluginEditorComponents.cpp"/>
+      <FILE id="DApFBS" name="PluginEditorComponents.h" compile="0" resource="0"
+            file="Source/PluginEditorComponents.h"/>
+      <FILE id="pGz50D" name="PluginEditorConsole.cpp" compile="1" resource="0"
+            file="Source/PluginEditorConsole.cpp"/>
+      <FILE id="uVYmTN" name="PluginEditorConsole.hpp" compile="0" resource="0"
+            file="Source/PluginEditorConsole.hpp"/>
+      <FILE id="J8G7cd" name="PluginEditorObject.cpp" compile="1" resource="0"
+            file="Source/PluginEditorObject.cpp"/>
+      <FILE id="XYPAph" name="PluginEditorObject.hpp" compile="0" resource="0"
+            file="Source/PluginEditorObject.hpp"/>
+      <FILE id="vKsIZ0" name="PluginLookAndFeel.cpp" compile="1" resource="0"
+            file="Source/PluginLookAndFeel.cpp"/>
+      <FILE id="VcbIOu" name="PluginLookAndFeel.hpp" compile="0" resource="0"
+            file="Source/PluginLookAndFeel.hpp"/>
       <GROUP id="{72E9D6C6-B562-FE98-40C6-9583CB880B4E}" name="Pd">
         <FILE id="sArtFN" name="PdInstance.cpp" compile="1" resource="0" file="Source/Pd/PdInstance.cpp"/>
         <FILE id="RjbKYs" name="PdInstance.hpp" compile="0" resource="0" file="Source/Pd/PdInstance.hpp"/>
@@ -48,28 +64,26 @@
         <FILE id="Uukbo7" name="x_libpd_multi.c" compile="1" resource="0" file="Source/Pd/x_libpd_multi.c"/>
         <FILE id="NF0MrF" name="x_libpd_multi.h" compile="0" resource="0" file="Source/Pd/x_libpd_multi.h"/>
       </GROUP>
-      <GROUP id="{5C1EE5CB-809C-59DA-56DD-12FB142BFA60}" name="Gui">
-        <FILE id="mLSqQZ" name="Gui.cpp" compile="1" resource="0" file="Source/Gui/Gui.cpp"/>
-        <FILE id="JG41BR" name="Gui.hpp" compile="0" resource="0" file="Source/Gui/Gui.hpp"/>
-        <FILE id="NQYjA5" name="GuiConsole.cpp" compile="1" resource="0" file="Source/Gui/GuiConsole.cpp"/>
-        <FILE id="hTBXkJ" name="GuiConsole.hpp" compile="0" resource="0" file="Source/Gui/GuiConsole.hpp"/>
-        <FILE id="TyR3AO" name="GuiObject.cpp" compile="1" resource="0" file="Source/Gui/GuiObject.cpp"/>
-        <FILE id="EcJ4Oh" name="GuiObject.hpp" compile="0" resource="0" file="Source/Gui/GuiObject.hpp"/>
-        <FILE id="W44AmC" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/Gui/LookAndFeel.cpp"/>
-        <FILE id="o78U0B" name="LookAndFeel.hpp" compile="0" resource="0" file="Source/Gui/LookAndFeel.hpp"/>
-        <GROUP id="{6873846F-DFEA-EC58-A5B0-6EA454DBC562}" name="Images">
-          <FILE id="XBlGur" name="DejaVuSansMono.ttf" compile="0" resource="1"
-                file="Ressources/Polices/DejaVuSansMono.ttf"/>
-          <FILE id="gRUYXd" name="flower_center.png" compile="0" resource="1"
-                file="Ressources/Images/flower_center.png"/>
-          <FILE id="FRtPN4" name="flower_petals.png" compile="0" resource="1"
-                file="Ressources/Images/flower_petals.png"/>
-          <FILE id="mKyoNS" name="clear1.png" compile="0" resource="1" file="Ressources/Images/clear1.png"/>
-          <FILE id="r6HGK1" name="clear2.png" compile="0" resource="1" file="Ressources/Images/clear2.png"/>
-          <FILE id="EFTHRL" name="copy1.png" compile="0" resource="1" file="Ressources/Images/copy1.png"/>
-          <FILE id="R1CG4i" name="copy2.png" compile="0" resource="1" file="Ressources/Images/copy2.png"/>
-          <FILE id="f8orVk" name="option.png" compile="0" resource="1" file="Ressources/Images/option.png"/>
-        </GROUP>
+    </GROUP>
+    <GROUP id="{F3E95E26-375E-BDC8-C48D-8BFDD754028C}" name="Ressources">
+      <GROUP id="{4C642A19-4C7E-354A-3CA5-FF3CA080A50D}" name="Credits">
+        <FILE id="kQuQYm" name="CreditsAU" compile="0" resource="1" file="Ressources/Credits/CreditsAU"/>
+        <FILE id="SnaiVJ" name="CreditsVST" compile="0" resource="1" file="Ressources/Credits/CreditsVST"/>
+      </GROUP>
+      <GROUP id="{841D6A4F-6B7E-B658-5EED-5BDDF9B8CEF3}" name="Images">
+        <FILE id="iu60vP" name="clear1.png" compile="0" resource="1" file="Ressources/Images/clear1.png"/>
+        <FILE id="TooGdB" name="clear2.png" compile="0" resource="1" file="Ressources/Images/clear2.png"/>
+        <FILE id="eHb0h7" name="copy1.png" compile="0" resource="1" file="Ressources/Images/copy1.png"/>
+        <FILE id="IUTkg2" name="copy2.png" compile="0" resource="1" file="Ressources/Images/copy2.png"/>
+        <FILE id="QiXrH2" name="flower_center.png" compile="0" resource="1"
+              file="Ressources/Images/flower_center.png"/>
+        <FILE id="NGmBWC" name="flower_petals.png" compile="0" resource="1"
+              file="Ressources/Images/flower_petals.png"/>
+        <FILE id="JHzbJa" name="option.png" compile="0" resource="1" file="Ressources/Images/option.png"/>
+      </GROUP>
+      <GROUP id="{9C58406C-231A-D778-A142-80E210DE0081}" name="Polices">
+        <FILE id="uabWQL" name="DejaVuSansMono.ttf" compile="0" resource="1"
+              file="Ressources/Polices/DejaVuSansMono.ttf"/>
       </GROUP>
     </GROUP>
   </MAINGROUP>

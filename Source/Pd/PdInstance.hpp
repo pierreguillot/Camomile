@@ -1,5 +1,5 @@
 /*
- // Copyright (c) 2015-2017 Pierre Guillot.
+ // Copyright (c) 2015-2018 Pierre Guillot.
  // For information on usage and redistribution, and for a DISCLAIMER OF ALL
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
@@ -29,6 +29,7 @@ namespace pd
         virtual ~Instance();
         
         void prepareDSP(const int nins, const int nouts, const int blksize, const double samplerate);
+        void startDSP();
         void releaseDSP();
         void performDSP(const int blksize, const int nins, float const** inputs, const int nouts, float** outputs);
         
@@ -68,6 +69,8 @@ namespace pd
         void enqueueDirectMessages(void* object, const std::string& msg);
         void enqueueDirectMessages(void* object, const float msg);
         
+        virtual void messageEnqueued() {};
+        
         void dequeueMessages();
         void processMessages();
         void processPrints();
@@ -86,8 +89,9 @@ namespace pd
         void* m_instance    = nullptr;
         void* m_patch       = nullptr;
         void* m_atoms       = nullptr;
-        std::vector<float> m_inputs;
-        std::vector<float> m_outputs;
+        std::vector<float> m_inputs  = std::vector<float>(64);
+        std::vector<float> m_outputs = std::vector<float>(64);
+        int                m_advance = 0;
         
         struct message
         {

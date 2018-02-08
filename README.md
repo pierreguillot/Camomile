@@ -1,8 +1,8 @@
 # Camomile
 
-Camomile is a set of plugins with [Pure Data](http://msp.ucsd.edu/software.html) embedded. The plugins offer to load and to control patches inside a digital audio workstation. The plugins are available as VST, VST3 and Audio Unit for Windows, Linux and Mac.
+Camomile is a plugin with Pure Data embedded that offers to load and to control patches inside a digital audio workstation. The plugin is available as VST, VST3 and Audio Unit for Windows, Linux and MacOS.
 
-![](https://user-images.githubusercontent.com/1409918/34719274-79ba3c9e-f53a-11e7-8124-2a9e7e953537.png)
+![](https://user-images.githubusercontent.com/1409918/35470969-05182302-0353-11e8-90b5-d37450206adf.png)
 
 [![Travis](https://img.shields.io/travis/pierreguillot/Camomile.svg?label=travis)](https://travis-ci.org/pierreguillot/Camomile)  
 [![Appveyor](https://img.shields.io/appveyor/ci/pierreguillot/Camomile.svg?label=appveyor)](https://ci.appveyor.com/project/pierreguillot/camomile/history)  

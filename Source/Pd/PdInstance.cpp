@@ -1,5 +1,5 @@
 /*
- // Copyright (c) 2015-2017 Pierre Guillot.
+ // Copyright (c) 2015-2018 Pierre Guillot.
  // For information on usage and redistribution, and for a DISCLAIMER OF ALL
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
@@ -100,6 +100,9 @@ extern "C"
             ptr->m_midi_queue.try_enqueue({midievent::MIDIBYTE, port, byte, 0});
         }
         
+        //////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////
+        
         static void instance_multi_print(pd::Instance* ptr, char* s)
         {
             ptr->m_print_queue.try_enqueue(std::string(s));
@@ -150,13 +153,19 @@ namespace pd
 
     void Instance::prepareDSP(const int nins, const int nouts, const int blksize, const double samplerate)
     {
-        t_atom av;
-        m_inputs.resize(blksize * nins);
-        m_outputs.resize(blksize * nouts);
-        
+        const int pdblksize = libpd_blocksize();
+        m_inputs.resize(pdblksize * nins);
+        m_outputs.resize(pdblksize * nouts);
+        std::fill(m_inputs.begin(), m_inputs.end(), 0.f);
+        std::fill(m_outputs.begin(), m_outputs.end(), 0.f);
+        m_advance = 0;
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_init_audio((int)nins, (int)nouts, (int)samplerate);
-
+    }
+    
+    void Instance::startDSP()
+    {
+        t_atom av;
         libpd_set_float(&av, 1.f);
         libpd_message("pd", "dsp", 1, &av);
     }
@@ -165,8 +174,7 @@ namespace pd
     {
         t_atom av;
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        
-        libpd_set_float(&av, 1.f);
+        libpd_set_float(&av, 0.f);
         libpd_message("pd", "dsp", 1, &av);
     }
     
@@ -174,20 +182,38 @@ namespace pd
                            const int nins, float const** inputs,
                            const int nouts, float** outputs)
     {
-        for(int i = 0; i < nins; ++i)
+        const int pdblksize = libpd_blocksize();
+        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
+        if(blksize < pdblksize)
         {
-            for(int j = 0; j < blksize; ++j)
+            for(int j = 0; j < nins; ++j)
             {
-                m_inputs[j*nins+i] = inputs[i][j];
+                std::copy(inputs[j], inputs[j]+blksize, m_inputs.data()+j*pdblksize+m_advance);
+            }
+            m_advance = (m_advance+blksize)%pdblksize;
+            if(m_advance == 0)
+            {
+                libpd_process_raw(m_inputs.data(), m_outputs.data());
+            }
+            for(int j = 0; j < nouts; ++j)
+            {
+                std::copy(m_outputs.data()+j*pdblksize+m_advance, m_outputs.data()+(j+1)*pdblksize+m_advance, outputs[j]);
             }
         }
-        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        libpd_process_float(blksize / 64, m_inputs.data(), m_outputs.data());
-        for(int i = 0; i < nouts; ++i)
+        else
         {
-            for(int j = 0; j < blksize; ++j)
+            const int nticks    = blksize / pdblksize;
+            for(int i = 0; i < nticks; ++i)
             {
-                outputs[i][j] = m_outputs[j*nouts+i];
+                for(int j = 0; j < nins; ++j)
+                {
+                    std::copy(inputs[j]+i*pdblksize, inputs[j]+(i+1)*pdblksize, m_inputs.data()+j*pdblksize);
+                }
+                libpd_process_raw(m_inputs.data(), m_outputs.data());
+                for(int j = 0; j < nouts; ++j)
+                {
+                    std::copy(m_outputs.data()+j*pdblksize, m_outputs.data()+(j+1)*pdblksize, outputs[j]+i*pdblksize);
+                }
             }
         }
     }
@@ -340,26 +366,42 @@ namespace pd
     
     void Instance::processPrints()
     {
+        std::string temp;
         std::string print;
         while(m_print_queue.try_dequeue(print))
         {
-            receivePrint(print);
+            if(print.back() == '\n')
+            {
+                while(print.back() == '\n' || print.back() == ' ') {
+                    print.pop_back();
+                }
+                temp += print;
+                receivePrint(temp);
+                temp.clear();
+            }
+            else
+            {
+                temp += print;
+            }
         }
     }
     
     void Instance::enqueueMessages(const std::string& dest, const std::string& msg, std::vector<Atom>&& list)
     {
         m_send_queue.try_enqueue({nullptr, dest, msg, std::move(list)});
+        messageEnqueued();
     }
     
     void Instance::enqueueDirectMessages(void* object, const std::string& msg)
     {
         m_send_queue.try_enqueue({object, std::string(), std::string(), std::vector<Atom>(1, msg)});
+        messageEnqueued();
     }
     
     void Instance::enqueueDirectMessages(void* object, const float msg)
     {
         m_send_queue.try_enqueue({object, std::string(), std::string(), std::vector<Atom>(1, msg)});
+        messageEnqueued();
     }
     
     void Instance::dequeueMessages()

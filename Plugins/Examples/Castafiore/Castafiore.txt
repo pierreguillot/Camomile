@@ -7,3 +7,5 @@ bus 2 2;
 code zUrt;
 type effect;
 image Castafiore.png;
+description Infos.txt;
+compatibility 1.0.2;

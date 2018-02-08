@@ -221,7 +221,7 @@ generate_plugin_au() {
         cp -rf $2/$3/ $ThisPath/Builds/$3.$AuExtension/Contents/Resources
         plutil -replace CFBundleName -string $3 $ThisPath/Builds/$3.$AuExtension/Contents/Info.plist
         plutil -replace CFBundleDisplayName -string $3 $ThisPath/Builds/$3.$AuExtension/Contents/Info.plist
-        plutil -replace AudioComponents.name -string $3 $ThisPath/Builds/$3.$AuExtension/Contents/Info.plist
+        plutil -replace AudioComponents.name -string "Pierre Guillot: $3" $ThisPath/Builds/$3.$AuExtension/Contents/Info.plist
         plutil -replace AudioComponents.subtype -string $code $ThisPath/Builds/$3.$AuExtension/Contents/Info.plist
         echo -n $AuExtension
     else

@@ -1,5 +1,5 @@
 /*
- // Copyright (c) 2015-2017 Pierre Guillot.
+ // Copyright (c) 2015-2018 Pierre Guillot.
  // For information on usage and redistribution, and for a DISCLAIMER OF ALL
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
@@ -86,6 +86,9 @@ public:
     //! @brief Gets the latency in samples.
     static int getLatencySamples();
     
+    //! @brief Gets if the patch wants Key events.
+    static bool wantsKey();
+    
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                      PROGRAMS                                        //
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -105,22 +108,24 @@ public:
 private:
     static CamomileEnvironment& get();
     bool localize();
+    static size_t get_version(std::string const& v);
     CamomileEnvironment();
     
     std::string     plugin_name = "Camomile";
     std::string     plugin_path = "";
-    std::string     plugin_desc = "A plugin that loads Pure Data patches";
+    std::string     plugin_desc = "";
     unsigned int    plugin_code = 0x4b707139;
+    std::string     plugin_version  = "";
     std::string     patch_name  = "Camomile.pd";
     std::string     patch_path  = "";
-    std::string     patch_credits = "";
     std::string     image_name  = "";
     bool            valid       = false;
-    std::bitset<11>  state;
+    std::bitset<12>  state;
     
     bool    midi_in_support   = false;
     bool    midi_out_support  = false;
-    int     play_head_level = 0;
+    bool    key_support       = false;
+    int     play_head_level   = 0;
     bool    midi_only         = false;
     float   tail_length_sec   = 0.f;
     int     latency_samples   = 0;
@@ -143,6 +148,7 @@ private:
         init_image      = 7,
         init_type       = 8,
         init_desc       = 9,
-        init_credits    = 10
+        init_key        = 10,
+        init_compatibilty = 11
     };
 };

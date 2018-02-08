@@ -1,34 +1,26 @@
 /*
- // Copyright (c) 2015 Pierre Guillot.
+ // Copyright (c) 2015-2018 Pierre Guillot.
  // For information on usage and redistribution, and for a DISCLAIMER OF ALL
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
 #pragma once
 
-#include "../../JuceLibraryCode/JuceHeader.h"
-#include "../Pd/PdObject.hpp"
+#include "PluginEditorInteraction.h"
+#include "Pd/PdObject.hpp"
 #include <atomic>
-
-class GuiPatch
-{
-public:
-    virtual ~GuiPatch() {}
-    virtual void startEdition() = 0;
-    virtual void stopEdition() = 0;
-};
 
 // ==================================================================================== //
 //                                      GUI OBJECT                                      //
 // ==================================================================================== //
 
-class GuiObject : public virtual Component
+class PluginEditorObject : public virtual Component
 {
 public:
-    GuiObject(GuiPatch& p, pd::Gui& g);
-    virtual ~GuiObject();
+    PluginEditorObject(CamomileEditorMouseManager& p, pd::Gui& g);
+    virtual ~PluginEditorObject();
     
-    static GuiObject* createTyped(GuiPatch& p, pd::Gui& g);
+    static PluginEditorObject* createTyped(CamomileEditorMouseManager& p, pd::Gui& g);
     virtual void update();
 protected:
     float getValueOriginal() const noexcept;
@@ -40,86 +32,86 @@ protected:
     void stopEdition() noexcept;
     
     pd::Gui     gui;
-    GuiPatch&   patch;
+    CamomileEditorMouseManager&   patch;
     std::atomic<bool> edited;
     float       value   = 0;
     float       min     = 0;
     float       max     = 1;
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GuiObject)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PluginEditorObject)
 };
 
-class GuiBang : public GuiObject
+class GuiBang : public PluginEditorObject
 {
 public:
-    GuiBang(GuiPatch& p, pd::Gui& g) : GuiObject(p, g) {}
+    GuiBang(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g) {}
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
     void mouseUp(const MouseEvent& e) final;
 };
 
-class GuiToggle : public GuiObject
+class GuiToggle : public PluginEditorObject
 {
 public:
-    GuiToggle(GuiPatch& p, pd::Gui& g) : GuiObject(p, g) {}
+    GuiToggle(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g) {}
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
 };
 
-class GuiSliderHorizontal : public GuiObject
+class GuiSliderHorizontal : public PluginEditorObject
 {
 public:
-    GuiSliderHorizontal(GuiPatch& p, pd::Gui& g) : GuiObject(p, g) {}
+    GuiSliderHorizontal(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g) {}
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
     void mouseDrag(const MouseEvent& e) final;
     void mouseUp(const MouseEvent& e) final;
 };
 
-class GuiSliderVertical : public GuiObject
+class GuiSliderVertical : public PluginEditorObject
 {
 public:
-    GuiSliderVertical(GuiPatch& p, pd::Gui& g) : GuiObject(p, g) {}
+    GuiSliderVertical(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g) {}
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
     void mouseDrag(const MouseEvent& e) final;
     void mouseUp(const MouseEvent& e) final;
 };
 
-class GuiRadioHorizontal : public GuiObject
+class GuiRadioHorizontal : public PluginEditorObject
 {
 public:
-    GuiRadioHorizontal(GuiPatch& p, pd::Gui& g) : GuiObject(p, g) {}
+    GuiRadioHorizontal(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g) {}
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
 };
 
-class GuiRadioVertical : public GuiObject
+class GuiRadioVertical : public PluginEditorObject
 {
 public:
-    GuiRadioVertical(GuiPatch& p, pd::Gui& g) : GuiObject(p, g) {}
+    GuiRadioVertical(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g) {}
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
 };
 
-class GuiPanel : public GuiObject
+class GuiPanel : public PluginEditorObject
 {
 public:
-    GuiPanel(GuiPatch& p, pd::Gui& g);
+    GuiPanel(CamomileEditorMouseManager& p, pd::Gui& g);
     void paint(Graphics& g) final;
 };
 
-class GuiComment : public GuiObject
+class GuiComment : public PluginEditorObject
 {
 public:
-    GuiComment(GuiPatch& p, pd::Gui& g);
+    GuiComment(CamomileEditorMouseManager& p, pd::Gui& g);
     void paint(Graphics& g) final;
 };
 
-class GuiTextEditor : public GuiObject, public Label::Listener
+class GuiTextEditor : public PluginEditorObject, public Label::Listener
 {
 public:
-    GuiTextEditor(GuiPatch& p, pd::Gui& g);
+    GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g);
     void labelTextChanged(Label* label) override;
     void editorShown(Label*, TextEditor&) final;
     void editorHidden(Label*, TextEditor&) final;
@@ -131,7 +123,7 @@ protected:
 class GuiNumber : public GuiTextEditor
 {
 public:
-    GuiNumber(GuiPatch& p, pd::Gui& g);
+    GuiNumber(CamomileEditorMouseManager& p, pd::Gui& g);
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
     void mouseDrag(const MouseEvent& e) final;
@@ -145,7 +137,7 @@ private:
 class GuiAtomNumber : public GuiTextEditor
 {
 public:
-    GuiAtomNumber(GuiPatch& p, pd::Gui& g);
+    GuiAtomNumber(CamomileEditorMouseManager& p, pd::Gui& g);
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& e) final;
     void mouseDrag(const MouseEvent& e) final;
@@ -159,7 +151,7 @@ private:
 class GuiAtomSymbol : public GuiTextEditor
 {
 public:
-    GuiAtomSymbol(GuiPatch& p, pd::Gui& g);
+    GuiAtomSymbol(CamomileEditorMouseManager& p, pd::Gui& g);
     void paint(Graphics& g) final;
     void mouseDoubleClick(const MouseEvent&) final;
     void labelTextChanged(Label* label) final;
