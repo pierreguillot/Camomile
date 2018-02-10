@@ -10,3 +10,6 @@ url=https://github.com/pierreguillot/JUCE.git
 [submodule "Dependencies/ReaderwriterQueue"]
 	path = Dependencies/ReaderwriterQueue
 	url = https://github.com/pierreguillot/readerwriterqueue.git
+[submodule "Dependencies/Vst"]
+	path = Dependencies/Vst
+	url = https://pierreguillot@github.com/pierreguillot/vst3sdk.git
