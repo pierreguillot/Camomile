@@ -19,9 +19,7 @@ matrix:
     - sudo apt-get -qq update
     - sudo apt-get install -y libwebkit2gtk-4.0-37 libwebkit2gtk-4.0-dev
     script:
-    - make -C libpd MULTI=true
-    - make -C Builds/LinuxMakefile/Instrument TARGET_ARCH=-m64 CONFIG=Release
-    - make -C Builds/LinuxMakefile/Effect TARGET_ARCH=-m64 CONFIG=Release
+    - ./CamomileMake.sh
     before_deploy:
     - rm Plugins/Camomile.a
     - rm Plugins/CamomileFx.a
