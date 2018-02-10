@@ -8,11 +8,11 @@
     <key>CFBundleIconFile</key>
     <string></string>
     <key>CFBundleIdentifier</key>
-    <string>com.pierreguillot.camomilefx</string>
+    <string>com.pierreguillot.camomile</string>
     <key>CFBundleName</key>
-    <string>CamomileFx</string>
+    <string>Camomile</string>
     <key>CFBundleDisplayName</key>
-    <string>CamomileFx</string>
+    <string>Camomile</string>
     <key>CFBundlePackageType</key>
     <string>BNDL</string>
     <key>CFBundleSignature</key>

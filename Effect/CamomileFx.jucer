@@ -88,9 +88,8 @@
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="../Builds/MacOSX/Instument" vst3Folder="../VST"
-               externalLibraries="pd-osx-multi" customXcodeResourceFolders=""
-               postbuildCommand="" keepCustomXcodeSchemes="1">
+    <XCODE_MAC targetFolder="Builds/MacOSX" vst3Folder="../VST" externalLibraries="pd-osx-multi"
+               customXcodeResourceFolders="" postbuildCommand="" keepCustomXcodeSchemes="1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" enablePluginBinaryCopyStep="0" isDebug="1" optimisation="1"
                        linkTimeOptimisation="0" targetName="CamomileFx" osxCompatibility="10.9 SDK"
@@ -118,7 +117,7 @@
         <MODULEPATH id="juce_audio_devices" path="../Juce/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <VS2015 targetFolder="../Builds/VisualStudio2015/Instrument" windowsTargetPlatformVersion="8.1"
+    <VS2015 targetFolder="Builds/VisualStudio2015" windowsTargetPlatformVersion="8.1"
             vst3Folder="../VST" externalLibraries="libpd.lib" extraCompilerFlags="/wd4091 &#10;/wd4996&#10;/wd4100&#10;/wd4706&#10;/wd4210"
             extraLinkerFlags="">
       <CONFIGURATIONS>
@@ -156,8 +155,7 @@
         <MODULEPATH id="juce_audio_devices" path="../Juce/modules"/>
       </MODULEPATHS>
     </VS2015>
-    <LINUX_MAKE targetFolder="../Builds/LinuxMakefile/Instument" extraLinkerFlags=""
-                externalLibraries="pd">
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraLinkerFlags="" externalLibraries="pd">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" linkTimeOptimisation="0"
                        targetName="CamomileFx" libraryPath="../../../libpd/libs" binaryPath="../Plugins"/>

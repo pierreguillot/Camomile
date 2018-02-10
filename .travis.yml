@@ -36,8 +36,8 @@ matrix:
     compiler: clang++
     env: release=CamomileMacOS
     script:
-    - xcodebuild -project libpd/libpd.xcodeproj -target libpd-osx-multi -configuration Release ONLY_ACTIVE_ARCH=NO CONFIGURATION_BUILD_DIR="./libs" | egrep -A 5 "(error|warning):"
-    - xcodebuild -project xcodebuild -workspace Builds/MacOSX/Camomile.xcworkspace -scheme Camomile -configuration Release
+    - xcodebuild -workspace Camomile.xcworkspace -scheme libpd-osx-multi -configuration Release ONLY_ACTIVE_ARCH=NO CONFIGURATION_BUILD_DIR="./libs" | egrep -A 5 "(error|warning):"
+    - xcodebuild -workspace Camomile.xcworkspace -scheme Camomile -configuration Release
     before_deploy:
     - rm Plugins/libCamomile.a
     - rm Plugins/libCamomileFx.a

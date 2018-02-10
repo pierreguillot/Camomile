@@ -8,11 +8,11 @@
     <key>CFBundleIconFile</key>
     <string></string>
     <key>CFBundleIdentifier</key>
-    <string>com.pierreguillot.camomilefx</string>
+    <string>com.pierreguillot.camomile</string>
     <key>CFBundleName</key>
-    <string>CamomileFx</string>
+    <string>Camomile</string>
     <key>CFBundleDisplayName</key>
-    <string>CamomileFx</string>
+    <string>Camomile</string>
     <key>CFBundlePackageType</key>
     <string>BNDL</string>
     <key>CFBundleSignature</key>
@@ -25,24 +25,5 @@
     <string>Pierre Guillot</string>
     <key>NSHighResolutionCapable</key>
     <true/>
-    <key>AudioComponents</key>
-    <array>
-      <dict>
-        <key>name</key>
-        <string>Pierre Guillot: CamomileFx</string>
-        <key>description</key>
-        <string>A plugin that loads Pure Data patches</string>
-        <key>factoryFunction</key>
-        <string>CamomileFxAUFactory</string>
-        <key>manufacturer</key>
-        <string>PIGU</string>
-        <key>type</key>
-        <string>aumf</string>
-        <key>subtype</key>
-        <string>KpW9</string>
-        <key>version</key>
-        <integer>65539</integer>
-      </dict>
-    </array>
   </dict>
 </plist>
