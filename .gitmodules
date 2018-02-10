@@ -13,3 +13,9 @@ url=https://github.com/pierreguillot/JUCE.git
 [submodule "concurrentqueue"]
 	path = concurrentqueue
 	url = https://github.com/cameron314/concurrentqueue.git
+[submodule "Dependencies/ConcurrentQueue"]
+	path = Dependencies/ConcurrentQueue
+	url = https://github.com/pierreguillot/concurrentqueue.git
+[submodule "Dependencies/ReaderwriterQueue"]
+	path = Dependencies/ReaderwriterQueue
+	url = https://github.com/pierreguillot/readerwriterqueue.git
