@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist>
+  <dict>
+    <key>CFBundleExecutable</key>
+    <string>${EXECUTABLE_NAME}</string>
+    <key>CFBundleIconFile</key>
+    <string></string>
+    <key>CFBundleIdentifier</key>
+    <string>com.pierreguillot.camomilefx</string>
+    <key>CFBundleName</key>
+    <string>CamomileFx</string>
+    <key>CFBundleDisplayName</key>
+    <string>CamomileFx</string>
+    <key>CFBundlePackageType</key>
+    <string>BNDL</string>
+    <key>CFBundleSignature</key>
+    <string>????</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0.3</string>
+    <key>CFBundleVersion</key>
+    <string>1.0.3</string>
+    <key>NSHumanReadableCopyright</key>
+    <string>Pierre Guillot</string>
+    <key>NSHighResolutionCapable</key>
+    <true/>
+    <key>AudioComponents</key>
+    <array>
+      <dict>
+        <key>name</key>
+        <string>Pierre Guillot: CamomileFx</string>
+        <key>description</key>
+        <string>A plugin that loads Pure Data patches</string>
+        <key>factoryFunction</key>
+        <string>CamomileFxAUFactory</string>
+        <key>manufacturer</key>
+        <string>PIGU</string>
+        <key>type</key>
+        <string>aumf</string>
+        <key>subtype</key>
+        <string>KpW9</string>
+        <key>version</key>
+        <integer>65539</integer>
+      </dict>
+    </array>
+  </dict>
+</plist>

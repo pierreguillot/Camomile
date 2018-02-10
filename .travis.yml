@@ -20,8 +20,8 @@ matrix:
     - sudo apt-get install -y libwebkit2gtk-4.0-37 libwebkit2gtk-4.0-dev
     script:
     - make -C libpd MULTI=true
-    - make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=Release
-    - make -C Builds/LinuxMakefile/ TARGET_ARCH=-m64 CONFIG=ReleaseFx
+    - make -C Builds/LinuxMakefile/Instrument TARGET_ARCH=-m64 CONFIG=Release
+    - make -C Builds/LinuxMakefile/Effect TARGET_ARCH=-m64 CONFIG=Release
     before_deploy:
     - rm Plugins/Camomile.a
     - rm Plugins/CamomileFx.a
@@ -37,8 +37,7 @@ matrix:
     env: release=CamomileMacOS
     script:
     - xcodebuild -project libpd/libpd.xcodeproj -target libpd-osx-multi -configuration Release ONLY_ACTIVE_ARCH=NO CONFIGURATION_BUILD_DIR="./libs" | egrep -A 5 "(error|warning):"
-    - xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration Release
-    - xcodebuild -project Builds/MacOSX/Camomile.xcodeproj -configuration ReleaseFx
+    - xcodebuild -project xcodebuild -workspace Builds/MacOSX/Camomile.xcworkspace -scheme Camomile -configuration Release
     before_deploy:
     - rm Plugins/libCamomile.a
     - rm Plugins/libCamomileFx.a

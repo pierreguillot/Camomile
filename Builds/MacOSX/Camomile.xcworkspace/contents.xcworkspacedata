@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:Instument/Camomile.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Effect/CamomileFx.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../../libpd/libpd.xcodeproj">
+   </FileRef>
+</Workspace>
