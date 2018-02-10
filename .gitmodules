@@ -1,9 +1,6 @@
 [submodule "Juce"]
 	path = Juce
 url=https://github.com/pierreguillot/JUCE.git
-[submodule "libpd"]
-	path = libpd
-	url = https://github.com/pierreguillot/libpd.git
 [submodule "Dependencies/ConcurrentQueue"]
 	path = Dependencies/ConcurrentQueue
 	url = https://github.com/pierreguillot/concurrentqueue.git
