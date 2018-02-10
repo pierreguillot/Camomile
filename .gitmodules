@@ -1,6 +1,6 @@
 [submodule "Juce"]
 	path = Juce
-	url = https://pierreguillot@github.com/WeAreROLI/JUCE.git
+url=https://github.com/pierreguillot/JUCE.git
 [submodule "VST"]
 	path = VST
 	url = https://pierreguillot@github.com/steinbergmedia/vst3sdk.git
