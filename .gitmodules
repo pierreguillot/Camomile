@@ -13,3 +13,6 @@ url=https://github.com/pierreguillot/JUCE.git
 [submodule "Dependencies/Vst"]
 	path = Dependencies/Vst
 	url = https://github.com/steinbergmedia/vst3sdk.git
+[submodule "Dependencies/LibPd"]
+	path = Dependencies/LibPd
+	url = https://pierreguillot@github.com/pierreguillot/libpd.git
