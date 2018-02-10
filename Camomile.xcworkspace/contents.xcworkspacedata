@@ -8,6 +8,6 @@
       location = "group:Effect/Builds/MacOSX/CamomileFx.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:libpd/libpd.xcodeproj">
+      location = "group:Dependencies/LibPd/libpd.xcodeproj">
    </FileRef>
 </Workspace>

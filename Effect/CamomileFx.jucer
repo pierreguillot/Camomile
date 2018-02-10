@@ -11,7 +11,7 @@
               pluginProducesMidiOut="1" pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="1"
               pluginAUExportPrefix="CamomileFxAU" pluginRTASCategory="" aaxIdentifier="com.pierreguillot.camomilefx"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.2.1"
-              companyName="Pierre Guillot" headerPath="../../../libpd/pure-data/src&#10;../../../libpd/libpd_wrapper&#10;../../../libpd/libpd_wrapper/util&#10;../../../libpd/cpp&#10;"
+              companyName="Pierre Guillot" headerPath="../../../Dependencies/LibPd/pure-data/src&#10;../../../Dependencies/LibPd/libpd_wrapper&#10;../../../Dependencies/LibPd/libpd_wrapper/util&#10;../../../Dependencies/LibPd/cpp&#10;"
               defines="HAVE_UNISTD_H=1" companyWebsite="github.com/pierreguillot/camomile">
   <MAINGROUP id="BLNPyv" name="CamomileFx">
     <GROUP id="{D4367A82-F269-8F5A-1C22-AB42C90672ED}" name="Source">
@@ -94,12 +94,12 @@
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" enablePluginBinaryCopyStep="0" isDebug="1" optimisation="1"
                        linkTimeOptimisation="0" targetName="CamomileFx" osxCompatibility="10.9 SDK"
-                       osxArchitecture="64BitUniversal" libraryPath="../../../libpd/libs"
+                       osxArchitecture="64BitUniversal" libraryPath="../../../Dependencies/LibPd/libs"
                        headerPath="" binaryPath="../Plugins" auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/"
                        vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VST3/" vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"/>
         <CONFIGURATION name="Release" enablePluginBinaryCopyStep="0" isDebug="0" optimisation="3"
                        linkTimeOptimisation="1" targetName="CamomileFx" osxCompatibility="10.9 SDK"
-                       osxArchitecture="64BitUniversal" libraryPath="../../../libpd/libs"
+                       osxArchitecture="64BitUniversal" libraryPath="../../../Dependencies/LibPd/libs"
                        headerPath="" binaryPath="../Plugins" auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/"
                        vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VS3/" vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"/>
       </CONFIGURATIONS>
@@ -126,21 +126,23 @@
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="CamomileFx"
-                       binaryPath="../Plugins" libraryPath="../../../libpd/libs" useRuntimeLibDLL=""
-                       headerPath="PD_LONGINTTYPE=long\ long"/>
+                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs"
+                       useRuntimeLibDLL="" headerPath="PD_LONGINTTYPE=long\ long"/>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="CamomileFx"
-                       binaryPath="../Plugins" libraryPath="../../../libpd/libs" useRuntimeLibDLL=""
-                       headerPath="PD_LONGINTTYPE=long\ long"/>
+                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs"
+                       useRuntimeLibDLL="" headerPath="PD_LONGINTTYPE=long\ long"/>
         <CONFIGURATION name="Debug32" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="CamomileFx"
-                       binaryPath="../Plugins" libraryPath="../../../libpd/libs" useRuntimeLibDLL=""/>
+                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs"
+                       useRuntimeLibDLL=""/>
         <CONFIGURATION name="Release32" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="CamomileFx"
-                       binaryPath="../Plugins" libraryPath="../../../libpd/libs" useRuntimeLibDLL=""/>
+                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs"
+                       useRuntimeLibDLL=""/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../Juce/modules"/>
@@ -160,9 +162,11 @@
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraLinkerFlags="" externalLibraries="pd">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" linkTimeOptimisation="0"
-                       targetName="CamomileFx" libraryPath="../../../libpd/libs" binaryPath="../Plugins"/>
+                       targetName="CamomileFx" libraryPath="../../../Dependencies/LibPd/libs"
+                       binaryPath="../Plugins"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" linkTimeOptimisation="1"
-                       targetName="CamomileFx" libraryPath="../../../libpd/libs" binaryPath="../Plugins"/>
+                       targetName="CamomileFx" libraryPath="../../../Dependencies/LibPd/libs"
+                       binaryPath="../Plugins"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../Juce/modules"/>

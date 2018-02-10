@@ -17,7 +17,7 @@
                BlueprintIdentifier = "30C3D28E1FAA1FCC00C67F08"
                BuildableName = "libpd-osx-multi.a"
                BlueprintName = "libpd-osx-multi"
-               ReferencedContainer = "container:../../../libpd/libpd.xcodeproj">
+               ReferencedContainer = "container:../../../Dependencies/LibPd/libpd.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
