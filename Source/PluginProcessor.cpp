@@ -144,7 +144,7 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     
     if(samplesPerBlock < 64) {
         add(ConsoleLevel::Log, "DSP block size is inferior to 64 samples implying a delay of " + std::to_string(64 - samplesPerBlock) + " samples."); }
-    prepareDSP(inputs.size(), outputs.size(), samplesPerBlock, sampleRate);
+    prepareDSP(getTotalNumInputChannels(), getTotalNumOutputChannels(), samplesPerBlock, sampleRate);
     startDSP();
     
     String insdesc  = inputs.getDescription().toLowerCase();
