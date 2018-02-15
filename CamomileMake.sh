@@ -2,7 +2,11 @@
 
 clear
 echo "Generate libpd"
-make -C Dependencies/LibPd MULTI=true
+mkdir LibPd/builds/unixmakefile/Release
+cd LibPd/builds/unixmakefile/Release
+cmake -DCMAKE_BUILD_TYPE=Release ../../..
+make libpdstatic
+cd ../../../..
 echo "Generate Camomile Instrument"
 make -C Instrument/Builds/LinuxMakefile TARGET_ARCH=-m64 CONFIG=Release
 echo "Generate Camomile Effect"
