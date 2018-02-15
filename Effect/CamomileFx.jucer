@@ -90,8 +90,8 @@
   </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" vst3Folder="../Dependencies/Vst"
-               externalLibraries="pd-osx-multi" customXcodeResourceFolders=""
-               postbuildCommand="" keepCustomXcodeSchemes="1">
+               externalLibraries="pd" customXcodeResourceFolders="" postbuildCommand=""
+               keepCustomXcodeSchemes="1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" enablePluginBinaryCopyStep="0" isDebug="1" optimisation="1"
                        linkTimeOptimisation="0" targetName="CamomileFx" osxCompatibility="10.9 SDK"

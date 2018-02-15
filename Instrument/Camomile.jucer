@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="Kpq9Ee" name="Camomile" displaySplashScreen="1" reportAppUsage="1"
+<JUCERPROJECT id="Kpq9Ee" name="Camomile" displaySplashScreen="0" reportAppUsage="0"
               splashScreenColour="Dark" projectType="audioplug" version="1.0.3"
               bundleIdentifier="com.pierreguillot.camomile" includeBinaryInAppConfig="1"
               cppLanguageStandard="11" companyCopyright="Pierre Guillot" buildVST="1"
@@ -90,8 +90,8 @@
   </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" vst3Folder="../Dependencies/Vst"
-               externalLibraries="pd-osx-multi" customXcodeResourceFolders=""
-               postbuildCommand="" keepCustomXcodeSchemes="1">
+               externalLibraries="pd" customXcodeResourceFolders="" postbuildCommand=""
+               keepCustomXcodeSchemes="1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" enablePluginBinaryCopyStep="0" isDebug="1" optimisation="1"
                        linkTimeOptimisation="0" targetName="Camomile" osxCompatibility="10.9 SDK"
