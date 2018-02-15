@@ -2217,6 +2217,9 @@
     <ClInclude Include="..\..\..\Source\PluginLookAndFeel.hpp">
       <Filter>CamomileFx\Source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\PluginConfig.h">
+      <Filter>CamomileFx\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Source\Pd\PdInstance.hpp">
       <Filter>CamomileFx\Source\Pd</Filter>
     </ClInclude>

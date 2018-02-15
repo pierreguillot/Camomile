@@ -1958,6 +1958,7 @@
     <ClInclude Include="..\..\..\Source\PluginParameter.h"/>
     <ClInclude Include="..\..\..\Source\PluginParser.h"/>
     <ClInclude Include="..\..\..\Source\PluginLookAndFeel.hpp"/>
+    <ClInclude Include="..\..\..\Source\PluginConfig.h"/>
     <ClInclude Include="..\..\..\Source\Pd\PdInstance.hpp"/>
     <ClInclude Include="..\..\..\Source\Pd\PdObject.hpp"/>
     <ClInclude Include="..\..\..\Source\Pd\PdPatch.hpp"/>

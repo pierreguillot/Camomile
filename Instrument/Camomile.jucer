@@ -54,6 +54,7 @@
             file="../Source/PluginLookAndFeel.cpp"/>
       <FILE id="QAxM64" name="PluginLookAndFeel.hpp" compile="0" resource="0"
             file="../Source/PluginLookAndFeel.hpp"/>
+      <FILE id="TEMDQe" name="PluginConfig.h" compile="0" resource="0" file="../Source/PluginConfig.h"/>
       <GROUP id="{42D4795F-C693-1C4C-D4AF-C6B0DC06B00D}" name="Pd">
         <FILE id="OkoB07" name="PdInstance.cpp" compile="1" resource="0" file="../Source/Pd/PdInstance.cpp"/>
         <FILE id="blrCIt" name="PdInstance.hpp" compile="0" resource="0" file="../Source/Pd/PdInstance.hpp"/>
@@ -67,8 +68,8 @@
     </GROUP>
     <GROUP id="{F3E95E26-375E-BDC8-C48D-8BFDD754028C}" name="Ressources">
       <GROUP id="{4C642A19-4C7E-354A-3CA5-FF3CA080A50D}" name="Credits">
-        <FILE id="kQuQYm" name="CreditsAU" compile="0" resource="1" file="../Ressources/Credits/CreditsAU"/>
-        <FILE id="SnaiVJ" name="CreditsVST" compile="0" resource="1" file="../Ressources/Credits/CreditsVST"/>
+        <FILE id="lYdCj4" name="CreditsAU" compile="0" resource="1" file="../Ressources/Credits/CreditsAU"/>
+        <FILE id="iQCm2i" name="CreditsVST" compile="0" resource="1" file="../Ressources/Credits/CreditsVST"/>
       </GROUP>
       <GROUP id="{841D6A4F-6B7E-B658-5EED-5BDDF9B8CEF3}" name="Images">
         <FILE id="iu60vP" name="clear1.png" compile="0" resource="1" file="../Ressources/Images/clear1.png"/>
