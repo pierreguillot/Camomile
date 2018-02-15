@@ -1,3 +1,6 @@
+v1.0.3
+- Improve support for multiple audio buses
+
 v1.0.2
 - Fix DSP off message to Pd
 - Prepare the DSP before opening the patch (#83)
