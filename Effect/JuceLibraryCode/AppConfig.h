@@ -16,7 +16,7 @@
 //==============================================================================
 // [BEGIN_USER_CODE_SECTION]
 
-// (You can add your own code in this section, and the Projucer will not overwrite it)
+#include "../../Source/PluginConfig.h"
 
 // [END_USER_CODE_SECTION]
 
