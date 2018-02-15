@@ -1,5 +1,6 @@
 v1.0.3
 - Improve support for multiple audio buses
+- Add warning when the plugin code or the plugin type is not defined
 
 v1.0.2
 - Fix DSP off message to Pd
