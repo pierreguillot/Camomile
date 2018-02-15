@@ -19,7 +19,12 @@ matrix:
     - sudo apt-get -qq update
     - sudo apt-get install -y libwebkit2gtk-4.0-37 libwebkit2gtk-4.0-dev
     script:
-    - ./CamomileMake.sh
+    - mkdir Dependencies/LibPd/builds && mkdir Dependencies/LibPd/builds/makefile/ && cd Dependencies/LibPd/builds/makefile
+    - cmake -DCMAKE_BUILD_TYPE=Release ../..
+    - cd ../../../..
+    - make -C Dependencies/LibPd/builds/makefile libpdstatic
+    - make -C Instrument/Builds/LinuxMakefile TARGET_ARCH=-m64 CONFIG=Release
+    - make -C Effect/Builds/LinuxMakefile TARGET_ARCH=-m64 CONFIG=Release
     before_deploy:
     - rm Plugins/Camomile.a
     - rm Plugins/CamomileFx.a
@@ -34,8 +39,7 @@ matrix:
     compiler: clang++
     env: release=CamomileMacOS
     script:
-    - mkdir Dependencies/LibPd/builds/xcode/
-    - cd Dependencies/LibPd/builds/xcode
+    - mkdir Dependencies/LibPd/builds && mkdir Dependencies/LibPd/builds/xcode/ && cd Dependencies/LibPd/builds/xcode
     - cmake -DCMAKE_BUILD_TYPE=Release ../..
     - cd ../../../..
     - xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release
