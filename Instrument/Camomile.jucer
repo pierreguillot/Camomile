@@ -160,7 +160,8 @@
         <MODULEPATH id="juce_audio_devices" path="../Juce/modules"/>
       </MODULEPATHS>
     </VS2015>
-    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraLinkerFlags="" externalLibraries="pd">
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraLinkerFlags="" externalLibraries="pd"
+                extraCompilerFlags="-fPIC">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" linkTimeOptimisation="0"
                        targetName="Camomile" libraryPath="../../../Dependencies/LibPd/libs"
