@@ -14,20 +14,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "01E0FEB934D34ACB84DC5613"
-               BuildableName = "libpd.a"
-               BlueprintName = "libpdstatic"
-               ReferencedContainer = "container:../../../Dependencies/LibPd/builds/xcode/libpd.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "FF882317069013018CDCC4B9"
                BuildableName = "Camomile - All"
                BlueprintName = "Camomile - All"
