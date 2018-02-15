@@ -34,6 +34,9 @@ matrix:
     compiler: clang++
     env: release=CamomileMacOS
     script:
+    - mkdir Dependencies/LibPd/builds/xcode/
+    - cd Dependencies/LibPd/builds/xcode
+    - cmake -DCMAKE_BUILD_TYPE=Release ../..
     - xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release
     before_deploy:
     - rm Plugins/libCamomile.a
