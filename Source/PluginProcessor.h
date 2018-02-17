@@ -27,7 +27,8 @@ public:
     void prepareToPlay (double sampleRate, int samplesPerBlock) final;
     void releaseResources() final;
     void processBlock (AudioSampleBuffer&, MidiBuffer&) final;
-
+    void processBlockBypassed (AudioBuffer<float>&, MidiBuffer&) final;
+    
     AudioProcessorEditor* createEditor() final;
     bool hasEditor() const final;
 
@@ -74,6 +75,7 @@ public:
     };
 private:
     static BusesProperties getBusesProperties();
+    void sendBusInformation(Bus const *bus);
     typedef moodycamel::ReaderWriterQueue<MessageGui> QueueGui;
     
     std::vector<pd::Atom>    m_atoms_param;

@@ -136,26 +136,47 @@ bool CamomileAudioProcessor::isBusesLayoutSupported(const BusesLayout& layouts) 
     return false;
 }
 
+void CamomileAudioProcessor::sendBusInformation(Bus const *bus)
+{
+    if(bus && bus->isEnabled())
+    {
+        std::string const name = bus->getName().toStdString();
+        int const nchannels = bus->getNumberOfChannels();
+        auto const& layout = bus->getDefaultLayout();
+        String description = layout.getDescription().toLowerCase();
+        if(description.contains("discrete")) { description = "discrete"; }
+        sendMessage(std::string("bus"), bus->isInput() ? std::string("input") : std::string("output"),
+                    {static_cast<float>(layout.size()), description.toStdString(), name, nchannels});
+    }
+}
+
 void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    BusesLayout const& layouts(getBusesLayout());
-    AudioChannelSet const inputs  = layouts.getMainInputChannelSet();
-    AudioChannelSet const outputs = layouts.getMainOutputChannelSet();
-    
-    if(samplesPerBlock < 64) {
-        add(ConsoleLevel::Log, "DSP block size is inferior to 64 samples implying a delay of " + std::to_string(64 - samplesPerBlock) + " samples."); }
+    if(samplesPerBlock < 64)
+    {
+        add(ConsoleLevel::Log, "DSP block size is inferior to 64 samples implying a delay of " + std::to_string(64 - samplesPerBlock) + " samples.");
+    }
     prepareDSP(getTotalNumInputChannels(), getTotalNumOutputChannels(), samplesPerBlock, sampleRate);
-    startDSP();
     
-    String insdesc  = inputs.getDescription().toLowerCase();
-    String outsdesc = outputs.getDescription().toLowerCase();
-    if(insdesc.contains("discrete")) {
-        insdesc = "discrete"; }
-    if(outsdesc.contains("discrete")) {
-        outsdesc = "discrete"; }
-    sendMessage(std::string("channels"), std::string("inputs"), {static_cast<float>(inputs.size()), insdesc.toStdString()});
-    sendMessage(std::string("channels"), std::string("outputs"), {static_cast<float>(outputs.size()), outsdesc.toStdString()});
+    {
+        const int nbuses = std::max(getBusCount(true), getBusCount(false));
+        for(int i = 0; i < nbuses; ++i)
+        {
+            sendBusInformation(getBus(true, i));
+            sendBusInformation(getBus(false, i));
+        }
+        {
+            // For backward compatibility can be deprecated
+            sendMessage(std::string("channels"), std::string("inputs"),
+            {static_cast<float>(getTotalNumInputChannels())});
+            sendMessage(std::string("channels"), std::string("outputs"),
+            {static_cast<float>(getTotalNumOutputChannels())});
+        }
+    }
+    
     processMessages();
+    
+    startDSP();
 }
 
 void CamomileAudioProcessor::releaseResources()
@@ -298,6 +319,83 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     }
 }
 
+void CamomileAudioProcessor::processBlockBypassed (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+{
+    dequeueMessages();
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                                          MIDI IN                                     //
+    //////////////////////////////////////////////////////////////////////////////////////////
+    if(CamomileEnvironment::wantsMidi())
+    {
+        MidiMessage message;
+        MidiBuffer::Iterator it(midiMessages);
+        int position = midiMessages.getFirstEventTime();
+        while(it.getNextEvent(message, position)) {
+            if(message.isNoteOn()) {
+                sendNoteOn(message.getChannel(), message.getNoteNumber(), message.getVelocity()); }
+            else if(message.isNoteOff()) {
+                sendNoteOn(message.getChannel(), message.getNoteNumber(), 0); }
+            else if(message.isController()) {
+                sendControlChange(message.getChannel(), message.getControllerNumber(), message.getControllerValue()); }
+            else if(message.isPitchWheel()) {
+                sendPitchBend(message.getChannel(), message.getPitchWheelValue()); }
+            else if(message.isChannelPressure()) {
+                sendAfterTouch(message.getChannel(), message.getChannelPressureValue()); }
+            else if(message.isAftertouch()) {
+                sendPolyAfterTouch(message.getChannel(), message.getNoteNumber(), message.getAfterTouchValue()); }
+            else if(message.isProgramChange()) {
+                sendProgramChange(message.getChannel(), message.getProgramChangeNumber()); }
+            else if(message.isSysEx()) {
+                for(int i = 0; i < message.getSysExDataSize(); ++i)  {
+                    sendSysEx(0, static_cast<int>(message.getSysExData()[i]));
+                }
+            }
+            else if(message.isMidiClock() || message.isMidiStart() || message.isMidiStop() || message.isMidiContinue() ||
+                    message.isActiveSense() || (message.getRawDataSize() == 1 && message.getRawData()[0] == 0xff)) {
+                for(int i = 0; i < message.getRawDataSize(); ++i)  {
+                    sendSysRealTime(0, static_cast<int>(message.getRawData()[i]));
+                }
+            }
+            else
+            {
+                for(int i = 0; i < message.getRawDataSize(); ++i)  {
+                    sendMidiByte(0, static_cast<int>(message.getRawData()[i]));
+                }
+            }
+        }
+    }
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                                          RETRIEVE MESSAGES                           //
+    //////////////////////////////////////////////////////////////////////////////////////////
+    processMessages();
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                                  PARAMETERS                                          //
+    //////////////////////////////////////////////////////////////////////////////////////////
+    {
+        std::string const sparam("param");
+        OwnedArray<AudioProcessorParameter> const& parameters = AudioProcessor::getParameters();
+        for(int i = 0; i < parameters.size(); ++i)
+        {
+            m_atoms_param[0] = static_cast<float>(i+1);
+            m_atoms_param[1] = static_cast<CamomileAudioParameter const*>(parameters.getUnchecked(i))->getOriginalScaledValue();
+            sendList(sparam, m_atoms_param);
+        }
+    }
+    
+    AudioProcessor::processBlockBypassed(buffer, midiMessages);
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                                          MIDI OUT                                    //
+    //////////////////////////////////////////////////////////////////////////////////////////
+    if(CamomileEnvironment::producesMidi())
+    {
+        processMidi();
+        midiMessages.swapWith(m_midi_buffer);
+        m_midi_buffer.clear();
+    }
+}
 
 void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
 {
@@ -476,10 +574,20 @@ void CamomileAudioProcessor::receivePrint(const std::string& message)
 
 void CamomileAudioProcessor::messageEnqueued()
 {
-    if(isNonRealtime())
+    if(isNonRealtime() || isSuspended())
     {
         dequeueMessages();
         processMessages();
+    }
+    else
+    {
+        const CriticalSection& cs = getCallbackLock();
+        if(cs.tryEnter())
+        {
+            dequeueMessages();
+            processMessages();
+            cs.exit();
+        }
     }
 }
 
