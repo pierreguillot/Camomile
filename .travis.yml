@@ -42,7 +42,8 @@ matrix:
     - mkdir Dependencies/LibPd/builds && mkdir Dependencies/LibPd/builds/xcode/ && cd Dependencies/LibPd/builds/xcode
     - cmake -DCMAKE_BUILD_TYPE=Release ../..
     - cd ../../../..
-    - xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release
+    - xcodebuild -workspace Camomile.xcworkspace -scheme libpdstatic -configuration Release
+    - xcodebuild -workspace Camomile.xcworkspace -scheme Camomile -configuration Release
     before_deploy:
     - rm Plugins/libCamomile.a
     - rm Plugins/libCamomileFx.a
