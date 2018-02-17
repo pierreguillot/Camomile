@@ -141,12 +141,11 @@ void CamomileAudioProcessor::sendBusInformation(Bus const *bus)
     if(bus && bus->isEnabled())
     {
         std::string const name = bus->getName().toStdString();
-        int const nchannels = bus->getNumberOfChannels();
         auto const& layout = bus->getDefaultLayout();
         String description = layout.getDescription().toLowerCase();
         if(description.contains("discrete")) { description = "discrete"; }
         sendMessage(std::string("bus"), bus->isInput() ? std::string("input") : std::string("output"),
-                    {static_cast<float>(layout.size()), description.toStdString(), name, nchannels});
+                    {static_cast<float>(layout.size()), description.toStdString(), name});
     }
 }
 
