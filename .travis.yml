@@ -40,7 +40,7 @@ matrix:
     env: release=CamomileMacOS
     script:
     - mkdir Dependencies/LibPd/build && mkdir Dependencies/LibPd/build/xcode/ && cd Dependencies/LibPd/build/xcode
-    - cmake -GXCode ../..
+    - cmake -GXcode ../..
     - cd ../../../..
     - xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release
     before_deploy:
