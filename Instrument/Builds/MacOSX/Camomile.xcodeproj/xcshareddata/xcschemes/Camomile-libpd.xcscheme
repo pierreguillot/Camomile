@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "530C8EF627594FDE9ECF94F5"
+               BlueprintIdentifier = "287332AFB1FC450CA4BA87E6"
                BuildableName = "libpd.a"
                BlueprintName = "libpdstatic"
-               ReferencedContainer = "container:../../../Dependencies/LibPd/builds/xcode/libpd.xcodeproj">
+               ReferencedContainer = "container:../../../Dependencies/LibPd/build/xcode/libpd.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
