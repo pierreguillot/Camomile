@@ -168,7 +168,7 @@
                        binaryPath="../Plugins"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="Camomile"
                        libraryPath="../../../Dependencies/LibPd/libs" binaryPath="../Plugins"
-                       linkTimeOptimisation="1"/>
+                       linkTimeOptimisation="0"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../Juce/modules"/>

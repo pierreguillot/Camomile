@@ -165,7 +165,7 @@
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" linkTimeOptimisation="0"
                        targetName="CamomileFx" libraryPath="../../../Dependencies/LibPd/libs"
                        binaryPath="../Plugins"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="3" linkTimeOptimisation="1"
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" linkTimeOptimisation="0"
                        targetName="CamomileFx" libraryPath="../../../Dependencies/LibPd/libs"
                        binaryPath="../Plugins"/>
       </CONFIGURATIONS>
