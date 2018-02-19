@@ -40,12 +40,12 @@ public:
     
     int getNumPrograms() final { return static_cast<int>(m_programs.size()); };
     int getCurrentProgram() final { return m_program_current; }
-    void setCurrentProgram (int index) override;
-    const String getProgramName (int index) override;
-    void changeProgramName (int index, const String& newName) override;
+    void setCurrentProgram (int index) final;
+    const String getProgramName (int index) final;
+    void changeProgramName (int index, const String& newName) final;
 
-    void getStateInformation (MemoryBlock& destData) override;
-    void setStateInformation (const void* data, int sizeInBytes) override;
+    void getStateInformation (MemoryBlock& destData) final;
+    void setStateInformation (const void* data, int sizeInBytes) final;
     
     void receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list) final;
     void receiveNoteOn(const int channel, const int pitch, const int velocity) final;
