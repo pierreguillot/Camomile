@@ -682,6 +682,7 @@ void CamomileAudioProcessor::loadInformation(XmlElement const& xml)
 
 void CamomileAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
+    suspendProcessing(true);
     XmlElement xml(String("CamomileSettings"));
     m_temp_xml = &xml;
     CamomileAudioParameter::saveStateInformation(xml, getParameters());
@@ -689,16 +690,23 @@ void CamomileAudioProcessor::getStateInformation(MemoryBlock& destData)
     processMessages();
     copyXmlToBinary(xml, destData);
     m_temp_xml = nullptr;
+    suspendProcessing(false);
 }
 
 void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
+    suspendProcessing(true);
     ScopedPointer<const XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
     if(xml && xml->hasTagName("CamomileSettings"))
     {
         CamomileAudioParameter::loadStateInformation(*xml, getParameters());
         loadInformation(*xml);
     }
+    else
+    {
+        sendBang(std::string("load"));
+    }
+    suspendProcessing(false);
 }
 
 void CamomileAudioProcessor::updateTrackProperties(const TrackProperties& properties)
