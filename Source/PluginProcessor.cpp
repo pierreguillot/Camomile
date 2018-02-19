@@ -158,23 +158,20 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     prepareDSP(getTotalNumInputChannels(), getTotalNumOutputChannels(), samplesPerBlock, sampleRate);
     
     {
-        const int nbuses = std::max(getBusCount(true), getBusCount(false));
-        for(int i = 0; i < nbuses; ++i)
-        {
-            sendBusInformation(getBus(true, i));
-            sendBusInformation(getBus(false, i));
-        }
-        {
-            // For backward compatibility can be deprecated
-            sendMessage(std::string("channels"), std::string("inputs"),
-            {static_cast<float>(getTotalNumInputChannels())});
-            sendMessage(std::string("channels"), std::string("outputs"),
-            {static_cast<float>(getTotalNumOutputChannels())});
-        }
+        // For backward compatibility can be deprecated
+        sendMessage(std::string("channels"), std::string("inputs"),
+                    {static_cast<float>(getTotalNumInputChannels())});
+        sendMessage(std::string("channels"), std::string("outputs"),
+                    {static_cast<float>(getTotalNumOutputChannels())});
+    }
+    const int nbuses = std::max(getBusCount(true), getBusCount(false));
+    for(int i = 0; i < nbuses; ++i)
+    {
+        sendBusInformation(getBus(true, i));
+        sendBusInformation(getBus(false, i));
     }
     
     processMessages();
-    
     startDSP();
 }
 
@@ -495,6 +492,10 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
         else {
             m_queue_gui.try_enqueue({std::string("savepanel"), std::string()}); }
     }
+    else if(msg == std::string("save"))
+    {
+        saveInformation(list);
+    }
     else {  add(ConsoleLevel::Error,
                 "camomile unknow message : " + msg); }
 }
@@ -601,12 +602,93 @@ AudioProcessorEditor* CamomileAudioProcessor::createEditor()
     return new CamomileEditor(*this);
 }
 
+void CamomileAudioProcessor::saveInformation(const std::vector<pd::Atom>& list)
+{
+    if(m_temp_xml)
+    {
+        XmlElement* patch = m_temp_xml->getChildByName("patch");
+        if(!patch)
+        {
+            patch = m_temp_xml->createNewChildElement("patch");
+            if(!patch)
+            {
+                add(ConsoleLevel::Error, "can't allocate memory for saving plugin state.");
+                return;
+            }
+        }
+        const int nchilds = patch->getNumChildElements();
+        XmlElement* preset = patch->createNewChildElement(String("list") + String(nchilds+1));
+        if(preset)
+        {
+            for(size_t i = 0; i < list.size(); ++i)
+            {
+                if(list[i].isFloat()) {
+                    preset->setAttribute(String("float") + String(i+1), list[i].getFloat()); }
+                else if(list[i].isSymbol())  {
+                    preset->setAttribute(String("string") + String(i+1), String(list[i].getSymbol())); }
+                else {
+                    preset->setAttribute(String("atom") + String(i+1), String("unknown")); }
+            }
+        }
+        else
+        {
+            add(ConsoleLevel::Error, "can't allocate memory for saving plugin state.");
+        }
+    }
+    else
+    {
+        add(ConsoleLevel::Error, "camomile save method should be called after plugin save notification.");
+    }
+}
+
+void CamomileAudioProcessor::loadInformation(XmlElement const& xml)
+{
+    bool loaded = false;
+    XmlElement const* patch = xml.getChildByName(juce::StringRef("patch"));
+    if(patch)
+    {
+        const int nlists = patch->getNumChildElements();
+        std::vector<pd::Atom> vec;
+        for(int i = 0; i < nlists; ++i)
+        {
+            XmlElement const* list = patch->getChildElement(i);
+            if(list)
+            {
+                const int natoms = list->getNumAttributes();
+                vec.resize(natoms);
+                
+                for(int j = 0; j < natoms; ++j)
+                {
+                    String const& name = list->getAttributeName(j);
+                    if(name.startsWith("float")) {
+                        vec[j] = static_cast<float>(list->getDoubleAttribute(name)); }
+                    else if(name.startsWith("string")){
+                        vec[j] = list->getStringAttribute(name).toStdString(); }
+                    else {
+                        vec[j] = std::string("unknown"); }
+                }
+                
+                sendList(std::string("load"), vec);
+                loaded = true;
+            }
+        }
+    }
+    
+    if(!loaded)
+    {
+        sendBang(std::string("load"));
+    }
+}
 
 void CamomileAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
     XmlElement xml(String("CamomileSettings"));
+    m_temp_xml = &xml;
     CamomileAudioParameter::saveStateInformation(xml, getParameters());
+    sendBang(std::string("save"));
+    processMessages();
     copyXmlToBinary(xml, destData);
+    m_temp_xml = nullptr;
 }
 
 void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
@@ -615,6 +697,7 @@ void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBy
     if(xml && xml->hasTagName("CamomileSettings"))
     {
         CamomileAudioParameter::loadStateInformation(*xml, getParameters());
+        loadInformation(*xml);
     }
 }
 

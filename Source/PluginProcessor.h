@@ -76,6 +76,8 @@ public:
 private:
     static BusesProperties getBusesProperties();
     void sendBusInformation(Bus const *bus);
+    void saveInformation(const std::vector<pd::Atom>& list);
+    void loadInformation(XmlElement const& xml);
     typedef moodycamel::ReaderWriterQueue<MessageGui> QueueGui;
     
     std::vector<pd::Atom>    m_atoms_param;
@@ -86,6 +88,7 @@ private:
     std::vector<bool>        m_params_states;
     QueueGui                 m_queue_gui = QueueGui(64);
     TrackProperties          m_track_properties;
+    XmlElement*              m_temp_xml;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)
 };
