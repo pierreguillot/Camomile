@@ -151,9 +151,8 @@ void PluginEditorConsole::buttonClicked(Button* button)
         m.addItem(2, "Error", true, m_level == ConsoleLevel::Error);
         m.addItem(3, "Normal", true, m_level == ConsoleLevel::Normal);
         m.addItem(4, "All", true, m_level == ConsoleLevel::Log);
-
-        Point<int> pos = Component::getScreenPosition().translated(0, 292);
-        int level = m.showAt(Rectangle<int>(pos.x, pos.y, 100, 48), 0, 0, CamoLookAndFeel::getDefaultFont().getHeight() + 2);
+        
+        int level = m.show(0, 0, CamoLookAndFeel::getDefaultFont().getHeight() + 2);
         stopTimer();
         if(bool(level) && ConsoleLevel(level - 1) != m_level)
         {

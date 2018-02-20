@@ -10,8 +10,8 @@
 #include <map>
 #include <utility>
 #include <string>
-#include "../../readerwriterqueue/readerwriterqueue.h"
-#include "../../concurrentqueue/concurrentqueue.h"
+#include "../../Dependencies/ReaderwriterQueue/readerwriterqueue.h"
+#include "../../Dependencies/ConcurrentQueue/concurrentqueue.h"
 
 namespace pd
 {

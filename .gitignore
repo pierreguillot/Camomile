@@ -35,9 +35,11 @@
 *.xcuserdatad
 
 # Juce & ThirdParty
-/Builds/MacOSX/build/
-/Builds/LinuxMakefile/build/
-/Builds/.backup/
+/Instrument/Builds/MacOSX/build/
+/Instrument/Builds/LinuxMakefile/build/
+/Effect/Builds/MacOSX/build/
+/Effect/Builds/LinuxMakefile/build/
+/.backup/
 
 #Examples
 /Plugins/Examples/*

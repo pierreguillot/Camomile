@@ -1,3 +1,12 @@
+v1.0.3
+- Fix DSP support for multiple audio buses
+- Fix the number of channels in the messages sent to the patch
+- Remove the name of the channels configuration in the messages sent to the patch (not coherent)
+- Add buses information in the messages sent to the patch
+- Add warning when the plugin code or the plugin type is not defined
+- Fix the position of the popup menu for console level (#90)
+- Add support when plugin is muted or not playing (#78)
+
 v1.0.2
 - Fix DSP off message to Pd
 - Prepare the DSP before opening the patch (#83)

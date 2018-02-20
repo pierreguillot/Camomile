@@ -27,7 +27,8 @@ public:
     void prepareToPlay (double sampleRate, int samplesPerBlock) final;
     void releaseResources() final;
     void processBlock (AudioSampleBuffer&, MidiBuffer&) final;
-
+    void processBlockBypassed (AudioBuffer<float>&, MidiBuffer&) final;
+    
     AudioProcessorEditor* createEditor() final;
     bool hasEditor() const final;
 
@@ -39,12 +40,12 @@ public:
     
     int getNumPrograms() final { return static_cast<int>(m_programs.size()); };
     int getCurrentProgram() final { return m_program_current; }
-    void setCurrentProgram (int index) override;
-    const String getProgramName (int index) override;
-    void changeProgramName (int index, const String& newName) override;
+    void setCurrentProgram (int index) final;
+    const String getProgramName (int index) final;
+    void changeProgramName (int index, const String& newName) final;
 
-    void getStateInformation (MemoryBlock& destData) override;
-    void setStateInformation (const void* data, int sizeInBytes) override;
+    void getStateInformation (MemoryBlock& destData) final;
+    void setStateInformation (const void* data, int sizeInBytes) final;
     
     void receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list) final;
     void receiveNoteOn(const int channel, const int pitch, const int velocity) final;
@@ -74,6 +75,9 @@ public:
     };
 private:
     static BusesProperties getBusesProperties();
+    void sendBusInformation(Bus const *bus);
+    void saveInformation(const std::vector<pd::Atom>& list);
+    void loadInformation(XmlElement const& xml);
     typedef moodycamel::ReaderWriterQueue<MessageGui> QueueGui;
     
     std::vector<pd::Atom>    m_atoms_param;
@@ -84,6 +88,7 @@ private:
     std::vector<bool>        m_params_states;
     QueueGui                 m_queue_gui = QueueGui(64);
     TrackProperties          m_track_properties;
+    XmlElement*              m_temp_xml;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)
 };

@@ -348,10 +348,12 @@ CamomileEnvironment::CamomileEnvironment()
         }
     }
     
-    if(!state.test(init_compatibilty))
-    {
-        errors.push_back("compatibility not defined.");
-    }
+    if(!state.test(init_code)) {
+        errors.push_back("code not defined."); }
+    if(!state.test(init_type)) {
+        errors.push_back("type not defined."); }
+    if(!state.test(init_compatibilty)) {
+        errors.push_back("compatibility not defined."); }
     else
     {
         size_t vpatch = 0, vplugin = 0;
@@ -367,14 +369,10 @@ CamomileEnvironment::CamomileEnvironment()
             errors.push_back("patch has been created for a newer version of the plugin v" + plugin_version);
         }
     }
-    if(programs.empty())
-    {
-        programs.push_back("");
-    }
-    if(buses.empty())
-    {
-        buses.push_back({2, 2});
-    }
+    if(programs.empty()) {
+        programs.push_back(""); }
+    if(buses.empty()) {
+        buses.push_back({2, 2}); }
 }
 
 size_t CamomileEnvironment::get_version(std::string const& v)

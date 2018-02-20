@@ -1,15 +1,15 @@
 [submodule "Juce"]
 	path = Juce
-	url = https://pierreguillot@github.com/WeAreROLI/JUCE.git
-[submodule "VST"]
-	path = VST
-	url = https://pierreguillot@github.com/steinbergmedia/vst3sdk.git
-[submodule "libpd"]
-	path = libpd
-	url = https://github.com/pierreguillot/libpd.git
-[submodule "readerwriterqueue"]
-	path = readerwriterqueue
-	url = https://github.com/cameron314/readerwriterqueue.git
-[submodule "concurrentqueue"]
-	path = concurrentqueue
-	url = https://github.com/cameron314/concurrentqueue.git
+url=https://github.com/pierreguillot/JUCE.git
+[submodule "Dependencies/ConcurrentQueue"]
+	path = Dependencies/ConcurrentQueue
+	url = https://github.com/pierreguillot/concurrentqueue.git
+[submodule "Dependencies/ReaderwriterQueue"]
+	path = Dependencies/ReaderwriterQueue
+	url = https://github.com/pierreguillot/readerwriterqueue.git
+[submodule "Dependencies/Vst"]
+	path = Dependencies/Vst
+	url = https://github.com/steinbergmedia/vst3sdk.git
+[submodule "Dependencies/LibPd"]
+	path = Dependencies/LibPd
+	url = https://pierreguillot@github.com/pierreguillot/libpd.git

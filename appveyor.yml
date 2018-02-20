@@ -16,17 +16,17 @@ install:
 build_script:
     - 'if "%MINGWARCH%"=="mingw32" C:\msys64\usr\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; ./libpd_mingw32_build.bat"'
     - 'if "%MINGWARCH%"=="mingw64" C:\msys64\usr\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; ./libpd_mingw64_build.bat"'
-    - 'if "%MINGWARCH%"=="mingw32" msbuild %APPVEYOR_BUILD_FOLDER%\Builds\VisualStudio2015\Camomile.sln /property:Configuration=Release32 /property:Platform=Win32'
-    - 'if "%MINGWARCH%"=="mingw32" msbuild %APPVEYOR_BUILD_FOLDER%\Builds\VisualStudio2015\Camomile.sln /property:Configuration=ReleaseFx32 /property:Platform=Win32'
-    - 'if "%MINGWARCH%"=="mingw64" msbuild %APPVEYOR_BUILD_FOLDER%\Builds\VisualStudio2015\Camomile.sln /property:Configuration=Release /property:Platform=x64'
-    - 'if "%MINGWARCH%"=="mingw64" msbuild %APPVEYOR_BUILD_FOLDER%\Builds\VisualStudio2015\Camomile.sln /property:Configuration=ReleaseFx /property:Platform=x64'
+    - 'if "%MINGWARCH%"=="mingw32" msbuild %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\Camomile.sln /property:Configuration=Release32 /property:Platform=Win32'
+    - 'if "%MINGWARCH%"=="mingw32" msbuild %APPVEYOR_BUILD_FOLDER%\Effect\Builds\VisualStudio2015\CamomileFx.sln /property:Configuration=Release32 /property:Platform=Win32'
+    - 'if "%MINGWARCH%"=="mingw64" msbuild %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\Camomile.sln /property:Configuration=Release /property:Platform=x64'
+    - 'if "%MINGWARCH%"=="mingw64" msbuild %APPVEYOR_BUILD_FOLDER%\Effect\Builds\VisualStudio2015\CamomileFx.sln /property:Configuration=Release /property:Platform=x64'
 after_build:
     - cd %APPVEYOR_BUILD_FOLDER%
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST\Camomile.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.dll
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\Camomile.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.vst3
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST\CamomileFx.dll %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileFx.dll
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\CamomileFx.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileFx.vst3
-    - copy %APPVEYOR_BUILD_FOLDER%\libpd\libs\libpd.dll %APPVEYOR_BUILD_FOLDER%\Plugins\libpd.dll
+    - copy %APPVEYOR_BUILD_FOLDER%\Dependencies\libpd\libs\libpd.dll %APPVEYOR_BUILD_FOLDER%\Plugins\libpd.dll
     - copy %APPVEYOR_BUILD_FOLDER%\README.md %APPVEYOR_BUILD_FOLDER%\Plugins\README.md
     - copy %APPVEYOR_BUILD_FOLDER%\ChangeLog.md %APPVEYOR_BUILD_FOLDER%\Plugins\ChangeLog.md
     - copy %APPVEYOR_BUILD_FOLDER%\LICENSE %APPVEYOR_BUILD_FOLDER%\Plugins\LICENSE.txt
