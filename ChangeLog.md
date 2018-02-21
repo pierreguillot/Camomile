@@ -6,6 +6,8 @@ v1.0.3
 - Add warning when the plugin code or the plugin type is not defined
 - Fix the position of the popup menu for console level (#90)
 - Add support when plugin is muted or not playing (#78)
+- Fix missing library on Linux (#89)
+- Add support for extra data to save and reload with the plugin's state (#91)
 
 v1.0.2
 - Fix DSP off message to Pd
