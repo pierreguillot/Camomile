@@ -83,7 +83,7 @@ namespace pd
         void closePatch();
         Patch getPatch();
         
-        void readArray(std::string const& name, std::vector<float>& output);
+        void readArray(std::string const& name, std::vector<float>& output) const;
         void writeArray(std::string const& name, std::vector<float> const& input);
 
         void setThis();

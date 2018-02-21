@@ -484,7 +484,7 @@ namespace pd
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     
-    void Instance::readArray(std::string const& name, std::vector<float>& output)
+    void Instance::readArray(std::string const& name, std::vector<float>& output) const
     {
         const int size = libpd_arraysize(name.c_str());
         output.resize(static_cast<size_t>(size));
