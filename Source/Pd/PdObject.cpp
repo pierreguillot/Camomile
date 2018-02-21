@@ -110,16 +110,37 @@ namespace pd
     // ==================================================================================== //
     
     // False GATOM
-    typedef struct _gatom
+    typedef struct _fake_gatom
     {
         t_text      a_text;
         t_atom      a_atom;
         t_glist*    a_glist;
-        t_float     a_toggle;
-        t_float     a_draghi;
-        t_float     a_draglo;
-        t_symbol*   a_label;
-    } t_gatom;
+        t_float a_toggle;
+        t_float a_draghi;
+        t_float a_draglo;
+        t_symbol *a_label;
+        t_symbol *a_symfrom;
+        t_symbol *a_symto;
+        char a_buf[40];
+        char a_shift;
+        char a_wherelabel;      // 0-3 for left, right, above, below
+        t_symbol *a_expanded_to;
+    } t_fake_gatom;
+    
+    // False GARRAY
+    typedef struct _fake_garray
+    {
+        t_gobj x_gobj;
+        t_scalar *x_scalar;
+        t_glist *x_glist;
+        t_symbol *x_name;
+        t_symbol *x_realname;
+        char x_usedindsp;
+        char x_saveit;
+        char x_listviewing;
+        char x_hidename;
+    } t_fake_garray;
+
     
     Gui::Gui() noexcept : Object(), m_type(Type::Undefined)
     {
@@ -171,10 +192,14 @@ namespace pd
         }
         else if(getName() == "gatom")
         {
-            if(static_cast<t_gatom*>(m_ptr)->a_atom.a_type == A_FLOAT)
+            if(static_cast<t_fake_gatom*>(m_ptr)->a_atom.a_type == A_FLOAT)
                 m_type = Type::AtomNumber;
-            else if(static_cast<t_gatom*>(m_ptr)->a_atom.a_type == A_SYMBOL)
+            else if(static_cast<t_fake_gatom*>(m_ptr)->a_atom.a_type == A_SYMBOL)
                 m_type = Type::AtomSymbol;
+        }
+        else if(getName() == "array")
+        {
+            m_type = Type::Array;
         }
     }
     
@@ -242,13 +267,21 @@ namespace pd
         }
         else if(m_type == Type::AtomNumber)
         {
-            t_gatom const* gatom = static_cast<t_gatom const*>(m_ptr);
+            t_fake_gatom const* gatom = static_cast<t_fake_gatom const*>(m_ptr);
             if(std::abs(gatom->a_draglo) > std::numeric_limits<float>::epsilon() &&
                std::abs(gatom->a_draghi) > std::numeric_limits<float>::epsilon())
             {
                 return gatom->a_draglo;
             }
             return -std::numeric_limits<float>::max();
+        }
+        else if(m_type == Type::Array)
+        {
+            t_canvas const* cnv = static_cast<t_fake_garray*>(m_ptr)->x_glist;
+            if(static_cast<bool>(cnv))
+            {
+                return cnv->gl_y2;
+            }
         }
         return 0.f;
     }
@@ -283,13 +316,21 @@ namespace pd
         }
         else if(m_type == Type::AtomNumber)
         {
-            t_gatom const* gatom = static_cast<t_gatom const*>(m_ptr);
+            t_fake_gatom const* gatom = static_cast<t_fake_gatom const*>(m_ptr);
             if(std::abs(gatom->a_draglo) > std::numeric_limits<float>::epsilon() &&
                std::abs(gatom->a_draghi) > std::numeric_limits<float>::epsilon())
             {
                 return gatom->a_draghi;
             }
             return std::numeric_limits<float>::max();
+        }
+        else if(m_type == Type::Array)
+        {
+            t_canvas const* cnv = static_cast<t_fake_garray*>(m_ptr)->x_glist;
+            if(static_cast<bool>(cnv))
+            {
+                return cnv->gl_y1;
+            }
         }
         return 1.f;
     }
@@ -332,7 +373,7 @@ namespace pd
         }
         else if(m_type == Type::AtomNumber)
         {
-            return atom_getfloat(&(static_cast<t_gatom*>(m_ptr)->a_atom));
+            return atom_getfloat(&(static_cast<t_fake_gatom*>(m_ptr)->a_atom));
         }
         return 0.f;
     }
@@ -352,7 +393,7 @@ namespace pd
         else
         {
             m_patch.m_instance->setThis();
-            return atom_getsymbol(&(static_cast<t_gatom*>(m_ptr)->a_atom))->s_name;
+            return atom_getsymbol(&(static_cast<t_fake_gatom*>(m_ptr)->a_atom))->s_name;
         }
     }
     
@@ -407,16 +448,48 @@ namespace pd
     
     std::string Gui::getLabel() const noexcept
     {
-        if(!m_ptr || m_type == Type::Undefined || m_type >= Type::Comment)
+        if(!m_ptr || m_type == Type::Undefined || m_type == Type::Comment)
             return std::string();
-        if((static_cast<t_iemgui*>(m_ptr))->x_lab)
+        if(m_type < Type::Comment && (static_cast<t_iemgui*>(m_ptr))->x_lab)
         {
-            return std::string(static_cast<t_iemgui*>(m_ptr)->x_lab->s_name);
+            t_symbol const* label = canvas_realizedollar(static_cast<t_iemgui*>(m_ptr)->x_glist, static_cast<t_iemgui*>(m_ptr)->x_lab);
+            return std::string(label->s_name);
+        }
+        else if((m_type == Type::AtomNumber || m_type == Type::AtomSymbol)
+                && static_cast<t_fake_gatom*>(m_ptr)->a_label)
+        {
+            t_symbol const* label = canvas_realizedollar(static_cast<t_fake_gatom*>(m_ptr)->a_glist, static_cast<t_fake_gatom*>(m_ptr)->a_label);
+            return std::string(label->s_name);
         }
         return std::string();
     }
     
-
+    std::array<int, 2> Gui::getLabelPosition() const noexcept
+    {
+        if(!m_ptr || m_type == Type::Undefined || m_type == Type::Comment)
+            return {0, 0};
+        if(m_type < Type::Comment && (static_cast<t_iemgui*>(m_ptr))->x_lab)
+        {
+            std::array<int, 4> const bounds = getBounds();
+            t_iemgui const* iemgui = static_cast<t_iemgui*>(m_ptr);
+            return {bounds[0] + iemgui->x_ldx, bounds[1] + iemgui->x_ldy};
+        }
+        else if((m_type == Type::AtomNumber || m_type == Type::AtomSymbol)
+                && static_cast<t_fake_gatom*>(m_ptr)->a_label)
+        {
+            std::array<int, 4> const bounds = getBounds();
+            t_fake_gatom const* gatom = static_cast<t_fake_gatom*>(m_ptr);
+            if (gatom->a_wherelabel == 0) { // Left
+                return {bounds[0] - 3 - static_cast<int>(getLabel().size()) * getFontSize(), bounds[1] + 2}; }
+            else if (gatom->a_wherelabel == 1) { // Right
+                return {bounds[0] + bounds[2] + 2, bounds[1] + 2}; }
+            else if (gatom->a_wherelabel == 2) {  // Up
+                return {bounds[0] - 1, bounds[1] - 1 - getFontSize()}; }
+            return {bounds[0] - 1, bounds[1] + bounds[3] + 3}; // Down
+        }
+        return {0, 0};
+    }
+    
     std::array<int, 4> Gui::getBounds() const noexcept
     {
         std::array<int, 4> bounds = Object::getBounds();
@@ -438,6 +511,15 @@ namespace pd
             bounds[3] = bounds[3] - 1;
         }
         return bounds;
+    }
+    
+    std::string Gui::getArrayName() const noexcept
+    {
+        if(m_type == Type::Array && static_cast<t_fake_garray*>(m_ptr)->x_realname)
+        {
+            return static_cast<t_fake_garray*>(m_ptr)->x_realname->s_name;
+        }
+        return std::string();
     }
 }
 
