@@ -1,5 +1,6 @@
 v1.0.4
 - Add GUI label support (#95)
+- Add graphical array support (#93)
 
 v1.0.3
 - Fix DSP support for multiple audio buses
