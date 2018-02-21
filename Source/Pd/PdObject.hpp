@@ -83,8 +83,7 @@ namespace pd
             VuMeter          = 9,
             Comment          = 10,
             AtomNumber       = 11,
-            AtomSymbol       = 12,
-            Array            = 13
+            AtomSymbol       = 12
         };
         
         //! @brief The constructor for an empty Object.
@@ -134,8 +133,6 @@ namespace pd
         void setSymbol(std::string const& value) noexcept;
         
         std::array<int, 4> getBounds() const noexcept override;
-        
-        std::string getArrayName() const noexcept;
     private:
 
         //! @brief The constructor for a new Object.

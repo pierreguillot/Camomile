@@ -150,56 +150,53 @@ namespace pd
     Gui::Gui(void* ptr, Patch const& patch) noexcept :
     Object(ptr, patch), m_type(Type::Undefined)
     {
-        if(getName() == "bng")
+        const std::string name = getName();
+        if(name == "bng")
         {
            m_type = Type::Bang;
         }
-        else if(getName() == "hsl")
+        else if(name == "hsl")
         {
            m_type = Type::HorizontalSlider;
         }
-        else if(getName() == "vsl")
+        else if(name == "vsl")
         {
            m_type = Type::VerticalSlider;
         }
-        else if(getName() == "tgl")
+        else if(name == "tgl")
         {
            m_type = Type::Toggle;
         }
-        else if(getName() == "nbx")
+        else if(name == "nbx")
         {
            m_type = Type::Number;
         }
-        else if(getName() == "vradio")
+        else if(name == "vradio")
         {
            m_type = Type::VerticalRadio;
         }
-        else if(getName() == "hradio")
+        else if(name == "hradio")
         {
            m_type = Type::HorizontalRadio;
         }
-        else if(getName() == "cnv")
+        else if(name == "cnv")
         {
            m_type = Type::Panel;
         }
-        else if(getName() == "vu")
+        else if(name == "vu")
         {
            m_type = Type::VuMeter;
         }
-        else if(getName() == "text")
+        else if(name == "text")
         {
            m_type = Type::Comment;
         }
-        else if(getName() == "gatom")
+        else if(name == "gatom")
         {
             if(static_cast<t_fake_gatom*>(m_ptr)->a_atom.a_type == A_FLOAT)
                 m_type = Type::AtomNumber;
             else if(static_cast<t_fake_gatom*>(m_ptr)->a_atom.a_type == A_SYMBOL)
                 m_type = Type::AtomSymbol;
-        }
-        else if(getName() == "array")
-        {
-            m_type = Type::Array;
         }
     }
     
@@ -275,14 +272,6 @@ namespace pd
             }
             return -std::numeric_limits<float>::max();
         }
-        else if(m_type == Type::Array)
-        {
-            t_canvas const* cnv = static_cast<t_fake_garray*>(m_ptr)->x_glist;
-            if(static_cast<bool>(cnv))
-            {
-                return cnv->gl_y2;
-            }
-        }
         return 0.f;
     }
     
@@ -323,14 +312,6 @@ namespace pd
                 return gatom->a_draghi;
             }
             return std::numeric_limits<float>::max();
-        }
-        else if(m_type == Type::Array)
-        {
-            t_canvas const* cnv = static_cast<t_fake_garray*>(m_ptr)->x_glist;
-            if(static_cast<bool>(cnv))
-            {
-                return cnv->gl_y1;
-            }
         }
         return 1.f;
     }
@@ -514,15 +495,6 @@ namespace pd
             bounds[3] = bounds[3] - 1;
         }
         return bounds;
-    }
-    
-    std::string Gui::getArrayName() const noexcept
-    {
-        if(m_type == Type::Array && static_cast<t_fake_garray*>(m_ptr)->x_realname)
-        {
-            return static_cast<t_fake_garray*>(m_ptr)->x_realname->s_name;
-        }
-        return std::string();
     }
 }
 
