@@ -470,34 +470,47 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
     }
     else if(msg == std::string("openpanel"))
     {
-        if(list.size() >= 1) {
-            if(list[0].isSymbol()) {
+        if(list.size() >= 1)
+        {
+            if(list[0].isSymbol())
+            {
                 m_queue_gui.try_enqueue({std::string("openpanel"), list[0].getSymbol()});
-                if(list.size() > 1) { add(ConsoleLevel::Error,
-                                          "camomile openpanel method extra arguments"); }
+                if(list.size() > 1) { add(ConsoleLevel::Error, "camomile openpanel method extra arguments"); }
             }
+            else { add(ConsoleLevel::Error, "camomile openpanel method argument must be a symbol"); }
         }
-        else {
-            m_queue_gui.try_enqueue({std::string("openpanel"), std::string()}); }
+        else { m_queue_gui.try_enqueue({std::string("openpanel"), std::string()}); }
     }
     else if(msg == std::string("savepanel"))
     {
-        if(list.size() >= 1) {
-            if(list[0].isSymbol()) {
+        if(list.size() >= 1)
+        {
+            if(list[0].isSymbol())
+            {
                 m_queue_gui.try_enqueue({std::string("savepanel"), list[0].getSymbol()});
-                if(list.size() > 1) { add(ConsoleLevel::Error,
-                                          "camomile savepanel method extra arguments"); }
+                if(list.size() > 1) { add(ConsoleLevel::Error, "camomile savepanel method extra arguments"); }
             }
+            else { add(ConsoleLevel::Error, "camomile savepanel method argument must be a symbol"); }
         }
-        else {
-            m_queue_gui.try_enqueue({std::string("savepanel"), std::string()}); }
+        else { m_queue_gui.try_enqueue({std::string("savepanel"), std::string()}); }
+    }
+    else if(msg == std::string("array"))
+    {
+        if(list.size() >= 1) {
+            if(list[0].isSymbol())
+            {
+                m_queue_gui.try_enqueue({std::string("array"), list[0].getSymbol()});
+                if(list.size() > 1) { add(ConsoleLevel::Error, "camomile array method extra arguments"); }
+            }
+            else { add(ConsoleLevel::Error, "camomile array method argument must be a symbol"); }
+        }
+        else {add(ConsoleLevel::Error, "camomile array needs a name");}
     }
     else if(msg == std::string("save"))
     {
         saveInformation(list);
     }
-    else {  add(ConsoleLevel::Error,
-                "camomile unknow message : " + msg); }
+    else {  add(ConsoleLevel::Error, "camomile unknow message : " + msg); }
 }
 
 bool CamomileAudioProcessor::dequeueGui(MessageGui& message)
