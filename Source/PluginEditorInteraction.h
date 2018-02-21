@@ -77,18 +77,19 @@ private:
 //! via the symbols openpanel and savepanel.
 //! @see CamomileAudioPluginEditor
 //! @todo Later this class could also manage other messages from Pd.
-class CamomileEditorPanelManager
+class CamomileEditorMessageManager
 {
 public:
-    CamomileEditorPanelManager(CamomileAudioProcessor& processor) : m_processor(processor) {}
+    CamomileEditorMessageManager(CamomileAudioProcessor& processor);
     bool processMessages();
 private:
     CamomileAudioProcessor& m_processor;
-    
+    ScopedPointer<DocumentWindow> m_window;
     static const std::string string_openpanel;
     static const std::string string_savepanel;
+    static const std::string string_array;
     
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorPanelManager)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorMessageManager)
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -100,7 +101,7 @@ private:
 class CamomileEditorInteractionManager :
     public CamomileEditorKeyManager,
     public CamomileEditorMouseManager,
-    public CamomileEditorPanelManager
+    public CamomileEditorMessageManager
 {
 public:
     CamomileEditorInteractionManager(CamomileAudioProcessor& processor);

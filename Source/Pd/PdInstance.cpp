@@ -486,9 +486,11 @@ namespace pd
     
     void Instance::readArray(std::string const& name, std::vector<float>& output) const
     {
+        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         const int size = libpd_arraysize(name.c_str());
+        if(size < 0) { throw; }
         output.resize(static_cast<size_t>(size));
-        libpd_read_array(output.data(), name.c_str(), 0, size);
+        if(libpd_read_array(output.data(), name.c_str(), 0, size) != 0) { throw; }
     }
     
     void Instance::writeArray(std::string const& name, std::vector<float> const& input)

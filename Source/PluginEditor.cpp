@@ -49,7 +49,7 @@ CamomileEditor::~CamomileEditor() {}
 
 void CamomileEditor::timerCallback()
 {
-    CamomileEditorPanelManager::processMessages();
+    CamomileEditorMessageManager::processMessages();
     for(auto object : m_objects) {
         object->update(); }
 }
