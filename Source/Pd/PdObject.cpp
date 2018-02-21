@@ -453,7 +453,10 @@ namespace pd
         if(m_type < Type::Comment && (static_cast<t_iemgui*>(m_ptr))->x_lab)
         {
             t_symbol const* label = canvas_realizedollar(static_cast<t_iemgui*>(m_ptr)->x_glist, static_cast<t_iemgui*>(m_ptr)->x_lab);
-            return std::string(label->s_name);
+            std::string const str(label->s_name);
+            if(str != std::string("empty"))
+                return str;
+            return std::string();
         }
         else if((m_type == Type::AtomNumber || m_type == Type::AtomSymbol)
                 && static_cast<t_fake_gatom*>(m_ptr)->a_label)

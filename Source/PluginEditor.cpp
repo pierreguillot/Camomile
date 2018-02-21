@@ -34,7 +34,13 @@ AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), m_processor (p),
     }
     
     for(auto& gui : p.getPatch().getGuis()) {
-        addAndMakeVisible(m_objects.add(PluginEditorObject::createTyped(*this, gui))); }
+        PluginEditorObject* obj = m_objects.add(PluginEditorObject::createTyped(*this, gui));
+        if(obj->hasLabel())
+        {
+            addAndMakeVisible(m_labels.add(obj->getLabel()));
+        }
+        addAndMakeVisible(obj);
+    }
     addAndMakeVisible(m_button);
     startTimer(25);
 }

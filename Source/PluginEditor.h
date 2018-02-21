@@ -26,6 +26,7 @@ public:
 private:
     CamomileAudioProcessor&         m_processor;
     OwnedArray<PluginEditorObject>  m_objects;
+    OwnedArray<Component>           m_labels;
     CamomileEditorButton            m_button;
     DrawableImage                   m_image;
     

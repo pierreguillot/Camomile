@@ -22,6 +22,8 @@ public:
     
     static PluginEditorObject* createTyped(CamomileEditorMouseManager& p, pd::Gui& g);
     virtual void update();
+    bool hasLabel();
+    Label* getLabel();
 protected:
     float getValueOriginal() const noexcept;
     void setValueOriginal(float v);
@@ -37,6 +39,7 @@ protected:
     float       value   = 0;
     float       min     = 0;
     float       max     = 1;
+
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PluginEditorObject)
 };

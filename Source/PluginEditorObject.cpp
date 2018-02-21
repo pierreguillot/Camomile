@@ -115,7 +115,31 @@ void PluginEditorObject::update()
     }
 }
 
+bool PluginEditorObject::hasLabel()
+{
+    return !(gui.getLabel().empty());
+}
 
+Label* PluginEditorObject::getLabel()
+{
+    const String text = String(gui.getLabel());
+    if(text.isNotEmpty())
+    {
+        Label* label = new Label();
+        const Font ft = CamoLookAndFeel::getDefaultFont().withHeight(gui.getFontSize());
+        const std::array<int, 2> position = gui.getLabelPosition();
+        label->setBounds(position[0], position[1] - ft.getDescent() - 1, ft.getStringWidth(text), gui.getFontSize());
+        label->setFont(ft);
+        label->setJustificationType(Justification::centredLeft);
+        label->setBorderSize(BorderSize<int>(0, 0, 0, 0));
+        label->setText(text, NotificationType::dontSendNotification);
+        label->setEditable(false, false);
+        label->setInterceptsMouseClicks(false, false);
+        label->setColour(Label::textColourId, Colour(static_cast<uint32>(gui.getLabelColor())));
+        return label;
+    }
+    return nullptr;
+}
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
