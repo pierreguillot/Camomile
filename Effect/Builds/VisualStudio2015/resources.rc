@@ -7,7 +7,7 @@
 #include <windows.h>
 
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION  1,0,3,0
+FILEVERSION  1,0,4,0
 BEGIN
   BLOCK "StringFileInfo"
   BEGIN
@@ -16,9 +16,9 @@ BEGIN
       VALUE "CompanyName",  "Pierre Guillot\0"
       VALUE "LegalCopyright",  "Pierre Guillot\0"
       VALUE "FileDescription",  "CamomileFx\0"
-      VALUE "FileVersion",  "1.0.3\0"
+      VALUE "FileVersion",  "1.0.4\0"
       VALUE "ProductName",  "CamomileFx\0"
-      VALUE "ProductVersion",  "1.0.3\0"
+      VALUE "ProductVersion",  "1.0.4\0"
     END
   END
 

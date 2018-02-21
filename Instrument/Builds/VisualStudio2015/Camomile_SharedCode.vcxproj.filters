@@ -949,9 +949,6 @@
     <ClCompile Include="..\..\..\Juce\modules\juce_core\containers\juce_HashMap_test.cpp">
       <Filter>JUCE Modules\juce_core\containers</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Juce\modules\juce_core\containers\juce_ListenerList.cpp">
-      <Filter>JUCE Modules\juce_core\containers</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_core\containers\juce_NamedValueSet.cpp">
       <Filter>JUCE Modules\juce_core\containers</Filter>
     </ClCompile>
@@ -1723,6 +1720,9 @@
     <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\drawables\juce_SVGParser.cpp">
       <Filter>JUCE Modules\juce_gui_basics\drawables</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\filebrowser\juce_ContentSharer.cpp">
+      <Filter>JUCE Modules\juce_gui_basics\filebrowser</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\filebrowser\juce_DirectoryContentsDisplayComponent.cpp">
       <Filter>JUCE Modules\juce_gui_basics\filebrowser</Filter>
     </ClCompile>
@@ -1813,6 +1813,9 @@
     <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\layout\juce_ScrollBar.cpp">
       <Filter>JUCE Modules\juce_gui_basics\layout</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\layout\juce_SidePanel.cpp">
+      <Filter>JUCE Modules\juce_gui_basics\layout</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\layout\juce_StretchableLayoutManager.cpp">
       <Filter>JUCE Modules\juce_gui_basics\layout</Filter>
     </ClCompile>
@@ -1845,6 +1848,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\lookandfeel\juce_LookAndFeel_V4.cpp">
       <Filter>JUCE Modules\juce_gui_basics\lookandfeel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\menus\juce_BurgerMenuComponent.cpp">
+      <Filter>JUCE Modules\juce_gui_basics\menus</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\menus\juce_MenuBarComponent.cpp">
       <Filter>JUCE Modules\juce_gui_basics\menus</Filter>
@@ -1885,10 +1891,22 @@
     <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\mouse\juce_MouseListener.cpp">
       <Filter>JUCE Modules\juce_gui_basics\mouse</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\native\juce_android_ContentSharer.cpp">
+      <Filter>JUCE Modules\juce_gui_basics\native</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\native\juce_android_FileChooser.cpp">
       <Filter>JUCE Modules\juce_gui_basics\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\native\juce_android_Windowing.cpp">
+      <Filter>JUCE Modules\juce_gui_basics\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\native\juce_common_MimeTypes.cpp">
+      <Filter>JUCE Modules\juce_gui_basics\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\native\juce_ios_ContentSharer.cpp">
+      <Filter>JUCE Modules\juce_gui_basics\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\native\juce_ios_FileChooser.mm">
       <Filter>JUCE Modules\juce_gui_basics\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\native\juce_ios_UIViewComponentPeer.mm">
@@ -2101,6 +2119,9 @@
     <ClCompile Include="..\..\..\Juce\modules\juce_gui_extra\native\juce_android_WebBrowserComponent.cpp">
       <Filter>JUCE Modules\juce_gui_extra\native</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_gui_extra\native\juce_AndroidViewComponent.cpp">
+      <Filter>JUCE Modules\juce_gui_extra\native</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_gui_extra\native\juce_ios_PushNotifications.cpp">
       <Filter>JUCE Modules\juce_gui_extra\native</Filter>
     </ClCompile>
@@ -2120,6 +2141,9 @@
       <Filter>JUCE Modules\juce_gui_extra\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_gui_extra\native\juce_mac_NSViewComponent.mm">
+      <Filter>JUCE Modules\juce_gui_extra\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_gui_extra\native\juce_mac_PushNotifications.cpp">
       <Filter>JUCE Modules\juce_gui_extra\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_gui_extra\native\juce_mac_SystemTrayIcon.cpp">
@@ -3360,6 +3384,9 @@
     <ClInclude Include="..\..\..\Juce\modules\juce_data_structures\values\juce_ValueTreeSynchroniser.h">
       <Filter>JUCE Modules\juce_data_structures\values</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Juce\modules\juce_data_structures\values\juce_ValueWithDefault.h">
+      <Filter>JUCE Modules\juce_data_structures\values</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Juce\modules\juce_data_structures\juce_data_structures.h">
       <Filter>JUCE Modules\juce_data_structures</Filter>
     </ClInclude>
@@ -3499,6 +3526,9 @@
       <Filter>JUCE Modules\juce_graphics\geometry</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Juce\modules\juce_graphics\geometry\juce_Line.h">
+      <Filter>JUCE Modules\juce_graphics\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Juce\modules\juce_graphics\geometry\juce_Parallelogram.h">
       <Filter>JUCE Modules\juce_graphics\geometry</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Juce\modules\juce_graphics\geometry\juce_Path.h">
@@ -3687,6 +3717,9 @@
     <ClInclude Include="..\..\..\Juce\modules\juce_gui_basics\drawables\juce_DrawableText.h">
       <Filter>JUCE Modules\juce_gui_basics\drawables</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Juce\modules\juce_gui_basics\filebrowser\juce_ContentSharer.h">
+      <Filter>JUCE Modules\juce_gui_basics\filebrowser</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Juce\modules\juce_gui_basics\filebrowser\juce_DirectoryContentsDisplayComponent.h">
       <Filter>JUCE Modules\juce_gui_basics\filebrowser</Filter>
     </ClInclude>
@@ -3798,6 +3831,9 @@
     <ClInclude Include="..\..\..\Juce\modules\juce_gui_basics\layout\juce_ScrollBar.h">
       <Filter>JUCE Modules\juce_gui_basics\layout</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Juce\modules\juce_gui_basics\layout\juce_SidePanel.h">
+      <Filter>JUCE Modules\juce_gui_basics\layout</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Juce\modules\juce_gui_basics\layout\juce_StretchableLayoutManager.h">
       <Filter>JUCE Modules\juce_gui_basics\layout</Filter>
     </ClInclude>
@@ -3830,6 +3866,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Juce\modules\juce_gui_basics\lookandfeel\juce_LookAndFeel_V4.h">
       <Filter>JUCE Modules\juce_gui_basics\lookandfeel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Juce\modules\juce_gui_basics\menus\juce_BurgerMenuComponent.h">
+      <Filter>JUCE Modules\juce_gui_basics\menus</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Juce\modules\juce_gui_basics\menus\juce_MenuBarComponent.h">
       <Filter>JUCE Modules\juce_gui_basics\menus</Filter>
@@ -4036,6 +4075,9 @@
       <Filter>JUCE Modules\juce_gui_extra\documents</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Juce\modules\juce_gui_extra\embedding\juce_ActiveXControlComponent.h">
+      <Filter>JUCE Modules\juce_gui_extra\embedding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Juce\modules\juce_gui_extra\embedding\juce_AndroidViewComponent.h">
       <Filter>JUCE Modules\juce_gui_extra\embedding</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Juce\modules\juce_gui_extra\embedding\juce_NSViewComponent.h">

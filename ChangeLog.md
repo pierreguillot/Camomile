@@ -1,3 +1,6 @@
+v1.0.4
+- Add GUI label support (#95)
+
 v1.0.3
 - Fix DSP support for multiple audio buses
 - Fix the number of channels in the messages sent to the patch
