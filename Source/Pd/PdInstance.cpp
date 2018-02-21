@@ -481,9 +481,29 @@ namespace pd
         return Patch(m_patch, this);
     }
     
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    void Instance::readArray(std::string const& name, std::vector<float>& output)
+    {
+        const int size = libpd_arraysize(name.c_str());
+        output.resize(static_cast<size_t>(size));
+        libpd_read_array(output.data(), name.c_str(), 0, size);
+    }
+    
+    void Instance::writeArray(std::string const& name, std::vector<float> const& input)
+    {
+        libpd_write_array(name.c_str(), 0, input.data(), static_cast<int>(input.size()));
+    }
+    
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
     void Instance::setThis()
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
     }
+    
 }
 
