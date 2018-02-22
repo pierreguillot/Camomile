@@ -520,6 +520,21 @@ namespace pd
         }
         return std::string();
     }
+    
+    bool Gui::isArrayCurve() const noexcept
+    {
+        if(m_type == Type::Array)
+        {
+            t_fake_garray const * ar = reinterpret_cast<t_fake_garray*>(static_cast<t_canvas*>(m_ptr)->gl_list);
+            if(!ar || !ar->x_scalar)
+                return false;
+            t_template *scalartemplate = template_findbyname(ar->x_scalar->sc_template);
+            if(!scalartemplate)
+                return false;
+            return template_getfloat(scalartemplate, gensym("style"), ar->x_scalar->sc_vec, 0) != 0;
+        }
+        return false;
+    }
 }
 
 

@@ -136,6 +136,8 @@ namespace pd
         std::array<int, 4> getBounds() const noexcept override;
         
         std::string getArraySymbol() const noexcept;
+        
+        bool isArrayCurve() const noexcept;
     private:
 
         //! @brief The constructor for a new Object.

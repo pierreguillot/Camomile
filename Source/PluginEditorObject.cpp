@@ -665,6 +665,7 @@ m_array(p.getProcessor(), gui.getArraySymbol())
 {
     setInterceptsMouseClicks(false, true);
     m_array.setBounds(getLocalBounds());
+    m_array.setDrawCurve(gui.isArrayCurve());
     addAndMakeVisible(&m_array);
 }
 
@@ -813,7 +814,7 @@ void GraphicalArray::setDrawBackground(bool state)
 
 void GraphicalArray::setDrawCurve(bool state)
 {
-    if(state != m_background)
+    if(state != m_curve)
     {
         m_curve = state;
         repaint();
