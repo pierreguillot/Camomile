@@ -495,7 +495,12 @@ namespace pd
     
     void Instance::writeArray(std::string const& name, std::vector<float> const& input)
     {
-        libpd_write_array(name.c_str(), 0, input.data(), static_cast<int>(input.size()));
+        if(libpd_write_array(name.c_str(), 0, input.data(), static_cast<int>(input.size())) != 0) { throw; }
+    }
+    
+    void Instance::writeArraySample(std::string const& name, const size_t pos, float const input)
+    {
+        if(libpd_write_array(name.c_str(), static_cast<int>(pos), &input, 1) != 0) { throw; }
     }
     
     
