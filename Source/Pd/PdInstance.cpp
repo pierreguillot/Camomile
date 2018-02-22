@@ -486,21 +486,27 @@ namespace pd
     
     void Instance::readArray(std::string const& name, std::vector<float>& output) const
     {
+        if(name.empty())
+             throw -1;
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         const int size = libpd_arraysize(name.c_str());
-        if(size < 0) { throw; }
+        if(size < 0) { throw -1; }
         output.resize(static_cast<size_t>(size));
-        if(libpd_read_array(output.data(), name.c_str(), 0, size) != 0) { throw; }
+        if(libpd_read_array(output.data(), name.c_str(), 0, size) != 0) { throw -1; }
     }
     
     void Instance::writeArray(std::string const& name, std::vector<float> const& input)
     {
-        if(libpd_write_array(name.c_str(), 0, input.data(), static_cast<int>(input.size())) != 0) { throw; }
+        if(name.empty())
+            throw -1;
+        if(libpd_write_array(name.c_str(), 0, input.data(), static_cast<int>(input.size())) != 0) { throw -1; }
     }
     
     void Instance::writeArraySample(std::string const& name, const size_t pos, float const input)
     {
-        if(libpd_write_array(name.c_str(), static_cast<int>(pos), &input, 1) != 0) { throw; }
+        if(name.empty())
+            throw -1;
+        if(libpd_write_array(name.c_str(), static_cast<int>(pos), &input, 1) != 0) { throw -1; }
     }
     
     

@@ -11,6 +11,38 @@
 #include <atomic>
 
 // ==================================================================================== //
+//                                  GRAPHICAL ARRAY                                     //
+// ==================================================================================== //
+
+class GraphicalArray : public Component, private Timer
+{
+public:
+    GraphicalArray(CamomileAudioProcessor& processor, std::string const& name);
+    void paint(Graphics& g) final;
+    void mouseDown(const MouseEvent& event) final;
+    void mouseDrag(const MouseEvent& event) final;
+    void mouseUp(const MouseEvent& event) final;
+    size_t getArraySize() const noexcept;
+    void setDrawBackground(bool state);
+    void setDrawCurve(bool state);
+private:
+    void timerCallback() final;
+    template <typename T> T clip(const T& n, const T& lower, const T& upper) {
+        return std::max(lower, std::min(n, upper));
+    }
+    
+    CamomileAudioProcessor& m_processor;
+    std::string const       m_name;
+    std::vector<float>      m_vector;
+    std::vector<float>      m_temp;
+    std::atomic<bool>       m_edited;
+    bool                    m_error = false;
+    bool                    m_background = false;
+    bool                    m_curve = false;
+    const std::string string_array = std::string("array");
+};
+
+// ==================================================================================== //
 //                                      GUI OBJECT                                      //
 // ==================================================================================== //
 
@@ -162,4 +194,18 @@ public:
 private:
     std::string          last;
 };
+
+class GuiArray : public PluginEditorObject
+{
+public:
+    GuiArray(CamomileEditorMouseManager& p, pd::Gui& g);
+    void paint(Graphics& ) final {}
+    void resized() final;
+    void update() final {}
+private:
+    GraphicalArray m_array;
+};
+
+
+
 

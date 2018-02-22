@@ -53,6 +53,10 @@ PluginEditorObject* PluginEditorObject::createTyped(CamomileEditorMouseManager& 
     {
         return new GuiAtomSymbol(p, g);
     }
+    else if(g.getType() == pd::Gui::Type::Array)
+    {
+        return new GuiArray(p, g);
+    }
     return new PluginEditorObject(p, g);
 }
 
@@ -656,6 +660,151 @@ void GuiAtomSymbol::update()
     }
 }
 
+GuiArray::GuiArray(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g),
+m_array(p.getProcessor(), gui.getArraySymbol())
+{
+    setInterceptsMouseClicks(false, true);
+    m_array.setBounds(getLocalBounds());
+    addAndMakeVisible(&m_array);
+}
+
+void GuiArray::resized()
+{
+    m_array.setBounds(getLocalBounds());
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////     GRAPHICAL ARRAY      ////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+GraphicalArray::GraphicalArray(CamomileAudioProcessor& processor, std::string const& name) :
+m_processor(processor), m_name(name), m_edited(false)
+{
+    m_vector.reserve(8192);
+    m_temp.reserve(8192);
+    try { m_processor.readArray(m_name, m_vector); }
+    catch(...) { m_error = true; }
+    startTimer(100);
+    setInterceptsMouseClicks(true, false);
+}
+
+void GraphicalArray::paint(Graphics& g)
+{
+    g.setColour(Colours::white);
+    g.fillRect(getLocalBounds());
+    if(m_error)
+    {
+        g.setFont(CamoLookAndFeel::getDefaultFont());
+        g.drawText("array " + m_name + " is invalid", 0, 0, getWidth(), getHeight(), juce::Justification::centred);
+    }
+    else
+    {
+        const float h = static_cast<float>(getHeight());
+        const float w = static_cast<float>(getWidth());
+        if(m_background)
+        {
+            g.setColour(Colours::darkgrey);
+            g.drawLine(0, h * 0.25f, w, h * 0.25f, 1);
+            g.drawLine(0, h * 0.5f, w, h * 0.5f, 1);
+            g.drawLine(0, h * 0.75f, w, h * 0.75f, 1);
+            g.drawLine(w * 0.25f, 0, w * 0.25f, h, 1);
+            g.drawLine(w * 0.5f, 0, w * 0.5f, h, 1);
+            g.drawLine(w * 0.75f, 0, w * 0.75f, h, 1);
+        }
+        
+        if(!m_vector.empty())
+        {
+            Path p;
+            const float dh = h * 0.5f;
+            const float dw = w / static_cast<float>(m_vector.size() - 1);
+            p.startNewSubPath(0, (clip(-m_vector[0], -1.f, 1.f) + 1.f) * dh);
+            for(size_t i = 1; i < m_vector.size(); ++i)
+            {
+                p.lineTo(static_cast<float>(i) * dw, (clip(-m_vector[i], -1.f, 1.f) + 1.f) * dh);
+            }
+            g.setColour(Colours::black);
+            g.strokePath(p, PathStrokeType(1));
+        }
+    }
+    g.setColour(Colours::black);
+    g.drawRect(getLocalBounds(), 1);
+}
+
+void GraphicalArray::mouseDown(const MouseEvent& event)
+{
+    if(m_error)
+        return;
+    m_edited = true;
+    mouseDrag(event);
+}
+
+void GraphicalArray::mouseDrag(const MouseEvent& event)
+{
+    if(m_error)
+        return;
+    const float s = static_cast<float>(m_vector.size() - 1);
+    const float w = static_cast<float>(getWidth());
+    const float h = static_cast<float>(getHeight());
+    const float x = static_cast<float>(event.x);
+    const float y = static_cast<float>(event.y);
+    
+    const size_t index = static_cast<size_t>(std::round(clip(x / w, 0.f, 1.f) * s));
+    m_vector[index] = (1.f - clip(y / h, 0.f, 1.f)) * 2.f - 1.f;
+    const CriticalSection& cs = m_processor.getCallbackLock();
+    if(cs.tryEnter())
+    {
+        try { m_processor.writeArraySample(m_name, index, m_vector[index]); }
+        catch(...) { m_error = true; }
+        cs.exit();
+    }
+    m_processor.enqueueMessages(string_array, m_name, {});
+    repaint();
+}
+
+void GraphicalArray::mouseUp(const MouseEvent& event)
+{
+    if(m_error)
+        return;
+    m_edited = false;
+}
+
+void GraphicalArray::timerCallback()
+{
+    if(!m_edited)
+    {
+        m_error = false;
+        try { m_processor.readArray(m_name, m_temp); }
+        catch(...) { m_error = true; }
+        if(m_temp != m_vector)
+        {
+            m_vector.swap(m_temp);
+            repaint();
+        }
+    }
+}
+
+size_t GraphicalArray::getArraySize() const noexcept
+{
+    return m_vector.size();
+}
+
+void GraphicalArray::setDrawBackground(bool state)
+{
+    if(state != m_background)
+    {
+        m_background = state;
+        repaint();
+    }
+}
+
+void GraphicalArray::setDrawCurve(bool state)
+{
+    if(state != m_background)
+    {
+        m_curve = state;
+        repaint();
+    }
+}
 
 
 

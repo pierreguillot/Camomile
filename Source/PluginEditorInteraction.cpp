@@ -6,6 +6,7 @@
 
 #include "PluginEditorInteraction.h"
 #include "PluginLookAndFeel.hpp"
+#include "PluginEditorObject.hpp"
 #include <locale> // std::locale;
 #include <atomic>
 #include <algorithm>
@@ -161,146 +162,38 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorMessageWindow)
 };
 
-class GraphicalArray : public Component, protected Timer
+class GraphicalArrayOwner : public Component
 {
 public:
-    GraphicalArray(CamomileAudioProcessor& processor, std::string const& name) :
-    m_processor(processor), m_name(name), m_edited(false) {
-        m_vector.reserve(8192);
-        m_temp.reserve(8192);
-        try { m_processor.readArray(m_name, m_vector); }
-        catch(...) { m_error = true; }
-        startTimer(100);
-        setInterceptsMouseClicks(true, false);
-    }
-    
-    inline void paintArray(Graphics& g, const float w, const float h)
+    GraphicalArrayOwner(CamomileAudioProcessor& processor, std::string const& name) :
+    m_array(processor, name)
     {
-        if(!m_vector.empty())
-        {
-            Path p;
-            const float offset = static_cast<float>(s_shift * 2);
-            const float dh = (h - offset) * 0.5f;
-            const float dw = (w - offset) / static_cast<float>(m_vector.size() - 1);
-            p.startNewSubPath(s_shift, s_shift + (clip(-m_vector[0], -1.f, 1.f) + 1.f) * dh);
-            for(size_t i = 1; i < m_vector.size(); ++i)
-            {
-                const float x = s_shift + static_cast<float>(i) * dw;
-                const float y = s_shift + (clip(-m_vector[i], -1.f, 1.f) + 1.f) * dh;
-                p.lineTo(x, y);
-            }
-            g.setColour(Colours::black);
-            g.strokePath(p, PathStrokeType(1));
-        }
+        setInterceptsMouseClicks(false, true);
+        m_array.setBounds(getLocalBounds().reduced(20));
+        m_array.setDrawBackground(true);
+        m_array.setDrawCurve(true);
+        addAndMakeVisible(&m_array);
     }
-    
-    inline void paintBackground(Graphics& g, const float w, const float h)
-    {
-        const float offset = static_cast<float>(s_shift * 2);
-        const float hminus = h - s_shift;
-        const float font2 = s_font_height * 0.5f;
-        const float shift2 = s_shift * 2.f;
-        
-        g.setColour(Colours::darkgrey);
-        g.drawLine(s_shift, h * 0.5f, w - s_shift, h * 0.5f, 1);
-        g.drawLine(s_shift, h * 0.5f - (h - offset) * 0.25f, w - s_shift, h * 0.5f - (h - offset) * 0.25f, 1);
-        g.drawLine(s_shift, h * 0.5f + (h - offset) * 0.25f, w - s_shift, h * 0.5f + (h - offset) * 0.25f, 1);
-        
-        g.drawLine(w * 0.5f, s_shift, w * 0.5f, h - s_shift, 1);
-        g.drawLine(w * 0.5f - (w - offset) * 0.25f, s_shift, w * 0.5f - (w - offset) * 0.25f, h - s_shift, 1);
-        g.drawLine(w * 0.5f + (w - offset) * 0.25f, s_shift, w * 0.5f + (w - offset) * 0.25f, h - s_shift, 1);
-        
-        g.setColour(Colours::black);
-        g.setFont(CamoLookAndFeel::getDefaultFont().withHeight(s_font_height));
-        g.drawText("1", 0, s_shift - font2, s_shift, s_font_height, Justification::centred);
-        g.drawText("0", 0, h * 0.5f - font2, s_shift, s_font_height, Justification::centred);
-        g.drawText("-1", 0, hminus - font2, s_shift, s_font_height, Justification::centred);
-        
-        g.drawText("0", 0, hminus, shift2, s_shift, Justification::centred);
-        g.drawText(String(m_vector.size()), w - shift2, hminus, shift2, s_shift, Justification::centred);
-    }
-    
+
     void paint(Graphics& g) final
     {
-        const float h = static_cast<float>(getHeight());
-        const float w = static_cast<float>(getWidth());
-        Rectangle<int> bd = getBounds().reduced(s_shift - 0.5f, s_shift - 0.5f);
-        g.setColour(Colours::white.withAlpha(0.5f));
-        g.fillRect(bd);
-        if(m_error)
-        {
-            g.setFont(CamoLookAndFeel::getDefaultFont());
-            g.drawText("array " + m_name + " is invalid", 0, 0, w, h, juce::Justification::centred);
-        }
-        else
-        {
-            paintBackground(g, w, h);
-            paintArray(g, w, h);
-        }
         g.setColour(Colours::black);
-        g.drawRect(bd, 1.5f);
+        g.setFont(CamoLookAndFeel::getDefaultFont().withHeight(12));
+        g.drawText("1", 0, 10, 20, 30, Justification::centred);
+        g.drawText("0", 0, getHeight() / 2 - 10, 20, getHeight() / 2 + 10, Justification::centred);
+        g.drawText("-1", 0, getHeight() - 30, 20, getHeight() - 10, Justification::centred);
+        
+        g.drawText("0", 10, getHeight() - 20, 30, getHeight(), Justification::centred);
+        g.drawText(String(m_array.getArraySize()), getWidth() - 30, getHeight() - 20, getWidth() - 10, getHeight(), Justification::centred);
     }
     
-    void mouseDown(const MouseEvent& event) final
+    void resized() final
     {
-        auto const bounds = getBounds().reduced(s_shift - 0.5f, s_shift - 0.5f);
-        if(bounds.contains(event.position.translated(-s_shift, -s_shift).toInt()))
-        {
-            m_edited = true;
-            mouseDrag(event);
-        }
-    }
-    
-    void mouseDrag(const MouseEvent& event) final
-    {
-        if(m_edited)
-        {
-            const float o = static_cast<float>(s_shift * 2);
-            const float s = static_cast<float>(m_vector.size() - 1);
-            const float w = static_cast<float>(getWidth()) - o;
-            const float h = static_cast<float>(getHeight()) - o;
-            const float x = static_cast<float>(event.x - s_shift);
-            const float y = static_cast<float>(event.y - s_shift);
-            
-            const size_t index = static_cast<size_t>(std::round(clip(x / w, 0.f, 1.f) * s));
-            m_vector[index] = (1.f - clip(y / h, 0.f, 1.f)) * 2.f - 1.f;
-            try { m_processor.writeArraySample(m_name, index, m_vector[index]); }
-            catch(...) { m_error = true; }
-            m_processor.enqueueMessages(string_array, m_name, {});
-            repaint();
-        }
-    }
-    
-    void mouseUp(const MouseEvent& event) final
-    {
-        m_edited = false;
-    }
-    
-    void timerCallback() final
-    {
-        if(!m_edited)
-        {
-            try { m_processor.readArray(m_name, m_temp); }
-            catch(...) { m_error = true; }
-            if(m_temp != m_vector)
-            {
-                m_vector.swap(m_temp);
-                repaint();
-            }
-        }
+        m_array.setBounds(getLocalBounds().reduced(20));
     }
     
 private:
-    CamomileAudioProcessor& m_processor;
-    std::string const       m_name;
-    std::vector<float>      m_vector;
-    std::vector<float>      m_temp;
-    std::atomic<bool>       m_edited;
-    bool                    m_error = false;
-    
-    static const int s_shift       = 20;
-    static const int s_font_height = 12;
-    const std::string string_array = std::string("array");
+    GraphicalArray m_array;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -337,7 +230,7 @@ bool CamomileEditorMessageManager::processMessages()
         }
         else if(message.first == string_array)
         {
-            GraphicalArray* garray = new GraphicalArray(m_processor, message.second);
+            GraphicalArrayOwner* garray = new GraphicalArrayOwner(m_processor, message.second);
             if(garray)
             {
                 String const trackname = m_processor.getTrackProperties().name;

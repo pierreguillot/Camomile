@@ -58,6 +58,8 @@ public:
     CamomileEditorMouseManager(CamomileAudioProcessor& processor) : m_processor(processor) {}
     void startEdition();
     void stopEdition();
+    
+    CamomileAudioProcessor& getProcessor() { return m_processor; }
 private:
     CamomileAudioProcessor& m_processor;
     

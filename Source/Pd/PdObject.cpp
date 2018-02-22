@@ -198,6 +198,17 @@ namespace pd
             else if(static_cast<t_fake_gatom*>(m_ptr)->a_atom.a_type == A_SYMBOL)
                 m_type = Type::AtomSymbol;
         }
+        else if(name == "canvas")
+        {
+            if(static_cast<t_canvas*>(m_ptr)->gl_list)
+            {
+                t_class* c = static_cast<t_canvas*>(m_ptr)->gl_list->g_pd;
+                if(c && c->c_name && std::string(c->c_name->s_name) == std::string("array"))
+                {
+                    m_type = Type::Array;
+                }
+            }
+        }
     }
     
     Gui::Gui(Gui const& other) noexcept :
@@ -495,6 +506,19 @@ namespace pd
             bounds[3] = bounds[3] - 1;
         }
         return bounds;
+    }
+    
+    std::string Gui::getArraySymbol() const noexcept
+    {
+        if(m_type == Type::Array)
+        {
+            t_fake_garray* ar = reinterpret_cast<t_fake_garray*>(static_cast<t_canvas*>(m_ptr)->gl_list);
+            if(ar && ar->x_realname)
+            {
+                return std::string(ar->x_realname->s_name);
+            }
+        }
+        return std::string();
     }
 }
 
