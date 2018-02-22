@@ -714,16 +714,30 @@ void GraphicalArray::paint(Graphics& g)
         
         if(!m_vector.empty())
         {
-            Path p;
-            const float dh = h * 0.5f;
-            const float dw = w / static_cast<float>(m_vector.size() - 1);
-            p.startNewSubPath(0, (clip(-m_vector[0], -1.f, 1.f) + 1.f) * dh);
-            for(size_t i = 1; i < m_vector.size(); ++i)
+            if(m_curve)
             {
-                p.lineTo(static_cast<float>(i) * dw, (clip(-m_vector[i], -1.f, 1.f) + 1.f) * dh);
+                const float dh = h * 0.5f;
+                const float dw = w / static_cast<float>(m_vector.size() - 1);
+                Path p;
+                p.startNewSubPath(0, (clip(-m_vector[0], -1.f, 1.f) + 1.f) * dh);
+                for(size_t i = 1; i < m_vector.size(); ++i)
+                {
+                    p.lineTo(static_cast<float>(i) * dw, (clip(-m_vector[i], -1.f, 1.f) + 1.f) * dh);
+                }
+                g.setColour(Colours::black);
+                g.strokePath(p, PathStrokeType(1));
             }
-            g.setColour(Colours::black);
-            g.strokePath(p, PathStrokeType(1));
+            else
+            {
+                const float dh = h * 0.5f;
+                const float dw = w / static_cast<float>(m_vector.size());
+                g.setColour(Colours::black);
+                for(size_t i = 0; i < m_vector.size(); ++i)
+                {
+                    const float y = (clip(-m_vector[i], -1.f, 1.f) + 1.f) * dh;
+                    g.drawLine(static_cast<float>(i) * dw, y, static_cast<float>(i+1) * dw, y);
+                }
+            }
         }
     }
     g.setColour(Colours::black);
