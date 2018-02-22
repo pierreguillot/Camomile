@@ -148,13 +148,11 @@ class CamomileEditorMessageWindow : public DocumentWindow
 public:
     CamomileEditorMessageWindow() : DocumentWindow(String(""), Colours::lightgrey, DocumentWindow::closeButton, false)
     {
-        setAlwaysOnTop(true);
         setUsingNativeTitleBar(true);
         setBounds(50, 50, 300, 120);
         setResizable(true, true);
         setDropShadowEnabled(true);
         setVisible(true);
-        setWantsKeyboardFocus(true);
     }
     
     void closeButtonPressed() { removeFromDesktop(); }
@@ -177,14 +175,19 @@ public:
 
     void paint(Graphics& g) final
     {
+        const int h = getHeight();
+        const int w = getWidth();
+        const Font ft = CamoLookAndFeel::getDefaultFont().withHeight(12);
+        const String sizetxt = String(m_array.getArraySize());
+
         g.setColour(Colours::black);
-        g.setFont(CamoLookAndFeel::getDefaultFont().withHeight(12));
-        g.drawText("1", 0, 10, 20, 30, Justification::centred);
-        g.drawText("0", 0, getHeight() / 2 - 10, 20, getHeight() / 2 + 10, Justification::centred);
-        g.drawText("-1", 0, getHeight() - 30, 20, getHeight() - 10, Justification::centred);
+        g.setFont(ft);
+        g.drawText("1" , 0, 10, 20, 20, Justification::centred);
+        g.drawText("0" , 0, (h / 2) - 10, 20, 20, Justification::centred);
+        g.drawText("-1", 0, h - 30, 20, 20, Justification::centred);
         
-        g.drawText("0", 10, getHeight() - 20, 30, getHeight(), Justification::centred);
-        g.drawText(String(m_array.getArraySize()), getWidth() - 30, getHeight() - 20, getWidth() - 10, getHeight(), Justification::centred);
+        g.drawText("0", 10, h - 20, 20, 20, Justification::centred);
+        g.drawText(sizetxt, w / 2, h - 20, w / 2 - 10, 20, Justification::centredRight);
     }
     
     void resized() final
