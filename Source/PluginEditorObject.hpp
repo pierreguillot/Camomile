@@ -17,14 +17,12 @@
 class GraphicalArray : public Component, private Timer
 {
 public:
-    GraphicalArray(CamomileAudioProcessor& processor, std::string const& name);
+    GraphicalArray(CamomileAudioProcessor& processor, pd::Graph& graph);
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& event) final;
     void mouseDrag(const MouseEvent& event) final;
     void mouseUp(const MouseEvent& event) final;
     size_t getArraySize() const noexcept;
-    void setDrawBackground(bool state);
-    void setDrawCurve(bool state);
 private:
     void timerCallback() final;
     template <typename T> T clip(const T& n, const T& lower, const T& upper) {
@@ -32,13 +30,11 @@ private:
     }
     
     CamomileAudioProcessor& m_processor;
-    std::string const       m_name;
+    pd::Graph               m_graph;
     std::vector<float>      m_vector;
     std::vector<float>      m_temp;
     std::atomic<bool>       m_edited;
     bool                    m_error = false;
-    bool                    m_background = false;
-    bool                    m_curve = false;
     const std::string string_array = std::string("array");
 };
 
@@ -203,6 +199,7 @@ public:
     void resized() final;
     void update() final {}
 private:
+    pd::Graph      m_graph;
     GraphicalArray m_array;
 };
 

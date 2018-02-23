@@ -661,11 +661,10 @@ void GuiAtomSymbol::update()
 }
 
 GuiArray::GuiArray(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g),
-m_array(p.getProcessor(), gui.getArraySymbol())
+m_graph(gui.getGraph()), m_array(p.getProcessor(), m_graph)
 {
     setInterceptsMouseClicks(false, true);
     m_array.setBounds(getLocalBounds());
-    m_array.setDrawCurve(gui.isArrayCurve());
     addAndMakeVisible(&m_array);
 }
 
@@ -678,12 +677,12 @@ void GuiArray::resized()
 ////////////////////////////////////     GRAPHICAL ARRAY      ////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
-GraphicalArray::GraphicalArray(CamomileAudioProcessor& processor, std::string const& name) :
-m_processor(processor), m_name(name), m_edited(false)
+GraphicalArray::GraphicalArray(CamomileAudioProcessor& processor, pd::Graph& graph) :
+m_processor(processor), m_graph(graph), m_edited(false)
 {
     m_vector.reserve(8192);
     m_temp.reserve(8192);
-    try { m_processor.readArray(m_name, m_vector); }
+    try { m_graph.read(m_vector); }
     catch(...) { m_error = true; }
     startTimer(100);
     setInterceptsMouseClicks(true, false);
@@ -696,13 +695,13 @@ void GraphicalArray::paint(Graphics& g)
     if(m_error)
     {
         g.setFont(CamoLookAndFeel::getDefaultFont());
-        g.drawText("array " + m_name + " is invalid", 0, 0, getWidth(), getHeight(), juce::Justification::centred);
+        g.drawText("array " + m_graph.getName() + " is invalid", 0, 0, getWidth(), getHeight(), juce::Justification::centred);
     }
     else
     {
         const float h = static_cast<float>(getHeight());
         const float w = static_cast<float>(getWidth());
-        if(m_background)
+        if(!m_graph.isGOP())
         {
             g.setColour(Colours::darkgrey);
             g.drawLine(0, h * 0.25f, w, h * 0.25f, 1);
@@ -715,7 +714,7 @@ void GraphicalArray::paint(Graphics& g)
         
         if(!m_vector.empty())
         {
-            if(m_curve)
+            if(m_graph.isDrawingCurve())
             {
                 const float dh = h * 0.5f;
                 const float dw = w / static_cast<float>(m_vector.size() - 1);
@@ -768,11 +767,11 @@ void GraphicalArray::mouseDrag(const MouseEvent& event)
     const CriticalSection& cs = m_processor.getCallbackLock();
     if(cs.tryEnter())
     {
-        try { m_processor.writeArraySample(m_name, index, m_vector[index]); }
+        try { m_graph.writeSample(index, m_vector[index]); }
         catch(...) { m_error = true; }
         cs.exit();
     }
-    m_processor.enqueueMessages(string_array, m_name, {});
+    m_processor.enqueueMessages(string_array, m_graph.getName(), {});
     repaint();
 }
 
@@ -788,7 +787,7 @@ void GraphicalArray::timerCallback()
     if(!m_edited)
     {
         m_error = false;
-        try { m_processor.readArray(m_name, m_temp); }
+        try { m_graph.read(m_temp); }
         catch(...) { m_error = true; }
         if(m_temp != m_vector)
         {
@@ -802,24 +801,5 @@ size_t GraphicalArray::getArraySize() const noexcept
 {
     return m_vector.size();
 }
-
-void GraphicalArray::setDrawBackground(bool state)
-{
-    if(state != m_background)
-    {
-        m_background = state;
-        repaint();
-    }
-}
-
-void GraphicalArray::setDrawCurve(bool state)
-{
-    if(state != m_curve)
-    {
-        m_curve = state;
-        repaint();
-    }
-}
-
 
 

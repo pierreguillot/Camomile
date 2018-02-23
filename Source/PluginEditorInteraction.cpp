@@ -164,12 +164,11 @@ class GraphicalArrayOwner : public Component
 {
 public:
     GraphicalArrayOwner(CamomileAudioProcessor& processor, std::string const& name) :
-    m_array(processor, name)
+    m_graph(processor, name),
+    m_array(processor, m_graph)
     {
         setInterceptsMouseClicks(false, true);
         m_array.setBounds(getLocalBounds().reduced(20));
-        m_array.setDrawBackground(true);
-        m_array.setDrawCurve(true);
         addAndMakeVisible(&m_array);
     }
 
@@ -196,6 +195,7 @@ public:
     }
     
 private:
+    pd::Graph      m_graph;
     GraphicalArray m_array;
 };
 

@@ -12,6 +12,7 @@ namespace pd
 {
     class Gui;
     class Object;
+    class Graph;
     // ==================================================================================== //
     //                                          PATCHER                                     //
     // ==================================================================================== //
@@ -35,5 +36,6 @@ namespace pd
         friend class Instance;
         friend class Object;
         friend class Gui;
+        friend class Graph;
     };
 }

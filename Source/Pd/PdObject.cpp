@@ -106,7 +106,7 @@ namespace pd
     }
     
     // ==================================================================================== //
-    //                                      GUI                                          //
+    //                                      GUI                                             //
     // ==================================================================================== //
     
     // False GATOM
@@ -126,20 +126,6 @@ namespace pd
         char a_wherelabel;      // 0-3 for left, right, above, below
         t_symbol *a_expanded_to;
     } t_fake_gatom;
-    
-    // False GARRAY
-    typedef struct _fake_garray
-    {
-        t_gobj x_gobj;
-        t_scalar *x_scalar;
-        t_glist *x_glist;
-        t_symbol *x_name;
-        t_symbol *x_realname;
-        char x_usedindsp;
-        char x_saveit;
-        char x_listviewing;
-        char x_hidename;
-    } t_fake_garray;
 
     
     Gui::Gui() noexcept : Object(), m_type(Type::Undefined)
@@ -508,32 +494,116 @@ namespace pd
         return bounds;
     }
     
-    std::string Gui::getArraySymbol() const noexcept
+    Graph Gui::getGraph() const noexcept
     {
         if(m_type == Type::Array)
         {
-            t_fake_garray* ar = reinterpret_cast<t_fake_garray*>(static_cast<t_canvas*>(m_ptr)->gl_list);
-            if(ar && ar->x_realname)
-            {
-                return std::string(ar->x_realname->s_name);
-            }
+            return Graph(static_cast<t_canvas*>(m_ptr)->gl_list, *(m_patch.m_instance));
         }
-        return std::string();
+        return Graph();
     }
     
-    bool Gui::isArrayCurve() const noexcept
+    // ==================================================================================== //
+    //                                      ARRAY                                           //
+    // ==================================================================================== //
+    
+    // False GARRAY
+    typedef struct _fake_garray
     {
-        if(m_type == Type::Array)
+        t_gobj x_gobj;
+        t_scalar *x_scalar;
+        t_glist *x_glist;
+        t_symbol *x_name;
+        t_symbol *x_realname;
+        char x_usedindsp;
+        char x_saveit;
+        char x_listviewing;
+        char x_hidename;
+    } t_fake_garray;
+    
+    Graph::Graph() noexcept :
+    m_instance(nullptr), m_name(""), m_drawing_mode(0), m_is_gop(false)
+    {
+        
+    }
+    
+    Graph::Graph(Graph const& other) noexcept :
+    m_instance(other.m_instance),
+    m_name(other.m_name),
+    m_drawing_mode(other.m_drawing_mode),
+    m_is_gop(other.m_is_gop)
+    {
+        
+    }
+    
+    Graph::Graph(Instance& instance, std::string const& name) noexcept :
+    m_instance(&instance),
+    m_name(name),
+    m_drawing_mode(1),
+    m_is_gop(false)
+    {
+        
+    }
+    
+    Graph::Graph(void* ptr, Instance& instance) noexcept :
+    m_instance(&instance),
+    m_name(""),
+    m_drawing_mode(0),
+    m_is_gop(true)
+    {
+        if(ptr)
         {
-            t_fake_garray const * ar = reinterpret_cast<t_fake_garray*>(static_cast<t_canvas*>(m_ptr)->gl_list);
-            if(!ar || !ar->x_scalar)
-                return false;
-            t_template *scalartemplate = template_findbyname(ar->x_scalar->sc_template);
-            if(!scalartemplate)
-                return false;
-            return template_getfloat(scalartemplate, gensym("style"), ar->x_scalar->sc_vec, 0) != 0;
+            t_fake_garray const * ar = static_cast<t_fake_garray*>(ptr);
+            if(ar && ar->x_realname && ar->x_scalar)
+            {
+                m_name = std::string(ar->x_realname->s_name);
+                m_instance->setThis();
+                t_scalar *scalar = ar->x_scalar;
+                t_template *scalartplte = template_findbyname(scalar->sc_template);
+                if(scalartplte)
+                {
+                    m_drawing_mode = static_cast<size_t>(template_getfloat(scalartplte, gensym("style"), scalar->sc_vec, 0));
+                }
+            }
         }
-        return false;
+    }
+    
+    std::string Graph::getName() const noexcept
+    {
+        return m_name;
+    }
+    
+    bool Graph::isDrawingPoints() const noexcept
+    {
+        return m_drawing_mode == 0;
+    }
+    
+    bool Graph::isDrawingCurve() const noexcept
+    {
+        return m_drawing_mode != 0;
+    }
+    
+    bool Graph::isGOP() const noexcept
+    {
+        return m_is_gop;
+    }
+    
+    void Graph::read(std::vector<float>& output) const
+    {
+        m_instance->setThis();
+        m_instance->readArray(m_name, output);
+    }
+    
+    void Graph::write(std::vector<float> const& input)
+    {
+        m_instance->setThis();
+        m_instance->writeArray(m_name, input);
+    }
+    
+    void Graph::writeSample(const size_t pos, float const input)
+    {
+        m_instance->setThis();
+        m_instance->writeArraySample(m_name, pos, input);
     }
 }
 

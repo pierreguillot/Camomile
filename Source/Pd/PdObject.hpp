@@ -56,6 +56,8 @@ namespace pd
         friend class Patch;
     };
     
+    class Graph;
+    
     // ==================================================================================== //
     //                                          GUI                                         //
     // ==================================================================================== //
@@ -135,9 +137,7 @@ namespace pd
         
         std::array<int, 4> getBounds() const noexcept override;
         
-        std::string getArraySymbol() const noexcept;
-        
-        bool isArrayCurve() const noexcept;
+        Graph getGraph() const noexcept;
     private:
 
         //! @brief The constructor for a new Object.
@@ -147,6 +147,32 @@ namespace pd
         
         Type        m_type;
         friend class Patch;
+    };
+    
+    class Graph
+    {
+    public:
+        Graph() noexcept;
+        Graph(Instance& instance, std::string const& name) noexcept;
+        Graph(Graph const& other) noexcept;
+        
+        std::string getName() const noexcept;
+        bool isDrawingPoints() const noexcept;
+        bool isDrawingCurve() const noexcept;
+        bool isGOP() const noexcept;
+        
+        void read(std::vector<float>& output) const;
+        void write(std::vector<float> const& input);
+        void writeSample(const size_t pos, float const input);
+    private:
+        
+        Graph(void* ptr, Instance& instance) noexcept;
+        
+        Instance*   m_instance;
+        std::string m_name;
+        size_t      m_drawing_mode;
+        bool        m_is_gop;
+        friend class Gui;
     };
 }
 
