@@ -229,12 +229,26 @@ void GuiSliderHorizontal::paint(Graphics& g)
 void GuiSliderHorizontal::mouseDown(const MouseEvent& e)
 {
     startEdition();
-    mouseDrag(e);
+    if(gui.jumpOnClick())
+    {
+        mouseDrag(e);
+    }
+    else
+    {
+        m_temp = getValueScaled();
+    }
 }
 
 void GuiSliderHorizontal::mouseDrag(const MouseEvent& e)
 {
-    setValueScaled(static_cast<float>(e.x - 2) / static_cast<float>(getWidth() - 4));
+    if(gui.jumpOnClick())
+    {
+        setValueScaled(static_cast<float>(e.x - 2) / static_cast<float>(getWidth() - 4));
+    }
+    else
+    {
+        setValueScaled(m_temp + static_cast<float>(e.x - e.getMouseDownX()) / static_cast<float>(getWidth() - 4));
+    }
     repaint();
 }
 
@@ -264,12 +278,26 @@ void GuiSliderVertical::paint(Graphics& g)
 void GuiSliderVertical::mouseDown(const MouseEvent& e)
 {
     startEdition();
-    mouseDrag(e);
+    if(gui.jumpOnClick())
+    {
+        mouseDrag(e);
+    }
+    else
+    {
+        m_temp = getValueScaled();
+    }
 }
 
 void GuiSliderVertical::mouseDrag(const MouseEvent& e)
 {
-    setValueScaled(static_cast<float>(getHeight() - e.y - 2) / static_cast<float>(getHeight() - 4));
+    if(gui.jumpOnClick())
+    {
+        setValueScaled(static_cast<float>(getHeight() - e.y - 2) / static_cast<float>(getHeight() - 4));
+    }
+    else
+    {
+        setValueScaled(m_temp + static_cast<float>(e.getMouseDownY() - e.y) / static_cast<float>(getHeight() - 4));
+    }
     repaint();
 }
 

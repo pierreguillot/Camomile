@@ -97,6 +97,8 @@ public:
     void mouseDown(const MouseEvent& e) final;
     void mouseDrag(const MouseEvent& e) final;
     void mouseUp(const MouseEvent& e) final;
+private:
+    float m_temp;
 };
 
 class GuiSliderVertical : public PluginEditorObject
@@ -107,6 +109,8 @@ public:
     void mouseDown(const MouseEvent& e) final;
     void mouseDrag(const MouseEvent& e) final;
     void mouseUp(const MouseEvent& e) final;
+private:
+    float m_temp;
 };
 
 class GuiRadioHorizontal : public PluginEditorObject

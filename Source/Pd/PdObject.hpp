@@ -137,6 +137,8 @@ namespace pd
         
         std::array<int, 4> getBounds() const noexcept override;
         
+        bool jumpOnClick() const noexcept;
+        
         Graph getGraph() const noexcept;
     private:
 
