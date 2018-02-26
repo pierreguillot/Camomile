@@ -379,6 +379,21 @@ namespace pd
         return false;
     }
     
+    bool Gui::isLogScale() const noexcept
+    {
+        if(!m_ptr)
+            return 0.f;
+        if(m_type == Type::HorizontalSlider)
+        {
+            return (static_cast<t_hslider*>(m_ptr))->x_lin0_log1 != 0;
+        }
+        else if(m_type == Type::VerticalSlider)
+        {
+            return (static_cast<t_vslider*>(m_ptr))->x_lin0_log1 != 0;
+        }
+        return false;
+    }
+    
     std::string Gui::getSymbol() const noexcept
     {
         if(!m_ptr || m_type != Type::AtomSymbol)

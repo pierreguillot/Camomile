@@ -139,6 +139,8 @@ namespace pd
         
         bool jumpOnClick() const noexcept;
         
+        bool isLogScale() const noexcept;
+        
         Graph getGraph() const noexcept;
     private:
 
