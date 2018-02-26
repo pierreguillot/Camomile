@@ -236,7 +236,14 @@ void GuiSliderHorizontal::mouseDown(const MouseEvent& e)
     }
     else
     {
-        m_temp = getValueScaled();
+        if(gui.isLogScale())
+        {
+            m_temp = log(getValueOriginal() / min) / log(max / min);
+        }
+        else
+        {
+            m_temp = getValueScaled();
+        }
     }
 }
 
@@ -244,11 +251,27 @@ void GuiSliderHorizontal::mouseDrag(const MouseEvent& e)
 {
     if(gui.jumpOnClick())
     {
-        setValueScaled(static_cast<float>(e.x - 2) / static_cast<float>(getWidth() - 4));
+        const float val = static_cast<float>(e.x - 2) / static_cast<float>(getWidth() - 4);
+        if(gui.isLogScale())
+        {
+            setValueOriginal(exp(val * log(max / min)) * min);
+        }
+        else
+        {
+            setValueScaled(val);
+        }
     }
     else
     {
-        setValueScaled(m_temp + static_cast<float>(e.x - e.getMouseDownX()) / static_cast<float>(getWidth() - 4));
+        const float val = static_cast<float>(e.x - e.getMouseDownX()) / static_cast<float>(getWidth() - 4);
+        if(gui.isLogScale())
+        {
+            setValueOriginal(exp((m_temp + val) * log(max / min)) * min);
+        }
+        else
+        {
+            setValueScaled(m_temp + val);
+        }
     }
     repaint();
 }
@@ -286,7 +309,14 @@ void GuiSliderVertical::mouseDown(const MouseEvent& e)
     }
     else
     {
-        m_temp = getValueScaled();
+        if(gui.isLogScale())
+        {
+            m_temp = log(getValueOriginal() / min) / log(max / min);
+        }
+        else
+        {
+            m_temp = getValueScaled();
+        }
     }
 }
 
@@ -294,11 +324,27 @@ void GuiSliderVertical::mouseDrag(const MouseEvent& e)
 {
     if(gui.jumpOnClick())
     {
-        setValueScaled(static_cast<float>(getHeight() - e.y - 2) / static_cast<float>(getHeight() - 4));
+        const float val = static_cast<float>(getHeight() - e.y - 2) / static_cast<float>(getHeight() - 4);
+        if(gui.isLogScale())
+        {
+            setValueOriginal(exp(val * log(max /min)) * min);
+        }
+        else
+        {
+            setValueScaled(val);
+        }
     }
     else
     {
-        setValueScaled(m_temp + static_cast<float>(e.getMouseDownY() - e.y) / static_cast<float>(getHeight() - 4));
+        const float val = static_cast<float>(e.getMouseDownY() - e.y) / static_cast<float>(getHeight() - 4);
+        if(gui.isLogScale())
+        {
+            setValueOriginal(exp((m_temp + val) * log(max / min)) * min);
+        }
+        else
+        {
+            setValueScaled(m_temp + val);
+        }
     }
     repaint();
 }
