@@ -218,7 +218,8 @@ void GuiSliderHorizontal::paint(Graphics& g)
     const float cursor = 3.f;
     const float w = static_cast<float>(getWidth() - border * 2);
     const float h = static_cast<float>(getHeight() - border * 2);
-    const float pos = getValueScaled() * (w - cursor - border) + cursor;
+    const float val = gui.isLogScale() ? log(getValueOriginal() / min) / log(max / min) : getValueScaled();
+    const float pos = val * (w - cursor - border) + cursor;
     g.fillAll(Colour(static_cast<uint32>(gui.getBackgroundColor())));
     g.setColour(Colour(static_cast<uint32>(gui.getForegroundColor())));
     g.drawLine(pos, border + 0.5f, pos, h + 0.5f, cursor);
@@ -267,7 +268,8 @@ void GuiSliderVertical::paint(Graphics& g)
     const float cursor = 3.f;
     const float w = static_cast<float>(getWidth() - border * 2);
     const float h = static_cast<float>(getHeight() - border * 2);
-    const float pos = (1.f - getValueScaled()) * (h - cursor - border) + cursor;
+    const float val = gui.isLogScale() ? log(getValueOriginal() / min) / log(max / min) : getValueScaled();
+    const float pos = (1.f - val) * (h - cursor - border) + cursor;
     g.fillAll(Colour(static_cast<uint32>(gui.getBackgroundColor())));
     g.setColour(Colour(static_cast<uint32>(gui.getForegroundColor())));
     g.drawLine(border + 0.5f, pos, w + 0.5f, pos, cursor);
