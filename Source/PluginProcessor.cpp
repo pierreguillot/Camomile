@@ -478,16 +478,7 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
     }
     else if(msg == std::string("array"))
     {
-        if(list.size() >= 1)
-        {
-            if(list[0].isSymbol())
-            {
-                m_queue_gui.try_enqueue({std::string("array"), list[0].getSymbol(), ""});
-                if(list.size() > 1) { add(ConsoleLevel::Error, "camomile array method extra arguments"); }
-            }
-            else { add(ConsoleLevel::Error, "camomile array method argument must be a symbol"); }
-        }
-        else {add(ConsoleLevel::Error, "camomile array needs a name");}
+        parseArray(list);
     }
     else if(msg == std::string("save"))
     {
@@ -603,6 +594,26 @@ void CamomileAudioProcessor::parseSavePanel(const std::vector<pd::Atom>& list)
     else
     {
         m_queue_gui.try_enqueue({std::string("savepanel"), std::string(), std::string()});
+    }
+}
+
+void CamomileAudioProcessor::parseArray(const std::vector<pd::Atom>& list)
+{
+    if(list.size() >= 1)
+    {
+        if(list[0].isSymbol())
+        {
+            m_queue_gui.try_enqueue({std::string("array"), list[0].getSymbol(), ""});
+            if(list.size() > 1)
+            {
+                add(ConsoleLevel::Error, "camomile array method extra arguments");
+            }
+        }
+        else { add(ConsoleLevel::Error, "camomile array method argument must be a symbol"); }
+    }
+    else
+    {
+        add(ConsoleLevel::Error, "camomile array needs a name");
     }
 }
 
