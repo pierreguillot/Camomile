@@ -1,10 +1,11 @@
 v1.0.4
-- Add GUI label support (#95)
-- Add graphical array support (#93)
-- Add window array support (#93)
-- Add steady/jump mode for slider
-- Add log scale for slider (#96)
-- Add instructions for contributions
+- Add label support for GUI objects (#95)
+- Add graphical array support for GUI array objects (graph)  (#93)
+- Add window array support for array define objects (#93)
+- Add steady/jump mode for IEM's GUI slider
+- Add log scale for IEM's GUI slider (#96)
+- Add instructions for contributions in CONTRIBUTING.md
+- Add the facultative flag "-s" to openpanel/savepanel methods to suspend processing
 
 v1.0.3
 - Fix DSP support for multiple audio buses

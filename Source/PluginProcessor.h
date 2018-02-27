@@ -61,7 +61,7 @@ public:
     void updateTrackProperties(const TrackProperties& properties) final;
     const TrackProperties& getTrackProperties() const { return m_track_properties; }
     
-    typedef std::pair<std::string, std::string> MessageGui;
+    typedef std::array<std::string, 3> MessageGui;
     bool dequeueGui(MessageGui& message);
 
     enum ConsoleLevel
@@ -76,8 +76,12 @@ public:
 private:
     static BusesProperties getBusesProperties();
     void sendBusInformation(Bus const *bus);
-    void saveInformation(const std::vector<pd::Atom>& list);
     void loadInformation(XmlElement const& xml);
+    
+    void parseSaveInformation(const std::vector<pd::Atom>& list);
+    void parseOpenPanel(const std::vector<pd::Atom>& list);
+    void parseSavePanel(const std::vector<pd::Atom>& list);
+    
     typedef moodycamel::ReaderWriterQueue<MessageGui> QueueGui;
     
     std::vector<pd::Atom>    m_atoms_param;

@@ -213,31 +213,47 @@ bool CamomileEditorMessageManager::processMessages()
     CamomileAudioProcessor::MessageGui message;
     while(m_processor.dequeueGui(message))
     {
-        if(message.first == string_openpanel)
+        if(message[0] == string_openpanel)
         {
-            FileChooser fc("Open...", File(message.second));
+            FileChooser fc("Open...", File(message[1]));
             if(fc.browseForFileToOpen())
             {
                 File const f(fc.getResult());
+                if(!message[2].empty())
+                {
+                    m_processor.suspendProcessing(true);
+                }
                 m_processor.enqueueMessages(string_openpanel, f.getFullPathName().toStdString(), {});
+                if(!message[2].empty())
+                {
+                    m_processor.suspendProcessing(false);
+                }
             }
         }
-        else if(message.first == string_savepanel)
+        else if(message[0] == string_savepanel)
         {
-            FileChooser fc("Open...", File(message.second));
+            FileChooser fc("Open...", File(message[1]));
             if(fc.browseForFileToSave(true))
             {
                 File const f(fc.getResult());
+                if(!message[2].empty())
+                {
+                    m_processor.suspendProcessing(true);
+                }
                 m_processor.enqueueMessages(string_savepanel, f.getFullPathName().toStdString(), {});
+                if(!message[2].empty())
+                {
+                    m_processor.suspendProcessing(false);
+                }
             }
         }
-        else if(message.first == string_array)
+        else if(message[0] == string_array)
         {
-            GraphicalArrayOwner* garray = new GraphicalArrayOwner(m_processor, message.second);
+            GraphicalArrayOwner* garray = new GraphicalArrayOwner(m_processor, message[1]);
             if(garray)
             {
                 String const trackname = m_processor.getTrackProperties().name;
-                String const name = CamomileEnvironment::getPluginName() + " - " + message.second
+                String const name = CamomileEnvironment::getPluginName() + " - " + message[1]
                 + (trackname.isEmpty() ? "" : trackname);
                 m_window->clearContentComponent();
                 m_window->setName(name);

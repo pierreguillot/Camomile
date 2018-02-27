@@ -470,36 +470,19 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
     }
     else if(msg == std::string("openpanel"))
     {
-        if(list.size() >= 1)
-        {
-            if(list[0].isSymbol())
-            {
-                m_queue_gui.try_enqueue({std::string("openpanel"), list[0].getSymbol()});
-                if(list.size() > 1) { add(ConsoleLevel::Error, "camomile openpanel method extra arguments"); }
-            }
-            else { add(ConsoleLevel::Error, "camomile openpanel method argument must be a symbol"); }
-        }
-        else { m_queue_gui.try_enqueue({std::string("openpanel"), std::string()}); }
+        parseOpenPanel(list);
     }
     else if(msg == std::string("savepanel"))
     {
+        parseSavePanel(list);
+    }
+    else if(msg == std::string("array"))
+    {
         if(list.size() >= 1)
         {
             if(list[0].isSymbol())
             {
-                m_queue_gui.try_enqueue({std::string("savepanel"), list[0].getSymbol()});
-                if(list.size() > 1) { add(ConsoleLevel::Error, "camomile savepanel method extra arguments"); }
-            }
-            else { add(ConsoleLevel::Error, "camomile savepanel method argument must be a symbol"); }
-        }
-        else { m_queue_gui.try_enqueue({std::string("savepanel"), std::string()}); }
-    }
-    else if(msg == std::string("array"))
-    {
-        if(list.size() >= 1) {
-            if(list[0].isSymbol())
-            {
-                m_queue_gui.try_enqueue({std::string("array"), list[0].getSymbol()});
+                m_queue_gui.try_enqueue({std::string("array"), list[0].getSymbol(), ""});
                 if(list.size() > 1) { add(ConsoleLevel::Error, "camomile array method extra arguments"); }
             }
             else { add(ConsoleLevel::Error, "camomile array method argument must be a symbol"); }
@@ -508,9 +491,119 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
     }
     else if(msg == std::string("save"))
     {
-        saveInformation(list);
+        parseSaveInformation(list);
     }
     else {  add(ConsoleLevel::Error, "camomile unknow message : " + msg); }
+}
+
+void CamomileAudioProcessor::parseOpenPanel(const std::vector<pd::Atom>& list)
+{
+    if(list.size() >= 1)
+    {
+        if(list[0].isSymbol())
+        {
+            if(list.size() > 1)
+            {
+                if(list[1].isSymbol())
+                {
+                    if(list[1].getSymbol() == "-s")
+                    {
+                        m_queue_gui.try_enqueue({std::string("openpanel"), list[0].getSymbol(), std::string("-s")});
+                    }
+                    else if(list[0].getSymbol() == "-s")
+                    {
+                        m_queue_gui.try_enqueue({std::string("openpanel"), list[1].getSymbol(), std::string("-s")});
+                    }
+                    else
+                    {
+                        add(ConsoleLevel::Error, "camomile openpanel one argument must be a flag \"-s\"");
+                    }
+                    if(list.size() > 2)
+                    {
+                        add(ConsoleLevel::Error, "camomile openpanel method extra arguments");
+                    }
+                }
+                else
+                {
+                    add(ConsoleLevel::Error, "camomile openpanel second argument must be a symbol");
+                }
+            }
+            else
+            {
+                if(list[0].getSymbol() == "-s")
+                {
+                    m_queue_gui.try_enqueue({std::string("openpanel"), std::string(), std::string("-s")});
+                }
+                else
+                {
+                    m_queue_gui.try_enqueue({std::string("openpanel"), list[0].getSymbol(), std::string()});
+                }
+            }
+        }
+        else
+        {
+            add(ConsoleLevel::Error, "camomile openpanel method argument must be a symbol");
+        }
+    }
+    else
+    {
+        m_queue_gui.try_enqueue({std::string("openpanel"), std::string(), std::string()});
+    }
+}
+
+void CamomileAudioProcessor::parseSavePanel(const std::vector<pd::Atom>& list)
+{
+    if(list.size() >= 1)
+    {
+        if(list[0].isSymbol())
+        {
+            if(list.size() > 1)
+            {
+                if(list[1].isSymbol())
+                {
+                    if(list[1].getSymbol() == "-s")
+                    {
+                        m_queue_gui.try_enqueue({std::string("savepanel"), list[0].getSymbol(), std::string("-s")});
+                    }
+                    else if(list[0].getSymbol() == "-s")
+                    {
+                        m_queue_gui.try_enqueue({std::string("savepanel"), list[1].getSymbol(), std::string("-s")});
+                    }
+                    else
+                    {
+                        add(ConsoleLevel::Error, "camomile savepanel one argument must be a flag \"-s\"");
+                    }
+                    if(list.size() > 2)
+                    {
+                        add(ConsoleLevel::Error, "camomile savepanel method extra arguments");
+                    }
+                }
+                else
+                {
+                    add(ConsoleLevel::Error, "camomile savepanel second argument must be a symbol");
+                }
+            }
+            else
+            {
+                if(list[0].getSymbol() == "-s")
+                {
+                    m_queue_gui.try_enqueue({std::string("savepanel"), std::string(), std::string("-s")});
+                }
+                else
+                {
+                    m_queue_gui.try_enqueue({std::string("savepanel"), list[0].getSymbol(), std::string()});
+                }
+            }
+        }
+        else
+        {
+            add(ConsoleLevel::Error, "camomile savepanel method argument must be a symbol");
+        }
+    }
+    else
+    {
+        m_queue_gui.try_enqueue({std::string("savepanel"), std::string(), std::string()});
+    }
 }
 
 bool CamomileAudioProcessor::dequeueGui(MessageGui& message)
@@ -615,7 +708,7 @@ AudioProcessorEditor* CamomileAudioProcessor::createEditor()
     return new CamomileEditor(*this);
 }
 
-void CamomileAudioProcessor::saveInformation(const std::vector<pd::Atom>& list)
+void CamomileAudioProcessor::parseSaveInformation(const std::vector<pd::Atom>& list)
 {
     if(m_temp_xml)
     {
