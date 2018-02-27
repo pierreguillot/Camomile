@@ -9,6 +9,13 @@
 
 namespace pd
 {
+    class Graph;
+    class Label;
+    
+    // ==================================================================================== //
+    //                                      OBJECT                                          //
+    // ==================================================================================== //
+    
     //! @brief The Pure Data Object.
     //! @details The Instance is a wrapper for the Pure Data's native comment.
     //! With the default constructor, theObjectGui won't be initialized. A valid
@@ -55,8 +62,6 @@ namespace pd
         Patch   m_patch;
         friend class Patch;
     };
-    
-    class Graph;
     
     // ==================================================================================== //
     //                                          GUI                                         //
@@ -109,6 +114,12 @@ namespace pd
         //! @brief The class name of the Object.
         Type getType() const noexcept;
         
+        //! @brief If the GUI is an IEM's GUI.
+        bool isIEM() const noexcept;
+        
+        //! @brief If the GUI is an Atom GUI (AtomNumber or AtomSymbol).
+        bool isAtom() const noexcept;
+        
         int getFontSize() const noexcept;
         
         float getMinimum() const noexcept;
@@ -125,12 +136,6 @@ namespace pd
         
         unsigned int getForegroundColor() const noexcept;
         
-        unsigned int getLabelColor() const noexcept;
-        
-        std::string getLabel() const noexcept;
-        
-        std::array<int, 2> getLabelPosition() const noexcept;
-        
         std::string getSymbol() const noexcept;
         
         void setSymbol(std::string const& value) noexcept;
@@ -142,6 +147,8 @@ namespace pd
         bool isLogScale() const noexcept;
         
         Graph getGraph() const noexcept;
+        
+        Label getLabel() const noexcept;
     private:
 
         //! @brief The constructor for a new Object.
@@ -152,6 +159,32 @@ namespace pd
         Type        m_type;
         friend class Patch;
     };
+    
+    // ==================================================================================== //
+    //                                      LABEL                                           //
+    // ==================================================================================== //
+    
+    class Label
+    {
+    public:
+        Label() noexcept;
+        Label(Label const& other) noexcept;
+        Label(std::string const& text, unsigned int color, int x, int y) noexcept;
+        
+        std::string getText() const noexcept { return m_text; }
+        unsigned int getColor() const noexcept { return m_color; }
+        std::array<int, 2> getPosition() const noexcept { return m_position; }
+    private:
+        Label(Gui const& gui) noexcept;
+        std::string const        m_text;
+        unsigned int const       m_color;
+        std::array<int, 2> const m_position;
+        friend class Gui;
+    };
+    
+    // ==================================================================================== //
+    //                                      GRAPH                                           //
+    // ==================================================================================== //
     
     class Graph
     {

@@ -220,6 +220,16 @@ namespace pd
         return m_type;
     }
     
+    bool Gui::isIEM() const noexcept
+    {
+        return m_ptr && m_type != Type::Undefined && m_type < Type::Comment;
+    }
+    
+    bool Gui::isAtom() const noexcept
+    {
+        return m_type == Type::AtomNumber || m_type == Type::AtomSymbol;
+    }
+    
     size_t Gui::getNumberOfSteps() const noexcept
     {
         if(!m_ptr)
@@ -416,14 +426,14 @@ namespace pd
     {
         if(!m_ptr )
             return 0;
-        if(m_type >= Type::Comment)
+        if(isIEM())
         {
-            m_patch.m_instance->setThis();
-            return glist_fontheight(static_cast<t_canvas*>(m_patch.m_ptr));
+            return (static_cast<t_iemgui*>(m_ptr))->x_fontsize + 2;
         }
         else
         {
-            return (static_cast<t_iemgui*>(m_ptr))->x_fontsize + 2;
+            m_patch.m_instance->setThis();
+            return glist_fontheight(static_cast<t_canvas*>(m_patch.m_ptr));
         }
     }
     
@@ -446,61 +456,7 @@ namespace pd
             return 0xff000000;
         return fromIemColors(((static_cast<t_iemgui*>(m_ptr))->x_fcol));
     }
-    
-    unsigned int Gui::getLabelColor() const noexcept
-    {
-        if(!m_ptr || m_type == Type::Undefined || m_type >= Type::Comment)
-            return 0xff000000;
-        return fromIemColors(((static_cast<t_iemgui*>(m_ptr))->x_lcol));
-    }
-    
-    std::string Gui::getLabel() const noexcept
-    {
-        if(!m_ptr || m_type == Type::Undefined || m_type == Type::Comment)
-            return std::string();
-        if(m_type < Type::Comment && (static_cast<t_iemgui*>(m_ptr))->x_lab)
-        {
-            t_symbol const* label = canvas_realizedollar(static_cast<t_iemgui*>(m_ptr)->x_glist, static_cast<t_iemgui*>(m_ptr)->x_lab);
-            std::string const str(label->s_name);
-            if(str != std::string("empty"))
-                return str;
-            return std::string();
-        }
-        else if((m_type == Type::AtomNumber || m_type == Type::AtomSymbol)
-                && static_cast<t_fake_gatom*>(m_ptr)->a_label)
-        {
-            t_symbol const* label = canvas_realizedollar(static_cast<t_fake_gatom*>(m_ptr)->a_glist, static_cast<t_fake_gatom*>(m_ptr)->a_label);
-            return std::string(label->s_name);
-        }
-        return std::string();
-    }
-    
-    std::array<int, 2> Gui::getLabelPosition() const noexcept
-    {
-        if(!m_ptr || m_type == Type::Undefined || m_type == Type::Comment)
-            return {0, 0};
-        if(m_type < Type::Comment && (static_cast<t_iemgui*>(m_ptr))->x_lab)
-        {
-            std::array<int, 4> const bounds = getBounds();
-            t_iemgui const* iemgui = static_cast<t_iemgui*>(m_ptr);
-            return {bounds[0] + iemgui->x_ldx, bounds[1] + iemgui->x_ldy};
-        }
-        else if((m_type == Type::AtomNumber || m_type == Type::AtomSymbol)
-                && static_cast<t_fake_gatom*>(m_ptr)->a_label)
-        {
-            std::array<int, 4> const bounds = getBounds();
-            t_fake_gatom const* gatom = static_cast<t_fake_gatom*>(m_ptr);
-            if (gatom->a_wherelabel == 0) { // Left
-                return {bounds[0] - 3 - static_cast<int>(getLabel().size()) * getFontSize(), bounds[1] + 2}; }
-            else if (gatom->a_wherelabel == 1) { // Right
-                return {bounds[0] + bounds[2] + 2, bounds[1] + 2}; }
-            else if (gatom->a_wherelabel == 2) {  // Up
-                return {bounds[0] - 1, bounds[1] - 1 - getFontSize()}; }
-            return {bounds[0] - 1, bounds[1] + bounds[3] + 3}; // Down
-        }
-        return {0, 0};
-    }
-    
+
     std::array<int, 4> Gui::getBounds() const noexcept
     {
         std::array<int, 4> bounds = Object::getBounds();
@@ -533,8 +489,78 @@ namespace pd
         return Graph();
     }
     
+    Label Gui::getLabel() const noexcept
+    {
+        m_patch.m_instance->setThis();
+        if(isIEM())
+        {
+            t_symbol const* sym = canvas_realizedollar(static_cast<t_iemgui*>(m_ptr)->x_glist, static_cast<t_iemgui*>(m_ptr)->x_lab);
+            if(sym)
+            {
+                std::string const text = sym->s_name;
+                if(text != std::string("empty"))
+                {
+                    unsigned int const color = fromIemColors(((static_cast<t_iemgui*>(m_ptr))->x_fcol));
+                    std::array<int, 4> const bounds = getBounds();
+                    t_iemgui const* iemgui = static_cast<t_iemgui*>(m_ptr);
+                    return Label(text, color, bounds[0] + iemgui->x_ldx, bounds[1] + iemgui->x_ldy);
+                }
+            }
+        }
+        else if(isAtom())
+        {
+            t_symbol const* sym = canvas_realizedollar(static_cast<t_fake_gatom*>(m_ptr)->a_glist, static_cast<t_fake_gatom*>(m_ptr)->a_label);
+            if(sym)
+            {
+                std::string const text = sym->s_name;
+                std::array<int, 4> const bounds = getBounds();
+                t_fake_gatom const* gatom = static_cast<t_fake_gatom*>(m_ptr);
+                if (gatom->a_wherelabel == 0) // Left
+                {
+                    return Label(text, 0xff000000, bounds[0] - 2 - static_cast<int>(text.size() / 2) * glist_fontwidth(static_cast<t_fake_gatom*>(m_ptr)->a_glist), bounds[1] + getFontSize() / 2);
+                }
+                else if (gatom->a_wherelabel == 1) // Right
+                {
+                    return Label(text, 0xff000000, bounds[0] + bounds[2] + 2, bounds[1] + getFontSize() / 2);
+                }
+                else if (gatom->a_wherelabel == 2) // Up
+                {
+                    return Label(text, 0xff000000, bounds[0] - 1, bounds[1] - 1 - getFontSize() / 2);
+                }
+                return Label(text, 0xff000000, bounds[0] - 1, bounds[1] + bounds[3] + 2 + getFontSize() / 2); // Down
+            }
+        }
+        return Label();
+    }
+    
     // ==================================================================================== //
-    //                                      ARRAY                                           //
+    //                                      LABEL                                           //
+    // ==================================================================================== //
+    
+    Label::Label() noexcept :
+    m_text(""),
+    m_color(0xff000000),
+    m_position({0, 0})
+    {
+    }
+    
+    Label::Label(Label const& other) noexcept :
+    m_text(other.m_text),
+    m_color(other.m_color),
+    m_position(other.m_position)
+    {
+    }
+    
+    Label::Label(std::string const& text, unsigned int color, int x, int y) noexcept :
+    m_text(text),
+    m_color(color),
+    m_position({x, y})
+    {
+        
+    }
+    
+    // ==================================================================================== //
+    //                                      GRAPH                                           //
     // ==================================================================================== //
     
     // False GARRAY
