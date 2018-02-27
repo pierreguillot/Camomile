@@ -4,6 +4,7 @@ v1.0.4
 - Add window array support (#93)
 - Add steady/jump mode for slider
 - Add log scale for slider (#96)
+- Add instructions for contributions
 
 v1.0.3
 - Fix DSP support for multiple audio buses
