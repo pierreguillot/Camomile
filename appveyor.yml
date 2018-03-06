@@ -29,7 +29,6 @@ after_build:
     - copy %APPVEYOR_BUILD_FOLDER%\Dependencies\libpd\libs\libpd.dll %APPVEYOR_BUILD_FOLDER%\Plugins\libpd.dll
     - copy %APPVEYOR_BUILD_FOLDER%\README.md %APPVEYOR_BUILD_FOLDER%\Plugins\README.md
     - copy %APPVEYOR_BUILD_FOLDER%\ChangeLog.md %APPVEYOR_BUILD_FOLDER%\Plugins\ChangeLog.md
-    - copy %APPVEYOR_BUILD_FOLDER%\CONTRIBUTING.md %APPVEYOR_BUILD_FOLDER%\Plugins\CONTRIBUTING.md
     - copy %APPVEYOR_BUILD_FOLDER%\LICENSE %APPVEYOR_BUILD_FOLDER%\Plugins\LICENSE.txt
     - copy %APPVEYOR_BUILD_FOLDER%\Documentation.pdf %APPVEYOR_BUILD_FOLDER%\Plugins\Documentation.pdf
     - del %APPVEYOR_BUILD_FOLDER%\Plugins\Examples\camomile.sh /Q

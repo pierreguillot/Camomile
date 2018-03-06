@@ -32,7 +32,6 @@ matrix:
     - cp README.md Plugins/README.md
     - cp ChangeLog.md Plugins/ChangeLog.md
     - cp LICENSE Plugins/LICENSE.txt
-    - cp CONTRIBUTING.md Plugins/CONTRIBUTING.md
     - cp Documentation.pdf Plugins/Documentation.pdf
     - mv Plugins Camomile
     - zip -r $release.zip Camomile
@@ -50,7 +49,6 @@ matrix:
     - rm Plugins/Examples/camomile.sh
     - cp README.md Plugins/README.md
     - cp ChangeLog.md Plugins/ChangeLog.md
-    - cp CONTRIBUTING.md Plugins/CONTRIBUTING.md
     - cp LICENSE Plugins/LICENSE.txt
     - cp Documentation.pdf Plugins/Documentation.pdf
     - mv Plugins Camomile
