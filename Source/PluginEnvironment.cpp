@@ -369,10 +369,15 @@ CamomileEnvironment::CamomileEnvironment()
             errors.push_back("patch has been created for a newer version of the plugin v" + plugin_version);
         }
     }
-    if(programs.empty()) {
-        programs.push_back(""); }
-    if(buses.empty()) {
-        buses.push_back({2, 2}); }
+    if(buses.empty())
+    {
+        buses.push_back({2, 2});
+        errors.push_back("no bus defined, add default bus 2 2");
+    }
+    if(programs.empty())
+    {
+        programs.push_back("");
+    }
 }
 
 size_t CamomileEnvironment::get_version(std::string const& v)
