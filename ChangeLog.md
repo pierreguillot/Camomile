@@ -4,8 +4,9 @@ v1.0.4
 - Add window array support for array define objects (#93)
 - Add steady/jump mode for IEM's GUI slider
 - Add log scale for IEM's GUI slider (#96)
-- Add instructions for contributions in CONTRIBUTING.md
+- Add instructions for contributions
 - Add the facultative flag "-s" to openpanel/savepanel methods to suspend processing
+- Add warning if no audio bus is defined
 
 v1.0.3
 - Fix DSP support for multiple audio buses
