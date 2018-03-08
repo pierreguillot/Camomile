@@ -7,6 +7,7 @@ v1.0.4
 - Add instructions for contributions
 - Add the facultative flag "-s" to openpanel/savepanel methods to suspend processing
 - Add warning if no audio bus is defined
+- Fix the width of the comment
 
 v1.0.3
 - Fix DSP support for multiple audio buses
