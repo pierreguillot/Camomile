@@ -578,7 +578,7 @@ namespace pd
     } t_fake_garray;
     
     Graph::Graph() noexcept :
-    m_instance(nullptr), m_name(""), m_drawing_mode(0), m_is_gop(false)
+    m_instance(nullptr), m_name(""), m_drawing_mode(0), m_is_gop(false), m_scale({-1, 1})
     {
         
     }
@@ -587,7 +587,8 @@ namespace pd
     m_instance(other.m_instance),
     m_name(other.m_name),
     m_drawing_mode(other.m_drawing_mode),
-    m_is_gop(other.m_is_gop)
+    m_is_gop(other.m_is_gop),
+    m_scale(other.m_scale)
     {
         
     }
@@ -596,16 +597,18 @@ namespace pd
     m_instance(&instance),
     m_name(name),
     m_drawing_mode(1),
-    m_is_gop(false)
+    m_is_gop(false),
+    m_scale({-1, 1})
     {
-        
+        ;
     }
     
     Graph::Graph(void* ptr, Instance& instance) noexcept :
     m_instance(&instance),
     m_name(""),
     m_drawing_mode(0),
-    m_is_gop(true)
+    m_is_gop(true),
+    m_scale({-1, 1})
     {
         if(ptr)
         {
@@ -620,6 +623,10 @@ namespace pd
                 {
                     m_drawing_mode = static_cast<size_t>(template_getfloat(scalartplte, gensym("style"), scalar->sc_vec, 0));
                 }
+            }
+            if(ar && ar->x_glist)
+            {
+                m_scale = {static_cast<float>(ar->x_glist->gl_y2), static_cast<float>(ar->x_glist->gl_y1)};
             }
         }
     }
@@ -642,6 +649,11 @@ namespace pd
     bool Graph::isGOP() const noexcept
     {
         return m_is_gop;
+    }
+    
+    std::array<float, 2> Graph::getScale() const noexcept
+    {
+        return m_scale;
     }
     
     void Graph::read(std::vector<float>& output) const

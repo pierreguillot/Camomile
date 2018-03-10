@@ -197,6 +197,7 @@ namespace pd
         bool isDrawingPoints() const noexcept;
         bool isDrawingCurve() const noexcept;
         bool isGOP() const noexcept;
+        std::array<float, 2> getScale() const noexcept;
         
         void read(std::vector<float>& output) const;
         void write(std::vector<float> const& input);
@@ -209,6 +210,7 @@ namespace pd
         std::string m_name;
         size_t      m_drawing_mode;
         bool        m_is_gop;
+        std::array<float, 2> m_scale;
         friend class Gui;
     };
 }

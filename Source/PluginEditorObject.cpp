@@ -786,27 +786,29 @@ void GraphicalArray::paint(Graphics& g)
         
         if(!m_vector.empty())
         {
+            const std::array<float, 2> scale = m_graph.getScale();
             if(m_graph.isDrawingCurve())
             {
-                const float dh = h * 0.5f;
+                const float dh = h / (scale[1] - scale[0]);
                 const float dw = w / static_cast<float>(m_vector.size() - 1);
                 Path p;
-                p.startNewSubPath(0, (clip(-m_vector[0], -1.f, 1.f) + 1.f) * dh);
+                p.startNewSubPath(0, h - (clip(m_vector[0], scale[0], scale[1]) - scale[0]) * dh);
                 for(size_t i = 1; i < m_vector.size(); ++i)
                 {
-                    p.lineTo(static_cast<float>(i) * dw, (clip(-m_vector[i], -1.f, 1.f) + 1.f) * dh);
+                    const float y = h - (clip(m_vector[i], scale[0], scale[1]) - scale[0]) * dh;
+                    p.lineTo(static_cast<float>(i) * dw, y);
                 }
                 g.setColour(Colours::black);
                 g.strokePath(p, PathStrokeType(1));
             }
             else
             {
-                const float dh = h * 0.5f;
+                const float dh = h / (scale[1] - scale[0]);
                 const float dw = w / static_cast<float>(m_vector.size());
                 g.setColour(Colours::black);
                 for(size_t i = 0; i < m_vector.size(); ++i)
                 {
-                    const float y = (clip(-m_vector[i], -1.f, 1.f) + 1.f) * dh;
+                    const float y = h - (clip(m_vector[i], scale[0], scale[1]) - scale[0]) * dh;
                     g.drawLine(static_cast<float>(i) * dw, y, static_cast<float>(i+1) * dw, y);
                 }
             }
@@ -834,8 +836,9 @@ void GraphicalArray::mouseDrag(const MouseEvent& event)
     const float x = static_cast<float>(event.x);
     const float y = static_cast<float>(event.y);
     
+    const std::array<float, 2> scale = m_graph.getScale();
     const size_t index = static_cast<size_t>(std::round(clip(x / w, 0.f, 1.f) * s));
-    m_vector[index] = (1.f - clip(y / h, 0.f, 1.f)) * 2.f - 1.f;
+    m_vector[index] = (1.f - clip(y / h, 0.f, 1.f)) * (scale[1] - scale[0]) + scale[0];
     const CriticalSection& cs = m_processor.getCallbackLock();
     if(cs.tryEnter())
     {
