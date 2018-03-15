@@ -793,6 +793,24 @@ void GraphicalArray::paint(Graphics& g)
                 const float dw = w / static_cast<float>(m_vector.size() - 1);
                 Path p;
                 p.startNewSubPath(0, h - (clip(m_vector[0], scale[0], scale[1]) - scale[0]) * dh);
+                for(size_t i = 1; i < m_vector.size() - 1; i += 2)
+                {
+                    const float y1 = h - (clip(m_vector[i-1], scale[0], scale[1]) - scale[0]) * dh;
+                    const float y2 = h - (clip(m_vector[i], scale[0], scale[1]) - scale[0]) * dh;
+                    const float y3 = h - (clip(m_vector[i+1], scale[0], scale[1]) - scale[0]) * dh;
+                    p.cubicTo(static_cast<float>(i-1) * dw, y1,
+                              static_cast<float>(i) * dw, y2,
+                              static_cast<float>(i+1) * dw, y3);
+                }
+                g.setColour(Colours::black);
+                g.strokePath(p, PathStrokeType(1));
+            }
+            else if(m_graph.isDrawingLine())
+            {
+                const float dh = h / (scale[1] - scale[0]);
+                const float dw = w / static_cast<float>(m_vector.size() - 1);
+                Path p;
+                p.startNewSubPath(0, h - (clip(m_vector[0], scale[0], scale[1]) - scale[0]) * dh);
                 for(size_t i = 1; i < m_vector.size(); ++i)
                 {
                     const float y = h - (clip(m_vector[i], scale[0], scale[1]) - scale[0]) * dh;

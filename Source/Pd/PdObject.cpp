@@ -641,9 +641,14 @@ namespace pd
         return m_drawing_mode == 0;
     }
     
+    bool Graph::isDrawingLine() const noexcept
+    {
+        return m_drawing_mode == 1;
+    }
+    
     bool Graph::isDrawingCurve() const noexcept
     {
-        return m_drawing_mode != 0;
+        return m_drawing_mode == 2;
     }
     
     bool Graph::isGOP() const noexcept

@@ -195,6 +195,7 @@ namespace pd
         
         std::string getName() const noexcept;
         bool isDrawingPoints() const noexcept;
+        bool isDrawingLine() const noexcept;
         bool isDrawingCurve() const noexcept;
         bool isGOP() const noexcept;
         std::array<float, 2> getScale() const noexcept;
