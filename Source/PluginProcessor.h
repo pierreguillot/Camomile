@@ -82,6 +82,7 @@ private:
     void parseOpenPanel(const std::vector<pd::Atom>& list);
     void parseSavePanel(const std::vector<pd::Atom>& list);
     void parseArray(const std::vector<pd::Atom>& list);
+    void parseGui(const std::vector<pd::Atom>& list);
     
     typedef moodycamel::ReaderWriterQueue<MessageGui> QueueGui;
     

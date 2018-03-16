@@ -484,6 +484,10 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
     {
         parseSaveInformation(list);
     }
+    else if(msg == std::string("gui"))
+    {
+        parseGui(list);
+    }
     else {  add(ConsoleLevel::Error, "camomile unknow message : " + msg); }
 }
 
@@ -614,6 +618,26 @@ void CamomileAudioProcessor::parseArray(const std::vector<pd::Atom>& list)
     else
     {
         add(ConsoleLevel::Error, "camomile array needs a name");
+    }
+}
+
+void CamomileAudioProcessor::parseGui(const std::vector<pd::Atom>& list)
+{
+    if(list.size() >= 1)
+    {
+        if(list[0].isSymbol())
+        {
+            m_queue_gui.try_enqueue({std::string("gui"), list[0].getSymbol(), ""});
+            if(list.size() > 1)
+            {
+                add(ConsoleLevel::Error, "camomile gui method extra arguments");
+            }
+        }
+        else { add(ConsoleLevel::Error, "camomile gui method argument must be a symbol"); }
+    }
+    else
+    {
+        add(ConsoleLevel::Error, "camomile gui needs a command");
     }
 }
 
