@@ -18,22 +18,47 @@ AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), m_processor (p),
     setOpaque(true);
     setWantsKeyboardFocus(true);
     setInterceptsMouseClicks(true, true);
-    auto const bounds = p.getPatch().getBounds();
-    setSize(bounds[2] > 0 ? std::max(bounds[2], 100) : 400, bounds[3] > 0 ? std::max(bounds[3], 100) : 300);
-    Image const& img = CamoLookAndFeel::getImage();
-    if(img.isValid())
+    m_image.setImage(CamoLookAndFeel::getImage());
+    if(m_image.getImage().isNull() && !CamomileEnvironment::getImageName().empty())
     {
-        m_image.setImage(img);
-        m_image.setTransformToFit(getBounds().toType<float>(), RectanglePlacement::stretchToFit);
-        addAndMakeVisible(m_image, 0);
+        m_processor.add(CamomileAudioProcessor::ConsoleLevel::Error,
+                        "background image " + CamomileEnvironment::getImageName() +
+                        " is invalid or doesn't exist.");
     }
-    else if(!CamomileEnvironment::getImageName().empty())
+    updatePatch();
+    updateObjects();
+    addAndMakeVisible(m_button);
+    startTimer(25);
+}
+
+CamomileEditor::~CamomileEditor() {}
+
+void CamomileEditor::updatePatch()
+{
+    auto const bounds = m_processor.getPatch().getBounds();
+    int const width  = bounds[2] > 0 ? std::max(bounds[2], 100) : 400;
+    int const height = bounds[3] > 0 ? std::max(bounds[3], 100) : 300;
+    if(width !=  getWidth() || height != getHeight())
     {
-        p.add(CamomileAudioProcessor::ConsoleLevel::Error,
-                      "background image " + CamomileEnvironment::getImageName() + " is invalid or doesn't exist.");
+        setSize(width, height);
+        if(m_image.getImage().isValid())
+        {
+            m_image.setTransformToFit(getBounds().toType<float>(), RectanglePlacement::stretchToFit);
+            if(!m_image.isVisible())
+            {
+                addAndMakeVisible(m_image, 0);
+            }
+        }
+        updateObjects();
     }
-    
-    for(auto& gui : p.getPatch().getGuis()) {
+}
+
+void CamomileEditor::updateObjects()
+{
+    m_labels.clear();
+    m_objects.clear();
+    for(auto& gui : m_processor.getPatch().getGuis())
+    {
         PluginEditorObject* obj = m_objects.add(PluginEditorObject::createTyped(*this, gui));
         if(obj)
         {
@@ -44,13 +69,8 @@ AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), m_processor (p),
                 addAndMakeVisible(m_labels.add(label));
             }
         }
-        
     }
-    addAndMakeVisible(m_button);
-    startTimer(25);
 }
-
-CamomileEditor::~CamomileEditor() {}
 
 void CamomileEditor::timerCallback()
 {

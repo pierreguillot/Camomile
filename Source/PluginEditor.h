@@ -24,6 +24,10 @@ public:
     bool keyStateChanged(bool isKeyDown) final;
     void modifierKeysChanged(const ModifierKeys& modifiers) final;
 private:
+    
+    void updatePatch();
+    void updateObjects();
+    
     CamomileAudioProcessor&         m_processor;
     OwnedArray<PluginEditorObject>  m_objects;
     OwnedArray<Component>           m_labels;
