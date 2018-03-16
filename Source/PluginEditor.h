@@ -27,6 +27,8 @@ private:
     
     void updatePatch();
     void updateObjects();
+    void guiResize() final;
+    void guiRedraw() final;
     
     CamomileAudioProcessor&         m_processor;
     OwnedArray<PluginEditorObject>  m_objects;

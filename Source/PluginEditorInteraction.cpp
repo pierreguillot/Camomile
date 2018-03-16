@@ -204,6 +204,7 @@ private:
 const std::string CamomileEditorMessageManager::string_openpanel = std::string("openpanel");
 const std::string CamomileEditorMessageManager::string_savepanel = std::string("savepanel");
 const std::string CamomileEditorMessageManager::string_array     = std::string("array");
+const std::string CamomileEditorMessageManager::string_gui       = std::string("gui");
 
 CamomileEditorMessageManager::CamomileEditorMessageManager(CamomileAudioProcessor& processor) : m_processor(processor), m_window(new CamomileEditorMessageWindow())
 {}
@@ -264,6 +265,22 @@ bool CamomileEditorMessageManager::processMessages()
                 }
                 m_window->toFront(true);
                 m_window->grabKeyboardFocus();
+            }
+        }
+        else if(message[0] == string_gui)
+        {
+            if(message[1] == std::string("resize"))
+            {
+                guiResize();
+            }
+            else if(message[1] == std::string("redraw"))
+            {
+                guiRedraw();
+            }
+            else
+            {
+                m_processor.add(CamomileAudioProcessor::ConsoleLevel::Error,
+                                "gui method : invalid command \"" + message[1] + "\"");
             }
         }
     }

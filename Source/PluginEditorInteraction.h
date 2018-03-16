@@ -83,13 +83,19 @@ class CamomileEditorMessageManager
 {
 public:
     CamomileEditorMessageManager(CamomileAudioProcessor& processor);
+protected:
     bool processMessages();
 private:
+    virtual void guiResize() = 0;
+    virtual void guiRedraw() = 0;
+    
+    
     CamomileAudioProcessor& m_processor;
     ScopedPointer<DocumentWindow> m_window;
     static const std::string string_openpanel;
     static const std::string string_savepanel;
     static const std::string string_array;
+    static const std::string string_gui;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorMessageManager)
 };
