@@ -557,9 +557,13 @@ void GuiNumber::mouseUp(const MouseEvent& e)
 void GuiNumber::mouseDrag(const MouseEvent& e)
 {
     const float inc = static_cast<float>(-e.getDistanceFromDragStartY());
+    if(std::abs(inc) < 1)
+    {
+        return;
+    }
     if(shift)
     {
-        setValueOriginal(last + inc * 0.1f);
+        setValueOriginal(last + inc * 0.01f);
     }
     else
     {
