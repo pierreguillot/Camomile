@@ -8,6 +8,8 @@ v1.0.4
 - Add the facultative flag "-s" to openpanel/savepanel methods to suspend processing
 - Add warning if no audio bus is defined
 - Fix the width of the comment
+- Fix the incrementation of the number box and the atom number
+- Add support for dynamically changing the graphical interface (#99)
 
 v1.0.3
 - Fix DSP support for multiple audio buses
