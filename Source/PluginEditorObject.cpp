@@ -642,9 +642,13 @@ void GuiAtomNumber::mouseDrag(const MouseEvent& e)
     if(!gui.getNumberOfSteps())
     {
         const float inc = static_cast<float>(-e.getDistanceFromDragStartY());
+        if(std::abs(inc) < 1)
+        {
+            return;
+        }
         if(shift)
         {
-            setValueOriginal(last + inc * 0.1f);
+            setValueOriginal(last + inc * 0.01f);
         }
         else
         {
