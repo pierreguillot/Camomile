@@ -90,7 +90,8 @@ private:
     std::vector<pd::Atom>    m_atoms_param;
     std::vector<pd::Atom>    m_atoms_playhead;
     size_t                   m_audio_advancement;
-    AudioSampleBuffer        m_audio_buffer;
+    AudioSampleBuffer        m_audio_buffer_in;
+    AudioSampleBuffer        m_audio_buffer_out;
     MidiBuffer               m_midi_buffer;
     int m_program_current    = 0;
     std::vector<std::string> m_programs;

@@ -9,7 +9,8 @@ v1.0.4
 - Add warning if no audio bus is defined
 - Fix the width of the comment
 - Fix the incrementation of the number box and the atom number
-- Add support for dynamically changing the graphical interface (#99)
+- Add support to change dynamically the graphical interface (#99)
+- Add support to change dynamically the latency (#62)
 
 v1.0.3
 - Fix DSP support for multiple audio buses
@@ -41,7 +42,6 @@ v1.0.2
 - Add support for non-real time processing
 - Improve name of the UI Window
 - Fix the FFT objects for multithreading support
-- Add support to change dynamically the latency
 
 v1.0.1
 - Fix thread concurrency issue that occurred when selecting a program (#77).
