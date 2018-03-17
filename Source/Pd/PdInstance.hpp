@@ -31,7 +31,7 @@ namespace pd
         void prepareDSP(const int nins, const int nouts, const double samplerate);
         void startDSP();
         void releaseDSP();
-        void performDSP(const int blksize, const int nins, float const** inputs, const int nouts, float** outputs);
+        void performDSP(float const* inputs, float* outputs);
         int getBlockSize() const noexcept;
         
         void sendNoteOn(const int channel, const int pitch, const int velocity) const;
