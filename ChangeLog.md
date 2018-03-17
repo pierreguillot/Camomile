@@ -41,6 +41,7 @@ v1.0.2
 - Add support for non-real time processing
 - Improve name of the UI Window
 - Fix the FFT objects for multithreading support
+- Add support to change dynamically the latency
 
 v1.0.1
 - Fix thread concurrency issue that occurred when selecting a program (#77).
