@@ -83,6 +83,7 @@ class CamomileEditorMessageManager
 {
 public:
     CamomileEditorMessageManager(CamomileAudioProcessor& processor);
+    virtual ~CamomileEditorMessageManager() {}
 protected:
     bool processMessages();
 private:
