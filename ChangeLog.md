@@ -11,6 +11,8 @@ v1.0.4
 - Fix the incrementation of the number box and the atom number
 - Add support to change dynamically the graphical interface (#99)
 - Add support to change dynamically the latency (#62)
+- Fix variable block size support (#100)
+- Improve MIDI In/Out time precision
 
 v1.0.3
 - Fix DSP support for multiple audio buses
