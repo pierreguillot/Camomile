@@ -57,6 +57,8 @@ m_programs(CamomileEnvironment::getPrograms())
         m_atoms_param.resize(2);
         m_atoms_playhead.reserve(3);
         m_atoms_playhead.resize(1);
+        m_midi_buffer_in.ensureSize(2048);
+        m_midi_buffer_out.ensureSize(2048);
         prepareDSP(getTotalNumInputChannels(), getTotalNumOutputChannels(), getSampleRate());
         setLatencySamples(CamomileEnvironment::getLatencySamples() + Instance::getBlockSize());
         m_programs = CamomileEnvironment::getPrograms();
@@ -169,7 +171,8 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     std::fill(m_audio_buffer_in.begin(), m_audio_buffer_in.end(), 0);
     m_audio_buffer_out.resize(getTotalNumOutputChannels() * Instance::getBlockSize());
     std::fill(m_audio_buffer_out.begin(), m_audio_buffer_out.end(), 0);
-    m_midi_buffer.clear();
+    m_midi_buffer_in.clear();
+    m_midi_buffer_out.clear();
     
     startDSP();
     processMessages();
@@ -235,12 +238,11 @@ void CamomileAudioProcessor::processInternal()
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                          MIDI IN                                     //
     //////////////////////////////////////////////////////////////////////////////////////////
-    /*
     if(CamomileEnvironment::wantsMidi())
     {
         MidiMessage message;
-        MidiBuffer::Iterator it(midiMessages);
-        int position = midiMessages.getFirstEventTime();
+        MidiBuffer::Iterator it(m_midi_buffer_in);
+        int position = 0;
         while(it.getNextEvent(message, position)) {
             if(message.isNoteOn()) {
                 sendNoteOn(message.getChannel(), message.getNoteNumber(), message.getVelocity()); }
@@ -274,8 +276,8 @@ void CamomileAudioProcessor::processInternal()
                 }
             }
         }
+        m_midi_buffer_in.clear();
     }
-    */
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                  RETRIEVE MESSAGES                                   //
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -303,14 +305,10 @@ void CamomileAudioProcessor::processInternal()
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                          MIDI OUT                                    //
     //////////////////////////////////////////////////////////////////////////////////////////
-    /*
     if(CamomileEnvironment::producesMidi())
     {
         processMidi();
-        midiMessages.swapWith(m_midi_buffer);
-        m_midi_buffer.clear();
     }
-     */
 }
 
 void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
@@ -318,7 +316,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     ScopedNoDenormals noDenormals;
     const int blocksize = Instance::getBlockSize();
     const int nsamples  = buffer.getNumSamples();
-    const int nleft = blocksize - m_audio_advancement;
+    const int nleft     = blocksize - m_audio_advancement;
     const int nins      = getTotalNumInputChannels();
     const int nouts     = getTotalNumOutputChannels();
     const float **bufferin = buffer.getArrayOfReadPointers();
@@ -336,17 +334,25 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     {
         // we save the input samples and we output
         // the missing samples of the previous tick.
-        for(int j = 0; j < nins; ++j)
-        {
-            const int pos = j*blocksize+m_audio_advancement;
-            std::copy(bufferin[j], bufferin[j]+nsamples, m_audio_buffer_in.data()+pos);
-        }
         for(int j = 0; j < nouts; ++j)
         {
             const int pos = j*blocksize+m_audio_advancement;
             std::copy(m_audio_buffer_out.data()+pos, m_audio_buffer_out.data()+pos+nsamples, bufferout[j]);
         }
-        // MIDI messages
+        for(int j = 0; j < nins; ++j)
+        {
+            const int pos = j*blocksize+m_audio_advancement;
+            std::copy(bufferin[j], bufferin[j]+nsamples, m_audio_buffer_in.data()+pos);
+        }
+        if(CamomileEnvironment::wantsMidi())
+        {
+            m_midi_buffer_in.addEvents(midiMessages, 0, nsamples, m_audio_advancement);
+        }
+        if(CamomileEnvironment::producesMidi())
+        {
+            midiMessages.clear();
+            midiMessages.addEvents(m_midi_buffer_out, m_audio_advancement, nsamples, 0);
+        }
         m_audio_advancement += nsamples;
     }
     // If the current number of samples in this block
@@ -356,18 +362,26 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         // we save the missing input samples, we output
         // the missing samples of the previous tick and
         // we call DSP perform method.
-        for(int j = 0; j < nins; ++j)
-        {
-            const int pos = j*blocksize+m_audio_advancement;
-            std::copy(bufferin[j], bufferin[j]+nleft, m_audio_buffer_in.data()+pos);
-        }
         for(int j = 0; j < nouts; ++j)
         {
             const int pos = j*blocksize+m_audio_advancement;
             std::copy(m_audio_buffer_out.data()+pos, m_audio_buffer_out.data()+pos+nleft, bufferout[j]);
         }
+        for(int j = 0; j < nins; ++j)
+        {
+            const int pos = j*blocksize+m_audio_advancement;
+            std::copy(bufferin[j], bufferin[j]+nleft, m_audio_buffer_in.data()+pos);
+        }
+        if(CamomileEnvironment::wantsMidi())
+        {
+            m_midi_buffer_in.addEvents(midiMessages, 0, nleft, m_audio_advancement);
+        }
+        if(CamomileEnvironment::producesMidi())
+        {
+            midiMessages.clear();
+            midiMessages.addEvents(m_midi_buffer_out, m_audio_advancement, nleft, 0);
+        }
         m_audio_advancement = 0;
-        // MIDI messages
         processInternal();
         
         // If there are other DSP ticks that can be
@@ -375,16 +389,23 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         int pos = nleft;
         while(pos <= nsamples - blocksize)
         {
-            for(int j = 0; j < nins; ++j)
-            {
-                std::copy(bufferin[j]+pos, bufferin[j]+pos+blocksize, m_audio_buffer_in.data());
-            }
-            
             for(int j = 0; j < nouts; ++j)
             {
                 std::copy(m_audio_buffer_out.data(), m_audio_buffer_out.data()+blocksize, bufferout[j]+pos);
             }
-            // MIDI messages
+            for(int j = 0; j < nins; ++j)
+            {
+                std::copy(bufferin[j]+pos, bufferin[j]+pos+blocksize, m_audio_buffer_in.data());
+            }
+            if(CamomileEnvironment::wantsMidi())
+            {
+                m_midi_buffer_in.addEvents(midiMessages, pos, blocksize, 0);
+            }
+            if(CamomileEnvironment::producesMidi())
+            {
+                midiMessages.clear();
+                midiMessages.addEvents(m_midi_buffer_out, 0, blocksize, pos);
+            }
             processInternal();
             pos += blocksize;
         }
@@ -404,9 +425,17 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
             {
                 std::copy(m_audio_buffer_out.data(), m_audio_buffer_out.data()+remaining, bufferout[j]+pos);
             }
+            if(CamomileEnvironment::wantsMidi())
+            {
+                m_midi_buffer_in.addEvents(midiMessages, pos, remaining, 0);
+            }
+            if(CamomileEnvironment::producesMidi())
+            {
+                midiMessages.clear();
+                midiMessages.addEvents(m_midi_buffer_out, 0, remaining, pos);
+            }
             m_audio_advancement = remaining;
         }
-        
     }
 }
 
@@ -754,39 +783,39 @@ bool CamomileAudioProcessor::dequeueGui(MessageGui& message)
 void CamomileAudioProcessor::receiveNoteOn(const int channel, const int pitch, const int velocity)
 {
     if(velocity == 0) {
-        m_midi_buffer.addEvent(MidiMessage::noteOff(channel, pitch, uint8(0)), 0.); }
+        m_midi_buffer_out.addEvent(MidiMessage::noteOff(channel, pitch, uint8(0)), 0.); }
     else {
-        m_midi_buffer.addEvent(MidiMessage::noteOn(channel, pitch, static_cast<uint8>(velocity)), 0.); }
+        m_midi_buffer_out.addEvent(MidiMessage::noteOn(channel, pitch, static_cast<uint8>(velocity)), 0.); }
 }
 
 void CamomileAudioProcessor::receiveControlChange(const int channel, const int controller, const int value)
 {
-    m_midi_buffer.addEvent(MidiMessage::controllerEvent(channel, controller, value), 0.);
+    m_midi_buffer_out.addEvent(MidiMessage::controllerEvent(channel, controller, value), 0.);
 }
 
 void CamomileAudioProcessor::receiveProgramChange(const int channel, const int value)
 {
-    m_midi_buffer.addEvent(MidiMessage::programChange(channel, value), 0.);
+    m_midi_buffer_out.addEvent(MidiMessage::programChange(channel, value), 0.);
 }
 
 void CamomileAudioProcessor::receivePitchBend(const int channel, const int value)
 {
-    m_midi_buffer.addEvent(MidiMessage::pitchWheel(channel, value), 0.);
+    m_midi_buffer_out.addEvent(MidiMessage::pitchWheel(channel, value), 0.);
 }
 
 void CamomileAudioProcessor::receiveAftertouch(const int channel, const int value)
 {
-    m_midi_buffer.addEvent(MidiMessage::channelPressureChange(channel, value), 0.);
+    m_midi_buffer_out.addEvent(MidiMessage::channelPressureChange(channel, value), 0.);
 }
 
 void CamomileAudioProcessor::receivePolyAftertouch(const int channel, const int pitch, const int value)
 {
-    m_midi_buffer.addEvent(MidiMessage::aftertouchChange(channel, pitch, value), 0.);
+    m_midi_buffer_out.addEvent(MidiMessage::aftertouchChange(channel, pitch, value), 0.);
 }
 
 void CamomileAudioProcessor::receiveMidiByte(const int port, const int byte)
 {
-    m_midi_buffer.addEvent(MidiMessage(byte), 0.);
+    m_midi_buffer_out.addEvent(MidiMessage(byte), 0.);
 }
 
 void CamomileAudioProcessor::receivePrint(const std::string& message)
