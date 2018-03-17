@@ -171,13 +171,18 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
         sendBusInformation(getBus(false, i));
     }
     
-    processMessages();
+    m_audio_advancement = 0;
+    m_audio_buffer.setSize(std::max(getTotalNumInputChannels(), getTotalNumOutputChannels()), Instance::getBlockSize());
+    m_audio_buffer.clear();
+    
     startDSP();
+    processMessages();
 }
 
 void CamomileAudioProcessor::releaseResources()
 {
     releaseDSP();
+    processMessages();
 }
 
 void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
@@ -281,7 +286,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////
-    //                                          RETRIEVE MESSAGES                           //
+    //                                  RETRIEVE MESSAGES                                   //
     //////////////////////////////////////////////////////////////////////////////////////////
     processMessages();
     
