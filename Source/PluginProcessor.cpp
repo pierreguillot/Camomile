@@ -58,8 +58,7 @@ m_programs(CamomileEnvironment::getPrograms())
         m_atoms_playhead.reserve(3);
         m_atoms_playhead.resize(1);
         prepareDSP(getTotalNumInputChannels(), getTotalNumOutputChannels(), getSampleRate());
-        
-        setLatencySamples(CamomileEnvironment::getLatencySamples());
+        setLatencySamples(CamomileEnvironment::getLatencySamples() + Instance::getBlockSize());
         m_programs = CamomileEnvironment::getPrograms();
         
         auto const& params = CamomileEnvironment::getParams();
@@ -189,7 +188,9 @@ void CamomileAudioProcessor::releaseResources()
 void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
     ScopedNoDenormals noDenormals;
-    const int numSamples  = buffer.getNumSamples();
+    const int blocksize     = Instance::getBlockSize();
+    const int numSamples    = buffer.getNumSamples();
+    
     const float ** arrayOfReadPointers = buffer.getArrayOfReadPointers();
     float ** arrayOfWritePointers = buffer.getArrayOfWritePointers();
     const int totalNumInputChannels  = getTotalNumInputChannels();
@@ -199,7 +200,28 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     {
         buffer.clear(i, 0, numSamples);
     }
-    
+    /*
+    for(int i = 0; i < numSamples; i += blocksize)
+    {
+        for(int j = 0; j < totalNumInputChannels; ++j)
+        {
+            m_audio_buffer.copyFrom(j, 0, buffer, j, i, blocksize);
+        }
+        
+        
+        for(int j = 0; j < totalNumOutputChannels; ++j)
+        {
+            buffer.copyFrom(j, i, m_audio_buffer, j, 0, blocksize);
+        }
+    }
+     */
+    if(numSamples % 32)
+    {
+        add(ConsoleLevel::Error, "nsmaples " + std::to_string(numSamples));
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                                     DEQUEUE MESSAGES                                 //
+    //////////////////////////////////////////////////////////////////////////////////////////
     dequeueMessages();
     
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -494,6 +516,10 @@ void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::
     {
         parseGui(list);
     }
+    else if(msg == std::string("audio"))
+    {
+        parseAudio(list);
+    }
     else {  add(ConsoleLevel::Error, "camomile unknow message : " + msg); }
 }
 
@@ -644,6 +670,83 @@ void CamomileAudioProcessor::parseGui(const std::vector<pd::Atom>& list)
     else
     {
         add(ConsoleLevel::Error, "camomile gui needs a command");
+    }
+}
+
+void CamomileAudioProcessor::parseAudio(const std::vector<pd::Atom>& list)
+{
+    if(list.size() >= 1)
+    {
+        if(list[0].isSymbol())
+        {
+            if(list[0].getSymbol() == std::string("latency"))
+            {
+                if(list.size() >= 2 && list[1].isFloat())
+                {
+                    const int latency = static_cast<int>(list[1].getFloat());
+                    if(latency >= 0)
+                    {
+                        setLatencySamples(latency + Instance::getBlockSize());
+                        if(list.size() > 2)
+                        {
+                            add(ConsoleLevel::Error, "camomile audio method: latency option extra arguments");
+                        }
+                        if(CamomileEnvironment::isLatencyInitialized())
+                        {
+                            add(ConsoleLevel::Error, "camomile audio method: latency overwrites the preferences");
+                        }
+                    }
+                    else
+                    {
+                        add(ConsoleLevel::Error, "camomile audio method: latency must be positive or null");
+                    }
+                }
+                else
+                {
+                    add(ConsoleLevel::Error, "camomile audio method: latency option expects a number");
+                }
+            }
+            else
+            {
+                add(ConsoleLevel::Error, "camomile audio method: unknown option \"" + list[0].getSymbol() + "\"");
+            }
+            /*
+            else if(list[0].getSymbol() == std::string("taillength"))
+            {
+                if(list.size() >= 2 && list[1].isFloat())
+                {
+                    const float taillength = list[1].getFloat();
+                    if(taillength >= 0)
+                    {
+                        if(list.size() > 2)
+                        {
+                            add(ConsoleLevel::Error, "camomile audio method: taillength option extra arguments");
+                        }
+                        if(CamomileEnvironment::isTailLengthInitialized())
+                        {
+                            add(ConsoleLevel::Error, "camomile audio method: taillength overwrites the preferences");
+                        }
+                    }
+                    else
+                    {
+                        add(ConsoleLevel::Error, "camomile audio method: taillength must be positive or null");
+                    }
+                }
+                else
+                {
+                    add(ConsoleLevel::Error, "camomile audio method: taillength option expects a number");
+                }
+            }
+             */
+        }
+        else
+        {
+            add(ConsoleLevel::Error, "camomile audio method: first argument must be an option");
+        }
+    }
+    else
+    {
+        add(ConsoleLevel::Error, "camomile audio method: expects arguments");
     }
 }
 
