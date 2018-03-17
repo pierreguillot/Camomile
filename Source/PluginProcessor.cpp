@@ -57,9 +57,7 @@ m_programs(CamomileEnvironment::getPrograms())
         m_atoms_param.resize(2);
         m_atoms_playhead.reserve(3);
         m_atoms_playhead.resize(1);
-        prepareDSP(getBusesLayout().getMainInputChannelSet().size(),
-                   getBusesLayout().getMainOutputChannelSet().size(),
-                   getBlockSize() < 64 ? 64 : getBlockSize(), getSampleRate());
+        prepareDSP(getTotalNumInputChannels(), getTotalNumOutputChannels(), getSampleRate());
         
         setLatencySamples(CamomileEnvironment::getLatencySamples());
         m_programs = CamomileEnvironment::getPrograms();
@@ -155,7 +153,7 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     {
         add(ConsoleLevel::Log, "DSP block size is inferior to 64 samples implying a delay of " + std::to_string(64 - samplesPerBlock) + " samples.");
     }
-    prepareDSP(getTotalNumInputChannels(), getTotalNumOutputChannels(), samplesPerBlock, sampleRate);
+    prepareDSP(getTotalNumInputChannels(), getTotalNumOutputChannels(), sampleRate);
     
     {
         // For backward compatibility can be deprecated
@@ -174,6 +172,7 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     m_audio_advancement = 0;
     m_audio_buffer.setSize(std::max(getTotalNumInputChannels(), getTotalNumOutputChannels()), Instance::getBlockSize());
     m_audio_buffer.clear();
+    m_midi_buffer.clear();
     
     startDSP();
     processMessages();
@@ -183,6 +182,8 @@ void CamomileAudioProcessor::releaseResources()
 {
     releaseDSP();
     processMessages();
+    m_audio_buffer.clear();
+    m_audio_advancement = 0;
 }
 
 void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)

@@ -28,7 +28,7 @@ namespace pd
         Instance();
         virtual ~Instance();
         
-        void prepareDSP(const int nins, const int nouts, const int blksize, const double samplerate);
+        void prepareDSP(const int nins, const int nouts, const double samplerate);
         void startDSP();
         void releaseDSP();
         void performDSP(const int blksize, const int nins, float const** inputs, const int nouts, float** outputs);

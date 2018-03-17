@@ -156,7 +156,7 @@ namespace pd
         return libpd_blocksize();
     }
     
-    void Instance::prepareDSP(const int nins, const int nouts, const int blksize, const double samplerate)
+    void Instance::prepareDSP(const int nins, const int nouts, const double samplerate)
     {
         const int pdblksize = getBlockSize();
         m_inputs.resize(pdblksize * nins);
