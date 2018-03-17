@@ -105,6 +105,14 @@ public:
     //! @brief Gets the parsing errors.
     static std::vector<std::string> const& getErrors();
     
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                                      INITIALIZED                                     //
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    static bool isLatencyInitialized();
+    
+    static bool isTailLengthInitialized();
+    
 private:
     static CamomileEnvironment& get();
     bool localize();

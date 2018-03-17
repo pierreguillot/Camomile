@@ -70,6 +70,10 @@ int CamomileEnvironment::getLatencySamples() { return get().latency_samples; }
 
 bool CamomileEnvironment::wantsKey() { return get().key_support; }
 
+bool CamomileEnvironment::isLatencyInitialized() { return get().state.test(init_latency); }
+
+bool CamomileEnvironment::isTailLengthInitialized() { return get().state.test(init_tail_length); }
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                          PROGRAMS                                        //
 //////////////////////////////////////////////////////////////////////////////////////////////
