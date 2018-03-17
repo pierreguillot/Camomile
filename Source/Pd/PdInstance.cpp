@@ -151,9 +151,14 @@ namespace pd
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
 
+    int Instance::getBlockSize() const noexcept
+    {
+        return libpd_blocksize();
+    }
+    
     void Instance::prepareDSP(const int nins, const int nouts, const int blksize, const double samplerate)
     {
-        const int pdblksize = libpd_blocksize();
+        const int pdblksize = getBlockSize();
         m_inputs.resize(pdblksize * nins);
         m_outputs.resize(pdblksize * nouts);
         std::fill(m_inputs.begin(), m_inputs.end(), 0.f);
@@ -182,7 +187,7 @@ namespace pd
                            const int nins, float const** inputs,
                            const int nouts, float** outputs)
     {
-        const int pdblksize = libpd_blocksize();
+        const int pdblksize = getBlockSize();
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         if(blksize < pdblksize)
         {
