@@ -369,10 +369,10 @@
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_basics\mpe\juce_MPESynthesiserVoice.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\Juce\modules\juce_audio_basics\mpe\juce_MPEValue.cpp">
+    <ClCompile Include="..\..\..\Juce\modules\juce_audio_basics\mpe\juce_MPEUtils.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\Juce\modules\juce_audio_basics\mpe\juce_MPEZone.cpp">
+    <ClCompile Include="..\..\..\Juce\modules\juce_audio_basics\mpe\juce_MPEValue.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_basics\mpe\juce_MPEZoneLayout.cpp">
@@ -427,6 +427,9 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_devices\native\juce_android_Midi.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_audio_devices\native\juce_android_Oboe.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_devices\native\juce_android_OpenSL.cpp">
@@ -726,6 +729,9 @@
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_processors\format_types\juce_VSTPluginFormat.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_audio_processors\processors\juce_AudioPluginInstance.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_processors\processors\juce_AudioProcessor.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -976,6 +982,9 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_core\streams\juce_SubregionStream.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_core\streams\juce_URLInputSource.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_core\system\juce_SystemStats.cpp">
@@ -2007,8 +2016,8 @@
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_basics\mpe\juce_MPESynthesiser.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_basics\mpe\juce_MPESynthesiserBase.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_basics\mpe\juce_MPESynthesiserVoice.h"/>
+    <ClInclude Include="..\..\..\Juce\modules\juce_audio_basics\mpe\juce_MPEUtils.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_basics\mpe\juce_MPEValue.h"/>
-    <ClInclude Include="..\..\..\Juce\modules\juce_audio_basics\mpe\juce_MPEZone.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_basics\mpe\juce_MPEZoneLayout.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_basics\native\juce_mac_CoreAudioLayouts.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_basics\sources\juce_AudioSource.h"/>
@@ -2295,6 +2304,7 @@
     <ClInclude Include="..\..\..\Juce\modules\juce_core\streams\juce_MemoryOutputStream.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_core\streams\juce_OutputStream.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_core\streams\juce_SubregionStream.h"/>
+    <ClInclude Include="..\..\..\Juce\modules\juce_core\streams\juce_URLInputSource.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_core\system\juce_CompilerSupport.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_core\system\juce_PlatformDefs.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_core\system\juce_StandardHeader.h"/>
@@ -2620,6 +2630,8 @@
     <None Include="..\..\..\Ressources\Images\clear2.png"/>
     <None Include="..\..\..\Ressources\Images\copy1.png"/>
     <None Include="..\..\..\Ressources\Images\copy2.png"/>
+    <None Include="..\..\..\Ressources\Images\reload1.png"/>
+    <None Include="..\..\..\Ressources\Images\reload2.png"/>
     <None Include="..\..\..\Ressources\Images\flower_center.png"/>
     <None Include="..\..\..\Ressources\Images\flower_petals.png"/>
     <None Include="..\..\..\Ressources\Images\option.png"/>

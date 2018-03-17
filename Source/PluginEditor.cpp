@@ -49,8 +49,8 @@ void CamomileEditor::updatePatch()
                 addAndMakeVisible(m_image, 0);
             }
         }
-        updateObjects();
     }
+    updateObjects();
 }
 
 void CamomileEditor::updateObjects()

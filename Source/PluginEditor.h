@@ -23,12 +23,14 @@ public:
     bool keyPressed(const KeyPress& key) final;
     bool keyStateChanged(bool isKeyDown) final;
     void modifierKeysChanged(const ModifierKeys& modifiers) final;
+    
+    void guiResize() final;
+    void guiRedraw() final;
 private:
     
     void updatePatch();
     void updateObjects();
-    void guiResize() final;
-    void guiRedraw() final;
+    
     
     CamomileAudioProcessor&         m_processor;
     OwnedArray<PluginEditorObject>  m_objects;

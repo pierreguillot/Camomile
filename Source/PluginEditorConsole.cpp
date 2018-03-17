@@ -53,7 +53,9 @@ m_level_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::option_pn
 m_clear_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::clear1_png, BinaryData::clear1_pngSize),
                ImageCache::getFromMemory(BinaryData::clear2_png, BinaryData::clear2_pngSize))),
 m_copy_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::copy1_png, BinaryData::copy1_pngSize),
-              ImageCache::getFromMemory(BinaryData::copy2_png, BinaryData::copy2_pngSize)))
+              ImageCache::getFromMemory(BinaryData::copy2_png, BinaryData::copy2_pngSize))),
+m_reload_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::reload1_png, BinaryData::reload1_pngSize),
+                                  ImageCache::getFromMemory(BinaryData::reload2_png, BinaryData::reload2_pngSize)))
 {
     m_size  = 0;
     setWantsKeyboardFocus(true);
@@ -75,6 +77,8 @@ m_copy_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::copy1_png,
     addAndMakeVisible(m_copy_button);
     m_level_button->addListener(this);
     addAndMakeVisible(m_level_button);
+    m_reload_button->addListener(this);
+    addAndMakeVisible(m_reload_button);
     startTimer(100);
 }
 
@@ -116,6 +120,7 @@ void PluginEditorConsole::resized()
     m_level_button->setTopLeftPosition(2, getHeight() - 26);
     m_clear_button->setTopLeftPosition(28, getHeight() - 26);
     m_copy_button->setTopLeftPosition(54, getHeight() - 26);
+    m_reload_button->setTopLeftPosition(80, getHeight() - 26);
     m_table.setSize(getWidth() - 2, getHeight() - 30);
 }
 
@@ -136,7 +141,11 @@ void PluginEditorConsole::deleteKeyPressed(int lastRowSelected)
 
 void PluginEditorConsole::buttonClicked(Button* button)
 {
-    if(button == m_clear_button)
+    if(button == m_reload_button)
+    {
+        m_history.reloadPatch();
+    }
+    else if(button == m_clear_button)
     {
         clearSelection();
     }

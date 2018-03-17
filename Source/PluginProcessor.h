@@ -64,6 +64,8 @@ public:
     typedef std::array<std::string, 3> MessageGui;
     bool dequeueGui(MessageGui& message);
 
+    void reloadPatch();
+    
     enum ConsoleLevel
     {
         Fatal   = 0,
