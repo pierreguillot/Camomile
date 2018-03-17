@@ -165,10 +165,10 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     }
     
     m_audio_advancement = 0;
-    m_audio_buffer_in.setSize(getTotalNumInputChannels(), Instance::getBlockSize());
-    m_audio_buffer_in.clear();
-    m_audio_buffer_out.setSize(getTotalNumOutputChannels(), Instance::getBlockSize());
-    m_audio_buffer_out.clear();
+    m_audio_buffer_in.resize(getTotalNumInputChannels() * Instance::getBlockSize());
+    std::fill(m_audio_buffer_in.begin(), m_audio_buffer_in.end(), 0);
+    m_audio_buffer_out.resize(getTotalNumOutputChannels() * Instance::getBlockSize());
+    std::fill(m_audio_buffer_out.begin(), m_audio_buffer_out.end(), 0);
     m_midi_buffer.clear();
     
     startDSP();
@@ -184,37 +184,8 @@ void CamomileAudioProcessor::releaseResources()
     m_audio_advancement = 0;
 }
 
-void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
+void CamomileAudioProcessor::processInternal()
 {
-    ScopedNoDenormals noDenormals;
-    const int blocksize     = Instance::getBlockSize();
-    const int numSamples    = buffer.getNumSamples();
-    
-    const float ** arrayOfReadPointers = buffer.getArrayOfReadPointers();
-    float ** arrayOfWritePointers = buffer.getArrayOfWritePointers();
-    const int totalNumInputChannels  = getTotalNumInputChannels();
-    const int totalNumOutputChannels = getTotalNumOutputChannels();
-    
-    for(int i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-    {
-        buffer.clear(i, 0, numSamples);
-    }
-    /*
-    for(int i = 0; i < numSamples; i += blocksize)
-    {
-        for(int j = 0; j < totalNumInputChannels; ++j)
-        {
-            m_audio_buffer.copyFrom(j, 0, buffer, j, i, blocksize);
-        }
-        
-        
-        for(int j = 0; j < totalNumOutputChannels; ++j)
-        {
-            buffer.copyFrom(j, i, m_audio_buffer, j, 0, blocksize);
-        }
-    }
-     */
-
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                     DEQUEUE MESSAGES                                 //
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -264,6 +235,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                          MIDI IN                                     //
     //////////////////////////////////////////////////////////////////////////////////////////
+    /*
     if(CamomileEnvironment::wantsMidi())
     {
         MidiMessage message;
@@ -303,7 +275,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
             }
         }
     }
-
+    */
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                  RETRIEVE MESSAGES                                   //
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -326,95 +298,123 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                          AUDIO                                       //
     //////////////////////////////////////////////////////////////////////////////////////////
-    performDSP(numSamples, totalNumInputChannels, arrayOfReadPointers, totalNumOutputChannels, arrayOfWritePointers);
+    performDSP(m_audio_buffer_in.data(), m_audio_buffer_out.data());
     
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                          MIDI OUT                                    //
     //////////////////////////////////////////////////////////////////////////////////////////
+    /*
     if(CamomileEnvironment::producesMidi())
     {
         processMidi();
         midiMessages.swapWith(m_midi_buffer);
         m_midi_buffer.clear();
+    }
+     */
+}
+
+void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
+{
+    ScopedNoDenormals noDenormals;
+    const int blocksize = Instance::getBlockSize();
+    const int nsamples  = buffer.getNumSamples();
+    const int nleft = blocksize - m_audio_advancement;
+    const int nins      = getTotalNumInputChannels();
+    const int nouts     = getTotalNumOutputChannels();
+    const float **bufferin = buffer.getArrayOfReadPointers();
+    float **bufferout = buffer.getArrayOfWritePointers();
+    
+    
+    for(int i = nins; i < nouts; ++i)
+    {
+        buffer.clear(i, 0, nsamples);
+    }
+    
+    // If the current number of samples in this block
+    // is inferior to the number of samples required
+    if(nsamples < nleft)
+    {
+        // we save the input samples and we output
+        // the missing samples of the previous tick.
+        for(int j = 0; j < nins; ++j)
+        {
+            const int pos = j*blocksize+m_audio_advancement;
+            std::copy(bufferin[j], bufferin[j]+nsamples, m_audio_buffer_in.data()+pos);
+        }
+        for(int j = 0; j < nouts; ++j)
+        {
+            const int pos = j*blocksize+m_audio_advancement;
+            std::copy(m_audio_buffer_out.data()+pos, m_audio_buffer_out.data()+pos+nsamples, bufferout[j]);
+        }
+        // MIDI messages
+        m_audio_advancement += nsamples;
+    }
+    // If the current number of samples in this block
+    // is superior to the number of samples required
+    else
+    {
+        // we save the missing input samples, we output
+        // the missing samples of the previous tick and
+        // we call DSP perform method.
+        for(int j = 0; j < nins; ++j)
+        {
+            const int pos = j*blocksize+m_audio_advancement;
+            std::copy(bufferin[j], bufferin[j]+nleft, m_audio_buffer_in.data()+pos);
+        }
+        for(int j = 0; j < nouts; ++j)
+        {
+            const int pos = j*blocksize+m_audio_advancement;
+            std::copy(m_audio_buffer_out.data()+pos, m_audio_buffer_out.data()+pos+nleft, bufferout[j]);
+        }
+        m_audio_advancement = 0;
+        // MIDI messages
+        processInternal();
+        
+        // If there are other DSP ticks that can be
+        // performed, then we do it now.
+        int pos = nleft;
+        while(pos <= nsamples - blocksize)
+        {
+            for(int j = 0; j < nins; ++j)
+            {
+                std::copy(bufferin[j]+pos, bufferin[j]+pos+blocksize, m_audio_buffer_in.data());
+            }
+            
+            for(int j = 0; j < nouts; ++j)
+            {
+                std::copy(m_audio_buffer_out.data(), m_audio_buffer_out.data()+blocksize, bufferout[j]+pos);
+            }
+            // MIDI messages
+            processInternal();
+            pos += blocksize;
+        }
+        
+        // If there are samples that can't be
+        // processed, then save them for later
+        // and outputs the missing samples
+        const int remaining = nsamples - pos;
+        if(remaining > 0)
+        {
+            for(int j = 0; j < nins; ++j)
+            {
+                std::copy(bufferin[j]+pos, bufferin[j]+pos+remaining, m_audio_buffer_in.data());
+            }
+            
+            for(int j = 0; j < nouts; ++j)
+            {
+                std::copy(m_audio_buffer_out.data(), m_audio_buffer_out.data()+remaining, bufferout[j]+pos);
+            }
+            m_audio_advancement = remaining;
+        }
+        
     }
 }
 
 void CamomileAudioProcessor::processBlockBypassed (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
     dequeueMessages();
-    
-    //////////////////////////////////////////////////////////////////////////////////////////
-    //                                          MIDI IN                                     //
-    //////////////////////////////////////////////////////////////////////////////////////////
-    if(CamomileEnvironment::wantsMidi())
-    {
-        MidiMessage message;
-        MidiBuffer::Iterator it(midiMessages);
-        int position = midiMessages.getFirstEventTime();
-        while(it.getNextEvent(message, position)) {
-            if(message.isNoteOn()) {
-                sendNoteOn(message.getChannel(), message.getNoteNumber(), message.getVelocity()); }
-            else if(message.isNoteOff()) {
-                sendNoteOn(message.getChannel(), message.getNoteNumber(), 0); }
-            else if(message.isController()) {
-                sendControlChange(message.getChannel(), message.getControllerNumber(), message.getControllerValue()); }
-            else if(message.isPitchWheel()) {
-                sendPitchBend(message.getChannel(), message.getPitchWheelValue()); }
-            else if(message.isChannelPressure()) {
-                sendAfterTouch(message.getChannel(), message.getChannelPressureValue()); }
-            else if(message.isAftertouch()) {
-                sendPolyAfterTouch(message.getChannel(), message.getNoteNumber(), message.getAfterTouchValue()); }
-            else if(message.isProgramChange()) {
-                sendProgramChange(message.getChannel(), message.getProgramChangeNumber()); }
-            else if(message.isSysEx()) {
-                for(int i = 0; i < message.getSysExDataSize(); ++i)  {
-                    sendSysEx(0, static_cast<int>(message.getSysExData()[i]));
-                }
-            }
-            else if(message.isMidiClock() || message.isMidiStart() || message.isMidiStop() || message.isMidiContinue() ||
-                    message.isActiveSense() || (message.getRawDataSize() == 1 && message.getRawData()[0] == 0xff)) {
-                for(int i = 0; i < message.getRawDataSize(); ++i)  {
-                    sendSysRealTime(0, static_cast<int>(message.getRawData()[i]));
-                }
-            }
-            else
-            {
-                for(int i = 0; i < message.getRawDataSize(); ++i)  {
-                    sendMidiByte(0, static_cast<int>(message.getRawData()[i]));
-                }
-            }
-        }
-    }
-    
-    //////////////////////////////////////////////////////////////////////////////////////////
-    //                                          RETRIEVE MESSAGES                           //
-    //////////////////////////////////////////////////////////////////////////////////////////
     processMessages();
-    
-    //////////////////////////////////////////////////////////////////////////////////////////
-    //                                  PARAMETERS                                          //
-    //////////////////////////////////////////////////////////////////////////////////////////
-    {
-        std::string const sparam("param");
-        OwnedArray<AudioProcessorParameter> const& parameters = AudioProcessor::getParameters();
-        for(int i = 0; i < parameters.size(); ++i)
-        {
-            m_atoms_param[0] = static_cast<float>(i+1);
-            m_atoms_param[1] = static_cast<CamomileAudioParameter const*>(parameters.getUnchecked(i))->getOriginalScaledValue();
-            sendList(sparam, m_atoms_param);
-        }
-    }
-    
     AudioProcessor::processBlockBypassed(buffer, midiMessages);
-    //////////////////////////////////////////////////////////////////////////////////////////
-    //                                          MIDI OUT                                    //
-    //////////////////////////////////////////////////////////////////////////////////////////
-    if(CamomileEnvironment::producesMidi())
-    {
-        processMidi();
-        midiMessages.swapWith(m_midi_buffer);
-        m_midi_buffer.clear();
-    }
 }
 
 void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)

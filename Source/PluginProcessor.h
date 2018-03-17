@@ -85,13 +85,17 @@ private:
     void parseGui(const std::vector<pd::Atom>& list);
     void parseAudio(const std::vector<pd::Atom>& list);
     
+    
+    void processInternal();
+    
     typedef moodycamel::ReaderWriterQueue<MessageGui> QueueGui;
     
     std::vector<pd::Atom>    m_atoms_param;
     std::vector<pd::Atom>    m_atoms_playhead;
-    size_t                   m_audio_advancement;
-    AudioSampleBuffer        m_audio_buffer_in;
-    AudioSampleBuffer        m_audio_buffer_out;
+    int                      m_audio_advancement;
+    std::vector<float>       m_audio_buffer_in;
+    std::vector<float>       m_audio_buffer_out;
+    
     MidiBuffer               m_midi_buffer;
     int m_program_current    = 0;
     std::vector<std::string> m_programs;
