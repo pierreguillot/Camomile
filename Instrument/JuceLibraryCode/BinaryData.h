@@ -27,7 +27,7 @@ namespace BinaryData
     const int            copy2_pngSize = 13753;
 
     extern const char*   reload1_png;
-    const int            reload1_pngSize = 20661;
+    const int            reload1_pngSize = 10647;
 
     extern const char*   reload2_png;
     const int            reload2_pngSize = 13127;
