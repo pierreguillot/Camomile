@@ -74,6 +74,8 @@ bool CamomileEnvironment::isLatencyInitialized() { return get().state.test(init_
 
 bool CamomileEnvironment::isTailLengthInitialized() { return get().state.test(init_tail_length); }
 
+bool CamomileEnvironment::wantsAutoReload() { return get().auto_reload; }
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                          PROGRAMS                                        //
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -311,6 +313,13 @@ CamomileEnvironment::CamomileEnvironment()
                                 throw std::string("already defined");
                             plugin_version = CamomileParser::getString(entry.second);
                             state.set(init_compatibilty);
+                        }
+                        else if(entry.first == "autoreload")
+                        {
+                            if(state.test(init_auto_reload))
+                                throw std::string("already defined");
+                            auto_reload = CamomileParser::getBool(entry.second);
+                            state.set(init_auto_reload);
                         }
                         else if(entry.first == "type")
                         {

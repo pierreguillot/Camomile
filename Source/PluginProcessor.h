@@ -9,6 +9,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginEnvironment.h"
 #include "PluginConsole.h"
+#include "PluginFileWatcher.h"
 #include "Pd/PdInstance.hpp"
 
 // ======================================================================================== //
@@ -16,7 +17,7 @@
 // ======================================================================================== //
 
 
-class CamomileAudioProcessor : public AudioProcessor, public pd::Instance, public CamomileConsole<4>
+class CamomileAudioProcessor : public AudioProcessor, public pd::Instance, public CamomileConsole<4>, public CamomileFileWatcher
 {
 public:
     CamomileAudioProcessor();
@@ -64,6 +65,7 @@ public:
     typedef std::array<std::string, 3> MessageGui;
     bool dequeueGui(MessageGui& message);
 
+    void fileChanged() final;
     void reloadPatch();
     
     enum ConsoleLevel

@@ -114,6 +114,11 @@ void CamomileAudioProcessor::changeProgramName(int index, const String& newName)
     if(index < m_programs.size()) { m_programs[index] = newName.toStdString(); }
 }
 
+void CamomileAudioProcessor::fileChanged()
+{
+    reloadPatch();
+}
+
 void CamomileAudioProcessor::reloadPatch()
 {
     suspendProcessing(true);
