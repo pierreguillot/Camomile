@@ -47,7 +47,7 @@ CamomileAudioProcessor::CamomileAudioProcessor() : AudioProcessor(getBusesProper
 m_programs(CamomileEnvironment::getPrograms())
 {
     bind("camomile");
-    add(ConsoleLevel::Log, std::string("Camomile ") + std::string(JucePlugin_VersionString)
+    add(ConsoleLevel::Normal, std::string("Camomile ") + std::string(JucePlugin_VersionString)
         + std::string(" for Pd ") + CamomileEnvironment::getPdVersion());
     for(auto const& error : CamomileEnvironment::getErrors()) {
         add(ConsoleLevel::Error, std::string("camomile ") + error); }
@@ -136,7 +136,7 @@ void CamomileAudioProcessor::reloadPatch()
             cd->guiResize();
         }
     }
-    add(ConsoleLevel::Log, "patch reloaded");
+    add(ConsoleLevel::Normal, "patch reloaded");
     suspendProcessing(false);
 }
 
