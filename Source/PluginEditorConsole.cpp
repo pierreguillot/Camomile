@@ -80,9 +80,23 @@ PluginEditorConsole::~PluginEditorConsole()
 void PluginEditorConsole::clearSelection()
 {
     stopTimer();
-    SparseSet<int> sels = m_table.getSelectedRows();
-    for(int i = sels.size(); i > 0; --i) {
-        m_history.clear(m_level, sels[i-1]); }
+    SparseSet<int> const selection = m_table.getSelectedRows();
+    if(selection.isEmpty())
+    {
+        const size_t n = m_history.size(m_level);
+        for(size_t i = n; i > 0; --i)
+        {
+            m_history.clear(m_level, i-1);
+        }
+    }
+    else
+    {
+        const int n = selection.size();
+        for(int i = n; i > 0; --i)
+        {
+            m_history.clear(m_level, static_cast<size_t>(selection[i-1]));
+        }
+    }
     m_table.deselectAllRows();
     timerCallback();
     startTimer(100);
@@ -92,9 +106,23 @@ void PluginEditorConsole::copySelection()
 {
     String text;
     stopTimer();
-    SparseSet<int> sels = m_table.getSelectedRows();
-    for(int i = 0; i < sels.size(); ++i) {
-        text += m_history.get(m_level, sels[i]).second + "\n"; }
+    SparseSet<int> const selection = m_table.getSelectedRows();
+    if(selection.isEmpty())
+    {
+        const size_t n = m_history.size(m_level);
+        for(size_t i = 0; i < n; ++i)
+        {
+            text += m_history.get(m_level, static_cast<size_t>(i)).second + "\n";
+        }
+    }
+    else
+    {
+        const int n = selection.size();
+        for(int i = 0; i < n; ++i)
+        {
+            text += m_history.get(m_level, static_cast<size_t>(selection[i])).second + "\n";
+        }
+    }
     SystemClipboard::copyTextToClipboard(text);
     startTimer(100);
 }
@@ -156,7 +184,7 @@ void PluginEditorConsole::buttonClicked(Button* button)
         m.addItem(3, "Normal", true, m_level == ConsoleLevel::Normal);
         m.addItem(4, "All", true, m_level == ConsoleLevel::Log);
         
-        int level = m.show(0, 0, CamoLookAndFeel::getDefaultFont().getHeight() + 2);
+        int const level = m.show(0, 0, CamoLookAndFeel::getDefaultFont().getHeight() + 2);
         stopTimer();
         if(bool(level) && ConsoleLevel(level - 1) != m_level)
         {
