@@ -4160,31 +4160,22 @@
     <None Include="..\..\..\Ressources\Credits\CreditsVST">
       <Filter>Camomile\Ressources\Credits</Filter>
     </None>
-    <None Include="..\..\..\Ressources\Images\clear1.png">
-      <Filter>Camomile\Ressources\Images</Filter>
-    </None>
-    <None Include="..\..\..\Ressources\Images\clear2.png">
-      <Filter>Camomile\Ressources\Images</Filter>
-    </None>
-    <None Include="..\..\..\Ressources\Images\copy1.png">
-      <Filter>Camomile\Ressources\Images</Filter>
-    </None>
-    <None Include="..\..\..\Ressources\Images\copy2.png">
-      <Filter>Camomile\Ressources\Images</Filter>
-    </None>
-    <None Include="..\..\..\Ressources\Images\reload1.png">
-      <Filter>Camomile\Ressources\Images</Filter>
-    </None>
-    <None Include="..\..\..\Ressources\Images\reload2.png">
-      <Filter>Camomile\Ressources\Images</Filter>
-    </None>
     <None Include="..\..\..\Ressources\Images\flower_center.png">
       <Filter>Camomile\Ressources\Images</Filter>
     </None>
     <None Include="..\..\..\Ressources\Images\flower_petals.png">
       <Filter>Camomile\Ressources\Images</Filter>
     </None>
-    <None Include="..\..\..\Ressources\Images\option.png">
+    <None Include="..\..\..\Ressources\Images\copy.png">
+      <Filter>Camomile\Ressources\Images</Filter>
+    </None>
+    <None Include="..\..\..\Ressources\Images\garbage.png">
+      <Filter>Camomile\Ressources\Images</Filter>
+    </None>
+    <None Include="..\..\..\Ressources\Images\reload.png">
+      <Filter>Camomile\Ressources\Images</Filter>
+    </None>
+    <None Include="..\..\..\Ressources\Images\settings.png">
       <Filter>Camomile\Ressources\Images</Filter>
     </None>
     <None Include="..\..\..\Ressources\Polices\DejaVuSansMono.ttf">

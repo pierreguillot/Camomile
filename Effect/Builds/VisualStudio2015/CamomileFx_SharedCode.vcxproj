@@ -2626,15 +2626,12 @@
   <ItemGroup>
     <None Include="..\..\..\Ressources\Credits\CreditsAU"/>
     <None Include="..\..\..\Ressources\Credits\CreditsVST"/>
-    <None Include="..\..\..\Ressources\Images\clear1.png"/>
-    <None Include="..\..\..\Ressources\Images\clear2.png"/>
-    <None Include="..\..\..\Ressources\Images\copy1.png"/>
-    <None Include="..\..\..\Ressources\Images\copy2.png"/>
-    <None Include="..\..\..\Ressources\Images\reload1.png"/>
-    <None Include="..\..\..\Ressources\Images\reload2.png"/>
     <None Include="..\..\..\Ressources\Images\flower_center.png"/>
     <None Include="..\..\..\Ressources\Images\flower_petals.png"/>
-    <None Include="..\..\..\Ressources\Images\option.png"/>
+    <None Include="..\..\..\Ressources\Images\copy.png"/>
+    <None Include="..\..\..\Ressources\Images\garbage.png"/>
+    <None Include="..\..\..\Ressources\Images\reload.png"/>
+    <None Include="..\..\..\Ressources\Images\settings.png"/>
     <None Include="..\..\..\Ressources\Polices\DejaVuSansMono.ttf"/>
     <None Include="..\..\..\Juce\modules\juce_audio_formats\codecs\flac\Flac Licence.txt"/>
     <None Include="..\..\..\Juce\modules\juce_audio_formats\codecs\oggvorbis\Ogg Vorbis Licence.txt"/>
