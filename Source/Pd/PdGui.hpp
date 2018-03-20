@@ -16,15 +16,14 @@ namespace pd
     //                                          GUI                                         //
     // ==================================================================================== //
     
-    //! @brief The Pure Data GUI.
-    //! @details The Instance is a wrapper for the Pure Data's native GUI.
-    //! With the default constructor, the Gui won't be initialized. A valid
-    //! Gui should be created via a Patch. The Gui should be used as tempory object,
-    //! because it locks the Patch.
+    //! @brief The Pd GUI objects.
+    //! @details The Instance is a wrapper for the Pd native GUI. The lifetime of the internal\n
+    //! GUI is not guaranteed by the class.
+    //! @see Instance, Patch, Object
     class Gui : public Object
     {
     public:
-        
+        //! @brief The type of GUI.
         enum class Type : size_t
         {
             Undefined        = 0,
@@ -43,32 +42,28 @@ namespace pd
             Array            = 13
         };
         
-        //! @brief The constructor for an empty Object.
-        //! @details Creates an Object that can be used as an empty reference inside
-        //! another class.
-        Gui() noexcept;
+        //! @brief The default constructor
+        Gui() noexcept = default;
         
         //! @brief The copy constructor.
-        //! @details Creates a copy of an Object and increments his counter.
-        Gui(Gui const& other) noexcept;
+        Gui(const Gui& other) noexcept = default;
         
         //! @brief The copy operator.
-        //! @details Copies the Object and increments his counter.
-        Gui& operator=(Gui const& other) noexcept;
+        Gui& operator=(Gui const& other) noexcept = default;
         
         //! @brief The destructor.
-        //! @details The Object will be destroyed if no other copy exists.
-        virtual ~Gui() noexcept;
+        ~Gui() noexcept = default;
         
-        //! @brief The class name of the Object.
-        Type getType() const noexcept;
+        //! @brief The type of the GUI.
+        inline Type getType() const noexcept { return m_type; }
         
         //! @brief If the GUI is an IEM's GUI.
-        bool isIEM() const noexcept;
+        bool isIEM() const noexcept { return m_type != Type::Undefined && m_type < Type::Comment; }
         
         //! @brief If the GUI is an Atom GUI (AtomNumber or AtomSymbol).
-        bool isAtom() const noexcept;
+            bool isAtom() const noexcept { return m_type == Type::AtomNumber || m_type == Type::AtomSymbol; }
         
+        //! @brief Get the font size.
         int getFontSize() const noexcept;
         
         float getMinimum() const noexcept;
@@ -102,7 +97,7 @@ namespace pd
 
         Gui(void* ptr, void* patch, Instance* instance) noexcept;
         
-        Type        m_type;
+        Type        m_type = Type::Undefined;
         friend class Patch;
     };
     

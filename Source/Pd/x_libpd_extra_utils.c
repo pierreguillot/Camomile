@@ -7,6 +7,7 @@
 #include <m_pd.h>
 #include <m_imp.h>
 #include <g_canvas.h>
+#include <g_all_guis.h>
 #include "x_libpd_multi.h"
 
 // False GARRAY
@@ -98,5 +99,24 @@ int libpd_array_get_style(char const* name)
         }
     }
     return 0;
+}
+
+
+
+
+static unsigned int convert_from_iem_color(int const color)
+{
+    unsigned int const c = (unsigned int)(color << 8 | 0xFF);
+    return ((0xFF << 24) | ((c >> 24) << 16) | ((c >> 16) << 8) | (c >> 8));
+}
+
+unsigned int libpd_iemgui_get_background_color(void* ptr)
+{
+    return convert_from_iem_color(((t_iemgui*)ptr)->x_bcol);
+}
+
+unsigned int libpd_iemgui_get_foreground_color(void* ptr)
+{
+    return convert_from_iem_color(((t_iemgui*)ptr)->x_fcol);
 }
 

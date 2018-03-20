@@ -22,6 +22,10 @@ extern "C"
     void libpd_array_get_scale(char const* name, float* min, float* max);
     int libpd_array_get_style(char const* name);
     
+    unsigned int libpd_iemgui_get_background_color(void* ptr);
+    unsigned int libpd_iemgui_get_foreground_color(void* ptr);
+    
+    
 #ifdef __cplusplus
 }
 #endif

@@ -6,10 +6,8 @@
 
 #include "PdGui.hpp"
 #include "PdInstance.hpp"
-#include <iostream>
 #include <limits>
 #include <cmath>
-#include <array>
 
 extern "C"
 {
@@ -18,7 +16,6 @@ extern "C"
 #include <m_imp.h>
 #include <g_canvas.h>
 #include <g_all_guis.h>
-#include "x_libpd_multi.h"
 #include "x_libpd_extra_utils.h"
 }
 
@@ -46,11 +43,6 @@ namespace pd
         t_symbol *a_expanded_to;
     } t_fake_gatom;
 
-    
-    Gui::Gui() noexcept : Object(), m_type(Type::Undefined)
-    {
-        
-    }
     
     Gui::Gui(void* ptr, void* patch, Instance* instance) noexcept :
     Object(ptr, patch, instance), m_type(Type::Undefined)
@@ -114,39 +106,6 @@ namespace pd
                 }
             }
         }
-    }
-    
-    Gui::Gui(Gui const& other) noexcept :
-    Object(other), m_type(other.m_type)
-    {
-        ;
-    }
-    
-    Gui& Gui::operator=(Gui const& other) noexcept
-    {
-        Object::operator=(other);
-        m_type  = other.m_type;
-        return *this;
-    }
-    
-    Gui::~Gui() noexcept
-    {
-        ;
-    }
-    
-    Gui::Type Gui::getType() const noexcept
-    {
-        return m_type;
-    }
-    
-    bool Gui::isIEM() const noexcept
-    {
-        return m_ptr && m_type != Type::Undefined && m_type < Type::Comment;
-    }
-    
-    bool Gui::isAtom() const noexcept
-    {
-        return m_type == Type::AtomNumber || m_type == Type::AtomSymbol;
     }
     
     size_t Gui::getNumberOfSteps() const noexcept
@@ -364,16 +323,20 @@ namespace pd
     
     unsigned int Gui::getBackgroundColor() const noexcept
     {
-        if(!m_ptr || m_type == Type::Undefined || m_type >= Type::Comment)
-            return 0xffffffff;
-        return fromIemColors(((static_cast<t_iemgui*>(m_ptr))->x_bcol));
+        if(m_ptr && isIEM())
+        {
+            return libpd_iemgui_get_background_color(m_ptr);
+        }
+        return 0xffffffff;
     }
     
     unsigned int Gui::getForegroundColor() const noexcept
     {
-        if(!m_ptr || m_type == Type::Undefined || m_type >= Type::Comment)
-            return 0xff000000;
-        return fromIemColors(((static_cast<t_iemgui*>(m_ptr))->x_fcol));
+        if(m_ptr && isIEM())
+        {
+            return libpd_iemgui_get_foreground_color(m_ptr);
+        }
+        return 0xff000000;
     }
 
     std::array<int, 4> Gui::getBounds() const noexcept
@@ -408,6 +371,10 @@ namespace pd
         return Array();
     }
     
+    // ==================================================================================== //
+    //                                      LABEL                                           //
+    // ==================================================================================== //
+    
     Label Gui::getLabel() const noexcept
     {
         m_instance->setThis();
@@ -419,7 +386,7 @@ namespace pd
                 std::string const text = sym->s_name;
                 if(text != std::string("empty"))
                 {
-                    unsigned int const color = fromIemColors(((static_cast<t_iemgui*>(m_ptr))->x_fcol));
+                    unsigned int const color = fromIemColors(((static_cast<t_iemgui*>(m_ptr))->x_lcol));
                     std::array<int, 4> const bounds = getBounds();
                     t_iemgui const* iemgui = static_cast<t_iemgui*>(m_ptr);
                     return Label(text, color, bounds[0] + iemgui->x_ldx, bounds[1] + iemgui->x_ldy);
@@ -451,10 +418,6 @@ namespace pd
         }
         return Label();
     }
-    
-    // ==================================================================================== //
-    //                                      LABEL                                           //
-    // ==================================================================================== //
     
     Label::Label() noexcept :
     m_text(""),

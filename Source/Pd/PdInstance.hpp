@@ -6,14 +6,13 @@
 
 #pragma once
 
-#include <vector>
 #include <map>
 #include <utility>
-#include <string>
-#include "../../Dependencies/ReaderwriterQueue/readerwriterqueue.h"
-#include "../../Dependencies/ConcurrentQueue/concurrentqueue.h"
 #include "PdArray.hpp"
 #include "PdAtom.hpp"
+
+#include "../../Dependencies/ReaderwriterQueue/readerwriterqueue.h"
+#include "../../Dependencies/ConcurrentQueue/concurrentqueue.h"
 
 namespace pd
 {
