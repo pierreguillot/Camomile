@@ -59,11 +59,11 @@ void CamomileEditor::updateObjects()
     m_objects.clear();
     for(auto& gui : m_processor.getPatch().getGuis())
     {
-        PluginEditorObject* obj = m_objects.add(PluginEditorObject::createTyped(*this, gui));
-        if(obj)
+        PluginEditorObject* obj = PluginEditorObject::createTyped(*this, gui);
+        if(obj && getLocalBounds().contains(obj->getBounds()))
         {
             Component* label = obj->getLabel();
-            addAndMakeVisible(obj);
+            addAndMakeVisible(m_objects.add(obj));
             if(label)
             {
                 addAndMakeVisible(m_labels.add(label));
