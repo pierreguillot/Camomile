@@ -13,6 +13,7 @@ v1.0.4
 - Add support to change dynamically the latency (#62)
 - Fix variable block size support (#100)
 - Improve MIDI In/Out time precision
+- Add support for manually and automatic dynamic reload of the patch (#101)
 
 v1.0.3
 - Fix DSP support for multiple audio buses
