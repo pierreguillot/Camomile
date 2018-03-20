@@ -136,7 +136,7 @@ void CamomileAudioProcessor::reloadPatch()
             cd->guiResize();
         }
     }
-    add(ConsoleLevel::Normal, "patch reloaded");
+    add(ConsoleLevel::Normal, "camomile: the patch \"" + CamomileEnvironment::getPatchName() + "\" has been reloaded");
     suspendProcessing(false);
 }
 
