@@ -8,7 +8,7 @@
 
 #include <map>
 #include <utility>
-#include "PdArray.hpp"
+#include "PdPatch.hpp"
 #include "PdAtom.hpp"
 
 #include "../../Dependencies/ReaderwriterQueue/readerwriterqueue.h"
@@ -25,7 +25,7 @@ namespace pd
     {
     public:
         
-        Instance();
+        Instance(std::string const& symbol);
         virtual ~Instance();
         
         void prepareDSP(const int nins, const int nouts, const double samplerate);
@@ -60,11 +60,11 @@ namespace pd
         
         virtual void receivePrint(const std::string& message) {};
         
-        virtual void receiveBang(const std::string& dest) {}
-        virtual void receiveFloat(const std::string& dest, float num) {}
-        virtual void receiveSymbol(const std::string& dest, const std::string& symbol) {}
-        virtual void receiveList(const std::string& dest, const std::vector<Atom>& list) {}
-        virtual void receiveMessage(const std::string& dest, const std::string& msg, const std::vector<Atom>& list) {}
+        virtual void receiveBang() {}
+        virtual void receiveFloat(float num) {}
+        virtual void receiveSymbol(const std::string& symbol) {}
+        virtual void receiveList(const std::vector<Atom>& list) {}
+        virtual void receiveMessage(const std::string& msg, const std::vector<Atom>& list) {}
         
         void enqueueMessages(const std::string& dest, const std::string& msg, std::vector<Atom>&& list);
         void enqueueDirectMessages(void* object, const std::string& msg);
@@ -77,9 +77,6 @@ namespace pd
         void processPrints();
         void processMidi();
         
-        void bind(std::string const& symbol);
-        void unbind(std::string const& symbol);
-        
         void openPatch(std::string const& path, std::string const& name);
         void closePatch();
         Patch getPatch();
@@ -89,17 +86,16 @@ namespace pd
         
     private:
     
-        void* m_instance    = nullptr;
-        void* m_patch       = nullptr;
-        void* m_atoms       = nullptr;
-        std::vector<float> m_inputs  = std::vector<float>(64);
-        std::vector<float> m_outputs = std::vector<float>(64);
-        int                m_advance = 0;
+        void* m_instance            = nullptr;
+        void* m_patch               = nullptr;
+        void* m_atoms               = nullptr;
+        void* m_message_receiver    = nullptr;
+        void* m_midi_receiver       = nullptr;
+        void* m_print_receiver      = nullptr;
         
-        struct message
+        struct Message
         {
-            std::string destination;
-            std::string selector;
+            std::string       selector;
             std::vector<Atom> list;
         };
         
@@ -130,13 +126,10 @@ namespace pd
         
         typedef moodycamel::ConcurrentQueue<dmessage> message_queue;
         message_queue m_send_queue = message_queue(4096);
-        moodycamel::ReaderWriterQueue<message> m_message_queue = moodycamel::ReaderWriterQueue<message>(4096);
+        
+        moodycamel::ReaderWriterQueue<Message> m_message_queue = moodycamel::ReaderWriterQueue<Message>(4096);
         moodycamel::ReaderWriterQueue<midievent> m_midi_queue = moodycamel::ReaderWriterQueue<midievent>(4096);
         moodycamel::ReaderWriterQueue<std::string> m_print_queue = moodycamel::ReaderWriterQueue<std::string>(4096);
-        
-        std::map<std::string, void*> m_message_receivers;
-        void*   m_midi_receiver;
-        void*   m_print_receiver;
         
         struct internal;
     };

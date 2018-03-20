@@ -5,14 +5,13 @@
  */
 #pragma once
 
-#include "PdInstance.hpp"
+#include "PdGui.hpp"
 #include <array>
 #include <vector>
 
 namespace pd
 {
-    class Gui;
-    class Graph;
+    class Instance;
     // ==================================================================================== //
     //                                          PATCHER                                     //
     // ==================================================================================== //
@@ -51,7 +50,5 @@ namespace pd
         Instance* m_instance = nullptr;
         
         friend class Instance;
-        friend class Gui;
-        friend class Graph;
     };
 }

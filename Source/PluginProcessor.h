@@ -48,7 +48,7 @@ public:
     void getStateInformation (MemoryBlock& destData) final;
     void setStateInformation (const void* data, int sizeInBytes) final;
     
-    void receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list) final;
+    void receiveMessage(const std::string& msg, const std::vector<pd::Atom>& list) final;
     void receiveNoteOn(const int channel, const int pitch, const int velocity) final;
     void receiveControlChange(const int channel, const int controller, const int value) final;
     void receiveProgramChange(const int channel, const int value) final;

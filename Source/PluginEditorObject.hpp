@@ -7,7 +7,7 @@
 #pragma once
 
 #include "PluginEditorInteraction.h"
-#include "Pd/PdGui.hpp"
+#include "Pd/PdInstance.hpp"
 #include <atomic>
 
 // ==================================================================================== //

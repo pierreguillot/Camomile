@@ -43,10 +43,11 @@ AudioProcessor::BusesProperties CamomileAudioProcessor::getBusesProperties()
     return ioconfig;
 }
 
-CamomileAudioProcessor::CamomileAudioProcessor() : AudioProcessor(getBusesProperties()),
+CamomileAudioProcessor::CamomileAudioProcessor() :
+AudioProcessor(getBusesProperties()),
+pd::Instance("camomile"),
 m_programs(CamomileEnvironment::getPrograms())
 {
-    bind("camomile");
     add(ConsoleLevel::Normal, std::string("Camomile ") + std::string(JucePlugin_VersionString)
         + std::string(" for Pd ") + CamomileEnvironment::getPdVersion());
     for(auto const& error : CamomileEnvironment::getErrors()) {
@@ -480,7 +481,7 @@ void CamomileAudioProcessor::processBlockBypassed (AudioBuffer<float>& buffer, M
     AudioProcessor::processBlockBypassed(buffer, midiMessages);
 }
 
-void CamomileAudioProcessor::receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list)
+void CamomileAudioProcessor::receiveMessage(const std::string& msg, const std::vector<pd::Atom>& list)
 {
     if(msg == std::string("param"))
     {
