@@ -186,10 +186,10 @@ void PluginEditorConsole::buttonClicked(Button* button)
         
         stopTimer();
         int const level = m.show(0, 0, CamoLookAndFeel::getDefaultFont().getHeight() + 2);
-        if(bool(level) && ConsoleLevel(level - 1) != m_level)
+        if(bool(level) && static_cast<ConsoleLevel>(level - 1) != m_level)
         {
-            m_level = ConsoleLevel(level - 1);
-            m_size = m_history.size(m_level);
+            m_level = static_cast<ConsoleLevel>(level - 1);
+            m_size  = m_history.size(m_level);
             m_table.updateContent();
             m_table.deselectAllRows();
         }
