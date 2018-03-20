@@ -184,13 +184,14 @@ void PluginEditorConsole::buttonClicked(Button* button)
         m.addItem(3, "Normal", true, m_level == ConsoleLevel::Normal);
         m.addItem(4, "All", true, m_level == ConsoleLevel::Log);
         
-        int const level = m.show(0, 0, CamoLookAndFeel::getDefaultFont().getHeight() + 2);
         stopTimer();
+        int const level = m.show(0, 0, CamoLookAndFeel::getDefaultFont().getHeight() + 2);
         if(bool(level) && ConsoleLevel(level - 1) != m_level)
         {
             m_level = ConsoleLevel(level - 1);
             m_size = m_history.size(m_level);
             m_table.updateContent();
+            m_table.deselectAllRows();
         }
         startTimer(100);
     }
