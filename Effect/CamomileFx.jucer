@@ -58,12 +58,18 @@
       <GROUP id="{42D4795F-C693-1C4C-D4AF-C6B0DC06B00D}" name="Pd">
         <FILE id="OkoB07" name="PdInstance.cpp" compile="1" resource="0" file="../Source/Pd/PdInstance.cpp"/>
         <FILE id="blrCIt" name="PdInstance.hpp" compile="0" resource="0" file="../Source/Pd/PdInstance.hpp"/>
-        <FILE id="aYOfwq" name="PdObject.cpp" compile="1" resource="0" file="../Source/Pd/PdObject.cpp"/>
-        <FILE id="fYgI6J" name="PdObject.hpp" compile="0" resource="0" file="../Source/Pd/PdObject.hpp"/>
         <FILE id="Yh77qx" name="PdPatch.cpp" compile="1" resource="0" file="../Source/Pd/PdPatch.cpp"/>
         <FILE id="XaK3av" name="PdPatch.hpp" compile="0" resource="0" file="../Source/Pd/PdPatch.hpp"/>
+        <FILE id="jvFfeY" name="PdGui.cpp" compile="1" resource="0" file="../Source/Pd/PdGui.cpp"/>
+        <FILE id="Nb9fyc" name="PdGui.hpp" compile="0" resource="0" file="../Source/Pd/PdGui.hpp"/>
+        <FILE id="aYOfwq" name="PdObject.cpp" compile="1" resource="0" file="../Source/Pd/PdObject.cpp"/>
+        <FILE id="fYgI6J" name="PdObject.hpp" compile="0" resource="0" file="../Source/Pd/PdObject.hpp"/>
         <FILE id="xDjpgl" name="x_libpd_multi.c" compile="1" resource="0" file="../Source/Pd/x_libpd_multi.c"/>
         <FILE id="rQuXOy" name="x_libpd_multi.h" compile="0" resource="0" file="../Source/Pd/x_libpd_multi.h"/>
+        <FILE id="YOX2Lr" name="x_libpd_extra_utils.c" compile="1" resource="0"
+              file="../Source/Pd/x_libpd_extra_utils.c"/>
+        <FILE id="ajZCxi" name="x_libpd_extra_utils.h" compile="0" resource="0"
+              file="../Source/Pd/x_libpd_extra_utils.h"/>
       </GROUP>
     </GROUP>
     <GROUP id="{F3E95E26-375E-BDC8-C48D-8BFDD754028C}" name="Ressources">

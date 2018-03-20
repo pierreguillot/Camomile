@@ -312,9 +312,11 @@
     <ClCompile Include="..\..\..\Source\PluginParser.cpp"/>
     <ClCompile Include="..\..\..\Source\PluginLookAndFeel.cpp"/>
     <ClCompile Include="..\..\..\Source\Pd\PdInstance.cpp"/>
-    <ClCompile Include="..\..\..\Source\Pd\PdObject.cpp"/>
     <ClCompile Include="..\..\..\Source\Pd\PdPatch.cpp"/>
+    <ClCompile Include="..\..\..\Source\Pd\PdGui.cpp"/>
+    <ClCompile Include="..\..\..\Source\Pd\PdObject.cpp"/>
     <ClCompile Include="..\..\..\Source\Pd\x_libpd_multi.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\x_libpd_extra_utils.c"/>
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1990,9 +1992,11 @@
     <ClInclude Include="..\..\..\Source\PluginLookAndFeel.hpp"/>
     <ClInclude Include="..\..\..\Source\PluginConfig.h"/>
     <ClInclude Include="..\..\..\Source\Pd\PdInstance.hpp"/>
-    <ClInclude Include="..\..\..\Source\Pd\PdObject.hpp"/>
     <ClInclude Include="..\..\..\Source\Pd\PdPatch.hpp"/>
+    <ClInclude Include="..\..\..\Source\Pd\PdGui.hpp"/>
+    <ClInclude Include="..\..\..\Source\Pd\PdObject.hpp"/>
     <ClInclude Include="..\..\..\Source\Pd\x_libpd_multi.h"/>
+    <ClInclude Include="..\..\..\Source\Pd\x_libpd_extra_utils.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h"/>

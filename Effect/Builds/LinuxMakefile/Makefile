@@ -96,9 +96,11 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/PluginParser_125664ac.o \
   $(JUCE_OBJDIR)/PluginLookAndFeel_1523addb.o \
   $(JUCE_OBJDIR)/PdInstance_c9d7d554.o \
-  $(JUCE_OBJDIR)/PdObject_2fcb197e.o \
   $(JUCE_OBJDIR)/PdPatch_2b25dab3.o \
+  $(JUCE_OBJDIR)/PdGui_34dd0fa6.o \
+  $(JUCE_OBJDIR)/PdObject_2fcb197e.o \
   $(JUCE_OBJDIR)/x_libpd_multi_a98b54cb.o \
+  $(JUCE_OBJDIR)/x_libpd_extra_utils_b8efa354.o \
   $(JUCE_OBJDIR)/BinaryData_ce4232d4.o \
   $(JUCE_OBJDIR)/include_juce_audio_basics_8a4e984a.o \
   $(JUCE_OBJDIR)/include_juce_audio_devices_63111d02.o \
@@ -194,19 +196,29 @@ $(JUCE_OBJDIR)/PdInstance_c9d7d554.o: ../../../Source/Pd/PdInstance.cpp
 	@echo "Compiling PdInstance.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/PdObject_2fcb197e.o: ../../../Source/Pd/PdObject.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling PdObject.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
-
 $(JUCE_OBJDIR)/PdPatch_2b25dab3.o: ../../../Source/Pd/PdPatch.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling PdPatch.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
+$(JUCE_OBJDIR)/PdGui_34dd0fa6.o: ../../../Source/Pd/PdGui.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PdGui.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/PdObject_2fcb197e.o: ../../../Source/Pd/PdObject.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PdObject.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
 $(JUCE_OBJDIR)/x_libpd_multi_a98b54cb.o: ../../../Source/Pd/x_libpd_multi.c
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling x_libpd_multi.c"
+	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/x_libpd_extra_utils_b8efa354.o: ../../../Source/Pd/x_libpd_extra_utils.c
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling x_libpd_extra_utils.c"
 	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/BinaryData_ce4232d4.o: ../../JuceLibraryCode/BinaryData.cpp

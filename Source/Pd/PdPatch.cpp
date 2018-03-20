@@ -6,6 +6,7 @@
 
 #include "PdPatch.hpp"
 #include "PdObject.hpp"
+#include "PdGui.hpp"
 
 extern "C"
 {
@@ -21,50 +22,50 @@ namespace pd
     //                                          PATCHER                                     //
     // ==================================================================================== //
     
-    Patch::Patch() noexcept : m_ptr(nullptr), m_instance(nullptr) {}
-    
-    Patch::Patch(void* ptr, Instance* instance) noexcept : m_ptr(ptr), m_instance(instance) {}
-    
-    Patch::Patch(Patch const& other) noexcept : m_ptr(other.m_ptr), m_instance(other.m_instance) {}
-    
-    Patch& Patch::operator=(Patch const& other) noexcept
+    Patch::Patch(void* ptr, Instance* instance) noexcept :
+    m_ptr(ptr), m_instance(instance)
     {
-        m_ptr = other.m_ptr;
-        m_instance = other.m_instance;
-        return *this;
     }
     
-    Patch::~Patch() noexcept {}
-    
-    int Patch::getDollarZero() { return static_cast<bool>(m_ptr) ? libpd_getdollarzero(m_ptr) : 0; }
-    bool Patch::isGraph() const noexcept {
-        return static_cast<bool>(m_ptr) ? static_cast<bool>(static_cast<t_canvas*>(m_ptr)->gl_isgraph ): false; }
+    bool Patch::isGraph() const noexcept
+    {
+        if(m_ptr)
+        {
+            return static_cast<bool>(static_cast<t_canvas*>(m_ptr)->gl_isgraph);
+        }
+        return false;
+    }
     
     std::array<int, 4> Patch::getBounds() const noexcept
     {
-        t_canvas const* cnv = static_cast<t_canvas*>(m_ptr);
-        if(static_cast<bool>(m_ptr) && cnv->gl_isgraph)
+        if(m_ptr)
         {
-            return {cnv->gl_xmargin, cnv->gl_ymargin, cnv->gl_pixwidth - 1, cnv->gl_pixheight - 1};
+            t_canvas const* cnv = static_cast<t_canvas*>(m_ptr);
+            if(cnv->gl_isgraph)
+            {
+                return {cnv->gl_xmargin, cnv->gl_ymargin, cnv->gl_pixwidth - 1, cnv->gl_pixheight - 1};
+            }
         }
         return {0, 0, 0, 0};
     }
     
-    std::vector<Gui> Patch::getGuis() const noexcept
+    std::vector<Gui> Patch::getGuis() noexcept
     {
-        std::vector<Gui> objects;
-        if(!m_ptr)
-            return objects;
-        
-        for(t_gobj *y = static_cast<t_canvas*>(m_ptr)->gl_list; y; y = y->g_next)
+        if(m_ptr)
         {
-            Gui gui(static_cast<void*>(y), *this);
-            if(gui.getType() != Gui::Type::Undefined)
+            std::vector<Gui> objects;
+            t_canvas const* cnv = static_cast<t_canvas*>(m_ptr);
+            for(t_gobj *y = cnv->gl_list; y; y = y->g_next)
             {
-                objects.push_back(gui);
+                Gui gui(static_cast<void*>(y), m_ptr, m_instance);
+                if(gui.getType() != Gui::Type::Undefined)
+                {
+                    objects.push_back(gui);
+                }
             }
+            return objects;
         }
-        return objects;
+        return std::vector<Gui>();
     }
 }
 

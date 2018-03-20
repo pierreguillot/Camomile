@@ -403,13 +403,19 @@
     <ClCompile Include="..\..\..\Source\Pd\PdInstance.cpp">
       <Filter>CamomileFx\Source\Pd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\PdObject.cpp">
-      <Filter>CamomileFx\Source\Pd</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\PdPatch.cpp">
       <Filter>CamomileFx\Source\Pd</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\PdGui.cpp">
+      <Filter>CamomileFx\Source\Pd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\PdObject.cpp">
+      <Filter>CamomileFx\Source\Pd</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\x_libpd_multi.c">
+      <Filter>CamomileFx\Source\Pd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\x_libpd_extra_utils.c">
       <Filter>CamomileFx\Source\Pd</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
@@ -2256,13 +2262,19 @@
     <ClInclude Include="..\..\..\Source\Pd\PdInstance.hpp">
       <Filter>CamomileFx\Source\Pd</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\Pd\PdObject.hpp">
-      <Filter>CamomileFx\Source\Pd</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Source\Pd\PdPatch.hpp">
       <Filter>CamomileFx\Source\Pd</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\Pd\PdGui.hpp">
+      <Filter>CamomileFx\Source\Pd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\Pd\PdObject.hpp">
+      <Filter>CamomileFx\Source\Pd</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Source\Pd\x_libpd_multi.h">
+      <Filter>CamomileFx\Source\Pd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\Pd\x_libpd_extra_utils.h">
       <Filter>CamomileFx\Source\Pd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
