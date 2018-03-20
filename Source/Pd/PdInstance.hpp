@@ -12,11 +12,12 @@
 #include <string>
 #include "../../Dependencies/ReaderwriterQueue/readerwriterqueue.h"
 #include "../../Dependencies/ConcurrentQueue/concurrentqueue.h"
+#include "PdArray.hpp"
+#include "PdAtom.hpp"
 
 namespace pd
 {
     class Patch;
-    class Atom;
     // ==================================================================================== //
     //                                      INSTANCE                                        //
     // ==================================================================================== //
@@ -83,14 +84,12 @@ namespace pd
         void openPatch(std::string const& path, std::string const& name);
         void closePatch();
         Patch getPatch();
-        
-        void readArray(std::string const& name, std::vector<float>& output) const;
-        void writeArray(std::string const& name, std::vector<float> const& input);
-        void writeArraySample(std::string const& name, const size_t pos, float const input);
 
         void setThis();
-    private:
+        Array getArray(std::string const& name);
         
+    private:
+    
         void* m_instance    = nullptr;
         void* m_patch       = nullptr;
         void* m_atoms       = nullptr;
@@ -141,34 +140,5 @@ namespace pd
         void*   m_print_receiver;
         
         struct internal;
-    };
-    
-    class Atom
-    {
-    public:
-        inline Atom() : type(FLOAT), value(0), symbol() {}
-        inline Atom(const float val) : type(FLOAT), value(val), symbol() {}
-        inline Atom(const std::string& sym) : type(SYMBOL), value(0), symbol(sym) {}
-        inline Atom(const char* sym) : type(SYMBOL), value(0), symbol(sym) {}
-        
-        inline bool isFloat() const noexcept { return type == FLOAT; }
-        inline bool isSymbol() const noexcept { return type == SYMBOL; }
-        inline float getFloat() const noexcept { return value; }
-        inline std::string const& getSymbol() const noexcept { return symbol; }
-        
-        inline bool operator==(Atom const& other) const noexcept {
-            if(type == SYMBOL) { return other.type == SYMBOL && symbol == other.symbol; }
-            else { return other.type == FLOAT && value == other.value; } }
-    private:
-        
-        enum Type
-        {
-            FLOAT,
-            SYMBOL
-        };
-        
-        Type        type = FLOAT;
-        float       value = 0;
-        std::string symbol;
     };
 }

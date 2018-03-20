@@ -314,6 +314,7 @@
     <ClCompile Include="..\..\..\Source\Pd\PdInstance.cpp"/>
     <ClCompile Include="..\..\..\Source\Pd\PdPatch.cpp"/>
     <ClCompile Include="..\..\..\Source\Pd\PdGui.cpp"/>
+    <ClCompile Include="..\..\..\Source\Pd\PdArray.cpp"/>
     <ClCompile Include="..\..\..\Source\Pd\PdObject.cpp"/>
     <ClCompile Include="..\..\..\Source\Pd\x_libpd_multi.c"/>
     <ClCompile Include="..\..\..\Source\Pd\x_libpd_extra_utils.c"/>
@@ -1994,7 +1995,9 @@
     <ClInclude Include="..\..\..\Source\Pd\PdInstance.hpp"/>
     <ClInclude Include="..\..\..\Source\Pd\PdPatch.hpp"/>
     <ClInclude Include="..\..\..\Source\Pd\PdGui.hpp"/>
+    <ClInclude Include="..\..\..\Source\Pd\PdArray.hpp"/>
     <ClInclude Include="..\..\..\Source\Pd\PdObject.hpp"/>
+    <ClInclude Include="..\..\..\Source\Pd\PdAtom.hpp"/>
     <ClInclude Include="..\..\..\Source\Pd\x_libpd_multi.h"/>
     <ClInclude Include="..\..\..\Source\Pd\x_libpd_extra_utils.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>

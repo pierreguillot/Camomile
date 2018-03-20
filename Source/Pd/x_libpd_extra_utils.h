@@ -18,6 +18,10 @@ extern "C"
     void libpd_get_object_text(void* ptr, char** text, int* size);
     void libpd_get_object_bounds(void* patch, void* ptr, int* x, int* y, int* w, int* h);
     
+    char const* libpd_array_get_name(void* ptr);
+    void libpd_array_get_scale(char const* name, float* min, float* max);
+    int libpd_array_get_style(char const* name);
+    
 #ifdef __cplusplus
 }
 #endif

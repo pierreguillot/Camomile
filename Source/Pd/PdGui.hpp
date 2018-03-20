@@ -6,10 +6,10 @@
 #pragma once
 
 #include "PdObject.hpp"
+#include "PdArray.hpp"
 
 namespace pd
 {
-    class Graph;
     class Label;
     
     // ==================================================================================== //
@@ -95,7 +95,7 @@ namespace pd
         
         bool isLogScale() const noexcept;
         
-        Graph getGraph() const noexcept;
+        Array getArray() const noexcept;
         
         Label getLabel() const noexcept;
     private:
@@ -125,39 +125,6 @@ namespace pd
         std::string const        m_text;
         unsigned int const       m_color;
         std::array<int, 2> const m_position;
-        friend class Gui;
-    };
-    
-    // ==================================================================================== //
-    //                                      GRAPH                                           //
-    // ==================================================================================== //
-    
-    class Graph
-    {
-    public:
-        Graph() noexcept;
-        Graph(Instance& instance, std::string const& name) noexcept;
-        Graph(Graph const& other) noexcept;
-        
-        std::string getName() const noexcept;
-        bool isDrawingPoints() const noexcept;
-        bool isDrawingLine() const noexcept;
-        bool isDrawingCurve() const noexcept;
-        bool isGOP() const noexcept;
-        std::array<float, 2> getScale() const noexcept;
-        
-        void read(std::vector<float>& output) const;
-        void write(std::vector<float> const& input);
-        void writeSample(const size_t pos, float const input);
-    private:
-        
-        Graph(void* ptr, Instance& instance) noexcept;
-        
-        Instance*   m_instance;
-        std::string m_name;
-        size_t      m_drawing_mode;
-        bool        m_is_gop;
-        std::array<float, 2> m_scale;
         friend class Gui;
     };
 }

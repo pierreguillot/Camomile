@@ -19,6 +19,7 @@ extern "C"
 #include <g_canvas.h>
 #include <g_all_guis.h>
 #include "x_libpd_multi.h"
+#include "x_libpd_extra_utils.h"
 }
 
 namespace pd
@@ -398,13 +399,13 @@ namespace pd
         return bounds;
     }
     
-    Graph Gui::getGraph() const noexcept
+    Array Gui::getArray() const noexcept
     {
         if(m_type == Type::Array)
         {
-            return Graph(static_cast<t_canvas*>(m_ptr)->gl_list, *(m_instance));
+            return m_instance->getArray(libpd_array_get_name(static_cast<t_canvas*>(m_ptr)->gl_list));
         }
-        return Graph();
+        return Array();
     }
     
     Label Gui::getLabel() const noexcept
@@ -475,126 +476,6 @@ namespace pd
     m_position({x, y})
     {
         
-    }
-    
-    // ==================================================================================== //
-    //                                      GRAPH                                           //
-    // ==================================================================================== //
-    
-    // False GARRAY
-    typedef struct _fake_garray
-    {
-        t_gobj x_gobj;
-        t_scalar *x_scalar;
-        t_glist *x_glist;
-        t_symbol *x_name;
-        t_symbol *x_realname;
-        char x_usedindsp;
-        char x_saveit;
-        char x_listviewing;
-        char x_hidename;
-    } t_fake_garray;
-    
-    Graph::Graph() noexcept :
-    m_instance(nullptr), m_name(""), m_drawing_mode(0), m_is_gop(false), m_scale({-1, 1})
-    {
-        
-    }
-    
-    Graph::Graph(Graph const& other) noexcept :
-    m_instance(other.m_instance),
-    m_name(other.m_name),
-    m_drawing_mode(other.m_drawing_mode),
-    m_is_gop(other.m_is_gop),
-    m_scale(other.m_scale)
-    {
-        
-    }
-    
-    Graph::Graph(Instance& instance, std::string const& name) noexcept :
-    m_instance(&instance),
-    m_name(name),
-    m_drawing_mode(1),
-    m_is_gop(false),
-    m_scale({-1, 1})
-    {
-        ;
-    }
-    
-    Graph::Graph(void* ptr, Instance& instance) noexcept :
-    m_instance(&instance),
-    m_name(""),
-    m_drawing_mode(0),
-    m_is_gop(true),
-    m_scale({-1, 1})
-    {
-        if(ptr)
-        {
-            t_fake_garray const * ar = static_cast<t_fake_garray*>(ptr);
-            if(ar && ar->x_realname && ar->x_scalar)
-            {
-                m_name = std::string(ar->x_realname->s_name);
-                m_instance->setThis();
-                t_scalar *scalar = ar->x_scalar;
-                t_template *scalartplte = template_findbyname(scalar->sc_template);
-                if(scalartplte)
-                {
-                    m_drawing_mode = static_cast<size_t>(template_getfloat(scalartplte, gensym("style"), scalar->sc_vec, 0));
-                }
-            }
-            if(ar && ar->x_glist)
-            {
-                m_scale = {static_cast<float>(ar->x_glist->gl_y2), static_cast<float>(ar->x_glist->gl_y1)};
-            }
-        }
-    }
-    
-    std::string Graph::getName() const noexcept
-    {
-        return m_name;
-    }
-    
-    bool Graph::isDrawingPoints() const noexcept
-    {
-        return m_drawing_mode == 0;
-    }
-    
-    bool Graph::isDrawingLine() const noexcept
-    {
-        return m_drawing_mode == 1;
-    }
-    
-    bool Graph::isDrawingCurve() const noexcept
-    {
-        return m_drawing_mode == 2;
-    }
-    
-    bool Graph::isGOP() const noexcept
-    {
-        return m_is_gop;
-    }
-    
-    std::array<float, 2> Graph::getScale() const noexcept
-    {
-        return m_scale;
-    }
-    
-    void Graph::read(std::vector<float>& output) const
-    {
-        m_instance->setThis();
-        m_instance->readArray(m_name, output);
-    }
-    
-    void Graph::write(std::vector<float> const& input)
-    {
-        m_instance->setThis();
-        m_instance->writeArray(m_name, input);
-    }
-    
-    void Graph::writeSample(const size_t pos, float const input)
-    {
-        m_instance->setThis();
-        m_instance->writeArraySample(m_name, pos, input);
     }
 }
 

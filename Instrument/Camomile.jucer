@@ -62,8 +62,11 @@
         <FILE id="XaK3av" name="PdPatch.hpp" compile="0" resource="0" file="../Source/Pd/PdPatch.hpp"/>
         <FILE id="cfqz5H" name="PdGui.cpp" compile="1" resource="0" file="../Source/Pd/PdGui.cpp"/>
         <FILE id="ODrcp3" name="PdGui.hpp" compile="0" resource="0" file="../Source/Pd/PdGui.hpp"/>
+        <FILE id="F7vyBr" name="PdArray.cpp" compile="1" resource="0" file="../Source/Pd/PdArray.cpp"/>
+        <FILE id="MGMMkS" name="PdArray.hpp" compile="0" resource="0" file="../Source/Pd/PdArray.hpp"/>
         <FILE id="aYOfwq" name="PdObject.cpp" compile="1" resource="0" file="../Source/Pd/PdObject.cpp"/>
         <FILE id="fYgI6J" name="PdObject.hpp" compile="0" resource="0" file="../Source/Pd/PdObject.hpp"/>
+        <FILE id="KkUoKW" name="PdAtom.hpp" compile="0" resource="0" file="../Source/Pd/PdAtom.hpp"/>
         <FILE id="xDjpgl" name="x_libpd_multi.c" compile="1" resource="0" file="../Source/Pd/x_libpd_multi.c"/>
         <FILE id="rQuXOy" name="x_libpd_multi.h" compile="0" resource="0" file="../Source/Pd/x_libpd_multi.h"/>
         <FILE id="Kts5E2" name="x_libpd_extra_utils.c" compile="1" resource="0"

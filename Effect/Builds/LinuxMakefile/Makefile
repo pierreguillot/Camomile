@@ -98,6 +98,7 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/PdInstance_c9d7d554.o \
   $(JUCE_OBJDIR)/PdPatch_2b25dab3.o \
   $(JUCE_OBJDIR)/PdGui_34dd0fa6.o \
+  $(JUCE_OBJDIR)/PdArray_f4d0bc44.o \
   $(JUCE_OBJDIR)/PdObject_2fcb197e.o \
   $(JUCE_OBJDIR)/x_libpd_multi_a98b54cb.o \
   $(JUCE_OBJDIR)/x_libpd_extra_utils_b8efa354.o \
@@ -204,6 +205,11 @@ $(JUCE_OBJDIR)/PdPatch_2b25dab3.o: ../../../Source/Pd/PdPatch.cpp
 $(JUCE_OBJDIR)/PdGui_34dd0fa6.o: ../../../Source/Pd/PdGui.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling PdGui.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/PdArray_f4d0bc44.o: ../../../Source/Pd/PdArray.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PdArray.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/PdObject_2fcb197e.o: ../../../Source/Pd/PdObject.cpp

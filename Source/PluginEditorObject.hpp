@@ -17,7 +17,7 @@
 class GraphicalArray : public Component, private Timer
 {
 public:
-    GraphicalArray(CamomileAudioProcessor& processor, pd::Graph& graph);
+    GraphicalArray(CamomileAudioProcessor& processor, pd::Array& graph);
     void paint(Graphics& g) final;
     void mouseDown(const MouseEvent& event) final;
     void mouseDrag(const MouseEvent& event) final;
@@ -30,7 +30,7 @@ private:
     }
     
     CamomileAudioProcessor& m_processor;
-    pd::Graph               m_graph;
+    pd::Array               m_array;
     std::vector<float>      m_vector;
     std::vector<float>      m_temp;
     std::atomic<bool>       m_edited;
@@ -202,7 +202,7 @@ public:
     void resized() final;
     void update() final {}
 private:
-    pd::Graph      m_graph;
+    pd::Array      m_graph;
     GraphicalArray m_array;
 };
 

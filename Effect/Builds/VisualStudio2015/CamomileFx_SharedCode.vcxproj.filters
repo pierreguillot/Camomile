@@ -409,6 +409,9 @@
     <ClCompile Include="..\..\..\Source\Pd\PdGui.cpp">
       <Filter>CamomileFx\Source\Pd</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\PdArray.cpp">
+      <Filter>CamomileFx\Source\Pd</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\PdObject.cpp">
       <Filter>CamomileFx\Source\Pd</Filter>
     </ClCompile>
@@ -2268,7 +2271,13 @@
     <ClInclude Include="..\..\..\Source\Pd\PdGui.hpp">
       <Filter>CamomileFx\Source\Pd</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\Pd\PdArray.hpp">
+      <Filter>CamomileFx\Source\Pd</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Source\Pd\PdObject.hpp">
+      <Filter>CamomileFx\Source\Pd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\Pd\PdAtom.hpp">
       <Filter>CamomileFx\Source\Pd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\Pd\x_libpd_multi.h">

@@ -7,6 +7,7 @@
 
 #include <string>
 #include <array>
+#include <cstddef>
 
 namespace pd
 {

@@ -164,7 +164,7 @@ class GraphicalArrayOwner : public Component
 {
 public:
     GraphicalArrayOwner(CamomileAudioProcessor& processor, std::string const& name) :
-    m_graph(processor, name),
+    m_graph(processor.getArray(name)),
     m_array(processor, m_graph)
     {
         setInterceptsMouseClicks(false, true);
@@ -195,7 +195,7 @@ public:
     }
     
 private:
-    pd::Graph      m_graph;
+    pd::Array      m_graph;
     GraphicalArray m_array;
 };
 
