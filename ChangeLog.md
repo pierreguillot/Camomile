@@ -14,6 +14,7 @@ v1.0.4
 - Fix variable block size support (#100)
 - Improve MIDI In/Out time precision
 - Add support for manually and automatic dynamic reload of the patch (#101)
+- Add support for abstractions/sub-patches GraphOnParent (#102)
 
 v1.0.3
 - Fix DSP support for multiple audio buses
