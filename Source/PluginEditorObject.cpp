@@ -778,9 +778,9 @@ void GuiGraphOnParent::resized()
 {
     m_labels.clear();
     m_objects.clear();
-    for(auto& gui : gui.getPatch().getGuis())
+    for(auto& g : gui.getPatch().getGuis())
     {
-        PluginEditorObject* obj = PluginEditorObject::createTyped(patch, gui);
+        PluginEditorObject* obj = PluginEditorObject::createTyped(patch, g);
         if(obj && getLocalBounds().contains(obj->getBounds()))
         {
             Component* label = obj->getLabel();
