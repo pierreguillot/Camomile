@@ -174,19 +174,36 @@ public:
 
     void paint(Graphics& g) final
     {
-        const int h = getHeight();
-        const int w = getWidth();
-        const Font ft = CamoLookAndFeel::getDefaultFont().withHeight(12);
-        const String sizetxt = String(m_array.getArraySize());
-
-        g.setColour(Colours::black);
-        g.setFont(ft);
-        g.drawText("1" , 0, 10, 20, 20, Justification::centred);
-        g.drawText("0" , 0, (h / 2) - 10, 20, 20, Justification::centred);
-        g.drawText("-1", 0, h - 30, 20, 20, Justification::centred);
+        {
+            const Rectangle<int> rbounds = getLocalBounds().reduced(20);
+            const int x = rbounds.getX();
+            const int y = rbounds.getY();
+            const int h = rbounds.getHeight();
+            const int w = rbounds.getWidth();
+            g.setColour(Colours::white);
+            g.fillRect(rbounds);
+            g.setColour(Colours::darkgrey);
+            g.drawHorizontalLine(y + h * 0.25f, x, x + w);
+            g.drawHorizontalLine(y + h * 0.5f, x, x + w);
+            g.drawHorizontalLine(y + h * 0.75f, x, x + w);
+            g.drawVerticalLine(w * 0.25f, y,  y + h);
+            g.drawVerticalLine(w * 0.5f, y,  y + h);
+            g.drawVerticalLine(w * 0.75f, y,  y + h);
+        }
         
-        g.drawText("0", 10, h - 20, 20, 20, Justification::centred);
-        g.drawText(sizetxt, w / 2, h - 20, w / 2 - 10, 20, Justification::centredRight);
+        {
+            const int h = getHeight();
+            const int w = getWidth();
+            const Font ft = CamoLookAndFeel::getDefaultFont().withHeight(12);
+            const String sizetxt = String(m_array.getArraySize());
+            g.setColour(Colours::black);
+            g.setFont(ft);
+            g.drawText("1" , 0, 10, 20, 20, Justification::centred);
+            g.drawText("0" , 0, (h / 2) - 10, 20, 20, Justification::centred);
+            g.drawText("-1", 0, h - 30, 20, 20, Justification::centred);
+            g.drawText("0", 10, h - 20, 20, 20, Justification::centred);
+            g.drawText(sizetxt, w / 2, h - 20, w / 2 - 10, 20, Justification::centredRight);
+        }
     }
     
     void resized() final
