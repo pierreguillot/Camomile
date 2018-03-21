@@ -142,10 +142,7 @@ namespace pd
     
     Instance::~Instance()
     {
-        if(m_patch)
-        {
-            closePatch();
-        }
+        closePatch();
         pd_free((t_pd *)m_midi_receiver);
         pd_free((t_pd *)m_print_receiver);
         pd_free((t_pd *)m_message_receiver);
@@ -407,14 +404,18 @@ namespace pd
     
     void Instance::openPatch(std::string const& path, std::string const& name)
     {
+        closePatch();
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         m_patch = libpd_openfile(name.c_str(), path.c_str());
     }
     
     void Instance::closePatch()
     {
-        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        libpd_closefile(m_patch);
+        if(m_patch)
+        {
+            libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
+            libpd_closefile(m_patch);
+        }
     }
     
     Patch Instance::getPatch()

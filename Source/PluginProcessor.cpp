@@ -124,7 +124,6 @@ void CamomileAudioProcessor::reloadPatch()
 {
     suspendProcessing(true);
     releaseResources();
-    closePatch();
     openPatch(CamomileEnvironment::getPatchPath(), CamomileEnvironment::getPatchName());
     processMessages();
     prepareToPlay(getSampleRate(), AudioProcessor::getBlockSize());
