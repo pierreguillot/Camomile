@@ -37,21 +37,30 @@ void libpd_get_object_text(void* ptr, char** text, int* size)
 
 void libpd_get_object_bounds(void* patch, void* ptr, int* x, int* y, int* w, int* h)
 {
-    t_canvas *cnv = (t_canvas*)patch;
+    t_canvas *owner = NULL, *cnv = (t_canvas*)patch;
     t_class const *c = pd_class((t_pd *)ptr);
+    int havewindow = 1;
     *x = 0; *y = 0; *w = 0; *h = 0;
     if(c->c_patchable && c->c_wb && c->c_wb->w_getrectfn)
     {
+        if(cnv)
+        {
+            owner       = cnv->gl_owner;
+            havewindow  = cnv->gl_havewindow;
+            cnv->gl_owner = NULL;
+            cnv->gl_havewindow = 1;
+        }
         c->c_wb->w_getrectfn((t_gobj *)ptr, cnv, x, y, w, h);
         *x -= 1;
         *y -= 1;
         *w -= *x;
         *h -= *y;
-        while (cnv && cnv->gl_isgraph)
+        if(cnv)
         {
             *x -= cnv->gl_xmargin;
             *y -= cnv->gl_ymargin;
-            cnv = cnv->gl_owner;
+            cnv->gl_owner = owner;
+            cnv->gl_havewindow = havewindow;
         }
     }
 }
