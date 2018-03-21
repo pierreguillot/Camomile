@@ -105,6 +105,10 @@ namespace pd
                     m_type = Type::Array;
                 }
             }
+            if(m_type != Type::Array && static_cast<t_canvas*>(m_ptr)->gl_isgraph)
+            {
+                m_type = Type::GraphOnParent;
+            }
         }
     }
     
@@ -368,6 +372,15 @@ namespace pd
             return m_instance->getArray(libpd_array_get_name(static_cast<t_canvas*>(m_ptr)->gl_list));
         }
         return Array();
+    }
+    
+    Patch Gui::getPatch() const noexcept
+    {
+        if(m_type == Type::GraphOnParent)
+        {
+            return Patch(m_ptr, m_instance);
+        }
+        return Patch();
     }
     
     // ==================================================================================== //

@@ -50,5 +50,6 @@ namespace pd
         Instance* m_instance = nullptr;
         
         friend class Instance;
+        friend class Gui;
     };
 }

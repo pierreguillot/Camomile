@@ -39,7 +39,8 @@ namespace pd
             Comment          = 10,
             AtomNumber       = 11,
             AtomSymbol       = 12,
-            Array            = 13
+            Array            = 13,
+            GraphOnParent    = 14
         };
         
         //! @brief The default constructor
@@ -93,6 +94,8 @@ namespace pd
         Array getArray() const noexcept;
         
         Label getLabel() const noexcept;
+            
+        Patch getPatch() const noexcept;
     private:
 
         Gui(void* ptr, void* patch, Instance* instance) noexcept;
