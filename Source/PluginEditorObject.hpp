@@ -207,5 +207,18 @@ private:
 };
 
 
+class GuiGraphOnParent : public PluginEditorObject
+{
+public:
+    GuiGraphOnParent(CamomileEditorMouseManager& p, pd::Gui& g);
+    void paint(Graphics& ) final;
+    void resized() final;
+    void update() final;
+private:
+    OwnedArray<PluginEditorObject>  m_objects;
+    OwnedArray<Component>           m_labels;
+};
+
+
 
 

@@ -57,6 +57,10 @@ PluginEditorObject* PluginEditorObject::createTyped(CamomileEditorMouseManager& 
     {
         return new GuiArray(p, g);
     }
+    else if(g.getType() == pd::Gui::Type::GraphOnParent)
+    {
+        return new GuiGraphOnParent(p, g);
+    }
     return new PluginEditorObject(p, g);
 }
 
@@ -751,6 +755,48 @@ m_graph(gui.getArray()), m_array(p.getProcessor(), m_graph)
 void GuiArray::resized()
 {
     m_array.setBounds(getLocalBounds());
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////     GOP               /////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+GuiGraphOnParent::GuiGraphOnParent(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g)
+{
+    setInterceptsMouseClicks(false, true);
+    edited = true;
+    resized();
+}
+
+void GuiGraphOnParent::paint(Graphics& g)
+{
+    g.setColour(Colours::black);
+    g.drawRect(getLocalBounds(), 1.f);
+}
+
+void GuiGraphOnParent::resized()
+{
+    m_labels.clear();
+    m_objects.clear();
+    for(auto& gui : gui.getPatch().getGuis())
+    {
+        PluginEditorObject* obj = PluginEditorObject::createTyped(patch, gui);
+        if(obj && getLocalBounds().contains(obj->getBounds()))
+        {
+            Component* label = obj->getLabel();
+            addAndMakeVisible(m_objects.add(obj));
+            if(label)
+            {
+                addAndMakeVisible(m_labels.add(label));
+            }
+        }
+    }
+}
+
+void GuiGraphOnParent::update()
+{
+    for(auto object : m_objects) {
+        object->update(); }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
