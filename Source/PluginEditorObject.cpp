@@ -766,12 +766,11 @@ m_processor(processor), m_array(graph), m_edited(false)
     catch(...) { m_error = true; }
     startTimer(100);
     setInterceptsMouseClicks(true, false);
+    setOpaque(false);
 }
 
 void GraphicalArray::paint(Graphics& g)
 {
-    g.setColour(Colours::white);
-    g.fillRect(getLocalBounds());
     if(m_error)
     {
         g.setFont(CamoLookAndFeel::getDefaultFont());
@@ -781,21 +780,6 @@ void GraphicalArray::paint(Graphics& g)
     {
         const float h = static_cast<float>(getHeight());
         const float w = static_cast<float>(getWidth());
-        
-        int todo;
-        /*
-        if(!m_array.isGOP())
-        {
-            g.setColour(Colours::darkgrey);
-            g.drawLine(0, h * 0.25f, w, h * 0.25f, 1);
-            g.drawLine(0, h * 0.5f, w, h * 0.5f, 1);
-            g.drawLine(0, h * 0.75f, w, h * 0.75f, 1);
-            g.drawLine(w * 0.25f, 0, w * 0.25f, h, 1);
-            g.drawLine(w * 0.5f, 0, w * 0.5f, h, 1);
-            g.drawLine(w * 0.75f, 0, w * 0.75f, h, 1);
-        }
-         */
-        
         if(!m_vector.empty())
         {
             const std::array<float, 2> scale = m_array.getScale();
