@@ -33,11 +33,14 @@ public:
     
     void timerCallback()
     {
-        Time const ntime = m_file.getLastModificationTime();
-        if(ntime != m_time)
+        if(m_file.exists())
         {
-            m_time = ntime;
-            fileChanged();
+            Time const ntime = m_file.getLastModificationTime();
+            if(ntime != m_time)
+            {
+                m_time = ntime;
+                fileChanged();
+            }
         }
     }
     
