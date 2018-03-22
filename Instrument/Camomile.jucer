@@ -128,7 +128,7 @@
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2015 targetFolder="Builds/VisualStudio2015" windowsTargetPlatformVersion="8.1"
-            vst3Folder="../Dependencies/Vst" externalLibraries="libpd.lib"
+            vst3Folder="../Dependencies/Vst" externalLibraries="libpd-multi-static.lib"
             extraCompilerFlags="/wd4091 &#10;/wd4996&#10;/wd4100&#10;/wd4706&#10;/wd4210"
             extraLinkerFlags="">
       <CONFIGURATIONS>
@@ -136,12 +136,12 @@
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="Camomile"
                        binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs"
-                       useRuntimeLibDLL="" headerPath="PD_LONGINTTYPE=long\ long"/>
+                       useRuntimeLibDLL="" defines="PD_LONGINTTYPE=long\ long"/>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="Camomile"
                        binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs"
-                       useRuntimeLibDLL="" headerPath="PD_LONGINTTYPE=long\ long"/>
+                       useRuntimeLibDLL="" defines="PD_LONGINTTYPE=long\ long"/>
         <CONFIGURATION name="Debug32" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="Camomile"
