@@ -130,9 +130,10 @@ Label* PluginEditorObject::getLabel()
     if(text.isNotEmpty())
     {
         Label* label = new Label();
-        const Font ft = CamoLookAndFeel::getDefaultFont().withHeight(gui.getFontSize());
+        const Font ft = CamoLookAndFeel::getDefaultFont().withHeight(static_cast<float>(gui.getFontSize()));
         const std::array<int, 2> position = lbl.getPosition();
-        label->setBounds(position[0], position[1] - ft.getAscent() / 2, ft.getStringWidth(text) + 1, ft.getHeight());
+        label->setBounds(position[0], position[1] - static_cast<int>(ft.getAscent() / 2.f),
+                         ft.getStringWidth(text) + 1, static_cast<int>(ft.getHeight()));
         label->setFont(ft);
         label->setJustificationType(Justification::centredLeft);
         label->setBorderSize(BorderSize<int>(0, 0, 0, 0));
@@ -152,7 +153,7 @@ Label* PluginEditorObject::getLabel()
 
 void GuiBang::paint(Graphics& g)
 {
-    const float border = 1.f;
+    const int border = 1.f;
     const float w = static_cast<float>(getWidth() - border * 2);
     g.fillAll(Colour(static_cast<uint32>(gui.getBackgroundColor())));
     if(getValueOriginal() > std::numeric_limits<float>::epsilon())
@@ -162,7 +163,7 @@ void GuiBang::paint(Graphics& g)
     }
     g.setColour(Colours::black);
     g.drawEllipse(border, border, w, w, border);
-    g.drawRect(getLocalBounds(), border);
+    g.drawRect(getLocalBounds(), static_cast<int>(border));
 }
 
 void GuiBang::mouseDown(const MouseEvent& e)
@@ -191,13 +192,13 @@ void GuiToggle::paint(Graphics& g)
     g.fillAll(Colour(static_cast<uint32>(gui.getBackgroundColor())));
     if(getValueOriginal() > std::numeric_limits<float>::epsilon())
     {
-        const float w = static_cast<float>(getWidth() - border * 2);
+        const float w = static_cast<float>(getWidth()) - border * 2.f;
         g.setColour(Colour(static_cast<uint32>(gui.getForegroundColor())));
         g.drawLine(1.f + border, 1.f + border, w, w, border);
         g.drawLine(w, 1.f + border, 1.f + border, w, border);
     }
     g.setColour(Colours::black);
-    g.drawRect(getLocalBounds(), border);
+    g.drawRect(getLocalBounds(), static_cast<int>(border));
 }
 
 void GuiToggle::mouseDown(const MouseEvent& e)
@@ -216,15 +217,15 @@ void GuiSliderHorizontal::paint(Graphics& g)
 {
     const float border = 1.f;
     const float cursor = 3.f;
-    const float w = static_cast<float>(getWidth() - border * 2);
-    const float h = static_cast<float>(getHeight() - border * 2);
+    const float w = static_cast<float>(getWidth()) - border * 2.f;
+    const float h = static_cast<float>(getHeight()) - border * 2.f;
     const float val = gui.isLogScale() ? log(getValueOriginal() / min) / log(max / min) : getValueScaled();
     const float pos = val * (w - cursor - border) + cursor;
     g.fillAll(Colour(static_cast<uint32>(gui.getBackgroundColor())));
     g.setColour(Colour(static_cast<uint32>(gui.getForegroundColor())));
     g.drawLine(pos, border + 0.5f, pos, h + 0.5f, cursor);
     g.setColour(Colours::black);
-    g.drawRect(getLocalBounds(), border);
+    g.drawRect(getLocalBounds(), static_cast<int>(border));
 }
 
 void GuiSliderHorizontal::mouseDown(const MouseEvent& e)
@@ -297,7 +298,7 @@ void GuiSliderVertical::paint(Graphics& g)
     g.setColour(Colour(static_cast<uint32>(gui.getForegroundColor())));
     g.drawLine(border + 0.5f, pos, w + 0.5f, pos, cursor);
     g.setColour(Colours::black);
-    g.drawRect(getLocalBounds(), border);
+    g.drawRect(getLocalBounds(), static_cast<int>(border));
 }
 
 void GuiSliderVertical::mouseDown(const MouseEvent& e)
@@ -374,7 +375,7 @@ void GuiRadioHorizontal::paint(Graphics& g)
     {
         g.drawLine(w * static_cast<float>(i), 0.f, w * static_cast<float>(i), w, border);
     }
-    g.drawRect(getLocalBounds(), border);
+    g.drawRect(getLocalBounds(), static_cast<int>(border));
 }
 
 void GuiRadioHorizontal::mouseDown(const MouseEvent& e)
@@ -405,7 +406,7 @@ void GuiRadioVertical::paint(Graphics& g)
     {
         g.drawLine(0.f, h * static_cast<float>(i), h, h * static_cast<float>(i), border);
     }
-    g.drawRect(getLocalBounds(), border);
+    g.drawRect(getLocalBounds(), static_cast<int>(border));
 }
 
 void GuiRadioVertical::mouseDown(const MouseEvent& e)
@@ -443,7 +444,7 @@ GuiComment::GuiComment(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditor
 
 void GuiComment::paint(Graphics& g)
 {
-    g.setFont(CamoLookAndFeel::getDefaultFont().withHeight(gui.getFontSize()));
+    g.setFont(CamoLookAndFeel::getDefaultFont().withHeight(static_cast<float>(gui.getFontSize())));
     g.setColour(Colours::black);
     g.drawMultiLineText(gui.getText(), 0, gui.getFontSize(), getWidth());
 }
@@ -771,7 +772,7 @@ GuiGraphOnParent::GuiGraphOnParent(CamomileEditorMouseManager& p, pd::Gui& g) : 
 void GuiGraphOnParent::paint(Graphics& g)
 {
     g.setColour(Colours::black);
-    g.drawRect(getLocalBounds(), 1.f);
+    g.drawRect(getLocalBounds(), 1);
 }
 
 void GuiGraphOnParent::resized()
