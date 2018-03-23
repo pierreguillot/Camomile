@@ -76,8 +76,10 @@ m_programs(CamomileEnvironment::getPrograms())
             {
                 add(ConsoleLevel::Error, std::string("camomile parameter ") + std::to_string(i+1) + std::string(": ") + message);
             }
-            if(p) {
-                addParameter(p); }
+            if(p)
+            {
+                addParameter(p);
+            }
         }
         m_params_states.resize(getParameters().size());
         std::fill(m_params_states.begin(), m_params_states.end(), false);
@@ -89,7 +91,7 @@ m_programs(CamomileEnvironment::getPrograms())
 
 void CamomileAudioProcessor::setCurrentProgram(int index)
 {
-    if(index < m_programs.size())
+    if(static_cast<size_t>(index) < m_programs.size())
     {
         m_program_current = index;
         if(isSuspended())
@@ -106,13 +108,19 @@ void CamomileAudioProcessor::setCurrentProgram(int index)
 
 const String CamomileAudioProcessor::getProgramName (int index)
 {
-    if(index < m_programs.size()) { return String(m_programs[index]); }
-    return {};
+    if(static_cast<size_t>(index) < m_programs.size())
+    {
+        return String(m_programs[index]);
+    }
+    return String();
 }
 
 void CamomileAudioProcessor::changeProgramName(int index, const String& newName)
 {
-    if(index < m_programs.size()) { m_programs[index] = newName.toStdString(); }
+    if(static_cast<size_t>(index) < m_programs.size())
+    {
+        m_programs[index] = newName.toStdString();
+    }
 }
 
 void CamomileAudioProcessor::fileChanged()
