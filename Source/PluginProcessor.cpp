@@ -196,8 +196,8 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     m_midi_advancement = 0;
     m_audio_buffer_in.resize(getTotalNumInputChannels() * Instance::getBlockSize());
     m_audio_buffer_out.resize(getTotalNumOutputChannels() * Instance::getBlockSize());
-    std::fill(m_audio_buffer_out.begin(), m_audio_buffer_out.end(), 0);
-    std::fill(m_audio_buffer_in.begin(), m_audio_buffer_in.end(), 0);
+    std::fill(m_audio_buffer_out.begin(), m_audio_buffer_out.end(), 0.f);
+    std::fill(m_audio_buffer_in.begin(), m_audio_buffer_in.end(), 0.f);
     m_midi_buffer_in.clear();
     m_midi_buffer_out.clear();
     
@@ -211,8 +211,8 @@ void CamomileAudioProcessor::releaseResources()
     processMessages();
     m_audio_buffer_in.clear();
     m_audio_buffer_out.clear();
-    std::fill(m_audio_buffer_out.begin(), m_audio_buffer_out.end(), 0);
-    std::fill(m_audio_buffer_in.begin(), m_audio_buffer_in.end(), 0);
+    std::fill(m_audio_buffer_out.begin(), m_audio_buffer_out.end(), 0.f);
+    std::fill(m_audio_buffer_in.begin(), m_audio_buffer_in.end(), 0.f);
     m_audio_advancement = 0;
     m_midi_advancement = 0;
 }
