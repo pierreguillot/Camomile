@@ -26,7 +26,7 @@ CamomileAudioParameter::CamomileAudioParameter(const String& name, const String&
                                                const bool automatable, const bool meta) :
 m_name(name), m_label(label),
 m_minimum(0), m_maximum(elems.size() - 1),
-m_default(static_cast<int>(def)), m_nsteps(elems.size()),
+m_default(static_cast<float>(def)), m_nsteps(elems.size()),
 m_automatable(automatable), m_meta(meta),
 m_elements(elems) { m_value = getDefaultValue(); }
 
@@ -176,7 +176,7 @@ CamomileAudioParameter* CamomileAudioParameter::parse(const std::string& definit
             throw std::string("default value superior to list size");
         StringArray elems;
         for(auto const& el : telems) { elems.add(el); }
-        return new CamomileAudioParameter(name, label, elems, def, autom, meta);
+        return new CamomileAudioParameter(name, label, elems, static_cast<int>(def), autom, meta);
     }
     else
     {

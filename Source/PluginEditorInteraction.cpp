@@ -175,20 +175,20 @@ public:
     void paint(Graphics& g) final
     {
         {
-            const Rectangle<int> rbounds = getLocalBounds().reduced(20);
-            const int x = rbounds.getX();
-            const int y = rbounds.getY();
-            const int h = rbounds.getHeight();
-            const int w = rbounds.getWidth();
+            const Rectangle<float> rbounds = getLocalBounds().reduced(20).toFloat();
+            const float x = rbounds.getX();
+            const float y = rbounds.getY();
+            const float h = rbounds.getHeight();
+            const float w = rbounds.getWidth();
             g.setColour(Colours::white);
             g.fillRect(rbounds);
             g.setColour(Colours::darkgrey);
-            g.drawHorizontalLine(y + h * 0.25f, x, x + w);
-            g.drawHorizontalLine(y + h * 0.5f, x, x + w);
-            g.drawHorizontalLine(y + h * 0.75f, x, x + w);
-            g.drawVerticalLine(w * 0.25f, y,  y + h);
-            g.drawVerticalLine(w * 0.5f, y,  y + h);
-            g.drawVerticalLine(w * 0.75f, y,  y + h);
+            g.drawHorizontalLine(static_cast<int>(y + h * 0.25f), x, x + w);
+            g.drawHorizontalLine(static_cast<int>(y + h * 0.5f), x, x + w);
+            g.drawHorizontalLine(static_cast<int>(y + h * 0.75f), x, x + w);
+            g.drawVerticalLine(static_cast<int>(w * 0.25f), y,  y + h);
+            g.drawVerticalLine(static_cast<int>(w * 0.5f), y,  y + h);
+            g.drawVerticalLine(static_cast<int>(w * 0.75f), y,  y + h);
         }
         
         {

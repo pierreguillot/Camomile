@@ -455,12 +455,12 @@ void GuiComment::paint(Graphics& g)
 
 GuiTextEditor::GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g)
 {
-    const float border = 1.f;
+    const int border = 1;
     const float fs = gui.getFontSize();
     Font const tf = CamoLookAndFeel::getDefaultFont().withHeight(fs);
     
     label = new Label();
-    label->setBounds(2.5f, 0.5f, getWidth() - 2.5f, getHeight() - 1.f);
+    label->setBounds(2, 0, getWidth() - 2, getHeight() - 1);
     label->setFont(tf);
     label->setJustificationType(Justification::centredLeft);
     label->setBorderSize(BorderSize<int>(border+2, border, border, border));
@@ -515,9 +515,10 @@ void GuiTextEditor::update()
 
 GuiNumber::GuiNumber(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(p, g)
 {
-    const float w = getWidth();
-    const float h = getHeight();
-    label->setBounds(h * 0.5f, 0.5f, w - h * 0.5f, h);
+    const float w = static_cast<float>(getWidth());
+    const float h = static_cast<float>(getHeight());
+    label->setBounds(static_cast<int>(h * 0.5f), static_cast<int>(0.5f),
+                     static_cast<int>(w - h * 0.5f), static_cast<int>(h));
 }
 
 void GuiNumber::paint(Graphics& g)

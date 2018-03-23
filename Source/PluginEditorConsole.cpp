@@ -55,7 +55,7 @@ m_reload_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::reload_p
     m_table.setWantsKeyboardFocus(true);
     m_table.setMultipleSelectionEnabled(true);
     m_table.setMouseMoveSelectsRows(false);
-    m_table.setRowHeight(CamoLookAndFeel::getDefaultFont().getHeight() + 2);
+    m_table.setRowHeight(static_cast<int>(CamoLookAndFeel::getDefaultFont().getHeight()) + 2);
     m_table.setColour(ListBox::ColourIds::backgroundColourId, Colours::transparentWhite);
     m_table.getViewport()->setScrollBarsShown(true, true, true, true);
     m_table.getViewport()->setScrollBarThickness(4);
@@ -185,7 +185,7 @@ void PluginEditorConsole::buttonClicked(Button* button)
         m.addItem(4, "All", true, m_level == ConsoleLevel::Log);
         
         stopTimer();
-        int const level = m.show(0, 0, CamoLookAndFeel::getDefaultFont().getHeight() + 2);
+        int const level = m.show(0, 0, static_cast<int>(CamoLookAndFeel::getDefaultFont().getHeight()) + 2);
         if(bool(level) && static_cast<ConsoleLevel>(level - 1) != m_level)
         {
             m_level = static_cast<ConsoleLevel>(level - 1);
