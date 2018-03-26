@@ -444,6 +444,9 @@
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_devices\native\juce_linux_ALSA.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_audio_devices\native\juce_linux_Bela.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_devices\native\juce_linux_JackAudio.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1797,6 +1800,9 @@
     <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\properties\juce_ChoicePropertyComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\properties\juce_MultiChoicePropertyComponent.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_gui_basics\properties\juce_PropertyComponent.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -2570,6 +2576,7 @@
     <ClInclude Include="..\..\..\Juce\modules\juce_gui_basics\properties\juce_BooleanPropertyComponent.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_gui_basics\properties\juce_ButtonPropertyComponent.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_gui_basics\properties\juce_ChoicePropertyComponent.h"/>
+    <ClInclude Include="..\..\..\Juce\modules\juce_gui_basics\properties\juce_MultiChoicePropertyComponent.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_gui_basics\properties\juce_PropertyComponent.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_gui_basics\properties\juce_PropertyPanel.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_gui_basics\properties\juce_SliderPropertyComponent.h"/>
