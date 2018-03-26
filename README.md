@@ -1,6 +1,6 @@
 <p align="center">
   <a href="http://lcui.org/">
-    <img src="https://user-images.githubusercontent.com/1409918/37906678-2b998b0a-3103-11e8-946a-10df0f3d2eca.png" alt="" width=72 height=72>
+    <img src="https://user-images.githubusercontent.com/1409918/37906678-2b998b0a-3103-11e8-946a-10df0f3d2eca.png" alt="Logo" width=72 height=72>
   </a>
   <h1 align="center">Camomile</h1>
   <p align="center">
@@ -26,4 +26,6 @@
 
 Camomile is a plugin with Pure Data embedded that offers to load and to control patches inside a digital audio workstation. The plugin is available as VST, VST3 and Audio Unit for Windows, Linux and MacOS. Downloads, documentation and further information are available on the [wiki](https://github.com/pierreguillot/Camomile/wiki) pages of the project.
 
-![](https://user-images.githubusercontent.com/1409918/35470969-05182302-0353-11e8-90b5-d37450206adf.png)
+<p align="center">
+<img src="https://user-images.githubusercontent.com/1409918/35470969-05182302-0353-11e8-90b5-d37450206adf.png" alt="Examples" width=425 height=325>
+</p>
