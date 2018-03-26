@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="http://lcui.org/">
+  <a href="https://github.com/pierreguillot/Camomile/wiki">
     <img src="https://user-images.githubusercontent.com/1409918/37906678-2b998b0a-3103-11e8-946a-10df0f3d2eca.png" alt="Logo" width=72 height=72>
   </a>
   <h1 align="center">Camomile</h1>
