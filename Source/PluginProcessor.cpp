@@ -289,7 +289,7 @@ void CamomileAudioProcessor::processInternal()
             else if(message.isController()) {
                 sendControlChange(message.getChannel(), message.getControllerNumber(), message.getControllerValue()); }
             else if(message.isPitchWheel()) {
-                sendPitchBend(message.getChannel(), message.getPitchWheelValue()); }
+                sendPitchBend(message.getChannel(), message.getPitchWheelValue() - 8192); }
             else if(message.isChannelPressure()) {
                 sendAfterTouch(message.getChannel(), message.getChannelPressureValue()); }
             else if(message.isAftertouch()) {
@@ -843,7 +843,7 @@ void CamomileAudioProcessor::receiveProgramChange(const int channel, const int v
 
 void CamomileAudioProcessor::receivePitchBend(const int channel, const int value)
 {
-    m_midi_buffer_out.addEvent(MidiMessage::pitchWheel(channel, value), m_midi_advancement);
+    m_midi_buffer_out.addEvent(MidiMessage::pitchWheel(channel, value + 8192), m_midi_advancement);
 }
 
 void CamomileAudioProcessor::receiveAftertouch(const int channel, const int value)
