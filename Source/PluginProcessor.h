@@ -104,6 +104,7 @@ private:
     int                      m_midi_advancement;
     MidiBuffer               m_midi_buffer_in;
     MidiBuffer               m_midi_buffer_out;
+    MidiBuffer               m_midi_buffer_temp;
     
     int m_program_current    = 0;
     std::vector<std::string> m_programs;

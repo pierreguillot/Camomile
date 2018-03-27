@@ -60,6 +60,7 @@ m_programs(CamomileEnvironment::getPrograms())
         m_atoms_playhead.resize(1);
         m_midi_buffer_in.ensureSize(2048);
         m_midi_buffer_out.ensureSize(2048);
+        m_midi_buffer_temp.ensureSize(2048);
         prepareDSP(getTotalNumInputChannels(), getTotalNumOutputChannels(), getSampleRate());
         setLatencySamples(CamomileEnvironment::getLatencySamples() + Instance::getBlockSize());
         m_programs = CamomileEnvironment::getPrograms();
@@ -208,7 +209,7 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     std::fill(m_audio_buffer_in.begin(), m_audio_buffer_in.end(), 0.f);
     m_midi_buffer_in.clear();
     m_midi_buffer_out.clear();
-    
+    m_midi_buffer_temp.clear();
     startDSP();
     processMessages();
 }
@@ -402,6 +403,13 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         // we save the missing input samples, we output
         // the missing samples of the previous tick and
         // we call DSP perform method.
+        MidiBuffer const& midiin = CamomileEnvironment::producesMidi() ? m_midi_buffer_temp : midiMessages;
+        if(CamomileEnvironment::producesMidi())
+        {
+            m_midi_buffer_temp.swapWith(midiMessages);
+            midiMessages.clear();
+        }
+        
         const int adv = m_audio_advancement;
         for(int j = 0; j < nins; ++j)
         {
@@ -415,11 +423,10 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         }
         if(CamomileEnvironment::wantsMidi())
         {
-            m_midi_buffer_in.addEvents(midiMessages, 0, nleft, adv);
+            m_midi_buffer_in.addEvents(midiin, 0, nleft, adv);
         }
         if(CamomileEnvironment::producesMidi())
         {
-            midiMessages.clear();
             midiMessages.addEvents(m_midi_buffer_out, m_audio_advancement, nleft, 0);
             m_midi_advancement  = 0;
         }
@@ -441,11 +448,10 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
             }
             if(CamomileEnvironment::wantsMidi())
             {
-                m_midi_buffer_in.addEvents(midiMessages, pos, blocksize, 0);
+                m_midi_buffer_in.addEvents(midiin, pos, blocksize, 0);
             }
             if(CamomileEnvironment::producesMidi())
             {
-                midiMessages.clear();
                 midiMessages.addEvents(m_midi_buffer_out, 0, blocksize, pos);
                 m_midi_advancement = pos;
             }
@@ -469,11 +475,10 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
             }
             if(CamomileEnvironment::wantsMidi())
             {
-                m_midi_buffer_in.addEvents(midiMessages, pos, remaining, 0);
+                m_midi_buffer_in.addEvents(midiin, pos, remaining, 0);
             }
             if(CamomileEnvironment::producesMidi())
             {
-                midiMessages.clear();
                 midiMessages.addEvents(m_midi_buffer_out, 0, remaining, pos);
                 m_midi_advancement = pos;
             }

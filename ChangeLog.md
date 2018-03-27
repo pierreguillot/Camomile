@@ -15,7 +15,7 @@ v1.0.4
 - Improve MIDI In/Out time precision
 - Add support for manually and automatic dynamic reload of the patch (#101)
 - Add support for abstractions/sub-patches GraphOnParent (#102)
-- Fix midi pitch bend offset due to +8192 from libpd) (#104)
+- Fix midi pitch bend offset due to +8192 from libpd (#104)
 
 v1.0.3
 - Fix DSP support for multiple audio buses
