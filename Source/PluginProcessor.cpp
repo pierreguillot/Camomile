@@ -356,7 +356,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     ScopedNoDenormals noDenormals;
     const int blocksize = Instance::getBlockSize();
     const int nsamples  = buffer.getNumSamples();
-    const int adv       = m_audio_advancement;
+    const int adv       = m_audio_advancement >= 64 ? 0 : m_audio_advancement;
     const int nleft     = blocksize - adv;
     const int nins      = getTotalNumInputChannels();
     const int nouts     = getTotalNumOutputChannels();
@@ -369,6 +369,10 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         buffer.clear(i, 0, nsamples);
     }
     
+#ifdef DEBUG
+    std::cout <<"\n\nprocess: (" << reinterpret_cast<unsigned long>(this) <<")\n";
+    std::cout << "start: "<< nsamples << "samples with "<< adv <<"samples of advancement\n";
+#endif
     // If the current number of samples in this block
     // is inferior to the number of samples required
     if(nsamples < nleft)
@@ -395,6 +399,9 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
             midiMessages.addEvents(m_midi_buffer_out, adv, nsamples, 0);
         }
         m_audio_advancement += nsamples;
+#ifdef DEBUG
+        std::cout << "not enough: " << m_audio_advancement <<"samples of advancement\n";
+#endif
     }
     // If the current number of samples in this block
     // is superior to the number of samples required
@@ -431,12 +438,18 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         }
         m_audio_advancement = 0;
         processInternal();
+#ifdef DEBUG
+        std::cout << "left:" << nleft <<"samples\n";
+#endif
         
         // If there are other DSP ticks that can be
         // performed, then we do it now.
         int pos = nleft;
-        while((pos + blocksize) < nsamples)
+        while((pos + blocksize) <= nsamples)
         {
+#ifdef DEBUG
+            std::cout << "block\n";
+#endif
             for(int j = 0; j < nins; ++j)
             {
                 const int index = j*blocksize;
@@ -466,6 +479,9 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         const int remaining = nsamples - pos;
         if(remaining > 0)
         {
+#ifdef DEBUG
+            std::cout << "remain:" << remaining <<"samples\n";
+#endif
             for(int j = 0; j < nins; ++j)
             {
                 const int index = j*blocksize;
