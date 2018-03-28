@@ -127,9 +127,9 @@ namespace pd
         typedef moodycamel::ConcurrentQueue<dmessage> message_queue;
         message_queue m_send_queue = message_queue(4096);
         
-        moodycamel::ReaderWriterQueue<Message> m_message_queue = moodycamel::ReaderWriterQueue<Message>(4096);
-        moodycamel::ReaderWriterQueue<midievent> m_midi_queue = moodycamel::ReaderWriterQueue<midievent>(4096);
-        moodycamel::ReaderWriterQueue<std::string> m_print_queue = moodycamel::ReaderWriterQueue<std::string>(4096);
+        moodycamel::ConcurrentQueue<Message> m_message_queue = moodycamel::ConcurrentQueue<Message>(4096);
+        moodycamel::ConcurrentQueue<midievent> m_midi_queue = moodycamel::ConcurrentQueue<midievent>(4096);
+        moodycamel::ConcurrentQueue<std::string> m_print_queue = moodycamel::ConcurrentQueue<std::string>(4096);
         
         struct internal;
     };
