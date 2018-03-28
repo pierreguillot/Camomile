@@ -10,12 +10,21 @@ os: Visual Studio 2015
 
 install:
     - git submodule update --init --recursive
-    #- C:\msys64\usr\bin\bash -lc "pacman -Syuu --noconfirm"
-    #- C:\msys64\usr\bin\bash -lc "pacman -S --noconfirm --needed make mingw-w64-i686-gcc mingw-w64-x86_64-gcc"
+    # MingW
     - C:\msys64\usr\bin\bash -lc "pacman -S --noconfirm --needed mingw-w64-cross-winpthreads-git"
+    # CMAKE
+    - curl ftp://sourceware.org/pub/pthreads-win32/pthreads-w32-2-9-1-release.zip -o pthreads.zip
+    - 7z x -opthreads pthreads.zip  Pre-built.2/dll Pre-built.2/lib Pre-built.2/include
+    - set pthreaddir="%APPVEYOR_BUILD_FOLDER%\\pthreads\\Pre-built.2"
+    - cd "%pthreaddir%\\include" && copy "*.h" "%APPVEYOR_BUILD_FOLDER%\\src\\"
+    - cd "%pthreaddir%\\dll\\%platform%" && copy "pthreadVC2.dll" "%APPVEYOR_BUILD_FOLDER%\\bin\\pthreadVC2.dll"
+    - cd "%pthreaddir%\\lib\\%platform%" && copy "pthreadVC2.lib" "%APPVEYOR_BUILD_FOLDER%\\bin\\pthreadVC.lib"
+    - cd "%APPVEYOR_BUILD_FOLDER%"
 build_script:
+    # MingW
     - 'if "%MINGWARCH%"=="mingw32" C:\msys64\usr\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; ./libpd_mingw32_build.bat"'
     - 'if "%MINGWARCH%"=="mingw64" C:\msys64\usr\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; ./libpd_mingw64_build.bat"'
+    
     - 'if "%MINGWARCH%"=="mingw32" msbuild %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\Camomile.sln /property:Configuration=Release32 /property:Platform=Win32'
     - 'if "%MINGWARCH%"=="mingw32" msbuild %APPVEYOR_BUILD_FOLDER%\Effect\Builds\VisualStudio2015\CamomileFx.sln /property:Configuration=Release32 /property:Platform=Win32'
     - 'if "%MINGWARCH%"=="mingw64" msbuild %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\Camomile.sln /property:Configuration=Release /property:Platform=x64'
