@@ -356,7 +356,8 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     ScopedNoDenormals noDenormals;
     const int blocksize = Instance::getBlockSize();
     const int nsamples  = buffer.getNumSamples();
-    const int nleft     = blocksize - m_audio_advancement;
+    const int adv       = m_audio_advancement;
+    const int nleft     = blocksize - adv;
     const int nins      = getTotalNumInputChannels();
     const int nouts     = getTotalNumOutputChannels();
     const float **bufferin = buffer.getArrayOfReadPointers();
@@ -374,25 +375,24 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     {
         // we save the input samples and we output
         // the missing samples of the previous tick.
-        const int adv = m_audio_advancement;
         for(int j = 0; j < nins; ++j)
         {
-            const int pos = j*blocksize+adv;
-            std::copy_n(bufferin[j], nsamples, m_audio_buffer_in.data()+pos);
+            const int index = j*blocksize+adv;
+            std::copy_n(bufferin[j], nsamples, m_audio_buffer_in.data()+index);
         }
         for(int j = 0; j < nouts; ++j)
         {
-            const int pos = j*blocksize+adv;
-            std::copy_n(m_audio_buffer_out.data()+pos, nsamples, bufferout[j]);
+            const int index = j*blocksize+adv;
+            std::copy_n(m_audio_buffer_out.data()+index, nsamples, bufferout[j]);
         }
         if(CamomileEnvironment::wantsMidi())
         {
-            m_midi_buffer_in.addEvents(midiMessages, 0, nsamples, m_audio_advancement);
+            m_midi_buffer_in.addEvents(midiMessages, 0, nsamples, adv);
         }
         if(CamomileEnvironment::producesMidi())
         {
             midiMessages.clear();
-            midiMessages.addEvents(m_midi_buffer_out, m_audio_advancement, nsamples, 0);
+            midiMessages.addEvents(m_midi_buffer_out, adv, nsamples, 0);
         }
         m_audio_advancement += nsamples;
     }
@@ -410,16 +410,15 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
             midiMessages.clear();
         }
         
-        const int adv = m_audio_advancement;
         for(int j = 0; j < nins; ++j)
         {
-            const int pos = j*blocksize+adv;
-            std::copy_n(bufferin[j], nleft, m_audio_buffer_in.data()+pos);
+            const int index = j*blocksize+adv;
+            std::copy_n(bufferin[j], nleft, m_audio_buffer_in.data()+index);
         }
         for(int j = 0; j < nouts; ++j)
         {
-            const int pos = j*blocksize+adv;
-            std::copy_n(m_audio_buffer_out.data()+pos, nleft, bufferout[j]);
+            const int index = j*blocksize+adv;
+            std::copy_n(m_audio_buffer_out.data()+index, nleft, bufferout[j]);
         }
         if(CamomileEnvironment::wantsMidi())
         {
@@ -427,7 +426,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         }
         if(CamomileEnvironment::producesMidi())
         {
-            midiMessages.addEvents(m_midi_buffer_out, m_audio_advancement, nleft, 0);
+            midiMessages.addEvents(m_midi_buffer_out, adv, nleft, 0);
             m_midi_advancement  = 0;
         }
         m_audio_advancement = 0;
@@ -436,15 +435,17 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         // If there are other DSP ticks that can be
         // performed, then we do it now.
         int pos = nleft;
-        while(pos <= nsamples - blocksize)
+        while((pos + blocksize) < nsamples)
         {
             for(int j = 0; j < nins; ++j)
             {
-                std::copy_n(bufferin[j]+pos, blocksize, m_audio_buffer_in.data());
+                const int index = j*blocksize;
+                std::copy_n(bufferin[j]+pos, blocksize, m_audio_buffer_in.data()+index);
             }
             for(int j = 0; j < nouts; ++j)
             {
-                std::copy_n(m_audio_buffer_out.data(), blocksize, bufferout[j]+pos);
+                const int index = j*blocksize;
+                std::copy_n(m_audio_buffer_out.data()+index, blocksize, bufferout[j]+pos);
             }
             if(CamomileEnvironment::wantsMidi())
             {
@@ -461,17 +462,19 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         
         // If there are samples that can't be
         // processed, then save them for later
-        // and outputs the missing samples
+        // and outputs the remaining samples
         const int remaining = nsamples - pos;
         if(remaining > 0)
         {
             for(int j = 0; j < nins; ++j)
             {
-                std::copy_n(bufferin[j]+pos, remaining, m_audio_buffer_in.data());
+                const int index = j*blocksize;
+                std::copy_n(bufferin[j]+pos, remaining, m_audio_buffer_in.data()+index);
             }
             for(int j = 0; j < nouts; ++j)
             {
-                std::copy_n(m_audio_buffer_out.data(), remaining, bufferout[j]+pos);
+                const int index = j*blocksize;
+                std::copy_n(m_audio_buffer_out.data()+index, remaining, bufferout[j]+pos);
             }
             if(CamomileEnvironment::wantsMidi())
             {
