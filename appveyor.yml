@@ -16,15 +16,20 @@ install:
     - curl ftp://sourceware.org/pub/pthreads-win32/pthreads-w32-2-9-1-release.zip -o pthreads.zip
     - 7z x -opthreads pthreads.zip  Pre-built.2/dll Pre-built.2/lib Pre-built.2/include
     - set pthreaddir="%APPVEYOR_BUILD_FOLDER%\\pthreads\\Pre-built.2"
-    - cd "%pthreaddir%\\include" && copy "*.h" "%APPVEYOR_BUILD_FOLDER%\\src\\"
-    - cd "%pthreaddir%\\dll\\%platform%" && copy "pthreadVC2.dll" "%APPVEYOR_BUILD_FOLDER%\\bin\\pthreadVC2.dll"
-    - cd "%pthreaddir%\\lib\\%platform%" && copy "pthreadVC2.lib" "%APPVEYOR_BUILD_FOLDER%\\bin\\pthreadVC.lib"
+    - cd "%pthreaddir%\\include" && copy "*.h" "%APPVEYOR_BUILD_FOLDER%\\Dependencies\\LibPd\\pure-data\\src"
+    #- cd "%pthreaddir%\\dll\\%platform%" && copy "pthreadVC2.dll" "%APPVEYOR_BUILD_FOLDER%\\Dependencies\\LibPd\\pure-data\\pthreadVC2.dll"
+    - cd "%pthreaddir%\\lib\\%platform%" && copy "pthreadVC2.lib" "%APPVEYOR_BUILD_FOLDER%\\Dependencies\\LibPd\\pure-data\\pthreadVC.lib"
     - cd "%APPVEYOR_BUILD_FOLDER%"
 build_script:
     # MingW
     - 'if "%MINGWARCH%"=="mingw32" C:\msys64\usr\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; ./libpd_mingw32_build.bat"'
     - 'if "%MINGWARCH%"=="mingw64" C:\msys64\usr\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; ./libpd_mingw64_build.bat"'
-    
+    # CMAKE
+    - mkdir Dependencies/LibPd/build && mkdir Dependencies/LibPd/build/msvc/ && cd Dependencies/LibPd/build/msvc
+    - cmake -G "Visual Studio 14 2015  Win64" -DPD_MULTI=ON ../..
+    - cmake --build .
+    - cd ../../../..
+    # MSVC
     - 'if "%MINGWARCH%"=="mingw32" msbuild %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\Camomile.sln /property:Configuration=Release32 /property:Platform=Win32'
     - 'if "%MINGWARCH%"=="mingw32" msbuild %APPVEYOR_BUILD_FOLDER%\Effect\Builds\VisualStudio2015\CamomileFx.sln /property:Configuration=Release32 /property:Platform=Win32'
     - 'if "%MINGWARCH%"=="mingw64" msbuild %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\Camomile.sln /property:Configuration=Release /property:Platform=x64'
