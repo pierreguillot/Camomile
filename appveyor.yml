@@ -5,10 +5,12 @@ environment:
         PTHREAD: x64
         COMPILER: "Visual Studio 14 2015 Win64"
         RELEASE: Release
+        ZIPFILE: CamomileWindows64
       - PLATFORM: Win32
         PTHREAD: x86
         COMPILER: "Visual Studio 14 2015"
         RELEASE: Release32
+        ZIPFILE: CamomileWindows32
 
 os: Visual Studio 2015
 
@@ -26,7 +28,7 @@ install:
 build_script:
     - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
     - cmake -G "%COMPILER%" -DPD_MULTI=ON -DPD_UTILS=OFF ../..
-    - msbuild libpd.sln /t:libpdstatic /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
+    - msbuild libpd.sln /t:libpdstatic /p:Configuration=Release /p:Platform=%PLATFORM%
     - cd %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\
     #- msbuild Camomile.sln /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
     - cd %APPVEYOR_BUILD_FOLDER%\Effect\Builds\VisualStudio2015\
@@ -46,8 +48,7 @@ after_build:
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST\ /S /Q
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\ /S /Q
     - rename %APPVEYOR_BUILD_FOLDER%\Plugins Camomile
-    - 'if "%MINGWARCH%"=="mingw32" 7z a CamomileWindows32.zip %APPVEYOR_BUILD_FOLDER%\Camomile\'
-    - 'if "%MINGWARCH%"=="mingw64" 7z a CamomileWindows64.zip %APPVEYOR_BUILD_FOLDER%\Camomile\'
+    - 7z a %ZIPFILE%.zip %APPVEYOR_BUILD_FOLDER%\Camomile\
 
 artifacts:
   - path: '*.zip'
