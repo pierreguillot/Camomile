@@ -26,9 +26,11 @@ install:
 build_script:
     - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
     - cmake -G "%COMPILER%" -DPD_MULTI=ON -DPD_UTILS=OFF ../..
-    - cmake --build .
-    #- msbuild %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\Camomile.sln /property:Configuration=%RELEASE% /property:Platform=%PLATFORM%
-    #- msbuild %APPVEYOR_BUILD_FOLDER%\Effect\Builds\VisualStudio2015\CamomileFx.sln /property:Configuration=%RELEASE% /property:Platform=%PLATFORM%
+    - msbuild libpd.sln /t:libpdstatic /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
+    - cd %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\
+    #- msbuild Camomile.sln /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
+    - cd %APPVEYOR_BUILD_FOLDER%\Effect\Builds\VisualStudio2015\
+    #- msbuild CamomileFx.sln /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
 after_build:
     - cd %APPVEYOR_BUILD_FOLDER%
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST\Camomile.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.dll
