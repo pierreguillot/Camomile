@@ -49,7 +49,8 @@ after_build:
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\ /S /Q
     - rename %APPVEYOR_BUILD_FOLDER%\Plugins Camomile
     - 7z a %ZIPFILE%.zip %APPVEYOR_BUILD_FOLDER%\Camomile\
-
+    - del %APPVEYOR_BUILD_FOLDER%\pthreads.zip
+    
 artifacts:
   - path: '*.zip'
 
