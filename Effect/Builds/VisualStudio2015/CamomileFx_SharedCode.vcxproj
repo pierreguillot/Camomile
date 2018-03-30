@@ -135,14 +135,14 @@
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>../../../Dependencies/LibPd/libs;../../../Dependencies/LibPd/build/msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>libpd-multi-static.lib;pthreadVC.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd-multi-static.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\CamomileFx.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>libpd-multi-static.lib;pthreadVC.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd-multi-static.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../../Dependencies/LibPd/libs;../../../Dependencies/LibPd/build/msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -184,14 +184,14 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <AdditionalLibraryDirectories>../../../Dependencies/LibPd/libs;../../../Dependencies/LibPd/build/msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>libpd-multi-static.lib;pthreadVC.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd-multi-static.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\CamomileFx.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>libpd-multi-static.lib;pthreadVC.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd-multi-static.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../../Dependencies/LibPd/libs;../../../Dependencies/LibPd/build/msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -233,14 +233,14 @@
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>../../../Dependencies/LibPd/libs;../../../Dependencies/LibPd/build/msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>libpd-multi-static.lib;pthreadVC.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd-multi-static.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\CamomileFx.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>libpd-multi-static.lib;pthreadVC.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd-multi-static.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../../Dependencies/LibPd/libs;../../../Dependencies/LibPd/build/msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <Lib>
@@ -286,14 +286,14 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <AdditionalLibraryDirectories>../../../Dependencies/LibPd/libs;../../../Dependencies/LibPd/build/msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>libpd-multi-static.lib;pthreadVC.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd-multi-static.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\CamomileFx.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>libpd-multi-static.lib;pthreadVC.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpd-multi-static.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../../Dependencies/LibPd/libs;../../../Dependencies/LibPd/build/msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <Lib>
