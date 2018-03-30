@@ -136,22 +136,22 @@
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="Camomile"
                        binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
-                       useRuntimeLibDLL="1" defines="PD_LONGINTTYPE=long\ long"/>
+                       useRuntimeLibDLL="0" defines="PD_LONGINTTYPE=long\ long"/>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="Camomile"
                        binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
-                       useRuntimeLibDLL="1" defines="PD_LONGINTTYPE=long\ long"/>
+                       useRuntimeLibDLL="0" defines="PD_LONGINTTYPE=long\ long"/>
         <CONFIGURATION name="Debug32" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="Camomile"
                        binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
-                       useRuntimeLibDLL="1"/>
+                       useRuntimeLibDLL="0"/>
         <CONFIGURATION name="Release32" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="Camomile"
                        binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
-                       useRuntimeLibDLL="1"/>
+                       useRuntimeLibDLL="0"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../Juce/modules"/>

@@ -23,16 +23,17 @@ install:
     - mkdir %LIBPD_DIR%\build
     - mkdir %LIBPD_DIR%\build\msvc
     - cd "%PTHREAD_DIR%\\include" && copy "*.h" "%LIBPD_DIR%\\pure-data\\src"
-    - cd "%PTHREAD_DIR%\\lib\\%PTHREAD%" && copy "pthreadVC2.lib" "%LIBPD_DIR%\\build\\msvc\\pthreadVC.lib"
+    - cd "%PTHREAD_DIR%\\lib\\%PTHREAD%" && copy "pthreadVC2.lib" "%LIBPD_DIR%\\build\\msvc\\pthreadVC2.lib"
     - cd "%APPVEYOR_BUILD_FOLDER%"
 build_script:
     - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
-    - cmake -G "%COMPILER%" -DPD_MULTI=ON -DPD_UTILS=OFF ../..
+    - cmake -G "%COMPILER%" -DPD_MULTI=ON -DPD_UTILS=OFF -DMSVC_STATIC_RUNTIME=ON -DMSVC_PTHREAD_LIB="pthreadVC2.lib" ../..
     - msbuild libpd.sln /t:libpdstatic /p:Configuration=Release /p:Platform=%PLATFORM%
     - cd %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\
     - msbuild Camomile.sln /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
     - cd %APPVEYOR_BUILD_FOLDER%\Effect\Builds\VisualStudio2015\
     - msbuild CamomileFx.sln /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
+
 after_build:
     - cd %APPVEYOR_BUILD_FOLDER%
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST\Camomile.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.dll
@@ -50,7 +51,7 @@ after_build:
     - rename %APPVEYOR_BUILD_FOLDER%\Plugins Camomile
     - 7z a %ZIPFILE%.zip %APPVEYOR_BUILD_FOLDER%\Camomile\
     - del %APPVEYOR_BUILD_FOLDER%\pthreads.zip
-    
+
 artifacts:
   - path: '*.zip'
 
