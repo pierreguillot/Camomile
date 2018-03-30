@@ -17,12 +17,12 @@ os: Visual Studio 2015
 install:
     - git submodule update --init --recursive
 build_script:
-    - mkdir %APPVEYOR_BUILD_FOLDER%\Dependencies\build && %APPVEYOR_BUILD_FOLDER%\Dependencies\build\mscv
     - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\PthreadWin32
     - msbuild pthread.2015.sln /t:pthread_lib /nologo /p:Configuration=Release /p:Platform=%PLATFORM% /p:TargetName=pthread
     - copy pthread.h %APPVEYOR_BUILD_FOLDER%\Dependencies\pure-data\src\pthread.h
     - copy sched.h %APPVEYOR_BUILD_FOLDER%\Dependencies\pure-data\src\sched.h
     - copy semaphore.h %APPVEYOR_BUILD_FOLDER%\Dependencies\pure-data\src\semaphore.h
+    - mkdir %APPVEYOR_BUILD_FOLDER%\Dependencies\build && mkdir %APPVEYOR_BUILD_FOLDER%\Dependencies\build\mscv
     - copy lib\pthread.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\build\mscv\pthread.lib
     - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
     - cmake -G "%COMPILER%" -DPD_MULTI=ON -DPD_UTILS=OFF -DMSVC_STATIC_RUNTIME=ON -DMSVC_PTHREAD_LIB="pthread.lib" ../..
