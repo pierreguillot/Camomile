@@ -23,9 +23,8 @@ build_script:
     - copy sched.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\sched.h
     - copy semaphore.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\semaphore.h
     - mkdir %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build && mkdir %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\mscv
-    - cd lib
-    - copy pthread_lib.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\mscv\pthread.lib
-    - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
+    - copy lib\pthread_lib.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\mscv\pthread.lib
+    - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\mscv
     - cmake -G "%COMPILER%" -DPD_MULTI=ON -DPD_UTILS=OFF -DMSVC_STATIC_RUNTIME=ON -DMSVC_PTHREAD_LIB="pthread.lib" ../..
     - msbuild libpd.sln /t:libpdstatic /p:Configuration=Release /p:Platform=%PLATFORM%
     - cd %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\
