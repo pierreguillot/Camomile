@@ -17,10 +17,8 @@ install:
     - 7z x -opthreads pthreads.zip  Pre-built.2/dll Pre-built.2/lib Pre-built.2/include
     - mkdir %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build
     - mkdir %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
-    - copy *.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src
-    - cd %APPVEYOR_BUILD_FOLDER%\pthreads\Pre-built.2\lib\%PTHREAD%
-    - copy pthreadVC2.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msv\pthreadVC.lib"
-    - cd %APPVEYOR_BUILD_FOLDER%
+    - for %APPVEYOR_BUILD_FOLDER%\pthreads\Pre-built.2\include %%f in (*.xml) do copy %%f %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src
+    - copy %APPVEYOR_BUILD_FOLDER%\pthreads\Pre-built.2\lib\%PTHREAD%\pthreadVC2.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msv\pthreadVC.lib"
 build_script:
     - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
     - cmake -G "%COMPILER%" -DPD_MULTI=ON -DPD_UTILS=OFF ../..
