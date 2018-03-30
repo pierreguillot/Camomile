@@ -20,7 +20,7 @@ matrix:
     - sudo apt-get install -y libwebkit2gtk-4.0-37 libwebkit2gtk-4.0-dev
     script:
     - mkdir Dependencies/LibPd/build && mkdir Dependencies/LibPd/build/makefile/ && cd Dependencies/LibPd/build/makefile
-    - cmake -DCMAKE_BUILD_TYPE=Release -DPD_MULTI=ON ../..
+    - cmake -DCMAKE_BUILD_TYPE=Release -DPD_MULTI=ON -DPD_UTILS=OFF ../..
     - cd ../../../..
     - make -C Dependencies/LibPd/build/makefile libpdstatic
     - make -C Instrument/Builds/LinuxMakefile TARGET_ARCH=-m64 CONFIG=Release
@@ -40,7 +40,7 @@ matrix:
     env: release=CamomileMacOS
     script:
     - mkdir Dependencies/LibPd/build && mkdir Dependencies/LibPd/build/xcode/ && cd Dependencies/LibPd/build/xcode
-    - cmake -GXcode -DPD_MULTI=ON ../..
+    - cmake -GXcode -DPD_MULTI=ON -DPD_UTILS=OFF ../..
     - cd ../../../..
     - xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release
     before_deploy:
