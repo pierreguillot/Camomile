@@ -17,10 +17,8 @@ install:
     - 7z x -opthreads pthreads.zip  Pre-built.2/dll Pre-built.2/lib Pre-built.2/include
     - mkdir %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build
     - mkdir %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
-    - set LIBPDBUILD_DIR="%APPVEYOR_BUILD_FOLDER%\\Dependencies\\LibPd\\build\\msvc"
-    - cd APPVEYOR_BUILD_FOLDER%\pthreads\Pre-built.2\include
     - copy *.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src
-    - cd APPVEYOR_BUILD_FOLDER%\pthreads\Pre-built.2\lib\%PTHREAD%
+    - cd %APPVEYOR_BUILD_FOLDER%\pthreads\Pre-built.2\lib\%PTHREAD%
     - copy pthreadVC2.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msv\pthreadVC.lib"
     - cd %APPVEYOR_BUILD_FOLDER%
 build_script:
