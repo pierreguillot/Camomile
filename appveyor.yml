@@ -26,8 +26,15 @@ install:
     - cd "%PTHREAD_DIR%\\lib\\%PTHREAD%" && copy "pthreadVC2.lib" "%LIBPD_DIR%\\build\\msvc\\pthreadVC2.lib"
     - cd "%APPVEYOR_BUILD_FOLDER%"
 build_script:
+    - mkdir %APPVEYOR_BUILD_FOLDER%\Dependencies\build && %APPVEYOR_BUILD_FOLDER%\Dependencies\build\mscv
+    - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\PthreadWin32
+    - msbuild pthread.2015.sln /t:pthread_lib /nologo /p:Configuration=Release /p:Platform=%PLATFORM% /p:TargetName=pthread
+    - copy pthread.h %APPVEYOR_BUILD_FOLDER%\Dependencies\pure-data\src\pthread.h
+    - copy sched.h %APPVEYOR_BUILD_FOLDER%\Dependencies\pure-data\src\sched.h
+    - copy semaphore.h %APPVEYOR_BUILD_FOLDER%\Dependencies\pure-data\src\semaphore.h
+    - copy lib\pthread.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\build\mscv\pthread.lib
     - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
-    - cmake -G "%COMPILER%" -DPD_MULTI=ON -DPD_UTILS=OFF -DMSVC_STATIC_RUNTIME=ON -DMSVC_PTHREAD_LIB="pthreadVC2.lib" ../..
+    - cmake -G "%COMPILER%" -DPD_MULTI=ON -DPD_UTILS=OFF -DMSVC_STATIC_RUNTIME=ON -DMSVC_PTHREAD_LIB="pthread.lib" ../..
     - msbuild libpd.sln /t:libpdstatic /p:Configuration=Release /p:Platform=%PLATFORM%
     - cd %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\
     - msbuild Camomile.sln /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
