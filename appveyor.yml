@@ -13,12 +13,13 @@ environment:
 os: Visual Studio 2015
 
 install:
+    - git submodule update --init --recursive
     - curl ftp://sourceware.org/pub/pthreads-win32/pthreads-w32-2-9-1-release.zip -o pthreads.zip
     - 7z x -opthreads pthreads.zip  Pre-built.2/dll Pre-built.2/lib Pre-built.2/include
+    - set PTHREAD_DIR="%APPVEYOR_BUILD_FOLDER%\\pthreads\\Pre-built.2"
     - set LIBPD_DIR="%APPVEYOR_BUILD_FOLDER%\\Dependencies\\LibPd"
     - mkdir %LIBPD_DIR%\build
     - mkdir %LIBPD_DIR%\build\msvc
-    - set PTHREAD_DIR="%APPVEYOR_BUILD_FOLDER%\\pthreads\\Pre-built.2"
     - cd "%PTHREAD_DIR%\\include" && copy "*.h" "%LIBPD_DIR%\\pure-data\\src"
     - cd "%PTHREAD_DIR%\\lib\\%PTHREAD%" && copy "pthreadVC2.lib" "%LIBPD_DIR%\\build\\msvc\\pthreadVC.lib"
     - cd "%APPVEYOR_BUILD_FOLDER%"
