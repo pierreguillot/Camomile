@@ -13,3 +13,6 @@ url=https://github.com/pierreguillot/JUCE.git
 [submodule "Dependencies/LibPd"]
 	path = Dependencies/LibPd
 	url = https://pierreguillot@github.com/pierreguillot/libpd.git
+[submodule "Dependencies/PthreadWin32"]
+	path = Dependencies/PthreadWin32
+	url = https://github.com/GerHobbelt/pthread-win32.git
