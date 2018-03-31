@@ -475,11 +475,11 @@ GuiTextEditor::GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g) : Plugin
 
 void GuiTextEditor::labelTextChanged(Label* lbl)
 {
-    const String value = lbl->getText();
-    if(value.isNotEmpty())
+    const String strval = lbl->getText();
+    if(strval.isNotEmpty())
     {
         startEdition();
-        setValueOriginal(static_cast<float>(value.getDoubleValue()));
+        setValueOriginal(static_cast<float>(strval.getDoubleValue()));
         lbl->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
         stopEdition();
     }
@@ -724,10 +724,10 @@ void GuiAtomSymbol::mouseDoubleClick(const MouseEvent&)
 
 void GuiAtomSymbol::labelTextChanged(Label* lbl)
 {
-    const String value = lbl->getText();
-    if(value.isNotEmpty())
+    const String strval = lbl->getText();
+    if(strval.isNotEmpty())
     {
-        gui.setSymbol(value.toStdString());
+        gui.setSymbol(strval.toStdString());
         lbl->setText(String(gui.getSymbol()), NotificationType::dontSendNotification);
         last = gui.getSymbol();
     }

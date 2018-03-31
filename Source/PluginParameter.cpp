@@ -264,7 +264,9 @@ void CamomileAudioParameter::loadStateInformation(XmlElement const& xml, OwnedAr
     {
         for(int i = 0; i < parameters.size(); ++i)
         {
-            parameters[i]->setValue(params->getDoubleAttribute(String("param") + String(i+1), parameters[i]->getValue()));
+            const float navalue = static_cast<float>(params->getDoubleAttribute(String("param") + String(i+1),
+                                                                                static_cast<double>(parameters[i]->getValue())));
+            parameters[i]->setValue(navalue);
         }
     }
 }
