@@ -33,10 +33,10 @@ build_script:
     - msbuild libpd.sln /t:libpdstatic /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=%PLATFORM%
     # Compile Camomile Instrument
     - cd %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\
-    - msbuild Camomile.sln /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
+    - msbuild Camomile.sln /nologo /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
     # Compile Camomile Effect
     - cd %APPVEYOR_BUILD_FOLDER%\Effect\Builds\VisualStudio2015\
-    - msbuild CamomileFx.sln /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
+    - msbuild CamomileFx.sln /nologo /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
 
 after_build:
     - cd %APPVEYOR_BUILD_FOLDER%
