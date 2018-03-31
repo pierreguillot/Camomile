@@ -16,23 +16,28 @@ os: Visual Studio 2015
 
 install:
     - git submodule update --init --recursive
+    # Install pthread-win32
+    - cd Dependencies
+    - curl https://github.com/GerHobbelt/pthread-win32/archive/master.zip -o PthreadWin32.zip
+    - 7z x -oPthreadWin32 PthreadWin32.zip
 build_script:
+    # Compile pthread-win32
     - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\PthreadWin32
     - msbuild pthread.2015.sln /t:pthread_lib /nologo /p:Configuration=Release /p:Platform=%PLATFORM% /p:OutDir=lib/
-
+    # Copy pthread-win32 headers and library in pure-data directory
     - copy pthread.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\pthread.h
     - copy sched.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\sched.h
     - copy semaphore.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\semaphore.h
     - mkdir %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build && mkdir %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
     - copy lib\pthread_lib.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc\pthread.lib
-
+    # Compile libpd
     - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
     - cmake -G "%COMPILER%" -DPD_MULTI=ON -DPD_UTILS=OFF -DMSVC_PTHREAD_LIB="pthread.lib" ../..
     - msbuild libpd.sln /t:libpdstatic /nologo /p:Configuration=Release /p:Platform=%PLATFORM% /verbosity:quiet
-
+    # Compile Camomile Instrument
     - cd %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\
     - msbuild Camomile.sln /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
-
+    # Compile Camomile Effect
     - cd %APPVEYOR_BUILD_FOLDER%\Effect\Builds\VisualStudio2015\
     - msbuild CamomileFx.sln /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
 
@@ -52,7 +57,6 @@ after_build:
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\ /S /Q
     - rename %APPVEYOR_BUILD_FOLDER%\Plugins Camomile
     - 7z a %ZIPFILE%.zip %APPVEYOR_BUILD_FOLDER%\Camomile\
-    - del %APPVEYOR_BUILD_FOLDER%\pthreads.zip
 
 artifacts:
   - path: '*.zip'
