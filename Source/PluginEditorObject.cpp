@@ -153,7 +153,7 @@ Label* PluginEditorObject::getLabel()
 
 void GuiBang::paint(Graphics& g)
 {
-    const int border = 1.f;
+    const float border = 1.f;
     const float w = static_cast<float>(getWidth() - border * 2);
     g.fillAll(Colour(static_cast<uint32>(gui.getBackgroundColor())));
     if(getValueOriginal() > std::numeric_limits<float>::epsilon())
@@ -456,7 +456,7 @@ void GuiComment::paint(Graphics& g)
 GuiTextEditor::GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g)
 {
     const int border = 1;
-    const float fs = gui.getFontSize();
+    const float fs = static_cast<float>(gui.getFontSize());
     Font const tf = CamoLookAndFeel::getDefaultFont().withHeight(fs);
     
     label = new Label();
@@ -473,14 +473,14 @@ GuiTextEditor::GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g) : Plugin
     addAndMakeVisible(label);
 }
 
-void GuiTextEditor::labelTextChanged(Label* label)
+void GuiTextEditor::labelTextChanged(Label* lbl)
 {
-    const String value = label->getText();
+    const String value = lbl->getText();
     if(value.isNotEmpty())
     {
         startEdition();
-        setValueOriginal(value.getDoubleValue());
-        label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+        setValueOriginal(static_cast<float>(value.getDoubleValue()));
+        lbl->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
         stopEdition();
     }
 }
@@ -674,7 +674,7 @@ void GuiAtomNumber::mouseDoubleClick(const MouseEvent&)
         TextEditor* editor = label->getCurrentTextEditor();
         if(editor)
         {
-            editor->setIndents(0.5, 2);
+            editor->setIndents(1, 2);
             editor->setBorder(BorderSize<int>(0));
         }
     }
@@ -717,18 +717,18 @@ void GuiAtomSymbol::mouseDoubleClick(const MouseEvent&)
     TextEditor* editor = label->getCurrentTextEditor();
     if(editor)
     {
-        editor->setIndents(0.5, 2);
+        editor->setIndents(1, 2);
         editor->setBorder(BorderSize<int>(0));
     }
 }
 
-void GuiAtomSymbol::labelTextChanged(Label* label)
+void GuiAtomSymbol::labelTextChanged(Label* lbl)
 {
-    const String value = label->getText();
+    const String value = lbl->getText();
     if(value.isNotEmpty())
     {
         gui.setSymbol(value.toStdString());
-        label->setText(String(gui.getSymbol()), NotificationType::dontSendNotification);
+        lbl->setText(String(gui.getSymbol()), NotificationType::dontSendNotification);
         last = gui.getSymbol();
     }
 }
