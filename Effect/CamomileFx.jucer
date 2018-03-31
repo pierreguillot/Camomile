@@ -129,7 +129,7 @@
     </XCODE_MAC>
     <VS2015 targetFolder="Builds/VisualStudio2015" windowsTargetPlatformVersion="8.1"
             vst3Folder="../Dependencies/Vst" externalLibraries="libpd-multi-static.lib&#10;pthread.lib "
-            extraCompilerFlags="/wd4091 &#10;/wd4996&#10;/wd4100&#10;/wd4706&#10;/wd4210"
+            extraCompilerFlags="/wd4091 &#10;/wd4996&#10;/wd4100&#10;/wd4706&#10;/wd4210&#10;/wd4711"
             extraLinkerFlags="" extraDefs="PTW32_STATIC_LIB=1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
