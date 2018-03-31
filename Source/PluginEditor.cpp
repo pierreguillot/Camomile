@@ -12,8 +12,8 @@
 CamomileEditor::CamomileEditor(CamomileAudioProcessor& p) :
 AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), m_processor (p), m_button(p)
 {
-    static CamoLookAndFeel lookAndFeel;
-    LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
+    static CamoLookAndFeel laf;
+    LookAndFeel::setDefaultLookAndFeel(&laf);
     
     setOpaque(true);
     setWantsKeyboardFocus(true);
