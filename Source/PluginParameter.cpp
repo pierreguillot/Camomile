@@ -16,19 +16,33 @@ CamomileAudioParameter::CamomileAudioParameter(const String& name, const String&
                                                const float min, const float max,
                                                const float def, const int nsteps,
                                                const bool automatable, const bool meta) :
-m_name(name), m_label(label),
-m_minimum(min), m_maximum(max),
-m_default(def), m_nsteps(nsteps),
-m_automatable(automatable), m_meta(meta) { m_value = getDefaultValue(); }
+m_name(name),
+m_label(label),
+m_minimum(min),
+m_maximum(max),
+m_default(def),
+m_nsteps(nsteps),
+m_automatable(automatable),
+m_meta(meta)
+{
+    m_value = getDefaultValue();
+}
 
 CamomileAudioParameter::CamomileAudioParameter(const String& name, const String& label,
                                                StringArray const& elems, const int def,
                                                const bool automatable, const bool meta) :
-m_name(name), m_label(label),
-m_minimum(0), m_maximum(elems.size() - 1),
-m_default(static_cast<float>(def)), m_nsteps(elems.size()),
-m_automatable(automatable), m_meta(meta),
-m_elements(elems) { m_value = getDefaultValue(); }
+m_name(name),
+m_label(label),
+m_minimum(0.f),
+m_maximum(static_cast<float>(elems.size() - 1)),
+m_default(static_cast<float>(def)),
+m_nsteps(elems.size()),
+m_automatable(automatable),
+m_meta(meta),
+m_elements(elems)
+{
+    m_value = getDefaultValue();
+}
 
 CamomileAudioParameter::~CamomileAudioParameter() {}
 
@@ -238,7 +252,7 @@ void CamomileAudioParameter::saveStateInformation(XmlElement& xml, OwnedArray<Au
     {
         for(int i = 0; i < parameters.size(); ++i)
         {
-            params->setAttribute(String("param") + String(i+1), parameters[i]->getValue());
+            params->setAttribute(String("param") + String(i+1), static_cast<double>(parameters[i]->getValue()));
         }
     }
 }
