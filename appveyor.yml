@@ -15,7 +15,7 @@ os: Visual Studio 2015
 install:
     - git submodule update --init --recursive
     # Install pthread-win32
-    - git clone https://github.com/GerHobbelt/pthread-win32.git /PthreadWin32
+    - git clone -q https://github.com/GerHobbelt/pthread-win32.git Dependencies\PthreadWin32
 build_script:
     # Compile pthread-win32
     - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\PthreadWin32
