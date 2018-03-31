@@ -11,8 +11,8 @@
 #include "PdPatch.hpp"
 #include "PdAtom.hpp"
 
-#include "../../Dependencies/ReaderwriterQueue/readerwriterqueue.h"
-#include "../../Dependencies/ConcurrentQueue/concurrentqueue.h"
+#include "../Queues/readerwriterqueue.h"
+#include "../Queues/concurrentqueue.h"
 
 namespace pd
 {
