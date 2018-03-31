@@ -130,7 +130,7 @@ void PluginEditorConsole::copySelection()
 void PluginEditorConsole::paint(Graphics& g)
 {
     g.setColour(Colours::black.withAlpha(0.5f));
-    g.drawHorizontalLine(getHeight() - 28, 2, getWidth() - 2);
+    g.drawHorizontalLine(getHeight() - 28, 2.f, static_cast<float>(getWidth()) - 2.f);
 }
 
 void PluginEditorConsole::resized()
@@ -186,7 +186,7 @@ void PluginEditorConsole::buttonClicked(Button* button)
         
         stopTimer();
         int const level = m.show(0, 0, static_cast<int>(CamoLookAndFeel::getDefaultFont().getHeight()) + 2);
-        if(bool(level) && static_cast<ConsoleLevel>(level - 1) != m_level)
+        if(level != 0 && static_cast<ConsoleLevel>(level - 1) != m_level)
         {
             m_level = static_cast<ConsoleLevel>(level - 1);
             m_size  = m_history.size(m_level);
