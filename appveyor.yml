@@ -19,16 +19,20 @@ install:
 build_script:
     - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\PthreadWin32
     - msbuild pthread.2015.sln /t:pthread_lib /nologo /p:Configuration=Release /p:Platform=%PLATFORM% /p:OutDir=lib/
+
     - copy pthread.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\pthread.h
     - copy sched.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\sched.h
     - copy semaphore.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\semaphore.h
     - mkdir %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build && mkdir %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
     - copy lib\pthread_lib.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc\pthread.lib
+
     - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
     - cmake -G "%COMPILER%" -DPD_MULTI=ON -DPD_UTILS=OFF -DMSVC_PTHREAD_LIB="pthread.lib" ../..
-    - msbuild libpd.sln /t:libpdstatic /p:Configuration=Release /p:Platform=%PLATFORM%
+    - msbuild libpd.sln /t:libpdstatic /nologo /p:Configuration=Release /p:Platform=%PLATFORM% /verbosity:quiet
+
     - cd %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\
     - msbuild Camomile.sln /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
+
     - cd %APPVEYOR_BUILD_FOLDER%\Effect\Builds\VisualStudio2015\
     - msbuild CamomileFx.sln /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
 
