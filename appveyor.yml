@@ -20,6 +20,8 @@ build_script:
     # Compile pthread-win32
     - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\PthreadWin32
     - sed -i 's/4820;4668;4255;/4820;4668;4255;4711;4100;4312;4127;4296;4456;4619;4310;4311;/' pthread_lib.2015.vcxproj
+    - sed -i 's/MultiThreadedDLL/MultiThreaded/' pthread_lib.2015.vcxproj
+    - sed -i 's/MultiThreadedDebugDLL/MultiThreadedDebug/' pthread_lib.2015.vcxproj
     - msbuild pthread.2015.sln /t:pthread_lib /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=%PLATFORM% /p:OutDir=lib/
     # Copy pthread-win32 headers and library in pure-data directory
     - copy pthread.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\pthread.h
