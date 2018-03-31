@@ -19,7 +19,7 @@ install:
 build_script:
     # Compile pthread-win32
     - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\PthreadWin32
-    - msbuild pthread.2015.sln /t:pthread_lib /nologo /p:Configuration=Release /p:Platform=%PLATFORM% /p:OutDir=lib/
+    - msbuild pthread.2015.sln /t:pthread_lib /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=%PLATFORM% /p:OutDir=lib/
     # Copy pthread-win32 headers and library in pure-data directory
     - copy pthread.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\pthread.h
     - copy sched.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\sched.h
@@ -29,7 +29,7 @@ build_script:
     # Compile libpd
     - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
     - cmake -G "%COMPILER%" -DPD_MULTI=ON -DPD_UTILS=OFF -DMSVC_PTHREAD_LIB="pthread.lib" ../..
-    - msbuild libpd.sln /t:libpdstatic /nologo /p:Configuration=Release /p:Platform=%PLATFORM% /verbosity:quiet
+    - msbuild libpd.sln /t:libpdstatic /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=%PLATFORM%
     # Compile Camomile Instrument
     - cd %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\
     - msbuild Camomile.sln /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
