@@ -2,12 +2,10 @@
 environment:
    matrix:
       - PLATFORM: x64
-        PTHREAD: x64
         COMPILER: "Visual Studio 14 2015 Win64"
         RELEASE: Release
         ZIPFILE: CamomileWindows64
       - PLATFORM: Win32
-        PTHREAD: x86
         COMPILER: "Visual Studio 14 2015"
         RELEASE: Release32
         ZIPFILE: CamomileWindows32
