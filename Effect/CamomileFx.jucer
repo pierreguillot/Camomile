@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="Kpq9Ee" name="CamomileFx" displaySplashScreen="1" reportAppUsage="1"
-              splashScreenColour="Dark" projectType="audioplug" version="1.0.3"
+              splashScreenColour="Dark" projectType="audioplug" version="1.0.4"
               bundleIdentifier="com.pierreguillot.camomile" includeBinaryInAppConfig="1"
               cppLanguageStandard="11" companyCopyright="Pierre Guillot" buildVST="1"
               buildVST3="1" buildAU="1" buildAUv3="0" buildRTAS="0" buildAAX="0"
@@ -10,9 +10,9 @@
               pluginCode="Kpq9" pluginChannelConfigs="" pluginIsSynth="0" pluginWantsMidiIn="1"
               pluginProducesMidiOut="1" pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="1"
               pluginAUExportPrefix="CamomileFxAU" pluginRTASCategory="" aaxIdentifier="com.pierreguillot.camomilefx"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.2.1"
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.3.0"
               companyName="Pierre Guillot" headerPath="../../../Dependencies/LibPd/pure-data/src&#10;../../../Dependencies/LibPd/libpd_wrapper&#10;../../../Dependencies/LibPd/libpd_wrapper/util&#10;../../../Dependencies/LibPd/cpp&#10;"
-              defines="HAVE_UNISTD_H=1" companyWebsite="github.com/pierreguillot/camomile">
+              companyWebsite="github.com/pierreguillot/camomile" defines="PD_INTERNAL=1">
   <MAINGROUP id="BLNPyv" name="CamomileFx">
     <GROUP id="{D4367A82-F269-8F5A-1C22-AB42C90672ED}" name="Source">
       <FILE id="dsxHyi" name="PluginProcessor.cpp" compile="1" resource="0"
@@ -58,29 +58,37 @@
       <GROUP id="{42D4795F-C693-1C4C-D4AF-C6B0DC06B00D}" name="Pd">
         <FILE id="OkoB07" name="PdInstance.cpp" compile="1" resource="0" file="../Source/Pd/PdInstance.cpp"/>
         <FILE id="blrCIt" name="PdInstance.hpp" compile="0" resource="0" file="../Source/Pd/PdInstance.hpp"/>
-        <FILE id="aYOfwq" name="PdObject.cpp" compile="1" resource="0" file="../Source/Pd/PdObject.cpp"/>
-        <FILE id="fYgI6J" name="PdObject.hpp" compile="0" resource="0" file="../Source/Pd/PdObject.hpp"/>
         <FILE id="Yh77qx" name="PdPatch.cpp" compile="1" resource="0" file="../Source/Pd/PdPatch.cpp"/>
         <FILE id="XaK3av" name="PdPatch.hpp" compile="0" resource="0" file="../Source/Pd/PdPatch.hpp"/>
+        <FILE id="jvFfeY" name="PdGui.cpp" compile="1" resource="0" file="../Source/Pd/PdGui.cpp"/>
+        <FILE id="Nb9fyc" name="PdGui.hpp" compile="0" resource="0" file="../Source/Pd/PdGui.hpp"/>
+        <FILE id="L5HVZ7" name="PdArray.cpp" compile="1" resource="0" file="../Source/Pd/PdArray.cpp"/>
+        <FILE id="jxK4EL" name="PdArray.hpp" compile="0" resource="0" file="../Source/Pd/PdArray.hpp"/>
+        <FILE id="aYOfwq" name="PdObject.cpp" compile="1" resource="0" file="../Source/Pd/PdObject.cpp"/>
+        <FILE id="fYgI6J" name="PdObject.hpp" compile="0" resource="0" file="../Source/Pd/PdObject.hpp"/>
+        <FILE id="FSEKGW" name="PdAtom.hpp" compile="0" resource="0" file="../Source/Pd/PdAtom.hpp"/>
         <FILE id="xDjpgl" name="x_libpd_multi.c" compile="1" resource="0" file="../Source/Pd/x_libpd_multi.c"/>
         <FILE id="rQuXOy" name="x_libpd_multi.h" compile="0" resource="0" file="../Source/Pd/x_libpd_multi.h"/>
+        <FILE id="YOX2Lr" name="x_libpd_extra_utils.c" compile="1" resource="0"
+              file="../Source/Pd/x_libpd_extra_utils.c"/>
+        <FILE id="ajZCxi" name="x_libpd_extra_utils.h" compile="0" resource="0"
+              file="../Source/Pd/x_libpd_extra_utils.h"/>
       </GROUP>
     </GROUP>
     <GROUP id="{F3E95E26-375E-BDC8-C48D-8BFDD754028C}" name="Ressources">
       <GROUP id="{4C642A19-4C7E-354A-3CA5-FF3CA080A50D}" name="Credits">
-        <FILE id="XJrMVh" name="CreditsAU" compile="0" resource="1" file="../Ressources/Credits/CreditsAU"/>
-        <FILE id="ORibpS" name="CreditsVST" compile="0" resource="1" file="../Ressources/Credits/CreditsVST"/>
+        <FILE id="pfaq9d" name="CreditsAU" compile="0" resource="1" file="../Ressources/Credits/CreditsAU"/>
+        <FILE id="zEmzDl" name="CreditsVST" compile="0" resource="1" file="../Ressources/Credits/CreditsVST"/>
       </GROUP>
       <GROUP id="{841D6A4F-6B7E-B658-5EED-5BDDF9B8CEF3}" name="Images">
-        <FILE id="iu60vP" name="clear1.png" compile="0" resource="1" file="../Ressources/Images/clear1.png"/>
-        <FILE id="TooGdB" name="clear2.png" compile="0" resource="1" file="../Ressources/Images/clear2.png"/>
-        <FILE id="eHb0h7" name="copy1.png" compile="0" resource="1" file="../Ressources/Images/copy1.png"/>
-        <FILE id="IUTkg2" name="copy2.png" compile="0" resource="1" file="../Ressources/Images/copy2.png"/>
         <FILE id="QiXrH2" name="flower_center.png" compile="0" resource="1"
               file="../Ressources/Images/flower_center.png"/>
         <FILE id="NGmBWC" name="flower_petals.png" compile="0" resource="1"
               file="../Ressources/Images/flower_petals.png"/>
-        <FILE id="JHzbJa" name="option.png" compile="0" resource="1" file="../Ressources/Images/option.png"/>
+        <FILE id="p75Fhl" name="copy.png" compile="0" resource="1" file="../Ressources/Images/copy.png"/>
+        <FILE id="JeDrnn" name="garbage.png" compile="0" resource="1" file="../Ressources/Images/garbage.png"/>
+        <FILE id="BMA78Q" name="reload.png" compile="0" resource="1" file="../Ressources/Images/reload.png"/>
+        <FILE id="NBFdfk" name="settings.png" compile="0" resource="1" file="../Ressources/Images/settings.png"/>
       </GROUP>
       <GROUP id="{9C58406C-231A-D778-A142-80E210DE0081}" name="Polices">
         <FILE id="uabWQL" name="DejaVuSansMono.ttf" compile="0" resource="1"
@@ -90,8 +98,8 @@
   </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" vst3Folder="../Dependencies/Vst"
-               externalLibraries="pd" customXcodeResourceFolders="" postbuildCommand=""
-               keepCustomXcodeSchemes="1">
+               externalLibraries="pd-multi" customXcodeResourceFolders="" postbuildCommand=""
+               keepCustomXcodeSchemes="1" extraDefs="HAVE_UNISTD_H=1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" enablePluginBinaryCopyStep="0" isDebug="1" optimisation="1"
                        linkTimeOptimisation="0" targetName="CamomileFx" osxCompatibility="10.9 SDK"
@@ -120,30 +128,30 @@
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2015 targetFolder="Builds/VisualStudio2015" windowsTargetPlatformVersion="8.1"
-            vst3Folder="../Dependencies/Vst" externalLibraries="libpd.lib"
-            extraCompilerFlags="/wd4091 &#10;/wd4996&#10;/wd4100&#10;/wd4706&#10;/wd4210"
-            extraLinkerFlags="">
+            vst3Folder="../Dependencies/Vst" externalLibraries="libpd-multi-static.lib&#10;pthread.lib "
+            extraCompilerFlags="/wd4091 &#10;/wd4996&#10;/wd4100&#10;/wd4706&#10;/wd4210&#10;/wd4711&#10;/wd4127"
+            extraLinkerFlags="" extraDefs="PTW32_STATIC_LIB=1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="CamomileFx"
-                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs"
-                       useRuntimeLibDLL="" headerPath="PD_LONGINTTYPE=long\ long"/>
+                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
+                       useRuntimeLibDLL="0" defines="PD_LONGINTTYPE=long\ long"/>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="CamomileFx"
-                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs"
-                       useRuntimeLibDLL="" headerPath="PD_LONGINTTYPE=long\ long"/>
+                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
+                       useRuntimeLibDLL="0" defines="PD_LONGINTTYPE=long\ long"/>
         <CONFIGURATION name="Debug32" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="CamomileFx"
-                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs"
-                       useRuntimeLibDLL=""/>
+                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
+                       useRuntimeLibDLL="0"/>
         <CONFIGURATION name="Release32" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="CamomileFx"
-                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs"
-                       useRuntimeLibDLL=""/>
+                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
+                       useRuntimeLibDLL="0"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../Juce/modules"/>
@@ -160,7 +168,8 @@
         <MODULEPATH id="juce_audio_devices" path="../Juce/modules"/>
       </MODULEPATHS>
     </VS2015>
-    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraLinkerFlags="" externalLibraries="pd">
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraLinkerFlags="" externalLibraries="pd-multi"
+                extraDefs="HAVE_UNISTD_H=1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" linkTimeOptimisation="0"
                        targetName="CamomileFx" libraryPath="../../../Dependencies/LibPd/libs"

@@ -5,14 +5,22 @@
  */
 
 #include "PluginEditorInteraction.h"
+#include "PluginLookAndFeel.hpp"
+#include "PluginEditorObject.hpp"
 #include <locale> // std::locale;
+#include <atomic>
+#include <algorithm>
+
+template <typename T> T clip(const T& n, const T& lower, const T& upper) {
+    return std::max(lower, std::min(n, upper));
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                      INTERACTION                                         //
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 CamomileEditorInteractionManager::CamomileEditorInteractionManager(CamomileAudioProcessor& processor) :
-CamomileEditorKeyManager(processor), CamomileEditorMouseManager(processor), CamomileEditorPanelManager(processor)
+CamomileEditorKeyManager(processor), CamomileEditorMouseManager(processor), CamomileEditorMessageManager(processor)
 {
     
 }
@@ -134,30 +142,162 @@ void CamomileEditorMouseManager::stopEdition() {
 //                                      PANEL MANAGER                                       //
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-const std::string CamomileEditorPanelManager::string_openpanel = std::string("openpanel");
-const std::string CamomileEditorPanelManager::string_savepanel = std::string("savepanel");
 
-bool CamomileEditorPanelManager::processMessages()
+class CamomileEditorMessageWindow : public DocumentWindow
+{
+public:
+    CamomileEditorMessageWindow() : DocumentWindow(String(""), Colours::lightgrey, DocumentWindow::closeButton, false)
+    {
+        setUsingNativeTitleBar(true);
+        setBounds(50, 50, 300, 120);
+        setResizable(true, true);
+        setDropShadowEnabled(true);
+        setVisible(true);
+    }
+    
+    void closeButtonPressed() { removeFromDesktop(); }
+private:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorMessageWindow)
+};
+
+class GraphicalArrayOwner : public Component
+{
+public:
+    GraphicalArrayOwner(CamomileAudioProcessor& processor, std::string const& name) :
+    m_graph(processor.getArray(name)),
+    m_array(processor, m_graph)
+    {
+        setInterceptsMouseClicks(false, true);
+        m_array.setBounds(getLocalBounds().reduced(20));
+        addAndMakeVisible(&m_array);
+    }
+
+    void paint(Graphics& g) final
+    {
+        {
+            const Rectangle<float> rbounds = getLocalBounds().reduced(20).toFloat();
+            const float x = rbounds.getX();
+            const float y = rbounds.getY();
+            const float h = rbounds.getHeight();
+            const float w = rbounds.getWidth();
+            g.setColour(Colours::white);
+            g.fillRect(rbounds);
+            g.setColour(Colours::darkgrey);
+            g.drawHorizontalLine(static_cast<int>(y + h * 0.25f), x, x + w);
+            g.drawHorizontalLine(static_cast<int>(y + h * 0.5f), x, x + w);
+            g.drawHorizontalLine(static_cast<int>(y + h * 0.75f), x, x + w);
+            g.drawVerticalLine(static_cast<int>(w * 0.25f), y,  y + h);
+            g.drawVerticalLine(static_cast<int>(w * 0.5f), y,  y + h);
+            g.drawVerticalLine(static_cast<int>(w * 0.75f), y,  y + h);
+        }
+        
+        {
+            const int h = getHeight();
+            const int w = getWidth();
+            const Font ft = CamoLookAndFeel::getDefaultFont().withHeight(12);
+            const String sizetxt = String(m_array.getArraySize());
+            g.setColour(Colours::black);
+            g.setFont(ft);
+            g.drawText("1" , 0, 10, 20, 20, Justification::centred);
+            g.drawText("0" , 0, (h / 2) - 10, 20, 20, Justification::centred);
+            g.drawText("-1", 0, h - 30, 20, 20, Justification::centred);
+            g.drawText("0", 10, h - 20, 20, 20, Justification::centred);
+            g.drawText(sizetxt, w / 2, h - 20, w / 2 - 10, 20, Justification::centredRight);
+        }
+    }
+    
+    void resized() final
+    {
+        m_array.setBounds(getLocalBounds().reduced(20));
+    }
+    
+private:
+    pd::Array      m_graph;
+    GraphicalArray m_array;
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+const std::string CamomileEditorMessageManager::string_openpanel = std::string("openpanel");
+const std::string CamomileEditorMessageManager::string_savepanel = std::string("savepanel");
+const std::string CamomileEditorMessageManager::string_array     = std::string("array");
+const std::string CamomileEditorMessageManager::string_gui       = std::string("gui");
+
+CamomileEditorMessageManager::CamomileEditorMessageManager(CamomileAudioProcessor& processor) : m_processor(processor), m_window(new CamomileEditorMessageWindow())
+{}
+
+bool CamomileEditorMessageManager::processMessages()
 {
     CamomileAudioProcessor::MessageGui message;
     while(m_processor.dequeueGui(message))
     {
-        if(message.first == string_openpanel)
+        if(message[0] == string_openpanel)
         {
-            FileChooser fc("Open...", File(message.second));
+            FileChooser fc("Open...", File(message[1]));
             if(fc.browseForFileToOpen())
             {
                 File const f(fc.getResult());
+                if(!message[2].empty())
+                {
+                    m_processor.suspendProcessing(true);
+                }
                 m_processor.enqueueMessages(string_openpanel, f.getFullPathName().toStdString(), {});
+                if(!message[2].empty())
+                {
+                    m_processor.suspendProcessing(false);
+                }
             }
         }
-        else if(message.first == string_savepanel)
+        else if(message[0] == string_savepanel)
         {
-            FileChooser fc("Open...", File(message.second));
+            FileChooser fc("Open...", File(message[1]));
             if(fc.browseForFileToSave(true))
             {
                 File const f(fc.getResult());
+                if(!message[2].empty())
+                {
+                    m_processor.suspendProcessing(true);
+                }
                 m_processor.enqueueMessages(string_savepanel, f.getFullPathName().toStdString(), {});
+                if(!message[2].empty())
+                {
+                    m_processor.suspendProcessing(false);
+                }
+            }
+        }
+        else if(message[0] == string_array)
+        {
+            GraphicalArrayOwner* garray = new GraphicalArrayOwner(m_processor, message[1]);
+            if(garray)
+            {
+                String const trackname = m_processor.getTrackProperties().name;
+                String const name = CamomileEnvironment::getPluginName() + " - " + message[1]
+                + (trackname.isEmpty() ? "" : trackname);
+                m_window->clearContentComponent();
+                m_window->setName(name);
+                m_window->setContentOwned(garray, false);
+                if(!m_window->isVisible() || !m_window->isShowing())
+                {
+                    m_window->addToDesktop();
+                }
+                m_window->toFront(true);
+                m_window->grabKeyboardFocus();
+            }
+        }
+        else if(message[0] == string_gui)
+        {
+            if(message[1] == std::string("resize"))
+            {
+                guiResize();
+            }
+            else if(message[1] == std::string("redraw"))
+            {
+                guiRedraw();
+            }
+            else
+            {
+                m_processor.add(CamomileAudioProcessor::ConsoleLevel::Error,
+                                "gui method : invalid command \"" + message[1] + "\"");
             }
         }
     }

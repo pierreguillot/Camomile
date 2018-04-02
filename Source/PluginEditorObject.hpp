@@ -7,8 +7,36 @@
 #pragma once
 
 #include "PluginEditorInteraction.h"
-#include "Pd/PdObject.hpp"
+#include "Pd/PdInstance.hpp"
 #include <atomic>
+
+// ==================================================================================== //
+//                                  GRAPHICAL ARRAY                                     //
+// ==================================================================================== //
+
+class GraphicalArray : public Component, private Timer
+{
+public:
+    GraphicalArray(CamomileAudioProcessor& processor, pd::Array& graph);
+    void paint(Graphics& g) final;
+    void mouseDown(const MouseEvent& event) final;
+    void mouseDrag(const MouseEvent& event) final;
+    void mouseUp(const MouseEvent& event) final;
+    size_t getArraySize() const noexcept;
+private:
+    void timerCallback() final;
+    template <typename T> T clip(const T& n, const T& lower, const T& upper) {
+        return std::max(std::min(n, upper), lower);
+    }
+    
+    CamomileAudioProcessor& m_processor;
+    pd::Array               m_array;
+    std::vector<float>      m_vector;
+    std::vector<float>      m_temp;
+    std::atomic<bool>       m_edited;
+    bool                    m_error = false;
+    const std::string string_array = std::string("array");
+};
 
 // ==================================================================================== //
 //                                      GUI OBJECT                                      //
@@ -22,6 +50,7 @@ public:
     
     static PluginEditorObject* createTyped(CamomileEditorMouseManager& p, pd::Gui& g);
     virtual void update();
+    Label* getLabel();
 protected:
     float getValueOriginal() const noexcept;
     void setValueOriginal(float v);
@@ -37,6 +66,7 @@ protected:
     float       value   = 0;
     float       min     = 0;
     float       max     = 1;
+
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PluginEditorObject)
 };
@@ -66,6 +96,8 @@ public:
     void mouseDown(const MouseEvent& e) final;
     void mouseDrag(const MouseEvent& e) final;
     void mouseUp(const MouseEvent& e) final;
+private:
+    float m_temp;
 };
 
 class GuiSliderVertical : public PluginEditorObject
@@ -76,6 +108,8 @@ public:
     void mouseDown(const MouseEvent& e) final;
     void mouseDrag(const MouseEvent& e) final;
     void mouseUp(const MouseEvent& e) final;
+private:
+    float m_temp;
 };
 
 class GuiRadioHorizontal : public PluginEditorObject
@@ -159,4 +193,32 @@ public:
 private:
     std::string          last;
 };
+
+class GuiArray : public PluginEditorObject
+{
+public:
+    GuiArray(CamomileEditorMouseManager& p, pd::Gui& g);
+    void paint(Graphics& ) final {}
+    void resized() final;
+    void update() final {}
+private:
+    pd::Array      m_graph;
+    GraphicalArray m_array;
+};
+
+
+class GuiGraphOnParent : public PluginEditorObject
+{
+public:
+    GuiGraphOnParent(CamomileEditorMouseManager& p, pd::Gui& g);
+    void paint(Graphics& ) final;
+    void resized() final;
+    void update() final;
+private:
+    OwnedArray<PluginEditorObject>  m_objects;
+    OwnedArray<Component>           m_labels;
+};
+
+
+
 

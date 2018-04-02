@@ -53,6 +53,14 @@ PluginEditorObject* PluginEditorObject::createTyped(CamomileEditorMouseManager& 
     {
         return new GuiAtomSymbol(p, g);
     }
+    else if(g.getType() == pd::Gui::Type::Array)
+    {
+        return new GuiArray(p, g);
+    }
+    else if(g.getType() == pd::Gui::Type::GraphOnParent)
+    {
+        return new GuiGraphOnParent(p, g);
+    }
     return new PluginEditorObject(p, g);
 }
 
@@ -115,7 +123,28 @@ void PluginEditorObject::update()
     }
 }
 
-
+Label* PluginEditorObject::getLabel()
+{
+    pd::Label const lbl = gui.getLabel();
+    const String text = String(lbl.getText());
+    if(text.isNotEmpty())
+    {
+        Label* label = new Label();
+        const Font ft = CamoLookAndFeel::getDefaultFont().withHeight(static_cast<float>(gui.getFontSize()));
+        const std::array<int, 2> position = lbl.getPosition();
+        label->setBounds(position[0], position[1] - static_cast<int>(ft.getAscent() / 2.f),
+                         ft.getStringWidth(text) + 1, static_cast<int>(ft.getHeight()));
+        label->setFont(ft);
+        label->setJustificationType(Justification::centredLeft);
+        label->setBorderSize(BorderSize<int>(0, 0, 0, 0));
+        label->setText(text, NotificationType::dontSendNotification);
+        label->setEditable(false, false);
+        label->setInterceptsMouseClicks(false, false);
+        label->setColour(Label::textColourId, Colour(static_cast<uint32>(lbl.getColor())));
+        return label;
+    }
+    return nullptr;
+}
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -134,7 +163,7 @@ void GuiBang::paint(Graphics& g)
     }
     g.setColour(Colours::black);
     g.drawEllipse(border, border, w, w, border);
-    g.drawRect(getLocalBounds(), border);
+    g.drawRect(getLocalBounds(), static_cast<int>(border));
 }
 
 void GuiBang::mouseDown(const MouseEvent& e)
@@ -163,13 +192,13 @@ void GuiToggle::paint(Graphics& g)
     g.fillAll(Colour(static_cast<uint32>(gui.getBackgroundColor())));
     if(getValueOriginal() > std::numeric_limits<float>::epsilon())
     {
-        const float w = static_cast<float>(getWidth() - border * 2);
+        const float w = static_cast<float>(getWidth()) - border * 2.f;
         g.setColour(Colour(static_cast<uint32>(gui.getForegroundColor())));
         g.drawLine(1.f + border, 1.f + border, w, w, border);
         g.drawLine(w, 1.f + border, 1.f + border, w, border);
     }
     g.setColour(Colours::black);
-    g.drawRect(getLocalBounds(), border);
+    g.drawRect(getLocalBounds(), static_cast<int>(border));
 }
 
 void GuiToggle::mouseDown(const MouseEvent& e)
@@ -187,26 +216,64 @@ void GuiToggle::mouseDown(const MouseEvent& e)
 void GuiSliderHorizontal::paint(Graphics& g)
 {
     const float border = 1.f;
-    const float cursor = 3.f;
-    const float w = static_cast<float>(getWidth() - border * 2);
-    const float h = static_cast<float>(getHeight() - border * 2);
-    const float pos = getValueScaled() * (w - cursor - border) + cursor;
+    const float crsor  = 3.f;
+    const float w = static_cast<float>(getWidth()) - border * 2.f;
+    const float h = static_cast<float>(getHeight()) - border * 2.f;
+    const float val = gui.isLogScale() ? log(getValueOriginal() / min) / log(max / min) : getValueScaled();
+    const float pos = val * (w - crsor - border) + crsor;
     g.fillAll(Colour(static_cast<uint32>(gui.getBackgroundColor())));
     g.setColour(Colour(static_cast<uint32>(gui.getForegroundColor())));
-    g.drawLine(pos, border + 0.5f, pos, h + 0.5f, cursor);
+    g.drawLine(pos, border + 0.5f, pos, h + 0.5f, crsor);
     g.setColour(Colours::black);
-    g.drawRect(getLocalBounds(), border);
+    g.drawRect(getLocalBounds(), static_cast<int>(border));
 }
 
 void GuiSliderHorizontal::mouseDown(const MouseEvent& e)
 {
     startEdition();
-    mouseDrag(e);
+    if(gui.jumpOnClick())
+    {
+        mouseDrag(e);
+    }
+    else
+    {
+        if(gui.isLogScale())
+        {
+            m_temp = log(getValueOriginal() / min) / log(max / min);
+        }
+        else
+        {
+            m_temp = getValueScaled();
+        }
+    }
 }
 
 void GuiSliderHorizontal::mouseDrag(const MouseEvent& e)
 {
-    setValueScaled(static_cast<float>(e.x - 2) / static_cast<float>(getWidth() - 4));
+    if(gui.jumpOnClick())
+    {
+        const float val = static_cast<float>(e.x - 2) / static_cast<float>(getWidth() - 4);
+        if(gui.isLogScale())
+        {
+            setValueOriginal(exp(val * log(max / min)) * min);
+        }
+        else
+        {
+            setValueScaled(val);
+        }
+    }
+    else
+    {
+        const float val = static_cast<float>(e.x - e.getMouseDownX()) / static_cast<float>(getWidth() - 4);
+        if(gui.isLogScale())
+        {
+            setValueOriginal(exp((m_temp + val) * log(max / min)) * min);
+        }
+        else
+        {
+            setValueScaled(m_temp + val);
+        }
+    }
     repaint();
 }
 
@@ -222,26 +289,64 @@ void GuiSliderHorizontal::mouseUp(const MouseEvent& e)
 void GuiSliderVertical::paint(Graphics& g)
 {
     const float border = 1.f;
-    const float cursor = 3.f;
+    const float crsor = 3.f;
     const float w = static_cast<float>(getWidth() - border * 2);
     const float h = static_cast<float>(getHeight() - border * 2);
-    const float pos = (1.f - getValueScaled()) * (h - cursor - border) + cursor;
+    const float val = gui.isLogScale() ? log(getValueOriginal() / min) / log(max / min) : getValueScaled();
+    const float pos = (1.f - val) * (h - crsor - border) + crsor;
     g.fillAll(Colour(static_cast<uint32>(gui.getBackgroundColor())));
     g.setColour(Colour(static_cast<uint32>(gui.getForegroundColor())));
-    g.drawLine(border + 0.5f, pos, w + 0.5f, pos, cursor);
+    g.drawLine(border + 0.5f, pos, w + 0.5f, pos, crsor);
     g.setColour(Colours::black);
-    g.drawRect(getLocalBounds(), border);
+    g.drawRect(getLocalBounds(), static_cast<int>(border));
 }
 
 void GuiSliderVertical::mouseDown(const MouseEvent& e)
 {
     startEdition();
-    mouseDrag(e);
+    if(gui.jumpOnClick())
+    {
+        mouseDrag(e);
+    }
+    else
+    {
+        if(gui.isLogScale())
+        {
+            m_temp = log(getValueOriginal() / min) / log(max / min);
+        }
+        else
+        {
+            m_temp = getValueScaled();
+        }
+    }
 }
 
 void GuiSliderVertical::mouseDrag(const MouseEvent& e)
 {
-    setValueScaled(static_cast<float>(getHeight() - e.y - 2) / static_cast<float>(getHeight() - 4));
+    if(gui.jumpOnClick())
+    {
+        const float val = static_cast<float>(getHeight() - e.y - 2) / static_cast<float>(getHeight() - 4);
+        if(gui.isLogScale())
+        {
+            setValueOriginal(exp(val * log(max /min)) * min);
+        }
+        else
+        {
+            setValueScaled(val);
+        }
+    }
+    else
+    {
+        const float val = static_cast<float>(e.getMouseDownY() - e.y) / static_cast<float>(getHeight() - 4);
+        if(gui.isLogScale())
+        {
+            setValueOriginal(exp((m_temp + val) * log(max / min)) * min);
+        }
+        else
+        {
+            setValueScaled(m_temp + val);
+        }
+    }
     repaint();
 }
 
@@ -270,7 +375,7 @@ void GuiRadioHorizontal::paint(Graphics& g)
     {
         g.drawLine(w * static_cast<float>(i), 0.f, w * static_cast<float>(i), w, border);
     }
-    g.drawRect(getLocalBounds(), border);
+    g.drawRect(getLocalBounds(), static_cast<int>(border));
 }
 
 void GuiRadioHorizontal::mouseDown(const MouseEvent& e)
@@ -301,7 +406,7 @@ void GuiRadioVertical::paint(Graphics& g)
     {
         g.drawLine(0.f, h * static_cast<float>(i), h, h * static_cast<float>(i), border);
     }
-    g.drawRect(getLocalBounds(), border);
+    g.drawRect(getLocalBounds(), static_cast<int>(border));
 }
 
 void GuiRadioVertical::mouseDown(const MouseEvent& e)
@@ -339,7 +444,7 @@ GuiComment::GuiComment(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditor
 
 void GuiComment::paint(Graphics& g)
 {
-    g.setFont(CamoLookAndFeel::getDefaultFont().withHeight(gui.getFontSize()));
+    g.setFont(CamoLookAndFeel::getDefaultFont().withHeight(static_cast<float>(gui.getFontSize())));
     g.setColour(Colours::black);
     g.drawMultiLineText(gui.getText(), 0, gui.getFontSize(), getWidth());
 }
@@ -350,12 +455,12 @@ void GuiComment::paint(Graphics& g)
 
 GuiTextEditor::GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g)
 {
-    const float border = 1.f;
-    const float fs = gui.getFontSize();
+    const int border = 1;
+    const float fs = static_cast<float>(gui.getFontSize());
     Font const tf = CamoLookAndFeel::getDefaultFont().withHeight(fs);
     
     label = new Label();
-    label->setBounds(2.5f, 0.5f, getWidth() - 2.5f, getHeight() - 1.f);
+    label->setBounds(2, 0, getWidth() - 2, getHeight() - 1);
     label->setFont(tf);
     label->setJustificationType(Justification::centredLeft);
     label->setBorderSize(BorderSize<int>(border+2, border, border, border));
@@ -368,14 +473,14 @@ GuiTextEditor::GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g) : Plugin
     addAndMakeVisible(label);
 }
 
-void GuiTextEditor::labelTextChanged(Label* label)
+void GuiTextEditor::labelTextChanged(Label* lbl)
 {
-    const String value = label->getText();
-    if(value.isNotEmpty())
+    const String strval = lbl->getText();
+    if(strval.isNotEmpty())
     {
         startEdition();
-        setValueOriginal(value.getDoubleValue());
-        label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+        setValueOriginal(static_cast<float>(strval.getDoubleValue()));
+        lbl->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
         stopEdition();
     }
 }
@@ -410,9 +515,10 @@ void GuiTextEditor::update()
 
 GuiNumber::GuiNumber(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(p, g)
 {
-    const float w = getWidth();
-    const float h = getHeight();
-    label->setBounds(h * 0.5f, 0.5f, w - h * 0.5f, h);
+    const float w = static_cast<float>(getWidth());
+    const float h = static_cast<float>(getHeight());
+    label->setBounds(static_cast<int>(h * 0.5f), static_cast<int>(0.5f),
+                     static_cast<int>(w - h * 0.5f), static_cast<int>(h));
 }
 
 void GuiNumber::paint(Graphics& g)
@@ -457,9 +563,13 @@ void GuiNumber::mouseUp(const MouseEvent& e)
 void GuiNumber::mouseDrag(const MouseEvent& e)
 {
     const float inc = static_cast<float>(-e.getDistanceFromDragStartY());
+    if(std::abs(inc) < 1)
+    {
+        return;
+    }
     if(shift)
     {
-        setValueOriginal(last + inc * 0.1f);
+        setValueOriginal(last + inc * 0.01f);
     }
     else
     {
@@ -538,9 +648,13 @@ void GuiAtomNumber::mouseDrag(const MouseEvent& e)
     if(!gui.getNumberOfSteps())
     {
         const float inc = static_cast<float>(-e.getDistanceFromDragStartY());
+        if(std::abs(inc) < 1)
+        {
+            return;
+        }
         if(shift)
         {
-            setValueOriginal(last + inc * 0.1f);
+            setValueOriginal(last + inc * 0.01f);
         }
         else
         {
@@ -560,7 +674,7 @@ void GuiAtomNumber::mouseDoubleClick(const MouseEvent&)
         TextEditor* editor = label->getCurrentTextEditor();
         if(editor)
         {
-            editor->setIndents(0.5, 2);
+            editor->setIndents(1, 2);
             editor->setBorder(BorderSize<int>(0));
         }
     }
@@ -603,18 +717,18 @@ void GuiAtomSymbol::mouseDoubleClick(const MouseEvent&)
     TextEditor* editor = label->getCurrentTextEditor();
     if(editor)
     {
-        editor->setIndents(0.5, 2);
+        editor->setIndents(1, 2);
         editor->setBorder(BorderSize<int>(0));
     }
 }
 
-void GuiAtomSymbol::labelTextChanged(Label* label)
+void GuiAtomSymbol::labelTextChanged(Label* lbl)
 {
-    const String value = label->getText();
-    if(value.isNotEmpty())
+    const String strval = lbl->getText();
+    if(strval.isNotEmpty())
     {
-        gui.setSymbol(value.toStdString());
-        label->setText(String(gui.getSymbol()), NotificationType::dontSendNotification);
+        gui.setSymbol(strval.toStdString());
+        lbl->setText(String(gui.getSymbol()), NotificationType::dontSendNotification);
         last = gui.getSymbol();
     }
 }
@@ -632,6 +746,197 @@ void GuiAtomSymbol::update()
     }
 }
 
+GuiArray::GuiArray(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g),
+m_graph(gui.getArray()), m_array(p.getProcessor(), m_graph)
+{
+    setInterceptsMouseClicks(false, true);
+    m_array.setBounds(getLocalBounds());
+    addAndMakeVisible(&m_array);
+}
 
+void GuiArray::resized()
+{
+    m_array.setBounds(getLocalBounds());
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////     GOP               /////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+GuiGraphOnParent::GuiGraphOnParent(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g)
+{
+    setInterceptsMouseClicks(false, true);
+    edited = true;
+    resized();
+}
+
+void GuiGraphOnParent::paint(Graphics& g)
+{
+    g.setColour(Colours::black);
+    g.drawRect(getLocalBounds(), 1);
+}
+
+void GuiGraphOnParent::resized()
+{
+    m_labels.clear();
+    m_objects.clear();
+    for(auto& g : gui.getPatch().getGuis())
+    {
+        PluginEditorObject* obj = PluginEditorObject::createTyped(patch, g);
+        if(obj && getLocalBounds().contains(obj->getBounds()))
+        {
+            Component* label = obj->getLabel();
+            addAndMakeVisible(m_objects.add(obj));
+            if(label)
+            {
+                addAndMakeVisible(m_labels.add(label));
+            }
+        }
+    }
+}
+
+void GuiGraphOnParent::update()
+{
+    for(auto object : m_objects) {
+        object->update(); }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////     GRAPHICAL ARRAY      ////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+GraphicalArray::GraphicalArray(CamomileAudioProcessor& processor, pd::Array& graph) :
+m_processor(processor), m_array(graph), m_edited(false)
+{
+    m_vector.reserve(8192);
+    m_temp.reserve(8192);
+    try { m_array.read(m_vector); }
+    catch(...) { m_error = true; }
+    startTimer(100);
+    setInterceptsMouseClicks(true, false);
+    setOpaque(false);
+}
+
+void GraphicalArray::paint(Graphics& g)
+{
+    if(m_error)
+    {
+        g.setFont(CamoLookAndFeel::getDefaultFont());
+        g.drawText("array " + m_array.getName() + " is invalid", 0, 0, getWidth(), getHeight(), juce::Justification::centred);
+    }
+    else
+    {
+        const float h = static_cast<float>(getHeight());
+        const float w = static_cast<float>(getWidth());
+        if(!m_vector.empty())
+        {
+            const std::array<float, 2> scale = m_array.getScale();
+            if(m_array.isDrawingCurve())
+            {
+                const float dh = h / (scale[1] - scale[0]);
+                const float dw = w / static_cast<float>(m_vector.size() - 1);
+                Path p;
+                p.startNewSubPath(0, h - (clip(m_vector[0], scale[0], scale[1]) - scale[0]) * dh);
+                for(size_t i = 1; i < m_vector.size() - 1; i += 2)
+                {
+                    const float y1 = h - (clip(m_vector[i-1], scale[0], scale[1]) - scale[0]) * dh;
+                    const float y2 = h - (clip(m_vector[i], scale[0], scale[1]) - scale[0]) * dh;
+                    const float y3 = h - (clip(m_vector[i+1], scale[0], scale[1]) - scale[0]) * dh;
+                    p.cubicTo(static_cast<float>(i-1) * dw, y1,
+                              static_cast<float>(i) * dw, y2,
+                              static_cast<float>(i+1) * dw, y3);
+                }
+                g.setColour(Colours::black);
+                g.strokePath(p, PathStrokeType(1));
+            }
+            else if(m_array.isDrawingLine())
+            {
+                const float dh = h / (scale[1] - scale[0]);
+                const float dw = w / static_cast<float>(m_vector.size() - 1);
+                Path p;
+                p.startNewSubPath(0, h - (clip(m_vector[0], scale[0], scale[1]) - scale[0]) * dh);
+                for(size_t i = 1; i < m_vector.size(); ++i)
+                {
+                    const float y = h - (clip(m_vector[i], scale[0], scale[1]) - scale[0]) * dh;
+                    p.lineTo(static_cast<float>(i) * dw, y);
+                }
+                g.setColour(Colours::black);
+                g.strokePath(p, PathStrokeType(1));
+            }
+            else
+            {
+                const float dh = h / (scale[1] - scale[0]);
+                const float dw = w / static_cast<float>(m_vector.size());
+                g.setColour(Colours::black);
+                for(size_t i = 0; i < m_vector.size(); ++i)
+                {
+                    const float y = h - (clip(m_vector[i], scale[0], scale[1]) - scale[0]) * dh;
+                    g.drawLine(static_cast<float>(i) * dw, y, static_cast<float>(i+1) * dw, y);
+                }
+            }
+        }
+    }
+    g.setColour(Colours::black);
+    g.drawRect(getLocalBounds(), 1);
+}
+
+void GraphicalArray::mouseDown(const MouseEvent& event)
+{
+    if(m_error)
+        return;
+    m_edited = true;
+    mouseDrag(event);
+}
+
+void GraphicalArray::mouseDrag(const MouseEvent& event)
+{
+    if(m_error)
+        return;
+    const float s = static_cast<float>(m_vector.size() - 1);
+    const float w = static_cast<float>(getWidth());
+    const float h = static_cast<float>(getHeight());
+    const float x = static_cast<float>(event.x);
+    const float y = static_cast<float>(event.y);
+    
+    const std::array<float, 2> scale = m_array.getScale();
+    const size_t index = static_cast<size_t>(std::round(clip(x / w, 0.f, 1.f) * s));
+    m_vector[index] = (1.f - clip(y / h, 0.f, 1.f)) * (scale[1] - scale[0]) + scale[0];
+    const CriticalSection& cs = m_processor.getCallbackLock();
+    if(cs.tryEnter())
+    {
+        try { m_array.write(index, m_vector[index]); }
+        catch(...) { m_error = true; }
+        cs.exit();
+    }
+    m_processor.enqueueMessages(string_array, m_array.getName(), {});
+    repaint();
+}
+
+void GraphicalArray::mouseUp(const MouseEvent& event)
+{
+    if(m_error)
+        return;
+    m_edited = false;
+}
+
+void GraphicalArray::timerCallback()
+{
+    if(!m_edited)
+    {
+        m_error = false;
+        try { m_array.read(m_temp); }
+        catch(...) { m_error = true; }
+        if(m_temp != m_vector)
+        {
+            m_vector.swap(m_temp);
+            repaint();
+        }
+    }
+}
+
+size_t GraphicalArray::getArraySize() const noexcept
+{
+    return m_vector.size();
+}
 
 

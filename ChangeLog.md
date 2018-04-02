@@ -1,3 +1,22 @@
+v1.0.4
+- Add label support for GUI objects (#95)
+- Add graphical array support for GUI array objects (graph)  (#93)
+- Add window array support for array define objects (#93)
+- Add steady/jump mode for IEM's GUI slider
+- Add log scale for IEM's GUI slider (#96)
+- Add instructions for contributions
+- Add the facultative flag "-s" to openpanel/savepanel methods to suspend processing
+- Add warning if no audio bus is defined
+- Fix the width of the comment
+- Fix the incrementation of the number box and the atom number
+- Add support to change dynamically the graphical interface (#99)
+- Add support to change dynamically the latency (#62)
+- Fix variable block size support (#100)
+- Improve MIDI In/Out time precision
+- Add support for manually and automatic dynamic reload of the patch (#101)
+- Add support for abstractions/sub-patches GraphOnParent (#102)
+- Fix midi pitch bend offset due to +8192 from libpd (#104)
+
 v1.0.3
 - Fix DSP support for multiple audio buses
 - Fix the number of channels in the messages sent to the patch
@@ -6,6 +25,8 @@ v1.0.3
 - Add warning when the plugin code or the plugin type is not defined
 - Fix the position of the popup menu for console level (#90)
 - Add support when plugin is muted or not playing (#78)
+- Fix missing library on Linux (#89)
+- Add support for extra data to save and reload with the plugin's state (#91)
 
 v1.0.2
 - Fix DSP off message to Pd

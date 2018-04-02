@@ -70,6 +70,12 @@ int CamomileEnvironment::getLatencySamples() { return get().latency_samples; }
 
 bool CamomileEnvironment::wantsKey() { return get().key_support; }
 
+bool CamomileEnvironment::isLatencyInitialized() { return get().state.test(init_latency); }
+
+bool CamomileEnvironment::isTailLengthInitialized() { return get().state.test(init_tail_length); }
+
+bool CamomileEnvironment::wantsAutoReload() { return get().auto_reload; }
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                          PROGRAMS                                        //
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -308,6 +314,13 @@ CamomileEnvironment::CamomileEnvironment()
                             plugin_version = CamomileParser::getString(entry.second);
                             state.set(init_compatibilty);
                         }
+                        else if(entry.first == "autoreload")
+                        {
+                            if(state.test(init_auto_reload))
+                                throw std::string("already defined");
+                            auto_reload = CamomileParser::getBool(entry.second);
+                            state.set(init_auto_reload);
+                        }
                         else if(entry.first == "type")
                         {
                             if(state.test(init_type))
@@ -369,10 +382,15 @@ CamomileEnvironment::CamomileEnvironment()
             errors.push_back("patch has been created for a newer version of the plugin v" + plugin_version);
         }
     }
-    if(programs.empty()) {
-        programs.push_back(""); }
-    if(buses.empty()) {
-        buses.push_back({2, 2}); }
+    if(buses.empty())
+    {
+        buses.push_back({2, 2});
+        errors.push_back("no bus defined, add default bus 2 2");
+    }
+    if(programs.empty())
+    {
+        programs.push_back("");
+    }
 }
 
 size_t CamomileEnvironment::get_version(std::string const& v)

@@ -35,7 +35,7 @@ ifeq ($(CONFIG),Debug)
     TARGET_ARCH := -march=native
   endif
 
-  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DDEBUG=1 -D_DEBUG=1 -DHAVE_UNISTD_H=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=1.0.3 -DJUCE_APP_VERSION_HEX=0x10003 $(shell pkg-config --cflags alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -pthread -I../../JuceLibraryCode -I../../../Juce/modules -I../../../Dependencies/LibPd/pure-data/src -I../../../Dependencies/LibPd/libpd_wrapper -I../../../Dependencies/LibPd/libpd_wrapper/util -I../../../Dependencies/LibPd/cpp $(CPPFLAGS)
+  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DDEBUG=1 -D_DEBUG=1 -DPD_INTERNAL=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=1.0.4 -DJUCE_APP_VERSION_HEX=0x10004 $(shell pkg-config --cflags alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -pthread -I../../JuceLibraryCode -I../../../Juce/modules -I../../../Dependencies/LibPd/pure-data/src -I../../../Dependencies/LibPd/libpd_wrapper -I../../../Dependencies/LibPd/libpd_wrapper/util -I../../../Dependencies/LibPd/cpp $(CPPFLAGS)
 
   JUCE_CPPFLAGS_VST := -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0
   JUCE_CFLAGS_VST := -fPIC -fvisibility=hidden
@@ -47,7 +47,7 @@ ifeq ($(CONFIG),Debug)
 
   JUCE_CFLAGS += $(JUCE_CPPFLAGS) $(TARGET_ARCH) -fPIC -g -ggdb -O0 -fPIC $(CFLAGS)
   JUCE_CXXFLAGS += $(JUCE_CFLAGS) -std=c++11 $(CXXFLAGS)
-  JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -L../../../Dependencies/LibPd/libs $(shell pkg-config --libs alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -ldl -lpthread -lrt -lpd $(LDFLAGS)
+  JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -L../../../Dependencies/LibPd/libs $(shell pkg-config --libs alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -ldl -lpthread -lrt -lpd-multi $(LDFLAGS)
 
   CLEANCMD = rm -rf $(JUCE_OUTDIR)/$(TARGET) $(JUCE_OBJDIR)
 endif
@@ -62,7 +62,7 @@ ifeq ($(CONFIG),Release)
     TARGET_ARCH := -march=native
   endif
 
-  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DNDEBUG=1 -DHAVE_UNISTD_H=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=1.0.3 -DJUCE_APP_VERSION_HEX=0x10003 $(shell pkg-config --cflags alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -pthread -I../../JuceLibraryCode -I../../../Juce/modules -I../../../Dependencies/LibPd/pure-data/src -I../../../Dependencies/LibPd/libpd_wrapper -I../../../Dependencies/LibPd/libpd_wrapper/util -I../../../Dependencies/LibPd/cpp $(CPPFLAGS)
+  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DNDEBUG=1 -DPD_INTERNAL=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=1.0.4 -DJUCE_APP_VERSION_HEX=0x10004 $(shell pkg-config --cflags alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -pthread -I../../JuceLibraryCode -I../../../Juce/modules -I../../../Dependencies/LibPd/pure-data/src -I../../../Dependencies/LibPd/libpd_wrapper -I../../../Dependencies/LibPd/libpd_wrapper/util -I../../../Dependencies/LibPd/cpp $(CPPFLAGS)
 
   JUCE_CPPFLAGS_VST := -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0
   JUCE_CFLAGS_VST := -fPIC -fvisibility=hidden
@@ -74,7 +74,7 @@ ifeq ($(CONFIG),Release)
 
   JUCE_CFLAGS += $(JUCE_CPPFLAGS) $(TARGET_ARCH) -fPIC -O3 -fPIC $(CFLAGS)
   JUCE_CXXFLAGS += $(JUCE_CFLAGS) -std=c++11 $(CXXFLAGS)
-  JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -L../../../Dependencies/LibPd/libs $(shell pkg-config --libs alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -fvisibility=hidden -ldl -lpthread -lrt -lpd $(LDFLAGS)
+  JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -L../../../Dependencies/LibPd/libs $(shell pkg-config --libs alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -fvisibility=hidden -ldl -lpthread -lrt -lpd-multi $(LDFLAGS)
 
   CLEANCMD = rm -rf $(JUCE_OUTDIR)/$(TARGET) $(JUCE_OBJDIR)
 endif
@@ -96,9 +96,12 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/PluginParser_125664ac.o \
   $(JUCE_OBJDIR)/PluginLookAndFeel_1523addb.o \
   $(JUCE_OBJDIR)/PdInstance_c9d7d554.o \
-  $(JUCE_OBJDIR)/PdObject_2fcb197e.o \
   $(JUCE_OBJDIR)/PdPatch_2b25dab3.o \
+  $(JUCE_OBJDIR)/PdGui_34dd0fa6.o \
+  $(JUCE_OBJDIR)/PdArray_f4d0bc44.o \
+  $(JUCE_OBJDIR)/PdObject_2fcb197e.o \
   $(JUCE_OBJDIR)/x_libpd_multi_a98b54cb.o \
+  $(JUCE_OBJDIR)/x_libpd_extra_utils_b8efa354.o \
   $(JUCE_OBJDIR)/BinaryData_ce4232d4.o \
   $(JUCE_OBJDIR)/include_juce_audio_basics_8a4e984a.o \
   $(JUCE_OBJDIR)/include_juce_audio_devices_63111d02.o \
@@ -194,19 +197,34 @@ $(JUCE_OBJDIR)/PdInstance_c9d7d554.o: ../../../Source/Pd/PdInstance.cpp
 	@echo "Compiling PdInstance.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/PdObject_2fcb197e.o: ../../../Source/Pd/PdObject.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling PdObject.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
-
 $(JUCE_OBJDIR)/PdPatch_2b25dab3.o: ../../../Source/Pd/PdPatch.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling PdPatch.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
+$(JUCE_OBJDIR)/PdGui_34dd0fa6.o: ../../../Source/Pd/PdGui.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PdGui.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/PdArray_f4d0bc44.o: ../../../Source/Pd/PdArray.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PdArray.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/PdObject_2fcb197e.o: ../../../Source/Pd/PdObject.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PdObject.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
 $(JUCE_OBJDIR)/x_libpd_multi_a98b54cb.o: ../../../Source/Pd/x_libpd_multi.c
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling x_libpd_multi.c"
+	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/x_libpd_extra_utils_b8efa354.o: ../../../Source/Pd/x_libpd_extra_utils.c
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling x_libpd_extra_utils.c"
 	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/BinaryData_ce4232d4.o: ../../JuceLibraryCode/BinaryData.cpp

@@ -1,12 +1,6 @@
 [submodule "Juce"]
 	path = Juce
-url=https://github.com/pierreguillot/JUCE.git
-[submodule "Dependencies/ConcurrentQueue"]
-	path = Dependencies/ConcurrentQueue
-	url = https://github.com/pierreguillot/concurrentqueue.git
-[submodule "Dependencies/ReaderwriterQueue"]
-	path = Dependencies/ReaderwriterQueue
-	url = https://github.com/pierreguillot/readerwriterqueue.git
+url=https://github.com/WeAreROLI/JUCE.git
 [submodule "Dependencies/Vst"]
 	path = Dependencies/Vst
 	url = https://github.com/steinbergmedia/vst3sdk.git

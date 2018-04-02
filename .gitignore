@@ -34,6 +34,10 @@
 *.xcuserstate
 *.xcuserdatad
 
+# Windows MSVC
+*.tlog
+*.res
+
 # Juce & ThirdParty
 /Instrument/Builds/MacOSX/build/
 /Instrument/Builds/LinuxMakefile/build/

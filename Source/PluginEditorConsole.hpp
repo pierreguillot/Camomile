@@ -38,6 +38,7 @@ private:
     ScopedPointer<Button> m_level_button;
     ScopedPointer<Button> m_clear_button;
     ScopedPointer<Button> m_copy_button;
+    ScopedPointer<Button> m_reload_button;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PluginEditorConsole)
 };

@@ -2,31 +2,50 @@
 environment:
    matrix:
       - PLATFORM: x64
-        MINGWARCH: mingw32
-      - PLATFORM: x64
-        MINGWARCH: mingw64
+        COMPILER: "Visual Studio 14 2015 Win64"
+        RELEASE: Release
+        ZIPFILE: CamomileWindows64
+      - PLATFORM: Win32
+        COMPILER: "Visual Studio 14 2015"
+        RELEASE: Release32
+        ZIPFILE: CamomileWindows32
 
 os: Visual Studio 2015
 
 install:
     - git submodule update --init --recursive
-    #- C:\msys64\usr\bin\bash -lc "pacman -Syuu --noconfirm"
-    #- C:\msys64\usr\bin\bash -lc "pacman -S --noconfirm --needed make mingw-w64-i686-gcc mingw-w64-x86_64-gcc"
-    - C:\msys64\usr\bin\bash -lc "pacman -S --noconfirm --needed mingw-w64-cross-winpthreads-git"
+    # Install pthread-win32
+    - git clone -q https://github.com/GerHobbelt/pthread-win32.git Dependencies\PthreadWin32
 build_script:
-    - 'if "%MINGWARCH%"=="mingw32" C:\msys64\usr\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; ./libpd_mingw32_build.bat"'
-    - 'if "%MINGWARCH%"=="mingw64" C:\msys64\usr\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; ./libpd_mingw64_build.bat"'
-    - 'if "%MINGWARCH%"=="mingw32" msbuild %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\Camomile.sln /property:Configuration=Release32 /property:Platform=Win32'
-    - 'if "%MINGWARCH%"=="mingw32" msbuild %APPVEYOR_BUILD_FOLDER%\Effect\Builds\VisualStudio2015\CamomileFx.sln /property:Configuration=Release32 /property:Platform=Win32'
-    - 'if "%MINGWARCH%"=="mingw64" msbuild %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\Camomile.sln /property:Configuration=Release /property:Platform=x64'
-    - 'if "%MINGWARCH%"=="mingw64" msbuild %APPVEYOR_BUILD_FOLDER%\Effect\Builds\VisualStudio2015\CamomileFx.sln /property:Configuration=Release /property:Platform=x64'
+    # Compile pthread-win32
+    - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\PthreadWin32
+    - sed -i 's/4820;4668;4255;/4820;4668;4255;4711;4100;4312;4127;4296;4456;4619;4310;4311;/' pthread_lib.2015.vcxproj
+    - sed -i 's/MultiThreadedDLL/MultiThreaded/' pthread_lib.2015.vcxproj
+    - sed -i 's/MultiThreadedDebugDLL/MultiThreadedDebug/' pthread_lib.2015.vcxproj
+    - msbuild pthread.2015.sln /t:pthread_lib /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=%PLATFORM% /p:OutDir=lib/
+    # Copy pthread-win32 headers and library in pure-data directory
+    - copy pthread.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\pthread.h
+    - copy sched.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\sched.h
+    - copy semaphore.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\semaphore.h
+    - mkdir %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build && mkdir %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
+    - copy lib\pthread_lib.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc\pthread.lib
+    # Compile libpd
+    - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
+    - cmake -G "%COMPILER%" -DPD_MULTI=ON -DPD_UTILS=OFF -DMSVC_STATIC_RUNTIME=ON -DMSVC_PTHREAD_LIB="pthread.lib" ../..
+    - msbuild libpd.sln /t:libpdstatic /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=%PLATFORM%
+    # Compile Camomile Instrument
+    - cd %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\
+    - msbuild Camomile.sln /nologo /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
+    # Compile Camomile Effect
+    - cd %APPVEYOR_BUILD_FOLDER%\Effect\Builds\VisualStudio2015\
+    - msbuild CamomileFx.sln /nologo /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
+
 after_build:
     - cd %APPVEYOR_BUILD_FOLDER%
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST\Camomile.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.dll
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\Camomile.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.vst3
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST\CamomileFx.dll %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileFx.dll
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\CamomileFx.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileFx.vst3
-    - copy %APPVEYOR_BUILD_FOLDER%\Dependencies\libpd\libs\libpd.dll %APPVEYOR_BUILD_FOLDER%\Plugins\libpd.dll
     - copy %APPVEYOR_BUILD_FOLDER%\README.md %APPVEYOR_BUILD_FOLDER%\Plugins\README.md
     - copy %APPVEYOR_BUILD_FOLDER%\ChangeLog.md %APPVEYOR_BUILD_FOLDER%\Plugins\ChangeLog.md
     - copy %APPVEYOR_BUILD_FOLDER%\LICENSE %APPVEYOR_BUILD_FOLDER%\Plugins\LICENSE.txt
@@ -36,8 +55,7 @@ after_build:
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST\ /S /Q
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\ /S /Q
     - rename %APPVEYOR_BUILD_FOLDER%\Plugins Camomile
-    - 'if "%MINGWARCH%"=="mingw32" 7z a CamomileWindows32.zip %APPVEYOR_BUILD_FOLDER%\Camomile\'
-    - 'if "%MINGWARCH%"=="mingw64" 7z a CamomileWindows64.zip %APPVEYOR_BUILD_FOLDER%\Camomile\'
+    - 7z a %ZIPFILE%.zip %APPVEYOR_BUILD_FOLDER%\Camomile\
 
 artifacts:
   - path: '*.zip'

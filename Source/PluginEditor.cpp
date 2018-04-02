@@ -12,38 +12,69 @@
 CamomileEditor::CamomileEditor(CamomileAudioProcessor& p) :
 AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), m_processor (p), m_button(p)
 {
-    static CamoLookAndFeel lookAndFeel;
-    LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
+    static CamoLookAndFeel laf;
+    LookAndFeel::setDefaultLookAndFeel(&laf);
     
     setOpaque(true);
     setWantsKeyboardFocus(true);
     setInterceptsMouseClicks(true, true);
-    auto const bounds = p.getPatch().getBounds();
-    setSize(bounds[2] > 0 ? std::max(bounds[2], 100) : 400, bounds[3] > 0 ? std::max(bounds[3], 100) : 300);
-    Image const& img = CamoLookAndFeel::getImage();
-    if(img.isValid())
+    m_image.setImage(CamoLookAndFeel::getImage());
+    if(m_image.getImage().isNull() && !CamomileEnvironment::getImageName().empty())
     {
-        m_image.setImage(img);
-        m_image.setTransformToFit(getBounds().toType<float>(), RectanglePlacement::stretchToFit);
-        addAndMakeVisible(m_image, 0);
+        m_processor.add(CamomileAudioProcessor::ConsoleLevel::Error,
+                        "background image " + CamomileEnvironment::getImageName() +
+                        " is invalid or doesn't exist.");
     }
-    else if(!CamomileEnvironment::getImageName().empty())
-    {
-        p.add(CamomileAudioProcessor::ConsoleLevel::Error,
-                      "background image " + CamomileEnvironment::getImageName() + " is invalid or doesn't exist.");
-    }
-    
-    for(auto& gui : p.getPatch().getGuis()) {
-        addAndMakeVisible(m_objects.add(PluginEditorObject::createTyped(*this, gui))); }
+    updatePatch();
+    updateObjects();
     addAndMakeVisible(m_button);
     startTimer(25);
 }
 
 CamomileEditor::~CamomileEditor() {}
 
+void CamomileEditor::updatePatch()
+{
+    auto const bounds = m_processor.getPatch().getBounds();
+    int const width  = bounds[2] > 0 ? std::max(bounds[2], 100) : 400;
+    int const height = bounds[3] > 0 ? std::max(bounds[3], 100) : 300;
+    if(width !=  getWidth() || height != getHeight())
+    {
+        setSize(width, height);
+        if(m_image.getImage().isValid())
+        {
+            m_image.setTransformToFit(getBounds().toType<float>(), RectanglePlacement::stretchToFit);
+            if(!m_image.isVisible())
+            {
+                addAndMakeVisible(m_image, 0);
+            }
+        }
+    }
+    updateObjects();
+}
+
+void CamomileEditor::updateObjects()
+{
+    m_labels.clear();
+    m_objects.clear();
+    for(auto& gui : m_processor.getPatch().getGuis())
+    {
+        PluginEditorObject* obj = PluginEditorObject::createTyped(*this, gui);
+        if(obj && getLocalBounds().contains(obj->getBounds()))
+        {
+            Component* label = obj->getLabel();
+            addAndMakeVisible(m_objects.add(obj));
+            if(label)
+            {
+                addAndMakeVisible(m_labels.add(label));
+            }
+        }
+    }
+}
+
 void CamomileEditor::timerCallback()
 {
-    CamomileEditorPanelManager::processMessages();
+    CamomileEditorMessageManager::processMessages();
     for(auto object : m_objects) {
         object->update(); }
 }
@@ -77,6 +108,19 @@ bool CamomileEditor::keyStateChanged(bool isKeyDown) {
 void CamomileEditor::modifierKeysChanged(const ModifierKeys& modifiers) {
     CamomileEditorKeyManager::keyModifiersChanged(modifiers); }
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+void CamomileEditor::guiResize()
+{
+    updatePatch();
+}
+
+void CamomileEditor::guiRedraw()
+{
+    updateObjects();
+}
 
 
 

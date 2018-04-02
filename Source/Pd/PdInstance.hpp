@@ -6,17 +6,17 @@
 
 #pragma once
 
-#include <vector>
 #include <map>
 #include <utility>
-#include <string>
-#include "../../Dependencies/ReaderwriterQueue/readerwriterqueue.h"
-#include "../../Dependencies/ConcurrentQueue/concurrentqueue.h"
+#include "PdPatch.hpp"
+#include "PdAtom.hpp"
+
+#include "../Queues/readerwriterqueue.h"
+#include "../Queues/concurrentqueue.h"
 
 namespace pd
 {
     class Patch;
-    class Atom;
     // ==================================================================================== //
     //                                      INSTANCE                                        //
     // ==================================================================================== //
@@ -25,13 +25,14 @@ namespace pd
     {
     public:
         
-        Instance();
+        Instance(std::string const& symbol);
         virtual ~Instance();
         
-        void prepareDSP(const int nins, const int nouts, const int blksize, const double samplerate);
+        void prepareDSP(const int nins, const int nouts, const double samplerate);
         void startDSP();
         void releaseDSP();
-        void performDSP(const int blksize, const int nins, float const** inputs, const int nouts, float** outputs);
+        void performDSP(float const* inputs, float* outputs);
+        int getBlockSize() const noexcept;
         
         void sendNoteOn(const int channel, const int pitch, const int velocity) const;
         void sendControlChange(const int channel, const int controller, const int value) const;
@@ -59,11 +60,11 @@ namespace pd
         
         virtual void receivePrint(const std::string& message) {};
         
-        virtual void receiveBang(const std::string& dest) {}
-        virtual void receiveFloat(const std::string& dest, float num) {}
-        virtual void receiveSymbol(const std::string& dest, const std::string& symbol) {}
-        virtual void receiveList(const std::string& dest, const std::vector<Atom>& list) {}
-        virtual void receiveMessage(const std::string& dest, const std::string& msg, const std::vector<Atom>& list) {}
+        virtual void receiveBang() {}
+        virtual void receiveFloat(float num) {}
+        virtual void receiveSymbol(const std::string& symbol) {}
+        virtual void receiveList(const std::vector<Atom>& list) {}
+        virtual void receiveMessage(const std::string& msg, const std::vector<Atom>& list) {}
         
         void enqueueMessages(const std::string& dest, const std::string& msg, std::vector<Atom>&& list);
         void enqueueDirectMessages(void* object, const std::string& msg);
@@ -76,27 +77,25 @@ namespace pd
         void processPrints();
         void processMidi();
         
-        void bind(std::string const& symbol);
-        void unbind(std::string const& symbol);
-        
         void openPatch(std::string const& path, std::string const& name);
         void closePatch();
         Patch getPatch();
 
         void setThis();
+        Array getArray(std::string const& name);
+        
     private:
+    
+        void* m_instance            = nullptr;
+        void* m_patch               = nullptr;
+        void* m_atoms               = nullptr;
+        void* m_message_receiver    = nullptr;
+        void* m_midi_receiver       = nullptr;
+        void* m_print_receiver      = nullptr;
         
-        void* m_instance    = nullptr;
-        void* m_patch       = nullptr;
-        void* m_atoms       = nullptr;
-        std::vector<float> m_inputs  = std::vector<float>(64);
-        std::vector<float> m_outputs = std::vector<float>(64);
-        int                m_advance = 0;
-        
-        struct message
+        struct Message
         {
-            std::string destination;
-            std::string selector;
+            std::string       selector;
             std::vector<Atom> list;
         };
         
@@ -127,43 +126,11 @@ namespace pd
         
         typedef moodycamel::ConcurrentQueue<dmessage> message_queue;
         message_queue m_send_queue = message_queue(4096);
-        moodycamel::ReaderWriterQueue<message> m_message_queue = moodycamel::ReaderWriterQueue<message>(4096);
-        moodycamel::ReaderWriterQueue<midievent> m_midi_queue = moodycamel::ReaderWriterQueue<midievent>(4096);
-        moodycamel::ReaderWriterQueue<std::string> m_print_queue = moodycamel::ReaderWriterQueue<std::string>(4096);
         
-        std::map<std::string, void*> m_message_receivers;
-        void*   m_midi_receiver;
-        void*   m_print_receiver;
+        moodycamel::ConcurrentQueue<Message> m_message_queue = moodycamel::ConcurrentQueue<Message>(4096);
+        moodycamel::ConcurrentQueue<midievent> m_midi_queue = moodycamel::ConcurrentQueue<midievent>(4096);
+        moodycamel::ConcurrentQueue<std::string> m_print_queue = moodycamel::ConcurrentQueue<std::string>(4096);
         
         struct internal;
-    };
-    
-    class Atom
-    {
-    public:
-        inline Atom() : type(FLOAT), value(0), symbol() {}
-        inline Atom(const float val) : type(FLOAT), value(val), symbol() {}
-        inline Atom(const std::string& sym) : type(SYMBOL), value(0), symbol(sym) {}
-        inline Atom(const char* sym) : type(SYMBOL), value(0), symbol(sym) {}
-        
-        inline bool isFloat() const noexcept { return type == FLOAT; }
-        inline bool isSymbol() const noexcept { return type == SYMBOL; }
-        inline float getFloat() const noexcept { return value; }
-        inline std::string const& getSymbol() const noexcept { return symbol; }
-        
-        inline bool operator==(Atom const& other) const noexcept {
-            if(type == SYMBOL) { return other.type == SYMBOL && symbol == other.symbol; }
-            else { return other.type == FLOAT && value == other.value; } }
-    private:
-        
-        enum Type
-        {
-            FLOAT,
-            SYMBOL
-        };
-        
-        Type        type = FLOAT;
-        float       value = 0;
-        std::string symbol;
     };
 }

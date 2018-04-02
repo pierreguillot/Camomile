@@ -23,9 +23,18 @@ public:
     bool keyPressed(const KeyPress& key) final;
     bool keyStateChanged(bool isKeyDown) final;
     void modifierKeysChanged(const ModifierKeys& modifiers) final;
+    
+    void guiResize() final;
+    void guiRedraw() final;
 private:
+    
+    void updatePatch();
+    void updateObjects();
+    
+    
     CamomileAudioProcessor&         m_processor;
     OwnedArray<PluginEditorObject>  m_objects;
+    OwnedArray<Component>           m_labels;
     CamomileEditorButton            m_button;
     DrawableImage                   m_image;
     

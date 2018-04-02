@@ -9,6 +9,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginEnvironment.h"
 #include "PluginConsole.h"
+#include "PluginFileWatcher.h"
 #include "Pd/PdInstance.hpp"
 
 // ======================================================================================== //
@@ -16,7 +17,7 @@
 // ======================================================================================== //
 
 
-class CamomileAudioProcessor : public AudioProcessor, public pd::Instance, public CamomileConsole<4>
+class CamomileAudioProcessor : public AudioProcessor, public pd::Instance, public CamomileConsole<4>, public CamomileFileWatcher
 {
 public:
     CamomileAudioProcessor();
@@ -47,7 +48,7 @@ public:
     void getStateInformation (MemoryBlock& destData) final;
     void setStateInformation (const void* data, int sizeInBytes) final;
     
-    void receiveMessage(const std::string& dest, const std::string& msg, const std::vector<pd::Atom>& list) final;
+    void receiveMessage(const std::string& msg, const std::vector<pd::Atom>& list) final;
     void receiveNoteOn(const int channel, const int pitch, const int velocity) final;
     void receiveControlChange(const int channel, const int controller, const int value) final;
     void receiveProgramChange(const int channel, const int value) final;
@@ -61,9 +62,12 @@ public:
     void updateTrackProperties(const TrackProperties& properties) final;
     const TrackProperties& getTrackProperties() const { return m_track_properties; }
     
-    typedef std::pair<std::string, std::string> MessageGui;
+    typedef std::array<std::string, 3> MessageGui;
     bool dequeueGui(MessageGui& message);
 
+    void fileChanged() final;
+    void reloadPatch();
+    
     enum ConsoleLevel
     {
         Fatal   = 0,
@@ -76,13 +80,32 @@ public:
 private:
     static BusesProperties getBusesProperties();
     void sendBusInformation(Bus const *bus);
-    void saveInformation(const std::vector<pd::Atom>& list);
     void loadInformation(XmlElement const& xml);
+    
+    void parseSaveInformation(const std::vector<pd::Atom>& list);
+    void parseOpenPanel(const std::vector<pd::Atom>& list);
+    void parseSavePanel(const std::vector<pd::Atom>& list);
+    void parseArray(const std::vector<pd::Atom>& list);
+    void parseGui(const std::vector<pd::Atom>& list);
+    void parseAudio(const std::vector<pd::Atom>& list);
+    
+    
+    void processInternal();
+    
     typedef moodycamel::ReaderWriterQueue<MessageGui> QueueGui;
     
     std::vector<pd::Atom>    m_atoms_param;
     std::vector<pd::Atom>    m_atoms_playhead;
-    MidiBuffer               m_midi_buffer;
+    
+    int                      m_audio_advancement;
+    std::vector<float>       m_audio_buffer_in;
+    std::vector<float>       m_audio_buffer_out;
+    
+    int                      m_midi_advancement;
+    MidiBuffer               m_midi_buffer_in;
+    MidiBuffer               m_midi_buffer_out;
+    MidiBuffer               m_midi_buffer_temp;
+    
     int m_program_current    = 0;
     std::vector<std::string> m_programs;
     std::vector<bool>        m_params_states;

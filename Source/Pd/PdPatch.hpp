@@ -5,35 +5,51 @@
  */
 #pragma once
 
-#include "PdInstance.hpp"
+#include "PdGui.hpp"
 #include <array>
+#include <vector>
 
 namespace pd
 {
-    class Gui;
-    class Object;
+    class Instance;
     // ==================================================================================== //
     //                                          PATCHER                                     //
     // ==================================================================================== //
     
+    //! @brief The Pd patch.
+    //! @details The class is a wrapper around a Pd patch. The lifetime of the internal patch\n
+    //! is not guaranteed by the class.
+    //! @see Instance, Object, Gui
     class Patch
     {
     public:
-        Patch() noexcept;
-        Patch(Patch const& other) noexcept;
-        Patch& operator=(Patch const& other) noexcept;
-        ~Patch() noexcept;
+        //! @brief The default constructor.
+        Patch() noexcept = default;
         
-        int getDollarZero();
+        //! @brief The copy constructor.
+        Patch(const Patch&) noexcept = default;
+        
+        //! @brief The copy operator.
+        Patch& operator=(const Patch& other) noexcept = default;
+        
+        //! @brief The destructor.
+        ~Patch() noexcept = default;
+        
+        //! @brief Gets if the patch is Graph On Parent.
         bool isGraph() const noexcept;
+        
+        //! @brief Gets the bounds of the patch.
         std::array<int, 4> getBounds() const noexcept;
-        std::vector<Gui> getGuis() const noexcept;
+        
+        //! @brief Gets the GUI objects of the patch.
+        std::vector<Gui> getGuis() noexcept;
     private:
         Patch(void* ptr, Instance* instance) noexcept;
-        void*  m_ptr;
-        Instance* m_instance;
+        
+        void*     m_ptr      = nullptr;
+        Instance* m_instance = nullptr;
+        
         friend class Instance;
-        friend class Object;
         friend class Gui;
     };
 }

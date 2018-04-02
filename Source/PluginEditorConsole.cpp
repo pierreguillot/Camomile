@@ -14,31 +14,25 @@
 class ConsoleButton : public Button
 {
 public:
-    ConsoleButton(Image const& image1, Image const& image2) : Button("")
+    ConsoleButton(Image const& image) : Button("")
     {
         setClickingTogglesState(false);
         setAlwaysOnTop(true);
-        m_image1.setImage(image1);
-        m_image2.setImage(image2);
-        m_image1.setTransformToFit(Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
-        m_image2.setTransformToFit(Rectangle<float>(0.f, 0.f, 22.f, 22.f), RectanglePlacement::stretchToFit);
-        m_image1.setOverlayColour(Colours::black);
-        m_image1.setAlpha(0.5f);
-        addAndMakeVisible(m_image1, -1);
-        addAndMakeVisible(m_image2, 0);
-        m_image1.setAlwaysOnTop(true);
-        setSize(22, 22);
+        m_image.setImage(image);
+        m_image.setTransformToFit(Rectangle<float>(0.f, 0.f, 18.f, 18.f), RectanglePlacement::stretchToFit);
+        m_image.setAlpha(0.5f);
+        addAndMakeVisible(m_image);
+        setSize(18, 18);
     }
     
     void buttonStateChanged() final
     {
-        m_image1.setAlpha((isDown() || isOver()) ? 1.f : 0.5f);
+        m_image.setAlpha((isDown() || isOver()) ? 1.f : 0.5f);
     }
     
     void paintButton(Graphics& g, bool over, bool down) final {};
 private:
-    DrawableImage   m_image1;
-    DrawableImage   m_image2;
+    DrawableImage   m_image;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ConsoleButton)
 };
 
@@ -48,12 +42,10 @@ private:
     
 PluginEditorConsole::PluginEditorConsole(CamomileAudioProcessor& p) :
 m_history(p),
-m_level_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::option_png, BinaryData::option_pngSize),
-               ImageCache::getFromMemory(BinaryData::flower_center_png, BinaryData::flower_center_pngSize))),
-m_clear_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::clear1_png, BinaryData::clear1_pngSize),
-               ImageCache::getFromMemory(BinaryData::clear2_png, BinaryData::clear2_pngSize))),
-m_copy_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::copy1_png, BinaryData::copy1_pngSize),
-              ImageCache::getFromMemory(BinaryData::copy2_png, BinaryData::copy2_pngSize)))
+m_level_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::settings_png, BinaryData::settings_pngSize))),
+m_clear_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::garbage_png, BinaryData::garbage_pngSize))),
+m_copy_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::copy_png, BinaryData::copy_pngSize))),
+m_reload_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::reload_png, BinaryData::reload_pngSize)))
 {
     m_size  = 0;
     setWantsKeyboardFocus(true);
@@ -63,7 +55,7 @@ m_copy_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::copy1_png,
     m_table.setWantsKeyboardFocus(true);
     m_table.setMultipleSelectionEnabled(true);
     m_table.setMouseMoveSelectsRows(false);
-    m_table.setRowHeight(CamoLookAndFeel::getDefaultFont().getHeight() + 2);
+    m_table.setRowHeight(static_cast<int>(CamoLookAndFeel::getDefaultFont().getHeight()) + 2);
     m_table.setColour(ListBox::ColourIds::backgroundColourId, Colours::transparentWhite);
     m_table.getViewport()->setScrollBarsShown(true, true, true, true);
     m_table.getViewport()->setScrollBarThickness(4);
@@ -75,6 +67,8 @@ m_copy_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::copy1_png,
     addAndMakeVisible(m_copy_button);
     m_level_button->addListener(this);
     addAndMakeVisible(m_level_button);
+    m_reload_button->addListener(this);
+    addAndMakeVisible(m_reload_button);
     startTimer(100);
 }
 
@@ -86,9 +80,23 @@ PluginEditorConsole::~PluginEditorConsole()
 void PluginEditorConsole::clearSelection()
 {
     stopTimer();
-    SparseSet<int> sels = m_table.getSelectedRows();
-    for(int i = sels.size(); i > 0; --i) {
-        m_history.clear(m_level, sels[i-1]); }
+    SparseSet<int> const selection = m_table.getSelectedRows();
+    if(selection.isEmpty())
+    {
+        const size_t n = m_history.size(m_level);
+        for(size_t i = n; i > 0; --i)
+        {
+            m_history.clear(m_level, i-1);
+        }
+    }
+    else
+    {
+        const int n = selection.size();
+        for(int i = n; i > 0; --i)
+        {
+            m_history.clear(m_level, static_cast<size_t>(selection[i-1]));
+        }
+    }
     m_table.deselectAllRows();
     timerCallback();
     startTimer(100);
@@ -98,9 +106,23 @@ void PluginEditorConsole::copySelection()
 {
     String text;
     stopTimer();
-    SparseSet<int> sels = m_table.getSelectedRows();
-    for(int i = 0; i < sels.size(); ++i) {
-        text += m_history.get(m_level, sels[i]).second + "\n"; }
+    SparseSet<int> const selection = m_table.getSelectedRows();
+    if(selection.isEmpty())
+    {
+        const size_t n = m_history.size(m_level);
+        for(size_t i = 0; i < n; ++i)
+        {
+            text += m_history.get(m_level, static_cast<size_t>(i)).second + "\n";
+        }
+    }
+    else
+    {
+        const int n = selection.size();
+        for(int i = 0; i < n; ++i)
+        {
+            text += m_history.get(m_level, static_cast<size_t>(selection[i])).second + "\n";
+        }
+    }
     SystemClipboard::copyTextToClipboard(text);
     startTimer(100);
 }
@@ -108,15 +130,21 @@ void PluginEditorConsole::copySelection()
 void PluginEditorConsole::paint(Graphics& g)
 {
     g.setColour(Colours::black.withAlpha(0.5f));
-    g.drawHorizontalLine(getHeight() - 28, 2, getWidth() - 2);
+    g.drawHorizontalLine(getHeight() - 28, 2.f, static_cast<float>(getWidth()) - 2.f);
 }
 
 void PluginEditorConsole::resized()
 {
-    m_level_button->setTopLeftPosition(2, getHeight() - 26);
-    m_clear_button->setTopLeftPosition(28, getHeight() - 26);
-    m_copy_button->setTopLeftPosition(54, getHeight() - 26);
-    m_table.setSize(getWidth() - 2, getHeight() - 30);
+    const int btn_height  = getHeight() - 22;
+    const int btn_width   = 26;
+    const int btn_woffset = 4;
+    const int tbl_height  = getHeight() - 30;
+    const int tbl_wdith   = getWidth() - 2;
+    m_level_button->setTopLeftPosition(btn_woffset+btn_width*0, btn_height);
+    m_clear_button->setTopLeftPosition(btn_woffset+btn_width*1, btn_height);
+    m_copy_button->setTopLeftPosition(btn_woffset+btn_width*2, btn_height);
+    m_reload_button->setTopLeftPosition(btn_woffset+btn_width*3, btn_height);
+    m_table.setSize(tbl_wdith, tbl_height);
 }
 
 bool PluginEditorConsole::keyPressed(const KeyPress& key)
@@ -136,7 +164,11 @@ void PluginEditorConsole::deleteKeyPressed(int lastRowSelected)
 
 void PluginEditorConsole::buttonClicked(Button* button)
 {
-    if(button == m_clear_button)
+    if(button == m_reload_button)
+    {
+        m_history.reloadPatch();
+    }
+    else if(button == m_clear_button)
     {
         clearSelection();
     }
@@ -152,13 +184,14 @@ void PluginEditorConsole::buttonClicked(Button* button)
         m.addItem(3, "Normal", true, m_level == ConsoleLevel::Normal);
         m.addItem(4, "All", true, m_level == ConsoleLevel::Log);
         
-        int level = m.show(0, 0, CamoLookAndFeel::getDefaultFont().getHeight() + 2);
         stopTimer();
-        if(bool(level) && ConsoleLevel(level - 1) != m_level)
+        int const level = m.show(0, 0, static_cast<int>(CamoLookAndFeel::getDefaultFont().getHeight()) + 2);
+        if(level != 0 && static_cast<ConsoleLevel>(level - 1) != m_level)
         {
-            m_level = ConsoleLevel(level - 1);
-            m_size = m_history.size(m_level);
+            m_level = static_cast<ConsoleLevel>(level - 1);
+            m_size  = m_history.size(m_level);
             m_table.updateContent();
+            m_table.deselectAllRows();
         }
         startTimer(100);
     }

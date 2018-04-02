@@ -89,6 +89,9 @@ public:
     //! @brief Gets if the patch wants Key events.
     static bool wantsKey();
     
+    //! @brief Gets if the plugin want to auto reload the patch.
+    static bool wantsAutoReload();
+    
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                      PROGRAMS                                        //
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -105,6 +108,14 @@ public:
     //! @brief Gets the parsing errors.
     static std::vector<std::string> const& getErrors();
     
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                                      INITIALIZED                                     //
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    static bool isLatencyInitialized();
+    
+    static bool isTailLengthInitialized();
+    
 private:
     static CamomileEnvironment& get();
     bool localize();
@@ -119,8 +130,9 @@ private:
     std::string     patch_name  = "Camomile.pd";
     std::string     patch_path  = "";
     std::string     image_name  = "";
+    bool            auto_reload = false;
     bool            valid       = false;
-    std::bitset<12>  state;
+    std::bitset<13>  state;
     
     bool    midi_in_support   = false;
     bool    midi_out_support  = false;
@@ -149,6 +161,7 @@ private:
         init_type       = 8,
         init_desc       = 9,
         init_key        = 10,
-        init_compatibilty = 11
+        init_compatibilty = 11,
+        init_auto_reload  = 12
     };
 };

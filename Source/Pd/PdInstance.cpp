@@ -5,7 +5,6 @@
  */
 
 
-#include <cassert>
 #include <algorithm>
 
 extern "C"
@@ -23,22 +22,22 @@ extern "C"
     {
         static void instance_multi_bang(pd::Instance* ptr, const char *recv)
         {
-            ptr->m_message_queue.try_enqueue({std::string(recv), std::string("bang"), std::vector<Atom>()});
+            ptr->m_message_queue.try_enqueue({std::string("bang")});
         }
         
         static void instance_multi_float(pd::Instance* ptr, const char *recv, float f)
         {
-            ptr->m_message_queue.try_enqueue({std::string(recv), std::string("float"), std::vector<Atom>(1, f)});
+            ptr->m_message_queue.try_enqueue({std::string("float"), std::vector<Atom>(1, f)});
         }
         
         static void instance_multi_symbol(pd::Instance* ptr, const char *recv, const char *sym)
         {
-            ptr->m_message_queue.try_enqueue({std::string(recv), std::string("float"), std::vector<Atom>(1, std::string(sym))});
+            ptr->m_message_queue.try_enqueue({std::string("symbol"), std::vector<Atom>(1, std::string(sym))});
         }
         
         static void instance_multi_list(pd::Instance* ptr, const char *recv, int argc, t_atom *argv)
         {
-            message mess{std::string(recv), std::string("list"), std::vector<Atom>(argc)};
+            Message mess{std::string("list"), std::vector<Atom>(argc)};
             for(int i = 0; i < argc; ++i)
             {
                 if(argv[i].a_type == A_FLOAT)
@@ -51,7 +50,7 @@ extern "C"
         
         static void instance_multi_message(pd::Instance* ptr, const char *recv, const char *msg, int argc, t_atom *argv)
         {
-            message mess{std::string(recv), msg, std::vector<Atom>(argc)};
+            Message mess{msg, std::vector<Atom>(argc)};
             for(int i = 0; i < argc; ++i)
             {
                 if(argv[i].a_type == A_FLOAT)
@@ -116,7 +115,7 @@ namespace pd
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     
-    Instance::Instance()
+    Instance::Instance(std::string const& symbol)
     {
         libpd_multi_init();
         m_instance = libpd_new_instance();
@@ -131,34 +130,36 @@ namespace pd
                                                reinterpret_cast<t_libpd_multi_midibytehook>(internal::instance_multi_midibyte));
         m_print_receiver = libpd_multi_print_new(this,
                                                   reinterpret_cast<t_libpd_multi_printhook>(internal::instance_multi_print));
+        
+        m_message_receiver = libpd_multi_receiver_new(this, symbol.c_str(),
+                                                      reinterpret_cast<t_libpd_multi_banghook>(internal::instance_multi_bang),
+                                                      reinterpret_cast<t_libpd_multi_floathook>(internal::instance_multi_float),
+                                                      reinterpret_cast<t_libpd_multi_symbolhook>(internal::instance_multi_symbol),
+                                                      reinterpret_cast<t_libpd_multi_listhook>(internal::instance_multi_list),
+                                                      reinterpret_cast<t_libpd_multi_messagehook>(internal::instance_multi_message));
         m_atoms = malloc(sizeof(t_atom) * 512);
     }
     
     Instance::~Instance()
     {
-        if(m_patch)
-            closePatch();
-        for(auto it : m_message_receivers)
-        {
-            pd_free((t_pd *)it.second);
-        }
-        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        libpd_free_instance(static_cast<t_pdinstance *>(m_instance));
+        closePatch();
         pd_free((t_pd *)m_midi_receiver);
         pd_free((t_pd *)m_print_receiver);
+        pd_free((t_pd *)m_message_receiver);
+        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
+        libpd_free_instance(static_cast<t_pdinstance *>(m_instance));
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
 
-    void Instance::prepareDSP(const int nins, const int nouts, const int blksize, const double samplerate)
+    int Instance::getBlockSize() const noexcept
     {
-        const int pdblksize = libpd_blocksize();
-        m_inputs.resize(pdblksize * nins);
-        m_outputs.resize(pdblksize * nouts);
-        std::fill(m_inputs.begin(), m_inputs.end(), 0.f);
-        std::fill(m_outputs.begin(), m_outputs.end(), 0.f);
-        m_advance = 0;
+        return libpd_blocksize();
+    }
+    
+    void Instance::prepareDSP(const int nins, const int nouts, const double samplerate)
+    {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         libpd_init_audio((int)nins, (int)nouts, (int)samplerate);
     }
@@ -178,44 +179,10 @@ namespace pd
         libpd_message("pd", "dsp", 1, &av);
     }
     
-    void Instance::performDSP(const int blksize,
-                           const int nins, float const** inputs,
-                           const int nouts, float** outputs)
+    void Instance::performDSP(float const* inputs, float* outputs)
     {
-        const int pdblksize = libpd_blocksize();
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        if(blksize < pdblksize)
-        {
-            for(int j = 0; j < nins; ++j)
-            {
-                std::copy(inputs[j], inputs[j]+blksize, m_inputs.data()+j*pdblksize+m_advance);
-            }
-            m_advance = (m_advance+blksize)%pdblksize;
-            if(m_advance == 0)
-            {
-                libpd_process_raw(m_inputs.data(), m_outputs.data());
-            }
-            for(int j = 0; j < nouts; ++j)
-            {
-                std::copy(m_outputs.data()+j*pdblksize+m_advance, m_outputs.data()+(j+1)*pdblksize+m_advance, outputs[j]);
-            }
-        }
-        else
-        {
-            const int nticks    = blksize / pdblksize;
-            for(int i = 0; i < nticks; ++i)
-            {
-                for(int j = 0; j < nins; ++j)
-                {
-                    std::copy(inputs[j]+i*pdblksize, inputs[j]+(i+1)*pdblksize, m_inputs.data()+j*pdblksize);
-                }
-                libpd_process_raw(m_inputs.data(), m_outputs.data());
-                for(int j = 0; j < nouts; ++j)
-                {
-                    std::copy(m_outputs.data()+j*pdblksize, m_outputs.data()+(j+1)*pdblksize, outputs[j]+i*pdblksize);
-                }
-            }
-        }
+        libpd_process_raw(inputs, outputs);
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -326,19 +293,19 @@ namespace pd
     
     void Instance::processMessages()
     {
-        message mess;
+        Message mess;
         while(m_message_queue.try_dequeue(mess))
         {
             if(mess.selector == std::string("bang"))
-                receiveBang(mess.destination);
+                receiveBang();
             else if(mess.selector == std::string("float"))
-                receiveFloat(mess.destination, mess.list[0].getFloat());
+                receiveFloat(mess.list[0].getFloat());
             else if(mess.selector == std::string("symbol"))
-                receiveSymbol(mess.destination, mess.list[0].getSymbol());
+                receiveSymbol(mess.list[0].getSymbol());
             else if(mess.selector == std::string("list"))
-                receiveList(mess.destination, mess.list);
+                receiveList(mess.list);
             else
-                receiveMessage(mess.destination, mess.selector, mess.list);
+                receiveMessage(mess.selector, mess.list);
         }
     }
     
@@ -388,19 +355,19 @@ namespace pd
     
     void Instance::enqueueMessages(const std::string& dest, const std::string& msg, std::vector<Atom>&& list)
     {
-        m_send_queue.try_enqueue({nullptr, dest, msg, std::move(list)});
+        m_send_queue.try_enqueue(dmessage{nullptr, dest, msg, std::move(list)});
         messageEnqueued();
     }
     
     void Instance::enqueueDirectMessages(void* object, const std::string& msg)
     {
-        m_send_queue.try_enqueue({object, std::string(), std::string(), std::vector<Atom>(1, msg)});
+        m_send_queue.try_enqueue(dmessage{object, std::string(), std::string(), std::vector<Atom>(1, msg)});
         messageEnqueued();
     }
     
     void Instance::enqueueDirectMessages(void* object, const float msg)
     {
-        m_send_queue.try_enqueue({object, std::string(), std::string(), std::vector<Atom>(1, msg)});
+        m_send_queue.try_enqueue(dmessage{object, std::string(), std::string(), std::vector<Atom>(1, msg)});
         messageEnqueued();
     }
     
@@ -435,45 +402,20 @@ namespace pd
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     
-    void Instance::bind(std::string const& symbol)
-    {
-        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        if(m_message_receivers.find(symbol) == m_message_receivers.end())
-        {
-            void* receiver = libpd_multi_receiver_new(this, symbol.c_str(),
-                                                      reinterpret_cast<t_libpd_multi_banghook>(internal::instance_multi_bang),
-                                                      reinterpret_cast<t_libpd_multi_floathook>(internal::instance_multi_float),
-                                                      reinterpret_cast<t_libpd_multi_symbolhook>(internal::instance_multi_symbol),
-                                                      reinterpret_cast<t_libpd_multi_listhook>(internal::instance_multi_list),
-                                                      reinterpret_cast<t_libpd_multi_messagehook>(internal::instance_multi_message));
-            m_message_receivers[symbol] = receiver;
-        }
-    }
-    
-    void Instance::unbind(std::string const& symbol)
-    {
-        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        auto it = m_message_receivers.find(symbol);
-        if(it != m_message_receivers.end())
-        {
-            pd_free((t_pd *)it->second);
-            m_message_receivers.erase(it);
-        }
-    }
-    
-    //////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////
-    
     void Instance::openPatch(std::string const& path, std::string const& name)
     {
+        closePatch();
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         m_patch = libpd_openfile(name.c_str(), path.c_str());
     }
     
     void Instance::closePatch()
     {
-        libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        libpd_closefile(m_patch);
+        if(m_patch)
+        {
+            libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
+            libpd_closefile(m_patch);
+        }
     }
     
     Patch Instance::getPatch()
@@ -481,9 +423,21 @@ namespace pd
         return Patch(m_patch, this);
     }
     
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    Array Instance::getArray(std::string const& name)
+    {
+        return Array(name, m_instance);
+    }
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
     void Instance::setThis()
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
     }
+    
 }
 

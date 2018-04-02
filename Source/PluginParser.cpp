@@ -43,7 +43,9 @@ bool CamomileParser::getBool(std::string const& value)
         {
             const int val = atoi(value.c_str());
             if(val == 0 || val ==  1)
-                return static_cast<bool>(val);
+            {
+                return static_cast<bool>(val == 1);
+            }
             throw std::string("'") + value + std::string("' not a boolean");
         }
         else
