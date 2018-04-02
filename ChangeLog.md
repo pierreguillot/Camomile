@@ -16,6 +16,7 @@ v1.0.4
 - Add support for manually and automatic dynamic reload of the patch (#101)
 - Add support for abstractions/sub-patches GraphOnParent (#102)
 - Fix midi pitch bend offset due to +8192 from libpd (#104)
+- Remove libpd.dll dependency to the Windows versions (#94)
 
 v1.0.3
 - Fix DSP support for multiple audio buses
