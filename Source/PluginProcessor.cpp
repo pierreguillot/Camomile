@@ -408,6 +408,8 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     // is superior to the number of samples required
     else
     {
+        //////////////////////////////////////////////////////////////////////////////////////
+        
         // we save the missing input samples, we output
         // the missing samples of the previous tick and
         // we call DSP perform method.
@@ -435,7 +437,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         if(CamomileEnvironment::producesMidi())
         {
             midiMessages.addEvents(m_midi_buffer_out, adv, nleft, -adv);
-            m_midi_advancement  = 0;
+            m_midi_advancement = 0;
         }
         m_audio_advancement = 0;
         processInternal();
@@ -467,7 +469,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
             }
             if(CamomileEnvironment::producesMidi())
             {
-                midiMessages.addEvents(m_midi_buffer_out, 0, blocksize, pos);
+                midiMessages.addEvents(m_midi_buffer_out, 0, blocksize, 0);
                 m_midi_advancement = pos;
             }
             processInternal();
@@ -499,7 +501,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
             }
             if(CamomileEnvironment::producesMidi())
             {
-                midiMessages.addEvents(m_midi_buffer_out, 0, remaining, pos);
+                midiMessages.addEvents(m_midi_buffer_out, 0, remaining, 0);
                 m_midi_advancement = pos;
             }
             m_audio_advancement = remaining;
