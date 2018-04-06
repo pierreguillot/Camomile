@@ -361,6 +361,12 @@ CamomileEnvironment::CamomileEnvironment()
         }
     }
     
+    int max_ios = 0;
+    for(auto const& bus : buses)
+    {
+        max_ios = std::max(max_ios, std::max(bus.first, bus.second));
+    }
+    
     if(!state.test(init_code)) {
         errors.push_back("code not defined."); }
     if(!state.test(init_type)) {
@@ -382,7 +388,7 @@ CamomileEnvironment::CamomileEnvironment()
             errors.push_back("patch has been created for a newer version of the plugin v" + plugin_version);
         }
     }
-    if(buses.empty())
+    if(!isMidiOnly() && max_ios == 0)
     {
         buses.push_back({2, 2});
         errors.push_back("no bus defined, add default bus 2 2");
