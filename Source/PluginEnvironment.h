@@ -103,7 +103,7 @@ public:
     static std::vector<std::string> const& getParams();
     
     //! @brief Gets the channels buses supported.
-    static std::vector<std::pair<int, int>> const& getBuses();
+    static std::vector<std::pair<size_t, size_t>> const& getBuses();
     
     //! @brief Gets the parsing errors.
     static std::vector<std::string> const& getErrors();
@@ -144,7 +144,7 @@ private:
     
     std::vector<std::string> programs;
     std::vector<std::string> params;
-    std::vector<std::pair<int, int>> buses;
+    std::vector<std::pair<size_t, size_t>> buses;
     
     std::vector<std::string> errors;
     

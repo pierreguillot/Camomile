@@ -19,7 +19,7 @@ AudioProcessor::BusesProperties CamomileAudioProcessor::getBusesProperties()
 {
     BusesProperties ioconfig;
     auto& buses_supported = CamomileEnvironment::getBuses();
-    if(buses_supported.empty())
+    if(!CamomileEnvironment::isMidiOnly() && buses_supported.empty())
     {
         return BusesProperties().withInput("Input",  AudioChannelSet::stereo())
         .withOutput ("Output", AudioChannelSet::stereo());
@@ -29,9 +29,11 @@ AudioProcessor::BusesProperties CamomileAudioProcessor::getBusesProperties()
     {
 #if JucePlugin_Build_VST3
         if(buse.first)
-            ioconfig.addBus(true, String("Input ") + String(i), AudioChannelSet::canonicalChannelSet(buse.first), i == 1);
+            ioconfig.addBus(true, String("Input ") + String(i),
+                            AudioChannelSet::canonicalChannelSet(static_cast<int>(buse.first)), i == 1);
         if(buse.second)
-            ioconfig.addBus(false, String("Ouput ") + String(i), AudioChannelSet::canonicalChannelSet(buse.second), i == 1);
+            ioconfig.addBus(false, String("Ouput ") + String(i),
+                            AudioChannelSet::canonicalChannelSet(static_cast<int>(buse.second)), i == 1);
 #else
         if(buse.first)
             ioconfig.addBus(true, String("Input ") + String(i), AudioChannelSet::discreteChannels(buse.first), i == 1);
@@ -153,13 +155,9 @@ void CamomileAudioProcessor::reloadPatch()
 
 bool CamomileAudioProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const
 {
-    const int nins  = layouts.getMainInputChannels();
-    const int nouts  = layouts.getMainOutputChannels();
+    const size_t nins  = static_cast<size_t>(layouts.getMainInputChannels());
+    const size_t nouts  = static_cast<size_t>(layouts.getMainOutputChannels());
     auto& buses_supported = CamomileEnvironment::getBuses();
-    if(buses_supported.empty())
-    {
-        return nins <= 2 && nouts <= 2;
-    }
     for(auto& buse : buses_supported)
     {
         if(buse.first == nins && buse.second == nouts)
@@ -203,8 +201,11 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     
     m_audio_advancement = 0;
     m_midi_advancement = 0;
-    m_audio_buffer_in.resize(getTotalNumInputChannels() * Instance::getBlockSize());
-    m_audio_buffer_out.resize(getTotalNumOutputChannels() * Instance::getBlockSize());
+    const size_t blksize = static_cast<size_t>(Instance::getBlockSize());
+    const size_t nins = std::max(static_cast<size_t>(getTotalNumInputChannels()), 2ul);
+    const size_t nouts = std::max(static_cast<size_t>(getTotalNumOutputChannels()), 2ul);
+    m_audio_buffer_in.resize(nins * blksize);
+    m_audio_buffer_out.resize(nouts * blksize);
     std::fill(m_audio_buffer_out.begin(), m_audio_buffer_out.end(), 0.f);
     std::fill(m_audio_buffer_in.begin(), m_audio_buffer_in.end(), 0.f);
     m_midi_buffer_in.clear();
@@ -433,7 +434,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         }
         if(CamomileEnvironment::producesMidi())
         {
-            midiMessages.addEvents(m_midi_buffer_out, adv, nleft, 0);
+            midiMessages.addEvents(m_midi_buffer_out, adv, nleft, -adv);
             m_midi_advancement  = 0;
         }
         m_audio_advancement = 0;

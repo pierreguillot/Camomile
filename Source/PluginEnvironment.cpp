@@ -84,7 +84,7 @@ std::vector<std::string> const& CamomileEnvironment::getPrograms() { return get(
 
 std::vector<std::string> const& CamomileEnvironment::getParams() { return get().params; }
 
-std::vector<std::pair<int, int>> const& CamomileEnvironment::getBuses() { return get().buses; }
+std::vector<std::pair<size_t, size_t>> const& CamomileEnvironment::getBuses() { return get().buses; }
 
 std::vector<std::string> const& CamomileEnvironment::getErrors() { return get().errors; }
 
@@ -235,7 +235,7 @@ CamomileEnvironment::CamomileEnvironment()
                         }
                         else if(entry.first == "bus")
                         {
-                            buses.push_back(CamomileParser::getTwoIntegers(entry.second));
+                            buses.push_back(CamomileParser::getTwoUnsignedIntegers(entry.second));
                         }
                         else if(entry.first == "midiin")
                         {
@@ -361,18 +361,34 @@ CamomileEnvironment::CamomileEnvironment()
         }
     }
     
-    int max_ios = 0;
+    size_t max_ios = 0;
     for(auto const& bus : buses)
     {
         max_ios = std::max(max_ios, std::max(bus.first, bus.second));
     }
-    
-    if(!state.test(init_code)) {
-        errors.push_back("code not defined."); }
-    if(!state.test(init_type)) {
-        errors.push_back("type not defined."); }
-    if(!state.test(init_compatibilty)) {
-        errors.push_back("compatibility not defined."); }
+    if(!midi_only && max_ios == 0)
+    {
+        buses.push_back({2, 2});
+        errors.push_back("no bus defined, add default bus 2 2");
+    }
+    else if(midi_only && !buses.empty())
+    {
+        buses.clear();
+        errors.push_back("bus definition not necessary with midi only option");
+    }
+
+    if(!state.test(init_code))
+    {
+        errors.push_back("code not defined.");
+    }
+    if(!state.test(init_type))
+    {
+        errors.push_back("type not defined.");
+    }
+    if(!state.test(init_compatibilty))
+    {
+        errors.push_back("compatibility not defined.");
+    }
     else
     {
         size_t vpatch = 0, vplugin = 0;
@@ -387,11 +403,6 @@ CamomileEnvironment::CamomileEnvironment()
         {
             errors.push_back("patch has been created for a newer version of the plugin v" + plugin_version);
         }
-    }
-    if(!isMidiOnly() && max_ios == 0)
-    {
-        buses.push_back({2, 2});
-        errors.push_back("no bus defined, add default bus 2 2");
     }
     if(programs.empty())
     {

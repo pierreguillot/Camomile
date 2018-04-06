@@ -1,3 +1,6 @@
+v1.0.5
+- Fix warnings when audio buses are not well configured
+
 v1.0.4
 - Add label support for GUI objects (#95)
 - Add graphical array support for GUI array objects (graph)  (#93)
