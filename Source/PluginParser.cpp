@@ -150,6 +150,27 @@ std::pair<int, int> CamomileParser::getTwoIntegers(std::string const& value)
     throw std::string("is empty");
 }
 
+std::pair<size_t, size_t> CamomileParser::getTwoUnsignedIntegers(std::string const& value)
+{
+    if(!value.empty())
+    {
+        if(isdigit(static_cast<int>(value[0])))
+        {
+            size_t next = value.find_first_of(' ');
+            if(next != std::string::npos)
+            {
+                next = value.find_first_not_of(' ', next+1);
+                if(next != std::string::npos && isdigit(static_cast<int>(value[next])))
+                {
+                    return std::pair<size_t, size_t>(static_cast<size_t>(atol(value.c_str())), static_cast<size_t>(atol(value.c_str()+next)));
+                }
+            }
+        }
+        throw std::string("'") + value + std::string("' not a double unsigned integer");
+    }
+    throw std::string("is empty");
+}
+
 std::map<std::string, std::string> CamomileParser::getOptions(std::string const& value)
 {
     std::map<std::string, std::string> options;
