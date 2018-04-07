@@ -499,7 +499,13 @@ void CamomileAudioProcessor::processBlockBypassed (AudioBuffer<float>& buffer, M
 {
     dequeueMessages();
     processMessages();
-    AudioProcessor::processBlockBypassed(buffer, midiMessages);
+    const int nsamples  = buffer.getNumSamples();
+    const int nins      = getTotalNumInputChannels();
+    const int nouts     = getTotalNumOutputChannels();
+    for(int i = nins; i < nouts; ++i)
+    {
+        buffer.clear(i, 0, nsamples);
+    }
 }
 
 void CamomileAudioProcessor::receiveMessage(const std::string& msg, const std::vector<pd::Atom>& list)
