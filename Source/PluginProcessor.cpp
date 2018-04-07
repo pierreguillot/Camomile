@@ -394,7 +394,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         if(midi_produce)
         {
             midiMessages.clear();
-            midiMessages.addEvents(m_midi_buffer_out, adv, nsamples, 0);
+            midiMessages.addEvents(m_midi_buffer_out, adv, nsamples, -adv);
         }
         m_audio_advancement += nsamples;
     }
@@ -430,8 +430,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         }
         if(midi_produce)
         {
-            midiMessages.addEvents(m_midi_buffer_out, adv, nleft, 0);
-            std::cout << "midi out start 0 :" << 0 << "\n";
+            midiMessages.addEvents(m_midi_buffer_out, adv, nleft, -adv);
         }
         m_audio_advancement = 0;
         processInternal();
@@ -459,7 +458,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
             }
             if(midi_produce)
             {
-                midiMessages.addEvents(m_midi_buffer_out, 0, blocksize, 0);
+                midiMessages.addEvents(m_midi_buffer_out, 0, blocksize, pos);
             }
             processInternal();
             pos += blocksize;
@@ -489,7 +488,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
             }
             if(midi_produce)
             {
-                midiMessages.addEvents(m_midi_buffer_out, 0, remaining, 0);
+                midiMessages.addEvents(m_midi_buffer_out, 0, remaining, pos);
             }
             m_audio_advancement = remaining;
         }
