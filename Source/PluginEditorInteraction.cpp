@@ -226,6 +226,11 @@ const std::string CamomileEditorMessageManager::string_gui       = std::string("
 CamomileEditorMessageManager::CamomileEditorMessageManager(CamomileAudioProcessor& processor) : m_processor(processor), m_window(new CamomileEditorMessageWindow())
 {}
 
+bool CamomileEditorMessageManager::isWindowShowing()
+{
+    return m_window->isShowing();
+}
+
 bool CamomileEditorMessageManager::processMessages()
 {
     CamomileAudioProcessor::MessageGui message;

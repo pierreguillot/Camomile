@@ -86,6 +86,8 @@ public:
     virtual ~CamomileEditorMessageManager() {}
 protected:
     bool processMessages();
+    bool isWindowShowing();
+    
 private:
     virtual void guiResize() = 0;
     virtual void guiRedraw() = 0;
