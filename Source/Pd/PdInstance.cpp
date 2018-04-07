@@ -102,7 +102,7 @@ extern "C"
         //////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////
         
-        static void instance_multi_print(pd::Instance* ptr, char* s)
+        static void instance_multi_print(pd::Instance* ptr, char const* s)
         {
             ptr->m_print_queue.try_enqueue(std::string(s));
         }
