@@ -101,7 +101,6 @@ private:
     std::vector<float>       m_audio_buffer_in;
     std::vector<float>       m_audio_buffer_out;
     
-    int                      m_midi_advancement;
     MidiBuffer               m_midi_buffer_in;
     MidiBuffer               m_midi_buffer_out;
     MidiBuffer               m_midi_buffer_temp;

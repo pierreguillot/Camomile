@@ -200,10 +200,9 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     }
     
     m_audio_advancement = 0;
-    m_midi_advancement = 0;
     const size_t blksize = static_cast<size_t>(Instance::getBlockSize());
-    const size_t nins = std::max(static_cast<size_t>(getTotalNumInputChannels()), 2ul);
-    const size_t nouts = std::max(static_cast<size_t>(getTotalNumOutputChannels()), 2ul);
+    const size_t nins = std::max(static_cast<size_t>(getTotalNumInputChannels()), static_cast<size_t>(2));
+    const size_t nouts = std::max(static_cast<size_t>(getTotalNumOutputChannels()), static_cast<size_t>(2));
     m_audio_buffer_in.resize(nins * blksize);
     m_audio_buffer_out.resize(nouts * blksize);
     std::fill(m_audio_buffer_out.begin(), m_audio_buffer_out.end(), 0.f);
@@ -224,7 +223,6 @@ void CamomileAudioProcessor::releaseResources()
     std::fill(m_audio_buffer_out.begin(), m_audio_buffer_out.end(), 0.f);
     std::fill(m_audio_buffer_in.begin(), m_audio_buffer_in.end(), 0.f);
     m_audio_advancement = 0;
-    m_midi_advancement = 0;
 }
 
 void CamomileAudioProcessor::processInternal()
@@ -432,8 +430,7 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         }
         if(midi_produce)
         {
-            midiMessages.addEvents(m_midi_buffer_out, adv, nleft, -adv);
-            m_midi_advancement = nleft;
+            midiMessages.addEvents(m_midi_buffer_out, adv, nleft, 0);
             std::cout << "midi out start 0 :" << 0 << "\n";
         }
         m_audio_advancement = 0;
@@ -463,8 +460,6 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
             if(midi_produce)
             {
                 midiMessages.addEvents(m_midi_buffer_out, 0, blocksize, 0);
-                m_midi_advancement += blocksize;
-                std::cout << "midi out loop :" << m_midi_advancement << "\n";
             }
             processInternal();
             pos += blocksize;
@@ -478,9 +473,6 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         const int remaining = nsamples - pos;
         if(remaining > 0)
         {
-#ifdef DEBUG
-            std::cout << "remain:" << remaining <<"samples\n";
-#endif
             for(int j = 0; j < nins; ++j)
             {
                 const int index = j*blocksize;
@@ -498,7 +490,6 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
             if(midi_produce)
             {
                 midiMessages.addEvents(m_midi_buffer_out, 0, remaining, 0);
-                m_midi_advancement += remaining;
             }
             m_audio_advancement = remaining;
         }
@@ -849,39 +840,39 @@ bool CamomileAudioProcessor::dequeueGui(MessageGui& message)
 void CamomileAudioProcessor::receiveNoteOn(const int channel, const int pitch, const int velocity)
 {
     if(velocity == 0) {
-        m_midi_buffer_out.addEvent(MidiMessage::noteOff(channel, pitch, uint8(0)), m_midi_advancement); }
+        m_midi_buffer_out.addEvent(MidiMessage::noteOff(channel, pitch, uint8(0)), m_audio_advancement); }
     else {
-        m_midi_buffer_out.addEvent(MidiMessage::noteOn(channel, pitch, static_cast<uint8>(velocity)), m_midi_advancement); }
+        m_midi_buffer_out.addEvent(MidiMessage::noteOn(channel, pitch, static_cast<uint8>(velocity)), m_audio_advancement); }
 }
 
 void CamomileAudioProcessor::receiveControlChange(const int channel, const int controller, const int value)
 {
-    m_midi_buffer_out.addEvent(MidiMessage::controllerEvent(channel, controller, value), m_midi_advancement);
+    m_midi_buffer_out.addEvent(MidiMessage::controllerEvent(channel, controller, value), m_audio_advancement);
 }
 
 void CamomileAudioProcessor::receiveProgramChange(const int channel, const int value)
 {
-    m_midi_buffer_out.addEvent(MidiMessage::programChange(channel, value), m_midi_advancement);
+    m_midi_buffer_out.addEvent(MidiMessage::programChange(channel, value), m_audio_advancement);
 }
 
 void CamomileAudioProcessor::receivePitchBend(const int channel, const int value)
 {
-    m_midi_buffer_out.addEvent(MidiMessage::pitchWheel(channel, value + 8192), m_midi_advancement);
+    m_midi_buffer_out.addEvent(MidiMessage::pitchWheel(channel, value + 8192), m_audio_advancement);
 }
 
 void CamomileAudioProcessor::receiveAftertouch(const int channel, const int value)
 {
-    m_midi_buffer_out.addEvent(MidiMessage::channelPressureChange(channel, value), m_midi_advancement);
+    m_midi_buffer_out.addEvent(MidiMessage::channelPressureChange(channel, value), m_audio_advancement);
 }
 
 void CamomileAudioProcessor::receivePolyAftertouch(const int channel, const int pitch, const int value)
 {
-    m_midi_buffer_out.addEvent(MidiMessage::aftertouchChange(channel, pitch, value), m_midi_advancement);
+    m_midi_buffer_out.addEvent(MidiMessage::aftertouchChange(channel, pitch, value), m_audio_advancement);
 }
 
 void CamomileAudioProcessor::receiveMidiByte(const int port, const int byte)
 {
-    m_midi_buffer_out.addEvent(MidiMessage(byte), m_midi_advancement);
+    m_midi_buffer_out.addEvent(MidiMessage(byte), m_audio_advancement);
 }
 
 void CamomileAudioProcessor::receivePrint(const std::string& message)
