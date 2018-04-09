@@ -171,6 +171,55 @@ std::pair<size_t, size_t> CamomileParser::getTwoUnsignedIntegers(std::string con
     throw std::string("is empty");
 }
 
+std::pair<size_t, size_t> CamomileParser::getBus(std::string const& value, size_t& pos)
+{
+    size_t input = 0, output = 0;
+    pos = value.find_first_of('[', pos);
+    if(pos == std::string::npos)
+    {
+        throw std::string("'") + value + std::string("' not valid for buses - missing 1st bracket");
+    }
+    ++pos;
+    if(pos >= value.size() || !isdigit(static_cast<int>(value[pos])))
+    {
+        throw std::string("'") + value + std::string("' not valid for buses - missing 1st number");
+    }
+    input = static_cast<size_t>(atol(value.c_str()+pos));
+    pos = value.find_first_of(' ', pos+1);
+    if(pos == std::string::npos)
+    {
+        throw std::string("'") + value + std::string("' not valid for buses - missing 2nd number");
+    }
+    pos = value.find_first_not_of(' ', pos+1);
+    if(pos == std::string::npos || !isdigit(static_cast<int>(value[pos])))
+    {
+        throw std::string("'") + value + std::string("' not valid for buses - missing 2nd number");
+    }
+    output = static_cast<size_t>(atol(value.c_str()+pos));
+    pos = value.find_first_of(']', pos+1);
+    if(pos == std::string::npos)
+    {
+        throw std::string("'") + value + std::string("' not valid for buses - missing 2nd bracket");
+    }
+    pos = value.find_first_of('[', pos+1);
+    return {input, output};
+}
+
+std::vector<std::pair<size_t, size_t>> CamomileParser::getBuses(std::string const& value)
+{
+    std::vector<std::pair<size_t, size_t>> pairs;
+    if(!value.empty())
+    {
+        size_t pos = 0;
+        while (pos != std::string::npos)
+        {
+            pairs.push_back(getBus(value, pos));
+        }
+        return pairs;
+    }
+    throw std::string("is empty");
+}
+
 std::map<std::string, std::string> CamomileParser::getOptions(std::string const& value)
 {
     std::map<std::string, std::string> options;

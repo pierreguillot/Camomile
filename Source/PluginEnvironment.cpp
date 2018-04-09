@@ -237,6 +237,10 @@ CamomileEnvironment::CamomileEnvironment()
                         {
                             buses.push_back(CamomileParser::getTwoUnsignedIntegers(entry.second));
                         }
+                        else if(entry.first == "buses")
+                        {
+                            audio_layout.push_back(CamomileParser::getBuses(entry.second));
+                        }
                         else if(entry.first == "midiin")
                         {
                             if(state.test(init_midi_in))

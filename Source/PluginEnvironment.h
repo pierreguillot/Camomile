@@ -21,6 +21,8 @@ class CamomileEnvironment
 {
 public:
     
+    typedef std::pair<size_t, size_t> bus;
+    typedef std::vector<bus> buses_layout;
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                      GLOBAL                                          //
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -145,6 +147,7 @@ private:
     std::vector<std::string> programs;
     std::vector<std::string> params;
     std::vector<std::pair<size_t, size_t>> buses;
+    std::vector<buses_layout> audio_layout;
     
     std::vector<std::string> errors;
     
