@@ -1027,6 +1027,16 @@ void CamomileAudioProcessor::getStateInformation(MemoryBlock& destData)
     processMessages();
     copyXmlToBinary(xml, destData);
     m_temp_xml = nullptr;
+    
+    XmlElement* cbounds = xml.createNewChildElement("console");
+    if(cbounds)
+    {
+        cbounds->setAttribute(String("x"), m_console_bounds.getX());
+        cbounds->setAttribute(String("y"), m_console_bounds.getX());
+        cbounds->setAttribute(String("width"), m_console_bounds.getWidth());
+        cbounds->setAttribute(String("height"), m_console_bounds.getHeight());
+    }
+    
     suspendProcessing(false);
 }
 
@@ -1038,6 +1048,14 @@ void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBy
     {
         CamomileAudioParameter::loadStateInformation(*xml, getParameters());
         loadInformation(*xml);
+        XmlElement const* cbounds = xml->getChildByName(juce::StringRef("console"));
+        if(cbounds)
+        {
+            m_console_bounds.setX(cbounds->getIntAttribute(String("x")));
+            m_console_bounds.setY(cbounds->getIntAttribute(String("y")));
+            m_console_bounds.setWidth(cbounds->getIntAttribute(String("width")));
+            m_console_bounds.setHeight(cbounds->getIntAttribute(String("height")));
+        }
     }
     else
     {

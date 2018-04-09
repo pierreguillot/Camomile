@@ -139,26 +139,8 @@ void CamomileEditorMouseManager::stopEdition() {
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
-//                                      PANEL MANAGER                                       //
+//                                      GUI ARRAY OWNER                                     //
 //////////////////////////////////////////////////////////////////////////////////////////////
-
-
-class CamomileEditorMessageWindow : public DocumentWindow
-{
-public:
-    CamomileEditorMessageWindow() : DocumentWindow(String(""), Colours::lightgrey, DocumentWindow::closeButton, false)
-    {
-        setUsingNativeTitleBar(true);
-        setBounds(50, 50, 300, 120);
-        setResizable(true, true);
-        setDropShadowEnabled(true);
-        setVisible(true);
-    }
-    
-    void closeButtonPressed() { removeFromDesktop(); }
-private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorMessageWindow)
-};
 
 class GraphicalArrayOwner : public Component
 {
@@ -217,18 +199,42 @@ private:
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////
+//                                      CONSOLE WINDOWS                                     //
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+class CamomileEditorMessageWindow : public DocumentWindow
+{
+public:
+    CamomileEditorMessageWindow() : DocumentWindow(String(""), Colours::lightgrey, DocumentWindow::closeButton, false)
+    {
+        setUsingNativeTitleBar(true);
+        setBounds(50, 50, 300, 120);
+        setResizable(true, true);
+        setDropShadowEnabled(true);
+        setVisible(true);
+    }
+    
+    void closeButtonPressed() { removeFromDesktop(); }
+private:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorMessageWindow)
+};
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 const std::string CamomileEditorMessageManager::string_openpanel = std::string("openpanel");
 const std::string CamomileEditorMessageManager::string_savepanel = std::string("savepanel");
 const std::string CamomileEditorMessageManager::string_array     = std::string("array");
 const std::string CamomileEditorMessageManager::string_gui       = std::string("gui");
 
-CamomileEditorMessageManager::CamomileEditorMessageManager(CamomileAudioProcessor& processor) : m_processor(processor), m_window(new CamomileEditorMessageWindow())
-{}
-
-bool CamomileEditorMessageManager::isWindowShowing()
+CamomileEditorMessageManager::CamomileEditorMessageManager(CamomileAudioProcessor& processor) :
+m_processor(processor), m_window(new CamomileEditorMessageWindow())
 {
-    return m_window->isShowing();
+}
+
+CamomileEditorMessageManager::~CamomileEditorMessageManager()
+{
 }
 
 bool CamomileEditorMessageManager::processMessages()

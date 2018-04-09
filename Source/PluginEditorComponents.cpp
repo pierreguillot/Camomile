@@ -98,6 +98,13 @@ m_processor(processor), m_window(new CamomileEditorWindow())
     m_petals.setOverlayColour(Colours::black);
     m_petals.setAlpha(0.5f);
     setBounds(3, 3, 18, 18);
+    
+    m_window->setBounds(m_processor.getConsoleWindowBounds());
+}
+
+CamomileEditorButton::~CamomileEditorButton()
+{
+    m_processor.setConsoleWindowBounds(m_window->getBounds());
 }
 
 void CamomileEditorButton::buttonStateChanged()

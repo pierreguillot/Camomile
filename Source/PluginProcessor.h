@@ -68,6 +68,9 @@ public:
     void fileChanged() final;
     void reloadPatch();
     
+    Rectangle<int> getConsoleWindowBounds() const { return m_console_bounds; }
+    void setConsoleWindowBounds(Rectangle<int> const& rect) { m_console_bounds = rect; }
+    
     enum ConsoleLevel
     {
         Fatal   = 0,
@@ -77,6 +80,7 @@ public:
         All     = 4
         
     };
+    
 private:
     static BusesProperties getBusesProperties();
     void sendBusInformation(Bus const *bus);
@@ -112,5 +116,6 @@ private:
     TrackProperties          m_track_properties;
     XmlElement*              m_temp_xml;
     
+    Rectangle<int>           m_console_bounds = Rectangle<int>(50, 50, 300, 370);
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CamomileAudioProcessor)
 };

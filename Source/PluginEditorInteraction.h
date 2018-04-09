@@ -83,15 +83,12 @@ class CamomileEditorMessageManager
 {
 public:
     CamomileEditorMessageManager(CamomileAudioProcessor& processor);
-    virtual ~CamomileEditorMessageManager() {}
+    virtual ~CamomileEditorMessageManager();
 protected:
     bool processMessages();
-    bool isWindowShowing();
-    
 private:
     virtual void guiResize() = 0;
     virtual void guiRedraw() = 0;
-    
     
     CamomileAudioProcessor& m_processor;
     ScopedPointer<DocumentWindow> m_window;
