@@ -68,8 +68,8 @@ public:
     void fileChanged() final;
     void reloadPatch();
     
-    Rectangle<int> getConsoleWindowBounds() const { return m_console_bounds; }
-    void setConsoleWindowBounds(Rectangle<int> const& rect) { m_console_bounds = rect; }
+    Rectangle<int> getConsoleWindowBounds() const;
+    void setConsoleWindowBounds(Rectangle<int> const& rect);
     
     enum ConsoleLevel
     {

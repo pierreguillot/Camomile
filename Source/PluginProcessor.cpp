@@ -1027,7 +1027,6 @@ void CamomileAudioProcessor::getStateInformation(MemoryBlock& destData)
     processMessages();
     copyXmlToBinary(xml, destData);
     m_temp_xml = nullptr;
-    
     XmlElement* cbounds = xml.createNewChildElement("console");
     if(cbounds)
     {
@@ -1067,6 +1066,16 @@ void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBy
 void CamomileAudioProcessor::updateTrackProperties(const TrackProperties& properties)
 {
     m_track_properties = properties;
+}
+
+Rectangle<int> CamomileAudioProcessor::getConsoleWindowBounds() const
+{
+    return m_console_bounds;
+}
+
+void CamomileAudioProcessor::setConsoleWindowBounds(Rectangle<int> const& rect)
+{
+    m_console_bounds = rect;
 }
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
