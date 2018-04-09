@@ -19,6 +19,10 @@
             file="../Source/PluginProcessor.cpp"/>
       <FILE id="ZpP8vD" name="PluginProcessor.h" compile="0" resource="0"
             file="../Source/PluginProcessor.h"/>
+      <FILE id="bdCY4p" name="PluginBusesLayoutManager.cpp" compile="1" resource="0"
+            file="../Source/PluginBusesLayoutManager.cpp"/>
+      <FILE id="d0wZEz" name="PluginBusesLayoutManager.h" compile="0" resource="0"
+            file="../Source/PluginBusesLayoutManager.h"/>
       <FILE id="DYqJL2" name="PluginConsole.h" compile="0" resource="0" file="../Source/PluginConsole.h"/>
       <FILE id="WVybLg" name="PluginEditor.cpp" compile="1" resource="0"
             file="../Source/PluginEditor.cpp"/>

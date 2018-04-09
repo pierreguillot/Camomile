@@ -8,6 +8,7 @@
 #include "PluginParser.h"
 #include "PluginParameter.h"
 #include "PluginEditor.h"
+#include "PluginBusesLayoutManager.h"
 #include <iostream>
 #include <exception>
 
@@ -18,29 +19,14 @@
 AudioProcessor::BusesProperties CamomileAudioProcessor::getBusesProperties()
 {
     BusesProperties ioconfig;
-    auto& buses_supported = CamomileEnvironment::getBuses();
-    if(!CamomileEnvironment::isMidiOnly() && buses_supported.empty())
+    BusesLayout const mainBusesLayout = CamomileAudioBusesLayoutManager::getDefaultBusesLayout();
+    for(int i = 0; i < mainBusesLayout.inputBuses.size(); ++i)
     {
-        return BusesProperties().withInput("Input",  AudioChannelSet::stereo())
-        .withOutput ("Output", AudioChannelSet::stereo());
+        ioconfig.addBus(true, String("Input ") + String(i), mainBusesLayout.inputBuses[i], i == 0);
     }
-    size_t i = 1;
-    for(auto& buse : buses_supported)
+    for(int i = 0; i < mainBusesLayout.outputBuses.size(); ++i)
     {
-#if JucePlugin_Build_VST3
-        if(buse.first)
-            ioconfig.addBus(true, String("Input ") + String(i),
-                            AudioChannelSet::canonicalChannelSet(static_cast<int>(buse.first)), i == 1);
-        if(buse.second)
-            ioconfig.addBus(false, String("Ouput ") + String(i),
-                            AudioChannelSet::canonicalChannelSet(static_cast<int>(buse.second)), i == 1);
-#else
-        if(buse.first)
-            ioconfig.addBus(true, String("Input ") + String(i), AudioChannelSet::discreteChannels(buse.first), i == 1);
-        if(buse.second)
-            ioconfig.addBus(false, String("Ouput ") + String(i), AudioChannelSet::discreteChannels(buse.second), i == 1);
-#endif
-        ++i;
+        ioconfig.addBus(false, String("Ouput ") + String(i), mainBusesLayout.outputBuses[i], i == 0);
     }
     return ioconfig;
 }
@@ -155,17 +141,7 @@ void CamomileAudioProcessor::reloadPatch()
 
 bool CamomileAudioProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const
 {
-    const size_t nins  = static_cast<size_t>(layouts.getMainInputChannels());
-    const size_t nouts  = static_cast<size_t>(layouts.getMainOutputChannels());
-    auto& buses_supported = CamomileEnvironment::getBuses();
-    for(auto& buse : buses_supported)
-    {
-        if(buse.first == nins && buse.second == nouts)
-        {
-            return true;
-        }
-    }
-    return false;
+    return CamomileAudioBusesLayoutManager::isBusesLayoutSupported(layouts);
 }
 
 void CamomileAudioProcessor::sendBusInformation(Bus const *bus)

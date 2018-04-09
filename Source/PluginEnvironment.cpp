@@ -84,9 +84,7 @@ std::vector<std::string> const& CamomileEnvironment::getPrograms() { return get(
 
 std::vector<std::string> const& CamomileEnvironment::getParams() { return get().params; }
 
-std::vector<CamomileEnvironment::bus> const& CamomileEnvironment::getBuses() { return get().buses; }
-
-std::vector<CamomileEnvironment::buses_layout> const& CamomileEnvironment::getBusesLayouts() { return get().buses_layouts; }
+std::vector<CamomileEnvironment::buses_layout> const& CamomileEnvironment::getBusesLayouts() { return get().m_buses_layouts; }
 
 std::vector<std::string> const& CamomileEnvironment::getErrors() { return get().errors; }
 
@@ -237,11 +235,11 @@ CamomileEnvironment::CamomileEnvironment()
                         }
                         else if(entry.first == "bus")
                         {
-                            buses.push_back(CamomileParser::getTwoUnsignedIntegers(entry.second));
+                            m_buses.push_back(CamomileParser::getTwoUnsignedIntegers(entry.second));
                         }
                         else if(entry.first == "buses")
                         {
-                            buses_layouts.push_back(CamomileParser::getBuses(entry.second));
+                            m_buses_layouts.push_back(CamomileParser::getBuses(entry.second));
                         }
                         else if(entry.first == "midiin")
                         {
@@ -367,22 +365,33 @@ CamomileEnvironment::CamomileEnvironment()
         }
     }
     
+    //////////////////////////////////////////////////////////////////////////////////////////
+    if(!m_buses.empty())
+    {
+        m_buses_layouts.insert(m_buses_layouts.begin(), m_buses);
+        m_buses.clear();
+        errors.push_back("compatibility mode used: bus property will be deprecated, please use buses");
+    }
     size_t max_ios = 0;
-    for(auto const& bus : buses)
+    for(auto const& clayout : m_buses_layouts)
     {
-        max_ios = std::max(max_ios, std::max(bus.first, bus.second));
+        for(auto const& cbus : clayout)
+        {
+            max_ios = std::max(max_ios, std::max(cbus.first, cbus.second));
+        }
     }
-    if(!midi_only && max_ios == 0)
+    if(!midi_only && !max_ios)
     {
-        buses.push_back({2, 2});
-        errors.push_back("no bus defined, add default bus 2 2");
+        m_buses_layouts.push_back({{2, 2}});
+        errors.push_back("no buses layout defined, add default bus 2 2");
     }
-    else if(midi_only && !buses.empty())
+    else if(midi_only && max_ios)
     {
-        buses.clear();
-        errors.push_back("bus definition not necessary with midi only option");
+        m_buses_layouts.clear();
+        errors.push_back("buses definition not necessary with midi only option");
     }
-
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
     if(!state.test(init_code))
     {
         errors.push_back("code not defined.");

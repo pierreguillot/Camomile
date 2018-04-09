@@ -302,6 +302,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Source\PluginProcessor.cpp"/>
+    <ClCompile Include="..\..\..\Source\PluginBusesLayoutManager.cpp"/>
     <ClCompile Include="..\..\..\Source\PluginEditor.cpp"/>
     <ClCompile Include="..\..\..\Source\PluginEditorComponents.cpp"/>
     <ClCompile Include="..\..\..\Source\PluginEditorConsole.cpp"/>
@@ -727,6 +728,9 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_processors\format_types\juce_LADSPAPluginFormat.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_audio_processors\format_types\juce_LegacyAudioParameter.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_processors\format_types\juce_VST3PluginFormat.cpp">
@@ -1987,6 +1991,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\PluginProcessor.h"/>
+    <ClInclude Include="..\..\..\Source\PluginBusesLayoutManager.h"/>
     <ClInclude Include="..\..\..\Source\PluginConsole.h"/>
     <ClInclude Include="..\..\..\Source\PluginEditor.h"/>
     <ClInclude Include="..\..\..\Source\PluginEditorComponents.h"/>

@@ -86,6 +86,7 @@ OBJECTS_VST := \
 
 OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/PluginProcessor_319d19ef.o \
+  $(JUCE_OBJDIR)/PluginBusesLayoutManager_1169c222.o \
   $(JUCE_OBJDIR)/PluginEditor_ef07f2fa.o \
   $(JUCE_OBJDIR)/PluginEditorComponents_6d39f4f0.o \
   $(JUCE_OBJDIR)/PluginEditorConsole_207d0487.o \
@@ -145,6 +146,11 @@ $(JUCE_OBJDIR)/include_juce_audio_plugin_client_VST2_dd551e08.o: ../../JuceLibra
 $(JUCE_OBJDIR)/PluginProcessor_319d19ef.o: ../../../Source/PluginProcessor.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling PluginProcessor.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/PluginBusesLayoutManager_1169c222.o: ../../../Source/PluginBusesLayoutManager.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PluginBusesLayoutManager.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/PluginEditor_ef07f2fa.o: ../../../Source/PluginEditor.cpp

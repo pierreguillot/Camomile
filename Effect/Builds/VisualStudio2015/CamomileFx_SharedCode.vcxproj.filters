@@ -373,6 +373,9 @@
     <ClCompile Include="..\..\..\Source\PluginProcessor.cpp">
       <Filter>CamomileFx\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\PluginBusesLayoutManager.cpp">
+      <Filter>CamomileFx\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\PluginEditor.cpp">
       <Filter>CamomileFx\Source</Filter>
     </ClCompile>
@@ -848,6 +851,9 @@
       <Filter>JUCE Modules\juce_audio_processors\format_types</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_processors\format_types\juce_LADSPAPluginFormat.cpp">
+      <Filter>JUCE Modules\juce_audio_processors\format_types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_audio_processors\format_types\juce_LegacyAudioParameter.cpp">
       <Filter>JUCE Modules\juce_audio_processors\format_types</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_processors\format_types\juce_VST3PluginFormat.cpp">
@@ -2233,6 +2239,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\PluginProcessor.h">
+      <Filter>CamomileFx\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\PluginBusesLayoutManager.h">
       <Filter>CamomileFx\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\PluginConsole.h">

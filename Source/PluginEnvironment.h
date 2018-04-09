@@ -104,9 +104,6 @@ public:
     //! @brief Gets the parameters.
     static std::vector<std::string> const& getParams();
     
-    //! @brief Gets the channels buses supported.
-    static std::vector<bus> const& getBuses();
-    
     //! @brief Gets the channels buses layouts supported.
     static std::vector<buses_layout> const& getBusesLayouts();
     
@@ -149,8 +146,8 @@ private:
     
     std::vector<std::string> programs;
     std::vector<std::string> params;
-    std::vector<std::pair<size_t, size_t>> buses;
-    std::vector<buses_layout> buses_layouts;
+    std::vector<std::pair<size_t, size_t>>  m_buses;
+    std::vector<buses_layout>               m_buses_layouts;
     
     std::vector<std::string> errors;
     
