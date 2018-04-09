@@ -84,7 +84,9 @@ std::vector<std::string> const& CamomileEnvironment::getPrograms() { return get(
 
 std::vector<std::string> const& CamomileEnvironment::getParams() { return get().params; }
 
-std::vector<std::pair<size_t, size_t>> const& CamomileEnvironment::getBuses() { return get().buses; }
+std::vector<CamomileEnvironment::bus> const& CamomileEnvironment::getBuses() { return get().buses; }
+
+std::vector<CamomileEnvironment::buses_layout> const& CamomileEnvironment::getBusesLayouts() { return get().buses_layouts; }
 
 std::vector<std::string> const& CamomileEnvironment::getErrors() { return get().errors; }
 
@@ -239,7 +241,7 @@ CamomileEnvironment::CamomileEnvironment()
                         }
                         else if(entry.first == "buses")
                         {
-                            audio_layout.push_back(CamomileParser::getBuses(entry.second));
+                            buses_layouts.push_back(CamomileParser::getBuses(entry.second));
                         }
                         else if(entry.first == "midiin")
                         {

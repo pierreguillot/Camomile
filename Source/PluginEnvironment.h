@@ -105,7 +105,10 @@ public:
     static std::vector<std::string> const& getParams();
     
     //! @brief Gets the channels buses supported.
-    static std::vector<std::pair<size_t, size_t>> const& getBuses();
+    static std::vector<bus> const& getBuses();
+    
+    //! @brief Gets the channels buses layouts supported.
+    static std::vector<buses_layout> const& getBusesLayouts();
     
     //! @brief Gets the parsing errors.
     static std::vector<std::string> const& getErrors();
@@ -147,7 +150,7 @@ private:
     std::vector<std::string> programs;
     std::vector<std::string> params;
     std::vector<std::pair<size_t, size_t>> buses;
-    std::vector<buses_layout> audio_layout;
+    std::vector<buses_layout> buses_layouts;
     
     std::vector<std::string> errors;
     
