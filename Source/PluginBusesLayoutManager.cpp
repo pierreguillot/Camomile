@@ -59,7 +59,14 @@ bool CamomileAudioBusesLayoutManager::isBusesLayoutSupported(const AudioProcesso
     {
         if(!busesLayout.empty() && busesLayout[0].first == nins && busesLayout[0].second == nouts)
         {
-            int here_check_the_other_buses;
+            for(size_t i = 1; i < busesLayout.size(); ++i)
+            {
+                if(busesLayout[i].first != layouts.getNumChannels(true, static_cast<int>(i)) ||
+                   busesLayout[i].second != layouts.getNumChannels(true, static_cast<int>(i)))
+                {
+                    return false;
+                }
+            }
             return true;
         }
         
