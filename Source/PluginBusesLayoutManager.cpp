@@ -50,27 +50,31 @@ AudioProcessor::BusesLayout CamomileAudioBusesLayoutManager::getDefaultBusesLayo
     return mainBusesLayout;
 }
 
+bool CamomileAudioBusesLayoutManager::isBusesLayoutCompatible(const AudioProcessor::BusesLayout& procLayout,
+                                                              const CamomileEnvironment::buses_layout& envLayout)
+{
+    const size_t proc_nbuses = static_cast<size_t>(std::max(procLayout.inputBuses.size(), procLayout.outputBuses.size()));
+    for(size_t i = 0; i < proc_nbuses; ++i)
+    {
+        const size_t bus_nins   = static_cast<size_t>(procLayout.getNumChannels(true, static_cast<int>(i)));
+        const size_t bus_nouts  = static_cast<size_t>(procLayout.getNumChannels(false, static_cast<int>(i)));
+        if(i >= envLayout.size() || envLayout[i].first != bus_nins || envLayout[i].second != bus_nouts)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 bool CamomileAudioBusesLayoutManager::isBusesLayoutSupported(const AudioProcessor::BusesLayout& layouts)
 {
-    const size_t nins  = static_cast<size_t>(layouts.getMainInputChannels());
-    const size_t nouts  = static_cast<size_t>(layouts.getMainOutputChannels());
-    
-    auto const& busesLayouts = CamomileEnvironment::getBusesLayouts();
-    for(auto const& busesLayout : busesLayouts)
+    auto const& envLayouts = CamomileEnvironment::getBusesLayouts();
+    for(auto const& envLayout : envLayouts)
     {
-        if(!busesLayout.empty() && busesLayout[0].first == nins && busesLayout[0].second == nouts)
+        if(isBusesLayoutCompatible(layouts, envLayout))
         {
-            for(size_t i = 1; i < busesLayout.size(); ++i)
-            {
-                if(busesLayout[i].first != layouts.getNumChannels(true, static_cast<int>(i)) ||
-                   busesLayout[i].second != layouts.getNumChannels(true, static_cast<int>(i)))
-                {
-                    return false;
-                }
-            }
             return true;
         }
-        
     }
     return false;
 }

@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include <string>
+#include "PluginEnvironment.h"
 #include "../JuceLibraryCode/JuceHeader.h"
 
 // ======================================================================================== //
@@ -19,6 +19,8 @@ class CamomileAudioBusesLayoutManager
 {
 public:
     static AudioProcessor::BusesLayout getDefaultBusesLayout(const bool canonical = false);
+    static bool isBusesLayoutCompatible(const AudioProcessor::BusesLayout& procLayout,
+                                        const CamomileEnvironment::buses_layout& envLayout);
     static bool isBusesLayoutSupported(const AudioProcessor::BusesLayout& layouts);
     static std::string getFormattedBusDescription(AudioProcessor::Bus const& bus);
     static void sendBusInformation(CamomileAudioProcessor const& processor, AudioProcessor::Bus const& bus);
