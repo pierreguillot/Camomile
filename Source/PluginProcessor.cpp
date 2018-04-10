@@ -155,12 +155,27 @@ void CamomileAudioProcessor::sendBusInformation(Bus const *bus)
     if(bus && bus->isEnabled())
     {
         std::string const name = bus->getName().toStdString();
-        auto const& layout = bus->getDefaultLayout();
+        auto const& layout = bus->getCurrentLayout();
         String description = layout.getDescription().toLowerCase();
-        if(description.contains("discrete")) { description = "discrete"; }
-        sendMessage(std::string("bus"), bus->isInput() ? std::string("input") : std::string("output"),
-                    {static_cast<float>(layout.size()), description.toStdString(), name});
+        if(description.contains("discrete"))
+        {
+            description = "discrete";
+        }
+        if(bus->isInput())
+        {
+            sendMessage(std::string("bus"), std::string("input"), {static_cast<float>(layout.size())});
+        }
+        else
+        {
+            sendMessage(std::string("bus"), std::string("output"), {static_cast<float>(layout.size())});
+        }
+        
     }
+}
+
+void CamomileAudioProcessor::processorLayoutsChanged()
+{
+    ;
 }
 
 void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
@@ -175,6 +190,7 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
                     {static_cast<float>(getTotalNumOutputChannels())});
     }
  
+    auto const busesLayout = getBusesLayout();
     const int nbuses = std::max(getBusCount(true), getBusCount(false));
     for(int i = 0; i < nbuses; ++i)
     {

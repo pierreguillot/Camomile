@@ -71,6 +71,8 @@ public:
     Rectangle<int> getConsoleWindowBounds() const;
     void setConsoleWindowBounds(Rectangle<int> const& rect);
     
+    void processorLayoutsChanged() final;
+    
     enum ConsoleLevel
     {
         Fatal   = 0,
