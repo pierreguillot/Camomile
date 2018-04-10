@@ -82,7 +82,7 @@ public:
     };
     
 private:
-    static BusesProperties getBusesProperties();
+    static BusesProperties getBusesProperties(const bool canonical);
     void sendBusInformation(Bus const *bus);
     void loadInformation(XmlElement const& xml);
     

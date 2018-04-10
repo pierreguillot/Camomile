@@ -16,23 +16,29 @@
 //                                      PROCESSOR                                           //
 // ======================================================================================== //
 
-AudioProcessor::BusesProperties CamomileAudioProcessor::getBusesProperties()
+AudioProcessor::BusesProperties CamomileAudioProcessor::getBusesProperties(const bool canonical)
 {
     BusesProperties ioconfig;
-    BusesLayout const mainBusesLayout = CamomileAudioBusesLayoutManager::getDefaultBusesLayout();
+    BusesLayout const mainBusesLayout = CamomileAudioBusesLayoutManager::getDefaultBusesLayout(canonical);
     for(int i = 0; i < mainBusesLayout.inputBuses.size(); ++i)
     {
-        ioconfig.addBus(true, String("Input ") + String(i), mainBusesLayout.inputBuses[i], i == 0);
+        if(!mainBusesLayout.inputBuses[i].isDisabled())
+        {
+            ioconfig.addBus(true, String("Input ") + String(i), mainBusesLayout.inputBuses[i], i == 0);
+        }
     }
     for(int i = 0; i < mainBusesLayout.outputBuses.size(); ++i)
     {
-        ioconfig.addBus(false, String("Ouput ") + String(i), mainBusesLayout.outputBuses[i], i == 0);
+        if(!mainBusesLayout.outputBuses[i].isDisabled())
+        {
+            ioconfig.addBus(false, String("Ouput ") + String(i), mainBusesLayout.outputBuses[i], i == 0);
+        }
     }
     return ioconfig;
 }
 
 CamomileAudioProcessor::CamomileAudioProcessor() :
-AudioProcessor(getBusesProperties()),
+AudioProcessor(getBusesProperties(JucePlugin_Build_VST3)),
 pd::Instance("camomile"),
 m_programs(CamomileEnvironment::getPrograms())
 {
@@ -168,6 +174,7 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
         sendMessage(std::string("channels"), std::string("outputs"),
                     {static_cast<float>(getTotalNumOutputChannels())});
     }
+ 
     const int nbuses = std::max(getBusCount(true), getBusCount(false));
     for(int i = 0; i < nbuses; ++i)
     {
