@@ -6,6 +6,7 @@
 
 #include "PluginBusesLayoutManager.h"
 #include "PluginEnvironment.h"
+#include "PluginProcessor.h"
 
 // ======================================================================================== //
 //                                      PROCESSOR                                           //
@@ -72,4 +73,45 @@ bool CamomileAudioBusesLayoutManager::isBusesLayoutSupported(const AudioProcesso
         
     }
     return false;
+}
+
+std::string CamomileAudioBusesLayoutManager::getFormattedBusDescription(AudioProcessor::Bus const& bus)
+{
+    auto const& layout = bus.getCurrentLayout();
+    String const description = layout.getDescription().toLowerCase();
+    return description.contains("discrete") ? std::string("discrete") : description.toStdString();
+}
+
+void CamomileAudioBusesLayoutManager::sendBusInformation(CamomileAudioProcessor const& instance, AudioProcessor::Bus const& bus)
+{
+    if(1)
+    {
+        auto const& layout = bus.getCurrentLayout();
+        const bool is_input = bus.isInput();
+        const float index = static_cast<float>(bus.getBusIndex());
+        const float size = static_cast<float>(layout.size());
+        std::string const name = bus.getName().toStdString();
+        std::string const descptn = getFormattedBusDescription(bus);
+        instance.sendList(std::string("bus"), {index, is_input ? std::string("input") : std::string("output"), size, descptn});
+    }
+}
+
+void CamomileAudioBusesLayoutManager::sendBusLayoutInformation(CamomileAudioProcessor const& processor)
+{
+    AudioProcessor::BusesLayout const busLayout = processor.getBusesLayout();
+    const int ninput_buses  = processor.getBusCount(true);
+    const int noutput_buses = processor.getBusCount(false);
+    const int nbuses = std::max(ninput_buses, noutput_buses);
+    for(int i = 0; i < nbuses; ++i)
+    {
+        if(i < ninput_buses)
+        {
+            CamomileAudioBusesLayoutManager::sendBusInformation(processor, *(processor.getBus(true, i)));
+        }
+        if(i < noutput_buses)
+        {
+            CamomileAudioBusesLayoutManager::sendBusInformation(processor, *(processor.getBus(false, i)));
+        }
+    }
+    
 }

@@ -71,8 +71,6 @@ public:
     Rectangle<int> getConsoleWindowBounds() const;
     void setConsoleWindowBounds(Rectangle<int> const& rect);
     
-    void processorLayoutsChanged() final;
-    
     enum ConsoleLevel
     {
         Fatal   = 0,
@@ -85,7 +83,6 @@ public:
     
 private:
     static BusesProperties getBusesProperties(const bool canonical);
-    void sendBusInformation(Bus const *bus);
     void loadInformation(XmlElement const& xml);
     
     void parseSaveInformation(const std::vector<pd::Atom>& list);

@@ -150,54 +150,10 @@ bool CamomileAudioProcessor::isBusesLayoutSupported(const BusesLayout& layouts) 
     return CamomileAudioBusesLayoutManager::isBusesLayoutSupported(layouts);
 }
 
-void CamomileAudioProcessor::sendBusInformation(Bus const *bus)
-{
-    if(bus && bus->isEnabled())
-    {
-        std::string const name = bus->getName().toStdString();
-        auto const& layout = bus->getCurrentLayout();
-        String description = layout.getDescription().toLowerCase();
-        if(description.contains("discrete"))
-        {
-            description = "discrete";
-        }
-        if(bus->isInput())
-        {
-            sendMessage(std::string("bus"), std::string("input"), {static_cast<float>(layout.size())});
-        }
-        else
-        {
-            sendMessage(std::string("bus"), std::string("output"), {static_cast<float>(layout.size())});
-        }
-        
-    }
-}
-
-void CamomileAudioProcessor::processorLayoutsChanged()
-{
-    ;
-}
-
 void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     prepareDSP(getTotalNumInputChannels(), getTotalNumOutputChannels(), sampleRate);
-    
-    {
-        // For backward compatibility can be deprecated
-        sendMessage(std::string("channels"), std::string("inputs"),
-                    {static_cast<float>(getTotalNumInputChannels())});
-        sendMessage(std::string("channels"), std::string("outputs"),
-                    {static_cast<float>(getTotalNumOutputChannels())});
-    }
- 
-    auto const busesLayout = getBusesLayout();
-    const int nbuses = std::max(getBusCount(true), getBusCount(false));
-    for(int i = 0; i < nbuses; ++i)
-    {
-        sendBusInformation(getBus(true, i));
-        sendBusInformation(getBus(false, i));
-    }
-    
+    CamomileAudioBusesLayoutManager::sendBusLayoutInformation(*this);
     m_audio_advancement = 0;
     const size_t blksize = static_cast<size_t>(Instance::getBlockSize());
     const size_t nins = std::max(static_cast<size_t>(getTotalNumInputChannels()), static_cast<size_t>(2));
@@ -211,6 +167,7 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     m_midi_buffer_temp.clear();
     startDSP();
     processMessages();
+    processPrints();
 }
 
 void CamomileAudioProcessor::releaseResources()
