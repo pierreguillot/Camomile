@@ -16,6 +16,6 @@
 class CamomileAudioBusesLayoutManager
 {
 public:
-    static AudioProcessor::BusesLayout getDefaultBusesLayout();
+    static AudioProcessor::BusesLayout getDefaultBusesLayout(const bool canonical = false);
     static bool isBusesLayoutSupported(const AudioProcessor::BusesLayout& layouts);
 };

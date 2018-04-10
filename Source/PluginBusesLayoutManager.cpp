@@ -11,48 +11,50 @@
 //                                      PROCESSOR                                           //
 // ======================================================================================== //
 
-AudioProcessor::BusesLayout CamomileAudioBusesLayoutManager::getDefaultBusesLayout()
+AudioProcessor::BusesLayout CamomileAudioBusesLayoutManager::getDefaultBusesLayout(const bool canonical)
 {
-    size_t i = 1;
     AudioProcessor::BusesLayout mainBusesLayout;
     auto const& busesLayouts = CamomileEnvironment::getBusesLayouts();
     if(!busesLayouts.empty() && !busesLayouts[0].empty())
     {
-#if JucePlugin_Build_VST3
-        for(auto const& buses : busesLayouts[0])
+        if(canonical)
         {
-            if(buses.first)
+            for(auto const& buses : busesLayouts[0])
             {
-                mainBusesLayout.inputBuses.add(AudioChannelSet::canonicalChannelSet(static_cast<int>(busesLayouts[0][i].first)));
-            }
-            if(buses.second)
-            {
-                mainBusesLayout.outputBuses.add(AudioChannelSet::canonicalChannelSet(static_cast<int>(busesLayouts[0][i].second)));
+                if(buses.first)
+                {
+                    mainBusesLayout.inputBuses.add(AudioChannelSet::canonicalChannelSet(static_cast<int>(buses.first)));
+                }
+                if(buses.second)
+                {
+                    mainBusesLayout.outputBuses.add(AudioChannelSet::canonicalChannelSet(static_cast<int>(buses.second)));
+                }
             }
         }
-#else
-        for(auto const& buses : busesLayouts[0])
+        else
         {
-            if(buses.first)
+            for(auto const& buses : busesLayouts[0])
             {
-                mainBusesLayout.inputBuses.add(AudioChannelSet::discreteChannels(static_cast<int>(busesLayouts[0][i].first)));
-            }
-            if(buses.second)
-            {
-                mainBusesLayout.outputBuses.add(AudioChannelSet::discreteChannels(static_cast<int>(busesLayouts[0][i].second)));
+                if(buses.first)
+                {
+                    mainBusesLayout.inputBuses.add(AudioChannelSet::discreteChannels(static_cast<int>(buses.first)));
+                }
+                if(buses.second)
+                {
+                    mainBusesLayout.outputBuses.add(AudioChannelSet::discreteChannels(static_cast<int>(buses.second)));
+                }
             }
         }
-#endif
     }
     return mainBusesLayout;
 }
 
 bool CamomileAudioBusesLayoutManager::isBusesLayoutSupported(const AudioProcessor::BusesLayout& layouts)
 {
-    auto const& busesLayouts = CamomileEnvironment::getBusesLayouts();
-    
     const size_t nins  = static_cast<size_t>(layouts.getMainInputChannels());
     const size_t nouts  = static_cast<size_t>(layouts.getMainOutputChannels());
+    
+    auto const& busesLayouts = CamomileEnvironment::getBusesLayouts();
     for(auto const& busesLayout : busesLayouts)
     {
         if(!busesLayout.empty() && busesLayout[0].first == nins && busesLayout[0].second == nouts)
