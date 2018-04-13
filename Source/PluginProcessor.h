@@ -25,7 +25,12 @@ public:
     void releaseResources() final;
     void processBlock (AudioSampleBuffer&, MidiBuffer&) final;
     void processBlockBypassed (AudioBuffer<float>&, MidiBuffer&) final;
+    
     bool isBusesLayoutSupported (const BusesLayout& layouts) const final;
+private:
+    static BusesProperties getBusesProperties(const bool canonical);
+    void sendBusesLayoutInformation();
+public:
     
     AudioProcessorEditor* createEditor() final;
     bool hasEditor() const final;
@@ -79,7 +84,6 @@ public:
     };
     
 private:
-    static BusesProperties getBusesProperties(const bool canonical);
     void loadInformation(XmlElement const& xml);
     
     void parseSaveInformation(const std::vector<pd::Atom>& list);

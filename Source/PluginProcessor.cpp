@@ -8,7 +8,6 @@
 #include "PluginParser.h"
 #include "PluginParameter.h"
 #include "PluginEditor.h"
-#include "PluginBusesLayoutManager.h"
 #include "PluginEnvironment.h"
 
 #include <iostream>
@@ -18,29 +17,9 @@
 //                                      PROCESSOR                                           //
 // ======================================================================================== //
 
-AudioProcessor::BusesProperties CamomileAudioProcessor::getBusesProperties(const bool canonical)
-{
-    BusesProperties ioconfig;
-    BusesLayout const mainBusesLayout = CamomileAudioBusesLayoutManager::getDefaultBusesLayout(canonical);
-    for(int i = 0; i < mainBusesLayout.inputBuses.size(); ++i)
-    {
-        if(!mainBusesLayout.inputBuses[i].isDisabled())
-        {
-            ioconfig.addBus(true, String("Input ") + String(i), mainBusesLayout.inputBuses[i]);
-        }
-    }
-    for(int i = 0; i < mainBusesLayout.outputBuses.size(); ++i)
-    {
-        if(!mainBusesLayout.outputBuses[i].isDisabled())
-        {
-            ioconfig.addBus(false, String("Ouput ") + String(i), mainBusesLayout.outputBuses[i]);
-        }
-    }
-    return ioconfig;
-}
-
 CamomileAudioProcessor::CamomileAudioProcessor() :
-AudioProcessor(getBusesProperties(JucePlugin_Build_VST3)), pd::Instance("camomile"), CamomileConsole(4),
+AudioProcessor(getBusesProperties(JucePlugin_Build_VST3)),
+pd::Instance("camomile"), CamomileConsole(4),
 m_name(CamomileEnvironment::getPluginName()),
 m_accepts_midi(CamomileEnvironment::wantsMidi()),
 m_produces_midi(CamomileEnvironment::producesMidi()),
@@ -150,15 +129,10 @@ void CamomileAudioProcessor::reloadPatch()
 
 //==============================================================================
 
-bool CamomileAudioProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const
-{
-    return CamomileAudioBusesLayoutManager::isBusesLayoutSupported(layouts);
-}
-
 void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     prepareDSP(getTotalNumInputChannels(), getTotalNumOutputChannels(), sampleRate);
-    CamomileAudioBusesLayoutManager::sendBusLayoutInformation(*this);
+    sendBusesLayoutInformation();
     m_audio_advancement = 0;
     const size_t blksize = static_cast<size_t>(Instance::getBlockSize());
     const size_t nins = std::max(static_cast<size_t>(getTotalNumInputChannels()), static_cast<size_t>(2));

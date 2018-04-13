@@ -4841,8 +4841,7 @@ static const unsigned char temp_binary_data_8[] =
 const char* DejaVuSansMono_ttf = (const char*) temp_binary_data_8;
 
 
-const char* getNamedResource (const char*, int&) throw();
-const char* getNamedResource (const char* resourceNameUTF8, int& numBytes) throw()
+const char* getNamedResource (const char* resourceNameUTF8, int& numBytes) noexcept
 {
     unsigned int hash = 0;
     if (resourceNameUTF8 != 0)
@@ -4864,7 +4863,7 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes) throw
     }
 
     numBytes = 0;
-    return 0;
+    return nullptr;
 }
 
 const char* namedResourceList[] =
@@ -4879,5 +4878,29 @@ const char* namedResourceList[] =
     "settings_png",
     "DejaVuSansMono_ttf"
 };
+
+const char* originalFilenames[] =
+{
+    "CreditsAU",
+    "CreditsVST",
+    "flower_center.png",
+    "flower_petals.png",
+    "copy.png",
+    "garbage.png",
+    "reload.png",
+    "settings.png",
+    "DejaVuSansMono.ttf"
+};
+
+const char* getNamedResourceOriginalFilename (const char* resourceNameUTF8) noexcept
+{
+    for (unsigned int i = 0; i < (sizeof (namedResourceList) / sizeof (namedResourceList[0])); ++i)
+    {
+        if (namedResourceList[i] == resourceNameUTF8)
+            return originalFilenames[i];
+    }
+
+    return nullptr;
+}
 
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="Kpq9Ee" name="CamomileFx" displaySplashScreen="1" reportAppUsage="1"
-              splashScreenColour="Dark" projectType="audioplug" version="1.0.4"
+              splashScreenColour="Dark" projectType="audioplug" version="1.0.5"
               bundleIdentifier="com.pierreguillot.camomile" includeBinaryInAppConfig="1"
               cppLanguageStandard="11" companyCopyright="Pierre Guillot" buildVST="1"
               buildVST3="1" buildAU="1" buildAUv3="0" buildRTAS="0" buildAAX="0"
@@ -9,20 +9,19 @@
               pluginManufacturer="Pierre Guillot" pluginManufacturerCode="PIGU"
               pluginCode="Kpq9" pluginChannelConfigs="" pluginIsSynth="0" pluginWantsMidiIn="1"
               pluginProducesMidiOut="1" pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="1"
-              pluginAUExportPrefix="CamomileFxAU" pluginRTASCategory="" aaxIdentifier="com.pierreguillot.camomilefx"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.3.0"
-              companyName="Pierre Guillot" headerPath="../../../Dependencies/LibPd/pure-data/src&#10;../../../Dependencies/LibPd/libpd_wrapper&#10;../../../Dependencies/LibPd/libpd_wrapper/util&#10;../../../Dependencies/LibPd/cpp&#10;"
-              companyWebsite="github.com/pierreguillot/camomile" defines="PD_INTERNAL=1">
+              pluginAUExportPrefix="CamomileFxAU" aaxIdentifier="com.pierreguillot.camomilefx"
+              pluginAAXCategory="2" jucerVersion="5.3.1" companyName="Pierre Guillot"
+              headerPath="../../../Dependencies/LibPd/pure-data/src&#10;../../../Dependencies/LibPd/libpd_wrapper&#10;../../../Dependencies/LibPd/libpd_wrapper/util&#10;../../../Dependencies/LibPd/cpp&#10;"
+              companyWebsite="github.com/pierreguillot/camomile" defines="PD_INTERNAL=1"
+              pluginFormats="buildVST,buildVST3,buildAU" pluginCharacteristicsValue="pluginWantsMidiIn,pluginProducesMidiOut,pluginEditorRequiresKeys">
   <MAINGROUP id="BLNPyv" name="CamomileFx">
     <GROUP id="{D4367A82-F269-8F5A-1C22-AB42C90672ED}" name="Source">
       <FILE id="dsxHyi" name="PluginProcessor.cpp" compile="1" resource="0"
             file="../Source/PluginProcessor.cpp"/>
+      <FILE id="fS41zm" name="PluginProcessorBuses.cpp" compile="1" resource="0"
+            file="../Source/PluginProcessorBuses.cpp"/>
       <FILE id="ZpP8vD" name="PluginProcessor.h" compile="0" resource="0"
             file="../Source/PluginProcessor.h"/>
-      <FILE id="bdCY4p" name="PluginBusesLayoutManager.cpp" compile="1" resource="0"
-            file="../Source/PluginBusesLayoutManager.cpp"/>
-      <FILE id="d0wZEz" name="PluginBusesLayoutManager.h" compile="0" resource="0"
-            file="../Source/PluginBusesLayoutManager.h"/>
       <FILE id="DYqJL2" name="PluginConsole.h" compile="0" resource="0" file="../Source/PluginConsole.h"/>
       <FILE id="WVybLg" name="PluginEditor.cpp" compile="1" resource="0"
             file="../Source/PluginEditor.cpp"/>
