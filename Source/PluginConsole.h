@@ -9,7 +9,6 @@
 #include <utility>
 #include <vector>
 #include <mutex>
-#include <array>
 #include <cassert>
 #include <limits>
 
