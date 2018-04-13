@@ -24,22 +24,26 @@ AudioProcessor::BusesProperties CamomileAudioProcessor::getBusesProperties(const
     {
         if(!mainBusesLayout.inputBuses[i].isDisabled())
         {
-            ioconfig.addBus(true, String("Input ") + String(i), mainBusesLayout.inputBuses[i], i == 0);
+            ioconfig.addBus(true, String("Input ") + String(i), mainBusesLayout.inputBuses[i]);
         }
     }
     for(int i = 0; i < mainBusesLayout.outputBuses.size(); ++i)
     {
         if(!mainBusesLayout.outputBuses[i].isDisabled())
         {
-            ioconfig.addBus(false, String("Ouput ") + String(i), mainBusesLayout.outputBuses[i], i == 0);
+            ioconfig.addBus(false, String("Ouput ") + String(i), mainBusesLayout.outputBuses[i]);
         }
     }
     return ioconfig;
 }
 
 CamomileAudioProcessor::CamomileAudioProcessor() :
-AudioProcessor(getBusesProperties(JucePlugin_Build_VST3)),
-pd::Instance("camomile"),
+AudioProcessor(getBusesProperties(JucePlugin_Build_VST3)), pd::Instance("camomile"),
+m_name(CamomileEnvironment::getPluginName()),
+m_accepts_midi(CamomileEnvironment::wantsMidi()),
+m_produces_midi(CamomileEnvironment::producesMidi()),
+m_is_midi_effect(CamomileEnvironment::isMidiOnly()),
+m_tail_length(static_cast<double>(CamomileEnvironment::getTailLengthSeconds())),
 m_programs(CamomileEnvironment::getPrograms())
 {
     add(ConsoleLevel::Normal, std::string("Camomile ") + std::string(JucePlugin_VersionString)
@@ -57,7 +61,6 @@ m_programs(CamomileEnvironment::getPrograms())
         m_midi_buffer_temp.ensureSize(2048);
         prepareDSP(getTotalNumInputChannels(), getTotalNumOutputChannels(), getSampleRate());
         setLatencySamples(CamomileEnvironment::getLatencySamples() + Instance::getBlockSize());
-        m_programs = CamomileEnvironment::getPrograms();
         
         auto const& params = CamomileEnvironment::getParams();
         for(size_t i = 0; i < params.size(); ++i)
@@ -232,7 +235,7 @@ void CamomileAudioProcessor::processInternal()
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                          MIDI IN                                     //
     //////////////////////////////////////////////////////////////////////////////////////////
-    if(CamomileEnvironment::wantsMidi())
+    if(m_accepts_midi)
     {
         MidiMessage message;
         MidiBuffer::Iterator it(m_midi_buffer_in);
@@ -299,7 +302,7 @@ void CamomileAudioProcessor::processInternal()
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                          MIDI OUT                                    //
     //////////////////////////////////////////////////////////////////////////////////////////
-    if(CamomileEnvironment::producesMidi())
+    if(m_produces_midi)
     {
         m_midi_buffer_out.clear();
         processMidi();
@@ -317,8 +320,8 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     const int nouts     = getTotalNumOutputChannels();
     const float **bufferin = buffer.getArrayOfReadPointers();
     float **bufferout = buffer.getArrayOfWritePointers();
-    const bool midi_consume = CamomileEnvironment::wantsMidi();
-    const bool midi_produce = CamomileEnvironment::producesMidi();
+    const bool midi_consume = m_accepts_midi;
+    const bool midi_produce = m_produces_midi;
     
     for(int i = nins; i < nouts; ++i)
     {

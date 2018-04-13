@@ -22,22 +22,21 @@ class CamomileAudioProcessor : public AudioProcessor, public pd::Instance, publi
 public:
     CamomileAudioProcessor();
     ~CamomileAudioProcessor() {}
-
-    bool isBusesLayoutSupported (const BusesLayout& layouts) const final;
     
     void prepareToPlay (double sampleRate, int samplesPerBlock) final;
     void releaseResources() final;
     void processBlock (AudioSampleBuffer&, MidiBuffer&) final;
     void processBlockBypassed (AudioBuffer<float>&, MidiBuffer&) final;
+    bool isBusesLayoutSupported (const BusesLayout& layouts) const final;
     
     AudioProcessorEditor* createEditor() final;
     bool hasEditor() const final;
 
-    const String getName() const final { return CamomileEnvironment::getPluginName(); }
-    bool acceptsMidi() const final { return CamomileEnvironment::wantsMidi(); }
-    bool producesMidi() const final { return CamomileEnvironment::producesMidi(); }
-    bool isMidiEffect () const final { return CamomileEnvironment::isMidiOnly(); }
-    double getTailLengthSeconds() const final { return static_cast<float>(CamomileEnvironment::getTailLengthSeconds()); }
+    const String getName() const final { return m_name; }
+    bool acceptsMidi() const final { return m_accepts_midi; }
+    bool producesMidi() const final { return m_produces_midi; }
+    bool isMidiEffect () const final { return m_is_midi_effect; }
+    double getTailLengthSeconds() const final { return m_tail_length; }
     
     int getNumPrograms() final { return static_cast<int>(m_programs.size()); };
     int getCurrentProgram() final { return m_program_current; }
@@ -96,6 +95,12 @@ private:
     void processInternal();
     
     typedef moodycamel::ReaderWriterQueue<MessageGui> QueueGui;
+    
+    String const            m_name              = String("Camomile");
+    bool const              m_accepts_midi      = false;
+    bool const              m_produces_midi     = false;
+    bool const              m_is_midi_effect    = false;
+    double const            m_tail_length       = 0.;
     
     std::vector<pd::Atom>    m_atoms_param;
     std::vector<pd::Atom>    m_atoms_playhead;
