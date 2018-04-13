@@ -7,7 +7,6 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "PluginEnvironment.h"
 #include "PluginConsole.h"
 #include "PluginFileWatcher.h"
 #include "Pd/PdInstance.hpp"
@@ -16,8 +15,7 @@
 //                                      PROCESSOR                                           //
 // ======================================================================================== //
 
-
-class CamomileAudioProcessor : public AudioProcessor, public pd::Instance, public CamomileConsole<4>, public CamomileFileWatcher
+class CamomileAudioProcessor : public AudioProcessor, public pd::Instance, public CamomileConsole, public CamomileFileWatcher
 {
 public:
     CamomileAudioProcessor();

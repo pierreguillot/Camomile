@@ -9,6 +9,8 @@
 #include "PluginParameter.h"
 #include "PluginEditor.h"
 #include "PluginBusesLayoutManager.h"
+#include "PluginEnvironment.h"
+
 #include <iostream>
 #include <exception>
 
@@ -38,7 +40,7 @@ AudioProcessor::BusesProperties CamomileAudioProcessor::getBusesProperties(const
 }
 
 CamomileAudioProcessor::CamomileAudioProcessor() :
-AudioProcessor(getBusesProperties(JucePlugin_Build_VST3)), pd::Instance("camomile"),
+AudioProcessor(getBusesProperties(JucePlugin_Build_VST3)), pd::Instance("camomile"), CamomileConsole(4),
 m_name(CamomileEnvironment::getPluginName()),
 m_accepts_midi(CamomileEnvironment::wantsMidi()),
 m_produces_midi(CamomileEnvironment::producesMidi()),
