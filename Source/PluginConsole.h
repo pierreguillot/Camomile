@@ -14,18 +14,26 @@
 #include <limits>
 
 //! @brief A class that manages the console
-template<size_t SIZE> class CamomileConsole
+class CamomileConsole
 {
 public:
     public:
+    using level_t = size_t;
+    using message_t = std::pair<level_t, std::string>;
     
     //! @brief the constructor.
-    CamomileConsole(size_t const preallocate = 512) : m_messages() {
-        m_messages.reserve(preallocate), m_counters.fill(0); }
+    CamomileConsole(const level_t maxlevel, size_t const preallocate = 512) :
+    m_max_level(maxlevel),
+    m_counters(maxlevel, 0),
+    m_messages(preallocate)
+    {
+        m_messages.clear();
+    }
     
     //! @brief Gets the number of all messages.
-    size_t size(size_t level) const noexcept {
-        assert(level <= SIZE && "wrong level of message");
+    size_t size(level_t level) const noexcept
+    {
+        assert(level <= m_max_level && "wrong level of message");
         std::lock_guard<std::mutex> guard(m_mutex);
         size_t size = m_counters[level];
         while (level--) { size += m_counters[level]; }
@@ -33,9 +41,9 @@ public:
     }
     
     //! @brief Gets a message at an index until a level.
-    std::pair<size_t, std::string> get(size_t level, size_t index) const noexcept
+    message_t get(level_t level, size_t index) const noexcept
     {
-        assert(level <= SIZE && "wrong level of message");
+        assert(level <= m_max_level && "wrong level of message");
         std::lock_guard<std::mutex> guard(m_mutex);
         for(size_t i = 0, c = 0; i < m_messages.size(); ++i)
         {
@@ -51,7 +59,7 @@ public:
     }
     
     //! @brief Clears the history.
-    void clear(size_t level = SIZE, size_t index = std::numeric_limits<size_t>::max()) noexcept
+    void clear(level_t level, size_t index = std::numeric_limits<size_t>::max()) noexcept
     {
         std::lock_guard<std::mutex> guard(m_mutex);
         size_t c = 0;
@@ -71,19 +79,20 @@ public:
 
     
     //! @brief Adds a message to the history.
-    void add(size_t level, std::string message) noexcept
+    void add(level_t level, std::string message) noexcept
     {
-        assert(level < SIZE && "wrong level of message");
+        assert(level < m_max_level && "wrong level of message");
         std::lock_guard<std::mutex> guard(m_mutex);
         if(m_messages.size() < m_messages.capacity())
         {
             ++m_counters[level];
-            m_messages.push_back(std::pair<size_t, std::string>({level, std::move(message)}));
+            m_messages.push_back(message_t{level, std::move(message)});
         }
     }
     
 private:
-    mutable std::mutex       m_mutex;
-    std::array<size_t, SIZE> m_counters;
-    std::vector<std::pair<size_t, std::string>> m_messages;
+    mutable std::mutex          m_mutex;
+    const level_t               m_max_level;
+    std::vector<level_t>        m_counters;
+    std::vector<message_t>      m_messages;
 };
