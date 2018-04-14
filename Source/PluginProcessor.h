@@ -19,13 +19,20 @@ class CamomileAudioProcessor : public AudioProcessor, public pd::Instance, publi
 {
 public:
     CamomileAudioProcessor();
-    ~CamomileAudioProcessor() {}
+    ~CamomileAudioProcessor() = default;
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                                  AUDIO MANAGEMENT                                    //
+    //////////////////////////////////////////////////////////////////////////////////////////
     
     void prepareToPlay (double sampleRate, int samplesPerBlock) final;
     void releaseResources() final;
     void processBlock (AudioSampleBuffer&, MidiBuffer&) final;
     void processBlockBypassed (AudioBuffer<float>&, MidiBuffer&) final;
     
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                              BUSES LAYOUTS MANAGEMENT                                //
+    //////////////////////////////////////////////////////////////////////////////////////////
     bool isBusesLayoutSupported (const BusesLayout& layouts) const final;
 private:
     static BusesProperties getDefaultBusesProperties(const bool canonical);
@@ -34,6 +41,7 @@ private:
     bool canAddBus (bool isInput) const final;
     bool canRemoveBus (bool isInput) const final;
 public:
+    //////////////////////////////////////////////////////////////////////////////////////////
     
     AudioProcessorEditor* createEditor() final;
     bool hasEditor() const final;
