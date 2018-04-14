@@ -28,7 +28,7 @@ public:
     
     bool isBusesLayoutSupported (const BusesLayout& layouts) const final;
 private:
-    static BusesProperties getBusesProperties(const bool canonical);
+    static BusesProperties getDefaultBusesProperties(const bool canonical);
     void sendCurrentBusesLayoutInformation();
     void logBusesLayoutsInformation();
     bool canAddBus (bool isInput) const final;

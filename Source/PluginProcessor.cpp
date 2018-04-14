@@ -18,7 +18,7 @@
 // ======================================================================================== //
 
 CamomileAudioProcessor::CamomileAudioProcessor() :
-AudioProcessor(getBusesProperties(JucePlugin_Build_VST3)),
+AudioProcessor(getDefaultBusesProperties(JucePlugin_Build_VST3)),
 pd::Instance("camomile"), CamomileConsole(4),
 m_name(CamomileEnvironment::getPluginName()),
 m_accepts_midi(CamomileEnvironment::wantsMidi()),

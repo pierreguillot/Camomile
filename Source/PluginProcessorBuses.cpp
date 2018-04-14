@@ -50,6 +50,25 @@ public:
         std::string const descptn   = getFormattedChannelSetDescription(layout);
         return std::vector<pd::Atom>{index, is_input ? std::string("input") : std::string("output"), size, descptn};
     }
+    
+    //! @brief Get a lower case description of a channel set.
+    static AudioProcessor::BusesLayout getCanonicalEquivalent(const AudioProcessor::BusesLayout& requestedLayout)
+    {
+        AudioProcessor::BusesLayout equivalentLayout;
+        auto& equivalentInputBuses = equivalentLayout.inputBuses;
+        auto& equivalentOutputBuses = equivalentLayout.outputBuses;
+        
+        for(auto const& bus : requestedLayout.inputBuses)
+        {
+            equivalentInputBuses.add(AudioChannelSet::canonicalChannelSet(bus.size()));
+        }
+        for(auto const& bus : requestedLayout.outputBuses)
+        {
+            equivalentOutputBuses.add(AudioChannelSet::canonicalChannelSet(bus.size()));
+        }
+        return equivalentLayout;
+    }
+
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,7 +88,7 @@ void CamomileAudioProcessor::logBusesLayoutsInformation()
         {
             auto const& inputBus = buses.inputBuses[busidx];
             auto const& outputBus = buses.outputBuses[busidx];
-            const std::string busStr = std::string(" bus ") + std::to_string(busidx);
+            const std::string busStr = std::string(" bus ") + std::to_string(busidx+1);
             add(ConsoleLevel::Log, layoutStr + busStr + " input: " + std::to_string(inputBus.size()) +
                 " \"" + CamomileBusesLayoutHelper::getFormattedChannelSetDescription(inputBus) + "\"");
             add(ConsoleLevel::Log, layoutStr + busStr + " output: " + std::to_string(outputBus.size()) + " \"" + CamomileBusesLayoutHelper::getFormattedChannelSetDescription(outputBus) + "\"");
@@ -81,185 +100,36 @@ void CamomileAudioProcessor::logBusesLayoutsInformation()
 //                                     GET ALL BUSES                                        //
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-static bool busAlreadyExistsInAnotherLayout(const size_t is_input, const size_t layoutidx, const size_t busidx,
-                                            std::vector<CamomileEnvironment::buses_layout> const& layouts)
+AudioProcessor::BusesProperties CamomileAudioProcessor::getDefaultBusesProperties(const bool canonical)
 {
-    using buses_layout_t = CamomileEnvironment::buses_layout;
-    const size_t ncomp = is_input ? layouts[layoutidx][busidx].first : layouts[layoutidx][busidx].second;
-    for(size_t i = layoutidx; i; --i)
+    int nBuses = 0;
+    BusesProperties defaultBusesProperties;
+    auto const& supportedLayouts = CamomileBusesLayoutHelper::getSupporttedBusesLayouts();
+    for(int layoutidx = 0; layoutidx < supportedLayouts.size(); ++layoutidx)
     {
-        buses_layout_t const& layout = layouts[i-1];
-        if(layout.size() > busidx)
+        auto const& buses = supportedLayouts[layoutidx];
+        const int  nCurrentBuses = buses.inputBuses.size();
+        assert(buses.inputBuses.size() == buses.outputBuses.size());
+        for(int busidx = nBuses; busidx < nCurrentBuses; ++busidx)
         {
-            if(is_input && layout[busidx].first == ncomp)
-            {
-                return true;
-            }
-            else if(!is_input && layout[busidx].second == ncomp)
-            {
-                return true;
-            }
+            auto const& inputBus = buses.inputBuses[busidx];
+            auto const& outputBus = buses.outputBuses[busidx];
+            defaultBusesProperties.addBus(true, String("bus ") + String(busidx+1) + String(" input"), inputBus, layoutidx == 0);
+            defaultBusesProperties.addBus(false, String("bus ") + String(busidx+1) + String(" output"), outputBus, layoutidx == 0);
         }
+        nBuses = nCurrentBuses;
     }
-    return false;
-}
-
-static bool busIndexAlreadyExistsInAnotherLayout(const size_t is_input, const size_t layoutidx, const size_t busidx,
-                                            std::vector<CamomileEnvironment::buses_layout> const& layouts)
-{
-    using buses_layout_t = CamomileEnvironment::buses_layout;
-    for(size_t i = layoutidx; i; --i)
-    {
-        buses_layout_t const& layout = layouts[i-1];
-        if(layout.size() > busidx)
-        {
-            if(is_input && layout[busidx].first != 0)
-            {
-                return true;
-            }
-            else if(!is_input && layout[busidx].second != 0)
-            {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-AudioProcessor::BusesProperties CamomileAudioProcessor::getBusesProperties(const bool canonical)
-{
-    BusesProperties all_default_buses;
-    using buses_layout_t = CamomileEnvironment::buses_layout;
-    std::vector<buses_layout_t> const& env_buses_layouts = CamomileEnvironment::getBusesLayouts();
-    // Add support for the all the buses of the first layout
-    if(!env_buses_layouts.empty())
-    {
-        buses_layout_t const& env_main_layout = env_buses_layouts[0];
-        for(size_t busidx = 0; busidx <  env_main_layout.size(); ++busidx)
-        {
-            const int size_in = static_cast<int>(env_main_layout[busidx].first);
-            if(size_in)
-            {
-                all_default_buses.addBus(true, String("Bus ") + String(busidx) + String(" Input "),
-                                         AudioChannelSet::canonicalChannelSet(size_in), true);
-            }
-            const int size_out = static_cast<int>(env_main_layout[busidx].second);
-            if(size_out)
-            {
-                all_default_buses.addBus(false, String("Bus ") + String(busidx) + String(" Output "),
-                                         AudioChannelSet::canonicalChannelSet(size_out), true);
-            }
-        }
-    }
-    // Add support for the buses of the other layouts if the bus doesn't already exist
-    for(size_t layoutidx = 1; layoutidx < env_buses_layouts.size(); ++layoutidx)
-    {
-        buses_layout_t const& env_main_layout = env_buses_layouts[layoutidx];
-        for(size_t busidx = 0; busidx <  env_main_layout.size(); ++busidx)
-        {
-            if(!busIndexAlreadyExistsInAnotherLayout(true, layoutidx, busidx, env_buses_layouts))
-            {
-                const int size = static_cast<int>(env_main_layout[busidx].first);
-                if(size)
-                {
-                    all_default_buses.addBus(true, String("Bus ") + String(busidx) + String(" Input "), AudioChannelSet::canonicalChannelSet(size), false);
-                }
-            }
-            if(!busIndexAlreadyExistsInAnotherLayout(false, layoutidx, busidx, env_buses_layouts))
-            {
-                const int size = static_cast<int>(env_main_layout[busidx].second);
-                if(size)
-                {
-                    all_default_buses.addBus(false, String("Bus ") + String(busidx) + String(" Output "), AudioChannelSet::canonicalChannelSet(size), false);
-                }
-            }
-        }
-    }
-    /*
-    for(size_t layoutidx = 1; layoutidx <  env_buses_layouts.size(); ++layoutidx)
-    {
-        buses_layout_t const& env_main_layout = env_buses_layouts[layoutidx];
-        for(size_t busidx = 0; busidx <  env_main_layout.size(); ++busidx)
-        {
-            if(!busAlreadyExistsInAnotherLayout(true, layoutidx, busidx, env_buses_layouts))
-            {
-                const int size = static_cast<int>(env_main_layout[busidx].first);
-                if(size)
-                {
-                    all_default_buses.addBus(true, String("Input Bus ") + String(busidx), AudioChannelSet::canonicalChannelSet(size), false);
-                }
-            }
-            if(!busAlreadyExistsInAnotherLayout(false, layoutidx, busidx, env_buses_layouts))
-            {
-                const int size = static_cast<int>(env_main_layout[busidx].second);
-                if(size)
-                {
-                    all_default_buses.addBus(false, String("Output Bus ") + String(busidx), AudioChannelSet::canonicalChannelSet(size), false);
-                }
-            }
-            
-        }
-    }
-     */
-    return all_default_buses;
+    return defaultBusesProperties;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
-//                                      BUSES SUPPORTED                                     //
+//                                  IS BUSES LAYOUT SUPPORTED                               //
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-static bool isBusesLayoutCompatible(const AudioProcessor::BusesLayout& requestedLayout,
-                                    const CamomileEnvironment::buses_layout& supportedLayout)
+bool CamomileAudioProcessor::isBusesLayoutSupported(const BusesLayout& requestedLayout) const
 {
-    Array<AudioChannelSet> const& inputBuses = requestedLayout.inputBuses;
-    Array<AudioChannelSet> const& outputBuses = requestedLayout.outputBuses;
-
-    const int nInputBusRequested = inputBuses.size();
-    for(int i = 0; i < nInputBusRequested; ++i)
-    {
-        if(!inputBuses[i].isDisabled())
-        {
-            if(i > supportedLayout.size())
-            {
-                return false;
-            }
-            if(i != supportedLayout[i].first)
-            {
-                return false;
-            }
-        }
-    }
-    
-    const int nOutputBusRequested = outputBuses.size();
-    for(int i = 0; i < nOutputBusRequested; ++i)
-    {
-        if(!outputBuses[i].isDisabled())
-        {
-            if(i > supportedLayout.size())
-            {
-                return false;
-            }
-            if(i != supportedLayout[i].second)
-            {
-                return false;
-            }
-        }
-    }
-    return true;
-}
-
-bool CamomileAudioProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const
-{
-    using buses_layout_t = CamomileEnvironment::buses_layout;
-    std::vector<buses_layout_t> const& envLayouts = CamomileEnvironment::getBusesLayouts();
-    for(buses_layout_t const& envLayout : envLayouts)
-    {
-        if(isBusesLayoutCompatible(layouts, envLayout))
-        {
-            return true;
-        }
-    }
-    return false;
+    auto const& supportedLayouts = CamomileBusesLayoutHelper::getSupporttedBusesLayouts();
+    return supportedLayouts.contains(CamomileBusesLayoutHelper::getCanonicalEquivalent(requestedLayout));
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
