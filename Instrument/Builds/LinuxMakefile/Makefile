@@ -87,6 +87,7 @@ OBJECTS_VST := \
 OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/PluginProcessor_319d19ef.o \
   $(JUCE_OBJDIR)/PluginProcessorBuses_ff06f3c9.o \
+  $(JUCE_OBJDIR)/PluginProcessorReceive_8862f77e.o \
   $(JUCE_OBJDIR)/PluginEditor_ef07f2fa.o \
   $(JUCE_OBJDIR)/PluginEditorComponents_6d39f4f0.o \
   $(JUCE_OBJDIR)/PluginEditorConsole_207d0487.o \
@@ -151,6 +152,11 @@ $(JUCE_OBJDIR)/PluginProcessor_319d19ef.o: ../../../Source/PluginProcessor.cpp
 $(JUCE_OBJDIR)/PluginProcessorBuses_ff06f3c9.o: ../../../Source/PluginProcessorBuses.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling PluginProcessorBuses.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/PluginProcessorReceive_8862f77e.o: ../../../Source/PluginProcessorReceive.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling PluginProcessorReceive.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/PluginEditor_ef07f2fa.o: ../../../Source/PluginEditor.cpp

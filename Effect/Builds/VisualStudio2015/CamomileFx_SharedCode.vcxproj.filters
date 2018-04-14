@@ -376,6 +376,9 @@
     <ClCompile Include="..\..\..\Source\PluginProcessorBuses.cpp">
       <Filter>CamomileFx\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\PluginProcessorReceive.cpp">
+      <Filter>CamomileFx\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\PluginEditor.cpp">
       <Filter>CamomileFx\Source</Filter>
     </ClCompile>

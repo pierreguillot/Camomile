@@ -303,6 +303,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\Source\PluginProcessor.cpp"/>
     <ClCompile Include="..\..\..\Source\PluginProcessorBuses.cpp"/>
+    <ClCompile Include="..\..\..\Source\PluginProcessorReceive.cpp"/>
     <ClCompile Include="..\..\..\Source\PluginEditor.cpp"/>
     <ClCompile Include="..\..\..\Source\PluginEditorComponents.cpp"/>
     <ClCompile Include="..\..\..\Source\PluginEditorConsole.cpp"/>

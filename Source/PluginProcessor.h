@@ -61,6 +61,10 @@ public:
     void getStateInformation (MemoryBlock& destData) final;
     void setStateInformation (const void* data, int sizeInBytes) final;
     
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //                              PURE DATA RECEIVE METHODS                               //
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
     void receiveMessage(const std::string& msg, const std::vector<pd::Atom>& list) final;
     void receiveNoteOn(const int channel, const int pitch, const int velocity) final;
     void receiveControlChange(const int channel, const int controller, const int value) final;
@@ -70,6 +74,8 @@ public:
     void receivePolyAftertouch(const int channel, const int pitch, const int value) final;
     void receiveMidiByte(const int port, const int byte) final;
     void receivePrint(const std::string& message) final;
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
     
     void messageEnqueued() final;
     void updateTrackProperties(const TrackProperties& properties) final;

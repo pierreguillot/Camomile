@@ -20,6 +20,8 @@
             file="../Source/PluginProcessor.cpp"/>
       <FILE id="fS41zm" name="PluginProcessorBuses.cpp" compile="1" resource="0"
             file="../Source/PluginProcessorBuses.cpp"/>
+      <FILE id="JNYGep" name="PluginProcessorReceive.cpp" compile="1" resource="0"
+            file="../Source/PluginProcessorReceive.cpp"/>
       <FILE id="ZpP8vD" name="PluginProcessor.h" compile="0" resource="0"
             file="../Source/PluginProcessor.h"/>
       <FILE id="DYqJL2" name="PluginConsole.h" compile="0" resource="0" file="../Source/PluginConsole.h"/>
