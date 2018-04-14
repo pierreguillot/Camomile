@@ -227,7 +227,7 @@ CamomileEnvironment::CamomileEnvironment()
                     {
                         if(entry.first == "param")
                         {
-                            params.push_back(CamomileParser::getString(entry.second));
+                            params.push_back(entry.second);
                         }
                         else if(entry.first == "program")
                         {
