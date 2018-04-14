@@ -114,8 +114,8 @@ AudioProcessor::BusesProperties CamomileAudioProcessor::getDefaultBusesPropertie
         {
             auto const& inputBus = buses.inputBuses[busidx];
             auto const& outputBus = buses.outputBuses[busidx];
-            defaultBusesProperties.addBus(true, String("bus ") + String(busidx+1) + String(" input"), inputBus, layoutidx == 0);
-            defaultBusesProperties.addBus(false, String("bus ") + String(busidx+1) + String(" output"), outputBus, layoutidx == 0);
+            defaultBusesProperties.addBus(true, String("bus ") + String(busidx+1) + String(" input"), inputBus, true);
+            defaultBusesProperties.addBus(false, String("bus ") + String(busidx+1) + String(" output"), outputBus, true);
         }
         nBuses = nCurrentBuses;
     }
@@ -128,8 +128,8 @@ AudioProcessor::BusesProperties CamomileAudioProcessor::getDefaultBusesPropertie
 
 bool CamomileAudioProcessor::isBusesLayoutSupported(const BusesLayout& requestedLayout) const
 {
-    auto const& supportedLayouts = CamomileBusesLayoutHelper::getSupporttedBusesLayouts();
-    return supportedLayouts.contains(CamomileBusesLayoutHelper::getCanonicalEquivalent(requestedLayout));
+    return CamomileBusesLayoutHelper::getSupporttedBusesLayouts()
+    .contains(CamomileBusesLayoutHelper::getCanonicalEquivalent(requestedLayout));
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -172,19 +172,18 @@ bool CamomileAudioProcessor::CamomileAudioProcessor::canRemoveBus(bool isInput) 
 
 void CamomileAudioProcessor::sendCurrentBusesLayoutInformation()
 {
-    AudioProcessor::BusesLayout const busLayout = getBusesLayout();
-    const int ninput_buses  = getBusCount(true);
-    const int noutput_buses = getBusCount(false);
-    const int nbuses = std::max(ninput_buses, noutput_buses);
-    for(int i = 0; i < nbuses; ++i)
+    const int nBuses = std::max(getBusCount(true), getBusCount(false));
+    for(int i = 0; i < nBuses; ++i)
     {
-        if(i < ninput_buses)
+        AudioProcessor::Bus const* inBus = getBus(true, i);
+        AudioProcessor::Bus const* outBus = getBus(false, i);
+        if(inBus && inBus->isEnabled())
         {
-            sendList(std::string("bus"), CamomileBusesLayoutHelper::getBusInformation(*(getBus(true, i))));
+            sendList(std::string("bus"), CamomileBusesLayoutHelper::getBusInformation(*inBus));
         }
-        if(i < noutput_buses)
+        if(outBus && outBus->isEnabled())
         {
-            sendList(std::string("bus"), CamomileBusesLayoutHelper::getBusInformation(*(getBus(false, i))));
+            sendList(std::string("bus"), CamomileBusesLayoutHelper::getBusInformation(*outBus));
         }
     }
 }
