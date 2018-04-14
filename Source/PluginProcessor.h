@@ -29,7 +29,10 @@ public:
     bool isBusesLayoutSupported (const BusesLayout& layouts) const final;
 private:
     static BusesProperties getBusesProperties(const bool canonical);
-    void sendBusesLayoutInformation();
+    void sendCurrentBusesLayoutInformation();
+    void logBusesLayoutsInformation();
+    bool canAddBus (bool isInput) const final;
+    bool canRemoveBus (bool isInput) const final;
 public:
     
     AudioProcessorEditor* createEditor() final;

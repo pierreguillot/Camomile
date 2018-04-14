@@ -31,7 +31,7 @@ m_programs(CamomileEnvironment::getPrograms())
         + std::string(" for Pd ") + CamomileEnvironment::getPdVersion());
     for(auto const& error : CamomileEnvironment::getErrors()) {
         add(ConsoleLevel::Error, std::string("camomile ") + error); }
-    
+    logBusesLayoutsInformation();
     if(CamomileEnvironment::isValid())
     {
         m_atoms_param.resize(2);
@@ -132,7 +132,7 @@ void CamomileAudioProcessor::reloadPatch()
 void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     prepareDSP(getTotalNumInputChannels(), getTotalNumOutputChannels(), sampleRate);
-    sendBusesLayoutInformation();
+    sendCurrentBusesLayoutInformation();
     m_audio_advancement = 0;
     const size_t blksize = static_cast<size_t>(Instance::getBlockSize());
     const size_t nins = std::max(static_cast<size_t>(getTotalNumInputChannels()), static_cast<size_t>(2));
