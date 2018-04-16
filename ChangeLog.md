@@ -1,6 +1,7 @@
 v1.0.5
 - Fix warnings when audio buses are not well configured
-- Fix MIDI out issue when block size is superior to 64 samples
+- Fix MIDI out issue when block size is superior to 64 samples (#107)
+- Improve multibus support for multichannel & side-chain (#110)
 
 v1.0.4
 - Add label support for GUI objects (#95)
