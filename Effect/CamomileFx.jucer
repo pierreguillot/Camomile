@@ -82,8 +82,8 @@
     </GROUP>
     <GROUP id="{F3E95E26-375E-BDC8-C48D-8BFDD754028C}" name="Ressources">
       <GROUP id="{4C642A19-4C7E-354A-3CA5-FF3CA080A50D}" name="Credits">
-        <FILE id="pfaq9d" name="CreditsAU" compile="0" resource="1" file="../Ressources/Credits/CreditsAU"/>
-        <FILE id="zEmzDl" name="CreditsVST" compile="0" resource="1" file="../Ressources/Credits/CreditsVST"/>
+        <FILE id="xW0sPw" name="CreditsAU" compile="0" resource="1" file="../Ressources/Credits/CreditsAU"/>
+        <FILE id="XfF7hH" name="CreditsVST" compile="0" resource="1" file="../Ressources/Credits/CreditsVST"/>
       </GROUP>
       <GROUP id="{841D6A4F-6B7E-B658-5EED-5BDDF9B8CEF3}" name="Images">
         <FILE id="QiXrH2" name="flower_center.png" compile="0" resource="1"
