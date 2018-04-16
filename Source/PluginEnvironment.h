@@ -144,8 +144,8 @@ private:
     float   tail_length_sec   = 0.f;
     int     latency_samples   = 0;
     
-    std::vector<std::string> programs;
-    std::vector<std::string> params;
+    std::vector<std::string>                m_programs;
+    std::vector<std::string>                m_params;
     std::vector<std::pair<size_t, size_t>>  m_buses;
     std::vector<buses_layout>               m_buses_layouts;
     

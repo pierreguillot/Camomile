@@ -80,9 +80,9 @@ bool CamomileEnvironment::wantsAutoReload() { return get().auto_reload; }
 //                                          PROGRAMS                                        //
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-std::vector<std::string> const& CamomileEnvironment::getPrograms() { return get().programs; }
+std::vector<std::string> const& CamomileEnvironment::getPrograms() { return get().m_programs; }
 
-std::vector<std::string> const& CamomileEnvironment::getParams() { return get().params; }
+std::vector<std::string> const& CamomileEnvironment::getParams() { return get().m_params; }
 
 std::vector<CamomileEnvironment::buses_layout> const& CamomileEnvironment::getBusesLayouts() { return get().m_buses_layouts; }
 
@@ -227,11 +227,11 @@ CamomileEnvironment::CamomileEnvironment()
                     {
                         if(entry.first == "param")
                         {
-                            params.push_back(entry.second);
+                            m_params.push_back(entry.second);
                         }
                         else if(entry.first == "program")
                         {
-                            programs.push_back(CamomileParser::getString(entry.second));
+                            m_programs.push_back(CamomileParser::getString(entry.second));
                         }
                         else if(entry.first == "bus")
                         {
@@ -419,9 +419,9 @@ CamomileEnvironment::CamomileEnvironment()
             errors.push_back("patch has been created for a newer version of the plugin v" + plugin_version);
         }
     }
-    if(programs.empty())
+    if(m_programs.empty())
     {
-        programs.push_back("");
+        m_programs.push_back("");
     }
 }
 
