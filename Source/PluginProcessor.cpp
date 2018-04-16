@@ -584,7 +584,10 @@ void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBy
     ScopedPointer<const XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
     if(xml && xml->hasTagName("CamomileSettings"))
     {
-        CamomileAudioParameter::loadStateInformation(*xml, getParameters());
+        if(CamomileEnvironment::hasAutoProgram())
+        {
+            CamomileAudioParameter::loadStateInformation(*xml, getParameters());            
+        }
         loadInformation(*xml);
         XmlElement const* cbounds = xml->getChildByName(juce::StringRef("console"));
         if(cbounds)

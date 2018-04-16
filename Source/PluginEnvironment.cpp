@@ -76,6 +76,8 @@ bool CamomileEnvironment::isTailLengthInitialized() { return get().state.test(in
 
 bool CamomileEnvironment::wantsAutoReload() { return get().auto_reload; }
 
+bool CamomileEnvironment::hasAutoProgram() { return get().m_auto_program; }
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                          PROGRAMS                                        //
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -324,6 +326,13 @@ CamomileEnvironment::CamomileEnvironment()
                                 throw std::string("already defined");
                             auto_reload = CamomileParser::getBool(entry.second);
                             state.set(init_auto_reload);
+                        }
+                        else if(entry.first == "autoprogram")
+                        {
+                            if(state.test(init_auto_program))
+                                throw std::string("already defined");
+                            m_auto_program = CamomileParser::getBool(entry.second);
+                            state.set(init_auto_program);
                         }
                         else if(entry.first == "type")
                         {
