@@ -4199,13 +4199,13 @@
     <None Include="..\..\..\Ressources\Credits\CreditsVST">
       <Filter>CamomileFx\Ressources\Credits</Filter>
     </None>
+    <None Include="..\..\..\Ressources\Images\copy.png">
+      <Filter>CamomileFx\Ressources\Images</Filter>
+    </None>
     <None Include="..\..\..\Ressources\Images\flower_center.png">
       <Filter>CamomileFx\Ressources\Images</Filter>
     </None>
     <None Include="..\..\..\Ressources\Images\flower_petals.png">
-      <Filter>CamomileFx\Ressources\Images</Filter>
-    </None>
-    <None Include="..\..\..\Ressources\Images\copy.png">
       <Filter>CamomileFx\Ressources\Images</Filter>
     </None>
     <None Include="..\..\..\Ressources\Images\garbage.png">

@@ -14,14 +14,14 @@ namespace BinaryData
     extern const char*   CreditsVST;
     const int            CreditsVSTSize = 537;
 
+    extern const char*   copy_png;
+    const int            copy_pngSize = 4098;
+
     extern const char*   flower_center_png;
     const int            flower_center_pngSize = 3299;
 
     extern const char*   flower_petals_png;
     const int            flower_petals_pngSize = 22287;
-
-    extern const char*   copy_png;
-    const int            copy_pngSize = 4098;
 
     extern const char*   garbage_png;
     const int            garbage_pngSize = 5113;

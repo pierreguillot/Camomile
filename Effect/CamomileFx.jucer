@@ -81,22 +81,22 @@
       </GROUP>
     </GROUP>
     <GROUP id="{F3E95E26-375E-BDC8-C48D-8BFDD754028C}" name="Ressources">
-      <GROUP id="{4C642A19-4C7E-354A-3CA5-FF3CA080A50D}" name="Credits">
-        <FILE id="xW0sPw" name="CreditsAU" compile="0" resource="1" file="../Ressources/Credits/CreditsAU"/>
-        <FILE id="XfF7hH" name="CreditsVST" compile="0" resource="1" file="../Ressources/Credits/CreditsVST"/>
+      <GROUP id="{51701B19-EB90-E2FE-2865-633F5B38F51E}" name="Credits">
+        <FILE id="KuZ0Mk" name="CreditsAU" compile="0" resource="1" file="../Ressources/Credits/CreditsAU"/>
+        <FILE id="HKw5uv" name="CreditsVST" compile="0" resource="1" file="../Ressources/Credits/CreditsVST"/>
       </GROUP>
-      <GROUP id="{841D6A4F-6B7E-B658-5EED-5BDDF9B8CEF3}" name="Images">
-        <FILE id="QiXrH2" name="flower_center.png" compile="0" resource="1"
+      <GROUP id="{314B3474-5C15-EEF4-EC03-664A8CCD4038}" name="Images">
+        <FILE id="JGMo8A" name="copy.png" compile="0" resource="1" file="../Ressources/Images/copy.png"/>
+        <FILE id="lFv5vO" name="flower_center.png" compile="0" resource="1"
               file="../Ressources/Images/flower_center.png"/>
-        <FILE id="NGmBWC" name="flower_petals.png" compile="0" resource="1"
+        <FILE id="HM1eqb" name="flower_petals.png" compile="0" resource="1"
               file="../Ressources/Images/flower_petals.png"/>
-        <FILE id="p75Fhl" name="copy.png" compile="0" resource="1" file="../Ressources/Images/copy.png"/>
-        <FILE id="JeDrnn" name="garbage.png" compile="0" resource="1" file="../Ressources/Images/garbage.png"/>
-        <FILE id="BMA78Q" name="reload.png" compile="0" resource="1" file="../Ressources/Images/reload.png"/>
-        <FILE id="NBFdfk" name="settings.png" compile="0" resource="1" file="../Ressources/Images/settings.png"/>
+        <FILE id="JacbjB" name="garbage.png" compile="0" resource="1" file="../Ressources/Images/garbage.png"/>
+        <FILE id="b2sNM7" name="reload.png" compile="0" resource="1" file="../Ressources/Images/reload.png"/>
+        <FILE id="uKM1Gb" name="settings.png" compile="0" resource="1" file="../Ressources/Images/settings.png"/>
       </GROUP>
       <GROUP id="{9C58406C-231A-D778-A142-80E210DE0081}" name="Polices">
-        <FILE id="uabWQL" name="DejaVuSansMono.ttf" compile="0" resource="1"
+        <FILE id="DIR5Dx" name="DejaVuSansMono.ttf" compile="0" resource="1"
               file="../Ressources/Polices/DejaVuSansMono.ttf"/>
       </GROUP>
     </GROUP>
