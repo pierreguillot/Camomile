@@ -282,7 +282,7 @@ bool CamomileEditorMessageManager::processMessages()
             if(garray)
             {
                 String const trackname = m_processor.getTrackProperties().name;
-                String const name = CamomileEnvironment::getPluginName() + " - " + message[1]
+                String const name = String(CamomileEnvironment::getPluginName() + " - " + message[1])
                 + (trackname.isEmpty() ? "" : trackname);
                 m_window->clearContentComponent();
                 m_window->setName(name);

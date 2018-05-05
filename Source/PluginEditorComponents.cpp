@@ -119,7 +119,7 @@ void CamomileEditorButton::clicked()
         m_window->toFront(true);
         m_window->grabKeyboardFocus();
         if(m_processor.getTrackProperties().name.isNotEmpty()) {
-            m_window->setName(CamomileEnvironment::getPluginName() + ": " + m_processor.getTrackProperties().name); }
+            m_window->setName(String(CamomileEnvironment::getPluginName()) + ": " + m_processor.getTrackProperties().name); }
     }
     else
     {
@@ -133,7 +133,7 @@ void CamomileEditorButton::clicked()
             tc->setTabBarDepth(24);
             
             String const trackname = m_processor.getTrackProperties().name;
-            String const name = CamomileEnvironment::getPluginName() + (trackname.isEmpty() ? "" : trackname);
+            String const name = String(CamomileEnvironment::getPluginName()) + (trackname.isEmpty() ? "" : trackname);
             m_window->setName(name);
             m_window->setContentOwned(tc, false);
             m_window->addToDesktop();

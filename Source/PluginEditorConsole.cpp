@@ -112,7 +112,7 @@ void PluginEditorConsole::copySelection()
         const size_t n = m_history.size(m_level);
         for(size_t i = 0; i < n; ++i)
         {
-            text += m_history.get(m_level, static_cast<size_t>(i)).second + "\n";
+            text += String(m_history.get(m_level, static_cast<size_t>(i)).second + "\n");
         }
     }
     else
@@ -120,7 +120,7 @@ void PluginEditorConsole::copySelection()
         const int n = selection.size();
         for(int i = 0; i < n; ++i)
         {
-            text += m_history.get(m_level, static_cast<size_t>(selection[i])).second + "\n";
+            text += String(m_history.get(m_level, static_cast<size_t>(selection[i])).second + "\n");
         }
     }
     SystemClipboard::copyTextToClipboard(text);
