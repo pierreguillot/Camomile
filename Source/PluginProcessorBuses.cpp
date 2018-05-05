@@ -105,6 +105,24 @@ AudioProcessor::BusesProperties CamomileAudioProcessor::getDefaultBusesPropertie
     int nBuses = 0;
     BusesProperties defaultBusesProperties;
     auto const& supportedLayouts = CamomileBusesLayoutHelper::getSupporttedBusesLayouts();
+#ifdef DEBUG
+    {
+        for(auto const& supportedLayout : supportedLayouts)
+        {
+            std::cout << "\n\nSupported Layout";
+            std::cout << "\nInputs: ";
+            for(int i = 0; i < supportedLayout.inputBuses.size(); ++i)
+            {
+                std::cout<<"["<< supportedLayout.inputBuses[i].size()<<" - "<<supportedLayout.inputBuses[i].getDescription()<<"]";
+            }
+            std::cout << "\nOutputs:";
+            for(int i = 0; i < supportedLayout.outputBuses.size(); ++i)
+            {
+                std::cout<<"["<< supportedLayout.outputBuses[i].size()<<" - "<<supportedLayout.outputBuses[i].getDescription()<<"]";
+            }
+        }
+    }
+#endif
     for(int layoutidx = 0; layoutidx < supportedLayouts.size(); ++layoutidx)
     {
         auto const& buses = supportedLayouts[layoutidx];
@@ -128,8 +146,22 @@ AudioProcessor::BusesProperties CamomileAudioProcessor::getDefaultBusesPropertie
 
 bool CamomileAudioProcessor::isBusesLayoutSupported(const BusesLayout& requestedLayout) const
 {
-    return CamomileBusesLayoutHelper::getSupporttedBusesLayouts()
-    .contains(CamomileBusesLayoutHelper::getCanonicalEquivalent(requestedLayout));
+#ifdef DEBUG
+    {
+        std::cout << "\n\nRequested Layout";
+        std::cout << "\nInputs: ";
+        for(int i = 0; i < requestedLayout.inputBuses.size(); ++i)
+        {
+            std::cout << "[" << requestedLayout.inputBuses[i].size()<< " - " <<requestedLayout.inputBuses[i].getDescription() <<"]";
+        }
+        std::cout << "\nOutputs:";
+        for(int i = 0; i < requestedLayout.outputBuses.size(); ++i)
+        {
+            std::cout << "[" << requestedLayout.outputBuses[i].size()<< " - " <<requestedLayout.outputBuses[i].getDescription() <<"]";
+        }
+    }
+#endif
+    return CamomileBusesLayoutHelper::getSupporttedBusesLayouts().contains(CamomileBusesLayoutHelper::getCanonicalEquivalent(requestedLayout));
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
