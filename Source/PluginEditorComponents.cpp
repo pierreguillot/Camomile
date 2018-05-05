@@ -46,11 +46,14 @@ public:
         setPopupMenuEnabled(true);
         setFont(CamoLookAndFeel::getDefaultFont());
         setWantsKeyboardFocus(true);
-#if defined(JucePlugin_Build_VST) || defined(JucePlugin_Build_VST3)
-        setText(String::createStringFromData(BinaryData::CreditsVST, BinaryData::CreditsVSTSize));
-#else
-        setText(String::createStringFromData(BinaryData::CreditsAU, BinaryData::CreditsAUSize));
-#endif
+        if(PluginHostType::getPluginLoadedAs() == AudioProcessor::wrapperType_AudioUnit)
+        {
+            setText(String::createStringFromData(BinaryData::CreditsAU, BinaryData::CreditsAUSize));
+        }
+        else
+        {
+            setText(String::createStringFromData(BinaryData::CreditsVST, BinaryData::CreditsVSTSize));
+        }
     }
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AboutCamomile)
