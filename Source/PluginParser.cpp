@@ -171,37 +171,32 @@ std::pair<size_t, size_t> CamomileParser::getTwoUnsignedIntegers(std::string con
     throw std::string("is empty");
 }
 
+size_t CamomileParser::getNios(std::string const& value, size_t& pos)
+{
+    size_t nios = 0;
+    size_t next = value.find_first_of("0123456789", pos);
+    if(next == std::string::npos)
+    {
+        std::swap(next, pos);
+        throw std::string("'") + value.at(next) + std::string("' not valid for buses at ") + std::to_string(next);
+    }
+    nios = static_cast<size_t>(atol(value.c_str()+next));
+    pos = value.find_first_not_of("0123456789", next+1);
+    if(pos != std::string::npos)
+    {
+        pos = value.find_first_of("0123456789", pos);
+    }
+    return nios;
+}
+
 std::pair<size_t, size_t> CamomileParser::getBus(std::string const& value, size_t& pos)
 {
-    size_t input = 0, output = 0;
-    pos = value.find_first_of('[', pos);
+    size_t input = getNios(value, pos);
     if(pos == std::string::npos)
     {
-        throw std::string("'") + value + std::string("' not valid for buses - missing 1st bracket");
+        throw std::string("'") + value + std::string("' missing second value");
     }
-    ++pos;
-    if(pos >= value.size() || !isdigit(static_cast<int>(value[pos])))
-    {
-        throw std::string("'") + value + std::string("' not valid for buses - missing 1st number");
-    }
-    input = static_cast<size_t>(atol(value.c_str()+pos));
-    pos = value.find_first_of(' ', pos+1);
-    if(pos == std::string::npos)
-    {
-        throw std::string("'") + value + std::string("' not valid for buses - missing 2nd number");
-    }
-    pos = value.find_first_not_of(' ', pos+1);
-    if(pos == std::string::npos || !isdigit(static_cast<int>(value[pos])))
-    {
-        throw std::string("'") + value + std::string("' not valid for buses - missing 2nd number");
-    }
-    output = static_cast<size_t>(atol(value.c_str()+pos));
-    pos = value.find_first_of(']', pos+1);
-    if(pos == std::string::npos)
-    {
-        throw std::string("'") + value + std::string("' not valid for buses - missing 2nd bracket");
-    }
-    pos = value.find_first_of('[', pos+1);
+    size_t const output = getNios(value, pos);
     return {input, output};
 }
 
