@@ -26,11 +26,10 @@ public:
     
     void guiResize() final;
     void guiRedraw() final;
-private:
     
+private:
     void updatePatch();
     void updateObjects();
-    
     
     CamomileAudioProcessor&         m_processor;
     OwnedArray<PluginEditorObject>  m_objects;

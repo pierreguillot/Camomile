@@ -38,12 +38,12 @@ void CamomileEditor::updatePatch()
     auto const bounds = m_processor.getPatch().getBounds();
     int const width  = bounds[2] > 0 ? std::max(bounds[2], 100) : 400;
     int const height = bounds[3] > 0 ? std::max(bounds[3], 100) : 300;
-    if(width !=  getWidth() || height != getHeight())
+    if(width != getWidth() || height != getHeight())
     {
         setSize(width, height);
         if(m_image.getImage().isValid())
         {
-            m_image.setTransformToFit(getBounds().toType<float>(), RectanglePlacement::stretchToFit);
+            m_image.setTransformToFit(getBounds().toType<float>(), RectanglePlacement::fillDestination);
             if(!m_image.isVisible())
             {
                 addAndMakeVisible(m_image, 0);
@@ -75,8 +75,10 @@ void CamomileEditor::updateObjects()
 void CamomileEditor::timerCallback()
 {
     CamomileEditorMessageManager::processMessages();
-    for(auto object : m_objects) {
-        object->update(); }
+    for(auto object : m_objects)
+    {
+        object->update();
+    }
 }
 
 
