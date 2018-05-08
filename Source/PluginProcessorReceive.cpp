@@ -165,6 +165,10 @@ void CamomileAudioProcessor::receiveMessage(const std::string& msg, const std::v
         else { add(ConsoleLevel::Error,
                    "camomile param error syntax: method index..."); }
     }
+    else if(msg == std::string("program"))
+    {
+        parseProgram(list);
+    }
     else if(msg == std::string("openpanel"))
     {
         parseOpenPanel(list);
@@ -190,6 +194,18 @@ void CamomileAudioProcessor::receiveMessage(const std::string& msg, const std::v
         parseAudio(list);
     }
     else {  add(ConsoleLevel::Error, "camomile unknow message : " + msg); }
+}
+
+void CamomileAudioProcessor::parseProgram(const std::vector<pd::Atom>& list)
+{
+    if(list.size() >= 1 && list[0].isSymbol() && list[0].getSymbol() == "updated")
+    {
+        updateHostDisplay();
+    }
+    else
+    {
+        add(ConsoleLevel::Error, "camomile program method accepts updated method only");
+    }
 }
 
 void CamomileAudioProcessor::parseOpenPanel(const std::vector<pd::Atom>& list)

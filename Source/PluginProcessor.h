@@ -103,6 +103,7 @@ public:
 private:
     void loadInformation(XmlElement const& xml);
     
+    void parseProgram(const std::vector<pd::Atom>& list);
     void parseSaveInformation(const std::vector<pd::Atom>& list);
     void parseOpenPanel(const std::vector<pd::Atom>& list);
     void parseSavePanel(const std::vector<pd::Atom>& list);
