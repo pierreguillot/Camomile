@@ -4,6 +4,7 @@ v1.0.5
 - Improve multibus support for multichannel & side-chain (#110)
 - Add support for autoprogram to disable parameters recording within programs
 - Add program updated method to notify the host that internal state has changed
+- Fix plugin format recognition VST/VST3/AU
 
 v1.0.4
 - Add label support for GUI objects (#95)
