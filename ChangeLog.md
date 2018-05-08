@@ -3,6 +3,7 @@ v1.0.5
 - Fix MIDI out issue when block size is superior to 64 samples (#107)
 - Improve multibus support for multichannel & side-chain (#110)
 - Add support for autoprogram to disable parameters recording within programs
+- Add program updated method to notify the host that internal state has changed
 
 v1.0.4
 - Add label support for GUI objects (#95)
