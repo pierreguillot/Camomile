@@ -5,6 +5,7 @@ v1.0.5
 - Add support for autoprogram to disable parameters recording within programs
 - Add program updated method to notify the host that internal state has changed
 - Fix plugin format recognition VST/VST3/AU
+- Improve online documentation & remove locale documentation
 
 v1.0.4
 - Add label support for GUI objects (#95)
