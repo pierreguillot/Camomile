@@ -415,6 +415,7 @@ namespace pd
         {
             libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
             libpd_closefile(m_patch);
+            m_patch = nullptr;
         }
     }
     
