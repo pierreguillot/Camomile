@@ -62,7 +62,7 @@ namespace pd
         bool isIEM() const noexcept { return m_type != Type::Undefined && m_type < Type::Comment; }
         
         //! @brief If the GUI is an Atom GUI (AtomNumber or AtomSymbol).
-            bool isAtom() const noexcept { return m_type == Type::AtomNumber || m_type == Type::AtomSymbol; }
+        bool isAtom() const noexcept { return m_type == Type::AtomNumber || m_type == Type::AtomSymbol; }
         
         //! @brief Get the font size.
         int getFontSize() const noexcept;
