@@ -109,10 +109,19 @@ void CamomileAudioProcessor::fileChanged()
 
 void CamomileAudioProcessor::reloadPatch()
 {
+    MemoryBlock xml;
     suspendProcessing(true);
     releaseResources();
     dequeueMessages();
+    {
+        const MessageManagerLock mmLock;
+        getStateInformation(xml);
+    }
     openPatch(CamomileEnvironment::getPatchPath(), CamomileEnvironment::getPatchName());
+    {
+        const MessageManagerLock mmLock;
+        setStateInformation(xml.getData(), static_cast<int>(xml.getSize()));
+    }
     prepareToPlay(getSampleRate(), AudioProcessor::getBlockSize());
     if(CamomileEditor* editor = dynamic_cast<CamomileEditor*>(getActiveEditor()))
     {
