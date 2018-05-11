@@ -100,7 +100,7 @@ namespace pd
 
         Gui(void* ptr, void* patch, Instance* instance) noexcept;
         
-        Type        m_type = Type::Undefined;
+        Type m_type = Type::Undefined;
         friend class Patch;
     };
     
