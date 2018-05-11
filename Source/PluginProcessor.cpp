@@ -114,14 +114,10 @@ void CamomileAudioProcessor::reloadPatch()
     dequeueMessages();
     openPatch(CamomileEnvironment::getPatchPath(), CamomileEnvironment::getPatchName());
     prepareToPlay(getSampleRate(), AudioProcessor::getBlockSize());
-    AudioProcessorEditor* editor = getActiveEditor();
-    if(editor)
+    if(CamomileEditor* editor = dynamic_cast<CamomileEditor*>(getActiveEditor()))
     {
-        CamomileEditor* cd = dynamic_cast<CamomileEditor*>(editor);
-        if(cd)
-        {
-            cd->guiResize();
-        }
+        const MessageManagerLock mmLock;
+        editor->guiResize();
     }
     add(ConsoleLevel::Normal, "camomile: the patch \"" + CamomileEnvironment::getPatchName() + "\" has been reloaded");
     suspendProcessing(false);
