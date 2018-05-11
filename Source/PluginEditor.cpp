@@ -101,14 +101,20 @@ void CamomileEditor::paint (Graphics& g)
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-bool CamomileEditor::keyPressed(const KeyPress& key) {
-    return CamomileEditorKeyManager::keyPressed(key); }
+bool CamomileEditor::keyPressed(const KeyPress& key)
+{
+    return CamomileEditorKeyManager::keyPressed(key);
+}
 
-bool CamomileEditor::keyStateChanged(bool isKeyDown) {
-    return CamomileEditorKeyManager::keyStateChanged(isKeyDown); }
+bool CamomileEditor::keyStateChanged(bool isKeyDown)
+{
+    return CamomileEditorKeyManager::keyStateChanged(isKeyDown);
+}
 
-void CamomileEditor::modifierKeysChanged(const ModifierKeys& modifiers) {
-    CamomileEditorKeyManager::keyModifiersChanged(modifiers); }
+void CamomileEditor::modifierKeysChanged(const ModifierKeys& modifiers)
+{
+    CamomileEditorKeyManager::keyModifiersChanged(modifiers);
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////

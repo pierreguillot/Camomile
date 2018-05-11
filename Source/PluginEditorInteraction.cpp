@@ -130,11 +130,13 @@ bool CamomileEditorKeyManager::keyModifiersChanged(const ModifierKeys& modifiers
 const std::string CamomileEditorMouseManager::string_gui = std::string("gui");
 const std::string CamomileEditorMouseManager::string_mouse = std::string("mouse");
 
-void CamomileEditorMouseManager::startEdition() {
+void CamomileEditorMouseManager::startEdition()
+{
     m_processor.enqueueMessages(string_gui, string_mouse, {1.f});
 }
 
-void CamomileEditorMouseManager::stopEdition() {
+void CamomileEditorMouseManager::stopEdition()
+{
     m_processor.enqueueMessages(string_gui, string_mouse, {0.f});
 }
 
