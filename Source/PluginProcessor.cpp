@@ -111,8 +111,8 @@ void CamomileAudioProcessor::reloadPatch()
 {
     suspendProcessing(true);
     releaseResources();
+    dequeueMessages();
     openPatch(CamomileEnvironment::getPatchPath(), CamomileEnvironment::getPatchName());
-    processMessages();
     prepareToPlay(getSampleRate(), AudioProcessor::getBlockSize());
     AudioProcessorEditor* editor = getActiveEditor();
     if(editor)
