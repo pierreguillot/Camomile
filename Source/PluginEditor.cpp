@@ -43,7 +43,7 @@ void CamomileEditor::updatePatch()
         setSize(width, height);
         if(m_image.getImage().isValid())
         {
-            m_image.setTransformToFit(getBounds().toType<float>(), RectanglePlacement::fillDestination);
+            m_image.setTransformToFit(getBounds().toType<float>(), RectanglePlacement::fillDestination + RectanglePlacement::xLeft + RectanglePlacement::yTop);
             if(!m_image.isVisible())
             {
                 addAndMakeVisible(m_image, 0);
