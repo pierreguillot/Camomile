@@ -239,7 +239,7 @@ CamomileEnvironment::CamomileEnvironment()
                         {
                             m_buses.push_back(CamomileParser::getTwoUnsignedIntegers(entry.second));
                         }
-                        else if(entry.first == "buses")
+                        else if(entry.first == "iolayout")
                         {
                             m_buses_layouts.push_back(CamomileParser::getBuses(entry.second));
                         }
@@ -392,12 +392,12 @@ CamomileEnvironment::CamomileEnvironment()
     if(!midi_only && !max_ios)
     {
         m_buses_layouts.push_back({{2, 2}});
-        errors.push_back("no buses layout defined, add default bus 2 2");
+        errors.push_back("no buses layout defined, add default buses layout 2 2");
     }
     else if(midi_only && max_ios)
     {
         m_buses_layouts.clear();
-        errors.push_back("buses definition not necessary with midi only option");
+        errors.push_back("buses layout definition not accepted with midi only option");
     }
     //////////////////////////////////////////////////////////////////////////////////////////
     
