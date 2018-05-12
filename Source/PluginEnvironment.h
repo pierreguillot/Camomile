@@ -21,6 +21,8 @@ class CamomileEnvironment
 {
 public:
     
+    typedef std::pair<size_t, size_t> bus;
+    typedef std::vector<bus> buses_layout;
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                      GLOBAL                                          //
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -89,8 +91,11 @@ public:
     //! @brief Gets if the patch wants Key events.
     static bool wantsKey();
     
-    //! @brief Gets if the plugin want to auto reload the patch.
+    //! @brief Gets if the plugin wants to auto reload the patch.
     static bool wantsAutoReload();
+    
+    //! @brief Gets if the plugin wants to store the parameters within the programs.
+    static bool hasAutoProgram();
     
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                      PROGRAMS                                        //
@@ -102,8 +107,8 @@ public:
     //! @brief Gets the parameters.
     static std::vector<std::string> const& getParams();
     
-    //! @brief Gets the channels buses supported.
-    static std::vector<std::pair<int, int>> const& getBuses();
+    //! @brief Gets the channels buses layouts supported.
+    static std::vector<buses_layout> const& getBusesLayouts();
     
     //! @brief Gets the parsing errors.
     static std::vector<std::string> const& getErrors();
@@ -132,7 +137,7 @@ private:
     std::string     image_name  = "";
     bool            auto_reload = false;
     bool            valid       = false;
-    std::bitset<13>  state;
+    std::bitset<14>  state;
     
     bool    midi_in_support   = false;
     bool    midi_out_support  = false;
@@ -141,10 +146,12 @@ private:
     bool    midi_only         = false;
     float   tail_length_sec   = 0.f;
     int     latency_samples   = 0;
+    bool                                    m_auto_program = true;
     
-    std::vector<std::string> programs;
-    std::vector<std::string> params;
-    std::vector<std::pair<int, int>> buses;
+    std::vector<std::string>                m_programs;
+    std::vector<std::string>                m_params;
+    std::vector<std::pair<size_t, size_t>>  m_buses;
+    std::vector<buses_layout>               m_buses_layouts;
     
     std::vector<std::string> errors;
     
@@ -162,6 +169,7 @@ private:
         init_desc       = 9,
         init_key        = 10,
         init_compatibilty = 11,
-        init_auto_reload  = 12
+        init_auto_reload  = 12,
+        init_auto_program = 13
     };
 };

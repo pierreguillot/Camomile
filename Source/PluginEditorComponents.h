@@ -18,6 +18,7 @@ class CamomileEditorButton : public Button
 {
 public:
     CamomileEditorButton(CamomileAudioProcessor& processor);
+    ~CamomileEditorButton();
     void paintButton(Graphics& g, bool over, bool down) final {};
     void buttonStateChanged() final;
     void clicked() final;

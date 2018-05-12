@@ -28,5 +28,12 @@ public:
     static unsigned int getHexadecimalCode(std::string const& value);
     static std::string const& getString(std::string const& value);
     static std::pair<int, int> getTwoIntegers(std::string const& value);
+    static std::pair<size_t, size_t> getTwoUnsignedIntegers(std::string const& value);
+    
+    static std::vector<std::pair<size_t, size_t>> getBuses(std::string const& value);
+    
+private:
+    static size_t getNios(std::string const& value, size_t& pos);
+    static std::pair<size_t, size_t> getBus(std::string const& value, size_t& pos);
 };
 

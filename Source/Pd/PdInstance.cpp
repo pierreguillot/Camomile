@@ -102,7 +102,7 @@ extern "C"
         //////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////
         
-        static void instance_multi_print(pd::Instance* ptr, char* s)
+        static void instance_multi_print(pd::Instance* ptr, char const* s)
         {
             ptr->m_print_queue.try_enqueue(std::string(s));
         }
@@ -161,7 +161,7 @@ namespace pd
     void Instance::prepareDSP(const int nins, const int nouts, const double samplerate)
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        libpd_init_audio((int)nins, (int)nouts, (int)samplerate);
+        libpd_init_audio(nins, nouts, (int)samplerate);
     }
     
     void Instance::startDSP()
@@ -415,6 +415,7 @@ namespace pd
         {
             libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
             libpd_closefile(m_patch);
+            m_patch = nullptr;
         }
     }
     

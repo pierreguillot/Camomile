@@ -46,11 +46,14 @@ public:
         setPopupMenuEnabled(true);
         setFont(CamoLookAndFeel::getDefaultFont());
         setWantsKeyboardFocus(true);
-#if defined(JucePlugin_Build_VST) || defined(JucePlugin_Build_VST3)
-        setText(String::createStringFromData(BinaryData::CreditsVST, BinaryData::CreditsVSTSize));
-#else
-        setText(String::createStringFromData(BinaryData::CreditsAU, BinaryData::CreditsAUSize));
-#endif
+        if(PluginHostType::getPluginLoadedAs() == AudioProcessor::wrapperType_AudioUnit)
+        {
+            setText(String::createStringFromData(BinaryData::CreditsAU, BinaryData::CreditsAUSize));
+        }
+        else
+        {
+            setText(String::createStringFromData(BinaryData::CreditsVST, BinaryData::CreditsVSTSize));
+        }
     }
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AboutCamomile)
@@ -98,6 +101,13 @@ m_processor(processor), m_window(new CamomileEditorWindow())
     m_petals.setOverlayColour(Colours::black);
     m_petals.setAlpha(0.5f);
     setBounds(3, 3, 18, 18);
+    
+    m_window->setBounds(m_processor.getConsoleWindowBounds());
+}
+
+CamomileEditorButton::~CamomileEditorButton()
+{
+    m_processor.setConsoleWindowBounds(m_window->getBounds());
 }
 
 void CamomileEditorButton::buttonStateChanged()
@@ -112,7 +122,7 @@ void CamomileEditorButton::clicked()
         m_window->toFront(true);
         m_window->grabKeyboardFocus();
         if(m_processor.getTrackProperties().name.isNotEmpty()) {
-            m_window->setName(CamomileEnvironment::getPluginName() + ": " + m_processor.getTrackProperties().name); }
+            m_window->setName(String(CamomileEnvironment::getPluginName()) + ": " + m_processor.getTrackProperties().name); }
     }
     else
     {
@@ -126,7 +136,7 @@ void CamomileEditorButton::clicked()
             tc->setTabBarDepth(24);
             
             String const trackname = m_processor.getTrackProperties().name;
-            String const name = CamomileEnvironment::getPluginName() + (trackname.isEmpty() ? "" : trackname);
+            String const name = String(CamomileEnvironment::getPluginName()) + (trackname.isEmpty() ? "" : trackname);
             m_window->setName(name);
             m_window->setContentOwned(tc, false);
             m_window->addToDesktop();

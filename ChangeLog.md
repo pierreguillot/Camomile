@@ -1,3 +1,14 @@
+v1.0.5
+- Fix warnings when audio buses are not well configured
+- Fix MIDI out issue when block size is superior to 64 samples (#107)
+- Improve multibus support for multichannel & side-chain - experimental with iolayout (#110)
+- Add support for autoprogram to disable parameters recording within programs
+- Add program updated method to notify the host that internal state has changed
+- Fix plugin format recognition VST/VST3/AU
+- Improve online documentation & remove locale documentation
+- Add plugin's state management for dynamic reloading
+- Improve background image resizing and positioning
+
 v1.0.4
 - Add label support for GUI objects (#95)
 - Add graphical array support for GUI array objects (graph)  (#93)

@@ -150,6 +150,71 @@ std::pair<int, int> CamomileParser::getTwoIntegers(std::string const& value)
     throw std::string("is empty");
 }
 
+std::pair<size_t, size_t> CamomileParser::getTwoUnsignedIntegers(std::string const& value)
+{
+    if(!value.empty())
+    {
+        if(isdigit(static_cast<int>(value[0])))
+        {
+            size_t next = value.find_first_of(' ');
+            if(next != std::string::npos)
+            {
+                next = value.find_first_not_of(' ', next+1);
+                if(next != std::string::npos && isdigit(static_cast<int>(value[next])))
+                {
+                    return std::pair<size_t, size_t>(static_cast<size_t>(atol(value.c_str())), static_cast<size_t>(atol(value.c_str()+next)));
+                }
+            }
+        }
+        throw std::string("'") + value + std::string("' not a double unsigned integer");
+    }
+    throw std::string("is empty");
+}
+
+size_t CamomileParser::getNios(std::string const& value, size_t& pos)
+{
+    size_t nios = 0;
+    size_t next = value.find_first_of("0123456789", pos);
+    if(next == std::string::npos)
+    {
+        std::swap(next, pos);
+        throw std::string("'") + value.at(next) + std::string("' not valid for buses at ") + std::to_string(next);
+    }
+    nios = static_cast<size_t>(atol(value.c_str()+next));
+    pos = value.find_first_not_of("0123456789", next+1);
+    if(pos != std::string::npos)
+    {
+        pos = value.find_first_of("0123456789", pos);
+    }
+    return nios;
+}
+
+std::pair<size_t, size_t> CamomileParser::getBus(std::string const& value, size_t& pos)
+{
+    size_t input = getNios(value, pos);
+    if(pos == std::string::npos)
+    {
+        throw std::string("'") + value + std::string("' missing second value");
+    }
+    size_t const output = getNios(value, pos);
+    return {input, output};
+}
+
+std::vector<std::pair<size_t, size_t>> CamomileParser::getBuses(std::string const& value)
+{
+    std::vector<std::pair<size_t, size_t>> pairs;
+    if(!value.empty())
+    {
+        size_t pos = 0;
+        while (pos != std::string::npos)
+        {
+            pairs.push_back(getBus(value, pos));
+        }
+        return pairs;
+    }
+    throw std::string("is empty");
+}
+
 std::map<std::string, std::string> CamomileParser::getOptions(std::string const& value)
 {
     std::map<std::string, std::string> options;

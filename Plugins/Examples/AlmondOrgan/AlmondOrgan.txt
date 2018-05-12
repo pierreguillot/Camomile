@@ -1,11 +1,11 @@
 type instrument;
-bus 0 2;
+iolayout 0 2;
 code zWOt;
 midiin true;
 playhead true;
 image Spip.png;
 description Infos.txt;
-compatibility 1.0.2;
+compatibility 1.0.5;
 param -name Volume -label dB -min 0 -max 100 -default 80;
 param -name Attack -label ms -min 0 -max 100 -default 20;
 param -name Decay -label ms -min 0 -max 1000 -default 60;

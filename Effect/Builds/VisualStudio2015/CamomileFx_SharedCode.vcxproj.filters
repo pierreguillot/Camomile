@@ -373,6 +373,12 @@
     <ClCompile Include="..\..\..\Source\PluginProcessor.cpp">
       <Filter>CamomileFx\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\PluginProcessorBuses.cpp">
+      <Filter>CamomileFx\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\PluginProcessorReceive.cpp">
+      <Filter>CamomileFx\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\PluginEditor.cpp">
       <Filter>CamomileFx\Source</Filter>
     </ClCompile>
@@ -848,6 +854,9 @@
       <Filter>JUCE Modules\juce_audio_processors\format_types</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_processors\format_types\juce_LADSPAPluginFormat.cpp">
+      <Filter>JUCE Modules\juce_audio_processors\format_types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_audio_processors\format_types\juce_LegacyAudioParameter.cpp">
       <Filter>JUCE Modules\juce_audio_processors\format_types</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_processors\format_types\juce_VST3PluginFormat.cpp">
@@ -4190,13 +4199,13 @@
     <None Include="..\..\..\Ressources\Credits\CreditsVST">
       <Filter>CamomileFx\Ressources\Credits</Filter>
     </None>
+    <None Include="..\..\..\Ressources\Images\copy.png">
+      <Filter>CamomileFx\Ressources\Images</Filter>
+    </None>
     <None Include="..\..\..\Ressources\Images\flower_center.png">
       <Filter>CamomileFx\Ressources\Images</Filter>
     </None>
     <None Include="..\..\..\Ressources\Images\flower_petals.png">
-      <Filter>CamomileFx\Ressources\Images</Filter>
-    </None>
-    <None Include="..\..\..\Ressources\Images\copy.png">
       <Filter>CamomileFx\Ressources\Images</Filter>
     </None>
     <None Include="..\..\..\Ressources\Images\garbage.png">

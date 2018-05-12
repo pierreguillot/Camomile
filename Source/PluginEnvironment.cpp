@@ -76,15 +76,17 @@ bool CamomileEnvironment::isTailLengthInitialized() { return get().state.test(in
 
 bool CamomileEnvironment::wantsAutoReload() { return get().auto_reload; }
 
+bool CamomileEnvironment::hasAutoProgram() { return get().m_auto_program; }
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                          PROGRAMS                                        //
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-std::vector<std::string> const& CamomileEnvironment::getPrograms() { return get().programs; }
+std::vector<std::string> const& CamomileEnvironment::getPrograms() { return get().m_programs; }
 
-std::vector<std::string> const& CamomileEnvironment::getParams() { return get().params; }
+std::vector<std::string> const& CamomileEnvironment::getParams() { return get().m_params; }
 
-std::vector<std::pair<int, int>> const& CamomileEnvironment::getBuses() { return get().buses; }
+std::vector<CamomileEnvironment::buses_layout> const& CamomileEnvironment::getBusesLayouts() { return get().m_buses_layouts; }
 
 std::vector<std::string> const& CamomileEnvironment::getErrors() { return get().errors; }
 
@@ -227,15 +229,19 @@ CamomileEnvironment::CamomileEnvironment()
                     {
                         if(entry.first == "param")
                         {
-                            params.push_back(CamomileParser::getString(entry.second));
+                            m_params.push_back(entry.second);
                         }
                         else if(entry.first == "program")
                         {
-                            programs.push_back(CamomileParser::getString(entry.second));
+                            m_programs.push_back(CamomileParser::getString(entry.second));
                         }
                         else if(entry.first == "bus")
                         {
-                            buses.push_back(CamomileParser::getTwoIntegers(entry.second));
+                            m_buses.push_back(CamomileParser::getTwoUnsignedIntegers(entry.second));
+                        }
+                        else if(entry.first == "iolayout")
+                        {
+                            m_buses_layouts.push_back(CamomileParser::getBuses(entry.second));
                         }
                         else if(entry.first == "midiin")
                         {
@@ -321,6 +327,13 @@ CamomileEnvironment::CamomileEnvironment()
                             auto_reload = CamomileParser::getBool(entry.second);
                             state.set(init_auto_reload);
                         }
+                        else if(entry.first == "autoprogram")
+                        {
+                            if(state.test(init_auto_program))
+                                throw std::string("already defined");
+                            m_auto_program = CamomileParser::getBool(entry.second);
+                            state.set(init_auto_program);
+                        }
                         else if(entry.first == "type")
                         {
                             if(state.test(init_type))
@@ -361,12 +374,45 @@ CamomileEnvironment::CamomileEnvironment()
         }
     }
     
-    if(!state.test(init_code)) {
-        errors.push_back("code not defined."); }
-    if(!state.test(init_type)) {
-        errors.push_back("type not defined."); }
-    if(!state.test(init_compatibilty)) {
-        errors.push_back("compatibility not defined."); }
+    //////////////////////////////////////////////////////////////////////////////////////////
+    if(!m_buses.empty())
+    {
+        m_buses_layouts.insert(m_buses_layouts.begin(), m_buses);
+        m_buses.clear();
+        //errors.push_back("compatibility mode used: bus property will be deprecated, please use buses");
+    }
+    size_t max_ios = 0;
+    for(auto const& clayout : m_buses_layouts)
+    {
+        for(auto const& cbus : clayout)
+        {
+            max_ios = std::max(max_ios, std::max(cbus.first, cbus.second));
+        }
+    }
+    if(!midi_only && !max_ios)
+    {
+        m_buses_layouts.push_back({{2, 2}});
+        errors.push_back("no buses layout defined, add default buses layout 2 2");
+    }
+    else if(midi_only && max_ios)
+    {
+        m_buses_layouts.clear();
+        errors.push_back("buses layout definition not accepted with midi only option");
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    if(!state.test(init_code))
+    {
+        errors.push_back("code not defined.");
+    }
+    if(!state.test(init_type))
+    {
+        errors.push_back("type not defined.");
+    }
+    if(!state.test(init_compatibilty))
+    {
+        errors.push_back("compatibility not defined.");
+    }
     else
     {
         size_t vpatch = 0, vplugin = 0;
@@ -382,14 +428,9 @@ CamomileEnvironment::CamomileEnvironment()
             errors.push_back("patch has been created for a newer version of the plugin v" + plugin_version);
         }
     }
-    if(buses.empty())
+    if(m_programs.empty())
     {
-        buses.push_back({2, 2});
-        errors.push_back("no bus defined, add default bus 2 2");
-    }
-    if(programs.empty())
-    {
-        programs.push_back("");
+        m_programs.push_back("");
     }
 }
 
