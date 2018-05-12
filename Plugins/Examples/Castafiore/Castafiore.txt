@@ -3,7 +3,7 @@ program fundamental;
 program major-third;
 program fifth;
 program octave;
-buses [2 2];
+iolayout 2 2;
 code zUrt;
 type effect;
 image Castafiore.png;

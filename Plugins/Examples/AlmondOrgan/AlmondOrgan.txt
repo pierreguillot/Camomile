@@ -1,5 +1,5 @@
 type instrument;
-buses [0 2];
+iolayout 0 2;
 code zWOt;
 midiin true;
 playhead true;
