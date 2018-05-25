@@ -146,7 +146,7 @@ private:
     bool    midi_only         = false;
     float   tail_length_sec   = 0.f;
     int     latency_samples   = 0;
-    bool                                    m_auto_program = true;
+    bool    m_auto_program    = true;
     
     std::vector<std::string>                m_programs;
     std::vector<std::string>                m_params;
