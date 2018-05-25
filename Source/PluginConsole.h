@@ -33,26 +33,34 @@ public:
     size_t size(level_t level) const noexcept
     {
         assert(level <= m_max_level && "wrong level of message");
-        std::lock_guard<std::mutex> guard(m_mutex);
-        size_t size = m_counters[level];
-        while (level--) { size += m_counters[level]; }
-        return size;
+        if(m_mutex.try_lock())
+        {
+            size_t size = m_counters[level];
+            while (level--) { size += m_counters[level]; }
+            m_mutex.unlock();
+            return size;
+        }
+        return 0;
     }
     
     //! @brief Gets a message at an index until a level.
     message_t get(level_t level, size_t index) const noexcept
     {
         assert(level <= m_max_level && "wrong level of message");
-        std::lock_guard<std::mutex> guard(m_mutex);
-        for(size_t i = 0, c = 0; i < m_messages.size(); ++i)
+        if(m_mutex.try_lock())
         {
-            if(m_messages[i].first <= level)
+            for(size_t i = 0, c = 0; i < m_messages.size(); ++i)
             {
-                if(c++ == index)
+                if(m_messages[i].first <= level)
                 {
-                    return m_messages[i];
+                    if(c++ == index)
+                    {
+                        m_mutex.unlock();
+                        return m_messages[i];
+                    }
                 }
             }
+            m_mutex.unlock();
         }
         return std::pair<size_t, std::string>();
     }
@@ -81,11 +89,14 @@ public:
     void add(level_t level, std::string message) noexcept
     {
         assert(level < m_max_level && "wrong level of message");
-        std::lock_guard<std::mutex> guard(m_mutex);
-        if(m_messages.size() < m_messages.capacity())
+        if(m_mutex.try_lock())
         {
-            ++m_counters[level];
-            m_messages.push_back(message_t{level, std::move(message)});
+            if(m_messages.size() < m_messages.capacity())
+            {
+                ++m_counters[level];
+                m_messages.push_back(message_t{level, std::move(message)});
+            }
+            m_mutex.unlock();
         }
     }
     
