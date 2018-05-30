@@ -125,6 +125,9 @@
     <Filter Include="JUCE Modules\juce_audio_plugin_client\Standalone">
       <UniqueIdentifier>{725C0EA8-9736-764D-81E6-01695B6B00B3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client\Unity">
+      <UniqueIdentifier>{03ADCBAC-804E-4FDB-E12D-D5BE24075473}</UniqueIdentifier>
+    </Filter>
     <Filter Include="JUCE Modules\juce_audio_plugin_client\utility">
       <UniqueIdentifier>{09E4D4E3-1D92-962B-C66E-DD8C8C935FF6}</UniqueIdentifier>
     </Filter>
@@ -829,6 +832,9 @@
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_plugin_client\Standalone\juce_StandaloneFilterApp.cpp">
       <Filter>JUCE Modules\juce_audio_plugin_client\Standalone</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_audio_plugin_client\Unity\juce_Unity_Wrapper.cpp">
+      <Filter>JUCE Modules\juce_audio_plugin_client\Unity</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_plugin_client\utility\juce_PluginUtilities.cpp">
       <Filter>JUCE Modules\juce_audio_plugin_client\utility</Filter>
     </ClCompile>
@@ -837,6 +843,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_plugin_client\VST\juce_VST_Wrapper.mm">
       <Filter>JUCE Modules\juce_audio_plugin_client\VST</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client_Unity.cpp">
+      <Filter>JUCE Modules\juce_audio_plugin_client</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client_utils.cpp">
       <Filter>JUCE Modules\juce_audio_plugin_client</Filter>
@@ -980,6 +989,9 @@
       <Filter>JUCE Modules\juce_core\containers</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_core\containers\juce_PropertySet.cpp">
+      <Filter>JUCE Modules\juce_core\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Juce\modules\juce_core\containers\juce_SparseSet.cpp">
       <Filter>JUCE Modules\juce_core\containers</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_core\containers\juce_Variant.cpp">
@@ -2212,6 +2224,9 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_formats.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_plugin_client_Unity.cpp">
+      <Filter>JUCE Library Code</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_plugin_client_utils.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
@@ -2858,6 +2873,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_plugin_client\Standalone\juce_StandaloneFilterWindow.h">
       <Filter>JUCE Modules\juce_audio_plugin_client\Standalone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Juce\modules\juce_audio_plugin_client\Unity\juce_UnityPluginInterface.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client\Unity</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_plugin_client\utility\juce_CarbonVisibility.h">
       <Filter>JUCE Modules\juce_audio_plugin_client\utility</Filter>
@@ -4232,10 +4250,5 @@
     <None Include="..\..\..\Juce\modules\juce_graphics\image_formats\pnglib\libpng_readme.txt">
       <Filter>JUCE Modules\juce_graphics\image_formats\pnglib</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include=".\resources.rc">
-      <Filter>JUCE Library Code</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>
