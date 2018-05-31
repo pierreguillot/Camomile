@@ -13,7 +13,7 @@ class CamomileBusesLayoutHelper
 {
 public:
     //! @brief Get an array with all the supported buses layouts in the Juce format.
-    static const Array<AudioProcessor::BusesLayout>& getSupporttedBusesLayouts()
+    static const Array<AudioProcessor::BusesLayout>& getSupportedBusesLayouts()
     {
         static Array<AudioProcessor::BusesLayout> layouts;
         if(layouts.isEmpty())
@@ -77,7 +77,7 @@ public:
 
 void CamomileAudioProcessor::logBusesLayoutsInformation()
 {
-    auto const& supportedLayouts = CamomileBusesLayoutHelper::getSupporttedBusesLayouts();
+    auto const& supportedLayouts = CamomileBusesLayoutHelper::getSupportedBusesLayouts();
     for(int layoutidx = 0; layoutidx < supportedLayouts.size(); ++layoutidx)
     {
         auto const& buses = supportedLayouts[layoutidx];
@@ -104,7 +104,7 @@ AudioProcessor::BusesProperties CamomileAudioProcessor::getDefaultBusesPropertie
 {
     int nBuses = 0;
     BusesProperties defaultBusesProperties;
-    auto const& supportedLayouts = CamomileBusesLayoutHelper::getSupporttedBusesLayouts();
+    auto const& supportedLayouts = CamomileBusesLayoutHelper::getSupportedBusesLayouts();
 #ifdef DEBUG
     {
         for(auto const& supportedLayout : supportedLayouts)
@@ -161,7 +161,7 @@ bool CamomileAudioProcessor::isBusesLayoutSupported(const BusesLayout& requested
         }
     }
 #endif
-    return CamomileBusesLayoutHelper::getSupporttedBusesLayouts().contains(CamomileBusesLayoutHelper::getCanonicalEquivalent(requestedLayout));
+    return CamomileBusesLayoutHelper::getSupportedBusesLayouts().contains(CamomileBusesLayoutHelper::getCanonicalEquivalent(requestedLayout));
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
