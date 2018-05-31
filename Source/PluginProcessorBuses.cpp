@@ -132,8 +132,14 @@ AudioProcessor::BusesProperties CamomileAudioProcessor::getDefaultBusesPropertie
         {
             auto const& inputBus = buses.inputBuses[busidx];
             auto const& outputBus = buses.outputBuses[busidx];
-            defaultBusesProperties.addBus(true, String("bus ") + String(busidx+1) + String(" input"), inputBus, true);
-            defaultBusesProperties.addBus(false, String("bus ") + String(busidx+1) + String(" output"), outputBus, true);
+            if(!inputBus.isDisabled())
+            {
+                defaultBusesProperties.addBus(true, String("bus ") + String(busidx+1) + String(" input"), inputBus, true);
+            }
+            else if(!outputBus.isDisabled())
+            {
+                defaultBusesProperties.addBus(false, String("bus ") + String(busidx+1) + String(" output"), outputBus, true);
+            }
         }
         nBuses = nCurrentBuses;
     }
