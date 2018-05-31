@@ -191,37 +191,37 @@ namespace pd
     void Instance::sendNoteOn(const int channel, const int pitch, const int velocity) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        libpd_noteon(channel, pitch, velocity);
+        libpd_noteon(channel-1, pitch, velocity);
     }
     
     void Instance::sendControlChange(const int channel, const int controller, const int value) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        libpd_controlchange(channel, controller, value);
+        libpd_controlchange(channel-1, controller, value);
     }
     
     void Instance::sendProgramChange(const int channel, const int value) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        libpd_programchange(channel, value);
+        libpd_programchange(channel-1, value);
     }
     
     void Instance::sendPitchBend(const int channel, const int value) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        libpd_pitchbend(channel, value);
+        libpd_pitchbend(channel-1, value);
     }
     
     void Instance::sendAfterTouch(const int channel, const int value) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        libpd_aftertouch(channel, value);
+        libpd_aftertouch(channel-1, value);
     }
     
     void Instance::sendPolyAfterTouch(const int channel, const int pitch, const int value) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        libpd_polyaftertouch(channel, pitch, value);
+        libpd_polyaftertouch(channel-1, pitch, value);
     }
     
     void Instance::sendSysEx(const int port, const int byte) const
@@ -315,17 +315,17 @@ namespace pd
         while(m_midi_queue.try_dequeue(event))
         {
             if(event.type == midievent::NOTEON)
-                receiveNoteOn(event.midi1, event.midi2, event.midi3);
+                receiveNoteOn(event.midi1+1, event.midi2, event.midi3);
             else if(event.type == midievent::CONTROLCHANGE)
-                receiveControlChange(event.midi1, event.midi2, event.midi3);
+                receiveControlChange(event.midi1+1, event.midi2, event.midi3);
             else if(event.type == midievent::PROGRAMCHANGE)
-                receiveProgramChange(event.midi1, event.midi2);
+                receiveProgramChange(event.midi1+1, event.midi2);
             else if(event.type == midievent::PITCHBEND)
-                receivePitchBend(event.midi1, event.midi2);
+                receivePitchBend(event.midi1+1, event.midi2);
             else if(event.type == midievent::AFTERTOUCH)
-                receiveAftertouch(event.midi1, event.midi2);
+                receiveAftertouch(event.midi1+1, event.midi2);
             else if(event.type == midievent::POLYAFTERTOUCH)
-                receivePolyAftertouch(event.midi1, event.midi2, event.midi3);
+                receivePolyAftertouch(event.midi1+1, event.midi2, event.midi3);
             else if(event.type == midievent::MIDIBYTE)
                 receiveMidiByte(event.midi1, event.midi2);
         }

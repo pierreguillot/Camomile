@@ -1,3 +1,6 @@
+v1.0.6
+- Fix MIDI channels correlation between Pd (0-15) and Juce (1-16)
+
 v1.0.5
 - Fix warnings when audio buses are not well configured
 - Fix MIDI out issue when block size is superior to 64 samples (#107)
