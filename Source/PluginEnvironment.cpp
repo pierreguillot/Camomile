@@ -74,9 +74,11 @@ bool CamomileEnvironment::isLatencyInitialized() { return get().state.test(init_
 
 bool CamomileEnvironment::isTailLengthInitialized() { return get().state.test(init_tail_length); }
 
-bool CamomileEnvironment::wantsAutoReload() { return get().auto_reload; }
+bool CamomileEnvironment::wantsAutoReload() { return get().m_auto_reload; }
 
-bool CamomileEnvironment::hasAutoProgram() { return get().m_auto_program; }
+bool CamomileEnvironment::wantsAutoProgram() { return get().m_auto_program; }
+
+bool CamomileEnvironment::wantsAutoBypass() { return get().m_auto_bypass; }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                          PROGRAMS                                        //
@@ -324,7 +326,7 @@ CamomileEnvironment::CamomileEnvironment()
                         {
                             if(state.test(init_auto_reload))
                                 throw std::string("already defined");
-                            auto_reload = CamomileParser::getBool(entry.second);
+                            m_auto_reload = CamomileParser::getBool(entry.second);
                             state.set(init_auto_reload);
                         }
                         else if(entry.first == "autoprogram")
@@ -333,6 +335,13 @@ CamomileEnvironment::CamomileEnvironment()
                                 throw std::string("already defined");
                             m_auto_program = CamomileParser::getBool(entry.second);
                             state.set(init_auto_program);
+                        }
+                        else if(entry.first == "autobypass")
+                        {
+                            if(state.test(init_auto_bypass))
+                                throw std::string("already defined");
+                            m_auto_bypass = CamomileParser::getBool(entry.second);
+                            state.set(init_auto_bypass);
                         }
                         else if(entry.first == "type")
                         {

@@ -95,7 +95,10 @@ public:
     static bool wantsAutoReload();
     
     //! @brief Gets if the plugin wants to store the parameters within the programs.
-    static bool hasAutoProgram();
+    static bool wantsAutoProgram();
+    
+    //! @brief Gets if the plugin wants to auto bypass the process.
+    static bool wantsAutoBypass();
     
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                      PROGRAMS                                        //
@@ -135,9 +138,8 @@ private:
     std::string     patch_name  = "Camomile.pd";
     std::string     patch_path  = "";
     std::string     image_name  = "";
-    bool            auto_reload = false;
     bool            valid       = false;
-    std::bitset<14>  state;
+    std::bitset<15>  state;
     
     bool    midi_in_support   = false;
     bool    midi_out_support  = false;
@@ -146,7 +148,9 @@ private:
     bool    midi_only         = false;
     float   tail_length_sec   = 0.f;
     int     latency_samples   = 0;
+    bool    m_auto_reload     = false;
     bool    m_auto_program    = true;
+    bool    m_auto_bypass     = true;
     
     std::vector<std::string>                m_programs;
     std::vector<std::string>                m_params;
@@ -170,6 +174,7 @@ private:
         init_key        = 10,
         init_compatibilty = 11,
         init_auto_reload  = 12,
-        init_auto_program = 13
+        init_auto_program = 13,
+        init_auto_bypass  = 14
     };
 };
