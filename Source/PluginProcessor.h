@@ -120,7 +120,9 @@ private:
     bool const              m_accepts_midi      = false;
     bool const              m_produces_midi     = false;
     bool const              m_is_midi_effect    = false;
+    bool const              m_auto_bypass       = true;
     double const            m_tail_length       = 0.;
+    bool                    m_bypassed          = false;
     
     std::vector<pd::Atom>    m_atoms_param;
     std::vector<pd::Atom>    m_atoms_playhead;

@@ -24,6 +24,7 @@ m_name(CamomileEnvironment::getPluginName()),
 m_accepts_midi(CamomileEnvironment::wantsMidi()),
 m_produces_midi(CamomileEnvironment::producesMidi()),
 m_is_midi_effect(CamomileEnvironment::isMidiOnly()),
+m_auto_bypass(CamomileEnvironment::wantsAutoBypass()),
 m_tail_length(static_cast<double>(CamomileEnvironment::getTailLengthSeconds())),
 m_programs(CamomileEnvironment::getPrograms())
 {
@@ -138,6 +139,7 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 {
     prepareDSP(getTotalNumInputChannels(), getTotalNumOutputChannels(), sampleRate);
     sendCurrentBusesLayoutInformation();
+    m_bypassed          = false;
     m_audio_advancement = 0;
     const size_t blksize = static_cast<size_t>(Instance::getBlockSize());
     const size_t nins = std::max(static_cast<size_t>(getTotalNumInputChannels()), static_cast<size_t>(2));
@@ -437,14 +439,21 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
 
 void CamomileAudioProcessor::processBlockBypassed (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
-    dequeueMessages();
-    processMessages();
-    const int nsamples  = buffer.getNumSamples();
-    const int nins      = getTotalNumInputChannels();
-    const int nouts     = getTotalNumOutputChannels();
-    for(int i = nins; i < nouts; ++i)
+    if(m_auto_bypass)
     {
-        buffer.clear(i, 0, nsamples);
+        dequeueMessages();
+        processMessages();
+        const int nsamples  = buffer.getNumSamples();
+        const int nins      = getTotalNumInputChannels();
+        const int nouts     = getTotalNumOutputChannels();
+        for(int i = nins; i < nouts; ++i)
+        {
+            buffer.clear(i, 0, nsamples);
+        }
+    }
+    else
+    {
+        processBlock(buffer, midiMessages);
     }
 }
 
@@ -589,7 +598,7 @@ void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBy
     ScopedPointer<const XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
     if(xml && xml->hasTagName("CamomileSettings"))
     {
-        if(CamomileEnvironment::hasAutoProgram())
+        if(CamomileEnvironment::wantsAutoProgram())
         {
             CamomileAudioParameter::loadStateInformation(*xml, getParameters());            
         }
