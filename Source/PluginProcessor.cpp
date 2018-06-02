@@ -5,7 +5,6 @@
 */
 
 #include "PluginProcessor.h"
-#include "PluginParser.h"
 #include "PluginParameter.h"
 #include "PluginEditor.h"
 #include "PluginEnvironment.h"

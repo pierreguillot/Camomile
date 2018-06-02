@@ -10,6 +10,7 @@
 #include <utility>
 #include <vector>
 #include <map>
+#include "PluginEnvironment.h"
 
 
 // ======================================================================================== //
@@ -19,6 +20,9 @@
 class CamomileParser
 {
 public:
+    using bus = CamomileEnvironment::bus;
+    using buses_layout = CamomileEnvironment::buses_layout;
+    
     static std::pair<std::string, std::string> getLine(std::string const& line);
     static std::map<std::string, std::string> getOptions(std::string const& value);
     static std::vector<std::string> getList(std::string const& value);
@@ -30,10 +34,10 @@ public:
     static std::pair<int, int> getTwoIntegers(std::string const& value);
     static std::pair<size_t, size_t> getTwoUnsignedIntegers(std::string const& value);
     
-    static std::vector<std::pair<size_t, size_t>> getBuses(std::string const& value);
+    static buses_layout getBusesLayout(std::string const& value);
     
 private:
     static size_t getNios(std::string const& value, size_t& pos);
-    static std::pair<size_t, size_t> getBus(std::string const& value, size_t& pos);
+    static bus getBus(std::string const& value, size_t& pos);
 };
 

@@ -189,7 +189,7 @@ size_t CamomileParser::getNios(std::string const& value, size_t& pos)
     return nios;
 }
 
-std::pair<size_t, size_t> CamomileParser::getBus(std::string const& value, size_t& pos)
+CamomileParser::bus CamomileParser::getBus(std::string const& value, size_t& pos)
 {
     size_t input = getNios(value, pos);
     if(pos == std::string::npos)
@@ -197,12 +197,12 @@ std::pair<size_t, size_t> CamomileParser::getBus(std::string const& value, size_
         throw std::string("'") + value + std::string("' missing second value");
     }
     size_t const output = getNios(value, pos);
-    return {input, output};
+    return {input, output, ""};
 }
 
-std::vector<std::pair<size_t, size_t>> CamomileParser::getBuses(std::string const& value)
+CamomileParser::buses_layout CamomileParser::getBusesLayout(std::string const& value)
 {
-    std::vector<std::pair<size_t, size_t>> pairs;
+    CamomileParser::buses_layout pairs;
     if(!value.empty())
     {
         size_t pos = 0;

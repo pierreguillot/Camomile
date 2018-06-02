@@ -21,7 +21,12 @@ class CamomileEnvironment
 {
 public:
     
-    typedef std::pair<size_t, size_t> bus;
+    typedef struct
+    {
+        size_t inputs;
+        size_t outputs;
+        std::string name;
+    } bus;
     typedef std::vector<bus> buses_layout;
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                      GLOBAL                                          //
@@ -152,10 +157,10 @@ private:
     bool    m_auto_program    = true;
     bool    m_auto_bypass     = true;
     
-    std::vector<std::string>                m_programs;
-    std::vector<std::string>                m_params;
-    std::vector<std::pair<size_t, size_t>>  m_buses;
-    std::vector<buses_layout>               m_buses_layouts;
+    std::vector<std::string>    m_programs;
+    std::vector<std::string>    m_params;
+    std::vector<bus>            m_buses;
+    std::vector<buses_layout>   m_buses_layouts;
     
     std::vector<std::string> errors;
     

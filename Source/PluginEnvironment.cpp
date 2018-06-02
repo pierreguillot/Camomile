@@ -239,11 +239,12 @@ CamomileEnvironment::CamomileEnvironment()
                         }
                         else if(entry.first == "bus")
                         {
-                            m_buses.push_back(CamomileParser::getTwoUnsignedIntegers(entry.second));
+                            auto const val = CamomileParser::getTwoUnsignedIntegers(entry.second);
+                            m_buses.push_back({val.first, val.second, ""});
                         }
                         else if(entry.first == "iolayout")
                         {
-                            m_buses_layouts.push_back(CamomileParser::getBuses(entry.second));
+                            m_buses_layouts.push_back(CamomileParser::getBusesLayout(entry.second));
                         }
                         else if(entry.first == "midiin")
                         {
@@ -395,7 +396,7 @@ CamomileEnvironment::CamomileEnvironment()
     {
         for(auto const& cbus : clayout)
         {
-            max_ios = std::max(max_ios, std::max(cbus.first, cbus.second));
+            max_ios = std::max(max_ios, std::max(cbus.inputs, cbus.outputs));
         }
     }
     if(!midi_only && !max_ios)

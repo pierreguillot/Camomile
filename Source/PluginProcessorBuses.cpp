@@ -24,8 +24,8 @@ public:
                 AudioProcessor::BusesLayout pluginLayout;
                 for(auto const& envBus : envBusesLayout)
                 {
-                    pluginLayout.inputBuses.add(AudioChannelSet::canonicalChannelSet(static_cast<int>(envBus.first)));
-                    pluginLayout.outputBuses.add(AudioChannelSet::canonicalChannelSet(static_cast<int>(envBus.second)));
+                    pluginLayout.inputBuses.add(AudioChannelSet::canonicalChannelSet(static_cast<int>(envBus.inputs)));
+                    pluginLayout.outputBuses.add(AudioChannelSet::canonicalChannelSet(static_cast<int>(envBus.outputs)));
                 }
                 layouts.add(std::move(pluginLayout));
             }
@@ -185,11 +185,11 @@ bool CamomileAudioProcessor::canAddBus(bool isInput) const
         buses_layout_t const& supportedLayout = supportedLayouts[i];
         if(supportedLayout.size() > nbus)
         {
-            if(isInput && supportedLayout[nbus].first != 0)
+            if(isInput && supportedLayout[nbus].inputs != 0)
             {
                 return true;
             }
-            if(!isInput && supportedLayout[nbus].second != 0)
+            if(!isInput && supportedLayout[nbus].outputs != 0)
             {
                 return true;
             }
