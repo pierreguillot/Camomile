@@ -136,7 +136,7 @@ AudioProcessor::BusesProperties CamomileAudioProcessor::getDefaultBusesPropertie
             {
                 defaultBusesProperties.addBus(true, String("bus ") + String(busidx+1) + String(" input"), inputBus, true);
             }
-            else if(!outputBus.isDisabled())
+            if(!outputBus.isDisabled())
             {
                 defaultBusesProperties.addBus(false, String("bus ") + String(busidx+1) + String(" output"), outputBus, true);
             }
