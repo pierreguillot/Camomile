@@ -401,7 +401,7 @@ CamomileEnvironment::CamomileEnvironment()
     }
     if(!midi_only && !max_ios)
     {
-        m_buses_layouts.push_back({{2, 2}});
+        m_buses_layouts.push_back({{2, 2, " "}});
         errors.push_back("no buses layout defined, add default buses layout 2 2");
     }
     else if(midi_only && max_ios)
