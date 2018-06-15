@@ -26,7 +26,7 @@ matrix:
     - curl -L https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Linux.zip -o ./pluginval.zip
     - tar xvf ./pluginval.zip
     #- ./Plugins/Examples/camomile.sh generate
-    #- ./pluginval --strictnessLevel 10 --validate ./Plugins/Examples/Builds/
+    #- ./pluginval --strictnessLevel 10 --validate ./Plugins/Examples/Builds/ > /dev/null
     before_deploy:
     - rm Plugins/Camomile.a
     - rm Plugins/CamomileFx.a
@@ -48,7 +48,7 @@ matrix:
     - curl -L https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_macOS.zip -o ./pluginval.zip
     - tar zxvf ./pluginval.zip
     - ./Plugins/Examples/camomile.sh generate
-    - ./pluginval.app/Contents/MacOS/pluginval --strictnessLevel 10 --validate ./Plugins/Examples/Builds/
+    - ./pluginval.app/Contents/MacOS/pluginval --strictnessLevel 10 --validate ./Plugins/Examples/Builds/ > /dev/null
     before_deploy:
     - rm Plugins/libCamomile.a
     - rm Plugins/libCamomileFx.a
