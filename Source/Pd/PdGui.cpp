@@ -353,7 +353,8 @@ namespace pd
         }
         else if(m_type == Type::Comment)
         {
-            bounds[2] = bounds[2] < 1.f ? 360 : bounds[2] / 2;
+            bounds[2] = bounds[2] < 12.f ? 360 : bounds[2] / 2;
+            bounds[2] -= (bounds[2] / 12);
         }
         else if(m_type == Type::AtomNumber || m_type == Type::AtomSymbol)
         {
