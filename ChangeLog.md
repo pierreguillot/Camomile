@@ -4,6 +4,7 @@ v1.0.6
 - Improve console for concurrent access
 - Remove LibWebKit on Linux plugin for better Ardour and Carla Support (#116)
 - Add support for naming buses (#114)
+- Fix number boxes and symbol box ellipsis
 
 v1.0.5
 - Fix warnings when audio buses are not well configured

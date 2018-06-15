@@ -53,6 +53,30 @@ void CamoLookAndFeel::drawPopupMenuBackground (Graphics& g, int width, int heigh
     ;
 }
 
+void CamoLookAndFeel::drawLabel (Graphics& g, Label& label)
+{
+    g.fillAll (label.findColour (Label::backgroundColourId));
+    
+    if (! label.isBeingEdited())
+    {
+        auto alpha = label.isEnabled() ? 1.0f : 0.5f;
+        const Font font (getLabelFont (label));
+        
+        g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
+        g.setFont (font);
+        
+        Rectangle<int> const textArea (label.getBorderSize().subtractedFrom (label.getLocalBounds()));
+        g.drawText (label.getText(), textArea, label.getJustificationType(), false);
+        g.setColour (label.findColour (Label::outlineColourId).withMultipliedAlpha (alpha));
+    }
+    else if (label.isEnabled())
+    {
+        g.setColour (label.findColour (Label::outlineColourId));
+    }
+    
+    g.drawRect (label.getLocalBounds());
+}
+
 Font CamoLookAndFeel::getDefaultFont()
 {
     static Font DejaVu = Font(Typeface::createSystemTypefaceFor(BinaryData::DejaVuSansMono_ttf, BinaryData::DejaVuSansMono_ttfSize)).withHeight(12.f);

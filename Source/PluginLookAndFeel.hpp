@@ -17,6 +17,8 @@ public:
     void drawPopupMenuBackground (Graphics&, int width, int height) override;
     Font getPopupMenuFont() override;
     Font getTabButtonFont(TabBarButton&, float height) override;
+    void drawLabel (Graphics& g, Label& label) override;
+    
     static Font getDefaultFont();
     static Image const& getImage();
     static String const& getDescription();
