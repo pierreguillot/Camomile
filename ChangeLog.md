@@ -3,6 +3,7 @@ v1.0.6
 - Fix buses with no-channels (for Debug mode only)
 - Improve console for concurrent access
 - Remove LibWebKit on Linux plugin for better Ardour and Carla Support (#116)
+- Add support for naming buses (#114)
 
 v1.0.5
 - Fix warnings when audio buses are not well configured
