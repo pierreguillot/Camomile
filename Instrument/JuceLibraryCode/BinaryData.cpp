@@ -11,7 +11,7 @@ namespace BinaryData
 static const unsigned char temp_binary_data_0[] =
 "Camomile is a free and open-source audio plugin with Pure Data embedded that offers to load and to control patches inside a digital audio workstation.\n"
 "\n"
-"Version: 1.0.5\n"
+"Version: 1.0.6\n"
 "Author: Pierre Guillot\n"
 "Organizations: CICM | Universit\xc3\xa9 Paris 8\n"
 "Website: github.com/pierreguillot/camomile\n"
@@ -28,7 +28,7 @@ const char* CreditsAU = (const char*) temp_binary_data_0;
 static const unsigned char temp_binary_data_1[] =
 "Camomile is a free and open-source audio plugin with Pure Data embedded that offers to load and to control patches inside a digital audio workstation.\n"
 "\n"
-"Version: 1.0.5\n"
+"Version: 1.0.6\n"
 "Author: Pierre Guillot\n"
 "Organizations: CICM | Universit\xc3\xa9 Paris 8\n"
 "Website: github.com/pierreguillot/camomile\n"

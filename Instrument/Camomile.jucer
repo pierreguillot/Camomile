@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="Kpq9Ee" name="Camomile" displaySplashScreen="0" reportAppUsage="0"
-              splashScreenColour="Dark" projectType="audioplug" version="1.0.5"
+              splashScreenColour="Dark" projectType="audioplug" version="1.0.6"
               bundleIdentifier="com.pierreguillot.camomile" includeBinaryInAppConfig="1"
               cppLanguageStandard="11" companyCopyright="Pierre Guillot" buildVST="1"
               buildVST3="1" buildAU="1" buildAUv3="0" buildRTAS="0" buildAAX="0"
@@ -81,8 +81,8 @@
       </GROUP>
       <GROUP id="{BD269BC8-1C6F-D107-AB2C-379B5954E761}" name="Ressources">
         <GROUP id="{88F401EF-1896-80A1-5421-A71ADEEAA91A}" name="Credits">
-          <FILE id="kZFWi1" name="CreditsAU" compile="0" resource="1" file="../Ressources/Credits/CreditsAU"/>
-          <FILE id="oidUih" name="CreditsVST" compile="0" resource="1" file="../Ressources/Credits/CreditsVST"/>
+          <FILE id="ItxM3k" name="CreditsAU" compile="0" resource="1" file="../Ressources/Credits/CreditsAU"/>
+          <FILE id="fiD5Q9" name="CreditsVST" compile="0" resource="1" file="../Ressources/Credits/CreditsVST"/>
         </GROUP>
         <GROUP id="{11408F79-914E-CFA1-2A5D-F68C4AE9C738}" name="Images">
           <FILE id="qswxvK" name="copy.png" compile="0" resource="1" file="../Ressources/Images/copy.png"/>
