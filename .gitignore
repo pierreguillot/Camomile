@@ -30,6 +30,9 @@
 *.vst3
 *.lv2
 
+# Packages
+*.zip
+
 # Mac Xcode
 *.xcuserstate
 *.xcuserdatad

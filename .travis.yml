@@ -22,6 +22,11 @@ matrix:
     - make -C Dependencies/LibPd/build/makefile libpdstatic
     - make -C Instrument/Builds/LinuxMakefile TARGET_ARCH=-m64 CONFIG=Release
     - make -C Effect/Builds/LinuxMakefile TARGET_ARCH=-m64 CONFIG=Release
+    after_success:
+    - curl -L https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Linux.zip -o ./pluginval.zip
+    - tar xvf ./pluginval.zip
+    #- ./Plugins/Examples/camomile.sh generate
+    #- ./pluginval --strictnessLevel 10 --validate ./Plugins/Examples/Builds/
     before_deploy:
     - rm Plugins/Camomile.a
     - rm Plugins/CamomileFx.a
@@ -39,6 +44,11 @@ matrix:
     - cmake -GXcode -DPD_MULTI=ON -DPD_UTILS=OFF ../..
     - cd ../../../..
     - xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release
+    after_success:
+    - curl -L https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_macOS.zip -o ./pluginval.zip
+    - tar zxvf ./pluginval.zip
+    - ./Plugins/Examples/camomile.sh generate
+    - ./pluginval.app/Contents/MacOS/pluginval --strictnessLevel 10 --validate ./Plugins/Examples/Builds/
     before_deploy:
     - rm Plugins/libCamomile.a
     - rm Plugins/libCamomileFx.a
