@@ -182,22 +182,44 @@ size_t CamomileParser::getNios(std::string const& value, size_t& pos)
     }
     nios = static_cast<size_t>(atol(value.c_str()+next));
     pos = value.find_first_not_of("0123456789", next+1);
-    if(pos != std::string::npos)
-    {
-        pos = value.find_first_of("0123456789", pos);
-    }
     return nios;
 }
 
 CamomileParser::bus CamomileParser::getBus(std::string const& value, size_t& pos)
 {
+    std::string name;
     size_t input = getNios(value, pos);
     if(pos == std::string::npos)
     {
         throw std::string("'") + value + std::string("' missing second value");
     }
     size_t const output = getNios(value, pos);
-    return {input, output, ""};
+    size_t next = value.find("-name", pos);
+    if(next == std::string::npos)
+    {
+        return {input, output, ""};
+    }
+    else
+    {
+        next = value.find_first_of(" ", next+1);
+        if(next == std::string::npos) {
+            throw std::string("'") + value + std::string("' missing name"); }
+        next = value.find_first_not_of(" ", next+1);
+        if(next == std::string::npos) {
+            throw std::string("'") + value + std::string("' missing name"); }
+        pos = next;
+        next = value.find_first_of(" ", next+1);
+        if(next == std::string::npos)
+        {
+            name = value.substr(pos);
+        }
+        else
+        {
+            name = value.substr(pos, next-pos);
+        }
+        pos = next;
+    }
+    return {input, output, name};
 }
 
 CamomileParser::buses_layout CamomileParser::getBusesLayout(std::string const& value)
