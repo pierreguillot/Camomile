@@ -462,6 +462,7 @@ GuiTextEditor::GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g) : Plugin
     label = new Label();
     label->setBounds(2, 0, getWidth() - 2, getHeight() - 1);
     label->setFont(tf);
+    label->setMinimumHorizontalScale(1.f);
     label->setJustificationType(Justification::centredLeft);
     label->setBorderSize(BorderSize<int>(border+2, border, border, border));
     label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
