@@ -14,7 +14,7 @@
 class ConsoleButton : public Button
 {
 public:
-    ConsoleButton(Image const& image) : Button("")
+    ConsoleButton(Image const& image) : Button(""), m_image()
     {
         setClickingTogglesState(false);
         setAlwaysOnTop(true);
@@ -41,7 +41,7 @@ private:
 //////////////////////////////////////////////////////////////////////////////////////////////
     
 PluginEditorConsole::PluginEditorConsole(CamomileAudioProcessor& p) :
-m_history(p),
+m_history(p), m_table(),
 m_level_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::settings_png, BinaryData::settings_pngSize))),
 m_clear_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::garbage_png, BinaryData::garbage_pngSize))),
 m_copy_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::copy_png, BinaryData::copy_pngSize))),
