@@ -119,9 +119,9 @@ namespace pd
                 POLYAFTERTOUCH,
                 MIDIBYTE
             } type;
-            int  midi1 = 0;
-            int  midi2 = 0;
-            int  midi3 = 0;
+            int  midi1;
+            int  midi2;
+            int  midi3;
         } midievent;
         
         typedef moodycamel::ConcurrentQueue<dmessage> message_queue;
