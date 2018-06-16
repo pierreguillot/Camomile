@@ -43,7 +43,7 @@ std::string CamomileEnvironment::getPatchDescription() { return get().plugin_des
 
 std::string CamomileEnvironment::getImageName() { return get().image_name; }
 
-std::string CamomileEnvironment::getPluginDescriptionUTF8() { return get().plugin_desc.c_str(); }
+const char* CamomileEnvironment::getPluginDescriptionUTF8() { return get().plugin_desc.c_str(); }
 
 std::string CamomileEnvironment::getPluginDescription() { return get().plugin_desc; }
 

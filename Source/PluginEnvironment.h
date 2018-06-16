@@ -63,7 +63,7 @@ public:
     static std::string getPluginDescription();
     
     //! @brief Gets a description of the plugin.
-    static std::string getPluginDescriptionUTF8();
+    static const char* getPluginDescriptionUTF8();
     
     //! @brief Gets a description of the plugin.
     static std::string getPatchCredits();
