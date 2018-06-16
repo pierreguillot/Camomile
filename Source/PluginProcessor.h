@@ -29,6 +29,7 @@ public:
     void releaseResources() override;
     void processBlock (AudioSampleBuffer&, MidiBuffer&) override;
     void processBlockBypassed (AudioBuffer<float>&, MidiBuffer&) override;
+    AudioProcessorParameter* getBypassParameter() const override { return m_bypass_param; }
     
     //////////////////////////////////////////////////////////////////////////////////////////
     //                              BUSES LAYOUTS MANAGEMENT                                //
@@ -122,8 +123,8 @@ private:
     bool const              m_is_midi_effect    = false;
     bool const              m_auto_bypass       = true;
     double const            m_tail_length       = 0.;
-    bool                    m_bypassed          = false;
     
+    AudioProcessorParameter* m_bypass_param     = nullptr;
     std::vector<pd::Atom>    m_atoms_param;
     std::vector<pd::Atom>    m_atoms_playhead;
     
@@ -134,6 +135,7 @@ private:
     MidiBuffer               m_midi_buffer_in;
     MidiBuffer               m_midi_buffer_out;
     MidiBuffer               m_midi_buffer_temp;
+    
     
     int m_program_current    = 0;
     std::vector<std::string> m_programs;

@@ -5,6 +5,7 @@ v1.0.6
 - Remove LibWebKit on Linux plugin for better Ardour and Carla Support (#116)
 - Add support for naming buses (#114)
 - Fix number boxes and symbol box ellipsis
+- Add support for bypass parameter and manual bypass in the patch (#108)
 
 v1.0.5
 - Fix warnings when audio buses are not well configured

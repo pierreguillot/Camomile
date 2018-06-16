@@ -58,6 +58,10 @@ m_programs(CamomileEnvironment::getPrograms())
             if(p)
             {
                 addParameter(p);
+                if(!m_auto_bypass && p->getName(6).toLowerCase() == "bypass")
+                {
+                    m_bypass_param = p;
+                }
             }
         }
         m_params_states.resize(getParameters().size());
@@ -138,7 +142,6 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 {
     prepareDSP(getTotalNumInputChannels(), getTotalNumOutputChannels(), sampleRate);
     sendCurrentBusesLayoutInformation();
-    m_bypassed          = false;
     m_audio_advancement = 0;
     const size_t blksize = static_cast<size_t>(Instance::getBlockSize());
     const size_t nins = std::max(static_cast<size_t>(getTotalNumInputChannels()), static_cast<size_t>(2));
