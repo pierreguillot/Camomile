@@ -10,8 +10,14 @@ LinuxAppleVstExtension=so
 
 ThisPath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-machine=Linux
-
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    CYGWIN*)    machine=Cygwin;;
+    MINGW*)     machine=MinGw;;
+    *)          machine="UNKNOWN:${unameOut}"
+esac
 
 ################################################################################
 #                       Generate all the plugins from ./Builds                    #
@@ -159,18 +165,7 @@ generate_all_plugins_mac() {
     echo -e "\033[1;30mFinished\033[0m"
 }
 
-generate_plugins_linux() {
-    if [ "$1" == "Effects" ]; then
-        CamomileName=$CamomileEffect
-    elif [ "$1" == "Instruments" ]; then
-        CamomileName=$CamomileInstrument
-    else
-        echo -e "\033[31mWrong type of plugins\033[0m"
-    fi
-    echo -n $PluginName "("
-    generate_plugin_lib $1 $2 $3
-    echo ")"
-}
+
 ################################################################################
 #                       POSTS                                                  #
 ################################################################################
@@ -205,6 +200,10 @@ plugin_get_type_linux() {
     fi
     echo "error"
 }
+
+
+
+
 
 ################################################################################
 #                       GENERATE VST PLUGIN LINUX                              #
@@ -249,10 +248,24 @@ generate_plugin_vst_linux() {
 }
 
 ################################################################################
-#                       GENERATE ALL VST PLUGINS LINUX                         #
+#                       GENERATE PLUGINS                                       #
 ################################################################################
 
-generate_all_plugins_linux() {
+generate_plugins() {
+    if [ $machine == "Mac" ]; then
+
+    elif [ $machine == "Linux" ]; then
+        generate_plugin_vst_linux $subfolder $2
+    else
+        post_error "$machine is not a supported"
+    fi
+}
+
+################################################################################
+#                       GENERATE ALL PLUGINS                                   #
+################################################################################
+
+generate_all_plugins() {
     local plugin_input_dir=$1
 
     if [ -d $plugin_input_dir ]; then
@@ -261,7 +274,7 @@ generate_all_plugins_linux() {
             if [ -d $subfolder ]; then
                 local plugin_name=$(basename "$subfolder")
                 if [ -f "$subfolder/$plugin_name.pd" ]; then
-                    generate_plugin_vst_linux $subfolder $2
+                    generate_plugins $subfolder $2
                 else
                     post_error "$subfolder does not contain a valid pd patch"
                 fi
@@ -319,7 +332,6 @@ else
             FolderMode="true"
         elif [[ $var == "-o" ]]; then
             setoutput="true"
-            echo -e "\033[31m"$setoutput" setoutput\033[0m"
         elif [[ $pluginpath == "invalid" ]]; then
             pluginpath=$var
         else
@@ -330,8 +342,8 @@ else
     create_output_directory $output_dir
     echo -e "Camomile - Plugin Generator"
     if [[ "$FolderMode" == true ]]; then
-        generate_all_plugins_linux $pluginpath $output_dir
+        generate_all_plugins $pluginpath $output_dir
     else
-        generate_plugin_vst_linux $pluginpath $output_dir
+        generate_plugins $pluginpath $output_dir
     fi
 fi
