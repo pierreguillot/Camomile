@@ -118,7 +118,7 @@ generate_plugin_au_mac() {
         fi
 
         cp -rf $ThisPath/$camo_name.$AppleAuExtension $plugin_output_dir/$plugin_name.$AppleAuExtension
-        cp -rf $plugin_input_dir $plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Resources
+        cp -rf $plugin_input_dir/* $plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Resources
         plutil -replace CFBundleName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist
         plutil -replace CFBundleDisplayName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist
 
@@ -167,7 +167,7 @@ generate_plugin_vst3_mac() {
         fi
 
         cp -rf $ThisPath/$camo_name.$AppleVst3Extension $plugin_output_dir/$plugin_name.$AppleVst3Extension
-        cp -rf $plugin_input_dir $plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Resources
+        cp -rf $plugin_input_dir/* $plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Resources
         plutil -replace CFBundleName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Info.plist
         plutil -replace CFBundleDisplayName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Info.plist
         post_log "$plugin_output_dir/$plugin_name/$plugin_name.$AppleVst3Extension"
@@ -212,7 +212,7 @@ generate_plugin_vst_mac() {
         fi
 
         cp -rf $ThisPath/$camo_name.$AppleVstExtension $plugin_output_dir/$plugin_name.$AppleVstExtension
-        cp -rf $plugin_input_dir $plugin_output_dir/$plugin_name.$AppleVstExtension/Contents/Resources
+        cp -rf $plugin_input_dir/* $plugin_output_dir/$plugin_name.$AppleVstExtension/Contents/Resources
         plutil -replace CFBundleName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleVstExtension/Contents/Info.plist
         plutil -replace CFBundleDisplayName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleVstExtension/Contents/Info.plist
         post_log "$plugin_output_dir/$plugin_name/$plugin_name.$AppleVstExtension"
