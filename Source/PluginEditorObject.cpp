@@ -686,9 +686,8 @@ void GuiAtomNumber::mouseDoubleClick(const MouseEvent&)
 ////////////////////////////////////     GATOM SYMBOL        /////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
-GuiAtomSymbol::GuiAtomSymbol(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(p, g)
+GuiAtomSymbol::GuiAtomSymbol(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(p, g), last(gui.getSymbol())
 {
-    last = gui.getSymbol();
     label->setText(String(last), NotificationType::dontSendNotification);
 }
 
