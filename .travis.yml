@@ -44,7 +44,7 @@ matrix:
     - mkdir Dependencies/LibPd/build && mkdir Dependencies/LibPd/build/xcode/ && cd Dependencies/LibPd/build/xcode
     - cmake -GXcode -DPD_MULTI=ON -DPD_UTILS=OFF ../..
     - cd ../../../..
-    - xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release
+    - xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release | egrep -A 5 "(error|warning):"
     after_success:
     - curl -L https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_macOS.zip -o ./pluginval.zip
     - tar zxvf ./pluginval.zip
