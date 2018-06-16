@@ -39,10 +39,10 @@ void libpd_get_object_bounds(void* patch, void* ptr, int* x, int* y, int* w, int
 {
     t_canvas *owner = NULL, *cnv = (t_canvas*)patch;
     t_class const *c = pd_class((t_pd *)ptr);
-    int havewindow = 1;
     *x = 0; *y = 0; *w = 0; *h = 0;
     if(c->c_patchable && c->c_wb && c->c_wb->w_getrectfn)
     {
+        int havewindow = 1;
         if(cnv)
         {
             owner       = cnv->gl_owner;
