@@ -25,6 +25,8 @@
 
 ## Presentation
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c764f75b84e8449bafbc9229f55ac2a1)](https://app.codacy.com/app/pierreguillot/Camomile?utm_source=github.com&utm_medium=referral&utm_content=pierreguillot/Camomile&utm_campaign=badger)
+
 Camomile is a plugin with Pure Data embedded that offers to load and to control patches inside a digital audio workstation. The plugin is available as VST, VST3 and Audio Unit for Windows, Linux and MacOS. Downloads, documentation and further information are available on the [wiki](https://github.com/pierreguillot/Camomile/wiki) pages of the project.
 
 <p align="center">
