@@ -24,7 +24,7 @@ matrix:
     - make -C Effect/Builds/LinuxMakefile TARGET_ARCH=-m64 CONFIG=Release
     after_success:
     - curl -L https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Linux.zip -o ./pluginval.zip
-    - tar xvf ./pluginval.zip
+    - unzip ./pluginval.zip
     - ./Plugins/camomile -d ./Plugins/Examples -o ./Plugins/Builds
     - ./pluginval --strictnessLevel 10 --validate ./Plugins/Builds/ > /dev/null
     before_deploy:
