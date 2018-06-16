@@ -30,7 +30,6 @@ matrix:
     before_deploy:
     - rm Plugins/Camomile.a
     - rm Plugins/CamomileFx.a
-    - rm Plugins/Examples/camomile.sh
     - rm Plugins/Examples/camomile
     - cp README.md Plugins/README.md
     - cp ChangeLog.md Plugins/ChangeLog.md
@@ -48,12 +47,11 @@ matrix:
     after_success:
     - curl -L https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_macOS.zip -o ./pluginval.zip
     - tar zxvf ./pluginval.zip
-    - ./Plugins/Examples/camomile.sh generate
+    - ./Plugins/camomile -d ./Plugins/Examples -o ./Plugins/Builds
     - ./pluginval.app/Contents/MacOS/pluginval --strictnessLevel 10 --validate ./Plugins/Examples/Builds/ > /dev/null
     before_deploy:
     - rm Plugins/libCamomile.a
     - rm Plugins/libCamomileFx.a
-    - rm Plugins/Examples/camomile.sh
     - rm Plugins/Examples/camomile
     - cp README.md Plugins/README.md
     - cp ChangeLog.md Plugins/ChangeLog.md

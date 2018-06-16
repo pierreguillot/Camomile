@@ -6,7 +6,7 @@ CamomileEffect="CamomileFx"
 AppleVstExtension=vst
 AppleVst3Extension=vst3
 AppleAuExtension=component
-LinuxAppleVstExtension=so
+LinuxVstExtension=so
 
 ThisPath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -22,49 +22,6 @@ esac
 ################################################################################
 #                       Generate all the plugins from ./Builds                    #
 ################################################################################
-
-generate_plugin_vst() {
-    if [ -d $ThisPath/../$1.$AppleVstExtension ]; then
-        if [ -d $ThisPath/Builds/$3.$AppleVstExtension ]; then
-            rm -rf $ThisPath/Builds/$3.$AppleVstExtension
-        fi
-
-        cp -rf $ThisPath/../$1.$AppleVstExtension/ $ThisPath/Builds/$3.$AppleVstExtension
-        cp -rf $2/$3/ $ThisPath/Builds/$3.$AppleVstExtension/Contents/Resources
-        plutil -replace CFBundleName -string $3 $ThisPath/Builds/$3.$AppleVstExtension/Contents/Info.plist
-        plutil -replace CFBundleDisplayName -string $3 $ThisPath/Builds/$3.$AppleVstExtension/Contents/Info.plist
-        echo -n $AppleVstExtension " "
-    else
-        echo -n -e "\033[2;30m"$AppleVstExtension" \033[0m"
-    fi
-}
-
-generate_plugin_vst3() {
-    if [ -d $ThisPath/../$1.$AppleVst3Extension ]; then
-        if [ -d $ThisPath/Builds/$3.$AppleVst3Extension ]; then
-            rm -rf $ThisPath/Builds/$3.$AppleVst3Extension
-        fi
-
-        cp -rf $ThisPath/../$1.$AppleVst3Extension/ $ThisPath/Builds/$3.$AppleVst3Extension
-        cp -rf $2/$3/ $ThisPath/Builds/$3.$AppleVst3Extension/Contents/Resources
-        plutil -replace CFBundleName -string $3 $ThisPath/Builds/$3.$AppleVst3Extension/Contents/Info.plist
-        plutil -replace CFBundleDisplayName -string $3 $ThisPath/Builds/$3.$AppleVst3Extension/Contents/Info.plist
-        echo -n $AppleVst3Extension " "
-    else
-        echo -n -e "\033[2;30m"$AppleVst3Extension" \033[0m"
-    fi
-}
-
-au_get_plugin_code() {
-    while IFS='' read -r line || [[ -n "$line" ]]; do
-        local wline=($line)
-        if [ "${wline[0]}" == "code" ]; then
-            echo ${wline[1]}
-            return
-        fi
-    done < "$1"
-    echo "0"
-}
 
 generate_plugin_au() {
     if [ ! -f $2/$3/$3.txt ]; then
@@ -95,77 +52,6 @@ generate_plugin_au() {
     fi
 }
 
-generate_plugin_lib() {
-    if [ -d $ThisPath/$1.$LibExtension ]; then
-        if [ -f $ThisPath/Builds/$3.$LibExtension ]; then
-            rm -f $ThisPath/Builds/$3.$LibExtension
-        fi
-        if [ -d $ThisPath/Builds/$3 ]; then
-            rm -rf $ThisPath/Builds/$3
-        fi
-
-        cp -f $ThisPath/$1.$LibExtension/ $ThisPath/Builds/$3.$LibExtension
-        cp -rf $2/$3/ $ThisPath/Builds/$3
-        echo -n $LibExtension " "
-    else
-        echo -n -e "\033[2;30m"$LibExtension" \033[0m"
-    fi
-}
-
-plugin_get_type() {
-    while IFS='' read -r line || [[ -n "$line" ]]; do
-        local wline=($line)
-        if [ "${wline[0]}" == "type" ]; then
-            echo ${wline[1]}
-            return
-        fi
-    done < "$1"
-    echo "0"
-}
-
-generate_plugins_mac() {
-    CamomileName=$CamomileEffect
-    local type="effect"
-    if [ -f $1/$2/$2.txt ]; then
-        type=$(plugin_get_type $1/$2/$2.txt)
-        type="${type%?}"
-        if [ "$type" == "0" ]; then
-            CamomileName=$CamomileEffect
-        elif [ "$type" == "instrument" ] || [ "$type" == "synthesizer" ] || [ "$type" == "inst" ] || [ "$type" == "syn" ]; then
-            CamomileName=$CamomileInstrument
-            CamomileName=$CamomileInstrument
-        elif [ "$type" == "effect" ] || [ "$type" == "fx" ]; then
-            CamomileName=$CamomileEffect
-        else
-            echo -n -e "\033[31mNo plugin type defined\033[0m"
-            return
-        fi
-    else
-        echo -e $2 " \033[31mNo config file defined\033[0m"
-        return
-    fi
-    echo -n $2 "-" $type "- ("
-    generate_plugin_vst $CamomileName $1 $2
-    generate_plugin_vst3 $CamomileName $1 $2
-    generate_plugin_au $CamomileName $1 $2
-    echo ")"
-}
-
-generate_all_plugins_mac() {
-    echo  -e "\033[1;30mGenerating Effects Plugins\033[0m"
-    for Patch in $ThisPath/*
-    do
-      if [ -d $Patch ]; then
-          local PluginName=$(basename "$Patch")
-          local PluginExtension="${PluginName##*.}"
-          local PluginName="${PluginName%.*}"
-          generate_plugins_mac $ThisPath $PluginName
-      fi
-    done
-    echo -e "\033[1;30mFinished\033[0m"
-}
-
-
 ################################################################################
 #                       POSTS                                                  #
 ################################################################################
@@ -179,10 +65,10 @@ post_log() {
 }
 
 ################################################################################
-#                       GET PLUGIN TYPE LINUX                                  #
+#                       GET PLUGIN TYPE                                        #
 ################################################################################
 
-plugin_get_type_linux() {
+plugin_get_type() {
     local plugin_dir=$1
     local plugin_name=$2
     local textfile=$plugin_dir/$plugin_name.txt
@@ -196,20 +82,35 @@ plugin_get_type_linux() {
                 return
             fi
         done < "$textfile"
-        echo "0"
+        echo "undefined"
     fi
     echo "error"
 }
 
-
-
-
-
 ################################################################################
-#                       GENERATE VST PLUGIN LINUX                              #
+#                       GENERATE AU PLUGIN MAC                                 #
 ################################################################################
 
-generate_plugin_vst_linux() {
+au_get_plugin_code_mac() {
+    local plugin_dir=$1
+    local plugin_name=$2
+    local textfile=$plugin_dir/$plugin_name.txt
+    if [ -f "$textfile" ]; then
+        while IFS='' read -r line || [[ -n "$line" ]]; do
+            local wline=($line)
+            if [ "${wline[0]}" == "code" ]; then
+                code=${wline[1]}
+                code=${code::4}
+                echo ${code}
+                return
+            fi
+        done < "$textfile"
+        echo "undefined"
+    fi
+    echo "error"
+}
+
+generate_plugin_au_mac() {
     local camo_name
     local plugin_input_dir=$1
     local plugin_output_dir=$2
@@ -217,7 +118,65 @@ generate_plugin_vst_linux() {
 
     # Check if the folder exists and get the type of the plugin
     if [ -d $plugin_input_dir ]; then
-        local plugin_type=$(plugin_get_type_linux $plugin_input_dir $plugin_name)
+        local plugin_type=$(plugin_get_type $plugin_input_dir $plugin_name)
+        if [ "$plugin_type" == "error" ]; then
+            post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
+            return
+        elif [ "$plugin_type" == "instrument" ]; then
+            camo_name=$CamomileInstrument
+        elif [ "$plugin_type" == "effect" ]; then
+            camo_name=$CamomileEffect
+        else
+            post_error "$plugin_type is not a valid"
+            return
+        fi
+    else
+        post_error "$plugin_input_dir is not a directory"
+        return
+    fi
+
+    local code=$(au_get_plugin_code_mac $plugin_input_dir $plugin_name)
+    if [ "$code" == "undefined" ]; then
+        post_error "plugin code undefined"
+        return
+    elif [ "$code" == "undefined" ]; then
+        post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
+        return
+    fi
+
+    # Get the dynamic libraries
+    if [ -d $ThisPath/$camo_name.$AppleAuExtension ]; then
+        if [ -d $plugin_output_dir/$plugin_name.$AppleAuExtension ]; then
+            rm -rf $plugin_output_dir/$plugin_name.$AppleAuExtension
+        fi
+
+        cp -rf $ThisPath/$camo_name.$AppleAuExtension $plugin_output_dir/$plugin_name.$AppleAuExtension
+        cp -rf $plugin_input_dir $plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Resources
+        plutil -replace CFBundleName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist
+        plutil -replace CFBundleDisplayName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist
+
+        plutil -replace AudioComponents.name -string "Pierre Guillot: $plugin_name" $plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist
+        plutil -replace AudioComponents.subtype -string $code $plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist
+
+        post_log "$plugin_output_dir/$plugin_name/$plugin_name.$AppleAuExtension"
+    else
+        post_error "$camo_name.$AppleAuExtension is not available"
+    fi
+}
+
+################################################################################
+#                       GENERATE VST3 PLUGIN MAC                               #
+################################################################################
+
+generate_plugin_vst3_mac() {
+    local camo_name
+    local plugin_input_dir=$1
+    local plugin_output_dir=$2
+    local plugin_name=$(basename $1)
+
+    # Check if the folder exists and get the type of the plugin
+    if [ -d $plugin_input_dir ]; then
+        local plugin_type=$(plugin_get_type $plugin_input_dir $plugin_name)
         if [ "$plugin_type" == "error" ]; then
             post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
             return
@@ -235,15 +194,105 @@ generate_plugin_vst_linux() {
     fi
 
     # Get the dynamic libraries
-    if [ -f $ThisPath/$camo_name.$LinuxAppleVstExtension ]; then
+    if [ -d $ThisPath/$camo_name.$AppleVst3Extension ]; then
+        if [ -d $plugin_output_dir/$plugin_name.$AppleVst3Extension ]; then
+            rm -rf $plugin_output_dir/$plugin_name.$AppleVst3Extension
+        fi
+
+        cp -rf $ThisPath/$camo_name.$AppleVst3Extension $plugin_output_dir/$plugin_name.$AppleVst3Extension
+        cp -rf $plugin_input_dir $plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Resources
+        plutil -replace CFBundleName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Info.plist
+        plutil -replace CFBundleDisplayName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Info.plist
+        post_log "$plugin_output_dir/$plugin_name/$plugin_name.$AppleVst3Extension"
+    else
+        post_error "$camo_name.$AppleVst3Extension is not available"
+    fi
+}
+
+################################################################################
+#                       GENERATE VST PLUGIN MAC                                #
+################################################################################
+
+generate_plugin_vst_mac() {
+    local camo_name
+    local plugin_input_dir=$1
+    local plugin_output_dir=$2
+    local plugin_name=$(basename $1)
+
+    # Check if the folder exists and get the type of the plugin
+    if [ -d $plugin_input_dir ]; then
+        local plugin_type=$(plugin_get_type $plugin_input_dir $plugin_name)
+        if [ "$plugin_type" == "error" ]; then
+            post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
+            return
+        elif [ "$plugin_type" == "instrument" ]; then
+            camo_name=$CamomileInstrument
+        elif [ "$plugin_type" == "effect" ]; then
+            camo_name=$CamomileEffect
+        else
+            post_error "$plugin_type is not a valid"
+            return
+        fi
+    else
+        post_error "$plugin_input_dir is not a directory"
+        return
+    fi
+
+    # Get the dynamic libraries
+    if [ -d $ThisPath/$camo_name.$AppleVstExtension ]; then
+        if [ -d $plugin_output_dir/$plugin_name.$AppleVstExtension ]; then
+            rm -rf $plugin_output_dir/$plugin_name.$AppleVstExtension
+        fi
+
+        cp -rf $ThisPath/$camo_name.$AppleVstExtension $plugin_output_dir/$plugin_name.$AppleVstExtension
+        cp -rf $plugin_input_dir $plugin_output_dir/$plugin_name.$AppleVstExtension/Contents/Resources
+        plutil -replace CFBundleName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleVstExtension/Contents/Info.plist
+        plutil -replace CFBundleDisplayName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleVstExtension/Contents/Info.plist
+        post_log "$plugin_output_dir/$plugin_name/$plugin_name.$AppleVstExtension"
+    else
+        post_error "$camo_name.$AppleVstExtension is not available"
+    fi
+}
+
+################################################################################
+#                       GENERATE VST PLUGIN LINUX                              #
+################################################################################
+
+generate_plugin_vst_linux() {
+    local camo_name
+    local plugin_input_dir=$1
+    local plugin_output_dir=$2
+    local plugin_name=$(basename $1)
+
+    # Check if the folder exists and get the type of the plugin
+    if [ -d $plugin_input_dir ]; then
+        local plugin_type=$(plugin_get_type $plugin_input_dir $plugin_name)
+        if [ "$plugin_type" == "error" ]; then
+            post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
+            return
+        elif [ "$plugin_type" == "instrument" ]; then
+            camo_name=$CamomileInstrument
+        elif [ "$plugin_type" == "effect" ]; then
+            camo_name=$CamomileEffect
+        else
+            post_error "$plugin_type is not a valid"
+            return
+        fi
+    else
+        post_error "$plugin_input_dir is not a directory"
+        return
+    fi
+
+    # Get the dynamic libraries
+    if [ -f $ThisPath/$camo_name.$LinuxVstExtension ]; then
         if [ -d $plugin_output_dir/$plugin_name ]; then
             rm -rf $plugin_output_dir/$plugin_name
         fi
         cp -rf $plugin_input_dir $plugin_output_dir/$plugin_name
-        cp -f $ThisPath/$camo_name.$LinuxAppleVstExtension $plugin_output_dir/$plugin_name/$plugin_name.$LinuxAppleVstExtension
-        post_log "$plugin_output_dir/$plugin_name/$plugin_name.$LinuxAppleVstExtension"
+        cp -f $ThisPath/$camo_name.$LinuxVstExtension $plugin_output_dir/$plugin_name/$plugin_name.$LinuxVstExtension
+        post_log "$plugin_output_dir/$plugin_name/$plugin_name.$LinuxVstExtension"
     else
-        post_error "$camo_name.$LinuxAppleVstExtension is not available"
+        post_error "$camo_name.$LinuxVstExtension is not available"
     fi
 }
 
@@ -253,7 +302,8 @@ generate_plugin_vst_linux() {
 
 generate_plugins() {
     if [ $machine == "Mac" ]; then
-
+        generate_plugin_vst_mac $subfolder $2
+        generate_plugin_vst3_mac $subfolder $2
     elif [ $machine == "Linux" ]; then
         generate_plugin_vst_linux $subfolder $2
     else
