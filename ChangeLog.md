@@ -6,6 +6,7 @@ v1.0.6
 - Add support for naming buses (#114)
 - Fix number boxes and symbol box ellipsis
 - Add support for bypass parameter and manual bypass in the patch (#108)
+- Fix param.get abstraction for the first value
 
 v1.0.5
 - Fix warnings when audio buses are not well configured
