@@ -25,66 +25,66 @@ public:
     //                                  AUDIO MANAGEMENT                                    //
     //////////////////////////////////////////////////////////////////////////////////////////
     
-    void prepareToPlay (double sampleRate, int samplesPerBlock) final;
-    void releaseResources() final;
-    void processBlock (AudioSampleBuffer&, MidiBuffer&) final;
-    void processBlockBypassed (AudioBuffer<float>&, MidiBuffer&) final;
+    void prepareToPlay (double sampleRate, int samplesPerBlock) override;
+    void releaseResources() override;
+    void processBlock (AudioSampleBuffer&, MidiBuffer&) override;
+    void processBlockBypassed (AudioBuffer<float>&, MidiBuffer&) override;
     
     //////////////////////////////////////////////////////////////////////////////////////////
     //                              BUSES LAYOUTS MANAGEMENT                                //
     //////////////////////////////////////////////////////////////////////////////////////////
-    bool isBusesLayoutSupported (const BusesLayout& layouts) const final;
+    bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
 private:
     static BusesProperties getDefaultBusesProperties(const bool canonical);
     void sendCurrentBusesLayoutInformation();
     void logBusesLayoutsInformation();
-    bool canAddBus (bool isInput) const final;
-    bool canRemoveBus (bool isInput) const final;
+    bool canAddBus (bool isInput) const override;
+    bool canRemoveBus (bool isInput) const override;
 public:
     //////////////////////////////////////////////////////////////////////////////////////////
     
-    AudioProcessorEditor* createEditor() final;
-    bool hasEditor() const final;
+    AudioProcessorEditor* createEditor() override;
+    bool hasEditor() const override;
 
-    const String getName() const final { return m_name; }
-    bool acceptsMidi() const final { return m_accepts_midi; }
-    bool producesMidi() const final { return m_produces_midi; }
-    bool isMidiEffect () const final { return m_is_midi_effect; }
-    double getTailLengthSeconds() const final { return m_tail_length; }
+    const String getName() const override { return m_name; }
+    bool acceptsMidi() const override { return m_accepts_midi; }
+    bool producesMidi() const override { return m_produces_midi; }
+    bool isMidiEffect () const override { return m_is_midi_effect; }
+    double getTailLengthSeconds() const override { return m_tail_length; }
     
-    int getNumPrograms() final { return static_cast<int>(m_programs.size()); };
-    int getCurrentProgram() final { return m_program_current; }
-    void setCurrentProgram (int index) final;
-    const String getProgramName (int index) final;
-    void changeProgramName (int index, const String& newName) final;
+    int getNumPrograms() override { return static_cast<int>(m_programs.size()); };
+    int getCurrentProgram() override { return m_program_current; }
+    void setCurrentProgram (int index) override;
+    const String getProgramName (int index) override;
+    void changeProgramName (int index, const String& newName) override;
 
-    void getStateInformation (MemoryBlock& destData) final;
-    void setStateInformation (const void* data, int sizeInBytes) final;
+    void getStateInformation (MemoryBlock& destData) override;
+    void setStateInformation (const void* data, int sizeInBytes) override;
     
     //////////////////////////////////////////////////////////////////////////////////////////
     //                              PURE DATA RECEIVE METHODS                               //
     //////////////////////////////////////////////////////////////////////////////////////////
     
-    void receiveMessage(const std::string& msg, const std::vector<pd::Atom>& list) final;
-    void receiveNoteOn(const int channel, const int pitch, const int velocity) final;
-    void receiveControlChange(const int channel, const int controller, const int value) final;
-    void receiveProgramChange(const int channel, const int value) final;
-    void receivePitchBend(const int channel, const int value) final;
-    void receiveAftertouch(const int channel, const int value) final;
-    void receivePolyAftertouch(const int channel, const int pitch, const int value) final;
-    void receiveMidiByte(const int port, const int byte) final;
-    void receivePrint(const std::string& message) final;
+    void receiveMessage(const std::string& msg, const std::vector<pd::Atom>& list) override;
+    void receiveNoteOn(const int channel, const int pitch, const int velocity) override;
+    void receiveControlChange(const int channel, const int controller, const int value) override;
+    void receiveProgramChange(const int channel, const int value) override;
+    void receivePitchBend(const int channel, const int value) override;
+    void receiveAftertouch(const int channel, const int value) override;
+    void receivePolyAftertouch(const int channel, const int pitch, const int value) override;
+    void receiveMidiByte(const int port, const int byte) override;
+    void receivePrint(const std::string& message) override;
     
     //////////////////////////////////////////////////////////////////////////////////////////
     
-    void messageEnqueued() final;
-    void updateTrackProperties(const TrackProperties& properties) final;
+    void messageEnqueued() override;
+    void updateTrackProperties(const TrackProperties& properties) override;
     const TrackProperties& getTrackProperties() const { return m_track_properties; }
     
     typedef std::array<std::string, 3> MessageGui;
     bool dequeueGui(MessageGui& message);
 
-    void fileChanged() final;
+    void fileChanged() override;
     void reloadPatch();
     
     Rectangle<int> getConsoleWindowBounds() const;
