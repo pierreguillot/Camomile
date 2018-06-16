@@ -20,39 +20,6 @@ case "${unameOut}" in
 esac
 
 ################################################################################
-#                       Generate all the plugins from ./Builds                    #
-################################################################################
-
-generate_plugin_au() {
-    if [ ! -f $2/$3/$3.txt ]; then
-        echo -n -e "\033[31m(No config file) \033[0m"
-        return
-    fi
-
-    local code=$(au_get_plugin_code $2/$3/$3.txt)
-    if [ "$code" == "0" ]; then
-        echo -n -e "\033[31mNo plugin code defined\033[0m"
-        return
-    fi
-    code=${code::4}
-    if [ -d $ThisPath/../$1.$AppleAuExtension ]; then
-        if [ -d $ThisPath/Builds/$3.$AppleAuExtension ]; then
-            rm -rf $ThisPath/Builds/$3.$AppleAuExtension
-        fi
-
-        cp -rf $ThisPath/../$1.$AppleAuExtension/ $ThisPath/Builds/$3.$AppleAuExtension
-        cp -rf $2/$3/ $ThisPath/Builds/$3.$AppleAuExtension/Contents/Resources
-        plutil -replace CFBundleName -string $3 $ThisPath/Builds/$3.$AppleAuExtension/Contents/Info.plist
-        plutil -replace CFBundleDisplayName -string $3 $ThisPath/Builds/$3.$AppleAuExtension/Contents/Info.plist
-        plutil -replace AudioComponents.name -string "Pierre Guillot: $3" $ThisPath/Builds/$3.$AppleAuExtension/Contents/Info.plist
-        plutil -replace AudioComponents.subtype -string $code $ThisPath/Builds/$3.$AppleAuExtension/Contents/Info.plist
-        echo -n $AppleAuExtension
-    else
-        echo -n -e "\033[2;30m"$AppleAuExtension"\033[0m"
-    fi
-}
-
-################################################################################
 #                       POSTS                                                  #
 ################################################################################
 
@@ -304,6 +271,7 @@ generate_plugins() {
     if [ $machine == "Mac" ]; then
         generate_plugin_vst_mac $subfolder $2
         generate_plugin_vst3_mac $subfolder $2
+        generate_plugin_au_mac $subfolder $2
     elif [ $machine == "Linux" ]; then
         generate_plugin_vst_linux $subfolder $2
     else
