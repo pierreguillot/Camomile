@@ -284,9 +284,9 @@ std::map<std::string, std::string> CamomileParser::getOptions(std::string const&
 std::vector<std::string> CamomileParser::getList(std::string const& value)
 {
     std::vector<std::string> list;
-    size_t start = 0;
     if(!value.empty())
     {
+        size_t start = 0;
         while(start != std::string::npos)
         {
             size_t const next = value.find_first_of('/', start);
