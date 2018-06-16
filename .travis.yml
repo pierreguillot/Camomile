@@ -25,8 +25,8 @@ matrix:
     after_success:
     - curl -L https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Linux.zip -o ./pluginval.zip
     - tar xvf ./pluginval.zip
-    #- ./Plugins/Examples/camomile.sh generate
-    #- ./pluginval --strictnessLevel 10 --validate ./Plugins/Examples/Builds/ > /dev/null
+    - ./Plugins/camomile -d ./Plugins/Examples -o ./Plugins/Builds
+    - ./pluginval --strictnessLevel 10 --validate ./Plugins/Examples/Builds/ > /dev/null
     before_deploy:
     - rm Plugins/Camomile.a
     - rm Plugins/CamomileFx.a
