@@ -25,6 +25,7 @@ matrix:
     after_success:
     - curl -L https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Linux.zip -o ./pluginval.zip
     - unzip ./pluginval.zip
+    - sudo apt-get install -y libwebkit2gtk-4.0
     - ./Plugins/camomile -d ./Plugins/Examples -o ./Plugins/Builds
     - ./pluginval --strictnessLevel 10 --validate ./Plugins/Builds/ > /dev/null
     before_deploy:
