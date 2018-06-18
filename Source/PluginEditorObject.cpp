@@ -130,13 +130,15 @@ Label* PluginEditorObject::getLabel()
     if(text.isNotEmpty())
     {
         Label* label = new Label();
-        const Font ft = CamoLookAndFeel::getDefaultFont().withHeight(static_cast<float>(gui.getFontSize()));
+        const Font ft = CamoLookAndFeel::getDefaultFont().withPointHeight(static_cast<float>(gui.getFontSize()));
+        const int width = ft.getStringWidth(text) + 1;
+        const int height = ft.getHeight();
         const std::array<int, 2> position = lbl.getPosition();
-        label->setBounds(position[0], position[1] - static_cast<int>(ft.getAscent() / 2.f),
-                         ft.getStringWidth(text) + 1, static_cast<int>(ft.getHeight()));
+        label->setBounds(position[0], position[1] - height / 2, width, height);
         label->setFont(ft);
         label->setJustificationType(Justification::centredLeft);
         label->setBorderSize(BorderSize<int>(0, 0, 0, 0));
+        label->setMinimumHorizontalScale(1.f);
         label->setText(text, NotificationType::dontSendNotification);
         label->setEditable(false, false);
         label->setInterceptsMouseClicks(false, false);

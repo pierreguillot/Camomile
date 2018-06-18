@@ -310,7 +310,7 @@ namespace pd
             return 0;
         if(isIEM())
         {
-            return (static_cast<t_iemgui*>(m_ptr))->x_fontsize + 2;
+            return (static_cast<t_iemgui*>(m_ptr))->x_fontsize;
         }
         else
         {
