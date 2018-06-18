@@ -314,8 +314,7 @@ namespace pd
         }
         else
         {
-            m_instance->setThis();
-            return glist_fontheight(static_cast<t_canvas*>(m_patch));
+            return glist_getfont(static_cast<t_canvas*>(m_patch));
         }
     }
     
@@ -353,6 +352,7 @@ namespace pd
         }
         else if(m_type == Type::Comment)
         {
+            post("bounds %i %i", bounds[2], bounds[3]);
             bounds[2] = bounds[2] < 12.f ? 360 : bounds[2] / 2;
             bounds[2] -= (bounds[2] / 12);
         }

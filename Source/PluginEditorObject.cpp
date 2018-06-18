@@ -446,10 +446,10 @@ GuiComment::GuiComment(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditor
 
 void GuiComment::paint(Graphics& g)
 {
-    const Font ft = CamoLookAndFeel::getDefaultFont().withHeight(static_cast<float>(gui.getFontSize() - 0.5));
+    const Font ft = CamoLookAndFeel::getDefaultFont().withPointHeight(static_cast<float>(gui.getFontSize()));
     g.setFont(ft);
     g.setColour(Colours::black);
-    g.drawMultiLineText(gui.getText(), 2, gui.getFontSize() - 1, getWidth());
+    g.drawMultiLineText(gui.getText(), 2, ft.getHeight(), getWidth());
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -460,7 +460,7 @@ GuiTextEditor::GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g) : Plugin
 {
     const int border = 1;
     const float fs = static_cast<float>(gui.getFontSize());
-    Font const tf = CamoLookAndFeel::getDefaultFont().withHeight(fs);
+    Font const tf = CamoLookAndFeel::getDefaultFont().withPointHeight(fs);
     
     label = new Label();
     label->setBounds(2, 0, getWidth() - 2, getHeight() - 1);
