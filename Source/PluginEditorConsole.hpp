@@ -32,13 +32,14 @@ private:
     void copySelection();
     typedef CamomileAudioProcessor::ConsoleLevel ConsoleLevel;
     CamomileAudioProcessor& m_history;
-    size_t          m_size = 0;
-    ListBox         m_table;
-    ConsoleLevel    m_level = ConsoleLevel::Normal;
-    ScopedPointer<Button> m_level_button;
-    ScopedPointer<Button> m_clear_button;
-    ScopedPointer<Button> m_copy_button;
-    ScopedPointer<Button> m_reload_button;
+    size_t                  m_size = 0;
+    ListBox                 m_table;
+    ConsoleLevel            m_level = ConsoleLevel::Normal;
+    ScopedPointer<Button>   m_level_button;
+    ScopedPointer<Button>   m_clear_button;
+    ScopedPointer<Button>   m_copy_button;
+    ScopedPointer<Button>   m_reload_button;
+    Font                    m_font;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PluginEditorConsole)
 };
