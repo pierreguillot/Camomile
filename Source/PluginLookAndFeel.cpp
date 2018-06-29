@@ -80,7 +80,18 @@ void CamoLookAndFeel::drawLabel (Graphics& g, Label& label)
 Font CamoLookAndFeel::getDefaultFont()
 {
     static Font DejaVu = Font(Typeface::createSystemTypefaceFor(BinaryData::DejaVuSansMono_ttf, BinaryData::DejaVuSansMono_ttfSize)).withPointHeight(12.f);
+    DejaVu.setHorizontalScale(1.f);
+    DejaVu.setDefaultMinimumHorizontalScaleFactor(1.f);
     return DejaVu;
+}
+
+Font CamoLookAndFeel::getFont(const std::string& name, int pointheight)
+{
+    if(name == "DejaVu Sans Mono")
+    {
+        return getDefaultFont().withPointHeight(static_cast<float>(pointheight));
+    }
+    return Font(String(name), Font::plain, pointheight);
 }
 
 Image const& CamoLookAndFeel::getImage()

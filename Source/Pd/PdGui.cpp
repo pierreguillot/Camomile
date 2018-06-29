@@ -108,6 +108,7 @@ namespace pd
             if(m_type != Type::Array && static_cast<t_canvas*>(m_ptr)->gl_isgraph)
             {
                 m_type = Type::GraphOnParent;
+                canvas_vis(static_cast<t_canvas*>(m_ptr), 1.f);
             }
         }
     }
@@ -318,6 +319,20 @@ namespace pd
         }
     }
     
+    std::string Gui::getFontName() const
+    {
+        if(!m_ptr )
+            return std::string(sys_font);
+        if(isIEM())
+        {
+            return std::string((static_cast<t_iemgui*>(m_ptr))->x_font);
+        }
+        else
+        {
+            return std::string(sys_font);
+        }
+    }
+    
     static unsigned int fromIemColors(int const color)
     {
         unsigned int const c = static_cast<unsigned int>(color << 8 | 0xFF);
@@ -341,34 +356,22 @@ namespace pd
         }
         return 0xff000000;
     }
-
+    
     std::array<int, 4> Gui::getBounds() const noexcept
     {
-        std::array<int, 4> bounds = Object::getBounds();
-#ifdef DEBUG
-        post("%s pre GUI bounds %i %i", getName().c_str(), bounds[2], bounds[3]);
-#endif
         if(m_type == Type::Panel)
         {
-            bounds[2] = static_cast<t_my_canvas*>(m_ptr)->x_vis_w + 1;
-            bounds[3] = static_cast<t_my_canvas*>(m_ptr)->x_vis_h + 1;
-        }
-        else if(m_type == Type::Comment)
-        {
-            bounds[2] = bounds[2] < 12.f ? 360 : bounds[2] / 2;
-            bounds[2] -= (bounds[2] / 12);
+            std::array<int, 4> const bounds = Object::getBounds();
+            return {bounds[0], bounds[1],
+                static_cast<t_my_canvas*>(m_ptr)->x_vis_w + 1,
+                static_cast<t_my_canvas*>(m_ptr)->x_vis_h + 1};
         }
         else if(m_type == Type::AtomNumber || m_type == Type::AtomSymbol)
         {
-            const int ow = static_cast<t_text*>(m_ptr)->te_width;
-            const int offset = (ow + ow % 2) - 4;
-            bounds[2] = (bounds[2] - offset) / 2;
-            bounds[3] = bounds[3] - 1;
+            std::array<int, 4> const bounds = Object::getBounds();
+            return {bounds[0], bounds[1], bounds[2], bounds[3] - 2};
         }
-#ifdef DEBUG
-        post("%s post GUI bounds %i %i", getName().c_str(), bounds[2], bounds[3]);
-#endif
-        return bounds;
+        return Object::getBounds();
     }
     
     Array Gui::getArray() const noexcept

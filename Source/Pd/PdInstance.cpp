@@ -11,6 +11,7 @@ extern "C"
 {
 #include <z_libpd.h>
 #include "x_libpd_multi.h"
+#include "x_libpd_extra_utils.h"
 }
 
 #include "PdInstance.hpp"
@@ -406,7 +407,8 @@ namespace pd
     {
         closePatch();
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        m_patch = libpd_openfile(name.c_str(), path.c_str());
+        m_patch = libpd_create_canvas(name.c_str(), path.c_str());
+        
     }
     
     void Instance::closePatch()

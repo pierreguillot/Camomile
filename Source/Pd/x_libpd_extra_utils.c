@@ -24,6 +24,16 @@ typedef struct _fake_garray
     char x_hidename;
 } t_fake_garray;
 
+void* libpd_create_canvas(const char* name, const char* path)
+{
+    t_canvas* cnv = (t_canvas *)libpd_openfile(name, path);
+    if(cnv)
+    {
+        canvas_vis(cnv, 1.f);
+    }
+    return cnv;
+}
+
 char const* libpd_get_object_class_name(void* ptr)
 {
     return class_getname(pd_class((t_pd*)ptr));
@@ -37,31 +47,14 @@ void libpd_get_object_text(void* ptr, char** text, int* size)
 
 void libpd_get_object_bounds(void* patch, void* ptr, int* x, int* y, int* w, int* h)
 {
-    t_canvas *owner = NULL, *cnv = (t_canvas*)patch;
-    int havewindow = 1;
+    t_canvas *cnv = (t_canvas*)glist_getcanvas(patch);
     *x = 0; *y = 0; *w = 0; *h = 0;
-    if(cnv)
-    {
-        owner       = cnv->gl_owner;
-        havewindow  = cnv->gl_havewindow;
-        cnv->gl_owner = NULL;
-        cnv->gl_havewindow = 1;
-    }
-    gobj_getrect((t_gobj *)ptr, patch, x, y, w, h);
+    gobj_getrect((t_gobj *)ptr, cnv, x, y, w, h);
     *x -= 1;
     *y -= 1;
     *w -= *x;
     *h -= *y;
-    if(cnv)
-    {
-        *x -= cnv->gl_xmargin;
-        *y -= cnv->gl_ymargin;
-        cnv->gl_owner = owner;
-        cnv->gl_havewindow = havewindow;
-    }
 }
-
-
 
 t_fake_garray* libpd_array_get_byname(char const* name)
 {

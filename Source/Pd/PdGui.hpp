@@ -56,16 +56,29 @@ namespace pd
         ~Gui() noexcept = default;
         
         //! @brief The type of the GUI.
-        inline Type getType() const noexcept { return m_type; }
+        inline Type getType() const noexcept
+        {
+            return m_type;
+        }
         
         //! @brief If the GUI is an IEM's GUI.
-        bool isIEM() const noexcept { return m_type != Type::Undefined && m_type < Type::Comment; }
+        bool isIEM() const noexcept
+        {
+            return (m_type != Type::Undefined) && (m_type < Type::Comment);
+        }
         
         //! @brief If the GUI is an Atom GUI (AtomNumber or AtomSymbol).
-        bool isAtom() const noexcept { return m_type == Type::AtomNumber || m_type == Type::AtomSymbol; }
+        bool isAtom() const noexcept
+        {
+            return (m_type == Type::AtomNumber) || (m_type == Type::AtomSymbol);
+        }
+
         
         //! @brief Get the font size.
         int getFontSize() const noexcept;
+            
+        //! @brief Get the font name.
+        std::string getFontName() const;
         
         float getMinimum() const noexcept;
         
