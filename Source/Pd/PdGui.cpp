@@ -345,6 +345,9 @@ namespace pd
     std::array<int, 4> Gui::getBounds() const noexcept
     {
         std::array<int, 4> bounds = Object::getBounds();
+#ifdef DEBUG
+        post("%s pre GUI bounds %i %i", getName().c_str(), bounds[2], bounds[3]);
+#endif
         if(m_type == Type::Panel)
         {
             bounds[2] = static_cast<t_my_canvas*>(m_ptr)->x_vis_w + 1;
@@ -352,7 +355,6 @@ namespace pd
         }
         else if(m_type == Type::Comment)
         {
-            post("bounds %i %i", bounds[2], bounds[3]);
             bounds[2] = bounds[2] < 12.f ? 360 : bounds[2] / 2;
             bounds[2] -= (bounds[2] / 12);
         }
@@ -363,6 +365,9 @@ namespace pd
             bounds[2] = (bounds[2] - offset) / 2;
             bounds[3] = bounds[3] - 1;
         }
+#ifdef DEBUG
+        post("%s post GUI bounds %i %i", getName().c_str(), bounds[2], bounds[3]);
+#endif
         return bounds;
     }
     
