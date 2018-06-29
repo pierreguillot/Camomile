@@ -292,11 +292,11 @@ static void libpd_defaultfont_init(void)
     int i;
     t_atom zz[NDEFAULTFONT+2];
     SETSYMBOL(zz, gensym("."));
+    SETFLOAT(zz+1,0);
     for (i = 0; i < (int)NDEFAULTFONT; i++)
     {
-        SETFLOAT(zz+i+1, defaultfontshit[i]);
+        SETFLOAT(zz+i+2, defaultfontshit[i]);
     }
-    SETFLOAT(zz+NDEFAULTFONT+1,0);
     pd_typedmess(gensym("pd")->s_thing, gensym("init"), 2+NDEFAULTFONT, zz);
 }
 
