@@ -20,9 +20,9 @@ public:
     };
     
     //! @brief Get an array with all the supported buses layouts in the Juce format.
-    static const Array<InternalBusesLayout>& getSupportedBusesLayouts()
+    static const Array<InternalBusesLayout> getSupportedBusesLayouts()
     {
-        static Array<InternalBusesLayout> layouts;
+        Array<InternalBusesLayout> layouts;
         if(layouts.isEmpty())
         {
             auto const& envSupportedLayouts = CamomileEnvironment::getBusesLayouts();
@@ -85,7 +85,7 @@ public:
 
 void CamomileAudioProcessor::logBusesLayoutsInformation()
 {
-    auto const& supportedLayouts = CamomileBusesLayoutHelper::getSupportedBusesLayouts();
+    auto const supportedLayouts = CamomileBusesLayoutHelper::getSupportedBusesLayouts();
     for(int layoutidx = 0; layoutidx < supportedLayouts.size(); ++layoutidx)
     {
         auto const& buses = supportedLayouts[layoutidx].buses;
@@ -112,7 +112,7 @@ AudioProcessor::BusesProperties CamomileAudioProcessor::getDefaultBusesPropertie
 {
     int nBuses = 0;
     BusesProperties defaultBusesProperties;
-    auto const& supportedLayouts = CamomileBusesLayoutHelper::getSupportedBusesLayouts();
+    auto const supportedLayouts = CamomileBusesLayoutHelper::getSupportedBusesLayouts();
 #ifdef DEBUG
     {
         for(auto const& supportedLayout : supportedLayouts)
@@ -134,7 +134,7 @@ AudioProcessor::BusesProperties CamomileAudioProcessor::getDefaultBusesPropertie
     for(int layoutidx = 0; layoutidx < supportedLayouts.size(); ++layoutidx)
     {
         auto const& buses = supportedLayouts[layoutidx];
-        const int  nCurrentBuses = buses.buses.inputBuses.size();
+        const int nCurrentBuses = buses.buses.inputBuses.size();
         assert(buses.buses.inputBuses.size() == buses.buses.outputBuses.size());
         for(int busidx = nBuses; busidx < nCurrentBuses; ++busidx)
         {
@@ -185,7 +185,7 @@ bool CamomileAudioProcessor::isBusesLayoutSupported(const BusesLayout& requested
     }
 #endif
     const auto canoBus = CamomileBusesLayoutHelper::getCanonicalEquivalent(requestedLayout);
-    const auto& supportedBuses = CamomileBusesLayoutHelper::getSupportedBusesLayouts();
+    const auto supportedBuses = CamomileBusesLayoutHelper::getSupportedBusesLayouts();
     for(auto& bus : supportedBuses)
     {
         if(bus.buses == canoBus)
