@@ -8,6 +8,8 @@ v1.0.6
 - Add support for bypass parameter and manual bypass in the patch (#108)
 - Fix param.get abstraction for the first value
 - Improve IEM GUIS label rendering (#118)
+- Fix invisible comments in subpatches and abstractions (#120) 
+- Improve Font size rendering
 
 v1.0.5
 - Fix warnings when audio buses are not well configured
