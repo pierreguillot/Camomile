@@ -9,4 +9,4 @@ url=https://github.com/WeAreROLI/JUCE.git
 	url = https://pierreguillot@github.com/pierreguillot/libpd.git
 [submodule "Dependencies/JuceLV2"]
 	path = Dependencies/JuceLV2
-	url = https://github.com/DISTRHO/juce.git
+	url = https://github.com/pierreguillot/JUCE-LV2.git
