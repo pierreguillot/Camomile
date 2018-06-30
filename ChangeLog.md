@@ -7,7 +7,7 @@ v1.0.6
 - Fix number boxes and symbol box ellipsis
 - Add support for bypass parameter and manual bypass in the patch (#108)
 - Fix param.get abstraction for the first value
-- Improve IEM GUIS label rendering (#118)
+- Improve IEM/atom GUIS label rendering (#118)
 - Fix invisible comments in subpatches and abstractions (#120)
 - Improve Font size rendering
 - Add Fuzzy tests using pluginval

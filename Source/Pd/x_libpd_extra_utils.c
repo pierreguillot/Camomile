@@ -121,29 +121,31 @@ unsigned int libpd_iemgui_get_foreground_color(void* ptr)
 float libpd_get_canvas_font_height(t_canvas* cnv)
 {
     const int fontsize = glist_getfont(cnv);
+    const float zoom = (float)glist_getzoom(cnv);
+    //[8 :8.31571] [10 :9.9651] [12 :11.6403] [16 :16.6228] [24 :23.0142] [36 :36.0032]
     if(fontsize == 8)
     {
-        return 9.68f;
+        return 8.31571 * zoom; //9.68f * zoom;
     }
     else if(fontsize == 10)
     {
-        return 11.6f;
+        return 9.9651 * zoom; //11.6f * zoom;
     }
     else if(fontsize == 12)
     {
-        return 13.55f;
+        return 11.6403 *zoom; //13.55f * zoom;
     }
     else if(fontsize == 16)
     {
-        return 19.35f;
+        return 16.6228 * zoom; //19.35f * zoom;
     }
     else if(fontsize == 24)
     {
-        return 26.79f;
+        return 23.0142 * zoom; //26.79f * zoom;
     }
     else if(fontsize == 36)
     {
-        return 41.91f;
+        return 36.0032 * zoom; //41.91f * zoom;
     }
     return glist_fontheight(cnv);
 }

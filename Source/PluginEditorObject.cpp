@@ -130,7 +130,7 @@ Label* PluginEditorObject::getLabel()
     if(text.isNotEmpty())
     {
         Label* label = new Label();
-        const Font ft = CamoLookAndFeel::getDefaultFont().withPointHeight(static_cast<float>(gui.getFontHeight()));
+        const Font ft = CamoLookAndFeel::getFont(lbl.getFontName()).withPointHeight(static_cast<float>(lbl.getFontHeight()));
         const int width = ft.getStringWidth(text) + 1;
         const int height = ft.getHeight();
         const std::array<int, 2> position = lbl.getPosition();
@@ -447,7 +447,7 @@ GuiComment::GuiComment(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditor
 void GuiComment::paint(Graphics& g)
 {
     const auto fheight = gui.getFontHeight();
-    auto ft = CamoLookAndFeel::getFont(gui.getFontName()).withHeight(fheight);
+    auto const ft = CamoLookAndFeel::getFont(gui.getFontName()).withPointHeight(fheight);
     g.setFont(ft);
     g.setColour(Colours::black);
     g.drawMultiLineText(gui.getText(), 0, static_cast<int>(ft.getAscent()), getWidth());
@@ -460,7 +460,7 @@ void GuiComment::paint(Graphics& g)
 GuiTextEditor::GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g)
 {
     const int border = 1;
-    const float fs = static_cast<float>(gui.getFontSize());
+    const float fs = static_cast<float>(gui.getFontHeight());
     Font const tf = CamoLookAndFeel::getDefaultFont().withPointHeight(fs);
     
     label = new Label();
@@ -787,7 +787,7 @@ void GuiGraphOnParent::resized()
     for(auto& g : gui.getPatch().getGuis())
     {
         PluginEditorObject* obj = PluginEditorObject::createTyped(patch, g);
-        if(obj && getLocalBounds().contains(obj->getBounds()))
+        if(obj && getLocalBounds().contains(obj->getBounds().reduced(1)))
         {
             Component* label = obj->getLabel();
             addAndMakeVisible(m_objects.add(obj));

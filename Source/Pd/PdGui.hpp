@@ -72,9 +72,6 @@ namespace pd
         {
             return (m_type == Type::AtomNumber) || (m_type == Type::AtomSymbol);
         }
-
-        //! @brief Get the font size.
-        int getFontSize() const noexcept;
         
         //! @brief Get the font height.
         float getFontHeight() const noexcept;
@@ -128,16 +125,24 @@ namespace pd
     public:
         Label() noexcept;
         Label(Label const& other) noexcept;
-        Label(std::string const& text, unsigned int color, int x, int y) noexcept;
+        Label(std::string const& text, unsigned int color, int x, int y, std::string const& fontname, float fontheight) noexcept;
         
         std::string getText() const noexcept { return m_text; }
         unsigned int getColor() const noexcept { return m_color; }
         std::array<int, 2> getPosition() const noexcept { return m_position; }
+        
+        //! @brief Get the font height.
+        float getFontHeight() const noexcept;
+        
+        //! @brief Get the font name.
+        std::string getFontName() const;
     private:
         Label(Gui const& gui) noexcept;
         std::string const        m_text;
         unsigned int const       m_color;
         std::array<int, 2> const m_position;
+        std::string              m_font_name;
+        float                    m_font_height;
         friend class Gui;
     };
 }

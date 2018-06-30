@@ -305,27 +305,13 @@ namespace pd
         m_instance->enqueueDirectMessages(m_ptr, value);
     }
     
-    int Gui::getFontSize() const noexcept
-    {
-        if(!m_ptr )
-            return 0;
-        if(isIEM())
-        {
-            return (static_cast<t_iemgui*>(m_ptr))->x_fontsize;
-        }
-        else
-        {
-            return glist_getfont(static_cast<t_canvas*>(m_patch));
-        }
-    }
-    
     float Gui::getFontHeight() const noexcept
     {
         if(!m_ptr )
             return 0;
         if(isIEM())
         {
-            return (static_cast<t_iemgui*>(m_ptr))->x_fontsize;
+            return static_cast<float>((static_cast<t_iemgui*>(m_ptr))->x_fontsize);
         }
         else
         {
@@ -388,7 +374,7 @@ namespace pd
         else if(m_type == Type::Comment)
         {
             std::array<int, 4> const bounds = Object::getBounds();
-            return {bounds[0] + 2, bounds[1] + 2, bounds[2] - 2, bounds[3] - 2};
+            return {bounds[0] + 2, bounds[1] + 2, bounds[2], bounds[3] - 2};
         }
         return Object::getBounds();
     }
@@ -423,13 +409,17 @@ namespace pd
             t_symbol const* sym = canvas_realizedollar(static_cast<t_iemgui*>(m_ptr)->x_glist, static_cast<t_iemgui*>(m_ptr)->x_lab);
             if(sym)
             {
-                std::string const text = sym->s_name;
-                if(text != std::string("empty"))
+                auto const text = std::string(sym->s_name);
+                if(!text.empty() && text != std::string("empty"))
                 {
-                    unsigned int const color = fromIemColors(((static_cast<t_iemgui*>(m_ptr))->x_lcol));
-                    std::array<int, 4> const bounds = getBounds();
-                    t_iemgui const* iemgui = static_cast<t_iemgui*>(m_ptr);
-                    return Label(text, color, bounds[0] + iemgui->x_ldx, bounds[1] + iemgui->x_ldy);
+                    auto const* iemgui  = static_cast<t_iemgui*>(m_ptr);
+                    auto const color    = fromIemColors(iemgui->x_lcol);
+                    auto const bounds   = getBounds();
+                    auto const posx     = bounds[0] + iemgui->x_ldx;
+                    auto const posy     = bounds[1] + iemgui->x_ldy;
+                    auto const fontname = getFontName();
+                    auto const fontheight = getFontHeight();
+                    return Label(text, color, posx, posy, fontname, fontheight);
                 }
             }
         }
@@ -438,22 +428,36 @@ namespace pd
             t_symbol const* sym = canvas_realizedollar(static_cast<t_fake_gatom*>(m_ptr)->a_glist, static_cast<t_fake_gatom*>(m_ptr)->a_label);
             if(sym)
             {
-                std::string const text = sym->s_name;
-                std::array<int, 4> const bounds = getBounds();
-                t_fake_gatom const* gatom = static_cast<t_fake_gatom*>(m_ptr);
+                auto const text         = std::string(sym->s_name);
+                auto const bounds       = getBounds();
+                auto const* gatom       = static_cast<t_fake_gatom*>(m_ptr);
+                auto const color        = 0xff000000;
+                auto const fontname     = getFontName();
+                auto const fontheight   = sys_hostfontsize(glist_getfont(static_cast<t_canvas*>(m_patch)), glist_getzoom(static_cast<t_canvas*>(m_patch)));
+                
                 if (gatom->a_wherelabel == 0) // Left
                 {
-                    return Label(text, 0xff000000, bounds[0] - 2 - static_cast<int>(text.size() / 2) * glist_fontwidth(static_cast<t_fake_gatom*>(m_ptr)->a_glist), bounds[1] + getFontSize() / 2);
+                    auto const nchars   = static_cast<int>(text.size());
+                    auto const fwidth   = glist_fontwidth(static_cast<t_fake_gatom*>(m_ptr)->a_glist);
+                    auto const posx     = bounds[0] - 4 - nchars * fwidth;
+                    auto const posy     = bounds[1] + 2 + fontheight / 2;
+                    return Label(text, color,posx, posy, fontname, fontheight);
                 }
                 else if (gatom->a_wherelabel == 1) // Right
                 {
-                    return Label(text, 0xff000000, bounds[0] + bounds[2] + 2, bounds[1] + getFontSize() / 2);
+                    auto const posx     = bounds[0] + bounds[2] + 2;
+                    auto const posy     = bounds[1] + 2 + fontheight / 2;
+                    return Label(text, color, posx, posy, fontname, fontheight);
                 }
                 else if (gatom->a_wherelabel == 2) // Up
                 {
-                    return Label(text, 0xff000000, bounds[0] - 1, bounds[1] - 1 - getFontSize() / 2);
+                    auto const posx     = bounds[0] - 1;
+                    auto const posy     = bounds[1] - 1 - fontheight / 2;
+                    return Label(text, color, posx, posy, fontname, fontheight);
                 }
-                return Label(text, 0xff000000, bounds[0] - 1, bounds[1] + bounds[3] + 2 + getFontSize() / 2); // Down
+                auto const posx     = bounds[0] - 1;
+                auto const posy     = bounds[1] + bounds[3] + 2 + fontheight / 2;
+                return Label(text, color, posx, posy, fontname, fontheight); // Down
             }
         }
         return Label();
@@ -473,12 +477,24 @@ namespace pd
     {
     }
     
-    Label::Label(std::string const& text, unsigned int color, int x, int y) noexcept :
+    Label::Label(std::string const& text, unsigned int color, int x, int y, std::string const& fontname, float fontheight) noexcept :
     m_text(text),
     m_color(color),
-    m_position({x, y})
+    m_position({x, y}),
+    m_font_name(fontname),
+    m_font_height(fontheight)
     {
         
+    }
+    
+    float Label::getFontHeight() const noexcept
+    {
+        return m_font_height;
+    }
+    
+    std::string Label::getFontName() const
+    {
+        return m_font_name;
     }
 }
 
