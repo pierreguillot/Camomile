@@ -84,6 +84,10 @@
           <FILE id="ItxM3k" name="CreditsAU" compile="0" resource="1" file="../Ressources/Credits/CreditsAU"/>
           <FILE id="fiD5Q9" name="CreditsVST" compile="0" resource="1" file="../Ressources/Credits/CreditsVST"/>
         </GROUP>
+        <GROUP id="{2A5FA11F-3D41-B6EC-A0E8-2FE8F43C26EB}" name="Fonts">
+          <FILE id="HUOhyN" name="DejaVuSansMono.ttf" compile="0" resource="1"
+                file="../Ressources/Fonts/DejaVuSansMono.ttf"/>
+        </GROUP>
         <GROUP id="{11408F79-914E-CFA1-2A5D-F68C4AE9C738}" name="Images">
           <FILE id="qswxvK" name="copy.png" compile="0" resource="1" file="../Ressources/Images/copy.png"/>
           <FILE id="Jg424T" name="flower_center.png" compile="0" resource="1"
@@ -93,10 +97,6 @@
           <FILE id="Zg7xnX" name="garbage.png" compile="0" resource="1" file="../Ressources/Images/garbage.png"/>
           <FILE id="xWMppN" name="reload.png" compile="0" resource="1" file="../Ressources/Images/reload.png"/>
           <FILE id="oetcW5" name="settings.png" compile="0" resource="1" file="../Ressources/Images/settings.png"/>
-        </GROUP>
-        <GROUP id="{57876AA4-B669-CF0C-8D62-A3A627366E1D}" name="Polices">
-          <FILE id="pVtmqv" name="DejaVuSansMono.ttf" compile="0" resource="1"
-                file="../Ressources/Polices/DejaVuSansMono.ttf"/>
         </GROUP>
       </GROUP>
     </GROUP>

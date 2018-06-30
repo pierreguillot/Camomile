@@ -13,7 +13,7 @@
               pluginAAXCategory="2" jucerVersion="5.3.2" companyName="Pierre Guillot"
               headerPath="../../../Dependencies/LibPd/pure-data/src&#10;../../../Dependencies/LibPd/libpd_wrapper&#10;../../../Dependencies/LibPd/libpd_wrapper/util&#10;../../../Dependencies/LibPd/cpp&#10;"
               companyWebsite="github.com/pierreguillot/camomile" defines="PD_INTERNAL=1"
-              pluginFormats="buildVST,buildVST3,buildAU" pluginCharacteristicsValue="pluginWantsMidiIn,pluginProducesMidiOut,pluginEditorRequiresKeys">
+              pluginFormats="buildAU,buildVST,buildVST3" pluginCharacteristicsValue="pluginWantsMidiIn,pluginProducesMidiOut,pluginEditorRequiresKeys">
   <MAINGROUP id="BLNPyv" name="CamomileFx">
     <GROUP id="{D4367A82-F269-8F5A-1C22-AB42C90672ED}" name="Source">
       <FILE id="dsxHyi" name="PluginProcessor.cpp" compile="1" resource="0"
@@ -79,25 +79,25 @@
         <FILE id="ajZCxi" name="x_libpd_extra_utils.h" compile="0" resource="0"
               file="../Source/Pd/x_libpd_extra_utils.h"/>
       </GROUP>
-    </GROUP>
-    <GROUP id="{F3E95E26-375E-BDC8-C48D-8BFDD754028C}" name="Ressources">
-      <GROUP id="{51701B19-EB90-E2FE-2865-633F5B38F51E}" name="Credits">
-        <FILE id="l7QpoP" name="CreditsAU" compile="0" resource="1" file="../Ressources/Credits/CreditsAU"/>
-        <FILE id="hV3RRd" name="CreditsVST" compile="0" resource="1" file="../Ressources/Credits/CreditsVST"/>
-      </GROUP>
-      <GROUP id="{314B3474-5C15-EEF4-EC03-664A8CCD4038}" name="Images">
-        <FILE id="JGMo8A" name="copy.png" compile="0" resource="1" file="../Ressources/Images/copy.png"/>
-        <FILE id="lFv5vO" name="flower_center.png" compile="0" resource="1"
-              file="../Ressources/Images/flower_center.png"/>
-        <FILE id="HM1eqb" name="flower_petals.png" compile="0" resource="1"
-              file="../Ressources/Images/flower_petals.png"/>
-        <FILE id="JacbjB" name="garbage.png" compile="0" resource="1" file="../Ressources/Images/garbage.png"/>
-        <FILE id="b2sNM7" name="reload.png" compile="0" resource="1" file="../Ressources/Images/reload.png"/>
-        <FILE id="uKM1Gb" name="settings.png" compile="0" resource="1" file="../Ressources/Images/settings.png"/>
-      </GROUP>
-      <GROUP id="{9C58406C-231A-D778-A142-80E210DE0081}" name="Polices">
-        <FILE id="DIR5Dx" name="DejaVuSansMono.ttf" compile="0" resource="1"
-              file="../Ressources/Polices/DejaVuSansMono.ttf"/>
+      <GROUP id="{F3E95E26-375E-BDC8-C48D-8BFDD754028C}" name="Ressources">
+        <GROUP id="{51701B19-EB90-E2FE-2865-633F5B38F51E}" name="Credits">
+          <FILE id="l7QpoP" name="CreditsAU" compile="0" resource="1" file="../Ressources/Credits/CreditsAU"/>
+          <FILE id="hV3RRd" name="CreditsVST" compile="0" resource="1" file="../Ressources/Credits/CreditsVST"/>
+        </GROUP>
+        <GROUP id="{A5E37C9A-A57E-C768-AB56-C20C3A142A40}" name="Fonts">
+          <FILE id="VHTBVD" name="DejaVuSansMono.ttf" compile="0" resource="1"
+                file="../Ressources/Fonts/DejaVuSansMono.ttf"/>
+        </GROUP>
+        <GROUP id="{314B3474-5C15-EEF4-EC03-664A8CCD4038}" name="Images">
+          <FILE id="JGMo8A" name="copy.png" compile="0" resource="1" file="../Ressources/Images/copy.png"/>
+          <FILE id="lFv5vO" name="flower_center.png" compile="0" resource="1"
+                file="../Ressources/Images/flower_center.png"/>
+          <FILE id="HM1eqb" name="flower_petals.png" compile="0" resource="1"
+                file="../Ressources/Images/flower_petals.png"/>
+          <FILE id="JacbjB" name="garbage.png" compile="0" resource="1" file="../Ressources/Images/garbage.png"/>
+          <FILE id="b2sNM7" name="reload.png" compile="0" resource="1" file="../Ressources/Images/reload.png"/>
+          <FILE id="uKM1Gb" name="settings.png" compile="0" resource="1" file="../Ressources/Images/settings.png"/>
+        </GROUP>
       </GROUP>
     </GROUP>
   </MAINGROUP>

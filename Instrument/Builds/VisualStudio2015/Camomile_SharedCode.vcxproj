@@ -2753,13 +2753,13 @@
   <ItemGroup>
     <None Include="..\..\..\Ressources\Credits\CreditsAU"/>
     <None Include="..\..\..\Ressources\Credits\CreditsVST"/>
+    <None Include="..\..\..\Ressources\Fonts\DejaVuSansMono.ttf"/>
     <None Include="..\..\..\Ressources\Images\copy.png"/>
     <None Include="..\..\..\Ressources\Images\flower_center.png"/>
     <None Include="..\..\..\Ressources\Images\flower_petals.png"/>
     <None Include="..\..\..\Ressources\Images\garbage.png"/>
     <None Include="..\..\..\Ressources\Images\reload.png"/>
     <None Include="..\..\..\Ressources\Images\settings.png"/>
-    <None Include="..\..\..\Ressources\Polices\DejaVuSansMono.ttf"/>
     <None Include="..\..\..\Juce\modules\juce_audio_formats\codecs\flac\Flac Licence.txt"/>
     <None Include="..\..\..\Juce\modules\juce_audio_formats\codecs\oggvorbis\Ogg Vorbis Licence.txt"/>
     <None Include="..\..\..\Juce\modules\juce_audio_processors\format_types\VST3_SDK\base\LICENSE.txt"/>

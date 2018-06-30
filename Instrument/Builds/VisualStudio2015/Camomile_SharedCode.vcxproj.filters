@@ -8,11 +8,11 @@
     <Filter Include="Camomile\Source\Ressources\Credits">
       <UniqueIdentifier>{BE714085-FF7B-465E-D7B0-3B534B330056}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Camomile\Source\Ressources\Fonts">
+      <UniqueIdentifier>{E047AB7D-2F43-91D9-B07F-08F7FE0DFE35}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Camomile\Source\Ressources\Images">
       <UniqueIdentifier>{91E319D7-6113-5B7E-5BC2-4B84092EB682}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Camomile\Source\Ressources\Polices">
-      <UniqueIdentifier>{56BE937F-AAD2-3869-C6EF-79673FDEEE41}</UniqueIdentifier>
     </Filter>
     <Filter Include="Camomile\Source\Ressources">
       <UniqueIdentifier>{3209DED3-D2FA-971E-02F9-F15BA4D2C958}</UniqueIdentifier>
@@ -4508,6 +4508,9 @@
     <None Include="..\..\..\Ressources\Credits\CreditsVST">
       <Filter>Camomile\Source\Ressources\Credits</Filter>
     </None>
+    <None Include="..\..\..\Ressources\Fonts\DejaVuSansMono.ttf">
+      <Filter>Camomile\Source\Ressources\Fonts</Filter>
+    </None>
     <None Include="..\..\..\Ressources\Images\copy.png">
       <Filter>Camomile\Source\Ressources\Images</Filter>
     </None>
@@ -4525,9 +4528,6 @@
     </None>
     <None Include="..\..\..\Ressources\Images\settings.png">
       <Filter>Camomile\Source\Ressources\Images</Filter>
-    </None>
-    <None Include="..\..\..\Ressources\Polices\DejaVuSansMono.ttf">
-      <Filter>Camomile\Source\Ressources\Polices</Filter>
     </None>
     <None Include="..\..\..\Juce\modules\juce_audio_formats\codecs\flac\Flac Licence.txt">
       <Filter>JUCE Modules\juce_audio_formats\codecs\flac</Filter>

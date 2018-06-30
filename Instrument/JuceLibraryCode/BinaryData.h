@@ -14,6 +14,9 @@ namespace BinaryData
     extern const char*   CreditsVST;
     const int            CreditsVSTSize = 537;
 
+    extern const char*   DejaVuSansMono_ttf;
+    const int            DejaVuSansMono_ttfSize = 340712;
+
     extern const char*   copy_png;
     const int            copy_pngSize = 4098;
 
@@ -31,9 +34,6 @@ namespace BinaryData
 
     extern const char*   settings_png;
     const int            settings_pngSize = 12539;
-
-    extern const char*   DejaVuSansMono_ttf;
-    const int            DejaVuSansMono_ttfSize = 340712;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
     const int namedResourceListSize = 9;

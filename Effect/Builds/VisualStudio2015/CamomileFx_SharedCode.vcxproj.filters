@@ -5,20 +5,20 @@
     <Filter Include="CamomileFx\Source\Pd">
       <UniqueIdentifier>{7600A6EB-DF16-3651-CB77-255158F9C1CF}</UniqueIdentifier>
     </Filter>
+    <Filter Include="CamomileFx\Source\Ressources\Credits">
+      <UniqueIdentifier>{FB611CEA-9B02-B1AC-2541-8F96DAB0DB6A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CamomileFx\Source\Ressources\Fonts">
+      <UniqueIdentifier>{B1F715A4-35C6-BF03-D0FC-2F66B6837653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CamomileFx\Source\Ressources\Images">
+      <UniqueIdentifier>{A3E5408B-8EA2-ACC0-4B3D-6A2490A1CA0E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CamomileFx\Source\Ressources">
+      <UniqueIdentifier>{45785225-684E-0EC2-ED90-D4770E1B06D4}</UniqueIdentifier>
+    </Filter>
     <Filter Include="CamomileFx\Source">
       <UniqueIdentifier>{4DD27D76-1618-74CD-A4D8-C36ADF82B94F}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CamomileFx\Ressources\Credits">
-      <UniqueIdentifier>{6D959938-0664-EA70-52A1-1E3DABD6C3A8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CamomileFx\Ressources\Images">
-      <UniqueIdentifier>{0024AFB0-76FC-FA8E-06BF-D63E77290060}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CamomileFx\Ressources\Polices">
-      <UniqueIdentifier>{D9793FDD-671E-6543-3D16-DE9FF96A1C84}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CamomileFx\Ressources">
-      <UniqueIdentifier>{E610884B-C6D6-A89D-79A3-651A509CA07B}</UniqueIdentifier>
     </Filter>
     <Filter Include="CamomileFx">
       <UniqueIdentifier>{EF406BE1-DFC4-834B-EAEC-4E7EF5150FCE}</UniqueIdentifier>
@@ -4503,31 +4503,31 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\Ressources\Credits\CreditsAU">
-      <Filter>CamomileFx\Ressources\Credits</Filter>
+      <Filter>CamomileFx\Source\Ressources\Credits</Filter>
     </None>
     <None Include="..\..\..\Ressources\Credits\CreditsVST">
-      <Filter>CamomileFx\Ressources\Credits</Filter>
+      <Filter>CamomileFx\Source\Ressources\Credits</Filter>
+    </None>
+    <None Include="..\..\..\Ressources\Fonts\DejaVuSansMono.ttf">
+      <Filter>CamomileFx\Source\Ressources\Fonts</Filter>
     </None>
     <None Include="..\..\..\Ressources\Images\copy.png">
-      <Filter>CamomileFx\Ressources\Images</Filter>
+      <Filter>CamomileFx\Source\Ressources\Images</Filter>
     </None>
     <None Include="..\..\..\Ressources\Images\flower_center.png">
-      <Filter>CamomileFx\Ressources\Images</Filter>
+      <Filter>CamomileFx\Source\Ressources\Images</Filter>
     </None>
     <None Include="..\..\..\Ressources\Images\flower_petals.png">
-      <Filter>CamomileFx\Ressources\Images</Filter>
+      <Filter>CamomileFx\Source\Ressources\Images</Filter>
     </None>
     <None Include="..\..\..\Ressources\Images\garbage.png">
-      <Filter>CamomileFx\Ressources\Images</Filter>
+      <Filter>CamomileFx\Source\Ressources\Images</Filter>
     </None>
     <None Include="..\..\..\Ressources\Images\reload.png">
-      <Filter>CamomileFx\Ressources\Images</Filter>
+      <Filter>CamomileFx\Source\Ressources\Images</Filter>
     </None>
     <None Include="..\..\..\Ressources\Images\settings.png">
-      <Filter>CamomileFx\Ressources\Images</Filter>
-    </None>
-    <None Include="..\..\..\Ressources\Polices\DejaVuSansMono.ttf">
-      <Filter>CamomileFx\Ressources\Polices</Filter>
+      <Filter>CamomileFx\Source\Ressources\Images</Filter>
     </None>
     <None Include="..\..\..\Juce\modules\juce_audio_formats\codecs\flac\Flac Licence.txt">
       <Filter>JUCE Modules\juce_audio_formats\codecs\flac</Filter>
