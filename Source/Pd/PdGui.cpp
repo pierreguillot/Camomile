@@ -385,6 +385,11 @@ namespace pd
             std::array<int, 4> const bounds = Object::getBounds();
             return {bounds[0], bounds[1], bounds[2], bounds[3] - 2};
         }
+        else if(m_type == Type::Comment)
+        {
+            std::array<int, 4> const bounds = Object::getBounds();
+            return {bounds[0], bounds[1] + 1, bounds[2], bounds[3] - 1};
+        }
         return Object::getBounds();
     }
     

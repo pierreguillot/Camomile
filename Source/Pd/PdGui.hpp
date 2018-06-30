@@ -73,7 +73,6 @@ namespace pd
             return (m_type == Type::AtomNumber) || (m_type == Type::AtomSymbol);
         }
 
-        
         //! @brief Get the font size.
         int getFontSize() const noexcept;
         
