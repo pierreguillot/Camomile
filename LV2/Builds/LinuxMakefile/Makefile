@@ -109,7 +109,7 @@ OBJECTS_DYNAMIC_LIBRARY := \
 all : $(JUCE_OUTDIR)/$(JUCE_TARGET_DYNAMIC_LIBRARY)
 
 $(JUCE_OUTDIR)/$(JUCE_TARGET_DYNAMIC_LIBRARY) : check-pkg-config $(OBJECTS_DYNAMIC_LIBRARY) $(RESOURCES)
-	@echo Linking "Camomile - Dynamic Library"
+	@echo Linking "CamomileLV2 - Dynamic Library"
 	-$(V_AT)mkdir -p $(JUCE_BINDIR)
 	-$(V_AT)mkdir -p $(JUCE_LIBDIR)
 	-$(V_AT)mkdir -p $(JUCE_OUTDIR)
@@ -275,11 +275,11 @@ check-pkg-config:
 	@pkg-config --print-errors freetype2 x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0
 
 clean:
-	@echo Cleaning Camomile
+	@echo Cleaning CamomileLV2
 	$(V_AT)$(CLEANCMD)
 
 strip:
-	@echo Stripping Camomile
+	@echo Stripping CamomileLV2
 	-$(V_AT)$(STRIP) --strip-unneeded $(JUCE_OUTDIR)/$(TARGET)
 
 -include $(OBJECTS_DYNAMIC_LIBRARY:%.o=%.d)

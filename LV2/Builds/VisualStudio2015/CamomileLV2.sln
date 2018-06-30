@@ -1,7 +1,7 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2015
 
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Camomile - Dynamic Library", "Camomile_DynamicLibrary.vcxproj", "{84EB97D9-F69F-812D-F8B8-38D084AC042E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CamomileLV2 - Dynamic Library", "CamomileLV2_DynamicLibrary.vcxproj", "{84EB97D9-F69F-812D-F8B8-38D084AC042E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

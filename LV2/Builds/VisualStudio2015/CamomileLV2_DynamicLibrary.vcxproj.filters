@@ -2,26 +2,26 @@
 
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="CamomileFx\Source\Pd">
-      <UniqueIdentifier>{7600A6EB-DF16-3651-CB77-255158F9C1CF}</UniqueIdentifier>
+    <Filter Include="CamomileLV2\Source\Pd">
+      <UniqueIdentifier>{D03AC0A6-3443-795F-C827-173561D164DE}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CamomileFx\Source\Ressources\Credits">
-      <UniqueIdentifier>{FB611CEA-9B02-B1AC-2541-8F96DAB0DB6A}</UniqueIdentifier>
+    <Filter Include="CamomileLV2\Source\Ressources\Credits">
+      <UniqueIdentifier>{9E509CE4-A594-19D9-CC54-6D069FDFD928}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CamomileFx\Source\Ressources\Fonts">
-      <UniqueIdentifier>{B1F715A4-35C6-BF03-D0FC-2F66B6837653}</UniqueIdentifier>
+    <Filter Include="CamomileLV2\Source\Ressources\Fonts">
+      <UniqueIdentifier>{D05CE2A5-0803-FB7B-AE8D-53AA728285F2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CamomileFx\Source\Ressources\Images">
-      <UniqueIdentifier>{A3E5408B-8EA2-ACC0-4B3D-6A2490A1CA0E}</UniqueIdentifier>
+    <Filter Include="CamomileLV2\Source\Ressources\Images">
+      <UniqueIdentifier>{F4308676-1E7C-ABFB-82EB-1DA3F471423A}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CamomileFx\Source\Ressources">
-      <UniqueIdentifier>{45785225-684E-0EC2-ED90-D4770E1B06D4}</UniqueIdentifier>
+    <Filter Include="CamomileLV2\Source\Ressources">
+      <UniqueIdentifier>{FF30199F-DB9D-4909-CCA1-5056934F15F3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CamomileFx\Source">
-      <UniqueIdentifier>{4DD27D76-1618-74CD-A4D8-C36ADF82B94F}</UniqueIdentifier>
+    <Filter Include="CamomileLV2\Source">
+      <UniqueIdentifier>{45F2CE2C-22FF-D095-1779-C9B49ECC9AF7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CamomileFx">
-      <UniqueIdentifier>{EF406BE1-DFC4-834B-EAEC-4E7EF5150FCE}</UniqueIdentifier>
+    <Filter Include="CamomileLV2">
+      <UniqueIdentifier>{85559B7C-99FE-EBAF-8204-D3A9D58B473B}</UniqueIdentifier>
     </Filter>
     <Filter Include="JUCE Modules\juce_audio_basics\audio_play_head">
       <UniqueIdentifier>{EB58F05A-A968-CEBE-40C4-107CDD8F240F}</UniqueIdentifier>
@@ -341,64 +341,64 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Dependencies\JuceLV2\modules\juce_audio_plugin_client\LV2\juce_LV2_Wrapper.cpp">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\PluginProcessor.cpp">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\PluginProcessorBuses.cpp">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\PluginProcessorReceive.cpp">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\PluginEditor.cpp">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\PluginEditorComponents.cpp">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\PluginEditorConsole.cpp">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\PluginEditorInteraction.cpp">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\PluginEditorObject.cpp">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\PluginEnvironment.cpp">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\PluginParameter.cpp">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\PluginParser.cpp">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\PluginLookAndFeel.cpp">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\PdInstance.cpp">
-      <Filter>CamomileFx\Source\Pd</Filter>
+      <Filter>CamomileLV2\Source\Pd</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\PdPatch.cpp">
-      <Filter>CamomileFx\Source\Pd</Filter>
+      <Filter>CamomileLV2\Source\Pd</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\PdGui.cpp">
-      <Filter>CamomileFx\Source\Pd</Filter>
+      <Filter>CamomileLV2\Source\Pd</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\PdArray.cpp">
-      <Filter>CamomileFx\Source\Pd</Filter>
+      <Filter>CamomileLV2\Source\Pd</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\PdObject.cpp">
-      <Filter>CamomileFx\Source\Pd</Filter>
+      <Filter>CamomileLV2\Source\Pd</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\x_libpd_multi.c">
-      <Filter>CamomileFx\Source\Pd</Filter>
+      <Filter>CamomileLV2\Source\Pd</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\x_libpd_extra_utils.c">
-      <Filter>CamomileFx\Source\Pd</Filter>
+      <Filter>CamomileLV2\Source\Pd</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <Filter>JUCE Modules\juce_audio_basics\buffers</Filter>
@@ -1978,64 +1978,64 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\PluginProcessor.h">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\PluginConsole.h">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\PluginEditor.h">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\PluginEditorComponents.h">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\PluginEditorConsole.hpp">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\PluginEditorInteraction.h">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\PluginEditorObject.hpp">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\PluginEnvironment.h">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\PluginParameter.h">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\PluginParser.h">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\PluginLookAndFeel.hpp">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\PluginConfig.h">
-      <Filter>CamomileFx\Source</Filter>
+      <Filter>CamomileLV2\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\Pd\PdInstance.hpp">
-      <Filter>CamomileFx\Source\Pd</Filter>
+      <Filter>CamomileLV2\Source\Pd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\Pd\PdPatch.hpp">
-      <Filter>CamomileFx\Source\Pd</Filter>
+      <Filter>CamomileLV2\Source\Pd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\Pd\PdGui.hpp">
-      <Filter>CamomileFx\Source\Pd</Filter>
+      <Filter>CamomileLV2\Source\Pd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\Pd\PdArray.hpp">
-      <Filter>CamomileFx\Source\Pd</Filter>
+      <Filter>CamomileLV2\Source\Pd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\Pd\PdObject.hpp">
-      <Filter>CamomileFx\Source\Pd</Filter>
+      <Filter>CamomileLV2\Source\Pd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\Pd\PdAtom.hpp">
-      <Filter>CamomileFx\Source\Pd</Filter>
+      <Filter>CamomileLV2\Source\Pd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\Pd\x_libpd_multi.h">
-      <Filter>CamomileFx\Source\Pd</Filter>
+      <Filter>CamomileLV2\Source\Pd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\Pd\x_libpd_extra_utils.h">
-      <Filter>CamomileFx\Source\Pd</Filter>
+      <Filter>CamomileLV2\Source\Pd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
       <Filter>JUCE Modules\juce_audio_basics\audio_play_head</Filter>
@@ -3741,31 +3741,31 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\Ressources\Credits\CreditsAU">
-      <Filter>CamomileFx\Source\Ressources\Credits</Filter>
+      <Filter>CamomileLV2\Source\Ressources\Credits</Filter>
     </None>
     <None Include="..\..\..\Ressources\Credits\CreditsVST">
-      <Filter>CamomileFx\Source\Ressources\Credits</Filter>
+      <Filter>CamomileLV2\Source\Ressources\Credits</Filter>
     </None>
     <None Include="..\..\..\Ressources\Fonts\DejaVuSansMono.ttf">
-      <Filter>CamomileFx\Source\Ressources\Fonts</Filter>
+      <Filter>CamomileLV2\Source\Ressources\Fonts</Filter>
     </None>
     <None Include="..\..\..\Ressources\Images\copy.png">
-      <Filter>CamomileFx\Source\Ressources\Images</Filter>
+      <Filter>CamomileLV2\Source\Ressources\Images</Filter>
     </None>
     <None Include="..\..\..\Ressources\Images\flower_center.png">
-      <Filter>CamomileFx\Source\Ressources\Images</Filter>
+      <Filter>CamomileLV2\Source\Ressources\Images</Filter>
     </None>
     <None Include="..\..\..\Ressources\Images\flower_petals.png">
-      <Filter>CamomileFx\Source\Ressources\Images</Filter>
+      <Filter>CamomileLV2\Source\Ressources\Images</Filter>
     </None>
     <None Include="..\..\..\Ressources\Images\garbage.png">
-      <Filter>CamomileFx\Source\Ressources\Images</Filter>
+      <Filter>CamomileLV2\Source\Ressources\Images</Filter>
     </None>
     <None Include="..\..\..\Ressources\Images\reload.png">
-      <Filter>CamomileFx\Source\Ressources\Images</Filter>
+      <Filter>CamomileLV2\Source\Ressources\Images</Filter>
     </None>
     <None Include="..\..\..\Ressources\Images\settings.png">
-      <Filter>CamomileFx\Source\Ressources\Images</Filter>
+      <Filter>CamomileLV2\Source\Ressources\Images</Filter>
     </None>
     <None Include="..\..\..\Juce\modules\juce_audio_processors\format_types\VST3_SDK\base\LICENSE.txt">
       <Filter>JUCE Modules\juce_audio_processors\format_types\VST3_SDK\base</Filter>
