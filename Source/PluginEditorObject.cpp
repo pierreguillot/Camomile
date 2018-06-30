@@ -130,7 +130,7 @@ Label* PluginEditorObject::getLabel()
     if(text.isNotEmpty())
     {
         Label* label = new Label();
-        const Font ft = CamoLookAndFeel::getDefaultFont().withPointHeight(static_cast<float>(gui.getFontSize()));
+        const Font ft = CamoLookAndFeel::getDefaultFont().withPointHeight(static_cast<float>(gui.getFontHeight()));
         const int width = ft.getStringWidth(text) + 1;
         const int height = ft.getHeight();
         const std::array<int, 2> position = lbl.getPosition();
