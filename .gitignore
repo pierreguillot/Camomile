@@ -46,6 +46,8 @@
 /Instrument/Builds/LinuxMakefile/build/
 /Effect/Builds/MacOSX/build/
 /Effect/Builds/LinuxMakefile/build/
+/LV2/Builds/MacOSX/build/
+/LV2/Builds/LinuxMakefile/build/
 /.backup/
 
 #Examples
