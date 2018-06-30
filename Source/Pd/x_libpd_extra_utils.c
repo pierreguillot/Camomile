@@ -143,7 +143,7 @@ float libpd_get_canvas_font_height(t_canvas* cnv)
     }
     else if(fontsize == 36)
     {
-        return 41.87f;
+        return 41.91f;
     }
     return glist_fontheight(cnv);
 }
