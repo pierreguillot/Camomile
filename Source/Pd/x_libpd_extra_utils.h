@@ -27,6 +27,8 @@ extern "C"
     unsigned int libpd_iemgui_get_background_color(void* ptr);
     unsigned int libpd_iemgui_get_foreground_color(void* ptr);
     
+    float libpd_get_canvas_font_height(t_canvas* cnv);
+    
     
 #ifdef __cplusplus
 }

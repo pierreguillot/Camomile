@@ -319,6 +319,20 @@ namespace pd
         }
     }
     
+    float Gui::getFontHeight() const noexcept
+    {
+        if(!m_ptr )
+            return 0;
+        if(isIEM())
+        {
+            return (static_cast<t_iemgui*>(m_ptr))->x_fontsize;
+        }
+        else
+        {
+            return libpd_get_canvas_font_height(static_cast<t_canvas*>(m_patch));
+        }
+    }
+    
     std::string Gui::getFontName() const
     {
         if(!m_ptr )

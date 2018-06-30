@@ -20,7 +20,7 @@ public:
     void drawLabel (Graphics& g, Label& label) override;
     
     static Font getDefaultFont();
-    static Font getFont(const std::string& name, int pointheight);
+    static Font getFont(const std::string& name);
     static Image const& getImage();
     static String const& getDescription();
     

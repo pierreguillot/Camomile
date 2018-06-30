@@ -85,13 +85,13 @@ Font CamoLookAndFeel::getDefaultFont()
     return DejaVu;
 }
 
-Font CamoLookAndFeel::getFont(const std::string& name, int pointheight)
+Font CamoLookAndFeel::getFont(const std::string& name)
 {
     if(name == "DejaVu Sans Mono")
     {
-        return getDefaultFont().withPointHeight(static_cast<float>(pointheight));
+        return getDefaultFont();
     }
-    return Font(String(name), Font::plain, pointheight);
+    return Font(String(name), Font::plain, 12.f);
 }
 
 Image const& CamoLookAndFeel::getImage()

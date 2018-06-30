@@ -446,10 +446,11 @@ GuiComment::GuiComment(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditor
 
 void GuiComment::paint(Graphics& g)
 {
-    const Font ft = CamoLookAndFeel::getFont(gui.getFontName(), gui.getFontSize());
+    const Font ft = CamoLookAndFeel::getFont(gui.getFontName()).withHeight(gui.getFontHeight());
     g.setFont(ft);
     g.setColour(Colours::black);
-    g.drawMultiLineText(gui.getText(), 2, ft.getHeight(), getWidth());
+    std::cout << "font (" << ft.getHeight() << " " << ft.getHeightInPoints() << ")\n";
+    g.drawMultiLineText(gui.getText(), 2, static_cast<int>(std::round(ft.getHeight())), getWidth());
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////

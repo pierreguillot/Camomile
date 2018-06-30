@@ -76,6 +76,9 @@ namespace pd
         
         //! @brief Get the font size.
         int getFontSize() const noexcept;
+        
+        //! @brief Get the font height.
+        float getFontHeight() const noexcept;
             
         //! @brief Get the font name.
         std::string getFontName() const;

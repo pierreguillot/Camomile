@@ -118,3 +118,33 @@ unsigned int libpd_iemgui_get_foreground_color(void* ptr)
     return convert_from_iem_color(((t_iemgui*)ptr)->x_fcol);
 }
 
+float libpd_get_canvas_font_height(t_canvas* cnv)
+{
+    const int fontsize = glist_getfont(cnv);
+    if(fontsize == 8)
+    {
+        return 9.68f;
+    }
+    else if(fontsize == 10)
+    {
+        return 11.6f;
+    }
+    else if(fontsize == 12)
+    {
+        return 13.55f;
+    }
+    else if(fontsize == 16)
+    {
+        return 19.35f;
+    }
+    else if(fontsize == 24)
+    {
+        return 26.79f;
+    }
+    else if(fontsize == 36)
+    {
+        return 41.87f;
+    }
+    return glist_fontheight(cnv);
+}
+
