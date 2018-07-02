@@ -50,12 +50,13 @@ after_build:
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\Camomile.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.vst3
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST\CamomileFx.dll %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileFx.dll
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\CamomileFx.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileFx.vst3
-    #- mkdir %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.lv2
-    #- copy "%APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.lV2\Dynamic Library\CamomileLV2.dll" %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.lV2\CamomileLV2.dll
+    - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\CamomileFx.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileFx.vst3
+    - copy %APPVEYOR_BUILD_FOLDER%\Plugins\"Dynamic Library"\CamomileLV2.dll %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileLV2.dll
     - copy %APPVEYOR_BUILD_FOLDER%\README.md %APPVEYOR_BUILD_FOLDER%\Plugins\README.md
     - copy %APPVEYOR_BUILD_FOLDER%\ChangeLog.md %APPVEYOR_BUILD_FOLDER%\Plugins\ChangeLog.md
     - copy %APPVEYOR_BUILD_FOLDER%\LICENSE %APPVEYOR_BUILD_FOLDER%\Plugins\LICENSE.txt
     - del %APPVEYOR_BUILD_FOLDER%\Plugins\camomile /Q
+    - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\"Dynamic Library"\ /S /Q
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\"Shared Code"\ /S /Q
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST\ /S /Q
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\ /S /Q
