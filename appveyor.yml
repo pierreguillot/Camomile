@@ -39,6 +39,9 @@ build_script:
     # Compile Camomile Effect
     - cd %APPVEYOR_BUILD_FOLDER%\Effect\Builds\VisualStudio2015\
     - msbuild CamomileFx.sln /nologo /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
+    # Compile Camomile LV2
+    - cd %APPVEYOR_BUILD_FOLDER%\LV2\Builds\VisualStudio2015\
+    - msbuild CamomileLV2.sln /nologo /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
 
 after_build:
     - cd %APPVEYOR_BUILD_FOLDER%
