@@ -19,7 +19,7 @@
   name:             JUCE audio plugin client LV2 classes
   description:      Classes for building LV2 plugins.
   website:
-  license:          MIT
+  license:          
 
   dependencies:     juce_gui_basics, juce_audio_basics, juce_audio_processors, juce_audio_plugin_client
 
