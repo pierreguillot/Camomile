@@ -17,9 +17,9 @@
     <a href="https://github.com/pierreguillot/Camomile/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-GPL--v3-blue.svg" alt="License"></a>
   </p>
   <p align="center">
-    <a href="https://github.com/pierreguillot/Camomile/wiki"><img src="https://img.shields.io/badge/wiki-documentation-blue.svg" alt="Documentation"></a>
-    <a href="https://github.com/pierreguillot/Camomile/wiki/Credits"><img src="https://img.shields.io/badge/wiki-credits-blue.svg" alt="Credits"></a>
-    <a href="https://vimeo.com/album/4639971"><img src="https://img.shields.io/badge/demo-video-blue.svg" alt="Videos"></a>
+    <a href="https://github.com/pierreguillot/Camomile/wiki"><img src="https://img.shields.io/badge/@-documentation-blue.svg" alt="Documentation"></a>
+    <a href="https://github.com/pierreguillot/Camomile/wiki/Credits"><img src="https://img.shields.io/badge/@-credits-blue.svg" alt="Credits"></a>
+    <a href="https://vimeo.com/album/4639971"><img src="https://img.shields.io/badge/@-videos-blue.svg" alt="Videos"></a>
   </p>
 </p>
 
@@ -31,3 +31,75 @@ Camomile is a plugin with Pure Data embedded that offers to load and to control 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/1409918/35470969-05182302-0353-11e8-90b5-d37450206adf.png" alt="Examples" width=425 height=325>
 </p>
+
+### Compilation
+
+Download Camomile and its dependencies using git:
+
+```
+git clone https://github.com/pierreguillot/Camomile.git
+cd Kiwi
+git submodule update --init --recursive
+```
+
+Generate the libpd project using [CMake](https://cmake.org) and compile the libpd library and the plugins:
+
+- **Linux**
+Important: JUCE requires a set of pre-installed libraries: libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libfreetype6-dev alsa libasound2-dev.
+```
+sudo apt-get -qq update
+sudo apt-get install -y libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libfreetype6-dev alsa libasound2-dev
+cd Camomile
+mkdir Dependencies/LibPd/build && mkdir Dependencies/LibPd/build/makefile/ && cd Dependencies/LibPd/build/makefile
+cmake -DCMAKE_BUILD_TYPE=Release -DPD_MULTI=ON -DPD_UTILS=OFF ../..
+cd ../../..
+make
+```
+- **Mac**
+```
+cd Camomile
+mkdir Dependencies/LibPd/build && mkdir Dependencies/LibPd/build/xcode/ && cd Dependencies/LibPd/build/xcode
+cmake -GXcode -DPD_MULTI=ON -DPD_UTILS=OFF ../..
+cd ../../..
+xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release
+```
+- **Windows**
+Important: libpd requires the static [pthread](https://github.com/GerHobbelt/pthread-win32.git) library for windows with multithread static runtime library (MT).
+```
+cd Camomile
+cd mkdir Dependencies\LibPd\build && mkdir Dependencies\LibPd\build\msvc && cd Dependencies\LibPd\build\msvc
+cmake -G "Visual Studio 14 2015 Win64" -DPD_MULTI=ON -DPD_UTILS=OFF -DMSVC_STATIC_RUNTIME=ON -DMSVC_PTHREAD_LIB="pthread.lib" ../..
+msbuild libpd.sln /t:libpdstatic /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=x64
+cd ..\..\..\Instrument\Builds\VisualStudio2015\
+msbuild Camomile.sln /nologo /p:Configuration=Release /p:Platform=%PLATFORM%
+cd ..\..\..\Effect\Builds\VisualStudio2015\
+msbuild CamomileFx.sln /nologo /p:Configuration=Release /p:Platform=%PLATFORM%
+cd ..\..\..\LV2\Builds\VisualStudio2015\
+msbuild CamomileLV2.sln /nologo /p:Configuration=Release /p:Platform=x64
+```
+
+### Organization
+
+- [CICM](http://cicm.mshparisnord.org)
+- [Université Paris 8](https://www.univ-paris8.fr)
+
+### Author
+
+- [Pierre Guillot](https://github.com/pierreguillot)
+
+### Credits
+
+- [Pure Data](http://msp.ucsd.edu/software.html) by Miller Puckette and others
+- [libpd](http://libpd.cc) by the Peter Brinkmann, Dan Wilcox and others
+- [Juce](https://github.com/WeAreROLI/JUCE) by ROLI Ltd.
+- [MoodyCamel](https://github.com/cameron314/concurrentqueue) by Cameron Desrochers
+- [LV2 PlugIn Technology](http://lv2plug.in) by Steve Harris, David Robillard and others
+- [VST PlugIn Technology](https://www.steinberg.net/en/company/technologies/vst3.html) by Steinberg Media Technologies
+- [Audio Unit PlugIn Technology](https://developer.apple.com/documentation/audiounit) by Apple
+- [Console icons](https://www.flaticon.com/authors/gregor-cresnar) by Gregor Cresnar
+- [CMake](https://cmake.org/) by Andy Cedilnik, Bill Hoffman, Brad King, Ken Martin, Alexander Neundorf
+
+### Papers
+
+- [LAC 2018 - Camomile: Creating audio plugins with Pure Data](http://lac.linuxaudio.org/2018/pdf/44-paper.pdf)
+- [JIM 2018 - Camomile, enjeux et développements d’un plugiciel audio embarquant Pure Data](https://hal.archives-ouvertes.fr/hal-01791392/document).
