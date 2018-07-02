@@ -204,7 +204,7 @@ generate_plugin_lv2_mac() {
             mv -f $PWD/presets.ttl $plugin_output_dir/$plugin_name.lv2/presets.ttl
         fi
         mv -f $PWD/$plugin_name.ttl $plugin_output_dir/$plugin_name.lv2/$plugin_name.ttl
-        post_log "$plugin_output_dir/$plugin_name/$plugin_name.lv2"
+        post_log "$plugin_output_dir/$plugin_name.lv2"
     else
         post_error "$camo_name.$AppleLV2Extension is not available"
     fi
@@ -281,7 +281,7 @@ generate_plugin_au_mac() {
         plutil -replace AudioComponents.name -string "Pierre Guillot: $plugin_name" $plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist
         plutil -replace AudioComponents.subtype -string $code $plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist
 
-        post_log "$plugin_output_dir/$plugin_name/$plugin_name.$AppleAuExtension"
+        post_log "$plugin_output_dir/$plugin_name.$AppleAuExtension"
     else
         post_error "$camo_name.$AppleAuExtension is not available"
     fi
@@ -326,7 +326,7 @@ generate_plugin_vst3_mac() {
         cp -rf $plugin_input_dir/* $plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Resources
         plutil -replace CFBundleName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Info.plist
         plutil -replace CFBundleDisplayName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Info.plist
-        post_log "$plugin_output_dir/$plugin_name/$plugin_name.$AppleVst3Extension"
+        post_log "$plugin_output_dir/$plugin_name.$AppleVst3Extension"
     else
         post_error "$camo_name.$AppleVst3Extension is not available"
     fi
@@ -371,7 +371,7 @@ generate_plugin_vst_mac() {
         cp -rf $plugin_input_dir/* $plugin_output_dir/$plugin_name.$AppleVstExtension/Contents/Resources
         plutil -replace CFBundleName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleVstExtension/Contents/Info.plist
         plutil -replace CFBundleDisplayName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleVstExtension/Contents/Info.plist
-        post_log "$plugin_output_dir/$plugin_name/$plugin_name.$AppleVstExtension"
+        post_log "$plugin_output_dir/$plugin_name.$AppleVstExtension"
     else
         post_error "$camo_name.$AppleVstExtension is not available"
     fi
@@ -394,28 +394,26 @@ generate_plugin_lv2_linux() {
     fi
 
     # Get the dynamic libraries
-    if [ -d $ThisPath/$camo_name.$AppleLV2Extension ]; then
-        if [ -f $ThisPath/$camo_name.$AppleLV2Extension/$CamomileLV2.so ]; then
-            if [ -d $plugin_output_dir/$plugin_name.$AppleLV2Extension ]; then
-                rm -rf $plugin_output_dir/$plugin_name.$AppleLV2Extension
-            fi
-
-            mkdir $plugin_output_dir/$plugin_name.$AppleLV2Extension
-            cp -f $ThisPath/$camo_name.$AppleLV2Extension/$CamomileLV2.so $plugin_output_dir/$plugin_name.$AppleLV2Extension/$plugin_name.so
-            cp -rf $plugin_input_dir/* $plugin_output_dir/$plugin_name.$AppleLV2Extension
-
-            $ThisPath/lv2_file_generator $plugin_output_dir/$plugin_name.$AppleLV2Extension > /dev/null
-            mv -f $PWD/manifest.ttl $plugin_output_dir/$plugin_name.$AppleLV2Extension/manifest.ttl
-            if [ -f $PWD/presets.ttl ]; then
-                mv -f $PWD/presets.ttl $plugin_output_dir/$plugin_name.$AppleLV2Extension/presets.ttl
-            fi
-            mv -f $PWD/$plugin_name.ttl $plugin_output_dir/$plugin_name.$AppleLV2Extension/$plugin_name.ttl
-            post_log "$plugin_output_dir/$plugin_name/$plugin_name.$AppleLV2Extension"
-        else
-            post_error "$camo_name.$AppleLV2Extension/$CamomileLV2.so is not available"
+    if [ -f $ThisPath/$camo_name.$LinuxLV2Extension ]; then
+        if [ -d $plugin_output_dir/$plugin_name.lv2 ]; then
+            rm -rf $plugin_output_dir/$plugin_name.lv2
         fi
+
+        mkdir $plugin_output_dir/$plugin_name.lv2
+        mkdir $plugin_output_dir/$plugin_name.lv2/Contents
+        mkdir $plugin_output_dir/$plugin_name.lv2/Contents/Resources
+        cp -f $ThisPath/$CamomileLV2.$LinuxLV2Extension $plugin_output_dir/$plugin_name.lv2/$plugin_name.$LinuxLV2Extension
+        cp -rf $plugin_input_dir/* $plugin_output_dir/$plugin_name.lv2/Contents/Resources
+
+        $ThisPath/lv2_file_generator $plugin_output_dir/$plugin_name.lv2 > /dev/null
+        mv -f $PWD/manifest.ttl $plugin_output_dir/$plugin_name.lv2/manifest.ttl
+        if [ -f $PWD/presets.ttl ]; then
+            mv -f $PWD/presets.ttl $plugin_output_dir/$plugin_name.lv2/presets.ttl
+        fi
+        mv -f $PWD/$plugin_name.ttl $plugin_output_dir/$plugin_name.lv2/$plugin_name.ttl
+        post_log "$plugin_output_dir/$plugin_name.lv2"
     else
-        post_error "$camo_name.$AppleLV2Extension is not available"
+        post_error "$camo_name.$LinuxLV2Extension is not available"
     fi
 }
 
@@ -454,8 +452,8 @@ generate_plugin_vst_linux() {
             rm -rf $plugin_output_dir/$plugin_name
         fi
         cp -rf $plugin_input_dir $plugin_output_dir/$plugin_name
-        cp -f $ThisPath/$camo_name.$LinuxVstExtension $plugin_output_dir/$plugin_name/$plugin_name.$LinuxVstExtension
-        post_log "$plugin_output_dir/$plugin_name/$plugin_name.$LinuxVstExtension"
+        cp -f $ThisPath/$camo_name.$LinuxVstExtension $plugin_output_dir/$plugin_name.$LinuxVstExtension
+        post_log "$plugin_output_dir/$plugin_name.$LinuxVstExtension"
     else
         post_error "$camo_name.$LinuxVstExtension is not available"
     fi

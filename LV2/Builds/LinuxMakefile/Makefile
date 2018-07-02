@@ -29,7 +29,7 @@ ifeq ($(CONFIG),Debug)
   JUCE_BINDIR := build
   JUCE_LIBDIR := build
   JUCE_OBJDIR := build/intermediate/Debug
-  JUCE_OUTDIR := ../../../Plugins/Camomile.lv2
+  JUCE_OUTDIR := ../../../Plugins
 
   ifeq ($(TARGET_ARCH),)
     TARGET_ARCH := -march=native
@@ -52,7 +52,7 @@ ifeq ($(CONFIG),Release)
   JUCE_BINDIR := build
   JUCE_LIBDIR := build
   JUCE_OBJDIR := build/intermediate/Release
-  JUCE_OUTDIR := ../../../Plugins/Camomile.lv2
+  JUCE_OUTDIR := ../../../Plugins
 
   ifeq ($(TARGET_ARCH),)
     TARGET_ARCH := -march=native

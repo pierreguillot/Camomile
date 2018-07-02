@@ -75,22 +75,22 @@
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
     <TargetExt>.dll</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\..\..\Plugins\Camomile.lv2\Dynamic Library\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\..\..\Plugins\Dynamic Library\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\Dynamic Library\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CamomileLV2</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(LibraryPath);../../../Dependencies/LibPd/libs;../../../Dependencies/LibPd/build/msvc</LibraryPath>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\..\..\Plugins\Camomile.lv2\Dynamic Library\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\..\..\Plugins\Dynamic Library\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\Dynamic Library\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CamomileLV2</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(LibraryPath);../../../Dependencies/LibPd/libs;../../../Dependencies/LibPd/build/msvc</LibraryPath>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">.\..\..\..\Plugins\Camomile.lv2\Dynamic Library\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">.\..\..\..\Plugins\Dynamic Library\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">$(Platform)\$(Configuration)\Dynamic Library\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">CamomileLV2</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">true</GenerateManifest>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">$(LibraryPath);../../../Dependencies/LibPd/libs;../../../Dependencies/LibPd/build/msvc</LibraryPath>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">.\..\..\..\Plugins\Camomile.lv2\Dynamic Library\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">.\..\..\..\Plugins\Dynamic Library\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">$(Platform)\$(Configuration)\Dynamic Library\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">CamomileLV2</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">true</GenerateManifest>
