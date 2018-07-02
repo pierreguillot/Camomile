@@ -30,7 +30,7 @@ matrix:
     - make
     after_success:
     - cd $TRAVIS_BUILD_DIR
-    - ./Plugins/libCamomileLV2.so ./Plugins/CamomileLV2.so
+    - mv ./Plugins/libCamomileLV2.so ./Plugins/CamomileLV2.so
     - ./Plugins/camomile -d ./Plugins/Examples -o ./Plugins/Builds
     - curl -L https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Linux.zip -o ./pluginval.zip
     - unzip ./pluginval.zip
