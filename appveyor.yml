@@ -33,9 +33,16 @@ build_script:
     - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
     - cmake -G "%COMPILER%" -DPD_MULTI=ON -DPD_UTILS=OFF -DMSVC_STATIC_RUNTIME=ON -DMSVC_PTHREAD_LIB="pthread.lib" ../..
     - msbuild libpd.sln /t:libpdstatic /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=%PLATFORM%
-    # Compile Camomile Instrument/Effect/LV2
-    - cd %APPVEYOR_BUILD_FOLDER%
+    # Compile Camomile Instrument
+    - cd %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\
     - msbuild Camomile.sln /nologo /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
+    # Compile Camomile Effect
+    - cd %APPVEYOR_BUILD_FOLDER%\Effect\Builds\VisualStudio2015\
+    - msbuild CamomileFx.sln /nologo /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
+    # Compile Camomile LV2
+    - cd %APPVEYOR_BUILD_FOLDER%\LV2\Builds\VisualStudio2015\
+    - msbuild CamomileLV2.sln /nologo /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
+
 
 after_build:
     - cd %APPVEYOR_BUILD_FOLDER%
