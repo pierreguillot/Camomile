@@ -75,6 +75,7 @@
       <GROUP id="{F3E95E26-375E-BDC8-C48D-8BFDD754028C}" name="Ressources">
         <GROUP id="{51701B19-EB90-E2FE-2865-633F5B38F51E}" name="Credits">
           <FILE id="l7QpoP" name="CreditsAU" compile="0" resource="1" file="../Ressources/Credits/CreditsAU"/>
+          <FILE id="bci3b3" name="CreditsLV2" compile="0" resource="1" file="../Ressources/Credits/CreditsLV2"/>
           <FILE id="hV3RRd" name="CreditsVST" compile="0" resource="1" file="../Ressources/Credits/CreditsVST"/>
         </GROUP>
         <GROUP id="{A5E37C9A-A57E-C768-AB56-C20C3A142A40}" name="Fonts">

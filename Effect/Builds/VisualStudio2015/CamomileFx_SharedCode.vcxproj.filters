@@ -4505,6 +4505,9 @@
     <None Include="..\..\..\Ressources\Credits\CreditsAU">
       <Filter>CamomileFx\Source\Ressources\Credits</Filter>
     </None>
+    <None Include="..\..\..\Ressources\Credits\CreditsLV2">
+      <Filter>CamomileFx\Source\Ressources\Credits</Filter>
+    </None>
     <None Include="..\..\..\Ressources\Credits\CreditsVST">
       <Filter>CamomileFx\Source\Ressources\Credits</Filter>
     </None>

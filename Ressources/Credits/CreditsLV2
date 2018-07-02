@@ -1,0 +1,15 @@
+Camomile is a free and open-source audio plugin with Pure Data embedded that offers to load and to control patches inside a digital audio workstation.
+
+Version: 1.0.6
+Author: Pierre Guillot
+Organizations: CICM | Université Paris 8
+Website: github.com/pierreguillot/camomile
+Credits:
+• Pure Data by Miller Puckette and others
+• libpd by the Peter Brinkmann, Dan Wilcox and others
+• JUCE by ROLI Ltd.
+• VST PlugIn Technology by Steinberg Media Technologies
+• MoodyCamel by Cameron Desrochers
+• Console icons by Gregor Cresnar
+• LV2 PlugIn Technology developed by Steve Harris, David Robillard and others
+• JUCE LV2 support based on Filipe Coelho JUCE LV2 integration

@@ -11,6 +11,9 @@ namespace BinaryData
     extern const char*   CreditsAU;
     const int            CreditsAUSize = 479;
 
+    extern const char*   CreditsLV2;
+    const int            CreditsLV2Size = 682;
+
     extern const char*   CreditsVST;
     const int            CreditsVSTSize = 537;
 
@@ -36,7 +39,7 @@ namespace BinaryData
     const int            settings_pngSize = 12539;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 9;
+    const int namedResourceListSize = 10;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

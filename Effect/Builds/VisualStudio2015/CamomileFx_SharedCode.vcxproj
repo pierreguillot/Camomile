@@ -2752,6 +2752,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\Ressources\Credits\CreditsAU"/>
+    <None Include="..\..\..\Ressources\Credits\CreditsLV2"/>
     <None Include="..\..\..\Ressources\Credits\CreditsVST"/>
     <None Include="..\..\..\Ressources\Fonts\DejaVuSansMono.ttf"/>
     <None Include="..\..\..\Ressources\Images\copy.png"/>
