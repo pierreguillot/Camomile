@@ -42,7 +42,7 @@ git clone --recursive https://github.com/pierreguillot/Camomile.git
 
 Generate the libpd project using [CMake](https://cmake.org) and compile the libpd library and the plugins:
 
-- **Linux**
+- **Linux**  
 Important: JUCE requires a set of pre-installed libraries: libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libfreetype6-dev alsa libasound2-dev.
 ```
 sudo apt-get -qq update
@@ -61,19 +61,15 @@ cmake -GXcode -DPD_MULTI=ON -DPD_UTILS=OFF ../..
 cd ../../..
 xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release
 ```
-- **Windows**
+- **Windows**  
 Important: libpd requires the static [pthread](https://github.com/GerHobbelt/pthread-win32.git) library for windows with multithread static runtime library (MT).
 ```
 cd Camomile
 cd mkdir Dependencies\LibPd\build && mkdir Dependencies\LibPd\build\msvc && cd Dependencies\LibPd\build\msvc
 cmake -G "Visual Studio 14 2015 Win64" -DPD_MULTI=ON -DPD_UTILS=OFF -DMSVC_STATIC_RUNTIME=ON -DMSVC_PTHREAD_LIB="pthread.lib" ../..
 msbuild libpd.sln /t:libpdstatic /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=x64
-cd ..\..\..\Instrument\Builds\VisualStudio2015\
+cd ..\..\..
 msbuild Camomile.sln /nologo /p:Configuration=Release /p:Platform=%PLATFORM%
-cd ..\..\..\Effect\Builds\VisualStudio2015\
-msbuild CamomileFx.sln /nologo /p:Configuration=Release /p:Platform=%PLATFORM%
-cd ..\..\..\LV2\Builds\VisualStudio2015\
-msbuild CamomileLV2.sln /nologo /p:Configuration=Release /p:Platform=x64
 ```
 
 ### Organization
