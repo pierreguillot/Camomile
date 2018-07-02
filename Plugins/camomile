@@ -385,6 +385,48 @@ generate_plugin_vst_mac() {
 }
 
 ################################################################################
+#                       GENERATE LV2 PLUGIN LINUX                              #
+################################################################################
+
+generate_plugin_lv2_linux() {
+    local camo_name="Camomile"
+    local plugin_input_dir=$1
+    local plugin_output_dir=$2
+    local plugin_name=$(basename $1)
+
+    # Check if the folder exists and get the type of the plugin
+    if [ ! -d $plugin_input_dir ]; then
+        post_error "$plugin_input_dir is not a directory"
+        return
+    fi
+
+    # Get the dynamic libraries
+    if [ -d $ThisPath/$camo_name.$AppleLV2Extension ]; then
+        if [ -f $ThisPath/$camo_name.$AppleLV2Extension/$CamomileLV2.so ]; then
+            if [ -d $plugin_output_dir/$plugin_name.$AppleLV2Extension ]; then
+                rm -rf $plugin_output_dir/$plugin_name.$AppleLV2Extension
+            fi
+
+            mkdir $plugin_output_dir/$plugin_name.$AppleLV2Extension
+            cp -f $ThisPath/$camo_name.$AppleLV2Extension/$CamomileLV2.so $plugin_output_dir/$plugin_name.$AppleLV2Extension/$plugin_name.so
+            cp -rf $plugin_input_dir/* $plugin_output_dir/$plugin_name.$AppleLV2Extension
+
+            $ThisPath/lv2_file_generator $plugin_output_dir/$plugin_name.$AppleLV2Extension > /dev/null
+            mv -f $PWD/manifest.ttl $plugin_output_dir/$plugin_name.$AppleLV2Extension/manifest.ttl
+            if [ -f $PWD/presets.ttl ]; then
+                mv -f $PWD/presets.ttl $plugin_output_dir/$plugin_name.$AppleLV2Extension/presets.ttl
+            fi
+            mv -f $PWD/$plugin_name.ttl $plugin_output_dir/$plugin_name.$AppleLV2Extension/$plugin_name.ttl
+            post_log "$plugin_output_dir/$plugin_name/$plugin_name.$AppleLV2Extension"
+        else
+            post_error "$camo_name.$AppleLV2Extension/$CamomileLV2.so is not available"
+        fi
+    else
+        post_error "$camo_name.$AppleLV2Extension is not available"
+    fi
+}
+
+################################################################################
 #                       GENERATE VST PLUGIN LINUX                              #
 ################################################################################
 
@@ -438,6 +480,7 @@ generate_plugins() {
         generate_plugin_lv2_mac $subfolder $2
     elif [ $machine == "Linux" ]; then
         generate_plugin_vst_linux $subfolder $2
+        generate_plugin_lv2_linux $subfolder $2
     else
         post_error "$machine is not a supported"
     fi
