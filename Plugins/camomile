@@ -7,9 +7,9 @@ CamomileLV2="CamomileLV2"
 AppleVstExtension=vst
 AppleVst3Extension=vst3
 AppleAuExtension=component
-AppleLV2Extension=lv2
+AppleLV2Extension=dylib
 LinuxVstExtension=so
-LinuxLV2Extension=lv2
+LinuxLV2Extension=so
 
 ThisPath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -175,7 +175,7 @@ plugin_get_type() {
 ################################################################################
 
 generate_plugin_lv2_mac() {
-    local camo_name="Camomile"
+    local camo_name="CamomileLV2"
     local plugin_input_dir=$1
     local plugin_output_dir=$2
     local plugin_name=$(basename $1)
@@ -187,31 +187,24 @@ generate_plugin_lv2_mac() {
     fi
 
     # Get the dynamic libraries
-    if [ -d $ThisPath/$camo_name.$AppleLV2Extension ]; then
-        if [ -f $ThisPath/$camo_name.$AppleLV2Extension/$CamomileLV2.dylib ]; then
-            if [ -d $plugin_output_dir/$plugin_name.$AppleLV2Extension ]; then
-                rm -rf $plugin_output_dir/$plugin_name.$AppleLV2Extension
-            fi
-
-            mkdir $plugin_output_dir/$plugin_name.$AppleLV2Extension
-            mkdir $plugin_output_dir/$plugin_name.$AppleLV2Extension/Contents
-            mkdir $plugin_output_dir/$plugin_name.$AppleLV2Extension/Contents/Resources
-            cp -f $ThisPath/$camo_name.$AppleLV2Extension/$CamomileLV2.dylib $plugin_output_dir/$plugin_name.$AppleLV2Extension/$plugin_name.dylib
-            cp -rf $plugin_input_dir/* $plugin_output_dir/$plugin_name.$AppleLV2Extension/Contents/Resources
-
-            ##plugin_lv2_create_manifest_till $plugin_output_dir/$plugin_name.$AppleLV2Extension $plugin_name "dylib"
-            ##plugin_lv2_create_named_till $plugin_output_dir/$plugin_name.$AppleLV2Extension $plugin_name "dylib"
-
-            $ThisPath/lv2_file_generator $plugin_output_dir/$plugin_name.$AppleLV2Extension > /dev/null
-            mv -f $PWD/manifest.ttl $plugin_output_dir/$plugin_name.$AppleLV2Extension/manifest.ttl
-            if [ -f $PWD/presets.ttl ]; then
-                mv -f $PWD/presets.ttl $plugin_output_dir/$plugin_name.$AppleLV2Extension/presets.ttl
-            fi
-            mv -f $PWD/$plugin_name.ttl $plugin_output_dir/$plugin_name.$AppleLV2Extension/$plugin_name.ttl
-            post_log "$plugin_output_dir/$plugin_name/$plugin_name.$AppleLV2Extension"
-        else
-            post_error "$camo_name.$AppleLV2Extension/$CamomileLV2.dylib is not available"
+    if [ -f $ThisPath/$camo_name.$AppleLV2Extension ]; then
+        if [ -d $plugin_output_dir/$plugin_name.lv2 ]; then
+            rm -rf $plugin_output_dir/$plugin_name.lv2
         fi
+
+        mkdir $plugin_output_dir/$plugin_name.lv2
+        mkdir $plugin_output_dir/$plugin_name.lv2/Contents
+        mkdir $plugin_output_dir/$plugin_name.lv2/Contents/Resources
+        cp -f $ThisPath/$CamomileLV2.$AppleLV2Extension $plugin_output_dir/$plugin_name.lv2/$plugin_name.$AppleLV2Extension
+        cp -rf $plugin_input_dir/* $plugin_output_dir/$plugin_name.lv2/Contents/Resources
+
+        $ThisPath/lv2_file_generator $plugin_output_dir/$plugin_name.lv2 > /dev/null
+        mv -f $PWD/manifest.ttl $plugin_output_dir/$plugin_name.lv2/manifest.ttl
+        if [ -f $PWD/presets.ttl ]; then
+            mv -f $PWD/presets.ttl $plugin_output_dir/$plugin_name.lv2/presets.ttl
+        fi
+        mv -f $PWD/$plugin_name.ttl $plugin_output_dir/$plugin_name.lv2/$plugin_name.ttl
+        post_log "$plugin_output_dir/$plugin_name/$plugin_name.lv2"
     else
         post_error "$camo_name.$AppleLV2Extension is not available"
     fi

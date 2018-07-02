@@ -35,6 +35,7 @@ matrix:
     - unzip ./pluginval.zip
     - ./pluginval --strictnessLevel 10 --validate ./Plugins/Builds/ > /dev/null
     before_deploy:
+    - rm -r Plugins/Builds
     - rm Plugins/Camomile.a
     - rm Plugins/CamomileFx.a
     - cp README.md Plugins/README.md
