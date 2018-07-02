@@ -386,7 +386,7 @@ class JuceLV2FileCreator
         }
         
         text += "    doap:name \"" + filter->getName() + "\" ;\n";
-        text += "    doap:maintainer [ foaf:name \"" + String(JucePlugin_ManufacturerCode) + "\" ] .\n";
+        text += "    doap:maintainer [ foaf:name \"" + String(JucePlugin_Manufacturer) + "\" ] .\n";
         
         return text;
     }
