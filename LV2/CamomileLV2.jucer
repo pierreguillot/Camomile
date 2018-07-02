@@ -101,11 +101,12 @@
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" binaryPath="../Plugins/Camomile.lv2"
                        libraryPath="../../../Dependencies/LibPd/libs" enablePluginBinaryCopyStep="0"
-                       linkTimeOptimisation="0" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"/>
+                       linkTimeOptimisation="0" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"
+                       targetName="CamomileLV2"/>
         <CONFIGURATION isDebug="0" name="Release" libraryPath="../../../Dependencies/LibPd/libs"
                        binaryPath="../Plugins/Camomile.lv2" linkTimeOptimisation="1"
                        enablePluginBinaryCopyStep="0" optimisation="3" osxCompatibility="10.9 SDK"
-                       osxArchitecture="64BitUniversal"/>
+                       osxArchitecture="64BitUniversal" targetName="CamomileLV2"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_plugin_client" path="../Juce/modules"/>
@@ -127,21 +128,21 @@
                        libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
                        defines="PD_LONGINTTYPE=long\ long" winArchitecture="x64" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" debugInformationFormat="ProgramDatabase"
-                       optimisation="1" useRuntimeLibDLL="0" generateManifest="1" targetName="Camomile"/>
+                       optimisation="1" useRuntimeLibDLL="0" generateManifest="1" targetName="CamomileLV2"/>
         <CONFIGURATION isDebug="0" name="Release" binaryPath="../Plugins/Camomile.lv2"
                        libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
                        defines="PD_LONGINTTYPE=long\ long" linkTimeOptimisation="1"
                        enablePluginBinaryCopyStep="0" winArchitecture="x64" optimisation="3"
-                       useRuntimeLibDLL="0" generateManifest="1" targetName="Camomile"/>
+                       useRuntimeLibDLL="0" generateManifest="1" targetName="CamomileLV2"/>
         <CONFIGURATION isDebug="1" name="Debug32" binaryPath="../Plugins/Camomile.lv2"
                        libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
                        winArchitecture="Win32" enablePluginBinaryCopyStep="0" linkTimeOptimisation="0"
                        debugInformationFormat="ProgramDatabase" optimisation="1" useRuntimeLibDLL="0"
-                       generateManifest="1" targetName="Camomile"/>
+                       generateManifest="1" targetName="CamomileLV2"/>
         <CONFIGURATION isDebug="0" name="Release32" binaryPath="../Plugins/Camomile.lv2"
                        libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
                        linkTimeOptimisation="1" enablePluginBinaryCopyStep="0" winArchitecture="Win32"
-                       optimisation="3" useRuntimeLibDLL="0" generateManifest="1" targetName="Camomile"/>
+                       optimisation="3" useRuntimeLibDLL="0" generateManifest="1" targetName="CamomileLV2"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_plugin_client" path="../Juce/modules"/>
@@ -160,11 +161,11 @@
                 externalLibraries="pd-multi">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" binaryPath="../Plugins/Camomile.lv2"
-                       libraryPath="../../../Dependencies/LibPd/libs" targetName="Camomile"
+                       libraryPath="../../../Dependencies/LibPd/libs" targetName="CamomileLV2"
                        linkTimeOptimisation="0"/>
         <CONFIGURATION isDebug="0" name="Release" libraryPath="../../../Dependencies/LibPd/libs"
-                       binaryPath="../Plugins/Camomile.lv2" targetName="Camomile" optimisation="3"
-                       linkTimeOptimisation="0"/>
+                       binaryPath="../Plugins/Camomile.lv2" targetName="CamomileLV2"
+                       optimisation="3" linkTimeOptimisation="0"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_plugin_client" path="../Juce/modules"/>

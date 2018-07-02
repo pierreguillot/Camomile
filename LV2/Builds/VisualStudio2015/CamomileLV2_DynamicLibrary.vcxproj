@@ -77,22 +77,22 @@
     <TargetExt>.dll</TargetExt>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\..\..\Plugins\Camomile.lv2\Dynamic Library\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\Dynamic Library\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Camomile</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CamomileLV2</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(LibraryPath);../../../Dependencies/LibPd/libs;../../../Dependencies/LibPd/build/msvc</LibraryPath>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\..\..\Plugins\Camomile.lv2\Dynamic Library\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\Dynamic Library\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Camomile</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CamomileLV2</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(LibraryPath);../../../Dependencies/LibPd/libs;../../../Dependencies/LibPd/build/msvc</LibraryPath>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">.\..\..\..\Plugins\Camomile.lv2\Dynamic Library\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">$(Platform)\$(Configuration)\Dynamic Library\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">Camomile</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">CamomileLV2</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">true</GenerateManifest>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug32|Win32'">$(LibraryPath);../../../Dependencies/LibPd/libs;../../../Dependencies/LibPd/build/msvc</LibraryPath>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">.\..\..\..\Plugins\Camomile.lv2\Dynamic Library\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">$(Platform)\$(Configuration)\Dynamic Library\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">Camomile</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">CamomileLV2</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">true</GenerateManifest>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release32|Win32'">$(LibraryPath);../../../Dependencies/LibPd/libs;../../../Dependencies/LibPd/build/msvc</LibraryPath>
     <PlatformToolset>v140</PlatformToolset>
@@ -127,11 +127,11 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <OutputFile>$(OutDir)\Camomile.dll</OutputFile>
+      <OutputFile>$(OutDir)\CamomileLV2.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreSpecificDefaultLibraries>libcmt.lib; msvcrt.lib;;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(IntDir)\Camomile.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(IntDir)\CamomileLV2.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>../../../Dependencies/LibPd/libs;../../../Dependencies/LibPd/build/msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LargeAddressAware>true</LargeAddressAware>
@@ -139,7 +139,7 @@
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>$(IntDir)\Camomile.bsc</OutputFile>
+      <OutputFile>$(IntDir)\CamomileLV2.bsc</OutputFile>
     </Bscmake>
     <Lib>
       <AdditionalDependencies>libpd-multi-static.lib;pthread.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -174,11 +174,11 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <OutputFile>$(OutDir)\Camomile.dll</OutputFile>
+      <OutputFile>$(OutDir)\CamomileLV2.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(IntDir)\Camomile.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(IntDir)\CamomileLV2.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -188,7 +188,7 @@
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>$(IntDir)\Camomile.bsc</OutputFile>
+      <OutputFile>$(IntDir)\CamomileLV2.bsc</OutputFile>
     </Bscmake>
     <Lib>
       <AdditionalDependencies>libpd-multi-static.lib;pthread.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -224,11 +224,11 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <OutputFile>$(OutDir)\Camomile.dll</OutputFile>
+      <OutputFile>$(OutDir)\CamomileLV2.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreSpecificDefaultLibraries>libcmt.lib; msvcrt.lib;;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(IntDir)\Camomile.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(IntDir)\CamomileLV2.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>../../../Dependencies/LibPd/libs;../../../Dependencies/LibPd/build/msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -237,7 +237,7 @@
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>$(IntDir)\Camomile.bsc</OutputFile>
+      <OutputFile>$(IntDir)\CamomileLV2.bsc</OutputFile>
     </Bscmake>
     <Lib>
       <AdditionalDependencies>libpd-multi-static.lib;pthread.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -272,11 +272,11 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <OutputFile>$(OutDir)\Camomile.dll</OutputFile>
+      <OutputFile>$(OutDir)\CamomileLV2.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(IntDir)\Camomile.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(IntDir)\CamomileLV2.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <OptimizeReferences>true</OptimizeReferences>
@@ -287,7 +287,7 @@
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>$(IntDir)\Camomile.bsc</OutputFile>
+      <OutputFile>$(IntDir)\CamomileLV2.bsc</OutputFile>
     </Bscmake>
     <Lib>
       <AdditionalDependencies>libpd-multi-static.lib;pthread.lib;%(AdditionalDependencies)</AdditionalDependencies>
