@@ -36,11 +36,10 @@ static const unsigned char temp_binary_data_1[] =
 "\xe2\x80\xa2 Pure Data by Miller Puckette and others\n"
 "\xe2\x80\xa2 libpd by the Peter Brinkmann, Dan Wilcox and others\n"
 "\xe2\x80\xa2 JUCE by ROLI Ltd.\n"
-"\xe2\x80\xa2 VST PlugIn Technology by Steinberg Media Technologies\n"
-"\xe2\x80\xa2 MoodyCamel by Cameron Desrochers\n"
-"\xe2\x80\xa2 Console icons by Gregor Cresnar\n"
 "\xe2\x80\xa2 LV2 PlugIn Technology developed by Steve Harris, David Robillard and others\n"
-"\xe2\x80\xa2 JUCE LV2 support based on Filipe Coelho JUCE LV2 integration\n";
+"\xe2\x80\xa2 JUCE LV2 support based on Filipe Coelho JUCE LV2 integration\n"
+"\xe2\x80\xa2 MoodyCamel by Cameron Desrochers\n"
+"\xe2\x80\xa2 Console icons by Gregor Cresnar\n";
 
 const char* CreditsLV2 = (const char*) temp_binary_data_1;
 
@@ -4871,7 +4870,7 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
     switch (hash)
     {
         case 0x9fa71e2e:  numBytes = 479; return CreditsAU;
-        case 0x553cd12e:  numBytes = 682; return CreditsLV2;
+        case 0x553cd12e:  numBytes = 624; return CreditsLV2;
         case 0x553cf67d:  numBytes = 537; return CreditsVST;
         case 0xcacab454:  numBytes = 340712; return DejaVuSansMono_ttf;
         case 0xe1dcce5f:  numBytes = 4098; return copy_png;

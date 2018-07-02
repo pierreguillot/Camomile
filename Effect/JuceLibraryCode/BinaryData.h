@@ -12,7 +12,7 @@ namespace BinaryData
     const int            CreditsAUSize = 479;
 
     extern const char*   CreditsLV2;
-    const int            CreditsLV2Size = 682;
+    const int            CreditsLV2Size = 624;
 
     extern const char*   CreditsVST;
     const int            CreditsVSTSize = 537;
