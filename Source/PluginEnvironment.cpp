@@ -100,9 +100,20 @@ bool CamomileEnvironment::localize()
 {
 #ifdef JUCE_MAC
     File plugin(File::getSpecialLocation(File::currentApplicationFile));
+    if(plugin.exists() && plugin.hasFileExtension("dylib"))
+    {
+        
+        plugin_name = plugin.getFileNameWithoutExtension().toStdString();
+        plugin_path = plugin.getParentDirectory().getFullPathName().toStdString();
+        patch_name = plugin_name + std::string(".pd");
+        patch_path = plugin_path + std::string("/Contents/Resources");
+        return true;
+    }
+    
     if(plugin.exists() && (plugin.hasFileExtension("component") ||
                            plugin.hasFileExtension("vst") ||
-                           plugin.hasFileExtension("vst3")))
+                           plugin.hasFileExtension("vst3") ||
+                           plugin.hasFileExtension("dylib") ))
     {
         
         plugin_name = plugin.getFileNameWithoutExtension().toStdString();
@@ -119,7 +130,8 @@ bool CamomileEnvironment::localize()
         plugin = File::getSpecialLocation(File::currentExecutableFile);
         if(plugin.exists() && (plugin.hasFileExtension("component") ||
                                plugin.hasFileExtension("vst") ||
-                               plugin.hasFileExtension("vst3")))
+                               plugin.hasFileExtension("vst3")  ||
+                               plugin.hasFileExtension("dylib") ))
         {
             errors.clear();
             plugin_name = plugin.getFileNameWithoutExtension().toStdString();

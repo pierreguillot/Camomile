@@ -29,8 +29,11 @@ m_programs(CamomileEnvironment::getPrograms())
 {
     add(ConsoleLevel::Normal, std::string("Camomile ") + std::string(JucePlugin_VersionString)
         + std::string(" for Pd ") + CamomileEnvironment::getPdVersion());
-    for(auto const& error : CamomileEnvironment::getErrors()) {
-        add(ConsoleLevel::Error, std::string("camomile ") + error); }
+    for(auto const& error : CamomileEnvironment::getErrors())
+    {
+        add(ConsoleLevel::Error, std::string("camomile ") + error);
+        std::cout << "error : " << error << "\n";
+    }
     logBusesLayoutsInformation();
     if(CamomileEnvironment::isValid())
     {

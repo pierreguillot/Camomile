@@ -28,6 +28,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E8CDB3EF7A152A673172E1AB"
+               BuildableName = "CamomileLV2.dylib"
+               BlueprintName = "CamomileLV2 - Dynamic Library"
+               ReferencedContainer = "container:../../../LV2/Builds/MacOSX/CamomileLV2.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "FF882317069013018CDCC4B9"
                BuildableName = "Camomile - All"
                BlueprintName = "Camomile - All"
@@ -46,20 +60,6 @@
                BuildableName = "CamomileFx - All"
                BlueprintName = "CamomileFx - All"
                ReferencedContainer = "container:../../../Effect/Builds/MacOSX/CamomileFx.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E8CDB3EF7A152A673172E1AB"
-               BuildableName = "CamomileLV2.dylib"
-               BlueprintName = "CamomileLV2 - Dynamic Library"
-               ReferencedContainer = "container:../../../LV2/Builds/MacOSX/CamomileLV2.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

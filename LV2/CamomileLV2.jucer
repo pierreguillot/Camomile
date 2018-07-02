@@ -4,13 +4,11 @@
               version="1.0.6" companyName="Pierre Guillot" companyCopyright="Pierre Guillot"
               companyWebsite="github.com/pierreguillot/camomile" splashScreenColour="Dark"
               bundleIdentifier="com.pierreguillot.camomile" cppLanguageStandard="11"
-              defines="PD_INTERNAL=1&#10;JucePlugin_IsSynth=0&#10;JucePlugin_ProducesMidiOutput=1&#10;JucePlugin_WantsMidiInput=1&#10;JucePlugin_EditorRequiresKeyboardFocus=1&#10;JucePlugin_ManufacturerCode=0x50494755&#10;JucePlugin_Build_LV2=1&#10;JucePlugin_Build_VST=0&#10;JucePlugin_Build_VST3=0&#10;JucePlugin_Build_AU=0&#10;JucePlugin_Build_AUv3=0&#10;JucePlugin_Build_RTAS=0&#10;JucePlugin_Build_AAX=0&#10;JucePlugin_Build_Standalone=0&#10;JucePlugin_Enable_IAA=0"
+              defines="PD_INTERNAL=1&#10;JucePlugin_IsSynth=0&#10;JucePlugin_ProducesMidiOutput=1&#10;JucePlugin_WantsMidiInput=1&#10;JucePlugin_EditorRequiresKeyboardFocus=1&#10;JucePlugin_ManufacturerCode=0x50494755&#10;JucePlugin_Build_LV2_FileCreator=1&#10;JucePlugin_Build_LV2=1&#10;JucePlugin_Build_VST=0&#10;JucePlugin_Build_VST3=0&#10;JucePlugin_Build_AU=0&#10;JucePlugin_Build_AUv3=0&#10;JucePlugin_Build_RTAS=0&#10;JucePlugin_Build_AAX=0&#10;JucePlugin_Build_Standalone=0&#10;JucePlugin_Enable_IAA=0"
               headerPath="../../../Dependencies/LibPd/pure-data/src&#10;../../../Dependencies/LibPd/libpd_wrapper&#10;../../../Dependencies/LibPd/libpd_wrapper/util&#10;../../../Dependencies/LibPd/cpp&#10;../../../Juce"
               includeBinaryInJuceHeader="1">
   <MAINGROUP id="BLNPyv" name="CamomileLV2">
     <GROUP id="{D4367A82-F269-8F5A-1C22-AB42C90672ED}" name="Source">
-      <FILE id="cVA6aF" name="juce_LV2_Wrapper.cpp" compile="1" resource="0"
-            file="../Dependencies/JuceLV2/modules/juce_audio_plugin_client/LV2/juce_LV2_Wrapper.cpp"/>
       <FILE id="dsxHyi" name="PluginProcessor.cpp" compile="1" resource="0"
             file="../Source/PluginProcessor.cpp"/>
       <FILE id="fS41zm" name="PluginProcessorBuses.cpp" compile="1" resource="0"
@@ -119,6 +117,7 @@
         <MODULEPATH id="juce_audio_basics" path="../Juce/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../Juce/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client_LV2" path="../Dependencies"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2015 targetFolder="Builds/VisualStudio2015" extraCompilerFlags="/wd4091 &#10;/wd4996&#10;/wd4100&#10;/wd4706&#10;/wd4210&#10;/wd4711&#10;/wd4127"
@@ -150,6 +149,7 @@
         <MODULEPATH id="juce_audio_basics" path="../Juce/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../Juce/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client_LV2" path="../Dependencies"/>
       </MODULEPATHS>
     </VS2015>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraDefs="HAVE_UNISTD_H=1"
@@ -171,12 +171,15 @@
         <MODULEPATH id="juce_audio_basics" path="../Juce/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../Juce/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client_LV2" path="../Dependencies"/>
       </MODULEPATHS>
     </LINUX_MAKE>
   </EXPORTFORMATS>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="0"/>
+    <MODULE id="juce_audio_plugin_client_LV2" showAllCode="1" useLocalCopy="0"
             useGlobalPath="0"/>
     <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
