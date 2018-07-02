@@ -21,11 +21,15 @@ matrix:
     - sudo apt-get -qq update
     - sudo apt-get install -y libwebkit2gtk-4.0-37 libwebkit2gtk-4.0-dev libstdc++6
     script:
+    - cd $TRAVIS_BUILD_DIR
     - mkdir Dependencies/LibPd/build && mkdir Dependencies/LibPd/build/makefile/ && cd Dependencies/LibPd/build/makefile
     - cmake -DCMAKE_BUILD_TYPE=Release -DPD_MULTI=ON -DPD_UTILS=OFF ../..
     - cd $TRAVIS_BUILD_DIR
     - make
+    - cd $TRAVIS_BUILD_DIR/LV2/lv2_file_generator
+    - make
     after_success:
+    - cd $TRAVIS_BUILD_DIR
     - ./Plugins/camomile -d ./Plugins/Examples -o ./Plugins/Builds
     - curl -L https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Linux.zip -o ./pluginval.zip
     - unzip ./pluginval.zip
@@ -42,11 +46,15 @@ matrix:
     compiler: clang++
     env: release=CamomileMacOS
     script:
+    - cd $TRAVIS_BUILD_DIR
     - mkdir Dependencies/LibPd/build && mkdir Dependencies/LibPd/build/xcode/ && cd Dependencies/LibPd/build/xcode
     - cmake -GXcode -DPD_MULTI=ON -DPD_UTILS=OFF ../..
     - cd $TRAVIS_BUILD_DIR
     - xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release | egrep '^(/.+:[0-9+:[0-9]+:.(error|warning):|fatal|===)' -
+    - cd $TRAVIS_BUILD_DIR/LV2/lv2_file_generator
+    - make
     after_success:
+    - cd $TRAVIS_BUILD_DIR
     - ./Plugins/camomile -d ./Plugins/Examples -o ./Plugins/Builds
     - curl -L https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_macOS.zip -o ./pluginval.zip
     - tar zxvf ./pluginval.zip
