@@ -23,10 +23,8 @@ matrix:
     script:
     - mkdir Dependencies/LibPd/build && mkdir Dependencies/LibPd/build/makefile/ && cd Dependencies/LibPd/build/makefile
     - cmake -DCMAKE_BUILD_TYPE=Release -DPD_MULTI=ON -DPD_UTILS=OFF ../..
-    - cd ../../../..
-    - make -C Dependencies/LibPd/build/makefile libpdstatic
-    - make -C Instrument/Builds/LinuxMakefile TARGET_ARCH=-m64 CONFIG=Release
-    - make -C Effect/Builds/LinuxMakefile TARGET_ARCH=-m64 CONFIG=Release
+    - cd $TRAVIS_BUILD_DIR
+    - make
     after_success:
     - ./Plugins/camomile -d ./Plugins/Examples -o ./Plugins/Builds
     - curl -L https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Linux.zip -o ./pluginval.zip
@@ -35,7 +33,6 @@ matrix:
     before_deploy:
     - rm Plugins/Camomile.a
     - rm Plugins/CamomileFx.a
-    - rm Plugins/camomile
     - cp README.md Plugins/README.md
     - cp ChangeLog.md Plugins/ChangeLog.md
     - cp LICENSE Plugins/LICENSE.txt
@@ -47,7 +44,7 @@ matrix:
     script:
     - mkdir Dependencies/LibPd/build && mkdir Dependencies/LibPd/build/xcode/ && cd Dependencies/LibPd/build/xcode
     - cmake -GXcode -DPD_MULTI=ON -DPD_UTILS=OFF ../..
-    - cd ../../../..
+    - cd $TRAVIS_BUILD_DIR
     - xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release | egrep '^(/.+:[0-9+:[0-9]+:.(error|warning):|fatal|===)' -
     after_success:
     - ./Plugins/camomile -d ./Plugins/Examples -o ./Plugins/Builds
@@ -57,7 +54,6 @@ matrix:
     before_deploy:
     - rm Plugins/libCamomile.a
     - rm Plugins/libCamomileFx.a
-    - rm Plugins/camomile
     - cp README.md Plugins/README.md
     - cp ChangeLog.md Plugins/ChangeLog.md
     - cp LICENSE Plugins/LICENSE.txt
