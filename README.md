@@ -37,9 +37,7 @@ Camomile is a plugin with Pure Data embedded that offers to load and to control 
 Download Camomile and its dependencies using git:
 
 ```
-git clone https://github.com/pierreguillot/Camomile.git
-cd Kiwi
-git submodule update --init --recursive
+git clone --recursive https://github.com/pierreguillot/Camomile.git
 ```
 
 Generate the libpd project using [CMake](https://cmake.org) and compile the libpd library and the plugins:
