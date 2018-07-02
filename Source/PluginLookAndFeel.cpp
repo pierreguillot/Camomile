@@ -79,7 +79,7 @@ void CamoLookAndFeel::drawLabel (Graphics& g, Label& label)
 
 Font CamoLookAndFeel::getDefaultFont()
 {
-    static Font DejaVu = Font(Typeface::createSystemTypefaceFor(BinaryData::DejaVuSansMono_ttf, BinaryData::DejaVuSansMono_ttfSize)).withPointHeight(12.f);
+    static Font DejaVu = Font(Typeface::createSystemTypefaceFor(BinaryData::DejaVuSansMono_ttf, BinaryData::DejaVuSansMono_ttfSize)).withPointHeight(10.f);
     DejaVu.setHorizontalScale(1.f);
     DejaVu.setDefaultMinimumHorizontalScaleFactor(1.f);
     return DejaVu;
