@@ -1,4 +1,6 @@
 v1.0.6
+- Add LV2 format support (#70)
+- Add camomile plugin generation script for Apple and Linux
 - Fix MIDI channels correlation between Pd (0-15) and Juce (1-16)
 - Fix buses with no-channels (for Debug mode only)
 - Improve console for concurrent access
