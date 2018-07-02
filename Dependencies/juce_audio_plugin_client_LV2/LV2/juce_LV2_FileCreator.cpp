@@ -267,9 +267,6 @@ class JuceLV2FileCreator
         text += "    lv2:port [\n";
         text += "        a lv2:InputPort, atom:AtomPort ;\n";
         text += "        atom:bufferType atom:Sequence ;\n";
-#if JucePlugin_WantsMidiInput
-        text += "        atom:supports <" LV2_MIDI__MidiEvent "> ;\n";
-#endif
         text += "        atom:supports <" LV2_TIME__Position "> ;\n";
         text += "        lv2:index " + String(portIndex++) + " ;\n";
         text += "        lv2:symbol \"lv2_events_in\" ;\n";
@@ -280,8 +277,8 @@ class JuceLV2FileCreator
 #endif
         text += "    ] ;\n";
         text += "\n";
+
         
-#if JucePlugin_ProducesMidiOutput
         // MIDI output
         text += "    lv2:port [\n";
         text += "        a lv2:OutputPort, atom:AtomPort ;\n";
@@ -292,7 +289,6 @@ class JuceLV2FileCreator
         text += "        lv2:name \"MIDI Output\" ;\n";
         text += "    ] ;\n";
         text += "\n";
-#endif
         
         // Freewheel port
         text += "    lv2:port [\n";
