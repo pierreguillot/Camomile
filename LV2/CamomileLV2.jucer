@@ -99,10 +99,9 @@
                keepCustomXcodeSchemes="1" extraFrameworks="Accelerate.framework , AudioToolbox.framework , AudioUnit.framework , Carbon.framework , Cocoa.framework , CoreAudio.framework , CoreAudioKit.framework , CoreMIDI.framework , DiscRecording.framework , IOKit.framework , QuartzCore.framework , WebKit.framework ">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" binaryPath="../Plugins/Camomile.lv2"
-                       libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Plugins"
-                       enablePluginBinaryCopyStep="0" linkTimeOptimisation="0" osxCompatibility="10.9 SDK"
-                       osxArchitecture="64BitUniversal"/>
-        <CONFIGURATION isDebug="0" name="Release" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Plugins"
+                       libraryPath="../../../Dependencies/LibPd/libs" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="0" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"/>
+        <CONFIGURATION isDebug="0" name="Release" libraryPath="../../../Dependencies/LibPd/libs"
                        binaryPath="../Plugins/Camomile.lv2" linkTimeOptimisation="1"
                        enablePluginBinaryCopyStep="0" optimisation="3" osxCompatibility="10.9 SDK"
                        osxArchitecture="64BitUniversal"/>
@@ -121,21 +120,25 @@
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2015 targetFolder="Builds/VisualStudio2015" extraCompilerFlags="/wd4091 &#10;/wd4996&#10;/wd4100&#10;/wd4706&#10;/wd4210&#10;/wd4711&#10;/wd4127"
-            extraDefs="PTW32_STATIC_LIB=1" externalLibraries="libpd-multi-static.lib&#10;pthread.lib &#10;libCamomileFx.lib">
+            extraDefs="PTW32_STATIC_LIB=1" externalLibraries="libpd-multi-static.lib&#10;pthread.lib ">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc&#10;../../../Plugins"
+        <CONFIGURATION isDebug="1" name="Debug" binaryPath="../Plugins/Camomile.lv2"
+                       libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
                        defines="PD_LONGINTTYPE=long\ long" winArchitecture="x64" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" debugInformationFormat="ProgramDatabase"
                        optimisation="1" useRuntimeLibDLL="0" generateManifest="1" targetName="Camomile"/>
-        <CONFIGURATION isDebug="0" name="Release" binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc&#10;../../../Plugins"
+        <CONFIGURATION isDebug="0" name="Release" binaryPath="../Plugins/Camomile.lv2"
+                       libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
                        defines="PD_LONGINTTYPE=long\ long" linkTimeOptimisation="1"
                        enablePluginBinaryCopyStep="0" winArchitecture="x64" optimisation="3"
                        useRuntimeLibDLL="0" generateManifest="1" targetName="Camomile"/>
-        <CONFIGURATION isDebug="1" name="Debug32" binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc&#10;../../../Plugins"
+        <CONFIGURATION isDebug="1" name="Debug32" binaryPath="../Plugins/Camomile.lv2"
+                       libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
                        winArchitecture="Win32" enablePluginBinaryCopyStep="0" linkTimeOptimisation="0"
                        debugInformationFormat="ProgramDatabase" optimisation="1" useRuntimeLibDLL="0"
                        generateManifest="1" targetName="Camomile"/>
-        <CONFIGURATION isDebug="0" name="Release32" binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc&#10;../../../Plugins"
+        <CONFIGURATION isDebug="0" name="Release32" binaryPath="../Plugins/Camomile.lv2"
+                       libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
                        linkTimeOptimisation="1" enablePluginBinaryCopyStep="0" winArchitecture="Win32"
                        optimisation="3" useRuntimeLibDLL="0" generateManifest="1" targetName="Camomile"/>
       </CONFIGURATIONS>
@@ -153,12 +156,13 @@
       </MODULEPATHS>
     </VS2015>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraDefs="HAVE_UNISTD_H=1"
-                externalLibraries="pd-multi&#10;Camomilefx">
+                externalLibraries="pd-multi">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Plugins"
-                       targetName="Camomile" linkTimeOptimisation="0"/>
-        <CONFIGURATION isDebug="0" name="Release" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Plugins"
-                       binaryPath="../Plugins" targetName="Camomile" optimisation="3"
+        <CONFIGURATION isDebug="1" name="Debug" binaryPath="../Plugins/Camomile.lv2"
+                       libraryPath="../../../Dependencies/LibPd/libs" targetName="Camomile"
+                       linkTimeOptimisation="0"/>
+        <CONFIGURATION isDebug="0" name="Release" libraryPath="../../../Dependencies/LibPd/libs"
+                       binaryPath="../Plugins/Camomile.lv2" targetName="Camomile" optimisation="3"
                        linkTimeOptimisation="0"/>
       </CONFIGURATIONS>
       <MODULEPATHS>

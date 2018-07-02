@@ -29,7 +29,7 @@ ifeq ($(CONFIG),Debug)
   JUCE_BINDIR := build
   JUCE_LIBDIR := build
   JUCE_OBJDIR := build/intermediate/Debug
-  JUCE_OUTDIR := ../../../Plugins
+  JUCE_OUTDIR := ../../../Plugins/Camomile.lv2
 
   ifeq ($(TARGET_ARCH),)
     TARGET_ARCH := -march=native
@@ -43,7 +43,7 @@ ifeq ($(CONFIG),Debug)
 
   JUCE_CFLAGS += $(JUCE_CPPFLAGS) $(TARGET_ARCH) -fPIC -g -ggdb -O0 $(CFLAGS)
   JUCE_CXXFLAGS += $(JUCE_CFLAGS) -std=c++11 $(CXXFLAGS)
-  JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -L../../../Dependencies/LibPd/libs -L../../../Plugins $(shell pkg-config --libs freetype2 x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -ldl -lpthread -lrt -lpd-multi -lCamomilefx $(LDFLAGS)
+  JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -L../../../Dependencies/LibPd/libs $(shell pkg-config --libs freetype2 x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -ldl -lpthread -lrt -lpd-multi $(LDFLAGS)
 
   CLEANCMD = rm -rf $(JUCE_OUTDIR)/$(TARGET) $(JUCE_OBJDIR)
 endif
@@ -52,7 +52,7 @@ ifeq ($(CONFIG),Release)
   JUCE_BINDIR := build
   JUCE_LIBDIR := build
   JUCE_OBJDIR := build/intermediate/Release
-  JUCE_OUTDIR := ../../../Plugins
+  JUCE_OUTDIR := ../../../Plugins/Camomile.lv2
 
   ifeq ($(TARGET_ARCH),)
     TARGET_ARCH := -march=native
@@ -66,7 +66,7 @@ ifeq ($(CONFIG),Release)
 
   JUCE_CFLAGS += $(JUCE_CPPFLAGS) $(TARGET_ARCH) -fPIC -O3 $(CFLAGS)
   JUCE_CXXFLAGS += $(JUCE_CFLAGS) -std=c++11 $(CXXFLAGS)
-  JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -L../../../Dependencies/LibPd/libs -L../../../Plugins $(shell pkg-config --libs freetype2 x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -fvisibility=hidden -ldl -lpthread -lrt -lpd-multi -lCamomilefx $(LDFLAGS)
+  JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -L../../../Dependencies/LibPd/libs $(shell pkg-config --libs freetype2 x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0) -fvisibility=hidden -ldl -lpthread -lrt -lpd-multi $(LDFLAGS)
 
   CLEANCMD = rm -rf $(JUCE_OUTDIR)/$(TARGET) $(JUCE_OBJDIR)
 endif
