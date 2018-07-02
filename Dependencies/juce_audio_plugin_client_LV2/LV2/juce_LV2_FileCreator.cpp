@@ -8,6 +8,17 @@
 
 #if JucePlugin_Build_LV2_FileCreator
 
+/** Plugin requires processing with a fixed/constant block size */
+#ifndef JucePlugin_WantsLV2FixedBlockSize
+#define JucePlugin_WantsLV2FixedBlockSize 0
+#endif
+
+/** Export presets */
+#ifndef JucePlugin_WantsLV2Presets
+#define JucePlugin_WantsLV2Presets 1
+#endif
+
+
 //==============================================================================
 /**
  
@@ -252,7 +263,6 @@ class JuceLV2FileCreator
         
         uint32 portIndex = 0;
         
-#if (JucePlugin_WantsMidiInput || JucePlugin_WantsLV2TimePos)
         // MIDI input
         text += "    lv2:port [\n";
         text += "        a lv2:InputPort, atom:AtomPort ;\n";
@@ -260,9 +270,7 @@ class JuceLV2FileCreator
 #if JucePlugin_WantsMidiInput
         text += "        atom:supports <" LV2_MIDI__MidiEvent "> ;\n";
 #endif
-#if JucePlugin_WantsLV2TimePos
         text += "        atom:supports <" LV2_TIME__Position "> ;\n";
-#endif
         text += "        lv2:index " + String(portIndex++) + " ;\n";
         text += "        lv2:symbol \"lv2_events_in\" ;\n";
         text += "        lv2:name \"Events Input\" ;\n";
@@ -272,7 +280,6 @@ class JuceLV2FileCreator
 #endif
         text += "    ] ;\n";
         text += "\n";
-#endif
         
 #if JucePlugin_ProducesMidiOutput
         // MIDI output
@@ -301,7 +308,6 @@ class JuceLV2FileCreator
         text += "    ] ;\n";
         text += "\n";
         
-#if JucePlugin_WantsLV2Latency
         // Latency port
         text += "    lv2:port [\n";
         text += "        a lv2:OutputPort, lv2:ControlPort ;\n";
@@ -312,7 +318,6 @@ class JuceLV2FileCreator
         text += "        lv2:portProperty lv2:reportsLatency, lv2:integer ;\n";
         text += "    ] ;\n";
         text += "\n";
-#endif
         
         // Audio inputs
         for (int i=0; i < maxNumInputChannels; ++i)
