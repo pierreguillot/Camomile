@@ -7,6 +7,3 @@ url=https://github.com/WeAreROLI/JUCE.git
 [submodule "Dependencies/LibPd"]
 	path = Dependencies/LibPd
 	url = https://pierreguillot@github.com/pierreguillot/libpd.git
-[submodule "Dependencies/JuceLV2"]
-	path = Dependencies/JuceLV2
-	url = https://github.com/pierreguillot/JUCE-LV2.git
