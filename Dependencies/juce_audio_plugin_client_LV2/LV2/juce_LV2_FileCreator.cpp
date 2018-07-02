@@ -8,6 +8,8 @@
 
 #if JucePlugin_Build_LV2_FileCreator
 
+#include <cctype>
+
 /** Plugin requires processing with a fixed/constant block size */
 #ifndef JucePlugin_WantsLV2FixedBlockSize
 #define JucePlugin_WantsLV2FixedBlockSize 0
