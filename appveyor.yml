@@ -43,7 +43,6 @@ build_script:
     - cd %APPVEYOR_BUILD_FOLDER%\LV2\Builds\VisualStudio2015\
     - msbuild CamomileLV2.sln /nologo /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
 
-
 after_build:
     - cd %APPVEYOR_BUILD_FOLDER%
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST\Camomile.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.dll
