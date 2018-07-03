@@ -48,6 +48,8 @@ int main(int argc, const char * argv[]) {
    //If unable to call the DLL function, use an alternative.
    if(!runTimeLinkSuccess)
       printf("message via alternative method\n");
+
+   return 0
 }
 
 
@@ -90,7 +92,7 @@ int main(int argc, const char * argv[]) {
     }
     else
     {
-  
+
     }
     return 0;
 }
