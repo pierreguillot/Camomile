@@ -11,27 +11,35 @@
 #include <libgen.h>
 #include <string.h>
 
+#define MAX_STRING_LENGTH 1000
+#ifdef __APPLE__
+#define LIB_EXT "dylib"
+#else
+#define LIB_EXT "so"
+#endif
 typedef void *(t_generate_file)(const char*);
 
 int main(int argc, const char * argv[]) {
     
-    char path[1000];
-    char fullpath[1000];
     char* name;
-    char realname[1000];
+    char path[MAX_STRING_LENGTH];
+    char fullpath[MAX_STRING_LENGTH];
+    char realname[MAX_STRING_LENGTH];
     size_t namesize;
     if(argc < 2)
     {
         printf("Please provide the path to the LV2 plugin folder\n");
         return 1;
     }
-    snprintf(path, 1000, "%s", argv[1]);
+    
+    snprintf(path, MAX_STRING_LENGTH, "%s", argv[1]);
     name = basename(path);
     if(!name)
     {
         printf("Please provide the path to the LV2 plugin folder\n");
         return 1;
     }
+    
     namesize = strnlen(name, 1000);
     if(namesize < 4)
     {
@@ -39,8 +47,8 @@ int main(int argc, const char * argv[]) {
         return 1;
     }
     memcpy(realname, name, namesize-4);
-    printf("looking for %s in %s\n", realname, path);
-    snprintf(fullpath, 1000, "%s/%s.dylib", argv[1], realname);
+    snprintf(fullpath, 1000, "%s/%s.%s", argv[1], realname, LIB_EXT);
+    printf("looking for %s\n", fullpath);
     void* handle = dlopen(fullpath, RTLD_LAZY);
     if(handle)
     {
