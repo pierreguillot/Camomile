@@ -1,0 +1,5 @@
+iolayout 2 2;
+code Caf1;
+type effect;
+compatibility 1.0.6;
+autoreload true;
