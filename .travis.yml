@@ -62,6 +62,7 @@ matrix:
     - tar zxvf ./pluginval.zip
     - ./pluginval.app/Contents/MacOS/pluginval --strictnessLevel 10 --validate ./Plugins/Builds/ > /dev/null
     before_deploy:
+    - rm -r Plugins/Builds
     - rm Plugins/libCamomile.a
     - rm Plugins/libCamomileFx.a
     - cp README.md Plugins/README.md
