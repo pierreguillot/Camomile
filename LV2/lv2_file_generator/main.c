@@ -94,10 +94,6 @@ int main(int argc, const char * argv[]) {
     else
     {
         printf("can't open %s\n", argv[1]);
-        if((error = dlerror()) != NULL)
-        {
-            printf("error: %s", error);
-        }
     }
     return 0;
 }
