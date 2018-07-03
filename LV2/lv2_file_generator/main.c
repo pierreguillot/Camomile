@@ -74,7 +74,7 @@ int main(int argc, const char * argv[]) {
         printf("Please provide the path to the LV2 plugin and the name of the plugin\n");
         return 1;
     }
-    printf("looking for %s in %s\n", argv[2], argv[1]);
+    printf("generating ttl %s in %s\n", argv[2], argv[1]);
     void* handle = dlopen(argv[1], RTLD_LAZY);
     if(handle)
     {
@@ -86,13 +86,18 @@ int main(int argc, const char * argv[]) {
         }
         else if((error = dlerror()) != NULL)
         {
+            printf("can't load methods lv2_generate_ttl\n", argv[1]);
             printf("error: %s", error);
         }
         dlclose(handle);
     }
     else
     {
-
+        printf("can't open %s\n", argv[1]);
+        if((error = dlerror()) != NULL)
+        {
+            printf("error: %s", error);
+        }
     }
     return 0;
 }
