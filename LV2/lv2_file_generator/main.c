@@ -17,7 +17,6 @@
 typedef void *(t_generate_file)(const char*);
 
 int main(int argc, const char * argv[]) {
-{
    BOOL freeResult, runTimeLinkSuccess = FALSE;
    HINSTANCE dllHandle = NULL;
    t_generate_file *method = NULL;
