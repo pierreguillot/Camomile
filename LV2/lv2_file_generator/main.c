@@ -20,7 +20,7 @@ int main(int argc, const char * argv[]) {
 {
    BOOL freeResult, runTimeLinkSuccess = FALSE;
    HINSTANCE dllHandle = NULL;
-   t_generate_file method = NULL;
+   t_generate_file *method = NULL;
    if(argc < 3)
    {
        printf("Please provide the path to the LV2 plugin and the name of the plugin\n");
@@ -33,12 +33,12 @@ int main(int argc, const char * argv[]) {
    if (NULL != dllHandle)
    {
       //Get pointer to our function using GetProcAddress:
-      method = (t_generate_file)GetProcAddress(dllHandle, "lv2_generate_ttl");
+      method = (t_generate_file *)GetProcAddress(dllHandle, "lv2_generate_ttl");
 
       // If the function address is valid, call the function.
       if (runTimeLinkSuccess = (NULL != method))
       {
-         method(argv[2]);
+         (*method)(argv[2]);
       }
 
       //Free the library:
