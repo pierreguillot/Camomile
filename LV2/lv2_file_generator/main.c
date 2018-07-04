@@ -85,7 +85,7 @@ int main(int argc, const char * argv[]) {
         }
         else if((error = dlerror()) != NULL)
         {
-            printf("can't load methods lv2_generate_ttl\n", argv[1]);
+            printf("can't load methods lv2_generate_ttl\n");
             printf("error: %s", error);
         }
         dlclose(handle);
