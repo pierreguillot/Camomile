@@ -43,7 +43,7 @@ build_script:
     - cd %APPVEYOR_BUILD_FOLDER%\LV2\Builds\VisualStudio2015\
     - msbuild CamomileLV2.sln /nologo /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
     # Compile LV2 file Generator
-    - cd %APPVEYOR_BUILD_FOLDER%\LV2\lv2lv2_file_generator
+    - cd %APPVEYOR_BUILD_FOLDER%\LV2\lv2_file_generator
     - cl /EHsc main.c
 
 after_build:
