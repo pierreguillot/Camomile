@@ -49,7 +49,7 @@ int main(int argc, const char * argv[]) {
    if(!runTimeLinkSuccess)
       printf("message via alternative method\n");
 
-   return 0
+   return 0;
 }
 
 
