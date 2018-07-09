@@ -784,10 +784,11 @@ void GuiGraphOnParent::resized()
 {
     m_labels.clear();
     m_objects.clear();
+    const auto bounds = getLocalBounds().expanded(1);
     for(auto& g : gui.getPatch().getGuis())
     {
         PluginEditorObject* obj = PluginEditorObject::createTyped(patch, g);
-        if(obj && getLocalBounds().contains(obj->getBounds().reduced(1)))
+        if(obj && bounds.contains(obj->getBounds()))
         {
             Component* label = obj->getLabel();
             addAndMakeVisible(m_objects.add(obj));
