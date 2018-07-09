@@ -26,7 +26,6 @@ AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), m_processor (p),
                         " is invalid or doesn't exist.");
     }
     updatePatch();
-    updateObjects();
     addAndMakeVisible(m_button);
     startTimer(25);
 }
