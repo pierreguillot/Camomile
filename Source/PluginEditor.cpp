@@ -61,14 +61,17 @@ void CamomileEditor::updateObjects()
     for(auto& gui : m_processor.getPatch().getGuis())
     {
         PluginEditorObject* obj = PluginEditorObject::createTyped(*this, gui);
-        obj->setTopLeftPosition(obj->getX() - pbounds[0], obj->getY() - pbounds[1]);
-        if(obj && bounds.contains(obj->getBounds()))
+        if(obj)
         {
-            Component* label = obj->getLabel();
-            addAndMakeVisible(m_objects.add(obj));
-            if(label)
+            obj->setTopLeftPosition(obj->getX() - pbounds[0], obj->getY() - pbounds[1]);
+            if(bounds.contains(obj->getBounds()))
             {
-                addAndMakeVisible(m_labels.add(label));
+                Component* label = obj->getLabel();
+                addAndMakeVisible(m_objects.add(obj));
+                if(label)
+                {
+                    addAndMakeVisible(m_labels.add(label));
+                }
             }
         }
     }
