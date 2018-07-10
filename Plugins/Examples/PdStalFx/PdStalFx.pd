@@ -2,10 +2,11 @@
 #X obj 125 7 bng 15 250 50 0 \$0-load empty empty 17 7 0 10 -262144
 -1 -1;
 #N canvas 0 23 450 300 \$0-internal 0;
-#X obj 0 0 ;
-#X coords 0 -1 1 1 301 201 2 0 0;
+#X obj 0 0 /Users/pierre/Documents/Projects/Camomile/Plugins/Examples/Bulgroz/Bulgroz
+;
+#X coords 0 -1 1 1 460 160 2 0 0;
 #X restore 2 28 pd \$0-internal;
-#N canvas 0 23 599 669 update.gui 0;
+#N canvas 0 23 599 669 update.gui 1;
 #X obj 44 185 text define \$0-patch;
 #X obj 17 206 text size \$0-patch;
 #X obj 17 143 t b a;
@@ -39,7 +40,6 @@
 #X obj 71 485 send pd-\$0-internal;
 #X obj 44 509 unpack f f;
 #X obj 44 551 pack f f, f 10;
-#X obj 44 593 send pd-CamomileFx.pd;
 #X obj 17 421 t b l;
 #X obj 101 530 + 26;
 #X msg 71 463 donecanvasdialog 1 -1 2 0 -1 1 1 \$1 \$2 0 0;
@@ -49,6 +49,7 @@
 #X obj 17 15 inlet;
 #X msg 17 616 gui resize;
 #X msg 44 572 donecanvasdialog 1 -1 2 0 -1 1 1 \$1 \$2 2 2;
+#X obj 44 593 send pd-PdStalFx.pd;
 #X connect 1 0 4 0;
 #X connect 2 0 1 0;
 #X connect 2 1 3 0;
@@ -62,7 +63,7 @@
 #X connect 9 0 11 0;
 #X connect 10 0 2 0;
 #X connect 10 1 18 0;
-#X connect 12 0 34 0;
+#X connect 12 0 33 0;
 #X connect 13 0 15 0;
 #X connect 13 1 5 0;
 #X connect 14 0 15 1;
@@ -78,24 +79,24 @@
 #X connect 22 0 23 0;
 #X connect 23 0 19 0;
 #X connect 23 1 20 0;
-#X connect 24 0 37 0;
+#X connect 24 0 36 0;
 #X connect 25 0 16 0;
 #X connect 25 1 26 0;
 #X connect 26 0 28 0;
 #X connect 29 0 31 0;
-#X connect 29 1 36 0;
-#X connect 31 0 38 0;
-#X connect 31 1 35 0;
-#X connect 32 0 42 0;
-#X connect 34 0 41 0;
-#X connect 34 1 29 0;
-#X connect 35 0 32 1;
-#X connect 36 0 30 0;
-#X connect 37 0 27 0;
-#X connect 38 0 32 0;
-#X connect 40 0 25 0;
-#X connect 41 0 39 0;
-#X connect 42 0 33 0;
+#X connect 29 1 35 0;
+#X connect 31 0 37 0;
+#X connect 31 1 34 0;
+#X connect 32 0 41 0;
+#X connect 33 0 40 0;
+#X connect 33 1 29 0;
+#X connect 34 0 32 1;
+#X connect 35 0 30 0;
+#X connect 36 0 27 0;
+#X connect 37 0 32 0;
+#X connect 39 0 25 0;
+#X connect 40 0 38 0;
+#X connect 41 0 42 0;
 #X restore 479 171 pd update.gui;
 #N canvas 563 302 279 318 save.program 0;
 #X obj 34 24 r save;
