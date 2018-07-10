@@ -56,10 +56,12 @@ void CamomileEditor::updateObjects()
 {
     m_labels.clear();
     m_objects.clear();
+    auto const pbounds = m_processor.getPatch().getBounds();
     const auto bounds = getLocalBounds().expanded(2).translated(1, 1);
     for(auto& gui : m_processor.getPatch().getGuis())
     {
         PluginEditorObject* obj = PluginEditorObject::createTyped(*this, gui);
+        obj->setTopLeftPosition(obj->getX() - pbounds[0], obj->getY() - pbounds[1]);
         if(obj && bounds.contains(obj->getBounds()))
         {
             Component* label = obj->getLabel();
