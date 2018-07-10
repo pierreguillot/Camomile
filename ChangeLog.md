@@ -13,6 +13,7 @@ v1.0.6
 - Fix invisible comments in subpatches and abstractions (#120)
 - Improve Font size rendering
 - Add Fuzzy tests using pluginval
+- Fix main patch margins
 
 v1.0.5
 - Fix warnings when audio buses are not well configured
