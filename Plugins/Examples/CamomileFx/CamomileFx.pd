@@ -1,11 +1,11 @@
 #N canvas 507 65 718 307 10;
-#X obj 34 7 bng 15 250 50 0 \$0-load empty empty 17 7 0 10 -262144
+#X obj 125 7 bng 15 250 50 0 \$0-load empty empty 17 7 0 10 -262144
 -1 -1;
 #N canvas 0 23 450 300 \$0-internal 0;
 #X obj 0 0 ;
 #X coords 0 -1 1 1 301 201 2 0 0;
 #X restore 2 28 pd \$0-internal;
-#N canvas 0 23 375 675 update.gui 0;
+#N canvas 0 23 599 669 update.gui 0;
 #X obj 44 185 text define \$0-patch;
 #X obj 17 206 text size \$0-patch;
 #X obj 17 143 t b a;
@@ -157,12 +157,12 @@
 #X restore 452 57 pd load.patch;
 #X obj 479 130 t s s;
 #X obj 479 107 symbol;
-#X obj 82 7 bng 15 250 50 0 \$0-reload empty empty 17 7 0 10 -262144
+#X obj 171 7 bng 15 250 50 0 \$0-reload empty empty 17 7 0 10 -262144
 -1 -1;
-#X text 98 7 Reload;
-#X text 50 7 Load;
+#X text 188 7 Reload;
+#X text 141 7 Load;
 #X obj 452 78 t b a;
-#X symbolatom 146 7 14 0 0 0 - - -, f 14;
+#X symbolatom 34 7 14 0 0 0 - - -, f 14;
 #X connect 4 0 5 0;
 #X connect 6 0 9 0;
 #X connect 7 0 13 0;
