@@ -9,6 +9,7 @@ git:
 
 matrix:
   include:
+    
   - os: linux
     compiler: gcc
     env: release=CamomileLinux64
@@ -21,6 +22,7 @@ matrix:
     - sudo apt-get -qq update
     - sudo apt-get install -y libwebkit2gtk-4.0-37 libwebkit2gtk-4.0-dev libstdc++6
     script:
+    - cd $TRAVIS_BUILD_DIR
     - cd Dependencies/libpd.build/LinuxMakefile
     - cmake .. -DCMAKE_BUILD_TYPE=Release
     - cd ../../..
@@ -41,10 +43,12 @@ matrix:
     - cp LICENSE Plugins/LICENSE.txt
     - mv Plugins Camomile
     - zip -r $release.zip Camomile
+
   - os: osx
     compiler: clang++
     env: release=CamomileMacOS
     script:
+    - cd $TRAVIS_BUILD_DIR
     - cd Dependencies/libpd.build/MacOSX
     - cmake .. -GXcode
     - cd ../../..
