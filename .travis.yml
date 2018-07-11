@@ -43,7 +43,9 @@ matrix:
     compiler: clang++
     env: release=CamomileMacOS
     script:
-    - cd Dependencies/libpd.build/MacOSX && cmake .. -GXcode && cd ../../..
+    - cd Dependencies/libpd.build/MacOSX
+    - cmake .. -GXcode
+    - cd ../../..
     - xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release | egrep '^(/.+:[0-9+:[0-9]+:.(error|warning):|fatal|===)' -
     - make -C LV2/lv2_file_generator
     after_success:
