@@ -99,10 +99,10 @@
     <XCODE_MAC targetFolder="Builds/MacOSX" extraDefs="HAVE_UNISTD_H=1" externalLibraries="pd-multi"
                keepCustomXcodeSchemes="1" extraFrameworks="Accelerate.framework , AudioToolbox.framework , AudioUnit.framework , Carbon.framework , Cocoa.framework , CoreAudio.framework , CoreAudioKit.framework , CoreMIDI.framework , DiscRecording.framework , IOKit.framework , QuartzCore.framework , WebKit.framework ">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs"
+        <CONFIGURATION isDebug="1" name="Debug" binaryPath="../Plugins" libraryPath="../../../Dependencies/libpd.build"
                        enablePluginBinaryCopyStep="0" linkTimeOptimisation="0" osxCompatibility="10.9 SDK"
                        osxArchitecture="64BitUniversal" targetName="CamomileLV2"/>
-        <CONFIGURATION isDebug="0" name="Release" libraryPath="../../../Dependencies/LibPd/libs"
+        <CONFIGURATION isDebug="0" name="Release" libraryPath="../../../Dependencies/libpd.build"
                        binaryPath="../Plugins" linkTimeOptimisation="1" enablePluginBinaryCopyStep="0"
                        optimisation="3" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"
                        targetName="CamomileLV2"/>

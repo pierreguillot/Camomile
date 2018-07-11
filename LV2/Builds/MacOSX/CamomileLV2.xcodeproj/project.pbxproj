@@ -309,7 +309,7 @@
 					"JUCE_APP_VERSION_HEX=0x10006", );
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ("../../JuceLibraryCode", "../../../Juce/modules", "../../../Dependencies", "../../../Dependencies/LibPd/pure-data/src", "../../../Dependencies/LibPd/libpd_wrapper", "../../../Dependencies/LibPd/libpd_wrapper/util", "../../../Dependencies/LibPd/cpp", "../../../Juce", "../../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
-				LIBRARY_SEARCH_PATHS = ("$(inherited)", "\"../../../Dependencies/LibPd/libs\"");
+				LIBRARY_SEARCH_PATHS = ("$(inherited)", "\"../../../Dependencies/libpd.build\"");
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
 				OTHER_LDFLAGS = "-lpd-multi";
@@ -353,7 +353,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ("../../JuceLibraryCode", "../../../Juce/modules", "../../../Dependencies", "../../../Dependencies/LibPd/pure-data/src", "../../../Dependencies/LibPd/libpd_wrapper", "../../../Dependencies/LibPd/libpd_wrapper/util", "../../../Dependencies/LibPd/cpp", "../../../Juce", "../../../Juce/modules/juce_audio_plugin_client", "$(inherited)");
-				LIBRARY_SEARCH_PATHS = ("$(inherited)", "\"../../../Dependencies/LibPd/libs\"");
+				LIBRARY_SEARCH_PATHS = ("$(inherited)", "\"../../../Dependencies/libpd.build\"");
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;

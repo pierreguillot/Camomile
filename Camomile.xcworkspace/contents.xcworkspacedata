@@ -11,6 +11,6 @@
       location = "group:LV2/Builds/MacOSX/CamomileLV2.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Dependencies/LibPd/build/xcode/libpd.xcodeproj">
+      location = "group:Dependencies/libpd.build/MacOSX/libpd.xcodeproj">
    </FileRef>
 </Workspace>

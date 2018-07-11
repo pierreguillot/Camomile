@@ -50,6 +50,10 @@
 /LV2/Builds/LinuxMakefile/build/
 /.backup/
 
+# libpd
+!/Dependencies/libpd.build/MacOSX/.infos.txt
+/Dependencies/libpd.build/MacOSX*
+
 #Examples
 /Plugins/Examples/*
 !/Plugins/Examples/AlmondOrgan/

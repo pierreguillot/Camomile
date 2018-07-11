@@ -109,12 +109,12 @@
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" enablePluginBinaryCopyStep="0" isDebug="1" optimisation="1"
                        linkTimeOptimisation="0" targetName="Camomile" osxCompatibility="10.9 SDK"
-                       osxArchitecture="64BitUniversal" libraryPath="../../../Dependencies/LibPd/libs"
+                       osxArchitecture="64BitUniversal" libraryPath="../../../Dependencies/libpd.build"
                        headerPath="" binaryPath="../Plugins" auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/"
                        vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VST3/" vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"/>
         <CONFIGURATION name="Release" enablePluginBinaryCopyStep="0" isDebug="0" optimisation="3"
                        linkTimeOptimisation="1" targetName="Camomile" osxCompatibility="10.9 SDK"
-                       osxArchitecture="64BitUniversal" libraryPath="../../../Dependencies/LibPd/libs"
+                       osxArchitecture="64BitUniversal" libraryPath="../../../Dependencies/libpd.build"
                        headerPath="" binaryPath="../Plugins" auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/"
                        vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VS3/" vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"/>
       </CONFIGURATIONS>
