@@ -23,7 +23,7 @@ matrix:
     script:
     - mkdir Dependencies/LibPd/build && mkdir Dependencies/LibPd/build/makefile/ && cd Dependencies/LibPd/build/makefile
     - cmake -DCMAKE_BUILD_TYPE=Release -DPD_MULTI=ON -DPD_UTILS=OFF ../..
-    - cd ../../..
+    - cd ../../../..
     - make
     - make -C LV2/lv2_file_generator
     after_success:
