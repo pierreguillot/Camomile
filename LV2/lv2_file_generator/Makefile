@@ -1,7 +1,7 @@
 UNAME = $(shell uname)
 
 ifeq ($(UNAME), Linux)  # Linux
-	LDFLAGS = -ldl -Wl,-rpath='${ORIGIN}'
+	LDFLAGS = -ldl -Wl,-rpath='$ORIGIN'
 endif
 
 ifeq ($(UNAME), Darwin)  # Mac
