@@ -155,9 +155,9 @@
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraDefs="HAVE_UNISTD_H=1"
                 externalLibraries="pd-multi">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs"
+        <CONFIGURATION isDebug="1" name="Debug" binaryPath="../Plugins" libraryPath="../../../Dependencies/libpd.build"
                        targetName="CamomileLV2" linkTimeOptimisation="0"/>
-        <CONFIGURATION isDebug="0" name="Release" libraryPath="../../../Dependencies/LibPd/libs"
+        <CONFIGURATION isDebug="0" name="Release" libraryPath="../../../Dependencies/libpd.build"
                        binaryPath="../Plugins" targetName="CamomileLV2" optimisation="3"
                        linkTimeOptimisation="0"/>
       </CONFIGURATIONS>

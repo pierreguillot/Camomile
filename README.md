@@ -45,8 +45,8 @@ Generate the libpd project using [CMake](https://cmake.org) and compile the libp
 - **Linux**  
 ```
 cd Camomile
-mkdir Dependencies/LibPd/build && mkdir Dependencies/LibPd/build/makefile/ && cd Dependencies/LibPd/build/makefile
-cmake -DCMAKE_BUILD_TYPE=Release -DPD_MULTI=ON -DPD_UTILS=OFF ../..
+cd Dependencies/libpd.build/LinuxMakefile
+cmake .. -DCMAKE_BUILD_TYPE=Release -DPD_MULTI=ON -DPD_UTILS=OFF -DLIBPD_INCLUDE_DYNAMIC_LIBRARY=OFF -DLIBPD_PATH=./../LibPd -DLIBPD_OUTPUT_DIRECTORY=./..
 cd ../../..
 make
 ```
@@ -58,8 +58,8 @@ sudo apt-get install -y libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev 
 - **Mac**
 ```
 cd Camomile
-mkdir Dependencies/LibPd/build && mkdir Dependencies/LibPd/build/xcode/ && cd Dependencies/LibPd/build/xcode
-cmake -GXcode -DPD_MULTI=ON -DPD_UTILS=OFF ../..
+cd Dependencies/libpd.build/MacOSX
+cmake .. -GXcode -DPD_MULTI=ON -DPD_UTILS=OFF -DLIBPD_INCLUDE_DYNAMIC_LIBRARY=OFF -DLIBPD_PATH=./../LibPd -DLIBPD_OUTPUT_DIRECTORY=./..
 cd ../../..
 xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release
 ```

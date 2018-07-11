@@ -178,10 +178,10 @@
                 extraDefs="HAVE_UNISTD_H=1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" linkTimeOptimisation="0"
-                       targetName="CamomileFx" libraryPath="../../../Dependencies/LibPd/libs"
+                       targetName="CamomileFx" libraryPath="../../../Dependencies/libpd.build"
                        binaryPath="../Plugins"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" linkTimeOptimisation="0"
-                       targetName="CamomileFx" libraryPath="../../../Dependencies/LibPd/libs"
+                       targetName="CamomileFx" libraryPath="../../../Dependencies/libpd.build"
                        binaryPath="../Plugins"/>
       </CONFIGURATIONS>
       <MODULEPATHS>

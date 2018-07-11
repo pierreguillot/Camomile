@@ -178,10 +178,10 @@
                 extraCompilerFlags="-fPIC">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" linkTimeOptimisation="0"
-                       targetName="Camomile" libraryPath="../../../Dependencies/LibPd/libs"
+                       targetName="Camomile" libraryPath="../../../Dependencies/libpd.build"
                        binaryPath="../Plugins"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="Camomile"
-                       libraryPath="../../../Dependencies/LibPd/libs" binaryPath="../Plugins"
+                       libraryPath="../../../Dependencies/libpd.build" binaryPath="../Plugins"
                        linkTimeOptimisation="0"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
