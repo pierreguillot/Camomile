@@ -45,9 +45,7 @@ Generate the libpd project using [CMake](https://cmake.org) and compile the libp
 - **Linux**  
 ```
 cd Camomile
-cd Dependencies/libpd.build/LinuxMakefile
-cmake .. -DCMAKE_BUILD_TYPE=Release -DPD_MULTI=ON -DPD_UTILS=OFF -DLIBPD_INCLUDE_DYNAMIC_LIBRARY=OFF -DLIBPD_PATH=./../LibPd -DLIBPD_OUTPUT_DIRECTORY=./..
-cd ../../..
+cd Dependencies/libpd.build/LinuxMakefile && cmake .. -DCMAKE_BUILD_TYPE=Release && cd ../../..
 make
 ```
 Important: JUCE requires a set of pre-installed libraries: libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libfreetype6-dev alsa libasound2-dev. Before building Camomile you can run to install everything:
@@ -58,9 +56,7 @@ sudo apt-get install -y libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev 
 - **Mac**
 ```
 cd Camomile
-cd Dependencies/libpd.build/MacOSX
-cmake .. -GXcode -DPD_MULTI=ON -DPD_UTILS=OFF -DLIBPD_INCLUDE_DYNAMIC_LIBRARY=OFF -DLIBPD_PATH=./../LibPd -DLIBPD_OUTPUT_DIRECTORY=./..
-cd ../../..
+cd Dependencies/libpd.build/MacOSX && cmake .. -GXcode && cd ../../..
 xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release
 ```
 - **Windows**  
