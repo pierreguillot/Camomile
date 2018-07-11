@@ -364,12 +364,12 @@ CamomileEnvironment::CamomileEnvironment()
                             std::string const type = CamomileParser::getString(entry.second);
                             if(type == "instrument")
                             {
-                                if(!JucePlugin_IsSynth)
+                                if(!JucePlugin_Build_LV2 && !JucePlugin_IsSynth)
                                     throw std::string("wrong: effect binary expected.");
                             }
                             else if(type == "effect")
                             {
-                                if(JucePlugin_IsSynth)
+                                if(!JucePlugin_Build_LV2 && JucePlugin_IsSynth)
                                     throw std::string("wrong: instrument binary expected.");
                             }
                             else
