@@ -67,7 +67,7 @@ cd mkdir Dependencies\LibPd\build && mkdir Dependencies\LibPd\build\msvc && cd D
 cmake -G "Visual Studio 14 2015 Win64" -DPD_MULTI=ON -DPD_UTILS=OFF -DMSVC_STATIC_RUNTIME=ON -DMSVC_PTHREAD_LIB="pthread.lib" ../..
 msbuild libpd.sln /t:libpdstatic /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=x64
 cd ..\..\..
-msbuild Camomile.sln /nologo /p:Configuration=Release /p:Platform=%PLATFORM%
+msbuild Camomile.sln /nologo /p:Configuration=Release /p:Platform=x64
 ```
 
 ### Organization
