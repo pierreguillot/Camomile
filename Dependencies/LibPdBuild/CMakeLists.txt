@@ -29,7 +29,7 @@ if(NOT DEFINED LIBPD_PATH)
 endif()
 
 if(MSVC)
-    option(MSVC_STATIC_RUNTIME "Set the runtime library of MSVC" OFF)
+    option(MSVC_STATIC_RUNTIME "Set the runtime library of MSVC" ON)
     option(MSVC_PTHREAD_LIB "Set the Pthread library to link" "pthread.lib")
 endif()
 

@@ -109,12 +109,12 @@
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" enablePluginBinaryCopyStep="0" isDebug="1" optimisation="1"
                        linkTimeOptimisation="0" targetName="Camomile" osxCompatibility="10.9 SDK"
-                       osxArchitecture="64BitUniversal" libraryPath="../../../Dependencies/libpd.build"
+                       osxArchitecture="64BitUniversal" libraryPath="../../../Dependencies/LibPdBuild"
                        headerPath="" binaryPath="../Plugins" auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/"
                        vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VST3/" vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"/>
         <CONFIGURATION name="Release" enablePluginBinaryCopyStep="0" isDebug="0" optimisation="3"
                        linkTimeOptimisation="1" targetName="Camomile" osxCompatibility="10.9 SDK"
-                       osxArchitecture="64BitUniversal" libraryPath="../../../Dependencies/libpd.build"
+                       osxArchitecture="64BitUniversal" libraryPath="../../../Dependencies/LibPdBuild"
                        headerPath="" binaryPath="../Plugins" auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/"
                        vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VS3/" vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"/>
       </CONFIGURATIONS>
@@ -141,22 +141,22 @@
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="Camomile"
-                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
+                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPdBuild"
                        useRuntimeLibDLL="0" defines="PD_LONGINTTYPE=long\ long"/>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="Camomile"
-                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
+                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPdBuild"
                        useRuntimeLibDLL="0" defines="PD_LONGINTTYPE=long\ long"/>
         <CONFIGURATION name="Debug32" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="Camomile"
-                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
+                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPdBuild"
                        useRuntimeLibDLL="0"/>
         <CONFIGURATION name="Release32" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="Camomile"
-                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPd/libs&#10;../../../Dependencies/LibPd/build/msvc"
+                       binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPdBuild"
                        useRuntimeLibDLL="0"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
@@ -178,10 +178,10 @@
                 extraCompilerFlags="-fPIC">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" linkTimeOptimisation="0"
-                       targetName="Camomile" libraryPath="../../../Dependencies/libpd.build"
+                       targetName="Camomile" libraryPath="../../../Dependencies/LibPdBuild"
                        binaryPath="../Plugins"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="Camomile"
-                       libraryPath="../../../Dependencies/libpd.build" binaryPath="../Plugins"
+                       libraryPath="../../../Dependencies/LibPdBuild" binaryPath="../Plugins"
                        linkTimeOptimisation="0"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
