@@ -1,3 +1,4 @@
+UNAME = $(shell uname)
 
 ifeq ($(UNAME), Linux)  # Linux
 	LDFLAGS = -ldl -Wl,-rpath='${ORIGIN}'
