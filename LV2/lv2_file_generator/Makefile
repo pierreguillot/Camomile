@@ -15,7 +15,7 @@ lv2_file_generator: main.o
 	gcc -o ../../Plugins/lv2_file_generator main.o ${LDFLAGS}
 
 main.o: main.c
-	gcc -o main.o -c main.c
+	gcc -o main.o -c main.c $(CFLAGS)
 
 clean:
 	rm -rf *.o
