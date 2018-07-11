@@ -22,8 +22,8 @@ matrix:
     - sudo apt-get install -y libwebkit2gtk-4.0-37 libwebkit2gtk-4.0-dev libstdc++6
     script:
     - mkdir Dependencies/LibPd/build && mkdir Dependencies/LibPd/build/makefile/ && cd Dependencies/LibPd/build/makefile
-  	- cmake -DCMAKE_BUILD_TYPE=Release -DPD_MULTI=ON -DPD_UTILS=OFF ../..
-  	- cd ../../..
+    - cmake -DCMAKE_BUILD_TYPE=Release -DPD_MULTI=ON -DPD_UTILS=OFF ../..
+    - cd ../../..
     - make
     - make -C LV2/lv2_file_generator
     after_success:
@@ -45,10 +45,9 @@ matrix:
     compiler: clang++
     env: release=CamomileMacOS
     script:
-    - cd $TRAVIS_BUILD_DIR
     - mkdir Dependencies/LibPd/build && mkdir Dependencies/LibPd/build/xcode/ && cd Dependencies/LibPd/build/xcode
     - cmake -GXcode -DPD_MULTI=ON -DPD_UTILS=OFF ../..
-    - cd $TRAVIS_BUILD_DIR
+    - cd ../../..
     - xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release | egrep '^(/.+:[0-9+:[0-9]+:.(error|warning):|fatal|===)' -
     - make -C LV2/lv2_file_generator
     after_success:
