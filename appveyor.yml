@@ -29,7 +29,7 @@ build_script:
     - copy semaphore.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\semaphore.h
     - copy lib\pthread_lib.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPdBuild\VisualStudio2015\pthread.lib
     # Compile libpd
-    - cd APPVEYOR_BUILD_FOLDER%\Dependencies\LibPdBuild\VisualStudio2015
+    - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPdBuild\VisualStudio2015
     - cmake -G "%COMPILER%" ..
     - msbuild libpd.sln /t:libpdstatic /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=%PLATFORM%
     - copy lib\pthread_lib.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPdBuild\pthread.lib
