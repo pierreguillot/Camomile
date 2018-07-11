@@ -32,6 +32,7 @@ build_script:
     - cd APPVEYOR_BUILD_FOLDER%\Dependencies\LibPdBuild\VisualStudio2015
     - cmake -G "%COMPILER%" ..
     - msbuild libpd.sln /t:libpdstatic /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=%PLATFORM%
+    - copy lib\pthread_lib.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPdBuild\pthread.lib
     # Compile Camomile Instrument
     - cd %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\
     - msbuild Camomile.sln /nologo /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
