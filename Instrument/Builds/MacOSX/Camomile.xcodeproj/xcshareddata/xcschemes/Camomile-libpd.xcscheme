@@ -62,6 +62,20 @@
                ReferencedContainer = "container:../../../Effect/Builds/MacOSX/CamomileFx.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8F2F89E220F61BE800313F4C"
+               BuildableName = "lv2_file_generator"
+               BlueprintName = "lv2_file_generator"
+               ReferencedContainer = "container:../../../LV2/lv2_file_generator/lv2_file_generator.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

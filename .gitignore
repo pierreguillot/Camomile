@@ -57,4 +57,4 @@
 !/Plugins/Examples/Castafiore/
 !/Plugins/Examples/MiniMock/
 !/Plugins/Examples/PdStalFx/
-lv2_file_generator
+/Plugins/lv2_file_generator

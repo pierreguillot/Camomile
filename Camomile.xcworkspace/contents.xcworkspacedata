@@ -13,4 +13,7 @@
    <FileRef
       location = "group:Dependencies/LibPd/build/xcode/libpd.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:LV2/lv2_file_generator/lv2_file_generator.xcodeproj">
+   </FileRef>
 </Workspace>

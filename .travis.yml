@@ -26,8 +26,6 @@ matrix:
     - cmake -DCMAKE_BUILD_TYPE=Release -DPD_MULTI=ON -DPD_UTILS=OFF ../..
     - cd $TRAVIS_BUILD_DIR
     - make
-    - cd $TRAVIS_BUILD_DIR/LV2/lv2_file_generator
-    - make
     after_success:
     - cd $TRAVIS_BUILD_DIR
     - ./Plugins/camomile -d ./Plugins/Examples -o ./Plugins/Builds
@@ -52,8 +50,6 @@ matrix:
     - cmake -GXcode -DPD_MULTI=ON -DPD_UTILS=OFF ../..
     - cd $TRAVIS_BUILD_DIR
     - xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release | egrep '^(/.+:[0-9+:[0-9]+:.(error|warning):|fatal|===)' -
-    - cd $TRAVIS_BUILD_DIR/LV2/lv2_file_generator
-    - make
     after_success:
     - cd $TRAVIS_BUILD_DIR
     - ./Plugins/camomile -d ./Plugins/Examples -o ./Plugins/Builds
