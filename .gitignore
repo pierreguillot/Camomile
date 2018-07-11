@@ -51,12 +51,12 @@
 /.backup/
 
 # libpd
+/Dependencies/LibPdBuild/MacOSX/
 !/Dependencies/LibPdBuild/MacOSX/.infos.txt
-/Dependencies/LibPdBuild/MacOSX*
+/Dependencies/LibPdBuild/LinuxMakefile/
 !/Dependencies/LibPdBuild/LinuxMakefile/.infos.txt
-/Dependencies/LibPdBuild/LinuxMakefile*
+/Dependencies/LibPdBuild/VisualStudio2015/
 !/Dependencies/LibPdBuild/VisualStudio2015/.infos.txt
-/Dependencies/LibPdBuild/VisualStudio2015*
 
 #Examples
 /Plugins/Examples/*
