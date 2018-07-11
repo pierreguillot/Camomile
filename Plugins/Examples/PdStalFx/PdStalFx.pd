@@ -1,7 +1,5 @@
 #N canvas 685 83 718 307 10;
 #N canvas 0 23 450 300 \$0-internal 0;
-#X obj 0 0 /Users/pierre/Documents/Projects/Camomile/Plugins/Examples/Bulgroz/Bulgroz
-;
 #X coords 0 -1 1 1 460 160 2 0 0;
 #X restore 2 28 pd \$0-internal;
 #X obj 2 2 cnv 25 460 26 empty \$0-header empty 20 12 0 14 -228856
