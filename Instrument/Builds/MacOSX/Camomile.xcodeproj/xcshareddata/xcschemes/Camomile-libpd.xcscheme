@@ -23,24 +23,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "46FA47C0D4EA4C61AEA90BE8"
+               BlueprintIdentifier = "AA9276E83F054B87954C0417"
                BuildableName = "libpd-multi.a"
                BlueprintName = "libpdstatic"
-               ReferencedContainer = "container:../../../Dependencies/LibPd/build/xcode/libpd.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E8CDB3EF7A152A673172E1AB"
-               BuildableName = "CamomileLV2.dylib"
-               BlueprintName = "CamomileLV2 - Dynamic Library"
-               ReferencedContainer = "container:../../../LV2/Builds/MacOSX/CamomileLV2.xcodeproj">
+               ReferencedContainer = "container:../../../Dependencies/libpd.build/MacOSX/libpd.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -69,6 +55,20 @@
                BuildableName = "CamomileFx - All"
                BlueprintName = "CamomileFx - All"
                ReferencedContainer = "container:../../../Effect/Builds/MacOSX/CamomileFx.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E8CDB3EF7A152A673172E1AB"
+               BuildableName = "CamomileLV2.dylib"
+               BlueprintName = "CamomileLV2 - Dynamic Library"
+               ReferencedContainer = "container:../../../LV2/Builds/MacOSX/CamomileLV2.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
