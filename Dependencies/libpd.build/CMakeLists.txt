@@ -12,15 +12,17 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET 10.7)
 set(CMAKE_MACOSX_RPATH ON)
 set(CMAKE_OSX_ARCHITECTURES "i386;x86_64")
 
+set(LIBPD_PATH "${PROJECT_SOURCE_DIR}/../LibPd")
+set(LIBPD_OUTPUT_DIRECTORY "./..")
 #------------------------------------------------------------------------------#
 # OPTIONS
 #------------------------------------------------------------------------------#
-option(PD_UTILS "Compile libpd utilities" ON)
+option(PD_UTILS "Compile libpd utilities" OFF)
 option(PD_EXTRA "Compile extras" ON)
-option(PD_MULTI "Compile with multiple instance support" OFF)
+option(PD_MULTI "Compile with multiple instance support" ON)
 option(PD_LOCALE "Set the LC_NUMERIC number format to the default C locale" ON)
 option(LIBPD_INCLUDE_STATIC_LIBRARY  "Compile the libpd static library" ON)
-option(LIBPD_INCLUDE_DYNAMIC_LIBRARY  "Compile the libpd dynamic library" ON)
+option(LIBPD_INCLUDE_DYNAMIC_LIBRARY  "Compile the libpd dynamic library" OFF)
 
 if(NOT DEFINED LIBPD_PATH)
 	set(LIBPD_PATH "${PROJECT_SOURCE_DIR}/../libpd")
