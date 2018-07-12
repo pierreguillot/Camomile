@@ -83,16 +83,21 @@ int main(int argc, const char * argv[]) {
         {
             (*method)(argv[2]);
         }
-        else if((error = dlerror()) != NULL)
+        printf("can't load methods lv2_generate_ttl\n");
+        if((error = dlerror()) != NULL)
         {
-            printf("can't load methods lv2_generate_ttl\n");
             printf("error: %s", error);
         }
         dlclose(handle);
     }
     else
     {
+        char* error = NULL;
         printf("can't open %s\n", argv[1]);
+        if((error = dlerror()) != NULL)
+        {
+            printf("error: %s", error);
+        }
     }
     return 0;
 }
