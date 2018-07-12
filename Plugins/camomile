@@ -463,13 +463,13 @@ generate_plugin_vst_linux() {
 
 generate_plugins() {
     if [ $machine == "Mac" ]; then
-        generate_plugin_vst_mac $subfolder $2
-        generate_plugin_vst3_mac $subfolder $2
-        generate_plugin_au_mac $subfolder $2
-        generate_plugin_lv2_mac $subfolder $2
+        generate_plugin_vst_mac $1 $2
+        generate_plugin_vst3_mac $1 $2
+        generate_plugin_au_mac $1 $2
+        generate_plugin_lv2_mac $1 $2
     elif [ $machine == "Linux" ]; then
-        generate_plugin_vst_linux $subfolder $2
-        generate_plugin_lv2_linux $subfolder $2
+        generate_plugin_vst_linux $1 $2
+        generate_plugin_lv2_linux $1 $2
     else
         post_error "$machine is not a supported"
     fi
@@ -519,10 +519,10 @@ create_output_directory() {
 
 display_help() {
     echo  -e "\033[1;30mCamomile Plugin Generator\033[0m"
-    echo  -e "camomile [pluginpath] - generate a plugin"
-    echo  -e "camomile -d [dirpath] - generate all the plugin in a directory"
-    echo  -e "camomile -o [outputpath] - set the ouput path"
-    echo  -e "camomile help - display help"
+    echo  -e "-f [pluginpath] - generate one plugin"
+    echo  -e "-d [dirpath] - generate all the plugin in a directory"
+    echo  -e "-o [outputpath] - set the ouput path"
+    echo  -e "help - display help"
 }
 
 ################################################################################
@@ -533,9 +533,11 @@ if [ "$1" == "help" ]; then
     display_help
 else
     setoutput="false"
+    setpath="false"
     output_dir="./builds"
-    folder_mode="false"
-    pluginpath="invalid"
+    FolderMode="true"
+    FileMode="false"
+    pluginpath="./Examples"
 
     for var in "$@"
     do
@@ -544,14 +546,22 @@ else
             setoutput=false
         elif [[ $var == "-d" ]]; then
             FolderMode="true"
+        elif [[ $var == "-f" ]]; then
+            FileMode="true"
+            FolderMode="false"
+            setpath=true
         elif [[ $var == "-o" ]]; then
             setoutput="true"
-        elif [[ $pluginpath == "invalid" ]]; then
+            setpath=true
+        elif [[ "$setpath" == "true" ]]; then
             pluginpath=$var
+            setpath=false
         else
             echo -e "\033[31m"$var" wrong arguments\033[0m"
+            return
         fi
     done
+
 
     create_output_directory $output_dir
     echo -e "Camomile - Plugin Generator"
