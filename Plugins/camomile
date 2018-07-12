@@ -383,6 +383,9 @@ generate_plugin_vst_mac() {
 
 generate_plugin_lv2_linux() {
     local camo_name="CamomileLV2"
+    if [ -f "$ThisPath/libCamomileLV2" ]; then
+      camo_name="libCamomileLV2"    
+    fi
     local plugin_input_dir=$1
     local plugin_output_dir=$2
     local plugin_name=$(basename $1)
