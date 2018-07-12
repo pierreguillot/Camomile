@@ -547,17 +547,21 @@ else
         if [[ "$setoutput" == "true" ]]; then
             output_dir=$var
             setoutput=false
+        elif [[ "$setpath" == "true" ]]; then
+            pluginpath=$var
+            setpath=false
         elif [[ $var == "-d" ]]; then
+            FileMode="false"
             FolderMode="true"
+            setpath=true
+            setoutput=false
         elif [[ $var == "-f" ]]; then
             FileMode="true"
             FolderMode="false"
             setpath=true
+            setoutput=false
         elif [[ $var == "-o" ]]; then
-            setoutput="true"
-            setpath=true
-        elif [[ "$setpath" == "true" ]]; then
-            pluginpath=$var
+            setoutput=true
             setpath=false
         else
             echo -e "\033[31m"$var" wrong arguments\033[0m"
