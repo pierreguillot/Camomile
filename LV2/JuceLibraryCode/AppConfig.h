@@ -133,11 +133,11 @@
 #endif
 
 #ifndef    JUCE_USE_CURL
- //#define JUCE_USE_CURL 0
+ #define   JUCE_USE_CURL 0
 #endif
 
 #ifndef    JUCE_LOAD_CURL_SYMBOLS_LAZILY
- //#define JUCE_LOAD_CURL_SYMBOLS_LAZILY 0
+ #define   JUCE_LOAD_CURL_SYMBOLS_LAZILY 0
 #endif
 
 #ifndef    JUCE_CATCH_UNHANDLED_EXCEPTIONS
@@ -205,7 +205,7 @@
 // juce_gui_extra flags:
 
 #ifndef    JUCE_WEB_BROWSER
- //#define JUCE_WEB_BROWSER 1
+ #define   JUCE_WEB_BROWSER 0
 #endif
 
 #ifndef    JUCE_ENABLE_LIVE_CONSTANT_EDITOR
