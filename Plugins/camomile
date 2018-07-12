@@ -384,7 +384,7 @@ generate_plugin_vst_mac() {
 generate_plugin_lv2_linux() {
     local camo_name="CamomileLV2"
     if [ -f "$ThisPath/libCamomileLV2" ]; then
-      camo_name="libCamomileLV2"    
+      camo_name="libCamomileLV2"
     fi
     local plugin_input_dir=$1
     local plugin_output_dir=$2
@@ -561,7 +561,6 @@ else
             setpath=false
         else
             echo -e "\033[31m"$var" wrong arguments\033[0m"
-            return
         fi
     done
 
