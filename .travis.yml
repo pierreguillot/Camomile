@@ -70,6 +70,8 @@ deploy:
   prerelease: true
   overwrite: true
   draft: true
+  name: ${TRAVIS_TAG}
+  tag_name: ${TRAVIS_TAG}
   api_key:
     secure: IaAt+xohgcO99ho2SEAPR2sGcC5w0KtzmGiarM02/VrY7ECu5JfeSsoohuxWSqI8K+Dnf0O/akIVbTcnXizigpK8cDH+tUC/0j9a/9MannlEhOXYAUjFsikWMEpiHQ5hqs84QTpwjzTMTPrYwxJft1GIChqJDUq2X+0++BPKwrTi+31V+1ZVQtZBF/ra80ivaigvC4ikm5FCFgWhemKdxiASi3s7pmTY68LYy7TvEJim4OHW7IUPJh9q1N2+TLfgrI8gP1lWkolU/dLSBjEZxsh/SEO1FO5lVNxoiGq/7urDVjoG6Bcow3JLWdw1k8WdjoIj5/ndUucgWzgd/6UoYbtnwnsHreg4EFE86NtkdELiP12bzk0B6rHJge+DHk3LYx0UH17a2y54WaiEuNCoDXlYlqARHzjz2KeglzldYnzoEEFi98ds68eyJVaFsnj0p3pvdujFtduPltbBfXyLVqNOJP+mjQyu7YvZiaev+mlCqYfZTM7B8eYowoP1K+jAsC4ulYWOaNqJWt/K+aFU+o7C1/wTkuSXhGV4wfCj5JvNwcsCt1XNiC29R6SAkThZk4D4+8hj5u+WQg4AUBdT2E3GVP+Fdg/C+bFRoKO2v9Yv7GBDxhfKwRrxRnSrUwmWEeZEWJwq3s2EMNXf0ycDiizzxJ3YxoPPkVUdSAQmVME=
   file: $release.zip
