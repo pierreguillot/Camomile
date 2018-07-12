@@ -128,9 +128,6 @@
         <MODULEPATH id="juce_gui_extra" path="../Juce/modules"/>
         <MODULEPATH id="juce_events" path="../Juce/modules"/>
         <MODULEPATH id="juce_audio_plugin_client" path="../Juce/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../Juce/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../Juce/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../Juce/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2015 targetFolder="Builds/VisualStudio2015" windowsTargetPlatformVersion="8.1"
@@ -169,9 +166,6 @@
         <MODULEPATH id="juce_gui_extra" path="../Juce/modules"/>
         <MODULEPATH id="juce_events" path="../Juce/modules"/>
         <MODULEPATH id="juce_audio_plugin_client" path="../Juce/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../Juce/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../Juce/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../Juce/modules"/>
       </MODULEPATHS>
     </VS2015>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraLinkerFlags="" externalLibraries="pd-multi"
@@ -194,20 +188,14 @@
         <MODULEPATH id="juce_gui_extra" path="../Juce/modules"/>
         <MODULEPATH id="juce_events" path="../Juce/modules"/>
         <MODULEPATH id="juce_audio_plugin_client" path="../Juce/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../Juce/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../Juce/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../Juce/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
   </EXPORTFORMATS>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
             useGlobalPath="0"/>
     <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
