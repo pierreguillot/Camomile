@@ -32,6 +32,14 @@ Camomile is a plugin with Pure Data embedded that offers to load and to control 
 <img src="https://user-images.githubusercontent.com/1409918/35470969-05182302-0353-11e8-90b5-d37450206adf.png" alt="Examples" width=425 height=325>
 </p>
 
+### Download
+
+The last stable release of the plugin is directly downloadable [here](https://github.com/pierreguillot/Camomile/releases/latest) and a list of all the releases is available [here](https://github.com/pierreguillot/Camomile/releases).
+
+### Instructions
+
+How to install and to use the plugin is explained on the [wiki](https://github.com/pierreguillot/Camomile/wiki) pages of the project.
+
 ### Compilation
 
 Download Camomile and its dependencies using git:
