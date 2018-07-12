@@ -36,9 +36,13 @@ Camomile is a plugin with Pure Data embedded that offers to load and to control 
 
 The last stable release of the plugin is directly downloadable [here](https://github.com/pierreguillot/Camomile/releases/latest) and a list of all the releases is available [here](https://github.com/pierreguillot/Camomile/releases).
 
-### Instructions
+### Instruction
 
-How to install and to use the plugin is explained on the [wiki](https://github.com/pierreguillot/Camomile/wiki) pages of the project.
+Most of the time, plugins created with Camomile must be generated - as for the examples given within the distribution. Generating plugins does not require any development skill and is pretty easy and straightforward if your read carefully the [documentation](https://github.com/pierreguillot/Camomile/wiki/How-to-generate-plugins). This operation requires only 6 basic actions (copy/past/rename) and, since the version 1.0.6, a script is offered for Linux and MacOS to speed up the workflow. Then,
+
+To use the plugins, just copy the packages/folders in the audio plugins' location. If you are not familiar with plugins and/or the digital audio workstations, please read this [documentation](https://github.com/pierreguillot/Camomile/wiki/How-to-install-plugins).
+
+At last, this [part](https://github.com/pierreguillot/Camomile/wiki/How-to-create-new-plugins) of the documentation presents how to create new plugins with Camomile.
 
 ### Compilation
 
