@@ -5,9 +5,7 @@ midiin true;
 midiout true;
 midionly false;
 playhead true;
-key true;
 compatibility 1.0.6;
-autoreload true;
 
 param -name Param-1;
 param -name Param-2;
