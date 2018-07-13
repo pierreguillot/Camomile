@@ -182,27 +182,49 @@ size_t CamomileParser::getNios(std::string const& value, size_t& pos)
     }
     nios = static_cast<size_t>(atol(value.c_str()+next));
     pos = value.find_first_not_of("0123456789", next+1);
-    if(pos != std::string::npos)
-    {
-        pos = value.find_first_of("0123456789", pos);
-    }
     return nios;
 }
 
-std::pair<size_t, size_t> CamomileParser::getBus(std::string const& value, size_t& pos)
+CamomileParser::bus CamomileParser::getBus(std::string const& value, size_t& pos)
 {
+    std::string name;
     size_t input = getNios(value, pos);
     if(pos == std::string::npos)
     {
         throw std::string("'") + value + std::string("' missing second value");
     }
     size_t const output = getNios(value, pos);
-    return {input, output};
+    size_t next = value.find("-name", pos);
+    if(next == std::string::npos)
+    {
+        return {input, output, ""};
+    }
+    else
+    {
+        next = value.find_first_of(" ", next+1);
+        if(next == std::string::npos) {
+            throw std::string("'") + value + std::string("' missing name"); }
+        next = value.find_first_not_of(" ", next+1);
+        if(next == std::string::npos) {
+            throw std::string("'") + value + std::string("' missing name"); }
+        pos = next;
+        next = value.find_first_of(" ", next+1);
+        if(next == std::string::npos)
+        {
+            name = value.substr(pos);
+        }
+        else
+        {
+            name = value.substr(pos, next-pos);
+        }
+        pos = next;
+    }
+    return {input, output, name};
 }
 
-std::vector<std::pair<size_t, size_t>> CamomileParser::getBuses(std::string const& value)
+CamomileParser::buses_layout CamomileParser::getBusesLayout(std::string const& value)
 {
-    std::vector<std::pair<size_t, size_t>> pairs;
+    CamomileParser::buses_layout pairs;
     if(!value.empty())
     {
         size_t pos = 0;
@@ -262,9 +284,9 @@ std::map<std::string, std::string> CamomileParser::getOptions(std::string const&
 std::vector<std::string> CamomileParser::getList(std::string const& value)
 {
     std::vector<std::string> list;
-    size_t start = 0;
     if(!value.empty())
     {
+        size_t start = 0;
         while(start != std::string::npos)
         {
             size_t const next = value.find_first_of('/', start);

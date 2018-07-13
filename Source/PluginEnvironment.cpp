@@ -43,7 +43,7 @@ std::string CamomileEnvironment::getPatchDescription() { return get().plugin_des
 
 std::string CamomileEnvironment::getImageName() { return get().image_name; }
 
-std::string CamomileEnvironment::getPluginDescriptionUTF8() { return get().plugin_desc.c_str(); }
+const char* CamomileEnvironment::getPluginDescriptionUTF8() { return get().plugin_desc.c_str(); }
 
 std::string CamomileEnvironment::getPluginDescription() { return get().plugin_desc; }
 
@@ -74,9 +74,11 @@ bool CamomileEnvironment::isLatencyInitialized() { return get().state.test(init_
 
 bool CamomileEnvironment::isTailLengthInitialized() { return get().state.test(init_tail_length); }
 
-bool CamomileEnvironment::wantsAutoReload() { return get().auto_reload; }
+bool CamomileEnvironment::wantsAutoReload() { return get().m_auto_reload; }
 
-bool CamomileEnvironment::hasAutoProgram() { return get().m_auto_program; }
+bool CamomileEnvironment::wantsAutoProgram() { return get().m_auto_program; }
+
+bool CamomileEnvironment::wantsAutoBypass() { return get().m_auto_bypass; }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                          PROGRAMS                                        //
@@ -98,9 +100,20 @@ bool CamomileEnvironment::localize()
 {
 #ifdef JUCE_MAC
     File plugin(File::getSpecialLocation(File::currentApplicationFile));
+    if(plugin.exists() && plugin.hasFileExtension("dylib"))
+    {
+        
+        plugin_name = plugin.getFileNameWithoutExtension().toStdString();
+        plugin_path = plugin.getParentDirectory().getFullPathName().toStdString();
+        patch_name = plugin_name + std::string(".pd");
+        patch_path = plugin_path + std::string("/Contents/Resources");
+        return true;
+    }
+    
     if(plugin.exists() && (plugin.hasFileExtension("component") ||
                            plugin.hasFileExtension("vst") ||
-                           plugin.hasFileExtension("vst3")))
+                           plugin.hasFileExtension("vst3") ||
+                           plugin.hasFileExtension("dylib") ))
     {
         
         plugin_name = plugin.getFileNameWithoutExtension().toStdString();
@@ -117,7 +130,8 @@ bool CamomileEnvironment::localize()
         plugin = File::getSpecialLocation(File::currentExecutableFile);
         if(plugin.exists() && (plugin.hasFileExtension("component") ||
                                plugin.hasFileExtension("vst") ||
-                               plugin.hasFileExtension("vst3")))
+                               plugin.hasFileExtension("vst3")  ||
+                               plugin.hasFileExtension("dylib") ))
         {
             errors.clear();
             plugin_name = plugin.getFileNameWithoutExtension().toStdString();
@@ -237,11 +251,12 @@ CamomileEnvironment::CamomileEnvironment()
                         }
                         else if(entry.first == "bus")
                         {
-                            m_buses.push_back(CamomileParser::getTwoUnsignedIntegers(entry.second));
+                            auto const val = CamomileParser::getTwoUnsignedIntegers(entry.second);
+                            m_buses.push_back({val.first, val.second, ""});
                         }
                         else if(entry.first == "iolayout")
                         {
-                            m_buses_layouts.push_back(CamomileParser::getBuses(entry.second));
+                            m_buses_layouts.push_back(CamomileParser::getBusesLayout(entry.second));
                         }
                         else if(entry.first == "midiin")
                         {
@@ -324,7 +339,7 @@ CamomileEnvironment::CamomileEnvironment()
                         {
                             if(state.test(init_auto_reload))
                                 throw std::string("already defined");
-                            auto_reload = CamomileParser::getBool(entry.second);
+                            m_auto_reload = CamomileParser::getBool(entry.second);
                             state.set(init_auto_reload);
                         }
                         else if(entry.first == "autoprogram")
@@ -334,6 +349,13 @@ CamomileEnvironment::CamomileEnvironment()
                             m_auto_program = CamomileParser::getBool(entry.second);
                             state.set(init_auto_program);
                         }
+                        else if(entry.first == "autobypass")
+                        {
+                            if(state.test(init_auto_bypass))
+                                throw std::string("already defined");
+                            m_auto_bypass = CamomileParser::getBool(entry.second);
+                            state.set(init_auto_bypass);
+                        }
                         else if(entry.first == "type")
                         {
                             if(state.test(init_type))
@@ -342,12 +364,12 @@ CamomileEnvironment::CamomileEnvironment()
                             std::string const type = CamomileParser::getString(entry.second);
                             if(type == "instrument")
                             {
-                                if(!JucePlugin_IsSynth)
+                                if(!JucePlugin_Build_LV2 && !JucePlugin_IsSynth)
                                     throw std::string("wrong: effect binary expected.");
                             }
                             else if(type == "effect")
                             {
-                                if(JucePlugin_IsSynth)
+                                if(!JucePlugin_Build_LV2 && JucePlugin_IsSynth)
                                     throw std::string("wrong: instrument binary expected.");
                             }
                             else
@@ -386,12 +408,12 @@ CamomileEnvironment::CamomileEnvironment()
     {
         for(auto const& cbus : clayout)
         {
-            max_ios = std::max(max_ios, std::max(cbus.first, cbus.second));
+            max_ios = std::max(max_ios, std::max(cbus.inputs, cbus.outputs));
         }
     }
     if(!midi_only && !max_ios)
     {
-        m_buses_layouts.push_back({{2, 2}});
+        m_buses_layouts.push_back({{2, 2, " "}});
         errors.push_back("no buses layout defined, add default buses layout 2 2");
     }
     else if(midi_only && max_ios)

@@ -130,13 +130,15 @@ Label* PluginEditorObject::getLabel()
     if(text.isNotEmpty())
     {
         Label* label = new Label();
-        const Font ft = CamoLookAndFeel::getDefaultFont().withHeight(static_cast<float>(gui.getFontSize()));
+        const Font ft = CamoLookAndFeel::getFont(lbl.getFontName()).withPointHeight(static_cast<float>(lbl.getFontHeight()));
+        const int width = ft.getStringWidth(text) + 1;
+        const int height = ft.getHeight();
         const std::array<int, 2> position = lbl.getPosition();
-        label->setBounds(position[0], position[1] - static_cast<int>(ft.getAscent() / 2.f),
-                         ft.getStringWidth(text) + 1, static_cast<int>(ft.getHeight()));
+        label->setBounds(position[0], position[1] - height / 2, width, height);
         label->setFont(ft);
         label->setJustificationType(Justification::centredLeft);
         label->setBorderSize(BorderSize<int>(0, 0, 0, 0));
+        label->setMinimumHorizontalScale(1.f);
         label->setText(text, NotificationType::dontSendNotification);
         label->setEditable(false, false);
         label->setInterceptsMouseClicks(false, false);
@@ -444,9 +446,11 @@ GuiComment::GuiComment(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditor
 
 void GuiComment::paint(Graphics& g)
 {
-    g.setFont(CamoLookAndFeel::getDefaultFont().withHeight(static_cast<float>(gui.getFontSize())));
+    const auto fheight = gui.getFontHeight();
+    auto const ft = CamoLookAndFeel::getFont(gui.getFontName()).withPointHeight(fheight);
+    g.setFont(ft);
     g.setColour(Colours::black);
-    g.drawMultiLineText(gui.getText(), 0, gui.getFontSize(), getWidth());
+    g.drawMultiLineText(gui.getText(), 0, static_cast<int>(ft.getAscent()), getWidth());
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -456,12 +460,13 @@ void GuiComment::paint(Graphics& g)
 GuiTextEditor::GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g)
 {
     const int border = 1;
-    const float fs = static_cast<float>(gui.getFontSize());
-    Font const tf = CamoLookAndFeel::getDefaultFont().withHeight(fs);
+    const float fs = static_cast<float>(gui.getFontHeight());
+    Font const tf = CamoLookAndFeel::getDefaultFont().withPointHeight(fs);
     
     label = new Label();
     label->setBounds(2, 0, getWidth() - 2, getHeight() - 1);
     label->setFont(tf);
+    label->setMinimumHorizontalScale(1.f);
     label->setJustificationType(Justification::centredLeft);
     label->setBorderSize(BorderSize<int>(border+2, border, border, border));
     label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
@@ -684,9 +689,8 @@ void GuiAtomNumber::mouseDoubleClick(const MouseEvent&)
 ////////////////////////////////////     GATOM SYMBOL        /////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
-GuiAtomSymbol::GuiAtomSymbol(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(p, g)
+GuiAtomSymbol::GuiAtomSymbol(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(p, g), last(gui.getSymbol())
 {
-    last = gui.getSymbol();
     label->setText(String(last), NotificationType::dontSendNotification);
 }
 
@@ -780,10 +784,11 @@ void GuiGraphOnParent::resized()
 {
     m_labels.clear();
     m_objects.clear();
+    const auto bounds = getLocalBounds().expanded(1);
     for(auto& g : gui.getPatch().getGuis())
     {
         PluginEditorObject* obj = PluginEditorObject::createTyped(patch, g);
-        if(obj && getLocalBounds().contains(obj->getBounds()))
+        if(obj && bounds.contains(obj->getBounds()))
         {
             Component* label = obj->getLabel();
             addAndMakeVisible(m_objects.add(obj));

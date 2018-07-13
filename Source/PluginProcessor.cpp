@@ -5,7 +5,6 @@
 */
 
 #include "PluginProcessor.h"
-#include "PluginParser.h"
 #include "PluginParameter.h"
 #include "PluginEditor.h"
 #include "PluginEnvironment.h"
@@ -24,13 +23,17 @@ m_name(CamomileEnvironment::getPluginName()),
 m_accepts_midi(CamomileEnvironment::wantsMidi()),
 m_produces_midi(CamomileEnvironment::producesMidi()),
 m_is_midi_effect(CamomileEnvironment::isMidiOnly()),
+m_auto_bypass(CamomileEnvironment::wantsAutoBypass()),
 m_tail_length(static_cast<double>(CamomileEnvironment::getTailLengthSeconds())),
 m_programs(CamomileEnvironment::getPrograms())
 {
     add(ConsoleLevel::Normal, std::string("Camomile ") + std::string(JucePlugin_VersionString)
         + std::string(" for Pd ") + CamomileEnvironment::getPdVersion());
-    for(auto const& error : CamomileEnvironment::getErrors()) {
-        add(ConsoleLevel::Error, std::string("camomile ") + error); }
+    for(auto const& error : CamomileEnvironment::getErrors())
+    {
+        add(ConsoleLevel::Error, std::string("camomile ") + error);
+        std::cout << "error : " << error << "\n";
+    }
     logBusesLayoutsInformation();
     if(CamomileEnvironment::isValid())
     {
@@ -58,6 +61,10 @@ m_programs(CamomileEnvironment::getPrograms())
             if(p)
             {
                 addParameter(p);
+                if(!m_auto_bypass && p->getName(6).toLowerCase() == "bypass")
+                {
+                    m_bypass_param = p;
+                }
             }
         }
         m_params_states.resize(getParameters().size());
@@ -437,14 +444,21 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
 
 void CamomileAudioProcessor::processBlockBypassed (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
-    dequeueMessages();
-    processMessages();
-    const int nsamples  = buffer.getNumSamples();
-    const int nins      = getTotalNumInputChannels();
-    const int nouts     = getTotalNumOutputChannels();
-    for(int i = nins; i < nouts; ++i)
+    if(m_auto_bypass)
     {
-        buffer.clear(i, 0, nsamples);
+        dequeueMessages();
+        processMessages();
+        const int nsamples  = buffer.getNumSamples();
+        const int nins      = getTotalNumInputChannels();
+        const int nouts     = getTotalNumOutputChannels();
+        for(int i = nins; i < nouts; ++i)
+        {
+            buffer.clear(i, 0, nsamples);
+        }
+    }
+    else
+    {
+        processBlock(buffer, midiMessages);
     }
 }
 
@@ -589,7 +603,7 @@ void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBy
     ScopedPointer<const XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
     if(xml && xml->hasTagName("CamomileSettings"))
     {
-        if(CamomileEnvironment::hasAutoProgram())
+        if(CamomileEnvironment::wantsAutoProgram())
         {
             CamomileAudioParameter::loadStateInformation(*xml, getParameters());            
         }

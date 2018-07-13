@@ -49,11 +49,8 @@
 
 //==============================================================================
 #define JUCE_MODULE_AVAILABLE_juce_audio_basics             1
-#define JUCE_MODULE_AVAILABLE_juce_audio_devices            1
-#define JUCE_MODULE_AVAILABLE_juce_audio_formats            1
 #define JUCE_MODULE_AVAILABLE_juce_audio_plugin_client      1
 #define JUCE_MODULE_AVAILABLE_juce_audio_processors         1
-#define JUCE_MODULE_AVAILABLE_juce_audio_utils              1
 #define JUCE_MODULE_AVAILABLE_juce_core                     1
 #define JUCE_MODULE_AVAILABLE_juce_data_structures          1
 #define JUCE_MODULE_AVAILABLE_juce_events                   1
@@ -62,76 +59,6 @@
 #define JUCE_MODULE_AVAILABLE_juce_gui_extra                1
 
 #define JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED 1
-
-//==============================================================================
-// juce_audio_devices flags:
-
-#ifndef    JUCE_ASIO
- //#define JUCE_ASIO 0
-#endif
-
-#ifndef    JUCE_WASAPI
- //#define JUCE_WASAPI 1
-#endif
-
-#ifndef    JUCE_WASAPI_EXCLUSIVE
- //#define JUCE_WASAPI_EXCLUSIVE 0
-#endif
-
-#ifndef    JUCE_DIRECTSOUND
- //#define JUCE_DIRECTSOUND 1
-#endif
-
-#ifndef    JUCE_ALSA
- //#define JUCE_ALSA 1
-#endif
-
-#ifndef    JUCE_JACK
- //#define JUCE_JACK 0
-#endif
-
-#ifndef    JUCE_BELA
- //#define JUCE_BELA 0
-#endif
-
-#ifndef    JUCE_USE_ANDROID_OBOE
- //#define JUCE_USE_ANDROID_OBOE 0
-#endif
-
-#ifndef    JUCE_USE_ANDROID_OPENSLES
- //#define JUCE_USE_ANDROID_OPENSLES 0
-#endif
-
-#ifndef    JUCE_USE_WINRT_MIDI
- //#define JUCE_USE_WINRT_MIDI 0
-#endif
-
-#ifndef    JUCE_DISABLE_AUDIO_MIXING_WITH_OTHER_APPS
- //#define JUCE_DISABLE_AUDIO_MIXING_WITH_OTHER_APPS 0
-#endif
-
-//==============================================================================
-// juce_audio_formats flags:
-
-#ifndef    JUCE_USE_FLAC
- //#define JUCE_USE_FLAC 1
-#endif
-
-#ifndef    JUCE_USE_OGGVORBIS
- //#define JUCE_USE_OGGVORBIS 1
-#endif
-
-#ifndef    JUCE_USE_MP3AUDIOFORMAT
- //#define JUCE_USE_MP3AUDIOFORMAT 0
-#endif
-
-#ifndef    JUCE_USE_LAME_AUDIO_FORMAT
- //#define JUCE_USE_LAME_AUDIO_FORMAT 0
-#endif
-
-#ifndef    JUCE_USE_WINDOWS_MEDIA_FORMAT
- //#define JUCE_USE_WINDOWS_MEDIA_FORMAT 1
-#endif
 
 //==============================================================================
 // juce_audio_plugin_client flags:
@@ -167,15 +94,8 @@
  //#define JUCE_PLUGINHOST_AU 0
 #endif
 
-//==============================================================================
-// juce_audio_utils flags:
-
-#ifndef    JUCE_USE_CDREADER
- //#define JUCE_USE_CDREADER 0
-#endif
-
-#ifndef    JUCE_USE_CDBURNER
- //#define JUCE_USE_CDBURNER 0
+#ifndef    JUCE_PLUGINHOST_LADSPA
+ //#define JUCE_PLUGINHOST_LADSPA 0
 #endif
 
 //==============================================================================
@@ -202,7 +122,11 @@
 #endif
 
 #ifndef    JUCE_USE_CURL
- //#define JUCE_USE_CURL 0
+ #define   JUCE_USE_CURL 0
+#endif
+
+#ifndef    JUCE_LOAD_CURL_SYMBOLS_LAZILY
+ #define   JUCE_LOAD_CURL_SYMBOLS_LAZILY 0
 #endif
 
 #ifndef    JUCE_CATCH_UNHANDLED_EXCEPTIONS
@@ -211,6 +135,10 @@
 
 #ifndef    JUCE_ALLOW_STATIC_NULL_VARIABLES
  //#define JUCE_ALLOW_STATIC_NULL_VARIABLES 1
+#endif
+
+#ifndef    JUCE_STRICT_REFCOUNTEDPOINTER
+ //#define JUCE_STRICT_REFCOUNTEDPOINTER 0
 #endif
 
 //==============================================================================
@@ -229,6 +157,10 @@
 
 #ifndef    JUCE_USE_DIRECTWRITE
  //#define JUCE_USE_DIRECTWRITE 1
+#endif
+
+#ifndef    JUCE_DISABLE_COREGRAPHICS_FONT_SMOOTHING
+ //#define JUCE_DISABLE_COREGRAPHICS_FONT_SMOOTHING 0
 #endif
 
 //==============================================================================
@@ -262,7 +194,7 @@
 // juce_gui_extra flags:
 
 #ifndef    JUCE_WEB_BROWSER
- //#define JUCE_WEB_BROWSER 1
+ #define   JUCE_WEB_BROWSER 0
 #endif
 
 #ifndef    JUCE_ENABLE_LIVE_CONSTANT_EDITOR
@@ -341,13 +273,13 @@
  #define JucePlugin_EditorRequiresKeyboardFocus  1
 #endif
 #ifndef  JucePlugin_Version
- #define JucePlugin_Version                1.0.5
+ #define JucePlugin_Version                1.0.6
 #endif
 #ifndef  JucePlugin_VersionCode
- #define JucePlugin_VersionCode            0x10005
+ #define JucePlugin_VersionCode            0x10006
 #endif
 #ifndef  JucePlugin_VersionString
- #define JucePlugin_VersionString          "1.0.5"
+ #define JucePlugin_VersionString          "1.0.6"
 #endif
 #ifndef  JucePlugin_VSTUniqueID
  #define JucePlugin_VSTUniqueID            JucePlugin_PluginCode

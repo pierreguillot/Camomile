@@ -26,7 +26,6 @@ AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), m_processor (p),
                         " is invalid or doesn't exist.");
     }
     updatePatch();
-    updateObjects();
     addAndMakeVisible(m_button);
     startTimer(25);
 }
@@ -57,16 +56,22 @@ void CamomileEditor::updateObjects()
 {
     m_labels.clear();
     m_objects.clear();
+    auto const pbounds = m_processor.getPatch().getBounds();
+    const auto bounds = getLocalBounds().expanded(2).translated(1, 1);
     for(auto& gui : m_processor.getPatch().getGuis())
     {
         PluginEditorObject* obj = PluginEditorObject::createTyped(*this, gui);
-        if(obj && getLocalBounds().contains(obj->getBounds()))
+        if(obj)
         {
-            Component* label = obj->getLabel();
-            addAndMakeVisible(m_objects.add(obj));
-            if(label)
+            obj->setTopLeftPosition(obj->getX() - pbounds[0], obj->getY() - pbounds[1]);
+            if(bounds.contains(obj->getBounds()))
             {
-                addAndMakeVisible(m_labels.add(label));
+                Component* label = obj->getLabel();
+                addAndMakeVisible(m_objects.add(obj));
+                if(label)
+                {
+                    addAndMakeVisible(m_labels.add(label));
+                }
             }
         }
     }

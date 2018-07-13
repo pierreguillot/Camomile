@@ -27,11 +27,11 @@ build_script:
     - copy pthread.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\pthread.h
     - copy sched.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\sched.h
     - copy semaphore.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\semaphore.h
-    - mkdir %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build && mkdir %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
-    - copy lib\pthread_lib.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc\pthread.lib
+    - copy lib\pthread_lib.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPdBuild\VisualStudio2015\pthread.lib
+    - copy lib\pthread_lib.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPdBuild\pthread.lib
     # Compile libpd
-    - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\build\msvc
-    - cmake -G "%COMPILER%" -DPD_MULTI=ON -DPD_UTILS=OFF -DMSVC_STATIC_RUNTIME=ON -DMSVC_PTHREAD_LIB="pthread.lib" ../..
+    - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPdBuild\VisualStudio2015
+    - cmake -G "%COMPILER%" ..
     - msbuild libpd.sln /t:libpdstatic /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=%PLATFORM%
     # Compile Camomile Instrument
     - cd %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\
@@ -39,6 +39,15 @@ build_script:
     # Compile Camomile Effect
     - cd %APPVEYOR_BUILD_FOLDER%\Effect\Builds\VisualStudio2015\
     - msbuild CamomileFx.sln /nologo /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
+    # Compile Camomile LV2
+    - cd %APPVEYOR_BUILD_FOLDER%\LV2\Builds\VisualStudio2015\
+    - msbuild CamomileLV2.sln /nologo /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
+    # Compile LV2 file Generator
+    - if "%PLATFORM%"=="Win32" (call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86)
+    - if "%PLATFORM%"=="x64" (call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64)
+    - if "%PLATFORM%"=="x64" (call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64)
+    - cd %APPVEYOR_BUILD_FOLDER%\LV2\lv2_file_generator
+    - cl /EHsc main.c
 
 after_build:
     - cd %APPVEYOR_BUILD_FOLDER%
@@ -46,10 +55,13 @@ after_build:
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\Camomile.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.vst3
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST\CamomileFx.dll %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileFx.dll
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\CamomileFx.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileFx.vst3
+    - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\CamomileFx.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileFx.vst3
+    - copy %APPVEYOR_BUILD_FOLDER%\Plugins\"Dynamic Library"\CamomileLV2.dll %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileLV2.dll
     - copy %APPVEYOR_BUILD_FOLDER%\README.md %APPVEYOR_BUILD_FOLDER%\Plugins\README.md
     - copy %APPVEYOR_BUILD_FOLDER%\ChangeLog.md %APPVEYOR_BUILD_FOLDER%\Plugins\ChangeLog.md
     - copy %APPVEYOR_BUILD_FOLDER%\LICENSE %APPVEYOR_BUILD_FOLDER%\Plugins\LICENSE.txt
-    - del %APPVEYOR_BUILD_FOLDER%\Plugins\Examples\camomile.sh /Q
+    - del %APPVEYOR_BUILD_FOLDER%\Plugins\camomile /Q
+    - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\"Dynamic Library"\ /S /Q
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\"Shared Code"\ /S /Q
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST\ /S /Q
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\ /S /Q
@@ -61,6 +73,9 @@ artifacts:
 
 deploy:
   provider: GitHub
+  prerelease: true
+  overwrite: true
+  draft: true
   auth_token:
     secure: dOi2z1hWIXjc8+TuIZOviwwdVx94sbDnvu/n+70AUcs9tKivL6AoX37oEN2TGigE
   artifact: /.*\.zip/

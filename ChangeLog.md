@@ -1,3 +1,21 @@
+v1.0.6
+- Add LV2 format support (#70)
+- Add new example PdStalFx (a plugin that loads patches dynamically)  
+- Add camomile plugin generation script for Apple and Linux
+- Fix MIDI channels correlation between Pd (0-15) and Juce (1-16)
+- Fix buses with no-channels (for Debug mode only)
+- Improve console for concurrent access
+- Remove LibWebKit on Linux plugin for better Ardour and Carla Support (#116)
+- Add support for naming buses (#114)
+- Fix number boxes and symbol box ellipsis
+- Add support for bypass parameter and manual bypass in the patch (#108)
+- Fix param.get abstraction for the first value
+- Improve IEM/atom GUIS label rendering (#118)
+- Fix invisible comments in subpatches and abstractions (#120)
+- Improve Font size rendering
+- Add Fuzzy tests using pluginval
+- Fix main patch margins
+
 v1.0.5
 - Fix warnings when audio buses are not well configured
 - Fix MIDI out issue when block size is superior to 64 samples (#107)

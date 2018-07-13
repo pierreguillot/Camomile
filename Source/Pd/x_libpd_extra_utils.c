@@ -24,6 +24,16 @@ typedef struct _fake_garray
     char x_hidename;
 } t_fake_garray;
 
+void* libpd_create_canvas(const char* name, const char* path)
+{
+    t_canvas* cnv = (t_canvas *)libpd_openfile(name, path);
+    if(cnv)
+    {
+        canvas_vis(cnv, 1.f);
+    }
+    return cnv;
+}
+
 char const* libpd_get_object_class_name(void* ptr)
 {
     return class_getname(pd_class((t_pd*)ptr));
@@ -37,35 +47,14 @@ void libpd_get_object_text(void* ptr, char** text, int* size)
 
 void libpd_get_object_bounds(void* patch, void* ptr, int* x, int* y, int* w, int* h)
 {
-    t_canvas *owner = NULL, *cnv = (t_canvas*)patch;
-    t_class const *c = pd_class((t_pd *)ptr);
-    int havewindow = 1;
+    t_canvas *cnv = (t_canvas*)glist_getcanvas(patch);
     *x = 0; *y = 0; *w = 0; *h = 0;
-    if(c->c_patchable && c->c_wb && c->c_wb->w_getrectfn)
-    {
-        if(cnv)
-        {
-            owner       = cnv->gl_owner;
-            havewindow  = cnv->gl_havewindow;
-            cnv->gl_owner = NULL;
-            cnv->gl_havewindow = 1;
-        }
-        c->c_wb->w_getrectfn((t_gobj *)ptr, cnv, x, y, w, h);
-        *x -= 1;
-        *y -= 1;
-        *w -= *x;
-        *h -= *y;
-        if(cnv)
-        {
-            *x -= cnv->gl_xmargin;
-            *y -= cnv->gl_ymargin;
-            cnv->gl_owner = owner;
-            cnv->gl_havewindow = havewindow;
-        }
-    }
+    gobj_getrect((t_gobj *)ptr, cnv, x, y, w, h);
+    *x -= 1;
+    *y -= 1;
+    *w -= *x;
+    *h -= *y;
 }
-
-
 
 t_fake_garray* libpd_array_get_byname(char const* name)
 {
@@ -127,5 +116,37 @@ unsigned int libpd_iemgui_get_background_color(void* ptr)
 unsigned int libpd_iemgui_get_foreground_color(void* ptr)
 {
     return convert_from_iem_color(((t_iemgui*)ptr)->x_fcol);
+}
+
+float libpd_get_canvas_font_height(t_canvas* cnv)
+{
+    const int fontsize = glist_getfont(cnv);
+    const float zoom = (float)glist_getzoom(cnv);
+    //[8 :8.31571] [10 :9.9651] [12 :11.6403] [16 :16.6228] [24 :23.0142] [36 :36.0032]
+    if(fontsize == 8)
+    {
+        return 8.31571 * zoom; //9.68f * zoom;
+    }
+    else if(fontsize == 10)
+    {
+        return 9.9651 * zoom; //11.6f * zoom;
+    }
+    else if(fontsize == 12)
+    {
+        return 11.6403 *zoom; //13.55f * zoom;
+    }
+    else if(fontsize == 16)
+    {
+        return 16.6228 * zoom; //19.35f * zoom;
+    }
+    else if(fontsize == 24)
+    {
+        return 23.0142 * zoom; //26.79f * zoom;
+    }
+    else if(fontsize == 36)
+    {
+        return 36.0032 * zoom; //41.91f * zoom;
+    }
+    return glist_fontheight(cnv);
 }
 

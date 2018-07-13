@@ -1,0 +1,579 @@
+#!/bin/bash
+
+CamomileInstrument="Camomile"
+CamomileEffect="CamomileFx"
+CamomileLV2="CamomileLV2"
+
+AppleVstExtension=vst
+AppleVst3Extension=vst3
+AppleAuExtension=component
+AppleLV2Extension=dylib
+LinuxVstExtension=so
+LinuxLV2Extension=so
+
+ThisPath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    CYGWIN*)    machine=Cygwin;;
+    MINGW*)     machine=MinGw;;
+    *)          machine="UNKNOWN:${unameOut}"
+esac
+
+################################################################################
+#                       POSTS                                                  #
+################################################################################
+
+post_error() {
+    echo -e "\033[31m"$1"\033[0m"
+}
+
+post_log() {
+    echo -e "\033[2;30m"$1"\033[0m"
+}
+
+################################################################################
+#                       CREATE MANIFEST TLL                                    #
+################################################################################
+
+plugin_lv2_create_manifest_till() {
+    local manifest_file=$1/manifest.ttl
+    local plugin_name=$2
+    local plugin_ext=$3
+    local ui_binary=$2.$3
+    echo >> $manifest_file
+    echo "@prefix lv2:  <http://lv2plug.in/ns/lv2core#> ."                                  >  $manifest_file
+    echo "@prefix pset: <http://lv2plug.in/ns/ext/presets#> ."                              >> $manifest_file
+    echo "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> ."                          >> $manifest_file
+    echo "@prefix ui:   <http://lv2plug.in/ns/extensions/ui#> ."                            >> $manifest_file
+    echo ""                                                                                 >> $manifest_file
+    echo "<http://github.com/pierreguillot/Camomile/"$plugin_name">"                        >> $manifest_file
+    echo "    <a lv2:Plugin ;"                                                              >> $manifest_file
+    echo "    lv2:binary <"$ui_binary"> ;"                                                  >> $manifest_file
+    echo "    rdfs:seeAlso <"$plugin_name".ttl> ."                                          >> $manifest_file
+    echo ""                                                                                 >> $manifest_file
+    echo "<http://github.com/pierreguillot/Camomile/"$plugin_name"#ExternalUI>"             >> $manifest_file
+    echo "    a <http://kxstudio.sf.net/ns/lv2ext/external-ui#Widget> ;"                    >> $manifest_file
+    echo "    ui:binary <"$ui_binary"> ;"                                                   >> $manifest_file
+    echo "    lv2:requiredFeature <http://lv2plug.in/ns/ext/instance-access> ;"             >> $manifest_file
+    echo "    lv2:extensionData <http://kxstudio.sf.net/ns/lv2ext/programs#UIInterface> ."  >> $manifest_file
+    echo ""                                                                                 >> $manifest_file
+    echo "<http://github.com/pierreguillot/Camomile/"$plugin_name"#ParentUI>"               >> $manifest_file
+    echo "    a ui:CocoaUI ;"                                                               >> $manifest_file
+    echo "    ui:binary <"$ui_binary"> ;"                                                   >> $manifest_file
+    echo "    lv2:requiredFeature <http://lv2plug.in/ns/ext/instance-access> ;"             >> $manifest_file
+    echo "    lv2:optionalFeature ui:noUserResize ;"                                        >> $manifest_file
+    echo "    lv2:extensionData <http://kxstudio.sf.net/ns/lv2ext/programs#UIInterface> ."  >> $manifest_file
+
+    # TODO PROGRAMS
+}
+
+################################################################################
+#                       CREATE NAME TLL                                    #
+################################################################################
+TLL_NAME_SECTION1="
+@prefix atom: <http://lv2plug.in/ns/ext/atom#> .\n
+@prefix doap: <http://usefulinc.com/ns/doap#> .\n
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .\n
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n
+@prefix ui:   <http://lv2plug.in/ns/extensions/ui#> .\n\n
+"
+
+TLL_NAME_SECTION2="
+a lv2:Plugin ;\n
+    lv2:requiredFeature <http://lv2plug.in/ns/ext/buf-size#boundedBlockLength> ,\n
+                        <http://lv2plug.in/ns/ext/urid#map> ;\n
+    lv2:extensionData <http://lv2plug.in/ns/ext/options#interface> ,\n
+                      <http://lv2plug.in/ns/ext/state#interface> ,\n
+                      <http://kxstudio.sf.net/ns/lv2ext/programs#Interface> ;\n\n
+
+    ui:ui <http://github.com/pierreguillot/Camomile/Bulgroz#ExternalUI> ,\n
+          <http://github.com/pierreguillot/Camomile/Bulgroz#ParentUI> ;\n\n
+
+    lv2:port [\n
+        a lv2:InputPort, atom:AtomPort ;\n
+        atom:bufferType atom:Sequence ;\n
+        atom:supports <http://lv2plug.in/ns/ext/time#Position> ;\n
+        lv2:index 0 ;\n
+        lv2:symbol \"lv2_events_in\" ;\n
+        lv2:name \"Events Input\" ;\n
+        lv2:designation lv2:control ;\n
+        lv2:portProperty lv2:connectionOptional ;\n
+    ] ;\n\n
+
+    lv2:port [\n
+        a lv2:OutputPort, atom:AtomPort ;\n
+        atom:bufferType atom:Sequence ;\n
+        atom:supports <http://lv2plug.in/ns/ext/midi#MidiEvent> ;\n
+        lv2:index 1 ;\n
+        lv2:symbol \"lv2_midi_out\" ;\n
+        lv2:name \"MIDI Output\" ;\n
+    ] ;\n\n
+
+    lv2:port [\n
+        a lv2:InputPort, lv2:ControlPort ;\n
+        lv2:index 2 ;\n
+        lv2:symbol \"lv2_freewheel\" ;\n
+        lv2:name \"Freewheel\" ;\n
+        lv2:default 0.0 ;\n
+        lv2:minimum 0.0 ;\n
+        lv2:maximum 1.0 ;\n
+        lv2:designation <http://lv2plug.in/ns/lv2core#freeWheeling> ;\n
+        lv2:portProperty lv2:toggled, <http://lv2plug.in/ns/ext/port-props#notOnGUI> ;\n
+    ] ;\n\n
+
+    lv2:port [\n
+        a lv2:OutputPort, lv2:ControlPort ;\n
+        lv2:index 3 ;\n
+        lv2:symbol \"lv2_latency\" ;\n
+        lv2:name \"Latency\" ;\n
+        lv2:designation <http://lv2plug.in/ns/lv2core#latency> ;\n
+        lv2:portProperty lv2:reportsLatency, lv2:integer ;\n
+    ] ;\n\n
+"
+
+plugin_lv2_create_named_till() {
+    local plugin_file=$1/$2.ttl
+    local plugin_name=$2
+    local plugin_ext=$3
+    local ui_binary=$2.$3
+    local index=4
+    echo >> $plugin_file
+    echo -e $TLL_NAME_SECTION1 >> $plugin_file
+    echo "<http://github.com/pierreguillot/Camomile/"$plugin_name">" >> $plugin_file
+    echo -e $TLL_NAME_SECTION2 >> $plugin_file
+}
+
+################################################################################
+#                       GET PLUGIN TYPE                                        #
+################################################################################
+
+plugin_get_type() {
+    local plugin_dir=$1
+    local plugin_name=$2
+    local textfile=$plugin_dir/$plugin_name.txt
+    if [ -f "$textfile" ]; then
+        while IFS='' read -r line || [[ -n "$line" ]]; do
+            local wline=($line)
+            if [ "${wline[0]}" == "type" ]; then
+                type=${wline[1]}
+                type="${type%?}"
+                echo ${type}
+                return
+            fi
+        done < "$textfile"
+        echo "undefined"
+    fi
+    echo "error"
+}
+
+################################################################################
+#                       GENERATE LV2 PLUGIN MAC                                #
+################################################################################
+
+generate_plugin_lv2_mac() {
+    local camo_name="CamomileLV2"
+    local plugin_input_dir=$1
+    local plugin_output_dir=$2
+    local plugin_name=$(basename $1)
+
+    # Check if the folder exists and get the type of the plugin
+    if [ ! -d $plugin_input_dir ]; then
+        post_error "$plugin_input_dir is not a directory"
+        return
+    fi
+
+    # Get the dynamic libraries
+    if [ -f $ThisPath/$camo_name.$AppleLV2Extension ]; then
+        if [ -d $plugin_output_dir/$plugin_name.lv2 ]; then
+            rm -rf $plugin_output_dir/$plugin_name.lv2
+        fi
+
+        mkdir $plugin_output_dir/$plugin_name.lv2
+        mkdir $plugin_output_dir/$plugin_name.lv2/Contents
+        mkdir $plugin_output_dir/$plugin_name.lv2/Contents/Resources
+        cp -f $ThisPath/$CamomileLV2.$AppleLV2Extension $plugin_output_dir/$plugin_name.lv2/$plugin_name.$AppleLV2Extension
+        cp -rf $plugin_input_dir/* $plugin_output_dir/$plugin_name.lv2/Contents/Resources
+
+        $ThisPath/lv2_file_generator $plugin_output_dir/$plugin_name.lv2/$plugin_name.$AppleLV2Extension $plugin_name > /dev/null
+        mv -f $PWD/manifest.ttl $plugin_output_dir/$plugin_name.lv2/manifest.ttl
+        if [ -f $PWD/presets.ttl ]; then
+            mv -f $PWD/presets.ttl $plugin_output_dir/$plugin_name.lv2/presets.ttl
+        fi
+        mv -f $PWD/$plugin_name.ttl $plugin_output_dir/$plugin_name.lv2/$plugin_name.ttl
+        post_log "$plugin_output_dir/$plugin_name.lv2"
+    else
+        post_error "$camo_name.$AppleLV2Extension is not available"
+    fi
+}
+
+################################################################################
+#                       GENERATE AU PLUGIN MAC                                 #
+################################################################################
+
+au_get_plugin_code_mac() {
+    local plugin_dir=$1
+    local plugin_name=$2
+    local textfile=$plugin_dir/$plugin_name.txt
+    if [ -f "$textfile" ]; then
+        while IFS='' read -r line || [[ -n "$line" ]]; do
+            local wline=($line)
+            if [ "${wline[0]}" == "code" ]; then
+                code=${wline[1]}
+                code=${code::4}
+                echo ${code}
+                return
+            fi
+        done < "$textfile"
+        echo "undefined"
+    fi
+    echo "error"
+}
+
+generate_plugin_au_mac() {
+    local camo_name
+    local plugin_input_dir=$1
+    local plugin_output_dir=$2
+    local plugin_name=$(basename $1)
+
+    # Check if the folder exists and get the type of the plugin
+    if [ -d $plugin_input_dir ]; then
+        local plugin_type=$(plugin_get_type $plugin_input_dir $plugin_name)
+        if [ "$plugin_type" == "error" ]; then
+            post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
+            return
+        elif [ "$plugin_type" == "instrument" ]; then
+            camo_name=$CamomileInstrument
+        elif [ "$plugin_type" == "effect" ]; then
+            camo_name=$CamomileEffect
+        else
+            post_error "$plugin_type is not a valid"
+            return
+        fi
+    else
+        post_error "$plugin_input_dir is not a directory"
+        return
+    fi
+
+    local code=$(au_get_plugin_code_mac $plugin_input_dir $plugin_name)
+    if [ "$code" == "undefined" ]; then
+        post_error "plugin code undefined"
+        return
+    elif [ "$code" == "undefined" ]; then
+        post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
+        return
+    fi
+
+    # Get the dynamic libraries
+    if [ -d $ThisPath/$camo_name.$AppleAuExtension ]; then
+        if [ -d $plugin_output_dir/$plugin_name.$AppleAuExtension ]; then
+            rm -rf $plugin_output_dir/$plugin_name.$AppleAuExtension
+        fi
+
+        cp -rf $ThisPath/$camo_name.$AppleAuExtension $plugin_output_dir/$plugin_name.$AppleAuExtension
+        cp -rf $plugin_input_dir/* $plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Resources
+        plutil -replace CFBundleName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist
+        plutil -replace CFBundleDisplayName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist
+
+        plutil -replace AudioComponents.name -string "Pierre Guillot: $plugin_name" $plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist
+        plutil -replace AudioComponents.subtype -string $code $plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist
+
+        post_log "$plugin_output_dir/$plugin_name.$AppleAuExtension"
+    else
+        post_error "$camo_name.$AppleAuExtension is not available"
+    fi
+}
+
+################################################################################
+#                       GENERATE VST3 PLUGIN MAC                               #
+################################################################################
+
+generate_plugin_vst3_mac() {
+    local camo_name
+    local plugin_input_dir=$1
+    local plugin_output_dir=$2
+    local plugin_name=$(basename $1)
+
+    # Check if the folder exists and get the type of the plugin
+    if [ -d $plugin_input_dir ]; then
+        local plugin_type=$(plugin_get_type $plugin_input_dir $plugin_name)
+        if [ "$plugin_type" == "error" ]; then
+            post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
+            return
+        elif [ "$plugin_type" == "instrument" ]; then
+            camo_name=$CamomileInstrument
+        elif [ "$plugin_type" == "effect" ]; then
+            camo_name=$CamomileEffect
+        else
+            post_error "$plugin_type is not a valid"
+            return
+        fi
+    else
+        post_error "$plugin_input_dir is not a directory"
+        return
+    fi
+
+    # Get the dynamic libraries
+    if [ -d $ThisPath/$camo_name.$AppleVst3Extension ]; then
+        if [ -d $plugin_output_dir/$plugin_name.$AppleVst3Extension ]; then
+            rm -rf $plugin_output_dir/$plugin_name.$AppleVst3Extension
+        fi
+
+        cp -rf $ThisPath/$camo_name.$AppleVst3Extension $plugin_output_dir/$plugin_name.$AppleVst3Extension
+        cp -rf $plugin_input_dir/* $plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Resources
+        plutil -replace CFBundleName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Info.plist
+        plutil -replace CFBundleDisplayName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Info.plist
+        post_log "$plugin_output_dir/$plugin_name.$AppleVst3Extension"
+    else
+        post_error "$camo_name.$AppleVst3Extension is not available"
+    fi
+}
+
+################################################################################
+#                       GENERATE VST PLUGIN MAC                                #
+################################################################################
+
+generate_plugin_vst_mac() {
+    local camo_name
+    local plugin_input_dir=$1
+    local plugin_output_dir=$2
+    local plugin_name=$(basename $1)
+
+    # Check if the folder exists and get the type of the plugin
+    if [ -d $plugin_input_dir ]; then
+        local plugin_type=$(plugin_get_type $plugin_input_dir $plugin_name)
+        if [ "$plugin_type" == "error" ]; then
+            post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
+            return
+        elif [ "$plugin_type" == "instrument" ]; then
+            camo_name=$CamomileInstrument
+        elif [ "$plugin_type" == "effect" ]; then
+            camo_name=$CamomileEffect
+        else
+            post_error "$plugin_type is not a valid"
+            return
+        fi
+    else
+        post_error "$plugin_input_dir is not a directory"
+        return
+    fi
+
+    # Get the dynamic libraries
+    if [ -d $ThisPath/$camo_name.$AppleVstExtension ]; then
+        if [ -d $plugin_output_dir/$plugin_name.$AppleVstExtension ]; then
+            rm -rf $plugin_output_dir/$plugin_name.$AppleVstExtension
+        fi
+
+        cp -rf $ThisPath/$camo_name.$AppleVstExtension $plugin_output_dir/$plugin_name.$AppleVstExtension
+        cp -rf $plugin_input_dir/* $plugin_output_dir/$plugin_name.$AppleVstExtension/Contents/Resources
+        plutil -replace CFBundleName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleVstExtension/Contents/Info.plist
+        plutil -replace CFBundleDisplayName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleVstExtension/Contents/Info.plist
+        post_log "$plugin_output_dir/$plugin_name.$AppleVstExtension"
+    else
+        post_error "$camo_name.$AppleVstExtension is not available"
+    fi
+}
+
+################################################################################
+#                       GENERATE LV2 PLUGIN LINUX                              #
+################################################################################
+
+generate_plugin_lv2_linux() {
+    local camo_name="CamomileLV2"
+    if [ -f "$ThisPath/libCamomileLV2" ]; then
+      camo_name="libCamomileLV2"
+    fi
+    local plugin_input_dir=$1
+    local plugin_output_dir=$2
+    local plugin_name=$(basename $1)
+
+    # Check if the folder exists and get the type of the plugin
+    if [ ! -d $plugin_input_dir ]; then
+        post_error "$plugin_input_dir is not a directory"
+        return
+    fi
+
+    # Get the dynamic libraries
+    if [ -f $ThisPath/$camo_name.$LinuxLV2Extension ]; then
+        if [ -d $plugin_output_dir/$plugin_name.lv2 ]; then
+            rm -rf $plugin_output_dir/$plugin_name.lv2
+        fi
+
+        mkdir $plugin_output_dir/$plugin_name.lv2
+        cp -f $ThisPath/$CamomileLV2.$LinuxLV2Extension $plugin_output_dir/$plugin_name.lv2/$plugin_name.$LinuxLV2Extension
+        cp -rf $plugin_input_dir/* $plugin_output_dir/$plugin_name.lv2
+
+        LD_LIBRARY_PATH=$PWD $ThisPath/lv2_file_generator $plugin_output_dir/$plugin_name.lv2/$plugin_name.$LinuxLV2Extension $plugin_name
+        mv -f $PWD/manifest.ttl $plugin_output_dir/$plugin_name.lv2/manifest.ttl
+        if [ -f $PWD/presets.ttl ]; then
+            mv -f $PWD/presets.ttl $plugin_output_dir/$plugin_name.lv2/presets.ttl
+        fi
+        mv -f $PWD/$plugin_name.ttl $plugin_output_dir/$plugin_name.lv2/$plugin_name.ttl
+        post_log "$plugin_output_dir/$plugin_name.lv2"
+    else
+        post_error "$camo_name.$LinuxLV2Extension is not available"
+    fi
+}
+
+################################################################################
+#                       GENERATE VST PLUGIN LINUX                              #
+################################################################################
+
+generate_plugin_vst_linux() {
+    local camo_name
+    local plugin_input_dir=$1
+    local plugin_output_dir=$2
+    local plugin_name=$(basename $1)
+
+    # Check if the folder exists and get the type of the plugin
+    if [ -d $plugin_input_dir ]; then
+        local plugin_type=$(plugin_get_type $plugin_input_dir $plugin_name)
+        if [ "$plugin_type" == "error" ]; then
+            post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
+            return
+        elif [ "$plugin_type" == "instrument" ]; then
+            camo_name=$CamomileInstrument
+        elif [ "$plugin_type" == "effect" ]; then
+            camo_name=$CamomileEffect
+        else
+            post_error "$plugin_type is not a valid"
+            return
+        fi
+    else
+        post_error "$plugin_input_dir is not a directory"
+        return
+    fi
+
+    # Get the dynamic libraries
+    if [ -f $ThisPath/$camo_name.$LinuxVstExtension ]; then
+        if [ -d $plugin_output_dir/$plugin_name ]; then
+            rm -rf $plugin_output_dir/$plugin_name
+        fi
+        cp -rf $plugin_input_dir $plugin_output_dir/$plugin_name
+        cp -f $ThisPath/$camo_name.$LinuxVstExtension $plugin_output_dir/$plugin_name.$LinuxVstExtension
+        post_log "$plugin_output_dir/$plugin_name.$LinuxVstExtension"
+    else
+        post_error "$camo_name.$LinuxVstExtension is not available"
+    fi
+}
+
+################################################################################
+#                       GENERATE PLUGINS                                       #
+################################################################################
+
+generate_plugins() {
+    if [ $machine == "Mac" ]; then
+        generate_plugin_vst_mac $1 $2
+        generate_plugin_vst3_mac $1 $2
+        generate_plugin_au_mac $1 $2
+        generate_plugin_lv2_mac $1 $2
+    elif [ $machine == "Linux" ]; then
+        generate_plugin_vst_linux $1 $2
+        generate_plugin_lv2_linux $1 $2
+    else
+        post_error "$machine is not a supported"
+    fi
+}
+
+################################################################################
+#                       GENERATE ALL PLUGINS                                   #
+################################################################################
+
+generate_all_plugins() {
+    local plugin_input_dir=$1
+
+    if [ -d $plugin_input_dir ]; then
+        for subfolder in $plugin_input_dir/*
+        do
+            if [ -d $subfolder ]; then
+                local plugin_name=$(basename "$subfolder")
+                if [ -f "$subfolder/$plugin_name.pd" ]; then
+                    generate_plugins $subfolder $2
+                else
+                    post_error "$subfolder does not contain a valid pd patch"
+                fi
+            else
+                post_error "$subfolder is not a directory"
+            fi
+        done
+    else
+        post_error "$plugin_input_dir is not a directory"
+        return
+    fi
+}
+
+################################################################################
+#                       CREATE OUTPUT DIRECTORY                                #
+################################################################################
+
+create_output_directory() {
+    local output_dir=$1
+    if [ ! -d $output_dir ]; then
+        mkdir $output_dir
+    fi
+}
+
+################################################################################
+#                                   HELP                                       #
+################################################################################
+
+display_help() {
+    echo  -e "\033[1;30mCamomile Plugin Generator\033[0m"
+    echo  -e "-f [pluginpath] - generate one plugin"
+    echo  -e "-d [dirpath] - generate all the plugin in a directory"
+    echo  -e "-o [outputpath] - set the ouput path"
+    echo  -e "help - display help"
+}
+
+################################################################################
+#                                   Main method                                #
+################################################################################
+
+if [ "$1" == "help" ]; then
+    display_help
+else
+    setoutput="false"
+    setpath="false"
+    output_dir="./builds"
+    FolderMode="true"
+    FileMode="false"
+    pluginpath="./Examples"
+
+    for var in "$@"
+    do
+        if [[ "$setoutput" == "true" ]]; then
+            output_dir=$var
+            setoutput=false
+        elif [[ "$setpath" == "true" ]]; then
+            pluginpath=$var
+            setpath=false
+        elif [[ $var == "-d" ]]; then
+            FileMode="false"
+            FolderMode="true"
+            setpath=true
+            setoutput=false
+        elif [[ $var == "-f" ]]; then
+            FileMode="true"
+            FolderMode="false"
+            setpath=true
+            setoutput=false
+        elif [[ $var == "-o" ]]; then
+            setoutput=true
+            setpath=false
+        else
+            echo -e "\033[31m"$var" wrong arguments\033[0m"
+        fi
+    done
+
+
+    create_output_directory $output_dir
+    echo -e "Camomile - Plugin Generator"
+    if [[ "$FolderMode" == true ]]; then
+        generate_all_plugins $pluginpath $output_dir
+    else
+        generate_plugins $pluginpath $output_dir
+    fi
+fi

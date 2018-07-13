@@ -97,7 +97,7 @@ public:
     void mouseDrag(const MouseEvent& e) final;
     void mouseUp(const MouseEvent& e) final;
 private:
-    float m_temp;
+    float m_temp = 0.f;
 };
 
 class GuiSliderVertical : public PluginEditorObject
@@ -109,7 +109,7 @@ public:
     void mouseDrag(const MouseEvent& e) final;
     void mouseUp(const MouseEvent& e) final;
 private:
-    float m_temp;
+    float m_temp = 0.f;
 };
 
 class GuiRadioHorizontal : public PluginEditorObject
@@ -164,8 +164,8 @@ public:
     void mouseUp(const MouseEvent& e) final;
     void mouseDoubleClick(const MouseEvent&) final;
 private:
-    bool                 shift;
-    float                last;
+    bool    shift = false;
+    float   last  = 0.f;
 };
 
 class GuiAtomNumber : public GuiTextEditor
@@ -178,8 +178,8 @@ public:
     void mouseUp(const MouseEvent& e) final;
     void mouseDoubleClick(const MouseEvent&) final;
 private:
-    bool                 shift;
-    float                last;
+    bool    shift = false;
+    float   last  = 0.f;
 };
 
 class GuiAtomSymbol : public GuiTextEditor
@@ -191,7 +191,7 @@ public:
     void labelTextChanged(Label* label) final;
     void update() final;
 private:
-    std::string          last;
+    std::string last;
 };
 
 class GuiArray : public PluginEditorObject

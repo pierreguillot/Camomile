@@ -50,9 +50,14 @@ public:
         {
             setText(String::createStringFromData(BinaryData::CreditsAU, BinaryData::CreditsAUSize));
         }
-        else
+        else if(PluginHostType::getPluginLoadedAs() == AudioProcessor::wrapperType_VST ||
+                PluginHostType::getPluginLoadedAs() == AudioProcessor::wrapperType_VST3)
         {
             setText(String::createStringFromData(BinaryData::CreditsVST, BinaryData::CreditsVSTSize));
+        }
+        else // LV2
+        {
+            setText(String::createStringFromData(BinaryData::CreditsLV2, BinaryData::CreditsLV2Size));
         }
     }
 private:

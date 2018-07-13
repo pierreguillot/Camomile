@@ -30,6 +30,9 @@
 *.vst3
 *.lv2
 
+# Packages
+*.zip
+
 # Mac Xcode
 *.xcuserstate
 *.xcuserdatad
@@ -43,7 +46,17 @@
 /Instrument/Builds/LinuxMakefile/build/
 /Effect/Builds/MacOSX/build/
 /Effect/Builds/LinuxMakefile/build/
+/LV2/Builds/MacOSX/build/
+/LV2/Builds/LinuxMakefile/build/
 /.backup/
+
+# libpd
+/Dependencies/LibPdBuild/MacOSX/
+!/Dependencies/LibPdBuild/MacOSX/infos.txt
+/Dependencies/LibPdBuild/LinuxMakefile/
+!/Dependencies/LibPdBuild/LinuxMakefile/infos.txt
+/Dependencies/LibPdBuild/VisualStudio2015/
+!/Dependencies/LibPdBuild/VisualStudio2015/infos.txt
 
 #Examples
 /Plugins/Examples/*
@@ -51,3 +64,5 @@
 !/Plugins/Examples/Bulgroz/
 !/Plugins/Examples/Castafiore/
 !/Plugins/Examples/MiniMock/
+!/Plugins/Examples/PdStalFx/
+/Plugins/lv2_file_generator

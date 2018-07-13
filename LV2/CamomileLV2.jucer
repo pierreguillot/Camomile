@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="Y4eE7X" name="CamomileLV2" projectType="dll" jucerVersion="5.3.2"
+              version="1.0.6" companyName="Pierre Guillot" companyCopyright="Pierre Guillot"
+              companyWebsite="github.com/pierreguillot/camomile" splashScreenColour="Dark"
+              bundleIdentifier="com.pierreguillot.camomile" cppLanguageStandard="11"
+              defines="PD_INTERNAL=1&#10;JucePlugin_IsSynth=0&#10;JucePlugin_ProducesMidiOutput=1&#10;JucePlugin_WantsMidiInput=1&#10;JucePlugin_EditorRequiresKeyboardFocus=1&#10;JucePlugin_ManufacturerCode=0x50494755&#10;JucePlugin_Build_LV2_FileCreator=1&#10;JucePlugin_WantsLV2Presets=0&#10;JucePlugin_Build_LV2=1&#10;JucePlugin_Build_VST=0&#10;JucePlugin_Build_VST3=0&#10;JucePlugin_Build_AU=0&#10;JucePlugin_Build_AUv3=0&#10;JucePlugin_Build_RTAS=0&#10;JucePlugin_Build_AAX=0&#10;JucePlugin_Build_Standalone=0&#10;JucePlugin_Enable_IAA=0"
+              headerPath="../../../Dependencies/LibPd/pure-data/src&#10;../../../Dependencies/LibPd/libpd_wrapper&#10;../../../Dependencies/LibPd/libpd_wrapper/util&#10;../../../Dependencies/LibPd/cpp&#10;../../../Juce"
+              includeBinaryInJuceHeader="1">
+  <MAINGROUP id="BLNPyv" name="CamomileLV2">
+    <GROUP id="{D4367A82-F269-8F5A-1C22-AB42C90672ED}" name="Source">
+      <FILE id="dsxHyi" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="../Source/PluginProcessor.cpp"/>
+      <FILE id="fS41zm" name="PluginProcessorBuses.cpp" compile="1" resource="0"
+            file="../Source/PluginProcessorBuses.cpp"/>
+      <FILE id="JNYGep" name="PluginProcessorReceive.cpp" compile="1" resource="0"
+            file="../Source/PluginProcessorReceive.cpp"/>
+      <FILE id="ZpP8vD" name="PluginProcessor.h" compile="0" resource="0"
+            file="../Source/PluginProcessor.h"/>
+      <FILE id="DYqJL2" name="PluginConsole.h" compile="0" resource="0" file="../Source/PluginConsole.h"/>
+      <FILE id="WVybLg" name="PluginEditor.cpp" compile="1" resource="0"
+            file="../Source/PluginEditor.cpp"/>
+      <FILE id="qoGaXl" name="PluginEditor.h" compile="0" resource="0" file="../Source/PluginEditor.h"/>
+      <FILE id="o3X9ds" name="PluginEditorComponents.cpp" compile="1" resource="0"
+            file="../Source/PluginEditorComponents.cpp"/>
+      <FILE id="Xtwory" name="PluginEditorComponents.h" compile="0" resource="0"
+            file="../Source/PluginEditorComponents.h"/>
+      <FILE id="WyoBiW" name="PluginEditorConsole.cpp" compile="1" resource="0"
+            file="../Source/PluginEditorConsole.cpp"/>
+      <FILE id="Gm8MmB" name="PluginEditorConsole.hpp" compile="0" resource="0"
+            file="../Source/PluginEditorConsole.hpp"/>
+      <FILE id="o8cDAG" name="PluginEditorInteraction.cpp" compile="1" resource="0"
+            file="../Source/PluginEditorInteraction.cpp"/>
+      <FILE id="Y6QrNW" name="PluginEditorInteraction.h" compile="0" resource="0"
+            file="../Source/PluginEditorInteraction.h"/>
+      <FILE id="OQyFqX" name="PluginEditorObject.cpp" compile="1" resource="0"
+            file="../Source/PluginEditorObject.cpp"/>
+      <FILE id="nz4B3D" name="PluginEditorObject.hpp" compile="0" resource="0"
+            file="../Source/PluginEditorObject.hpp"/>
+      <FILE id="u9CEUD" name="PluginEnvironment.cpp" compile="1" resource="0"
+            file="../Source/PluginEnvironment.cpp"/>
+      <FILE id="CSY4Ge" name="PluginEnvironment.h" compile="0" resource="0"
+            file="../Source/PluginEnvironment.h"/>
+      <FILE id="GOsAIw" name="PluginParameter.cpp" compile="1" resource="0"
+            file="../Source/PluginParameter.cpp"/>
+      <FILE id="EMdZ9Q" name="PluginParameter.h" compile="0" resource="0"
+            file="../Source/PluginParameter.h"/>
+      <FILE id="q90nJ8" name="PluginParser.cpp" compile="1" resource="0"
+            file="../Source/PluginParser.cpp"/>
+      <FILE id="zkcqYi" name="PluginParser.h" compile="0" resource="0" file="../Source/PluginParser.h"/>
+      <FILE id="RyODex" name="PluginLookAndFeel.cpp" compile="1" resource="0"
+            file="../Source/PluginLookAndFeel.cpp"/>
+      <FILE id="QAxM64" name="PluginLookAndFeel.hpp" compile="0" resource="0"
+            file="../Source/PluginLookAndFeel.hpp"/>
+      <FILE id="JQzA9b" name="PluginConfig.h" compile="0" resource="0" file="../Source/PluginConfig.h"/>
+      <GROUP id="{42D4795F-C693-1C4C-D4AF-C6B0DC06B00D}" name="Pd">
+        <FILE id="OkoB07" name="PdInstance.cpp" compile="1" resource="0" file="../Source/Pd/PdInstance.cpp"/>
+        <FILE id="blrCIt" name="PdInstance.hpp" compile="0" resource="0" file="../Source/Pd/PdInstance.hpp"/>
+        <FILE id="Yh77qx" name="PdPatch.cpp" compile="1" resource="0" file="../Source/Pd/PdPatch.cpp"/>
+        <FILE id="XaK3av" name="PdPatch.hpp" compile="0" resource="0" file="../Source/Pd/PdPatch.hpp"/>
+        <FILE id="jvFfeY" name="PdGui.cpp" compile="1" resource="0" file="../Source/Pd/PdGui.cpp"/>
+        <FILE id="Nb9fyc" name="PdGui.hpp" compile="0" resource="0" file="../Source/Pd/PdGui.hpp"/>
+        <FILE id="L5HVZ7" name="PdArray.cpp" compile="1" resource="0" file="../Source/Pd/PdArray.cpp"/>
+        <FILE id="jxK4EL" name="PdArray.hpp" compile="0" resource="0" file="../Source/Pd/PdArray.hpp"/>
+        <FILE id="aYOfwq" name="PdObject.cpp" compile="1" resource="0" file="../Source/Pd/PdObject.cpp"/>
+        <FILE id="fYgI6J" name="PdObject.hpp" compile="0" resource="0" file="../Source/Pd/PdObject.hpp"/>
+        <FILE id="FSEKGW" name="PdAtom.hpp" compile="0" resource="0" file="../Source/Pd/PdAtom.hpp"/>
+        <FILE id="xDjpgl" name="x_libpd_multi.c" compile="1" resource="0" file="../Source/Pd/x_libpd_multi.c"/>
+        <FILE id="rQuXOy" name="x_libpd_multi.h" compile="0" resource="0" file="../Source/Pd/x_libpd_multi.h"/>
+        <FILE id="YOX2Lr" name="x_libpd_extra_utils.c" compile="1" resource="0"
+              file="../Source/Pd/x_libpd_extra_utils.c"/>
+        <FILE id="ajZCxi" name="x_libpd_extra_utils.h" compile="0" resource="0"
+              file="../Source/Pd/x_libpd_extra_utils.h"/>
+      </GROUP>
+      <GROUP id="{F3E95E26-375E-BDC8-C48D-8BFDD754028C}" name="Ressources">
+        <GROUP id="{51701B19-EB90-E2FE-2865-633F5B38F51E}" name="Credits">
+          <FILE id="l7QpoP" name="CreditsAU" compile="0" resource="1" file="../Ressources/Credits/CreditsAU"/>
+          <FILE id="CeiOyu" name="CreditsLV2" compile="0" resource="1" file="../Ressources/Credits/CreditsLV2"/>
+          <FILE id="hV3RRd" name="CreditsVST" compile="0" resource="1" file="../Ressources/Credits/CreditsVST"/>
+        </GROUP>
+        <GROUP id="{A5E37C9A-A57E-C768-AB56-C20C3A142A40}" name="Fonts">
+          <FILE id="VHTBVD" name="DejaVuSansMono.ttf" compile="0" resource="1"
+                file="../Ressources/Fonts/DejaVuSansMono.ttf"/>
+        </GROUP>
+        <GROUP id="{314B3474-5C15-EEF4-EC03-664A8CCD4038}" name="Images">
+          <FILE id="JGMo8A" name="copy.png" compile="0" resource="1" file="../Ressources/Images/copy.png"/>
+          <FILE id="lFv5vO" name="flower_center.png" compile="0" resource="1"
+                file="../Ressources/Images/flower_center.png"/>
+          <FILE id="HM1eqb" name="flower_petals.png" compile="0" resource="1"
+                file="../Ressources/Images/flower_petals.png"/>
+          <FILE id="JacbjB" name="garbage.png" compile="0" resource="1" file="../Ressources/Images/garbage.png"/>
+          <FILE id="b2sNM7" name="reload.png" compile="0" resource="1" file="../Ressources/Images/reload.png"/>
+          <FILE id="uKM1Gb" name="settings.png" compile="0" resource="1" file="../Ressources/Images/settings.png"/>
+        </GROUP>
+      </GROUP>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX" extraDefs="HAVE_UNISTD_H=1" externalLibraries="pd-multi"
+               keepCustomXcodeSchemes="1" extraFrameworks="Accelerate.framework , AudioToolbox.framework , AudioUnit.framework , Carbon.framework , Cocoa.framework , CoreAudio.framework , CoreAudioKit.framework , CoreMIDI.framework , DiscRecording.framework , IOKit.framework , QuartzCore.framework , WebKit.framework ">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPdBuild"
+                       enablePluginBinaryCopyStep="0" linkTimeOptimisation="0" osxCompatibility="10.9 SDK"
+                       osxArchitecture="64BitUniversal" targetName="CamomileLV2"/>
+        <CONFIGURATION isDebug="0" name="Release" libraryPath="../../../Dependencies/LibPdBuild"
+                       binaryPath="../Plugins" linkTimeOptimisation="1" enablePluginBinaryCopyStep="0"
+                       optimisation="3" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"
+                       targetName="CamomileLV2"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_plugin_client" path="../Juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../Juce/modules"/>
+        <MODULEPATH id="juce_events" path="../Juce/modules"/>
+        <MODULEPATH id="juce_core" path="../Juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="../Juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../Juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client_LV2" path="../Dependencies"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+    <VS2015 targetFolder="Builds/VisualStudio2015" extraCompilerFlags="/wd4091 &#10;/wd4996&#10;/wd4100&#10;/wd4706&#10;/wd4210&#10;/wd4711&#10;/wd4127"
+            extraDefs="PTW32_STATIC_LIB=1" externalLibraries="libpd-multi-static.lib&#10;pthread.lib ">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPdBuild"
+                       defines="PD_LONGINTTYPE=long\ long" winArchitecture="x64" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="0" debugInformationFormat="ProgramDatabase"
+                       optimisation="1" useRuntimeLibDLL="0" generateManifest="1" targetName="CamomileLV2"/>
+        <CONFIGURATION isDebug="0" name="Release" binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPdBuild"
+                       defines="PD_LONGINTTYPE=long\ long" linkTimeOptimisation="1"
+                       enablePluginBinaryCopyStep="0" winArchitecture="x64" optimisation="3"
+                       useRuntimeLibDLL="0" generateManifest="1" targetName="CamomileLV2"/>
+        <CONFIGURATION isDebug="1" name="Debug32" binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPdBuild"
+                       winArchitecture="Win32" enablePluginBinaryCopyStep="0" linkTimeOptimisation="0"
+                       debugInformationFormat="ProgramDatabase" optimisation="1" useRuntimeLibDLL="0"
+                       generateManifest="1" targetName="CamomileLV2"/>
+        <CONFIGURATION isDebug="0" name="Release32" binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPdBuild"
+                       linkTimeOptimisation="1" enablePluginBinaryCopyStep="0" winArchitecture="Win32"
+                       optimisation="3" useRuntimeLibDLL="0" generateManifest="1" targetName="CamomileLV2"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_plugin_client" path="../Juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../Juce/modules"/>
+        <MODULEPATH id="juce_events" path="../Juce/modules"/>
+        <MODULEPATH id="juce_core" path="../Juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="../Juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../Juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client_LV2" path="../Dependencies"/>
+      </MODULEPATHS>
+    </VS2015>
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraDefs="HAVE_UNISTD_H=1"
+                externalLibraries="pd-multi">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPdBuild"
+                       targetName="CamomileLV2" linkTimeOptimisation="0"/>
+        <CONFIGURATION isDebug="0" name="Release" libraryPath="../../../Dependencies/LibPdBuild"
+                       binaryPath="../Plugins" targetName="CamomileLV2" optimisation="3"
+                       linkTimeOptimisation="0"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_plugin_client" path="../Juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../Juce/modules"/>
+        <MODULEPATH id="juce_events" path="../Juce/modules"/>
+        <MODULEPATH id="juce_core" path="../Juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="../Juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../Juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client_LV2" path="../Dependencies"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="0"/>
+    <MODULE id="juce_audio_plugin_client_LV2" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+  </MODULES>
+  <LIVE_SETTINGS>
+    <OSX/>
+  </LIVE_SETTINGS>
+  <JUCEOPTIONS JUCE_USE_CURL="0" JUCE_LOAD_CURL_SYMBOLS_LAZILY="0" JUCE_WEB_BROWSER="0"/>
+</JUCERPROJECT>

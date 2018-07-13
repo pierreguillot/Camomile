@@ -26,6 +26,7 @@ namespace pd
     public:
         
         Instance(std::string const& symbol);
+        Instance(Instance const& other) = delete;
         virtual ~Instance();
         
         void prepareDSP(const int nins, const int nouts, const double samplerate);

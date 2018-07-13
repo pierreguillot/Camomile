@@ -14,7 +14,7 @@
 class ConsoleButton : public Button
 {
 public:
-    ConsoleButton(Image const& image) : Button("")
+    ConsoleButton(Image const& image) : Button(""), m_image()
     {
         setClickingTogglesState(false);
         setAlwaysOnTop(true);
@@ -41,11 +41,12 @@ private:
 //////////////////////////////////////////////////////////////////////////////////////////////
     
 PluginEditorConsole::PluginEditorConsole(CamomileAudioProcessor& p) :
-m_history(p),
+m_history(p), m_table(),
 m_level_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::settings_png, BinaryData::settings_pngSize))),
 m_clear_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::garbage_png, BinaryData::garbage_pngSize))),
 m_copy_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::copy_png, BinaryData::copy_pngSize))),
-m_reload_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::reload_png, BinaryData::reload_pngSize)))
+m_reload_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::reload_png, BinaryData::reload_pngSize))),
+m_font(CamoLookAndFeel::getDefaultFont().withPointHeight(10.f))
 {
     m_size  = 0;
     setWantsKeyboardFocus(true);
@@ -55,7 +56,7 @@ m_reload_button(new ConsoleButton(ImageCache::getFromMemory(BinaryData::reload_p
     m_table.setWantsKeyboardFocus(true);
     m_table.setMultipleSelectionEnabled(true);
     m_table.setMouseMoveSelectsRows(false);
-    m_table.setRowHeight(static_cast<int>(CamoLookAndFeel::getDefaultFont().getHeight()) + 2);
+    m_table.setRowHeight(static_cast<int>(m_font.getHeight() + 2));
     m_table.setColour(ListBox::ColourIds::backgroundColourId, Colours::transparentWhite);
     m_table.getViewport()->setScrollBarsShown(true, true, true, true);
     m_table.getViewport()->setScrollBarThickness(4);
@@ -185,7 +186,7 @@ void PluginEditorConsole::buttonClicked(Button* button)
         m.addItem(4, "All", true, m_level == ConsoleLevel::Log);
         
         stopTimer();
-        int const level = m.show(0, 0, static_cast<int>(CamoLookAndFeel::getDefaultFont().getHeight()) + 2);
+        int const level = m.show(0, 0, static_cast<int>(m_font.getHeight() + 2));
         if(level != 0 && static_cast<ConsoleLevel>(level - 1) != m_level)
         {
             m_level = static_cast<ConsoleLevel>(level - 1);
@@ -205,7 +206,7 @@ void PluginEditorConsole::paintListBoxItem(int rowNumber, Graphics& g, int width
         g.setColour(Colours::black);
         g.fillRect(0, 0, width, height);
     }
-    g.setFont(CamoLookAndFeel::getDefaultFont());
+    
     if(message.first == ConsoleLevel::Fatal)
     {
         g.setColour(Colours::red);
@@ -223,7 +224,7 @@ void PluginEditorConsole::paintListBoxItem(int rowNumber, Graphics& g, int width
         g.setColour(Colours::green);
     }
     String const mess = String(message.second).trimCharactersAtEnd(" \n");
-    g.setFont(CamoLookAndFeel::getDefaultFont());
+    g.setFont(m_font);
     g.drawText(mess, 2, 0, width, height, juce::Justification::centredLeft, 0);
 }
 

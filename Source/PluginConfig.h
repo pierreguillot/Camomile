@@ -12,3 +12,11 @@
 #define JucePlugin_Name CamomileEnvironment::getPluginNameUTF8()
 #define JucePlugin_PluginCode CamomileEnvironment::getPluginCode()
 #define JucePlugin_Desc CamomileEnvironment::getPluginDescriptionUTF8()
+#define JucePlugin_LV2URI (juce::String("http://github.com/pierreguillot/Camomile/") + juce::String(JucePlugin_Name)).toUTF8()
+#ifndef  JucePlugin_Manufacturer
+#define JucePlugin_Manufacturer           "Pierre Guillot"
+#endif
+
+#ifndef JucePlugin_Build_LV2
+#define JucePlugin_Build_LV2 0
+#endif

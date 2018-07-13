@@ -12,20 +12,28 @@
 class CamomileBusesLayoutHelper
 {
 public:
-    //! @brief Get an array with all the supported buses layouts in the Juce format.
-    static const Array<AudioProcessor::BusesLayout>& getSupporttedBusesLayouts()
+    class InternalBusesLayout
     {
-        static Array<AudioProcessor::BusesLayout> layouts;
+    public:
+        Array<String>               names;
+        AudioProcessor::BusesLayout buses;
+    };
+    
+    //! @brief Get an array with all the supported buses layouts in the Juce format.
+    static const Array<InternalBusesLayout> getSupportedBusesLayouts()
+    {
+        Array<InternalBusesLayout> layouts;
         if(layouts.isEmpty())
         {
             auto const& envSupportedLayouts = CamomileEnvironment::getBusesLayouts();
             for(auto const& envBusesLayout : envSupportedLayouts)
             {
-                AudioProcessor::BusesLayout pluginLayout;
+                InternalBusesLayout pluginLayout;
                 for(auto const& envBus : envBusesLayout)
                 {
-                    pluginLayout.inputBuses.add(AudioChannelSet::canonicalChannelSet(static_cast<int>(envBus.first)));
-                    pluginLayout.outputBuses.add(AudioChannelSet::canonicalChannelSet(static_cast<int>(envBus.second)));
+                    pluginLayout.buses.inputBuses.add(AudioChannelSet::canonicalChannelSet(static_cast<int>(envBus.inputs)));
+                    pluginLayout.buses.outputBuses.add(AudioChannelSet::canonicalChannelSet(static_cast<int>(envBus.outputs)));
+                    pluginLayout.names.add(envBus.name);
                 }
                 layouts.add(std::move(pluginLayout));
             }
@@ -77,10 +85,10 @@ public:
 
 void CamomileAudioProcessor::logBusesLayoutsInformation()
 {
-    auto const& supportedLayouts = CamomileBusesLayoutHelper::getSupporttedBusesLayouts();
+    auto const supportedLayouts = CamomileBusesLayoutHelper::getSupportedBusesLayouts();
     for(int layoutidx = 0; layoutidx < supportedLayouts.size(); ++layoutidx)
     {
-        auto const& buses = supportedLayouts[layoutidx];
+        auto const& buses = supportedLayouts[layoutidx].buses;
         assert(buses.inputBuses.size() == buses.outputBuses.size());
         const int nBuses = buses.inputBuses.size();
         const std::string layoutStr = std::string("layout ") + std::to_string(layoutidx);
@@ -104,36 +112,53 @@ AudioProcessor::BusesProperties CamomileAudioProcessor::getDefaultBusesPropertie
 {
     int nBuses = 0;
     BusesProperties defaultBusesProperties;
-    auto const& supportedLayouts = CamomileBusesLayoutHelper::getSupporttedBusesLayouts();
+    auto const supportedLayouts = CamomileBusesLayoutHelper::getSupportedBusesLayouts();
 #ifdef DEBUG
     {
+        /*
         for(auto const& supportedLayout : supportedLayouts)
         {
             std::cout << "\n\nSupported Layout";
             std::cout << "\nInputs: ";
-            for(int i = 0; i < supportedLayout.inputBuses.size(); ++i)
+            for(int i = 0; i < supportedLayout.buses.inputBuses.size(); ++i)
             {
-                std::cout<<"["<< supportedLayout.inputBuses[i].size()<<" - "<<supportedLayout.inputBuses[i].getDescription()<<"]";
+                std::cout<<"["<< supportedLayout.buses.inputBuses[i].size()<<" - "<<supportedLayout.buses.inputBuses[i].getDescription()<<"]";
             }
             std::cout << "\nOutputs:";
-            for(int i = 0; i < supportedLayout.outputBuses.size(); ++i)
+            for(int i = 0; i < supportedLayout.buses.outputBuses.size(); ++i)
             {
-                std::cout<<"["<< supportedLayout.outputBuses[i].size()<<" - "<<supportedLayout.outputBuses[i].getDescription()<<"]";
+                std::cout<<"["<< supportedLayout.buses.outputBuses[i].size()<<" - "<<supportedLayout.buses.outputBuses[i].getDescription()<<"]";
             }
         }
+         */
     }
 #endif
     for(int layoutidx = 0; layoutidx < supportedLayouts.size(); ++layoutidx)
     {
         auto const& buses = supportedLayouts[layoutidx];
-        const int  nCurrentBuses = buses.inputBuses.size();
-        assert(buses.inputBuses.size() == buses.outputBuses.size());
+        const int nCurrentBuses = buses.buses.inputBuses.size();
+        assert(buses.buses.inputBuses.size() == buses.buses.outputBuses.size());
         for(int busidx = nBuses; busidx < nCurrentBuses; ++busidx)
         {
-            auto const& inputBus = buses.inputBuses[busidx];
-            auto const& outputBus = buses.outputBuses[busidx];
-            defaultBusesProperties.addBus(true, String("bus ") + String(busidx+1) + String(" input"), inputBus, true);
-            defaultBusesProperties.addBus(false, String("bus ") + String(busidx+1) + String(" output"), outputBus, true);
+            auto const& inputBus = buses.buses.inputBuses[busidx];
+            auto const& outputBus = buses.buses.outputBuses[busidx];
+            auto name = buses.names[busidx];
+            if(!inputBus.isDisabled())
+            {
+                if(name.isEmpty())
+                {
+                    name = String("bus ") + String(busidx+1) + String(" input");
+                }
+                defaultBusesProperties.addBus(true, name, inputBus, true);
+            }
+            if(!outputBus.isDisabled())
+            {
+                if(name.isEmpty())
+                {
+                    name = String("bus ") + String(busidx+1) + String(" output");
+                }
+                defaultBusesProperties.addBus(false, name, outputBus, true);
+            }
         }
         nBuses = nCurrentBuses;
     }
@@ -148,6 +173,7 @@ bool CamomileAudioProcessor::isBusesLayoutSupported(const BusesLayout& requested
 {
 #ifdef DEBUG
     {
+        /*
         std::cout << "\n\nRequested Layout";
         std::cout << "\nInputs: ";
         for(int i = 0; i < requestedLayout.inputBuses.size(); ++i)
@@ -159,9 +185,19 @@ bool CamomileAudioProcessor::isBusesLayoutSupported(const BusesLayout& requested
         {
             std::cout << "[" << requestedLayout.outputBuses[i].size()<< " - " <<requestedLayout.outputBuses[i].getDescription() <<"]";
         }
+         */
     }
 #endif
-    return CamomileBusesLayoutHelper::getSupporttedBusesLayouts().contains(CamomileBusesLayoutHelper::getCanonicalEquivalent(requestedLayout));
+    const auto canoBus = CamomileBusesLayoutHelper::getCanonicalEquivalent(requestedLayout);
+    const auto supportedBuses = CamomileBusesLayoutHelper::getSupportedBusesLayouts();
+    for(auto& bus : supportedBuses)
+    {
+        if(bus.buses == canoBus)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -179,11 +215,11 @@ bool CamomileAudioProcessor::canAddBus(bool isInput) const
         buses_layout_t const& supportedLayout = supportedLayouts[i];
         if(supportedLayout.size() > nbus)
         {
-            if(isInput && supportedLayout[nbus].first != 0)
+            if(isInput && supportedLayout[nbus].inputs != 0)
             {
                 return true;
             }
-            if(!isInput && supportedLayout[nbus].second != 0)
+            if(!isInput && supportedLayout[nbus].outputs != 0)
             {
                 return true;
             }

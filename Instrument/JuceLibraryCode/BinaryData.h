@@ -11,8 +11,14 @@ namespace BinaryData
     extern const char*   CreditsAU;
     const int            CreditsAUSize = 479;
 
+    extern const char*   CreditsLV2;
+    const int            CreditsLV2Size = 624;
+
     extern const char*   CreditsVST;
     const int            CreditsVSTSize = 537;
+
+    extern const char*   DejaVuSansMono_ttf;
+    const int            DejaVuSansMono_ttfSize = 340712;
 
     extern const char*   copy_png;
     const int            copy_pngSize = 4098;
@@ -32,11 +38,8 @@ namespace BinaryData
     extern const char*   settings_png;
     const int            settings_pngSize = 12539;
 
-    extern const char*   DejaVuSansMono_ttf;
-    const int            DejaVuSansMono_ttfSize = 340712;
-
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 9;
+    const int namedResourceListSize = 10;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];
@@ -46,9 +49,9 @@ namespace BinaryData
 
     // If you provide the name of one of the binary resource variables above, this function will
     // return the corresponding data and its size (or a null pointer if the name isn't found).
-    const char* getNamedResource (const char* resourceNameUTF8, int& dataSizeInBytes) noexcept;
+    const char* getNamedResource (const char* resourceNameUTF8, int& dataSizeInBytes);
 
     // If you provide the name of one of the binary resource variables above, this function will
     // return the corresponding original, non-mangled filename (or a null pointer if the name isn't found).
-    const char* getNamedResourceOriginalFilename (const char* resourceNameUTF8) noexcept;
+    const char* getNamedResourceOriginalFilename (const char* resourceNameUTF8);
 }
