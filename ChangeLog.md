@@ -1,5 +1,8 @@
 v1.0.7
-- Fix PdStalFx problems - DSP not recompiled and no loadbang 
+- Fix PdStalFx - DSP not recompiled (#126)
+- Fix PdStalFx - no loadbang (#126)
+- Fix PdStalFx - undefined when reloaded (#126)
+- Add PdStal - instrument version of PdStalFx (#126)
 
 v1.0.6
 - Add LV2 format support (#70)
