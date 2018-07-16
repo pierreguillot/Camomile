@@ -1,3 +1,6 @@
+v1.0.7
+- Fix PdStalFx problems - DSP not recompiled and no loadbang 
+
 v1.0.6
 - Add LV2 format support (#70)
 - Add new example PdStalFx (a plugin that loads patches dynamically)  
