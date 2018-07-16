@@ -1,5 +1,5 @@
 iolayout 2 2;
-code PdS1;
+code PdS2;
 type effect;
 midiin true;
 midiout true;

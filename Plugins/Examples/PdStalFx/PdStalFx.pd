@@ -1,6 +1,6 @@
 #N canvas 685 83 718 307 10;
 #N canvas 0 23 450 300 \$0-internal 0;
-#X coords 0 -1 1 1 460 160 2 0 0;
+#X coords 0 -1 1 1 460 160 2 2 2;
 #X restore 2 28 pd \$0-internal;
 #X obj 2 2 cnv 25 460 25 empty \$0-header empty 20 12 0 14 -228856
 -66577 0;
@@ -256,6 +256,7 @@
 #X obj 96 94 r \$0-reload;
 #X obj 96 116 r \$0-close;
 #X msg 96 137 symbol undefined;
+#X obj 166 116 loadbang;
 #X connect 0 0 1 0;
 #X connect 0 0 4 0;
 #X connect 1 0 2 0;
@@ -264,6 +265,7 @@
 #X connect 6 0 5 0;
 #X connect 7 0 8 0;
 #X connect 8 0 5 0;
+#X connect 9 0 8 0;
 #X restore 58 17 pd load.patch;
 #X obj 85 90 t s s;
 #X obj 58 38 t b a;
