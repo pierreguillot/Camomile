@@ -66,12 +66,7 @@ void CamomileEditor::updateObjects()
             obj->setTopLeftPosition(obj->getX() - pbounds[0], obj->getY() - pbounds[1]);
             if(bounds.contains(obj->getBounds()))
             {
-                Component* label = obj->getLabel();
                 addAndMakeVisible(m_objects.add(obj));
-                if(label)
-                {
-                    addAndMakeVisible(m_labels.add(label));
-                }
             }
         }
     }
