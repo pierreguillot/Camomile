@@ -10,6 +10,30 @@
 #include "Pd/PdInstance.hpp"
 #include <atomic>
 
+class PluginEditorObject;
+
+// ==================================================================================== //
+//                                  PATCH                                               //
+// ==================================================================================== //
+
+class GuiPatch : public Component
+{
+public:
+    GuiPatch(CamomileEditorMouseManager& processor, pd::Patch patch);
+    void updateSize();
+    void updateObjects();
+    void updateObjectsValues();
+private:
+    using object_uptr = std::unique_ptr<PluginEditorObject>;
+    using label_uptr = std::unique_ptr<Component>;
+    using object_pair = std::pair<object_uptr, label_uptr>;
+    
+    CamomileEditorMouseManager& m_processor;
+protected:
+    pd::Patch m_patch;
+    std::vector<object_pair> m_objects;
+};
+
 // ==================================================================================== //
 //                                  GRAPHICAL ARRAY                                     //
 // ==================================================================================== //
@@ -51,7 +75,7 @@ public:
     static PluginEditorObject* createTyped(CamomileEditorMouseManager& p, pd::Gui& g);
     virtual void updateValue();
     virtual void updateInterface();
-    Label* getLabel();
+    std::unique_ptr<Label> getLabel();
     pd::Gui getGUI();
 protected:
     float getValueOriginal() const noexcept;
