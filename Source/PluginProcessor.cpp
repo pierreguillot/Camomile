@@ -254,11 +254,8 @@ void CamomileAudioProcessor::processInternal()
                     sendSysRealTime(0, static_cast<int>(message.getRawData()[i]));
                 }
             }
-            else
-            {
-                for(int i = 0; i < message.getRawDataSize(); ++i)  {
-                    sendMidiByte(0, static_cast<int>(message.getRawData()[i]));
-                }
+            for(int i = 0; i < message.getRawDataSize(); ++i)  {
+                sendMidiByte(0, static_cast<int>(message.getRawData()[i]));
             }
         }
         m_midi_buffer_in.clear();
