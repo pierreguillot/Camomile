@@ -3,6 +3,7 @@ v1.0.7
 - Fix PdStalFx - no loadbang (#126)
 - Fix PdStalFx - undefined when reloaded (#126)
 - Add PdStal - instrument version of PdStalFx (#126)
+- Fix Windows path of the openpanel and savepanel methods
 
 v1.0.6
 - Add LV2 format support (#70)
