@@ -254,7 +254,8 @@ bool CamomileEditorMessageManager::processMessages()
                 {
                     m_processor.suspendProcessing(true);
                 }
-                m_processor.enqueueMessages(string_openpanel, f.getFullPathName().toStdString(), {});
+                auto const path = f.getFullPathName().replaceCharacter('\\', '/').toStdString();
+                m_processor.enqueueMessages(string_openpanel, path, {});
                 if(!message[2].empty())
                 {
                     m_processor.suspendProcessing(false);
@@ -271,7 +272,8 @@ bool CamomileEditorMessageManager::processMessages()
                 {
                     m_processor.suspendProcessing(true);
                 }
-                m_processor.enqueueMessages(string_savepanel, f.getFullPathName().toStdString(), {});
+                auto const path = f.getFullPathName().replaceCharacter('\\', '/').toStdString();
+                m_processor.enqueueMessages(string_savepanel, path, {});
                 if(!message[2].empty())
                 {
                     m_processor.suspendProcessing(false);
