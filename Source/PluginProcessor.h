@@ -135,6 +135,8 @@ private:
     MidiBuffer               m_midi_buffer_in;
     MidiBuffer               m_midi_buffer_out;
     MidiBuffer               m_midi_buffer_temp;
+    int                      m_midibyte_buffer[3];
+    int                      m_midibyte_index;
     
     
     int m_program_current    = 0;

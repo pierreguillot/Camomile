@@ -156,6 +156,11 @@ void CamomileAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     m_midi_buffer_in.clear();
     m_midi_buffer_out.clear();
     m_midi_buffer_temp.clear();
+    
+    m_midibyte_index = 0;
+    m_midibyte_buffer[0] = 0;
+    m_midibyte_buffer[1] = 0;
+    m_midibyte_buffer[2] = 0;
     startDSP();
     processMessages();
     processPrints();
@@ -298,6 +303,10 @@ void CamomileAudioProcessor::processInternal()
     //////////////////////////////////////////////////////////////////////////////////////////
     if(m_produces_midi)
     {
+        m_midibyte_index = 0;
+        m_midibyte_buffer[0] = 0;
+        m_midibyte_buffer[1] = 0;
+        m_midibyte_buffer[2] = 0;
         m_midi_buffer_out.clear();
         processMidi();
     }

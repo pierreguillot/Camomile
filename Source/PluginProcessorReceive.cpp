@@ -50,7 +50,20 @@ void CamomileAudioProcessor::receivePolyAftertouch(const int channel, const int 
 
 void CamomileAudioProcessor::receiveMidiByte(const int port, const int byte)
 {
-    m_midi_buffer_out.addEvent(MidiMessage(byte), m_audio_advancement);
+#if 0
+    if(m_midibyte_index == 0)
+    {
+        add(ConsoleLevel::Error, "Process Send Midi Bytes ----");
+    }
+    add(ConsoleLevel::Error,  std::to_string(byte));
+#endif
+    
+    m_midibyte_buffer[m_midibyte_index++] = byte;
+    if(m_midibyte_index >= 3)
+    {
+        m_midi_buffer_out.addEvent(MidiMessage(m_midibyte_buffer[0], m_midibyte_buffer[1], m_midibyte_buffer[2]), m_audio_advancement);
+        m_midibyte_index = 0;
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
