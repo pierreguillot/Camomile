@@ -227,8 +227,11 @@ private:
 
 const std::string CamomileEditorMessageManager::string_openpanel = std::string("openpanel");
 const std::string CamomileEditorMessageManager::string_savepanel = std::string("savepanel");
+const std::string CamomileEditorMessageManager::string_symbol    = std::string("symbol");
 const std::string CamomileEditorMessageManager::string_array     = std::string("array");
 const std::string CamomileEditorMessageManager::string_gui       = std::string("gui");
+const std::string CamomileEditorMessageManager::string_resize    = std::string("resize");
+const std::string CamomileEditorMessageManager::string_redraw    = std::string("redraw");
 
 CamomileEditorMessageManager::CamomileEditorMessageManager(CamomileAudioProcessor& processor) :
 m_processor(processor), m_window(new CamomileEditorMessageWindow())
@@ -255,7 +258,7 @@ bool CamomileEditorMessageManager::processMessages()
                     m_processor.suspendProcessing(true);
                 }
                 auto const path = f.getFullPathName().replaceCharacter('\\', '/').toStdString();
-                m_processor.enqueueMessages(string_openpanel, path, {});
+                m_processor.enqueueMessages(string_openpanel, string_symbol, {path});
                 if(!message[2].empty())
                 {
                     m_processor.suspendProcessing(false);
@@ -264,7 +267,7 @@ bool CamomileEditorMessageManager::processMessages()
         }
         else if(message[0] == string_savepanel)
         {
-            FileChooser fc("Open...", File(message[1]));
+            FileChooser fc("Save...", File(message[1]));
             if(fc.browseForFileToSave(true))
             {
                 File const f(fc.getResult());
@@ -273,7 +276,7 @@ bool CamomileEditorMessageManager::processMessages()
                     m_processor.suspendProcessing(true);
                 }
                 auto const path = f.getFullPathName().replaceCharacter('\\', '/').toStdString();
-                m_processor.enqueueMessages(string_savepanel, path, {});
+                m_processor.enqueueMessages(string_savepanel, string_symbol, {path});
                 if(!message[2].empty())
                 {
                     m_processor.suspendProcessing(false);
@@ -301,11 +304,11 @@ bool CamomileEditorMessageManager::processMessages()
         }
         else if(message[0] == string_gui)
         {
-            if(message[1] == std::string("resize"))
+            if(message[1] == string_resize)
             {
                 guiResize();
             }
-            else if(message[1] == std::string("redraw"))
+            else if(message[1] == string_redraw)
             {
                 guiRedraw();
             }

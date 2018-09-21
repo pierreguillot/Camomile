@@ -94,8 +94,11 @@ private:
     ScopedPointer<DocumentWindow> m_window;
     static const std::string string_openpanel;
     static const std::string string_savepanel;
+    static const std::string string_symbol;
     static const std::string string_array;
     static const std::string string_gui;
+    static const std::string string_resize;
+    static const std::string string_redraw;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorMessageManager)
 };
