@@ -40,9 +40,11 @@ m_programs(CamomileEnvironment::getPrograms())
         m_atoms_param.resize(2);
         m_atoms_playhead.reserve(3);
         m_atoms_playhead.resize(1);
+        
         m_midi_buffer_in.ensureSize(2048);
         m_midi_buffer_out.ensureSize(2048);
         m_midi_buffer_temp.ensureSize(2048);
+        
         prepareDSP(getTotalNumInputChannels(), getTotalNumOutputChannels(), getSampleRate());
         setLatencySamples(CamomileEnvironment::getLatencySamples() + Instance::getBlockSize());
         

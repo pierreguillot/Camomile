@@ -57,12 +57,47 @@ void CamomileAudioProcessor::receiveMidiByte(const int port, const int byte)
     }
     add(ConsoleLevel::Error,  std::to_string(byte));
 #endif
-    
-    m_midibyte_buffer[m_midibyte_index++] = byte;
-    if(m_midibyte_index >= 3)
+    if(m_midibyte_issysex)
     {
-        m_midi_buffer_out.addEvent(MidiMessage(m_midibyte_buffer[0], m_midibyte_buffer[1], m_midibyte_buffer[2]), m_audio_advancement);
-        m_midibyte_index = 0;
+        if(byte == 0xf7)
+        {
+#if 0
+            add(ConsoleLevel::Error,  std::to_string(byte));
+            add(ConsoleLevel::Error, "End Sys Ex " + std::to_string(m_midibyte_index) + "----");
+#endif
+            m_midi_buffer_out.addEvent(MidiMessage::createSysExMessage(m_midibyte_buffer, static_cast<int>(m_midibyte_index)), m_audio_advancement);
+            m_midibyte_index = 0;
+            m_midibyte_issysex = false;
+        }
+        else
+        {
+#if 0
+            add(ConsoleLevel::Error,  std::to_string(byte));
+#endif
+            m_midibyte_buffer[m_midibyte_index++] = static_cast<uint8> (byte);
+            if(m_midibyte_index == 512)
+            {
+                add(ConsoleLevel::Fatal, "SysEx message cannot exceed 512 bytes, please send a message to the developer to tell him that the size should be dynamic!");
+                m_midibyte_index = 511;
+            }
+        }
+    }
+    else if(m_midibyte_index == 0 && byte == 0xf0)
+    {
+#if 0
+        add(ConsoleLevel::Error, "Start Sys Ex ----");
+        add(ConsoleLevel::Error,  std::to_string(byte));
+#endif
+        m_midibyte_issysex = true;
+    }
+    else
+    {
+        m_midibyte_buffer[m_midibyte_index++] = static_cast<uint8> (byte);
+        if(m_midibyte_index >= 3)
+        {
+            m_midi_buffer_out.addEvent(MidiMessage(m_midibyte_buffer, 3), m_audio_advancement);
+            m_midibyte_index = 0;
+        }
     }
 }
 
