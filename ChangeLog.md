@@ -3,9 +3,11 @@ v1.0.7
 - Fix PdStalFx - no loadbang (#126)
 - Fix PdStalFx - undefined when reloaded (#126)
 - Add PdStal - instrument version of PdStalFx (#126)
-- Fix Windows path of the openpanel and savepanel methods
-- Fix midiin objects support to output all the midi messages
-- Fix midiout objects support that always use 3 bytes messages
+- Fix openpanel and savepanel methods to use Unix path even on Windows (#131)
+- Fix openpanel and savepanel methods to output a symbol instead of a list of 1 element (#137)
+- Fix midiin objects support to output all the midi messages (#134)
+- Fix midiout objects support for 3 bytes messages and system exclusive messages (#134)
+- Fix camomile script to support white space in the path (#136)
 
 v1.0.6
 - Add LV2 format support (#70)
