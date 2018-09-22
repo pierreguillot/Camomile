@@ -11,8 +11,8 @@
 #X text 188 7 Reload;
 #X text 141 8 Load;
 #X symbolatom 34 8 14 0 0 0 - #0-name #0-name-s;
-#N canvas 0 23 264 266 dynamic.patch 1;
-#N canvas 428 23 704 817 update.gui 1;
+#N canvas 0 23 264 266 dynamic.patch 0;
+#N canvas 428 23 704 817 update.gui 0;
 #X obj 112 235 text define \$0-patch;
 #X obj 85 256 text size \$0-patch;
 #X obj 85 193 t b a;
