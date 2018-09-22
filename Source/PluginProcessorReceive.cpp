@@ -140,7 +140,7 @@ void CamomileAudioProcessor::receivePrint(const std::string& message)
 
 void CamomileAudioProcessor::receiveMessage(const std::string& msg, const std::vector<pd::Atom>& list)
 {
-    if(msg == std::string("param"))
+    if(msg == "param")
     {
         if(list.size() >= 2 && list[0].isSymbol() && list[1].isFloat())
         {
@@ -213,31 +213,31 @@ void CamomileAudioProcessor::receiveMessage(const std::string& msg, const std::v
         else { add(ConsoleLevel::Error,
                    "camomile param error syntax: method index..."); }
     }
-    else if(msg == std::string("program"))
+    else if(msg == "program")
     {
         parseProgram(list);
     }
-    else if(msg == std::string("openpanel"))
+    else if(msg == "openpanel")
     {
         parseOpenPanel(list);
     }
-    else if(msg == std::string("savepanel"))
+    else if(msg == "savepanel")
     {
         parseSavePanel(list);
     }
-    else if(msg == std::string("array"))
+    else if(msg == "array")
     {
         parseArray(list);
     }
-    else if(msg == std::string("save"))
+    else if(msg == "save")
     {
         parseSaveInformation(list);
     }
-    else if(msg == std::string("gui"))
+    else if(msg == "gui")
     {
         parseGui(list);
     }
-    else if(msg == std::string("audio"))
+    else if(msg == "audio")
     {
         parseAudio(list);
     }
@@ -412,7 +412,7 @@ void CamomileAudioProcessor::parseAudio(const std::vector<pd::Atom>& list)
     {
         if(list[0].isSymbol())
         {
-            if(list[0].getSymbol() == std::string("latency"))
+            if(list[0].getSymbol() == "latency")
             {
                 if(list.size() >= 2 && list[1].isFloat())
                 {
