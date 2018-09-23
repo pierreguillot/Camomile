@@ -29,6 +29,7 @@
 *.vst
 *.vst3
 *.lv2
+*.appex
 
 # Packages
 *.zip
