@@ -9,23 +9,9 @@ project(libpd C)
 # CMAKE MAC OS SPECIFIC
 #------------------------------------------------------------------------------#
 
-if(CMAKE_GENERATOR STREQUAL Xcode)
-	if(XCODE_VERSION VERSION_LESS "10.0")
-		set(XCODE_32BIT_LIMITATION OFF)
-	else()
-		set(XCODE_32BIT_LIMITATION ON)
-		message("32 bit limitation")
-	endif()
-endif()
-
 set(CMAKE_OSX_DEPLOYMENT_TARGET 10.7)
 set(CMAKE_MACOSX_RPATH ON)
-
-if(XCODE_32BIT_LIMITATION)
-	set(CMAKE_OSX_ARCHITECTURES "i386;x86_64")
-else()
-	set(CMAKE_OSX_ARCHITECTURES "x86_64")
-endif()
+set(CMAKE_OSX_ARCHITECTURES "x86_64")
 
 set(LIBPD_PATH "${PROJECT_SOURCE_DIR}/../LibPd")
 set(LIBPD_OUTPUT_DIRECTORY "./..")

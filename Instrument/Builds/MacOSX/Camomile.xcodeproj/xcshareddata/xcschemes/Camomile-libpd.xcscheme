@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0920"
+   LastUpgradeVersion = "1010"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "NO"
@@ -23,7 +23,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AA9276E83F054B87954C0417"
+               BlueprintIdentifier = "FFCBC9DBB44C4C87B7D46B0B"
                BuildableName = "libpd-multi.a"
                BlueprintName = "libpdstatic"
                ReferencedContainer = "container:../../../Dependencies/LibPdBuild/MacOSX/libpd.xcodeproj">
