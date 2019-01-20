@@ -315,17 +315,6 @@ endif()
 #------------------------------------------------------------------------------#
 set(THREADS_PREFER_PTHREAD_FLAG On)
 set(CMAKE_THREAD_PREFER_PTHREAD True)
-if(NOT XCODE_32BIT_LIMITATION)
-	find_package(Threads REQUIRED)
-
-	if(LIBPD_INCLUDE_DYNAMIC_LIBRARY)
-	  target_link_libraries(libpdshared Threads::Threads)
-	endif()
-	if(LIBPD_INCLUDE_STATIC_LIBRARY)
-	  target_link_libraries(libpdstatic Threads::Threads)
-	endif()
-endif()
-
 
 if(MSVC)
     link_directories(${PROJECT_SOURCE_DIR}/pure-data)
