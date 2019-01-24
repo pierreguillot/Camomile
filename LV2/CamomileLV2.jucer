@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="Y4eE7X" name="CamomileLV2" projectType="dll" jucerVersion="5.3.2"
+<JUCERPROJECT id="Y4eE7X" name="CamomileLV2" projectType="dll" jucerVersion="5.4.1"
               version="1.0.6" companyName="Pierre Guillot" companyCopyright="Pierre Guillot"
               companyWebsite="github.com/pierreguillot/camomile" splashScreenColour="Dark"
               bundleIdentifier="com.pierreguillot.camomile" cppLanguageStandard="11"
@@ -101,10 +101,10 @@
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" binaryPath="../Plugins" libraryPath="../../../Dependencies/LibPdBuild"
                        enablePluginBinaryCopyStep="0" linkTimeOptimisation="0" osxCompatibility="10.9 SDK"
-                       osxArchitecture="64BitUniversal" targetName="CamomileLV2"/>
+                       osxArchitecture="64BitIntel" targetName="CamomileLV2"/>
         <CONFIGURATION isDebug="0" name="Release" libraryPath="../../../Dependencies/LibPdBuild"
                        binaryPath="../Plugins" linkTimeOptimisation="1" enablePluginBinaryCopyStep="0"
-                       optimisation="3" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"
+                       optimisation="3" osxCompatibility="10.9 SDK" osxArchitecture="64BitIntel"
                        targetName="CamomileLV2"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
