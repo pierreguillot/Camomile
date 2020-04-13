@@ -1,5 +1,5 @@
 language: cpp
-dist: trusty
+dist: xenial
 sudo: required
 notifications:
   email: false
@@ -44,7 +44,6 @@ matrix:
   - os: osx
     compiler: clang++
     env: release=CamomileMacOS
-    osx_image: xcode8.3
     script:
     - cd Dependencies/LibPdBuild/MacOSX && cmake .. -GXcode && cd ../../..
     - xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release | egrep '^(/.+:[0-9+:[0-9]+:.(error|warning):|fatal|===)' -
