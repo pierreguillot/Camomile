@@ -79,6 +79,7 @@ file(GLOB PD_SOURCES
     ${LIBPD_PATH}/pure-data/src/g_canvas.c
     ${LIBPD_PATH}/pure-data/src/g_canvas.h
     ${LIBPD_PATH}/pure-data/src/g_clone.c
+		${LIBPD_PATH}/pure-data/src/g_editor_extras.c
     ${LIBPD_PATH}/pure-data/src/g_editor.c
     ${LIBPD_PATH}/pure-data/src/g_graph.c
     ${LIBPD_PATH}/pure-data/src/g_guiconnect.c
@@ -94,6 +95,8 @@ file(GLOB PD_SOURCES
     ${LIBPD_PATH}/pure-data/src/g_text.c
     ${LIBPD_PATH}/pure-data/src/g_toggle.c
     ${LIBPD_PATH}/pure-data/src/g_traversal.c
+		${LIBPD_PATH}/pure-data/src/g_undo.c
+		${LIBPD_PATH}/pure-data/src/g_undo.h
     ${LIBPD_PATH}/pure-data/src/g_vdial.c
     ${LIBPD_PATH}/pure-data/src/g_vslider.c
     ${LIBPD_PATH}/pure-data/src/g_vumeter.c
@@ -113,6 +116,8 @@ file(GLOB PD_SOURCES
     ${LIBPD_PATH}/pure-data/src/s_inter.c
     ${LIBPD_PATH}/pure-data/src/s_loader.c
     ${LIBPD_PATH}/pure-data/src/s_main.c
+		${LIBPD_PATH}/pure-data/src/s_net.c
+		${LIBPD_PATH}/pure-data/src/s_net.h
     ${LIBPD_PATH}/pure-data/src/s_path.c
     ${LIBPD_PATH}/pure-data/src/s_print.c
     ${LIBPD_PATH}/pure-data/src/s_stuff.h
