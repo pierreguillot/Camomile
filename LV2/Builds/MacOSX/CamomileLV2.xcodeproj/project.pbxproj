@@ -1044,6 +1044,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = ../../../Plugins;
 				COPY_PHASE_STRIP = NO;
@@ -1107,6 +1108,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = ../../../Plugins;
 				DEAD_CODE_STRIPPING = YES;
@@ -1187,7 +1189,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf";
+				CODE_SIGN_IDENTITY = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c11;
@@ -1205,7 +1208,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PRODUCT_NAME = "CamomileLV2";
-				WARNING_CFLAGS = -Wreorder;
+				SDKROOT = macosx;
+				WARNING_CFLAGS = "-Wreorder";
 				ZERO_LINK = NO;
 			};
 			name = Debug;
@@ -1232,7 +1236,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf";
+				CODE_SIGN_IDENTITY = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -1249,7 +1254,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PRODUCT_NAME = "CamomileLV2";
-				WARNING_CFLAGS = -Wreorder;
+				SDKROOT = macosx;
+				WARNING_CFLAGS = "-Wreorder";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -1368,13 +1374,14 @@
 		2375A7F4B78BF8ED2F920C47 = {
 			isa = PBXProject;
 			buildConfigurationList = 08B1D94FA18A94345BC527C8;
-			attributes = { LastUpgradeCheck = 0930; ORGANIZATIONNAME = "Pierre Guillot"; };
+			attributes = { LastUpgradeCheck = 1100; ORGANIZATIONNAME = "Pierre Guillot"; };
 			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 0;
 			mainGroup = C31AB605B2E36EFB0076F9F7;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (E8CDB3EF7A152A673172E1AB);
+			knownRegions = (en, Base);
 		};
 	};
 	rootObject = 2375A7F4B78BF8ED2F920C47;

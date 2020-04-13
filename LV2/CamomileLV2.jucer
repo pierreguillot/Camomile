@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="Y4eE7X" name="CamomileLV2" projectType="dll" jucerVersion="5.4.1"
+<JUCERPROJECT id="Y4eE7X" name="CamomileLV2" projectType="dll" jucerVersion="5.4.7"
               version="1.0.6" companyName="Pierre Guillot" companyCopyright="Pierre Guillot"
               companyWebsite="github.com/pierreguillot/camomile" splashScreenColour="Dark"
               bundleIdentifier="com.pierreguillot.camomile" cppLanguageStandard="11"
