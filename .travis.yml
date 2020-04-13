@@ -1,5 +1,5 @@
 language: cpp
-dist: trusty
+dist: xenial
 sudo: required
 notifications:
   email: false
@@ -11,16 +11,8 @@ matrix:
   include:
 
   - os: linux
-    addons:
-       apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-5
     compiler: gcc
-    env:
-    - release=CamomileLinux64
-    - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
+    env: release=CamomileLinux64
     before_install:
     - sudo apt-get -qq update
     - sudo apt-get install -y libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libfreetype6-dev alsa libasound2-dev
