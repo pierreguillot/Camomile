@@ -463,17 +463,16 @@ GuiTextEditor::GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g) : Plugin
     const float fs = static_cast<float>(gui.getFontHeight());
     Font const tf = CamoLookAndFeel::getDefaultFont().withPointHeight(fs);
     
-    label = new Label();
-    label->setBounds(2, 0, getWidth() - 2, getHeight() - 1);
-    label->setFont(tf);
-    label->setMinimumHorizontalScale(1.f);
-    label->setJustificationType(Justification::centredLeft);
-    label->setBorderSize(BorderSize<int>(border+2, border, border, border));
-    label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
-    label->setEditable(false, false);
-    label->setInterceptsMouseClicks(false, false);
-    label->addListener(this);
-    label->setColour(Label::textColourId, Colour(static_cast<uint32>(gui.getForegroundColor())));
+    label.setBounds(2, 0, getWidth() - 2, getHeight() - 1);
+    label.setFont(tf);
+    label.setMinimumHorizontalScale(1.f);
+    label.setJustificationType(Justification::centredLeft);
+    label.setBorderSize(BorderSize<int>(border+2, border, border, border));
+    label.setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+    label.setEditable(false, false);
+    label.setInterceptsMouseClicks(false, false);
+    label.addListener(this);
+    label.setColour(Label::textColourId, Colour(static_cast<uint32>(gui.getForegroundColor())));
     setInterceptsMouseClicks(true, false);
     addAndMakeVisible(label);
 }
@@ -508,7 +507,7 @@ void GuiTextEditor::update()
         if(v != value)
         {
             value = v;
-            label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+            label.setText(String(getValueOriginal()), NotificationType::dontSendNotification);
         }
     }
 }
@@ -522,8 +521,8 @@ GuiNumber::GuiNumber(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(
 {
     const float w = static_cast<float>(getWidth());
     const float h = static_cast<float>(getHeight());
-    label->setBounds(static_cast<int>(h * 0.5f), static_cast<int>(0.5f),
-                     static_cast<int>(w - h * 0.5f), static_cast<int>(h));
+    label.setBounds(static_cast<int>(h * 0.5f), static_cast<int>(0.5f),
+                    static_cast<int>(w - h * 0.5f), static_cast<int>(h));
 }
 
 void GuiNumber::paint(Graphics& g)
@@ -549,7 +548,7 @@ void GuiNumber::paint(Graphics& g)
 
 void GuiNumber::mouseDown(const MouseEvent& event)
 {
-    if(!label->hasKeyboardFocus(true))
+    if(!label.hasKeyboardFocus(true))
     {
         startEdition();
         shift = event.mods.isShiftDown();
@@ -559,7 +558,7 @@ void GuiNumber::mouseDown(const MouseEvent& event)
 
 void GuiNumber::mouseUp(const MouseEvent& e)
 {
-    if(!label->hasKeyboardFocus(true))
+    if(!label.hasKeyboardFocus(true))
     {
         stopEdition();
     }
@@ -580,15 +579,15 @@ void GuiNumber::mouseDrag(const MouseEvent& e)
     {
         setValueOriginal(last + inc);
     }
-    label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+    label.setText(String(getValueOriginal()), NotificationType::dontSendNotification);
 }
 
 void GuiNumber::mouseDoubleClick(const MouseEvent&)
 {
     startEdition();
-    label->grabKeyboardFocus();
-    label->showEditor();
-    TextEditor* editor = label->getCurrentTextEditor();
+    label.grabKeyboardFocus();
+    label.showEditor();
+    TextEditor* editor = label.getCurrentTextEditor();
     if(editor)
     {
         editor->setIndents(0, 2);
@@ -630,9 +629,9 @@ void GuiAtomNumber::mouseDown(const MouseEvent& event)
     {
         startEdition();
         setValueOriginal(static_cast<float>(getValueOriginal() <= std::numeric_limits<float>::epsilon()));
-        label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+        label.setText(String(getValueOriginal()), NotificationType::dontSendNotification);
     }
-    else if(!label->hasKeyboardFocus(true))
+    else if(!label.hasKeyboardFocus(true))
     {
         startEdition();
         shift = event.mods.isShiftDown();
@@ -642,7 +641,7 @@ void GuiAtomNumber::mouseDown(const MouseEvent& event)
 
 void GuiAtomNumber::mouseUp(const MouseEvent& e)
 {
-    if(gui.getNumberOfSteps() == 1 || !label->hasKeyboardFocus(true))
+    if(gui.getNumberOfSteps() == 1 || !label.hasKeyboardFocus(true))
     {
         stopEdition();
     }
@@ -665,7 +664,7 @@ void GuiAtomNumber::mouseDrag(const MouseEvent& e)
         {
             setValueOriginal(last + inc);
         }
-        label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+        label.setText(String(getValueOriginal()), NotificationType::dontSendNotification);
     }
 }
 
@@ -674,9 +673,9 @@ void GuiAtomNumber::mouseDoubleClick(const MouseEvent&)
     if(!gui.getNumberOfSteps())
     {
         startEdition();
-        label->grabKeyboardFocus();
-        label->showEditor();
-        TextEditor* editor = label->getCurrentTextEditor();
+        label.grabKeyboardFocus();
+        label.showEditor();
+        TextEditor* editor = label.getCurrentTextEditor();
         if(editor)
         {
             editor->setIndents(1, 2);
@@ -691,7 +690,7 @@ void GuiAtomNumber::mouseDoubleClick(const MouseEvent&)
 
 GuiAtomSymbol::GuiAtomSymbol(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(p, g), last(gui.getSymbol())
 {
-    label->setText(String(last), NotificationType::dontSendNotification);
+    label.setText(String(last), NotificationType::dontSendNotification);
 }
 
 void GuiAtomSymbol::paint(Graphics& g)
@@ -716,9 +715,9 @@ void GuiAtomSymbol::paint(Graphics& g)
 void GuiAtomSymbol::mouseDoubleClick(const MouseEvent&)
 {
     startEdition();
-    label->grabKeyboardFocus();
-    label->showEditor();
-    TextEditor* editor = label->getCurrentTextEditor();
+    label.grabKeyboardFocus();
+    label.showEditor();
+    TextEditor* editor = label.getCurrentTextEditor();
     if(editor)
     {
         editor->setIndents(1, 2);
@@ -745,7 +744,7 @@ void GuiAtomSymbol::update()
         if(v != last)
         {
             last = v;
-            label->setText(String(last), NotificationType::dontSendNotification);
+            label.setText(String(last), NotificationType::dontSendNotification);
         }
     }
 }

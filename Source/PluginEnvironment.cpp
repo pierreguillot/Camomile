@@ -113,7 +113,8 @@ bool CamomileEnvironment::localize()
     if(plugin.exists() && (plugin.hasFileExtension("component") ||
                            plugin.hasFileExtension("vst") ||
                            plugin.hasFileExtension("vst3") ||
-                           plugin.hasFileExtension("dylib") ))
+                           plugin.hasFileExtension("dylib") ||
+                           plugin.hasFileExtension("bundle") ))
     {
         
         plugin_name = plugin.getFileNameWithoutExtension().toStdString();
@@ -131,7 +132,8 @@ bool CamomileEnvironment::localize()
         if(plugin.exists() && (plugin.hasFileExtension("component") ||
                                plugin.hasFileExtension("vst") ||
                                plugin.hasFileExtension("vst3")  ||
-                               plugin.hasFileExtension("dylib") ))
+                               plugin.hasFileExtension("dylib") ||
+                               plugin.hasFileExtension("bundle") ))
         {
             errors.clear();
             plugin_name = plugin.getFileNameWithoutExtension().toStdString();
