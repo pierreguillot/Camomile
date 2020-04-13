@@ -151,7 +151,7 @@ public:
     void editorHidden(Label*, TextEditor&) final;
     void update() override;
 protected:
-    ScopedPointer<Label> label;
+    juce::Label label;
 };
 
 class GuiNumber : public GuiTextEditor

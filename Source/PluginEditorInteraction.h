@@ -91,7 +91,7 @@ private:
     virtual void guiRedraw() = 0;
     
     CamomileAudioProcessor& m_processor;
-    ScopedPointer<DocumentWindow> m_window;
+    std::unique_ptr<DocumentWindow> m_window;
     static const std::string string_openpanel;
     static const std::string string_savepanel;
     static const std::string string_symbol;

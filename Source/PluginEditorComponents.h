@@ -26,7 +26,7 @@ private:
     CamomileAudioProcessor& m_processor;
     DrawableImage           m_center;
     DrawableImage           m_petals;
-    ScopedPointer<DocumentWindow> m_window;
+    std::unique_ptr<DocumentWindow> m_window;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorButton)
 };
 

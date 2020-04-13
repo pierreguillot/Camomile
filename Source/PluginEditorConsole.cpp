@@ -63,13 +63,13 @@ m_font(CamoLookAndFeel::getDefaultFont().withPointHeight(10.f))
     addAndMakeVisible(m_table);
     
     m_clear_button->addListener(this);
-    addAndMakeVisible(m_clear_button);
+    addAndMakeVisible(m_clear_button.get());
     m_copy_button->addListener(this);
-    addAndMakeVisible(m_copy_button);
+    addAndMakeVisible(m_copy_button.get());
     m_level_button->addListener(this);
-    addAndMakeVisible(m_level_button);
+    addAndMakeVisible(m_level_button.get());
     m_reload_button->addListener(this);
-    addAndMakeVisible(m_reload_button);
+    addAndMakeVisible(m_reload_button.get());
     startTimer(100);
 }
 
@@ -165,15 +165,15 @@ void PluginEditorConsole::deleteKeyPressed(int lastRowSelected)
 
 void PluginEditorConsole::buttonClicked(Button* button)
 {
-    if(button == m_reload_button)
+    if(button == m_reload_button.get())
     {
         m_history.reloadPatch();
     }
-    else if(button == m_clear_button)
+    else if(button == m_clear_button.get())
     {
         clearSelection();
     }
-    else if(button == m_copy_button)
+    else if(button == m_copy_button.get())
     {
         copySelection();
     }
