@@ -52,8 +52,8 @@ public:
     bool isList() const { return !m_elements.isEmpty(); }
     
     static CamomileAudioParameter* parse(const std::string& definition);
-    static void saveStateInformation(XmlElement& xml, OwnedArray<AudioProcessorParameter> const& parameters);
-    static void loadStateInformation(XmlElement const& xml, OwnedArray<AudioProcessorParameter> const& parameters);
+    static void saveStateInformation(XmlElement& xml, Array<AudioProcessorParameter*> const& parameters);
+    static void loadStateInformation(XmlElement const& xml, Array<AudioProcessorParameter*> const& parameters);
 private:
     float m_value;
     String const m_name;

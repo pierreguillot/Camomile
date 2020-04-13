@@ -286,7 +286,7 @@ void CamomileAudioProcessor::processInternal()
     //////////////////////////////////////////////////////////////////////////////////////////
     {
         std::string const sparam("param");
-        OwnedArray<AudioProcessorParameter> const& parameters = AudioProcessor::getParameters();
+        auto const& parameters = AudioProcessor::getParameters();
         for(int i = 0; i < parameters.size(); ++i)
         {
             m_atoms_param[0] = static_cast<float>(i+1);
@@ -506,7 +506,7 @@ void CamomileAudioProcessor::messageEnqueued()
 //==============================================================================
 bool CamomileAudioProcessor::hasEditor() const
 {
-    return true;
+    return PluginHostType::getPluginLoadedAs() != AudioProcessor::wrapperType_Unity;
 }
 
 AudioProcessorEditor* CamomileAudioProcessor::createEditor()
@@ -617,7 +617,7 @@ void CamomileAudioProcessor::getStateInformation(MemoryBlock& destData)
 void CamomileAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     suspendProcessing(true);
-    ScopedPointer<const XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
+    auto xml(getXmlFromBinary(data, sizeInBytes));
     if(xml && xml->hasTagName("CamomileSettings"))
     {
         if(CamomileEnvironment::wantsAutoProgram())

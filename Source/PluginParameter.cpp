@@ -245,11 +245,12 @@ CamomileAudioParameter* CamomileAudioParameter::parse(const std::string& definit
     }
 }
 
-void CamomileAudioParameter::saveStateInformation(XmlElement& xml, OwnedArray<AudioProcessorParameter> const& parameters)
+void CamomileAudioParameter::saveStateInformation(XmlElement& xml, Array<AudioProcessorParameter*> const& parameters)
 {
     XmlElement* params = xml.createNewChildElement("params");
     if(params)
     {
+        
         for(int i = 0; i < parameters.size(); ++i)
         {
             params->setAttribute(String("param") + String(i+1), static_cast<double>(parameters[i]->getValue()));
@@ -257,7 +258,7 @@ void CamomileAudioParameter::saveStateInformation(XmlElement& xml, OwnedArray<Au
     }
 }
 
-void CamomileAudioParameter::loadStateInformation(XmlElement const& xml, OwnedArray<AudioProcessorParameter> const& parameters)
+void CamomileAudioParameter::loadStateInformation(XmlElement const& xml, Array<AudioProcessorParameter*> const& parameters)
 {
     XmlElement const* params = xml.getChildByName(juce::StringRef("params"));
     if(params)
