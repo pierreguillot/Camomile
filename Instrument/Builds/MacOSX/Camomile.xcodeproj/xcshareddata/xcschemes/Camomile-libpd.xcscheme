@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1010"
-   version = "1.3">
+   version = "2.0">
    <BuildAction
       parallelizeBuildables = "NO"
       buildImplicitDependencies = "YES">
@@ -23,7 +23,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FFCBC9DBB44C4C87B7D46B0B"
+               BlueprintIdentifier = "E290DBFFFBAB47F0ABA23E0C"
                BuildableName = "libpd-multi.a"
                BlueprintName = "libpdstatic"
                ReferencedContainer = "container:../../../Dependencies/LibPdBuild/MacOSX/libpd.xcodeproj">
@@ -101,11 +101,11 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES">
+      allowLocationSimulation = "YES"
+      launchAutomaticallySubstyle = "2">
       <PathRunnable
          runnableDebuggingMode = "0"
-         BundleIdentifier = "com.cockos.reaper"
-         FilePath = "/Applications/REAPER64.app">
+         FilePath = "/&lt;placeholder&gt;">
       </PathRunnable>
       <MacroExpansion>
          <BuildableReference
