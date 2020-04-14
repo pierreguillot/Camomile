@@ -116,6 +116,8 @@ file(GLOB PD_SOURCES
     ${LIBPD_PATH}/pure-data/src/s_inter.c
     ${LIBPD_PATH}/pure-data/src/s_loader.c
     ${LIBPD_PATH}/pure-data/src/s_main.c
+		${LIBPD_PATH}/pure-data/src/s_net.c
+		${LIBPD_PATH}/pure-data/src/s_net.h
     ${LIBPD_PATH}/pure-data/src/s_path.c
     ${LIBPD_PATH}/pure-data/src/s_print.c
     ${LIBPD_PATH}/pure-data/src/s_stuff.h
