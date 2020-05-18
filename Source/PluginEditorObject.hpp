@@ -59,6 +59,8 @@ protected:
     
     void startEdition() noexcept;
     void stopEdition() noexcept;
+
+    Label* objectLabel;
     
     pd::Gui     gui;
     CamomileEditorMouseManager&   patch;
@@ -131,7 +133,7 @@ public:
 class GuiPanel : public PluginEditorObject
 {
 public:
-    GuiPanel(CamomileEditorMouseManager& p, pd::Gui& g);
+    GuiPanel(CamomileEditorMouseManager& p, pd::Gui& g); ///: PluginEditorObject(p, g) {}
     void paint(Graphics& g) final;
 };
 

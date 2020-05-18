@@ -206,6 +206,69 @@ namespace pd
         return 1.f;
     }
     
+     float Gui::hasChanged() const noexcept
+{
+        if(!m_ptr)
+            return 0.f;
+        if(m_type == Type::HorizontalSlider)
+        {
+	    int status;
+	    status = static_cast<t_hslider*>(m_ptr)->x_gui.x_dirty;
+	    static_cast<t_hslider*>(m_ptr)->x_gui.x_dirty=0;
+	    return (status);
+        }
+        else if(m_type == Type::VerticalSlider)
+        {
+	    int status;
+	    status = static_cast<t_vslider*>(m_ptr)->x_gui.x_dirty;
+	    static_cast<t_vslider*>(m_ptr)->x_gui.x_dirty=0;
+	    return (status);
+        }
+        else if(m_type == Type::Toggle)
+        {
+	    int status;
+	    status = static_cast<t_toggle*>(m_ptr)->x_gui.x_dirty;
+	    static_cast<t_toggle*>(m_ptr)->x_gui.x_dirty=0;
+	    return (status);
+        }
+        else if(m_type == Type::Number)
+        {
+	    int status;
+	    status = static_cast<t_my_numbox*>(m_ptr)->x_gui.x_dirty;
+	    static_cast<t_my_numbox*>(m_ptr)->x_gui.x_dirty=0;
+	    return (status);
+        }
+        else if(m_type == Type::HorizontalRadio)
+        {
+	    int status;
+	    status = static_cast<t_hdial*>(m_ptr)->x_gui.x_dirty;
+	    static_cast<t_hdial*>(m_ptr)->x_gui.x_dirty=0;
+	    return (status);
+        }
+        else if(m_type == Type::VerticalRadio)
+        {
+	    int status;
+	    status = static_cast<t_vdial*>(m_ptr)->x_gui.x_dirty;
+	    static_cast<t_vdial*>(m_ptr)->x_gui.x_dirty=0;
+	    return (status);
+        }
+        else if(m_type == Type::Bang)
+        {
+	    int status;
+	    status = static_cast<t_bng*>(m_ptr)->x_gui.x_dirty;
+	    static_cast<t_bng*>(m_ptr)->x_gui.x_dirty=0;
+	    return (status);
+        }
+	else if(m_type == Type::Panel)
+        {
+	    int status;
+	    status = static_cast<t_my_canvas*>(m_ptr)->x_gui.x_dirty;
+	    static_cast<t_my_canvas*>(m_ptr)->x_gui.x_dirty=0;
+	    return (status);
+        }
+        return 0.f;
+    }
+
     float Gui::getValue() const noexcept
     {
         if(!m_ptr)
@@ -244,7 +307,7 @@ namespace pd
         }
         else if(m_type == Type::AtomNumber)
         {
-            return atom_getfloat(&(static_cast<t_fake_gatom*>(m_ptr)->a_atom));
+	    return atom_getfloat(&(static_cast<t_fake_gatom*>(m_ptr)->a_atom));
         }
         return 0.f;
     }

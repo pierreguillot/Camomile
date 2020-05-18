@@ -84,6 +84,8 @@ namespace pd
         float getMaximum() const noexcept;
         
         float getValue() const noexcept;
+
+	float hasChanged() const noexcept;
         
         void setValue(float value) noexcept;
         

@@ -58,6 +58,7 @@ public:
     CamomileEditorMouseManager(CamomileAudioProcessor& processor) : m_processor(processor) {}
     void startEdition();
     void stopEdition();
+    void sendMouse(float , float );
     
     CamomileAudioProcessor& getProcessor() { return m_processor; }
 private:
@@ -65,6 +66,7 @@ private:
     
     static const std::string string_gui;
     static const std::string string_mouse;
+    static const std::string string_mouse_drag;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CamomileEditorMouseManager)
 };

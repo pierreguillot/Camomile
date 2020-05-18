@@ -115,12 +115,25 @@ void PluginEditorObject::update()
     if(edited == false)
     {
         float const v = gui.getValue();
-        if(v != value)
+        if((v != value)||(gui.hasChanged()))
         {
             value = v;
             repaint();
+	    if(objectLabel)
+	    {
+                pd::Label const lbl = gui.getLabel();
+                const String text = String(lbl.getText());
+                const Font ft = CamoLookAndFeel::getFont(lbl.getFontName()).withPointHeight(static_cast<float>(lbl.getFontHeight()));
+                const int width = ft.getStringWidth(text) + 1;
+                const int height = ft.getHeight();
+                const std::array<int, 2> position = lbl.getPosition();
+                objectLabel->setBounds(position[0], position[1] - height / 2, width, height);
+                objectLabel->setText(text, NotificationType::dontSendNotification);
+                objectLabel->setColour(Label::textColourId, Colour(static_cast<uint32>(lbl.getColor())));
+		objectLabel->repaint();
+	    }
         }
-    }
+    }    
 }
 
 Label* PluginEditorObject::getLabel()
@@ -143,8 +156,10 @@ Label* PluginEditorObject::getLabel()
         label->setEditable(false, false);
         label->setInterceptsMouseClicks(false, false);
         label->setColour(Label::textColourId, Colour(static_cast<uint32>(lbl.getColor())));
+	objectLabel=label;
         return label;
     }
+    objectLabel = nullptr;
     return nullptr;
 }
 
@@ -155,6 +170,9 @@ Label* PluginEditorObject::getLabel()
 
 void GuiBang::paint(Graphics& g)
 {
+    std::array<int, 4> const bounds(gui.getBounds());
+    setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
+
     const float border = 1.f;
     const float w = static_cast<float>(getWidth() - border * 2);
     g.fillAll(Colour(static_cast<uint32>(gui.getBackgroundColor())));
@@ -176,6 +194,7 @@ void GuiBang::mouseDown(const MouseEvent& e)
     stopEdition();
 }
 
+
 void GuiBang::mouseUp(const MouseEvent& e)
 {
     if(getValueOriginal() > std::numeric_limits<float>::epsilon())
@@ -184,12 +203,15 @@ void GuiBang::mouseUp(const MouseEvent& e)
     }
 }
 
+
 //////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////     TOGGLE        ///////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
 void GuiToggle::paint(Graphics& g)
 {
+    std::array<int, 4> const bounds(gui.getBounds());
+    setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
     const float border = 1.f;
     g.fillAll(Colour(static_cast<uint32>(gui.getBackgroundColor())));
     if(getValueOriginal() > std::numeric_limits<float>::epsilon())
@@ -217,6 +239,8 @@ void GuiToggle::mouseDown(const MouseEvent& e)
 
 void GuiSliderHorizontal::paint(Graphics& g)
 {
+    std::array<int, 4> const bounds(gui.getBounds());
+    setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
     const float border = 1.f;
     const float crsor  = 3.f;
     const float w = static_cast<float>(getWidth()) - border * 2.f;
@@ -290,6 +314,8 @@ void GuiSliderHorizontal::mouseUp(const MouseEvent& e)
     
 void GuiSliderVertical::paint(Graphics& g)
 {
+    std::array<int, 4> const bounds(gui.getBounds());
+    setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
     const float border = 1.f;
     const float crsor = 3.f;
     const float w = static_cast<float>(getWidth() - border * 2);
@@ -349,6 +375,7 @@ void GuiSliderVertical::mouseDrag(const MouseEvent& e)
             setValueScaled(m_temp + val);
         }
     }
+    patch.sendMouse(e.x,e.y);
     repaint();
 }
 
@@ -363,6 +390,8 @@ void GuiSliderVertical::mouseUp(const MouseEvent& e)
 
 void GuiRadioHorizontal::paint(Graphics& g)
 {
+    std::array<int, 4> const bounds(gui.getBounds());
+    setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
     const float border = 1.f;
     const float extra  = 2.f;
     const float h  = static_cast<float>(getHeight());
@@ -394,6 +423,8 @@ void GuiRadioHorizontal::mouseDown(const MouseEvent& e)
 
 void GuiRadioVertical::paint(Graphics& g)
 {
+    std::array<int, 4> const bounds(gui.getBounds());
+    setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
     const float border = 1.f;
     const float extra  = 2.f;
     const float h  = static_cast<float>(getHeight()) / static_cast<float>(max + 1);
@@ -426,12 +457,15 @@ void GuiRadioVertical::mouseDown(const MouseEvent& e)
 GuiPanel::GuiPanel(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g)
 {
     setInterceptsMouseClicks(false, false);
-    edited = true;
+    //edited = true;
 }
 
 void GuiPanel::paint(Graphics& g)
 {
-    g.fillAll(Colour(static_cast<uint32>(gui.getBackgroundColor())));
+ 	std::array<int, 4> const bounds(gui.getBounds());
+    	setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
+
+	g.fillAll(Colour(static_cast<uint32>(gui.getBackgroundColor())));
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -527,6 +561,8 @@ GuiNumber::GuiNumber(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(
 
 void GuiNumber::paint(Graphics& g)
 {
+    std::array<int, 4> const bounds(gui.getBounds());
+    setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
     const float border = 1.f;
     const float h = static_cast<float>(getHeight());
     const float w = static_cast<float>(getWidth());

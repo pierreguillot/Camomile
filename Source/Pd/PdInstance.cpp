@@ -23,7 +23,7 @@ extern "C"
     {
         static void instance_multi_bang(pd::Instance* ptr, const char *recv)
         {
-            ptr->m_message_queue.try_enqueue({std::string("bang")});
+           ptr->m_message_queue.try_enqueue({std::string("bang")});
         }
         
         static void instance_multi_float(pd::Instance* ptr, const char *recv, float f)

@@ -61,7 +61,7 @@ void CamomileEditor::updateObjects()
     for(auto& gui : m_processor.getPatch().getGuis())
     {
         PluginEditorObject* obj = PluginEditorObject::createTyped(*this, gui);
-        if(obj)
+ 	       if(obj)
         {
             obj->setTopLeftPosition(obj->getX() - pbounds[0], obj->getY() - pbounds[1]);
             if(bounds.contains(obj->getBounds()))
@@ -89,7 +89,7 @@ void CamomileEditor::timerCallback()
 
 void CamomileEditor::paint (Graphics& g)
 {
-    g.fillAll(Colours::white);
+    g.fillAll(Colours::grey);
     if(!CamomileEnvironment::isValid())
     {
         g.setColour(Colours::black);
