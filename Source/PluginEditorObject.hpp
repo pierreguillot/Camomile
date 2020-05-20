@@ -59,6 +59,9 @@ protected:
     
     void startEdition() noexcept;
     void stopEdition() noexcept;
+
+    Label* objectLabel;
+    void repaintLabel();
     
     pd::Gui     gui;
     CamomileEditorMouseManager&   patch;
