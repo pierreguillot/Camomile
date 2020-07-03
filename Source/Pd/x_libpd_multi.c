@@ -5,6 +5,7 @@
  */
 
 #include <m_pd.h>
+#include <s_net.h>
 #include <string.h>
 #include <assert.h>
 #include "x_libpd_multi.h"
@@ -327,6 +328,8 @@ void libpd_multi_init(void)
         libpd_multi_print_setup();
         libpd_defaultfont_init();
         libpd_set_verbose(4);
+        
+        socket_init();
         
         initialized = 1;
     }
