@@ -65,8 +65,6 @@ public:
     //! @brief Gets a description of the plugin.
     static const char* getPluginDescriptionUTF8();
     
-    //! @brief Gets a description of the plugin.
-    static std::string getPatchCredits();
     
     //! @brief Gets if the environment is valid.
     static bool isValid();
