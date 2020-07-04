@@ -491,23 +491,23 @@ public:
     static void createLv2Files(const char* basename)
     {
         const ScopedJuceInitialiser_GUI juceInitialiser;
-        ScopedPointer<AudioProcessor> filter(createPluginFilterOfType (AudioProcessor::wrapperType_LV2));
+        std::unique_ptr<AudioProcessor> filter(createPluginFilterOfType (AudioProcessor::wrapperType_LV2));
         
         int maxNumInputChannels, maxNumOutputChannels;
-        findMaxTotalChannels(filter, maxNumInputChannels, maxNumOutputChannels);
+        findMaxTotalChannels(filter.get(), maxNumInputChannels, maxNumOutputChannels);
         
         String binary(basename);
         String binaryTTL(binary + ".ttl");
         
         std::cout << "Writing manifest.ttl..."; std::cout.flush();
         std::fstream manifest("manifest.ttl", std::ios::out);
-        manifest << makeManifestFile(filter, binary) << std::endl;
+        manifest << makeManifestFile(filter.get(), binary) << std::endl;
         manifest.close();
         std::cout << " done!" << std::endl;
         
         std::cout << "Writing " << binary << ".ttl..."; std::cout.flush();
         std::fstream plugin(binaryTTL.toUTF8(), std::ios::out);
-        plugin << makePluginFile(filter, maxNumInputChannels, maxNumOutputChannels) << std::endl;
+        plugin << makePluginFile(filter.get(), maxNumInputChannels, maxNumOutputChannels) << std::endl;
         plugin.close();
         std::cout << " done!" << std::endl;
         
