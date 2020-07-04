@@ -108,13 +108,30 @@ au_get_plugin_code_mac() {
         while IFS='' read -r line || [[ -n "$line" ]]; do
             local wline=($line)
             if [ "${wline[0]}" == "code" ]; then
-                code=${wline[1]}
-                code=${code::4}
-                echo ${code}
+                local word=${wline[1]}
+                echo ${word::4}
                 return
             fi
         done < "$textfile"
         echo "undefined"
+    fi
+    echo "error"
+}
+
+au_get_plugin_manufacturer_mac() {
+    local plugin_dir=$1
+    local plugin_name=$2
+    local textfile=$plugin_dir/$plugin_name.txt
+    if [ -f "$textfile" ]; then
+        while IFS='' read -r line || [[ -n "$line" ]]; do
+            local wline=($line)
+            if [ "${wline[0]}" == "manufacturer" ]; then
+                echo "${wline[*]}" | sed -e 's/manufacturer \(.*\);/\1/'
+                return
+            fi
+        done < "$textfile"
+        echo "undefined"
+        return
     fi
     echo "error"
 }
@@ -145,6 +162,7 @@ generate_plugin_au_mac() {
     fi
 
     local code=$(au_get_plugin_code_mac $plugin_input_dir $plugin_name)
+    local manufacturer=$(au_get_plugin_manufacturer_mac $plugin_input_dir $plugin_name)
     if [ "$code" == "undefined" ]; then
         post_error "plugin code undefined"
         return
@@ -164,7 +182,7 @@ generate_plugin_au_mac() {
         plutil -replace CFBundleName -string $plugin_name "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist"
         plutil -replace CFBundleDisplayName -string $plugin_name "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist"
 
-        plutil -replace AudioComponents.name -string "Pierre Guillot: $plugin_name" "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist"
+        plutil -replace AudioComponents.name -string "${manufacturer//[$'\t\r\n']}: $plugin_name" "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist"
         plutil -replace AudioComponents.subtype -string $code "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist"
 
         post_log "$plugin_output_dir/$plugin_name.$AppleAuExtension"
@@ -173,7 +191,7 @@ generate_plugin_au_mac() {
     fi
 }
 
-################################################################################
+#############################################s###################################
 #                       GENERATE VST3 PLUGIN MAC                               #
 ################################################################################
 
