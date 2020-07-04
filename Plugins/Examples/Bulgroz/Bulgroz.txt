@@ -7,4 +7,5 @@ code zWrt;
 type effect;
 image Bulgroz.png;
 description Infos.txt;
+manufacturer Pierre Guillot;
 compatibility 1.0.5;

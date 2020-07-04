@@ -35,3 +35,4 @@ program Booker T. Jones;
 program Gregg Rolie;
 program Goldy McJohn;
 program Richard Wright;
+manufacturer Pierre Guillot;
