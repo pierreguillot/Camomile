@@ -83,7 +83,10 @@ int main(int argc, const char * argv[]) {
         {
             (*method)(argv[2]);
         }
-        printf("can't load methods lv2_generate_ttl\n");
+        else
+        {
+            printf("can't load method lv2_generate_ttl\n");
+        }
         if((error = dlerror()) != NULL)
         {
             printf("error: %s", error);
