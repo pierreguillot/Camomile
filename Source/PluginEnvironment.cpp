@@ -47,6 +47,10 @@ const char* CamomileEnvironment::getPluginDescriptionUTF8() { return get().plugi
 
 std::string CamomileEnvironment::getPluginDescription() { return get().plugin_desc; }
 
+const char* CamomileEnvironment::getPluginManufacturerUTF8() { return get().plugin_manufacturer.c_str(); }
+
+std::string CamomileEnvironment::getPluginManufacturer() { return get().plugin_manufacturer; }
+
 bool CamomileEnvironment::isValid() { return get().valid; }
 
 std::string CamomileEnvironment::getPdVersion() {
@@ -329,6 +333,13 @@ CamomileEnvironment::CamomileEnvironment()
                                 throw std::string("already defined");
                             plugin_desc = CamomileParser::getString(entry.second);
                             state.set(init_desc);
+                        }
+                        else if(entry.first == "manufacturer")
+                        {
+                            if(state.test(init_manufacturer))
+                                throw std::string("already defined");
+                            plugin_manufacturer = CamomileParser::getString(entry.second);
+                            state.set(init_manufacturer);
                         }
                         else if(entry.first == "compatibility")
                         {
