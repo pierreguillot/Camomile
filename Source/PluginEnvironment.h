@@ -64,7 +64,12 @@ public:
     
     //! @brief Gets a description of the plugin.
     static const char* getPluginDescriptionUTF8();
+
+    //! @brief Gets the manufacturer of the plugin.
+    static std::string getPluginManufacturer();
     
+    //! @brief Gets the manufacturer of the plugin.
+    static const char* getPluginManufacturerUTF8();
     
     //! @brief Gets if the environment is valid.
     static bool isValid();
@@ -133,16 +138,38 @@ private:
     static size_t get_version(std::string const& v);
     CamomileEnvironment();
     
+    enum init_flags
+    {
+        init_midi_in    = 0,
+        init_midi_out   = 1,
+        init_play_head  = 2,
+        init_midi_only  = 3,
+        init_tail_length= 4,
+        init_latency    = 5,
+        init_code       = 6,
+        init_image      = 7,
+        init_type       = 8,
+        init_desc       = 9,
+        init_key        = 10,
+        init_compatibilty = 11,
+        init_auto_reload  = 12,
+        init_auto_program = 13,
+        init_auto_bypass  = 14,
+        init_manufacturer = 15,
+        all = 16
+    };
+    
     std::string     plugin_name = "Camomile";
     std::string     plugin_path = "";
     std::string     plugin_desc = "";
+    std::string     plugin_manufacturer = "Undefined";
     unsigned int    plugin_code = 0x4b707139;
     std::string     plugin_version  = "";
     std::string     patch_name  = "Camomile.pd";
     std::string     patch_path  = "";
     std::string     image_name  = "";
     bool            valid       = false;
-    std::bitset<15>  state;
+    std::bitset<init_flags::all>  state;
     
     bool    midi_in_support   = false;
     bool    midi_out_support  = false;
@@ -161,23 +188,4 @@ private:
     std::vector<buses_layout>   m_buses_layouts;
     
     std::vector<std::string> errors;
-    
-    enum init_flags
-    {
-        init_midi_in    = 0,
-        init_midi_out   = 1,
-        init_play_head  = 2,
-        init_midi_only  = 3,
-        init_tail_length= 4,
-        init_latency    = 5,
-        init_code       = 6,
-        init_image      = 7,
-        init_type       = 8,
-        init_desc       = 9,
-        init_key        = 10,
-        init_compatibilty = 11,
-        init_auto_reload  = 12,
-        init_auto_program = 13,
-        init_auto_bypass  = 14
-    };
 };
