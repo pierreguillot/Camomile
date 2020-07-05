@@ -24,7 +24,6 @@ matrix:
     script:
     - cd Dependencies/LibPdBuild/LinuxMakefile && cmake .. -DCMAKE_BUILD_TYPE=Release && cd ../../..
     - make
-    - make -C LV2/lv2_file_generator
     after_success:
     - cd $TRAVIS_BUILD_DIR
     - ./Plugins/camomile -d ./Plugins/Examples -o ./Plugins/Builds
