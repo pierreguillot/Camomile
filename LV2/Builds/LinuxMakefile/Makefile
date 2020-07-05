@@ -35,15 +35,15 @@ ifeq ($(CONFIG),Debug)
     TARGET_ARCH := 
   endif
 
-  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DDEBUG=1 -D_DEBUG=1 -DPD_INTERNAL=1 -DJucePlugin_IsSynth=0 -DJucePlugin_ProducesMidiOutput=1 -DJucePlugin_WantsMidiInput=1 -DJucePlugin_EditorRequiresKeyboardFocus=1 -DJucePlugin_ManufacturerCode=0x50494755 -DJucePlugin_Build_LV2_FileCreator=1 -DJucePlugin_WantsLV2Presets=0 -DJucePlugin_Build_LV2=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Enable_IAA=0 -DHAVE_UNISTD_H=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=1.0.6 -DJUCE_APP_VERSION_HEX=0x10006 $(shell pkg-config --cflags x11 xinerama xext freetype2) -pthread -I../../JuceLibraryCode -I../../../Juce/modules -I../../../Dependencies -I../../../Dependencies/LibPd/pure-data/src -I../../../Dependencies/LibPd/libpd_wrapper -I../../../Dependencies/LibPd/libpd_wrapper/util -I../../../Dependencies/LibPd/cpp -I../../../Juce $(CPPFLAGS)
-  JUCE_CPPFLAGS_DYNAMIC_LIBRARY := -DJucePlugin_Build_Unity=0
+  JUCE_CPPFLAGS := $(DEPFLAGS) "-DLINUX=1" "-DDEBUG=1" "-D_DEBUG=1" "-DPD_INTERNAL=1" "-DJucePlugin_IsSynth=0" "-DJucePlugin_ProducesMidiOutput=1" "-DJucePlugin_WantsMidiInput=1" "-DJucePlugin_EditorRequiresKeyboardFocus=1" "-DJucePlugin_ManufacturerCode=0x50494755" "-DJucePlugin_Build_LV2_FileCreator=1" "-DJucePlugin_WantsLV2Presets=0" "-DJucePlugin_Build_LV2=1" "-DJucePlugin_Build_VST=0" "-DJucePlugin_Build_VST3=0" "-DJucePlugin_Build_AU=0" "-DJucePlugin_Build_AUv3=0" "-DJucePlugin_Build_RTAS=0" "-DJucePlugin_Build_AAX=0" "-DJucePlugin_Build_Standalone=0" "-DJucePlugin_Enable_IAA=0" "-DHAVE_UNISTD_H=1" "-DJUCER_LINUX_MAKE_6D53C8B4=1" "-DJUCE_APP_VERSION=1.0.6" "-DJUCE_APP_VERSION_HEX=0x10006" $(shell pkg-config --cflags freetype2) -pthread -I../../JuceLibraryCode -I../../../Juce/modules -I../../../Dependencies -I../../../Dependencies/LibPd/pure-data/src -I../../../Dependencies/LibPd/libpd_wrapper -I../../../Dependencies/LibPd/libpd_wrapper/util -I../../../Dependencies/LibPd/cpp -I../../../Juce $(CPPFLAGS)
+  JUCE_CPPFLAGS_DYNAMIC_LIBRARY :=  "-DJucePlugin_Build_Unity=0"
   JUCE_CFLAGS_DYNAMIC_LIBRARY := -fPIC -fvisibility=hidden
   JUCE_LDFLAGS_DYNAMIC_LIBRARY := -shared
   JUCE_TARGET_DYNAMIC_LIBRARY := libCamomileLV2.so
 
   JUCE_CFLAGS += $(JUCE_CPPFLAGS) $(TARGET_ARCH) -fPIC -g -ggdb -O0 $(CFLAGS)
   JUCE_CXXFLAGS += $(JUCE_CFLAGS) -std=c++11 $(CXXFLAGS)
-  JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -L../../../Dependencies/LibPdBuild $(shell pkg-config --libs x11 xinerama xext freetype2) -lrt -ldl -lpthread -lpd-multi $(LDFLAGS)
+  JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -L../../../Dependencies/LibPdBuild $(shell pkg-config --libs freetype2) -fvisibility=hidden -lrt -ldl -lpthread -lpd-multi $(LDFLAGS)
 
   CLEANCMD = rm -rf $(JUCE_OUTDIR)/$(TARGET) $(JUCE_OBJDIR)
 endif
@@ -58,15 +58,15 @@ ifeq ($(CONFIG),Release)
     TARGET_ARCH := 
   endif
 
-  JUCE_CPPFLAGS := $(DEPFLAGS) -DLINUX=1 -DNDEBUG=1 -DPD_INTERNAL=1 -DJucePlugin_IsSynth=0 -DJucePlugin_ProducesMidiOutput=1 -DJucePlugin_WantsMidiInput=1 -DJucePlugin_EditorRequiresKeyboardFocus=1 -DJucePlugin_ManufacturerCode=0x50494755 -DJucePlugin_Build_LV2_FileCreator=1 -DJucePlugin_WantsLV2Presets=0 -DJucePlugin_Build_LV2=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJucePlugin_Build_AU=0 -DJucePlugin_Build_AUv3=0 -DJucePlugin_Build_RTAS=0 -DJucePlugin_Build_AAX=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Enable_IAA=0 -DHAVE_UNISTD_H=1 -DJUCER_LINUX_MAKE_6D53C8B4=1 -DJUCE_APP_VERSION=1.0.6 -DJUCE_APP_VERSION_HEX=0x10006 $(shell pkg-config --cflags x11 xinerama xext freetype2) -pthread -I../../JuceLibraryCode -I../../../Juce/modules -I../../../Dependencies -I../../../Dependencies/LibPd/pure-data/src -I../../../Dependencies/LibPd/libpd_wrapper -I../../../Dependencies/LibPd/libpd_wrapper/util -I../../../Dependencies/LibPd/cpp -I../../../Juce $(CPPFLAGS)
-  JUCE_CPPFLAGS_DYNAMIC_LIBRARY := -DJucePlugin_Build_Unity=0
+  JUCE_CPPFLAGS := $(DEPFLAGS) "-DLINUX=1" "-DNDEBUG=1" "-DPD_INTERNAL=1" "-DJucePlugin_IsSynth=0" "-DJucePlugin_ProducesMidiOutput=1" "-DJucePlugin_WantsMidiInput=1" "-DJucePlugin_EditorRequiresKeyboardFocus=1" "-DJucePlugin_ManufacturerCode=0x50494755" "-DJucePlugin_Build_LV2_FileCreator=1" "-DJucePlugin_WantsLV2Presets=0" "-DJucePlugin_Build_LV2=1" "-DJucePlugin_Build_VST=0" "-DJucePlugin_Build_VST3=0" "-DJucePlugin_Build_AU=0" "-DJucePlugin_Build_AUv3=0" "-DJucePlugin_Build_RTAS=0" "-DJucePlugin_Build_AAX=0" "-DJucePlugin_Build_Standalone=0" "-DJucePlugin_Enable_IAA=0" "-DHAVE_UNISTD_H=1" "-DJUCER_LINUX_MAKE_6D53C8B4=1" "-DJUCE_APP_VERSION=1.0.6" "-DJUCE_APP_VERSION_HEX=0x10006" $(shell pkg-config --cflags freetype2) -pthread -I../../JuceLibraryCode -I../../../Juce/modules -I../../../Dependencies -I../../../Dependencies/LibPd/pure-data/src -I../../../Dependencies/LibPd/libpd_wrapper -I../../../Dependencies/LibPd/libpd_wrapper/util -I../../../Dependencies/LibPd/cpp -I../../../Juce $(CPPFLAGS)
+  JUCE_CPPFLAGS_DYNAMIC_LIBRARY :=  "-DJucePlugin_Build_Unity=0"
   JUCE_CFLAGS_DYNAMIC_LIBRARY := -fPIC -fvisibility=hidden
   JUCE_LDFLAGS_DYNAMIC_LIBRARY := -shared
   JUCE_TARGET_DYNAMIC_LIBRARY := libCamomileLV2.so
 
   JUCE_CFLAGS += $(JUCE_CPPFLAGS) $(TARGET_ARCH) -fPIC -O3 $(CFLAGS)
   JUCE_CXXFLAGS += $(JUCE_CFLAGS) -std=c++11 $(CXXFLAGS)
-  JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -L../../../Dependencies/LibPdBuild $(shell pkg-config --libs x11 xinerama xext freetype2) -fvisibility=hidden -lrt -ldl -lpthread -lpd-multi $(LDFLAGS)
+  JUCE_LDFLAGS += $(TARGET_ARCH) -L$(JUCE_BINDIR) -L$(JUCE_LIBDIR) -L../../../Dependencies/LibPdBuild $(shell pkg-config --libs freetype2) -fvisibility=hidden -lrt -ldl -lpthread -lpd-multi $(LDFLAGS)
 
   CLEANCMD = rm -rf $(JUCE_OUTDIR)/$(TARGET) $(JUCE_OBJDIR)
 endif
@@ -109,7 +109,7 @@ all : $(JUCE_OUTDIR)/$(JUCE_TARGET_DYNAMIC_LIBRARY)
 
 $(JUCE_OUTDIR)/$(JUCE_TARGET_DYNAMIC_LIBRARY) : $(OBJECTS_DYNAMIC_LIBRARY) $(RESOURCES)
 	@command -v pkg-config >/dev/null 2>&1 || { echo >&2 "pkg-config not installed. Please, install it."; exit 1; }
-	@pkg-config --print-errors x11 xinerama xext freetype2
+	@pkg-config --print-errors freetype2
 	@echo Linking "CamomileLV2 - Dynamic Library"
 	-$(V_AT)mkdir -p $(JUCE_BINDIR)
 	-$(V_AT)mkdir -p $(JUCE_LIBDIR)
