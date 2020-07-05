@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
-   version = "2.0">
+   LastUpgradeVersion = "1150"
+   version = "1.3">
    <BuildAction
       parallelizeBuildables = "NO"
       buildImplicitDependencies = "YES">
-      <PreActions>
-         <ExecutionAction
-            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
-            <ActionContent
-               title = "Run Script"
-               scriptText = "">
-            </ActionContent>
-         </ExecutionAction>
-      </PreActions>
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
@@ -23,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E290DBFFFBAB47F0ABA23E0C"
+               BlueprintIdentifier = "5329F0C1239041ED921E58BF"
                BuildableName = "libpd-multi.a"
                BlueprintName = "libpdstatic"
-               ReferencedContainer = "container:../../../Dependencies/LibPdBuild/MacOSX/libpd.xcodeproj">
+               ReferencedContainer = "container:Dependencies/LibPdBuild/MacOSX/libpd.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -40,7 +31,7 @@
                BlueprintIdentifier = "FF882317069013018CDCC4B9"
                BuildableName = "Camomile - All"
                BlueprintName = "Camomile - All"
-               ReferencedContainer = "container:Camomile.xcodeproj">
+               ReferencedContainer = "container:Instrument/Builds/MacOSX/Camomile.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -54,7 +45,7 @@
                BlueprintIdentifier = "FF882317069013018CDCC4B9"
                BuildableName = "CamomileFx - All"
                BlueprintName = "CamomileFx - All"
-               ReferencedContainer = "container:../../../Effect/Builds/MacOSX/CamomileFx.xcodeproj">
+               ReferencedContainer = "container:Effect/Builds/MacOSX/CamomileFx.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -68,7 +59,7 @@
                BlueprintIdentifier = "E8CDB3EF7A152A673172E1AB"
                BuildableName = "CamomileLV2.dylib"
                BlueprintName = "CamomileLV2 - Dynamic Library"
-               ReferencedContainer = "container:../../../LV2/Builds/MacOSX/CamomileLV2.xcodeproj">
+               ReferencedContainer = "container:LV2/Builds/MacOSX/CamomileLV2.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -80,17 +71,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FF882317069013018CDCC4B9"
-            BuildableName = "Camomile - All"
-            BlueprintName = "Camomile - All"
-            ReferencedContainer = "container:Camomile.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -101,23 +81,7 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES"
-      launchAutomaticallySubstyle = "2">
-      <PathRunnable
-         runnableDebuggingMode = "0"
-         FilePath = "/&lt;placeholder&gt;">
-      </PathRunnable>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FF882317069013018CDCC4B9"
-            BuildableName = "Camomile - All"
-            BlueprintName = "Camomile - All"
-            ReferencedContainer = "container:Camomile.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
+      allowLocationSimulation = "YES">
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -131,7 +95,7 @@
             BlueprintIdentifier = "FF882317069013018CDCC4B9"
             BuildableName = "Camomile - All"
             BlueprintName = "Camomile - All"
-            ReferencedContainer = "container:Camomile.xcodeproj">
+            ReferencedContainer = "container:Instrument/Builds/MacOSX/Camomile.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
