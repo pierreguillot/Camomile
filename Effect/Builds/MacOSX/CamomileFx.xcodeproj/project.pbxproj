@@ -13,9 +13,9 @@
 			buildPhases = (
 			);
 			dependencies = (
-				A1C3BEFB2FD635B36DFEC246 /* PBXTargetDependency */,
-				7D367FF9FDC3FA3B59CD142E /* PBXTargetDependency */,
-				3B6CB08BC817F55EB2060FF0 /* PBXTargetDependency */,
+				3042C8CA77DD74930771F01B /* PBXTargetDependency */,
+				BA090E170831C3A0722ED77C /* PBXTargetDependency */,
+				8CDEB77D51FBBF215D1E6A25 /* PBXTargetDependency */,
 			);
 			name = "CamomileFx - All";
 			productName = CamomileFx;
@@ -47,16 +47,16 @@
 		824C0432B9D51334CD0BFFBC /* PluginLookAndFeel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDB495D39563B154CD43B2B6 /* PluginLookAndFeel.cpp */; };
 		8390F31E7B7096D3DA0944D1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBD83515A888D164A72466A /* WebKit.framework */; };
 		83F519C42E92991125F7540E /* PluginEditorConsole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD5189476C601579540C3631 /* PluginEditorConsole.cpp */; };
-		8F3AB8D924B20C6000B591C5 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8126A2FEEEADA13BE0FBBEDC /* RecentFilesMenuTemplate.nib */; };
-		8F3AB8DA24B20C6000B591C5 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1E3A85F79B93B336420138 /* Accelerate.framework */; };
-		8F3AB8DB24B20C6000B591C5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8F36AEFDA9E963BDBA6C1C /* AudioToolbox.framework */; };
-		8F3AB8DC24B20C6000B591C5 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
-		8F3AB8DD24B20C6000B591C5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22689D9A7644931A85906FC /* Cocoa.framework */; };
-		8F3AB8DE24B20C6000B591C5 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE27C1948ACEC6272612D72E /* CoreAudio.framework */; };
-		8F3AB8DF24B20C6000B591C5 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF6201286A446C72F198F49 /* CoreMIDI.framework */; };
-		8F3AB8E024B20C6000B591C5 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F064420B996DA482F0524 /* IOKit.framework */; };
-		8F3AB8E124B20C6000B591C5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBF9F7DFC62377D880D402F /* QuartzCore.framework */; };
-		8F3AB8E224B20C6000B591C5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBD83515A888D164A72466A /* WebKit.framework */; };
+		8FD2A70424B2231200F6B3C5 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8126A2FEEEADA13BE0FBBEDC /* RecentFilesMenuTemplate.nib */; };
+		8FD2A70524B2231200F6B3C5 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1E3A85F79B93B336420138 /* Accelerate.framework */; };
+		8FD2A70624B2231200F6B3C5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8F36AEFDA9E963BDBA6C1C /* AudioToolbox.framework */; };
+		8FD2A70724B2231200F6B3C5 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
+		8FD2A70824B2231200F6B3C5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22689D9A7644931A85906FC /* Cocoa.framework */; };
+		8FD2A70924B2231200F6B3C5 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE27C1948ACEC6272612D72E /* CoreAudio.framework */; };
+		8FD2A70A24B2231200F6B3C5 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF6201286A446C72F198F49 /* CoreMIDI.framework */; };
+		8FD2A70B24B2231200F6B3C5 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F064420B996DA482F0524 /* IOKit.framework */; };
+		8FD2A70C24B2231200F6B3C5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBF9F7DFC62377D880D402F /* QuartzCore.framework */; };
+		8FD2A70D24B2231200F6B3C5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBD83515A888D164A72466A /* WebKit.framework */; };
 		9ED45AEC443ADEB8BE4CBA5A /* PluginEditorInteraction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 584F0645E5F980B129306159 /* PluginEditorInteraction.cpp */; };
 		A2DE2F4FD68866479695F432 /* PluginEnvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5639CA5B96F7FF71250CB01 /* PluginEnvironment.cpp */; };
 		A4A537DAE5811714A93FA77E /* PdGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 36F47BEB55DEDA79DFA192CB /* PdGui.cpp */; };
@@ -81,26 +81,40 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8F3AB8E324B20C6200B591C5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DDC710B892FDE37A0F19292D;
-			remoteInfo = "CamomileFx - Shared Code";
-		};
-		8F3AB8E724B20C6200B591C5 /* PBXContainerItemProxy */ = {
+		8FD2A70E24B2231200F6B3C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 074FFE22626A916E5D070022;
 			remoteInfo = "CamomileFx - VST3";
 		};
-		8F3AB8E824B20C6200B591C5 /* PBXContainerItemProxy */ = {
+		8FD2A70F24B2231200F6B3C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 6E51637F255AB3A3BE377A27;
 			remoteInfo = "CamomileFx - AU";
+		};
+		8FD2A71024B2231200F6B3C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DDC710B892FDE37A0F19292D;
+			remoteInfo = "CamomileFx - Shared Code";
+		};
+		8FD2A71624B2231300F6B3C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DDC710B892FDE37A0F19292D;
+			remoteInfo = "CamomileFx - Shared Code";
+		};
+		8FD2A71724B2231300F6B3C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DDC710B892FDE37A0F19292D;
+			remoteInfo = "CamomileFx - Shared Code";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -172,6 +186,7 @@
 		B06FA80C31C7BCBA115CD7D5 /* juce_graphics */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_graphics; path = ../../../Juce/modules/juce_graphics; sourceTree = SOURCE_ROOT; };
 		B0AAC6036B2298E672A6025F /* PdPatch.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PdPatch.cpp; path = ../../../Source/Pd/PdPatch.cpp; sourceTree = SOURCE_ROOT; };
 		B364AC2F18B269827E71E8A4 /* PdAtom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PdAtom.hpp; path = ../../../Source/Pd/PdAtom.hpp; sourceTree = SOURCE_ROOT; };
+		B6F62C8700D9B37F485C3483 /* JucePluginDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JucePluginDefines.h; path = ../../JuceLibraryCode/JucePluginDefines.h; sourceTree = SOURCE_ROOT; };
 		BBB154BFC6C6C7D97D835E2B /* PluginConsole.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginConsole.h; path = ../../../Source/PluginConsole.h; sourceTree = SOURCE_ROOT; };
 		BD5189476C601579540C3631 /* PluginEditorConsole.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginEditorConsole.cpp; path = ../../../Source/PluginEditorConsole.cpp; sourceTree = SOURCE_ROOT; };
 		C022AD3BB8B1AF2DD795FA53 /* include_juce_events.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_events.mm; path = ../../JuceLibraryCode/include_juce_events.mm; sourceTree = SOURCE_ROOT; };
@@ -206,16 +221,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0E616AAADE2C8DFABCA8F14 /* AudioUnit.framework in Frameworks */,
-				8F3AB8DA24B20C6000B591C5 /* Accelerate.framework in Frameworks */,
-				8F3AB8DB24B20C6000B591C5 /* AudioToolbox.framework in Frameworks */,
-				8F3AB8DC24B20C6000B591C5 /* Carbon.framework in Frameworks */,
-				8F3AB8DD24B20C6000B591C5 /* Cocoa.framework in Frameworks */,
-				8F3AB8DE24B20C6000B591C5 /* CoreAudio.framework in Frameworks */,
+				8FD2A70524B2231200F6B3C5 /* Accelerate.framework in Frameworks */,
+				8FD2A70624B2231200F6B3C5 /* AudioToolbox.framework in Frameworks */,
+				8FD2A70724B2231200F6B3C5 /* Carbon.framework in Frameworks */,
+				8FD2A70824B2231200F6B3C5 /* Cocoa.framework in Frameworks */,
+				8FD2A70924B2231200F6B3C5 /* CoreAudio.framework in Frameworks */,
 				BABB947ED89952F98B386B72 /* CoreAudioKit.framework in Frameworks */,
-				8F3AB8DF24B20C6000B591C5 /* CoreMIDI.framework in Frameworks */,
-				8F3AB8E024B20C6000B591C5 /* IOKit.framework in Frameworks */,
-				8F3AB8E124B20C6000B591C5 /* QuartzCore.framework in Frameworks */,
-				8F3AB8E224B20C6000B591C5 /* WebKit.framework in Frameworks */,
+				8FD2A70A24B2231200F6B3C5 /* CoreMIDI.framework in Frameworks */,
+				8FD2A70B24B2231200F6B3C5 /* IOKit.framework in Frameworks */,
+				8FD2A70C24B2231200F6B3C5 /* QuartzCore.framework in Frameworks */,
+				8FD2A70D24B2231200F6B3C5 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,6 +402,7 @@
 				C5DA27B1EF5E23A867B15AD5 /* include_juce_gui_basics.mm */,
 				4B23D166FD3B0C90C6F31FC4 /* include_juce_gui_extra.mm */,
 				FF7DD37BCA46E4231A5D6030 /* JuceHeader.h */,
+				B6F62C8700D9B37F485C3483 /* JucePluginDefines.h */,
 			);
 			name = "JUCE Library Code";
 			sourceTree = "<group>";
@@ -448,7 +464,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				3B6CB08BC817F55EB2060FF0 /* PBXTargetDependency */,
+				F9068086A3D939FE5C492C3B /* PBXTargetDependency */,
 			);
 			name = "CamomileFx - VST3";
 			productName = CamomileFx;
@@ -467,7 +483,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				3B6CB08BC817F55EB2060FF0 /* PBXTargetDependency */,
+				EA92790AFA86A37CC4101A72 /* PBXTargetDependency */,
 			);
 			name = "CamomileFx - AU";
 			productName = CamomileFx;
@@ -613,7 +629,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F3AB8D924B20C6000B591C5 /* RecentFilesMenuTemplate.nib in Resources */,
+				8FD2A70424B2231200F6B3C5 /* RecentFilesMenuTemplate.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -695,20 +711,30 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3B6CB08BC817F55EB2060FF0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DDC710B892FDE37A0F19292D /* CamomileFx - Shared Code */;
-			targetProxy = 8F3AB8E324B20C6200B591C5 /* PBXContainerItemProxy */;
-		};
-		7D367FF9FDC3FA3B59CD142E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6E51637F255AB3A3BE377A27 /* CamomileFx - AU */;
-			targetProxy = 8F3AB8E824B20C6200B591C5 /* PBXContainerItemProxy */;
-		};
-		A1C3BEFB2FD635B36DFEC246 /* PBXTargetDependency */ = {
+		3042C8CA77DD74930771F01B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 074FFE22626A916E5D070022 /* CamomileFx - VST3 */;
-			targetProxy = 8F3AB8E724B20C6200B591C5 /* PBXContainerItemProxy */;
+			targetProxy = 8FD2A70E24B2231200F6B3C5 /* PBXContainerItemProxy */;
+		};
+		8CDEB77D51FBBF215D1E6A25 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DDC710B892FDE37A0F19292D /* CamomileFx - Shared Code */;
+			targetProxy = 8FD2A71024B2231200F6B3C5 /* PBXContainerItemProxy */;
+		};
+		BA090E170831C3A0722ED77C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6E51637F255AB3A3BE377A27 /* CamomileFx - AU */;
+			targetProxy = 8FD2A70F24B2231200F6B3C5 /* PBXContainerItemProxy */;
+		};
+		EA92790AFA86A37CC4101A72 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DDC710B892FDE37A0F19292D /* CamomileFx - Shared Code */;
+			targetProxy = 8FD2A71724B2231300F6B3C5 /* PBXContainerItemProxy */;
+		};
+		F9068086A3D939FE5C492C3B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DDC710B892FDE37A0F19292D /* CamomileFx - Shared Code */;
+			targetProxy = 8FD2A71624B2231300F6B3C5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -746,11 +772,12 @@
 				CODE_SIGN_IDENTITY = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
+				ENABLE_TESTABILITY = NO;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
@@ -810,7 +837,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
-					../../../Dependencies/Vst,
+					../../../Juce/modules/juce_audio_processors/format_types/VST3_SDK,
 					../../../Dependencies/Vst2,
 					../../JuceLibraryCode,
 					../../../Juce/modules,
@@ -874,10 +901,9 @@
 					"JucePlugin_Build_Unity=0",
 					"JUCE_SHARED_CODE=1",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
-					../../../Dependencies/Vst,
+					../../../Juce/modules/juce_audio_processors/format_types/VST3_SDK,
 					../../../Dependencies/Vst2,
 					../../JuceLibraryCode,
 					../../../Juce/modules,
@@ -933,11 +959,10 @@
 					"JucePlugin_Build_Standalone=0",
 					"JucePlugin_Build_Unity=0",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
-					../../../Dependencies/Vst,
+					../../../Juce/modules/juce_audio_processors/format_types/VST3_SDK,
 					../../../Dependencies/Vst2,
 					../../JuceLibraryCode,
 					../../../Juce/modules,
@@ -1001,11 +1026,10 @@
 					"JucePlugin_Build_Standalone=0",
 					"JucePlugin_Build_Unity=0",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
-					../../../Dependencies/Vst,
+					../../../Juce/modules/juce_audio_processors/format_types/VST3_SDK,
 					../../../Dependencies/Vst2,
 					../../JuceLibraryCode,
 					../../../Juce/modules,
@@ -1062,10 +1086,12 @@
 				CODE_SIGN_IDENTITY = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
@@ -1117,7 +1143,7 @@
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
-					../../../Dependencies/Vst,
+					../../../Juce/modules/juce_audio_processors/format_types/VST3_SDK,
 					../../../Dependencies/Vst2,
 					../../JuceLibraryCode,
 					../../../Juce/modules,
@@ -1175,7 +1201,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
-					../../../Dependencies/Vst,
+					../../../Juce/modules/juce_audio_processors/format_types/VST3_SDK,
 					../../../Dependencies/Vst2,
 					../../JuceLibraryCode,
 					../../../Juce/modules,
