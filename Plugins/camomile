@@ -4,7 +4,6 @@ CamomileInstrument="Camomile"
 CamomileEffect="CamomileFx"
 CamomileLV2="CamomileLV2"
 
-AppleVstExtension=vst
 AppleVst3Extension=vst3
 AppleAuExtension=component
 AppleLV2Extension=dylib
@@ -333,51 +332,6 @@ generate_plugin_vst3_mac() {
 }
 
 ################################################################################
-#                       GENERATE VST PLUGIN MAC                                #
-################################################################################
-
-generate_plugin_vst_mac() {
-    local camo_name
-    local plugin_input_dir=$1
-    local plugin_output_dir=$2
-    local plugin_name=$(basename $1)
-
-    # Check if the folder exists and get the type of the plugin
-    if [ -d $plugin_input_dir ]; then
-        local plugin_type=$(plugin_get_type $plugin_input_dir $plugin_name)
-        if [ "$plugin_type" == "error" ]; then
-            post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
-            return
-        elif [ "$plugin_type" == "instrument" ]; then
-            camo_name=$CamomileInstrument
-        elif [ "$plugin_type" == "effect" ]; then
-            camo_name=$CamomileEffect
-        else
-            post_error "$plugin_type is not a valid"
-            return
-        fi
-    else
-        post_error "$plugin_input_dir is not a directory"
-        return
-    fi
-
-    # Get the dynamic libraries
-    if [ -d "$ThisPath/$camo_name.$AppleVstExtension" ]; then
-        if [ -d $plugin_output_dir/$plugin_name.$AppleVstExtension ]; then
-            rm -rf $plugin_output_dir/$plugin_name.$AppleVstExtension
-        fi
-
-        cp -rf "$ThisPath/$camo_name.$AppleVstExtension" $plugin_output_dir/$plugin_name.$AppleVstExtension
-        cp -rf $plugin_input_dir/* $plugin_output_dir/$plugin_name.$AppleVstExtension/Contents/Resources
-        plutil -replace CFBundleName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleVstExtension/Contents/Info.plist
-        plutil -replace CFBundleDisplayName -string $plugin_name $plugin_output_dir/$plugin_name.$AppleVstExtension/Contents/Info.plist
-        post_log "$plugin_output_dir/$plugin_name.$AppleVstExtension"
-    else
-        post_error "$camo_name.$AppleVstExtension is not available"
-    fi
-}
-
-################################################################################
 #                       GENERATE LV2 PLUGIN LINUX                              #
 ################################################################################
 
@@ -466,7 +420,6 @@ generate_plugin_vst_linux() {
 
 generate_plugins() {
     if [ $machine == "Mac" ]; then
-        generate_plugin_vst_mac "$1" "$2"
         generate_plugin_vst3_mac $1 $2
         generate_plugin_au_mac $1 $2
         generate_plugin_lv2_mac $1 $2
