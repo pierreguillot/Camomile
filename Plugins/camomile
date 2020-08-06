@@ -244,9 +244,9 @@ generate_plugin_au_mac() {
         if [ "$plugin_type" == "error" ]; then
             post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
             return
-        elif [ "$plugin_type" == "instrument" ]; then
+        elif [[ "$plugin_type" == *"instrument"* ]]; then
             camo_name=$CamomileInstrument
-        elif [ "$plugin_type" == "effect" ]; then
+        elif [[ "$plugin_type" == *"effect"* ]]; then
             camo_name=$CamomileEffect
         else
             post_error "$plugin_type is not a valid"
@@ -302,9 +302,9 @@ generate_plugin_vst3_mac() {
         if [ "$plugin_type" == "error" ]; then
             post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
             return
-        elif [ "$plugin_type" == "instrument" ]; then
+        elif [[ "$plugin_type" == *"instrument"* ]]; then
             camo_name=$CamomileInstrument
-        elif [ "$plugin_type" == "effect" ]; then
+        elif [[ "$plugin_type" == *"effect"* ]]; then
             camo_name=$CamomileEffect
         else
             post_error "$plugin_type is not a valid"
