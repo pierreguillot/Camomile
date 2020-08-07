@@ -23,7 +23,7 @@ matrix:
     - sudo apt-get install -y libwebkit2gtk-4.0-37 libwebkit2gtk-4.0-dev libstdc++6
     script:
     - cd Dependencies/LibPdBuild/LinuxMakefile && cmake .. -DCMAKE_BUILD_TYPE=Release && cd ../../..
-    - make
+    - make TARGET_ARCH=-m64 CONFIG=Release
     after_success:
     - cd $TRAVIS_BUILD_DIR
     - ./Plugins/camomile -d ./Plugins/Examples -o ./Plugins/Builds
