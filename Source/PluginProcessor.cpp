@@ -232,10 +232,8 @@ void CamomileAudioProcessor::processInternal()
     //////////////////////////////////////////////////////////////////////////////////////////
     if(m_accepts_midi)
     {
-        MidiMessage message;
-        MidiBuffer::Iterator it(m_midi_buffer_in);
-        int position = 0;
-        while(it.getNextEvent(message, position)) {
+        for(auto it = m_midi_buffer_in.cbegin(); it != m_midi_buffer_in.cend(); ++it) {
+            auto const message = (*it).getMessage();
             if(message.isNoteOn()) {
                 sendNoteOn(message.getChannel(), message.getNoteNumber(), message.getVelocity()); }
             else if(message.isNoteOff()) {
