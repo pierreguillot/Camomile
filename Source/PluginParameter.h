@@ -13,7 +13,7 @@
 //                                      PARAMETER                                           //
 // ======================================================================================== //
 
-class CamomileAudioParameter : public AudioProcessorParameter
+class CamomileAudioParameter : public AudioProcessorParameterWithID
 {
 public:
     CamomileAudioParameter(const String& name, const String& label,
@@ -27,26 +27,23 @@ public:
     
     ~CamomileAudioParameter();
     
-    String getName(int maximumStringLength) const final;
-    String getLabel() const final;
-    
-    float getValue() const final;
+    float getValue() const override;
     float getOriginalScaledValue() const;
     
-    void setValue(float newValue) final;
+    void setValue(float newValue) override;
     void setOriginalScaledValue(float newValue);
     void setOriginalScaledValueNotifyingHost(float newValue);
     
-    float getDefaultValue() const final;
-    int getNumSteps() const final;
+    float getDefaultValue() const override;
+    int getNumSteps() const override;
     
-    bool isDiscrete() const final;
-    String getText(float value, int maximumStringLength) const final;
-    float getValueForText(const String& text) const final;
+    bool isDiscrete() const override;
+    String getText(float value, int maximumStringLength) const override;
+    float getValueForText(const String& text) const override;
     
-    bool isOrientationInverted() const final;
-    bool isAutomatable() const final;
-    bool isMetaParameter() const final;
+    bool isOrientationInverted() const override;
+    bool isAutomatable() const override;
+    bool isMetaParameter() const override;
     
     bool isNumeric() const { return m_elements.isEmpty(); }
     bool isList() const { return !m_elements.isEmpty(); }
@@ -55,9 +52,7 @@ public:
     static void saveStateInformation(XmlElement& xml, Array<AudioProcessorParameter*> const& parameters);
     static void loadStateInformation(XmlElement const& xml, Array<AudioProcessorParameter*> const& parameters);
 private:
-    float m_value;
-    String const m_name;
-    String const m_label;
+    std::atomic<float> m_value;
     
     float const m_minimum;
     float const m_maximum;

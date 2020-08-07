@@ -16,8 +16,7 @@ CamomileAudioParameter::CamomileAudioParameter(const String& name, const String&
                                                const float min, const float max,
                                                const float def, const int nsteps,
                                                const bool automatable, const bool meta) :
-m_name(name),
-m_label(label),
+AudioProcessorParameterWithID(name.toLowerCase().replaceCharacter(' ', '_'), name, label),
 m_minimum(min),
 m_maximum(max),
 m_default(def),
@@ -31,8 +30,7 @@ m_meta(meta)
 CamomileAudioParameter::CamomileAudioParameter(const String& name, const String& label,
                                                StringArray const& elems, const int def,
                                                const bool automatable, const bool meta) :
-m_name(name),
-m_label(label),
+AudioProcessorParameterWithID(name.toLowerCase().replaceCharacter(' ', '_'), name, label),
 m_minimum(0.f),
 m_maximum(static_cast<float>(elems.size() - 1)),
 m_default(static_cast<float>(def)),
@@ -45,16 +43,6 @@ m_elements(elems)
 }
 
 CamomileAudioParameter::~CamomileAudioParameter() {}
-
-String CamomileAudioParameter::getName(int maximumStringLength) const
-{
-    return m_name.substring(0, maximumStringLength);
-}
-
-String CamomileAudioParameter::getLabel() const
-{
-    return m_label;
-}
 
 float CamomileAudioParameter::getValue() const
 {
@@ -92,12 +80,12 @@ float CamomileAudioParameter::getDefaultValue() const
 
 int CamomileAudioParameter::getNumSteps() const
 {
-    return (m_nsteps > 0 && m_nsteps < 1e+37) ? m_nsteps : AudioProcessor::getDefaultNumParameterSteps();
+    return (m_nsteps > 0 && m_nsteps < AudioProcessor::getDefaultNumParameterSteps()) ? m_nsteps : AudioProcessor::getDefaultNumParameterSteps();
 }
 
 bool CamomileAudioParameter::isDiscrete() const
 {
-    return (m_nsteps > 0 && m_nsteps < 1e+37);
+    return (m_nsteps > 0 && m_nsteps < AudioProcessor::getDefaultNumParameterSteps());
 }
 
 String CamomileAudioParameter::getText(float value, int maximumStringLength) const
@@ -109,7 +97,7 @@ String CamomileAudioParameter::getText(float value, int maximumStringLength) con
         {
             value = floor(value * static_cast<float>(m_nsteps - 1)) / static_cast<float>(m_nsteps - 1);
         }
-        return String(value).substring(0, maximumStringLength);
+        return String(value, 2).substring(0, maximumStringLength);
     }
     else
     {
