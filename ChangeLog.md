@@ -14,6 +14,7 @@ v1.0.7
 - Add support for manufacturer (#152)
 - Fix support for Logic X (#166)
 - Fix default display of parameters of Audio Unit (#153)
+- Fix expr objects on Windows (#139)
 
 v1.0.6
 - Add LV2 format support (#70)
