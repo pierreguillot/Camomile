@@ -1,5 +1,5 @@
 v1.0.7
-- Update Pd version (0.50)
+- Update Pd version (0.51)
 - Update Juce version (6.0.0)
 - Fix PdStalFx - DSP not recompiled (#126)
 - Fix PdStalFx - no loadbang (#126)
