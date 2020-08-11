@@ -13,7 +13,7 @@
 //                                      PARAMETER                                           //
 // ======================================================================================== //
 
-class CamomileAudioParameter : public AudioProcessorParameterWithID
+class CamomileAudioParameter : public RangedAudioParameter
 {
 public:
     CamomileAudioParameter(const String& name, const String& label,
@@ -27,38 +27,26 @@ public:
     
     ~CamomileAudioParameter();
     
+    NormalisableRange<float> const& getNormalisableRange() const override;
+    
     float getValue() const override;
-    float getOriginalScaledValue() const;
-    
     void setValue(float newValue) override;
-    void setOriginalScaledValue(float newValue);
-    void setOriginalScaledValueNotifyingHost(float newValue);
-    
     float getDefaultValue() const override;
-    int getNumSteps() const override;
-    
-    bool isDiscrete() const override;
     String getText(float value, int maximumStringLength) const override;
     float getValueForText(const String& text) const override;
-    
+    bool isDiscrete() const override;
     bool isOrientationInverted() const override;
     bool isAutomatable() const override;
     bool isMetaParameter() const override;
-    
-    bool isNumeric() const { return m_elements.isEmpty(); }
-    bool isList() const { return !m_elements.isEmpty(); }
     
     static CamomileAudioParameter* parse(const std::string& definition);
     static void saveStateInformation(XmlElement& xml, Array<AudioProcessorParameter*> const& parameters);
     static void loadStateInformation(XmlElement const& xml, Array<AudioProcessorParameter*> const& parameters);
 private:
     std::atomic<float> m_value;
+    NormalisableRange<float> const m_norm_range;
     
-    float const m_minimum;
-    float const m_maximum;
     float const m_default;
-    int   const m_nsteps;
-    
     bool const  m_automatable;
     bool const  m_meta;
     

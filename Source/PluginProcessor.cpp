@@ -287,8 +287,9 @@ void CamomileAudioProcessor::processInternal()
         auto const& parameters = AudioProcessor::getParameters();
         for(int i = 0; i < parameters.size(); ++i)
         {
+            auto const* param = static_cast<CamomileAudioParameter const*>(parameters.getUnchecked(i));
             m_atoms_param[0] = static_cast<float>(i+1);
-            m_atoms_param[1] = static_cast<CamomileAudioParameter const*>(parameters.getUnchecked(i))->getOriginalScaledValue();
+            m_atoms_param[1] = param->convertFrom0to1(param->getValue());
             sendList(sparam, m_atoms_param);
         }
     }
