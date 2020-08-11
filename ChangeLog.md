@@ -1,4 +1,6 @@
 v1.0.7
+- Update Pd version (0.50)
+- Update Juce version (6.0.0)
 - Fix PdStalFx - DSP not recompiled (#126)
 - Fix PdStalFx - no loadbang (#126)
 - Fix PdStalFx - undefined when reloaded (#126)
@@ -8,6 +10,10 @@ v1.0.7
 - Fix midiin objects support to output all the midi messages (#134)
 - Fix midiout objects support for 3 bytes messages and system exclusive messages (#134)
 - Fix camomile script to support white space in the path (#136)
+- Fix LV2 plugin freeze on Linux (#183)
+- Add support for manufacturer (#152)
+- Fix support for Logic X (#166)
+- Fix default display of parameters of Audio Unit (#153)
 
 v1.0.6
 - Add LV2 format support (#70)
