@@ -144,7 +144,7 @@ void CamomileAudioProcessor::receiveMessage(const std::string& msg, const std::v
     {
         if(list.size() >= 2 && list[0].isSymbol() && list[1].isFloat())
         {
-            std::string const method = list[0].getSymbol();
+            auto const& method = list[0].getSymbol();
             int const index = static_cast<int>(list[1].getFloat()) - 1;
             if(method == "set")
             {
