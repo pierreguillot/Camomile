@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="Y4eE7X" name="CamomileLV2" projectType="dll" jucerVersion="5.4.7"
-              version="1.0.6" companyName="Pierre Guillot" companyCopyright="Pierre Guillot"
+<JUCERPROJECT id="Y4eE7X" name="CamomileLV2" projectType="dll" version="1.0.6"
+              companyName="Pierre Guillot" companyCopyright="Pierre Guillot"
               companyWebsite="github.com/pierreguillot/camomile" splashScreenColour="Dark"
               bundleIdentifier="com.pierreguillot.camomile" cppLanguageStandard="11"
               defines="PD_INTERNAL=1&#10;JucePlugin_IsSynth=0&#10;JucePlugin_ProducesMidiOutput=1&#10;JucePlugin_WantsMidiInput=1&#10;JucePlugin_EditorRequiresKeyboardFocus=1&#10;JucePlugin_ManufacturerCode=0x50494755&#10;JucePlugin_Build_LV2_FileCreator=1&#10;JucePlugin_WantsLV2Presets=0&#10;JucePlugin_Build_LV2=1&#10;JucePlugin_Build_VST=0&#10;JucePlugin_Build_VST3=0&#10;JucePlugin_Build_AU=0&#10;JucePlugin_Build_AUv3=0&#10;JucePlugin_Build_RTAS=0&#10;JucePlugin_Build_AAX=0&#10;JucePlugin_Build_Standalone=0&#10;JucePlugin_Enable_IAA=0"
               headerPath="../../../Dependencies/LibPd/pure-data/src&#10;../../../Dependencies/LibPd/libpd_wrapper&#10;../../../Dependencies/LibPd/libpd_wrapper/util&#10;../../../Dependencies/LibPd/cpp&#10;../../../Juce"
-              includeBinaryInJuceHeader="1">
+              includeBinaryInJuceHeader="1" jucerFormatVersion="1">
   <MAINGROUP id="BLNPyv" name="CamomileLV2">
     <GROUP id="{D4367A82-F269-8F5A-1C22-AB42C90672ED}" name="Source">
       <FILE id="dsxHyi" name="PluginProcessor.cpp" compile="1" resource="0"
