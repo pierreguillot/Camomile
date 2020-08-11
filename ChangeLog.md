@@ -15,6 +15,7 @@ v1.0.7
 - Fix support for Logic X (#166)
 - Fix default display of parameters of Audio Unit (#153)
 - Fix expr objects on Windows (#139)
+- Fix MIDI in support for LV2 plugins (#160)
 
 v1.0.6
 - Add LV2 format support (#70)
