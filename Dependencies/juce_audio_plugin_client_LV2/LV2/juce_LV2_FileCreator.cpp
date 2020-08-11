@@ -28,17 +28,20 @@
 class JuceLV2FileCreator
 {
     /** Returns plugin type, defined in AppConfig.h or JucePluginCharacteristics.h */
-    static const String& getPluginType()
+    static String getPluginType(AudioProcessor const* filter)
     {
+        String pluginType;
 #ifdef JucePlugin_LV2Category
-        static const String pluginType("lv2:" + JucePlugin_LV2Category + ", lv2:Plugin");
-#elif JucePlugin_IsSynth
-        static const String pluginType("lv2:InstrumentPlugin, lv2:Plugin");
-#else
-        static const String pluginType("lv2:Plugin");
+        pluginType  = "lv2:" JucePlugin_LV2Category + ", ";
 #endif
+        if(filter->acceptsMidi())
+        {
+            pluginType  += "lv2:InstrumentPlugin, ";
+        }
+        pluginType += "lv2:Plugin";
         return pluginType;
     }
+
     
     /** Returns plugin extension */
     static const String& getPluginExtension()
@@ -240,7 +243,7 @@ class JuceLV2FileCreator
         
         // Plugin
         text += "<" + pluginURI + ">\n";
-        text += "    a " + getPluginType() + " ;\n";
+        text += "    a " + getPluginType(filter) + " ;\n";
         text += "    lv2:requiredFeature <" LV2_BUF_SIZE__boundedBlockLength "> ,\n";
 #if JucePlugin_WantsLV2FixedBlockSize
         text += "                        <" LV2_BUF_SIZE__fixedBlockLength "> ,\n";
@@ -269,10 +272,10 @@ class JuceLV2FileCreator
         text += "    lv2:port [\n";
         text += "        a lv2:InputPort, atom:AtomPort ;\n";
         text += "        atom:bufferType atom:Sequence ;\n";
-        text += "        atom:supports <" LV2_TIME__Position "> ;\n";
+        text += "        atom:supports <" LV2_MIDI__MidiEvent ">, <" LV2_TIME__Position "> ;\n";
         text += "        lv2:index " + String(portIndex++) + " ;\n";
-        text += "        lv2:symbol \"lv2_events_in\" ;\n";
-        text += "        lv2:name \"Events Input\" ;\n";
+        text += "        lv2:symbol \"lv2_midi_in\" ;\n";
+        text += "        lv2:name \"MIDI Input\" ;\n";
         text += "        lv2:designation lv2:control ;\n";
 #if ! JucePlugin_IsSynth
         text += "        lv2:portProperty lv2:connectionOptional ;\n";

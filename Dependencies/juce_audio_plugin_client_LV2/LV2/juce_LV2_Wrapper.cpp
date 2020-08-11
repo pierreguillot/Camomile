@@ -128,15 +128,16 @@ const String getParameterName2(AudioProcessor* const filter, int index)
 }
 
 /** Returns plugin type, defined in AppConfig.h or JucePluginCharacteristics.h */
-const String getPluginType()
+const String getPluginType(AudioProcessor const* filter)
 {
     String pluginType;
 #ifdef JucePlugin_LV2Category
-    pluginType  = "lv2:" JucePlugin_LV2Category;
-    pluginType += ", ";
-#elif JucePlugin_IsSynth
-    pluginType  = "lv2:InstrumentPlugin, ";
+    pluginType  = "lv2:" JucePlugin_LV2Category + ", ";
 #endif
+    if(filter->acceptsMidi())
+    {
+        pluginType  += "lv2:InstrumentPlugin, ";
+    }
     pluginType += "lv2:Plugin";
     return pluginType;
 }
