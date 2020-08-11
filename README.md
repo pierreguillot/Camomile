@@ -75,7 +75,7 @@ xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration
 Important: libpd requires the static [pthread](https://github.com/GerHobbelt/pthread-win32.git) library for windows with multithread static runtime library (MT).
 ```
 cd Camomile
-cd mkdir Dependencies\LibPd\build && mkdir Dependencies\LibPd\build\msvc && cd Dependencies\LibPd\build\msvc
+mkdir Dependencies\LibPd\build && mkdir Dependencies\LibPd\build\msvc && cd Dependencies\LibPd\build\msvc
 cmake -G "Visual Studio 14 2015 Win64" -DPD_MULTI=ON -DPD_UTILS=OFF -DMSVC_STATIC_RUNTIME=ON -DMSVC_PTHREAD_LIB="pthread.lib" ../..
 msbuild libpd.sln /t:libpdstatic /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=x64
 cd ..\..\..
