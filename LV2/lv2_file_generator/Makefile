@@ -5,8 +5,8 @@ ifeq ($(UNAME), Linux)  # Linux
 endif
 
 ifeq ($(UNAME), Darwin)  # Mac
-	CFLAGS = -arch x86_64 -arch i386
-	LDFLAGS = -ldl -arch x86_64 -arch i386
+	CFLAGS = -arch x86_64
+	LDFLAGS = -ldl -arch x86_64
 endif
 
 all: lv2_file_generator
