@@ -153,7 +153,8 @@ void CamomileAudioProcessor::receiveMessage(const std::string& msg, const std::v
                     CamomileAudioParameter* param = static_cast<CamomileAudioParameter *>(getParameters()[index]);
                     if(param)
                     {
-                        param->setOriginalScaledValueNotifyingHost(list[2].getFloat());
+                        auto const newValue = list[2].getFloat();
+                        param->setValueNotifyingHost(param->convertTo0to1(newValue));
                         if(list.size() > 3) { add(ConsoleLevel::Error,
                                                   "camomile parameter set method extra arguments"); }
                     }
