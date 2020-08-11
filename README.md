@@ -105,6 +105,7 @@ msbuild LV2/Builds/VisualStudio2015/Camomile.sln /nologo /p:Configuration=Releas
 - [Juce LV2 interface](http://www.falktx.com) by Filipe Coelho
 - [Console icons](https://www.flaticon.com/authors/gregor-cresnar) by Gregor Cresnar
 - [CMake](https://cmake.org/) by Andy Cedilnik, Bill Hoffman, Brad King, Ken Martin, Alexander Neundorf
+- Images of the plugin's examples are copyrighted by their respective comics publishers. [Dupuis](https://www.dupuis.com/) for the Bulgroz and AlmondOrgan plugins and [Casterman](https://www.casterman.com/) for the Castafiore plugin. For further information, read this [issue](https://github.com/pierreguillot/Camomile/issues/177).
 
 ### Papers
 
