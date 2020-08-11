@@ -297,13 +297,13 @@ namespace pd
         Message mess;
         while(m_message_queue.try_dequeue(mess))
         {
-            if(mess.selector == std::string("bang"))
+            if(mess.selector == "bang")
                 receiveBang();
-            else if(mess.selector == std::string("float"))
+            else if(mess.selector == "float")
                 receiveFloat(mess.list[0].getFloat());
-            else if(mess.selector == std::string("symbol"))
+            else if(mess.selector == "symbol")
                 receiveSymbol(mess.list[0].getSymbol());
-            else if(mess.selector == std::string("list"))
+            else if(mess.selector == "list")
                 receiveList(mess.list);
             else
                 receiveMessage(mess.selector, mess.list);
