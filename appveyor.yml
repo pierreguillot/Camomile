@@ -63,6 +63,14 @@ after_build:
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\ /S /Q
     - rename %APPVEYOR_BUILD_FOLDER%\Plugins Camomile
     - 7z a %ZIPFILE%.zip %APPVEYOR_BUILD_FOLDER%\Camomile\
+    - Xcopy %APPVEYOR_BUILD_FOLDER%\Camomile\Examples %APPVEYOR_BUILD_FOLDER%\Examples /E /I
+    - copy %APPVEYOR_BUILD_FOLDER%\Camomile\Camomile.vst3 %APPVEYOR_BUILD_FOLDER%\Examples\AlmondOrgan\AlmondOrgan.vst3
+    - copy %APPVEYOR_BUILD_FOLDER%\Camomile\CamomileFx.vst3 %APPVEYOR_BUILD_FOLDER%\Examples\Bulgroz\Bulgroz.vst3
+    - copy %APPVEYOR_BUILD_FOLDER%\Camomile\CamomileFx.vst3 %APPVEYOR_BUILD_FOLDER%\Examples\Castafiore\Castafiore.vst3
+    - copy %APPVEYOR_BUILD_FOLDER%\Camomile\Camomile.vst3 %APPVEYOR_BUILD_FOLDER%\Examples\MiniMock\MiniMock.vst3
+    - copy %APPVEYOR_BUILD_FOLDER%\Camomile\Camomile.vst3 %APPVEYOR_BUILD_FOLDER%\Examples\PdStal\PdStal.vst3
+    - copy %APPVEYOR_BUILD_FOLDER%\Camomile\CamomileFx.vst3 %APPVEYOR_BUILD_FOLDER%\Examples\PdStalFx\PdStalFx.vst3
+    - 7z a %ZIPFILE%-examples.zip %APPVEYOR_BUILD_FOLDER%\Examples\
 
 artifacts:
   - path: '*.zip'
