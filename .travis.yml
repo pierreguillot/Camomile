@@ -31,7 +31,8 @@ matrix:
     - unzip ./pluginval.zip
     - ./pluginval --strictnessLevel 10 --validate ./Plugins/Builds/ > /dev/null
     before_deploy:
-    - rm -r Plugins/Builds
+    - mv Plugins/Builds Examples
+    - zip -r $release-examples.zip Examples
     - rm Plugins/Camomile.a
     - rm Plugins/CamomileFx.a
     - cp README.md Plugins/README.md
@@ -54,7 +55,8 @@ matrix:
     - tar zxvf ./pluginval.zip
     - ./pluginval.app/Contents/MacOS/pluginval --strictnessLevel 10 --validate ./Plugins/Builds/ > /dev/null
     before_deploy:
-    - rm -r Plugins/Builds
+    - mv Plugins/Builds Examples
+    - zip -r $release-examples.zip Examples
     - rm Plugins/libCamomile.a
     - rm Plugins/libCamomileFx.a
     - cp README.md Plugins/README.md
@@ -73,7 +75,9 @@ deploy:
   tag_name: ${TRAVIS_TAG}
   api_key:
     secure: KhjoDswm7tGKjBCsUFFi1u9Dwl8WXSiPcDD+WhwibpgkTBzPuWyngJBL6VtHHPNi/0wAhvlg7ng4IgtBMW5vMI9q1YoOOgd2smADYY+bsKNEcDNblQZhXYf0A5MQ77fYjiNKDC08psmDIrnL2NTxn3Aqwsnz8vH8lSYX/r1eo9+kD+U9gyGT9Xv4qk1lGok4/A6ACx/Pd18m9Lc4X+XLaK8ZFrRemCRgP3dHIMiObPqSkS6oJCG/DH0C3gBF29bMJHJKMxUeKNBrMv5xQqJY4fpuiUILHgk2hE6CFNj9mFt0huR6IW/2NOuuvy00O0AeTj7WeH7oQEneHIeZPwXwyKvV1ihI73qCYdh8RJ9R/eg06x3ppLM+uBlgmBcSKfEPw0M1FkBg7PgVBTNQ3UTQpjiwCButcyxN04Yec9e3I3pt16R4nqdMl49W+mXd5XHbmedj9t1D53G8fMnsF8zQf6LaiC/SHbMq1B5odGxNVS7+XkKWG8vlXrn8ksBKK0WGMsdF+kquMIZ99OYMlALNntv9e5J50WTeUz6jRcTuVaDU9o/6CDEDp8VC9N+UkQF3IDw4p/jS34681R1wgsme9XcHjbvpWwVbfVc/ymqaRucYA1+Tdh0ilrrGymgygmJjK0aRtYfS3HaIhGC0iZk6lo1wJ1AQMxE99hwnBRH9+Sg=
-  file: $release.zip
+  file:
+  - $release.zip
+  - $release-examples.zip
   on:
     repo: pierreguillot/Camomile
     tags: true
