@@ -52,6 +52,7 @@ public:
     virtual void updateValue();
     virtual void updateInterface();
     Label* getLabel();
+    pd::Gui getGUI();
 protected:
     float getValueOriginal() const noexcept;
     void setValueOriginal(float v);
