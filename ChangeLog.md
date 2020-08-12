@@ -1,6 +1,7 @@
 v1.0.7
 - Update Pd version (0.51)
 - Update Juce version (6.0.0)
+- Remove VST2 support
 - Fix PdStalFx - DSP not recompiled (#126)
 - Fix PdStalFx - no loadbang (#126)
 - Fix PdStalFx - undefined when reloaded (#126)
