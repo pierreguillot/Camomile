@@ -35,7 +35,7 @@ ifeq ($(CONFIG),Debug)
     TARGET_ARCH := 
   endif
 
-  JUCE_CPPFLAGS := $(DEPFLAGS) "-DLINUX=1" "-DDEBUG=1" "-D_DEBUG=1" "-DPD_INTERNAL=1" "-DJUCE_VST3_CAN_REPLACE_VST2=0" "-DJUCER_LINUX_MAKE_6D53C8B4=1" "-DJUCE_APP_VERSION=1.0.6" "-DJUCE_APP_VERSION_HEX=0x10006" $(shell pkg-config --cflags freetype2) -pthread -I../../../Juce/modules/juce_audio_processors/format_types/VST3_SDK -I../../../Dependencies/Vst2 -I../../JuceLibraryCode -I../../../Juce/modules -I../../../Dependencies/LibPd/pure-data/src -I../../../Dependencies/LibPd/libpd_wrapper -I../../../Dependencies/LibPd/libpd_wrapper/util -I../../../Dependencies/LibPd/cpp $(CPPFLAGS)
+  JUCE_CPPFLAGS := $(DEPFLAGS) "-DLINUX=1" "-DDEBUG=1" "-D_DEBUG=1" "-DPD_INTERNAL=1" "-DJUCE_VST3_CAN_REPLACE_VST2=0" "-DJUCER_LINUX_MAKE_6D53C8B4=1" "-DJUCE_APP_VERSION=1.0.7" "-DJUCE_APP_VERSION_HEX=0x10007" $(shell pkg-config --cflags freetype2) -pthread -I../../../Juce/modules/juce_audio_processors/format_types/VST3_SDK -I../../../Dependencies/Vst2 -I../../JuceLibraryCode -I../../../Juce/modules -I../../../Dependencies/LibPd/pure-data/src -I../../../Dependencies/LibPd/libpd_wrapper -I../../../Dependencies/LibPd/libpd_wrapper/util -I../../../Dependencies/LibPd/cpp $(CPPFLAGS)
 
   JUCE_CPPFLAGS_VST3 :=  "-DJucePlugin_Build_VST=0" "-DJucePlugin_Build_VST3=1" "-DJucePlugin_Build_AU=0" "-DJucePlugin_Build_AUv3=0" "-DJucePlugin_Build_RTAS=0" "-DJucePlugin_Build_AAX=0" "-DJucePlugin_Build_Standalone=0" "-DJucePlugin_Build_Unity=0"
   JUCE_CFLAGS_VST3 := -fPIC -fvisibility=hidden
@@ -66,7 +66,7 @@ ifeq ($(CONFIG),Release)
     TARGET_ARCH := 
   endif
 
-  JUCE_CPPFLAGS := $(DEPFLAGS) "-DLINUX=1" "-DNDEBUG=1" "-DPD_INTERNAL=1" "-DJUCE_VST3_CAN_REPLACE_VST2=0" "-DJUCER_LINUX_MAKE_6D53C8B4=1" "-DJUCE_APP_VERSION=1.0.6" "-DJUCE_APP_VERSION_HEX=0x10006" $(shell pkg-config --cflags freetype2) -pthread -I../../../Juce/modules/juce_audio_processors/format_types/VST3_SDK -I../../../Dependencies/Vst2 -I../../JuceLibraryCode -I../../../Juce/modules -I../../../Dependencies/LibPd/pure-data/src -I../../../Dependencies/LibPd/libpd_wrapper -I../../../Dependencies/LibPd/libpd_wrapper/util -I../../../Dependencies/LibPd/cpp $(CPPFLAGS)
+  JUCE_CPPFLAGS := $(DEPFLAGS) "-DLINUX=1" "-DNDEBUG=1" "-DPD_INTERNAL=1" "-DJUCE_VST3_CAN_REPLACE_VST2=0" "-DJUCER_LINUX_MAKE_6D53C8B4=1" "-DJUCE_APP_VERSION=1.0.7" "-DJUCE_APP_VERSION_HEX=0x10007" $(shell pkg-config --cflags freetype2) -pthread -I../../../Juce/modules/juce_audio_processors/format_types/VST3_SDK -I../../../Dependencies/Vst2 -I../../JuceLibraryCode -I../../../Juce/modules -I../../../Dependencies/LibPd/pure-data/src -I../../../Dependencies/LibPd/libpd_wrapper -I../../../Dependencies/LibPd/libpd_wrapper/util -I../../../Dependencies/LibPd/cpp $(CPPFLAGS)
 
   JUCE_CPPFLAGS_VST3 :=  "-DJucePlugin_Build_VST=0" "-DJucePlugin_Build_VST3=1" "-DJucePlugin_Build_AU=0" "-DJucePlugin_Build_AUv3=0" "-DJucePlugin_Build_RTAS=0" "-DJucePlugin_Build_AAX=0" "-DJucePlugin_Build_Standalone=0" "-DJucePlugin_Build_Unity=0"
   JUCE_CFLAGS_VST3 := -fPIC -fvisibility=hidden
