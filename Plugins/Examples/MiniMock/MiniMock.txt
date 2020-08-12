@@ -1,7 +1,7 @@
 code zWry;
 type instrument;
 midiin true;
-compatibility 1.0.5;
+compatibility 1.0.7;
 iolayout 0 2;
 manufacturer Pierre Guillot;
 description Infos.txt;
