@@ -11,14 +11,17 @@
 #include "PluginEditorComponents.h"
 #include "PluginEditorObject.hpp"
 
-class CamomileEditor : public AudioProcessorEditor, protected Timer, public CamomileEditorInteractionManager
+class CamomileEditor
+: public AudioProcessorEditor
+, protected Timer
+, public CamomileEditorInteractionManager
 {
 public:
     CamomileEditor(CamomileAudioProcessor&);
     ~CamomileEditor();
     void paint(Graphics&) final;
     void timerCallback() final;
-    
+    void resized() override;
     //////////////////////////////////////////////////////////////////////////////////////////
     bool keyPressed(const KeyPress& key) final;
     bool keyStateChanged(bool isKeyDown) final;
@@ -27,13 +30,15 @@ public:
     void guiResize() final;
     void guiRedraw() final;
     
+    void reloadPatch();
 private:
-    void updatePatch();
-    void updateObjects();
+    
+    using object_uptr = std::unique_ptr<PluginEditorObject>;
+    using label_uptr = std::unique_ptr<Component>;
+    using object_pair = std::pair<object_uptr, label_uptr>;
     
     CamomileAudioProcessor&         m_processor;
-    OwnedArray<PluginEditorObject>  m_objects;
-    OwnedArray<Component>           m_labels;
+    std::unique_ptr<GuiPatch>       m_patch;
     CamomileEditorButton            m_button;
     DrawableImage                   m_image;
     
