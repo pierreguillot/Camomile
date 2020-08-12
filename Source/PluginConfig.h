@@ -23,6 +23,6 @@ namespace ProjectInfo
 {
     const char* const  projectName    = CamomileEnvironment::getPluginNameUTF8();
     const char* const  companyName    = CamomileEnvironment::getPluginManufacturerUTF8();
-    const char* const  versionString  = "1.0.6";
-    const int          versionNumber  = 0x10006;
+    const char* const  versionString  = "1.0.7";
+    const int          versionNumber  = 0x10007;
 }

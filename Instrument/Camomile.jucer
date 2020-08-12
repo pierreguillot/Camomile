@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="Kpq9Ee" name="Camomile" displaySplashScreen="0" reportAppUsage="0"
-              splashScreenColour="Dark" projectType="audioplug" version="1.0.6"
+              splashScreenColour="Dark" projectType="audioplug" version="1.0.7"
               bundleIdentifier="com.pierreguillot.camomile" includeBinaryInAppConfig="1"
               cppLanguageStandard="11" companyCopyright="Pierre Guillot" buildVST="0"
               buildVST3="1" buildAU="1" buildAUv3="0" buildRTAS="0" buildAAX="0"
@@ -13,7 +13,8 @@
               pluginAAXCategory="2" companyName="Pierre Guillot" headerPath="../../../Dependencies/LibPd/pure-data/src&#10;../../../Dependencies/LibPd/libpd_wrapper&#10;../../../Dependencies/LibPd/libpd_wrapper/util&#10;../../../Dependencies/LibPd/cpp&#10;"
               defines="PD_INTERNAL=1&#10;JUCE_VST3_CAN_REPLACE_VST2=0" companyWebsite="github.com/pierreguillot/camomile"
               pluginFormats="buildAU,buildVST3" pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn,pluginProducesMidiOut,pluginEditorRequiresKeys"
-              jucerFormatVersion="1">
+              jucerFormatVersion="1" pluginRTASDisableBypass="0" pluginRTASDisableMultiMono="0"
+              pluginAAXDisableBypass="0" pluginAAXDisableMultiMono="0">
   <MAINGROUP id="BLNPyv" name="Camomile">
     <GROUP id="{D4367A82-F269-8F5A-1C22-AB42C90672ED}" name="Source">
       <FILE id="dsxHyi" name="PluginProcessor.cpp" compile="1" resource="0"

@@ -1072,8 +1072,8 @@
 					"JucePlugin_Enable_IAA=0",
 					"HAVE_UNISTD_H=1",
 					"JUCER_XCODE_MAC_F6D2F4CF=1",
-					"JUCE_APP_VERSION=1.0.6",
-					"JUCE_APP_VERSION_HEX=0x10006",
+					"JUCE_APP_VERSION=1.0.7",
+					"JUCE_APP_VERSION_HEX=0x10007",
 					"JucePlugin_Build_Unity=0",
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1136,8 +1136,8 @@
 					"JucePlugin_Enable_IAA=0",
 					"HAVE_UNISTD_H=1",
 					"JUCER_XCODE_MAC_F6D2F4CF=1",
-					"JUCE_APP_VERSION=1.0.6",
-					"JUCE_APP_VERSION_HEX=0x10006",
+					"JUCE_APP_VERSION=1.0.7",
+					"JUCE_APP_VERSION_HEX=0x10007",
 					"JucePlugin_Build_Unity=0",
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
