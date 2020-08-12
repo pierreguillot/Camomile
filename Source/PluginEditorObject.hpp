@@ -232,17 +232,15 @@ private:
     GraphicalArray m_array;
 };
 
-
 class GuiGraphOnParent : public PluginEditorObject
 {
 public:
     GuiGraphOnParent(CamomileEditorMouseManager& p, pd::Gui& g);
     void paint(Graphics& ) override;
-    void resized() override;
     void updateValue() override;
+    void updateInterface() override;
 private:
-    OwnedArray<PluginEditorObject>  m_objects;
-    OwnedArray<Component>           m_labels;
+    GuiPatch m_patch;
 };
 
 
