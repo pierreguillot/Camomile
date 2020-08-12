@@ -49,7 +49,7 @@ public:
     virtual ~PluginEditorObject();
     
     static PluginEditorObject* createTyped(CamomileEditorMouseManager& p, pd::Gui& g);
-    virtual void update();
+    virtual void updateValue();
     Label* getLabel();
 protected:
     float getValueOriginal() const noexcept;
@@ -149,7 +149,7 @@ public:
     void labelTextChanged(Label* label) override;
     void editorShown(Label*, TextEditor&) override;
     void editorHidden(Label*, TextEditor&) override;
-    void update() override;
+    void updateValue() override;
 protected:
     juce::Label label;
 };
@@ -189,7 +189,7 @@ public:
     void paint(Graphics& g) override;
     void mouseDoubleClick(const MouseEvent&) override;
     void labelTextChanged(Label* label) override;
-    void update() override;
+    void updateValue() override;
 private:
     std::string last;
 };
@@ -200,7 +200,7 @@ public:
     GuiArray(CamomileEditorMouseManager& p, pd::Gui& g);
     void paint(Graphics& ) override {}
     void resized() override;
-    void update() override {}
+    void updateValue() override {}
 private:
     pd::Array      m_graph;
     GraphicalArray m_array;
@@ -213,7 +213,7 @@ public:
     GuiGraphOnParent(CamomileEditorMouseManager& p, pd::Gui& g);
     void paint(Graphics& ) override;
     void resized() override;
-    void update() override;
+    void updateValue() override;
 private:
     OwnedArray<PluginEditorObject>  m_objects;
     OwnedArray<Component>           m_labels;

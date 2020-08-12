@@ -82,7 +82,7 @@ void CamomileEditor::timerCallback()
     CamomileEditorMessageManager::processMessages();
     for(auto object : m_objects)
     {
-        object->update();
+        object->updateValue();
     }
 }
 
