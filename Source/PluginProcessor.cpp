@@ -135,7 +135,7 @@ void CamomileAudioProcessor::reloadPatch()
     if(CamomileEditor* editor = dynamic_cast<CamomileEditor*>(getActiveEditor()))
     {
         const MessageManagerLock mmLock;
-        editor->guiResize();
+        editor->reloadPatch();
     }
     add(ConsoleLevel::Normal, "camomile: the patch \"" + CamomileEnvironment::getPatchName() + "\" has been reloaded");
     suspendProcessing(false);
