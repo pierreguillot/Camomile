@@ -247,11 +247,11 @@ void CamomileAudioProcessor::sendCurrentBusesLayoutInformation()
         AudioProcessor::Bus const* outBus = getBus(false, i);
         if(inBus && inBus->isEnabled())
         {
-            sendList(std::string("bus"), CamomileBusesLayoutHelper::getBusInformation(*inBus));
+            sendList("bus", CamomileBusesLayoutHelper::getBusInformation(*inBus));
         }
         if(outBus && outBus->isEnabled())
         {
-            sendList(std::string("bus"), CamomileBusesLayoutHelper::getBusInformation(*outBus));
+            sendList("bus", CamomileBusesLayoutHelper::getBusInformation(*outBus));
         }
     }
 }
