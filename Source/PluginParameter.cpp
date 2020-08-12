@@ -18,7 +18,7 @@ CamomileAudioParameter::CamomileAudioParameter(const String& name, const String&
                                                const bool automatable, const bool meta) :
 RangedAudioParameter(name.toLowerCase().replaceCharacter(' ', '_'), name, label),
 m_norm_range(min, max, nsteps > 1 ? (max - min) / static_cast<float>(nsteps - 1) : 0.f),
-m_default(def),
+m_default(convertTo0to1(def)),
 m_automatable(automatable),
 m_meta(meta)
 {
@@ -30,7 +30,7 @@ CamomileAudioParameter::CamomileAudioParameter(const String& name, const String&
                                                const bool automatable, const bool meta) :
 RangedAudioParameter(name.toLowerCase().replaceCharacter(' ', '_'), name, label),
 m_norm_range(0.f, static_cast<float>(elems.size() - 1), 1.f),
-m_default(static_cast<float>(def)),
+m_default(convertTo0to1(static_cast<float>(def))),
 m_automatable(automatable),
 m_meta(meta),
 m_elements(elems)
@@ -57,7 +57,7 @@ void CamomileAudioParameter::setValue(float newValue)
 
 float CamomileAudioParameter::getDefaultValue() const
 {
-    return convertTo0to1(m_default);
+    return m_default;
 }
 
 String CamomileAudioParameter::getText(float value, int maximumStringLength) const
