@@ -325,7 +325,8 @@ void CamomileAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     const bool midi_consume = m_accepts_midi;
     const bool midi_produce = m_produces_midi;
     
-    for(int i = nins; i < nouts; ++i)
+    auto const maxOuts = std::max(nouts, buffer.getNumChannels());
+    for(int i = nins; i < maxOuts; ++i)
     {
         buffer.clear(i, 0, nsamples);
     }
