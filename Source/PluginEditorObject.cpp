@@ -110,7 +110,7 @@ void PluginEditorObject::stopEdition() noexcept
     patch.stopEdition();
 }
 
-void PluginEditorObject::update()
+void PluginEditorObject::updateValue()
 {
     if(edited == false)
     {
@@ -499,7 +499,7 @@ void GuiTextEditor::editorHidden(Label*, TextEditor&)
     stopEdition();
 }
 
-void GuiTextEditor::update()
+void GuiTextEditor::updateValue()
 {
     if(edited == false)
     {
@@ -736,7 +736,7 @@ void GuiAtomSymbol::labelTextChanged(Label* lbl)
     }
 }
 
-void GuiAtomSymbol::update()
+void GuiAtomSymbol::updateValue()
 {
     if(edited == false)
     {
@@ -799,10 +799,10 @@ void GuiGraphOnParent::resized()
     }
 }
 
-void GuiGraphOnParent::update()
+void GuiGraphOnParent::updateValue()
 {
     for(auto object : m_objects) {
-        object->update(); }
+        object->updateValue(); }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
