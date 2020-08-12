@@ -8,4 +8,4 @@ type effect;
 image Bulgroz.png;
 description Infos.txt;
 manufacturer Pierre Guillot;
-compatibility 1.0.5;
+compatibility 1.0.7;
