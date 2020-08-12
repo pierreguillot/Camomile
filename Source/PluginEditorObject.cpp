@@ -123,6 +123,13 @@ void PluginEditorObject::updateValue()
     }
 }
 
+void PluginEditorObject::updateInterface()
+{
+    std::array<int, 4> const bounds(gui.getBounds());
+    setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
+    repaint();
+}
+
 Label* PluginEditorObject::getLabel()
 {
     pd::Label const lbl = gui.getLabel();

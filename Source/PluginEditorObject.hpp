@@ -50,6 +50,7 @@ public:
     
     static PluginEditorObject* createTyped(CamomileEditorMouseManager& p, pd::Gui& g);
     virtual void updateValue();
+    virtual void updateInterface();
     Label* getLabel();
 protected:
     float getValueOriginal() const noexcept;
