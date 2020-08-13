@@ -147,9 +147,8 @@ PluginEditorObject* PluginEditorObject::createTyped(CamomileEditorMouseManager& 
 PluginEditorObject::PluginEditorObject(CamomileEditorMouseManager& p, pd::Gui& g) : gui(g), patch(p), edited(false),
 value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
 {
-    std::array<int, 4> const bounds(gui.getBounds());
-    setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
     setOpaque(false);
+    updateInterface();
 }
 
 PluginEditorObject::~PluginEditorObject() {}
