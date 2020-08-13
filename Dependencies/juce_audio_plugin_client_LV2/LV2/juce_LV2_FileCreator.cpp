@@ -9,6 +9,7 @@
 #if JucePlugin_Build_LV2_FileCreator
 
 #include <cctype>
+#include "lv2/units/units.h"
 
 /** Plugin requires processing with a fixed/constant block size */
 #ifndef JucePlugin_WantsLV2FixedBlockSize
@@ -239,6 +240,7 @@ class JuceLV2FileCreator
         text += "@prefix lv2:  <" LV2_CORE_PREFIX "> .\n";
         text += "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n";
         text += "@prefix ui:   <" LV2_UI_PREFIX "> .\n";
+        text += "@prefix unit: <" LV2_UNITS_PREFIX "> .\n";
         text += "\n";
         
         // Plugin
@@ -377,12 +379,32 @@ class JuceLV2FileCreator
             else
                 text += "        lv2:name \"Port " + String(i+1) + "\" ;\n";
             
-            text += "        lv2:default " + String::formatted("%f", safeParamValue(params[i]->getDefaultValue())) + " ;\n";
-            text += "        lv2:minimum 0.0 ;\n";
-            text += "        lv2:maximum 1.0 ;\n";
+            if(auto* rangeParam = dynamic_cast<RangedAudioParameter*>(params[i]))
+            {
+                auto const normRange = rangeParam->getNormalisableRange();
+                text += "        lv2:default " + String(normRange.convertFrom0to1(rangeParam->getDefaultValue()), 2) + " ;\n";
+                text += "        lv2:minimum " +  String(normRange.start, 2) + " ;\n";
+                text += "        lv2:maximum " + String(normRange.end, 2) + " ;\n";
+            }
+            else
+            {
+                text += "        lv2:default " + String::formatted("%f", safeParamValue(params[i]->getDefaultValue())) + " ;\n";
+                text += "        lv2:minimum 0.0 ;\n";
+                text += "        lv2:maximum 1.0 ;\n";
+            }
             
             if (! params[i]->isAutomatable())
                 text += "        lv2:portProperty <" LV2_PORT_PROPS__expensive "> ;\n";
+            
+            auto const label = params[i]->getLabel();
+            if(!label.isEmpty())
+            {
+                text += "        unit:unit [\n";
+                text += "            rdfs:label \"" + label + "\" ;\n";
+                text += "            unit:symbol \"" + label + "\" ;\n";
+                text += "            unit:render \"%f " + label + "\" ;\n";
+                text += "        ] ;\n";
+            }
             
             if (i+1 == params.size())
                 text += "    ] ;\n\n";

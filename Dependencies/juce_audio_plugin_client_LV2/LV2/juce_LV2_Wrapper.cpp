@@ -77,6 +77,7 @@
 #include "lv2/state/state.h"
 #include "lv2/time/time.h"
 #include "lv2/ui/ui.h"
+#include "lv2/units/units.h"
 #include "lv2/urid/urid.h"
 #include "includes/lv2_external_ui.h"
 #include "includes/lv2_programs.h"
@@ -512,6 +513,8 @@ public:
             inParameterChangedCallback = false;
             return;
         }
+        if(auto* rangeParam = dynamic_cast<RangedAudioParameter*>(filter->getParameters()[index]))
+            newValue = rangeParam->convertFrom0to1(newValue);
         if (writeFunction != nullptr && controller != nullptr)
             writeFunction (controller, index + controlPortOffset, sizeof (float), 0, &newValue);
     }
@@ -852,7 +855,10 @@ public:
     
     const float getParameter3(int index)
     {
-        if(auto* param = filter->getParameters()[index])
+        auto* param = filter->getParameters()[index];
+        if(auto* rangeParam = dynamic_cast<RangedAudioParameter*>(param))
+            return rangeParam->convertFrom0to1(param->getValue());
+        else if(param)
             return param->getValue();
         else
             return 0.0;
@@ -860,7 +866,14 @@ public:
     
     const void setParameter3(int index, float value)
     {
-        if (auto* param = filter->getParameters()[index])
+        auto* param = filter->getParameters()[index];
+        if(auto* rangeParam = dynamic_cast<RangedAudioParameter*>(param))
+        {
+            rangeParam->setValue(rangeParam->convertTo0to1(value));
+            inParameterChangedCallback = true;
+            rangeParam->sendValueChangedMessageToListeners(rangeParam->convertTo0to1(value));
+        }
+        else if (auto* param = filter->getParameters()[index])
         {
             param->setValue(value);
             inParameterChangedCallback = true;

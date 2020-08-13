@@ -19,6 +19,7 @@
 #define LV2_EXTERNAL_UI_H
 
 #include "../lv2/ui/ui.h"
+#include "../lv2/units/units.h"
 
 #define LV2_EXTERNAL_UI_URI     "http://kxstudio.sf.net/ns/lv2ext/external-ui"
 #define LV2_EXTERNAL_UI_PREFIX  LV2_EXTERNAL_UI_URI "#"
