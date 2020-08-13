@@ -97,51 +97,6 @@
 
 using namespace juce;
 
-const float getParameter2(AudioProcessor* const filter, int index)
-{
-    if(auto* param = filter->getParameters()[index])
-        return param->getValue();
-    else
-        return 0.0;
-}
-
-const void setParameter2(AudioProcessor* const filter, int index, float value)
-{
-    if (auto* param = filter->getParameters()[index])
-        param->setValue(value);
-}
-
-bool isParameterAutomatable2(AudioProcessor* const filter, int index)
-{
-    if (auto* param = filter->getParameters()[index])
-        return param->isAutomatable();
-    
-    return true;
-}
-
-const String getParameterName2(AudioProcessor* const filter, int index)
-{
-    if(auto* param = filter->getParameters()[index])
-        return param->getName(1024);
-    else
-        return {};
-}
-
-/** Returns plugin type, defined in AppConfig.h or JucePluginCharacteristics.h */
-const String getPluginType(AudioProcessor const* filter)
-{
-    String pluginType;
-#ifdef JucePlugin_LV2Category
-    pluginType  = "lv2:" JucePlugin_LV2Category + ", ";
-#endif
-    if(filter->acceptsMidi())
-    {
-        pluginType  += "lv2:InstrumentPlugin, ";
-    }
-    pluginType += "lv2:Plugin";
-    return pluginType;
-}
-
 /** Returns plugin URI */
 static const String& getPluginURI()
 {
