@@ -258,15 +258,7 @@ void CamomileAudioProcessor::processInternal()
                     sendSysRealTime(0, static_cast<int>(message.getRawData()[i]));
                 }
             }
-           
-#if 0
-            add(ConsoleLevel::Error, "Process Recieve Midi Bytes ----");
-            for(int i = 0; i < message.getRawDataSize(); i++)
-            {
-                add(ConsoleLevel::Error, std::to_string(static_cast<int>(message.getRawData()[i])));
-            }
-#endif
-            
+             
             for(int i = 0; i < message.getRawDataSize(); i++)  {
                 sendMidiByte(0, static_cast<int>(message.getRawData()[i]));
             }
