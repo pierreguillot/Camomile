@@ -369,9 +369,10 @@ class JuceLv2UIWrapper : public AudioProcessorListener,
 public Timer
 {
 public:
-    JuceLv2UIWrapper (AudioProcessor* filter_, LV2UI_Write_Function writeFunction_, LV2UI_Controller controller_,
+    JuceLv2UIWrapper (ThreadLocalValue<bool>& inParameterChangedCallback_, AudioProcessor* filter_, LV2UI_Write_Function writeFunction_, LV2UI_Controller controller_,
                       LV2UI_Widget* widget, const LV2_Feature* const* features, bool isExternal_)
-    : filter (filter_),
+    : inParameterChangedCallback(inParameterChangedCallback_),
+    filter (filter_),
     writeFunction (writeFunction_),
     controller (controller_),
     isExternal (isExternal_),
@@ -506,6 +507,11 @@ public:
     
     void audioProcessorParameterChanged (AudioProcessor*, int index, float newValue)
     {
+        if (inParameterChangedCallback.get())
+        {
+            inParameterChangedCallback = false;
+            return;
+        }
         if (writeFunction != nullptr && controller != nullptr)
             writeFunction (controller, index + controlPortOffset, sizeof (float), 0, &newValue);
     }
@@ -593,6 +599,7 @@ public:
     }
     
 private:
+    ThreadLocalValue<bool>& inParameterChangedCallback;
     AudioProcessor* const filter;
     std::unique_ptr<AudioProcessorEditor> editor;
     
@@ -718,6 +725,7 @@ public:
     uridTimeSpeed (0),
     usingNominalBlockLength (false)
     {
+        inParameterChangedCallback = false;
         {
             const MessageManagerLock mmLock;
             filter = std::unique_ptr<AudioProcessor>(createPluginFilterOfType (AudioProcessor::wrapperType_LV2));
@@ -855,6 +863,7 @@ public:
         if (auto* param = filter->getParameters()[index])
         {
             param->setValue(value);
+            inParameterChangedCallback = true;
             param->sendValueChangedMessageToListeners (value);
         }
     }
@@ -1468,12 +1477,13 @@ public:
         if (ui != nullptr)
             ui->resetIfNeeded (writeFunction, controller, widget, features);
         else
-            ui = std::make_unique<JuceLv2UIWrapper>(filter.get(), writeFunction, controller, widget, features, isExternal);
+            ui = std::make_unique<JuceLv2UIWrapper>(inParameterChangedCallback, filter.get(), writeFunction, controller, widget, features, isExternal);
         
         return ui.get();
     }
 #endif
     
+    ThreadLocalValue<bool> inParameterChangedCallback;
 private:
 #if JUCE_LINUX
     SharedResourcePointer<SharedMessageThread> msgThread;
