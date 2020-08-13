@@ -31,7 +31,7 @@ private:
     typedef std::pair<int, juce_wchar> ikey;
     CamomileAudioProcessor& m_processor;
     std::set<ikey>          m_keys;
-    std::bitset<8>          m_modifiers;
+    std::bitset<ModifierKeys::ctrlAltCommandModifiers> m_modifiers;
     
     bool sendKey(const bool down, const int code, const juce_wchar c);
     
