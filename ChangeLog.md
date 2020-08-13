@@ -19,6 +19,8 @@ v1.0.7
 - Fix MIDI in support for LV2 plugins (#160)
 - Fix object position and margin of GOP (#130)
 - Improved dynamic parching support (#128)
+- Add a release bundle with pre-compiled examples
+- Minor fixes and improvements
 
 v1.0.6
 - Add LV2 format support (#70)
