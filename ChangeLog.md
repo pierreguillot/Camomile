@@ -17,6 +17,8 @@ v1.0.7
 - Fix default display of parameters of Audio Unit (#153)
 - Fix expr objects on Windows (#139)
 - Fix MIDI in support for LV2 plugins (#160)
+- Fix object position and margin of GOP (#130)
+- Improved dynamic parching support (#128)
 
 v1.0.6
 - Add LV2 format support (#70)
