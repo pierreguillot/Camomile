@@ -22,7 +22,7 @@ m_default(convertTo0to1(def)),
 m_automatable(automatable),
 m_meta(meta)
 {
-    m_value = getDefaultValue();
+    m_value = convertFrom0to1(getDefaultValue());
 }
 
 CamomileAudioParameter::CamomileAudioParameter(const String& name, const String& label,
@@ -35,7 +35,7 @@ m_automatable(automatable),
 m_meta(meta),
 m_elements(elems)
 {
-    m_value = getDefaultValue();
+    m_value = convertFrom0to1(getDefaultValue());
 }
 
 CamomileAudioParameter::~CamomileAudioParameter() {}
