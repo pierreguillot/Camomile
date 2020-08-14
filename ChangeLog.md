@@ -19,6 +19,9 @@ v1.0.7
 - Fix MIDI in support for LV2 plugins (#160)
 - Fix object position and margin of GOP (#130)
 - Improved dynamic parching support (#128)
+- Fix LV2 parameters crash on Ardour (#188)
+- Add parameter range support for LV2 (#188)
+- Add parameter label support for LV2 (#188)
 - Add a release bundle with pre-compiled examples
 - Minor fixes and improvements
 
