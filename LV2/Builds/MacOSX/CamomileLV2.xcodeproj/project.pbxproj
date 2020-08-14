@@ -1089,6 +1089,7 @@
 					"../../../Juce/modules/juce_audio_plugin_client",
 					"$(inherited)",
 				);
+				INSTALL_PATH = "@rpath";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../../../Dependencies/LibPdBuild\"",
@@ -1153,6 +1154,7 @@
 					"../../../Juce/modules/juce_audio_plugin_client",
 					"$(inherited)",
 				);
+				INSTALL_PATH = "@rpath";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../../../Dependencies/LibPdBuild\"",
