@@ -22,6 +22,8 @@ v1.0.7
 - Fix LV2 parameters crash on Ardour (#188)
 - Add parameter range support for LV2 (#188)
 - Add parameter label support for LV2 (#188)
+- Fix one LV2 plugin instance limitation on macOS
+- Update AlmondOrgan example
 - Add a release bundle with pre-compiled examples
 - Minor fixes and improvements
 
