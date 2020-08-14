@@ -26,6 +26,7 @@ AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), m_processor (p),
                         " is invalid or doesn't exist.");
     }
     addAndMakeVisible(m_button);
+    m_button.setAlwaysOnTop(true);
     reloadPatch();
     startTimer(25);
 }
@@ -111,9 +112,10 @@ void CamomileEditor::guiRedraw()
 void CamomileEditor::reloadPatch()
 {
     m_patch = std::make_unique<GuiPatch>(*this, m_processor.getPatch());
+    guiResize();
     if(m_patch)
     {
-        addAndMakeVisible(m_patch.get(), 0);
-        setSize(m_patch->getWidth(), m_patch->getHeight());
+        m_patch->setTopLeftPosition(0, 0);
+        addAndMakeVisible(m_patch.get());
     }
 }

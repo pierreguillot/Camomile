@@ -66,10 +66,7 @@ void GuiPatch::updateSize()
     auto const bounds = m_patch.getBounds();
     int const width  = bounds[2] > 0 ? std::max(bounds[2], 100) : 400;
     int const height = bounds[3] > 0 ? std::max(bounds[3], 100) : 300;
-    if(width != getWidth() || height != getHeight())
-    {
-        setSize(width, height);
-    }
+    setSize(width, height);
 }
 
 void GuiPatch::updateObjectsValues()
