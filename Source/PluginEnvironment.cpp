@@ -219,6 +219,7 @@ CamomileEnvironment::CamomileEnvironment()
 {
     if(localize())
     {
+        DBG("Camomile: " + plugin_name);
         std::string const sep = String(File::getSeparatorString()).toStdString();
         std::string const ext = std::string(".txt");
         File file(patch_path + sep + plugin_name + ext);
