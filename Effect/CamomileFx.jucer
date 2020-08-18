@@ -12,7 +12,7 @@
               pluginAUExportPrefix="CamomileFxAU" aaxIdentifier="com.pierreguillot.camomilefx"
               pluginAAXCategory="2" companyName="Pierre Guillot" headerPath="../../../Dependencies/LibPd/pure-data/src&#10;../../../Dependencies/LibPd/libpd_wrapper&#10;../../../Dependencies/LibPd/libpd_wrapper/util&#10;../../../Dependencies/LibPd/cpp&#10;"
               companyWebsite="github.com/pierreguillot/camomile" defines="PD_INTERNAL=1&#10;JUCE_VST3_CAN_REPLACE_VST2=0"
-              pluginFormats="buildAU,buildVST3" pluginCharacteristicsValue="pluginWantsMidiIn,pluginProducesMidiOut,pluginEditorRequiresKeys"
+              pluginFormats="buildAU,buildUnity,buildVST3" pluginCharacteristicsValue="pluginWantsMidiIn,pluginProducesMidiOut,pluginEditorRequiresKeys"
               jucerFormatVersion="1">
   <MAINGROUP id="BLNPyv" name="CamomileFx">
     <GROUP id="{D4367A82-F269-8F5A-1C22-AB42C90672ED}" name="Source">
@@ -112,12 +112,13 @@
                        libraryPath="../../../Dependencies/LibPdBuild" headerPath=""
                        binaryPath="../Plugins" auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/"
                        vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VST3/" vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"
-                       osxArchitecture="64BitIntel"/>
+                       osxArchitecture="64BitIntel" customXcodeFlags="DYLIB_INSTALL_NAME_BASE=@rpath&#10;LD_DYLIB_INSTALL_NAME=$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)"/>
         <CONFIGURATION name="Release" enablePluginBinaryCopyStep="0" isDebug="0" optimisation="3"
                        linkTimeOptimisation="1" targetName="CamomileFx" osxCompatibility="10.9 SDK"
                        osxArchitecture="64BitIntel" libraryPath="../../../Dependencies/LibPdBuild"
                        headerPath="" binaryPath="../Plugins" auBinaryLocation="$(PROJECT_DIR)/../plugins/Components/"
-                       vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VS3/" vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"/>
+                       vst3BinaryLocation="$(PROJECT_DIR)/../plugins/VS3/" vstBinaryLocation="$(PROJECT_DIR)/../plugins/VST/"
+                       customXcodeFlags="DYLIB_INSTALL_NAME_BASE=@rpath&#10;LD_DYLIB_INSTALL_NAME=$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../Juce/modules"/>

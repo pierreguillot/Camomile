@@ -46,7 +46,15 @@ ifeq ($(CONFIG),Debug)
   JUCE_VST3DESTDIR := $(HOME)/.vst3
   JUCE_COPYCMD_VST3 := $(JUCE_OUTDIR)/$(JUCE_VST3DIR) $(JUCE_VST3DESTDIR)
 
-  JUCE_CPPFLAGS_SHARED_CODE :=  "-DJucePlugin_Build_VST=0" "-DJucePlugin_Build_VST3=1" "-DJucePlugin_Build_AU=0" "-DJucePlugin_Build_AUv3=0" "-DJucePlugin_Build_RTAS=0" "-DJucePlugin_Build_AAX=0" "-DJucePlugin_Build_Standalone=0" "-DJucePlugin_Build_Unity=0" "-DJUCE_SHARED_CODE=1"
+  JUCE_CPPFLAGS_UNITY_PLUGIN :=  "-DJucePlugin_Build_VST=0" "-DJucePlugin_Build_VST3=0" "-DJucePlugin_Build_AU=0" "-DJucePlugin_Build_AUv3=0" "-DJucePlugin_Build_RTAS=0" "-DJucePlugin_Build_AAX=0" "-DJucePlugin_Build_Standalone=0" "-DJucePlugin_Build_Unity=1"
+  JUCE_CFLAGS_UNITY_PLUGIN := -fPIC -fvisibility=hidden
+  JUCE_LDFLAGS_UNITY_PLUGIN := -shared -Wl,--no-undefined
+  JUCE_UNITYDIR := Unity
+  JUCE_TARGET_UNITY_PLUGIN := $(JUCE_UNITYDIR)/Camomile.so
+  JUCE_UNITYDESTDIR := $(HOME)/UnityPlugins
+  JUCE_COPYCMD_UNITY_PLUGIN := $(JUCE_OUTDIR)/$(JUCE_UNITYDIR)/. $(JUCE_UNITYDESTDIR)
+
+  JUCE_CPPFLAGS_SHARED_CODE :=  "-DJucePlugin_Build_VST=0" "-DJucePlugin_Build_VST3=1" "-DJucePlugin_Build_AU=0" "-DJucePlugin_Build_AUv3=0" "-DJucePlugin_Build_RTAS=0" "-DJucePlugin_Build_AAX=0" "-DJucePlugin_Build_Standalone=0" "-DJucePlugin_Build_Unity=1" "-DJUCE_SHARED_CODE=1"
   JUCE_TARGET_SHARED_CODE := Camomile.a
 
   JUCE_CFLAGS += $(JUCE_CPPFLAGS) $(TARGET_ARCH) -fPIC -g -ggdb -O0 -fPIC $(CFLAGS)
@@ -77,7 +85,15 @@ ifeq ($(CONFIG),Release)
   JUCE_VST3DESTDIR := $(HOME)/.vst3
   JUCE_COPYCMD_VST3 := $(JUCE_OUTDIR)/$(JUCE_VST3DIR) $(JUCE_VST3DESTDIR)
 
-  JUCE_CPPFLAGS_SHARED_CODE :=  "-DJucePlugin_Build_VST=0" "-DJucePlugin_Build_VST3=1" "-DJucePlugin_Build_AU=0" "-DJucePlugin_Build_AUv3=0" "-DJucePlugin_Build_RTAS=0" "-DJucePlugin_Build_AAX=0" "-DJucePlugin_Build_Standalone=0" "-DJucePlugin_Build_Unity=0" "-DJUCE_SHARED_CODE=1"
+  JUCE_CPPFLAGS_UNITY_PLUGIN :=  "-DJucePlugin_Build_VST=0" "-DJucePlugin_Build_VST3=0" "-DJucePlugin_Build_AU=0" "-DJucePlugin_Build_AUv3=0" "-DJucePlugin_Build_RTAS=0" "-DJucePlugin_Build_AAX=0" "-DJucePlugin_Build_Standalone=0" "-DJucePlugin_Build_Unity=1"
+  JUCE_CFLAGS_UNITY_PLUGIN := -fPIC -fvisibility=hidden
+  JUCE_LDFLAGS_UNITY_PLUGIN := -shared -Wl,--no-undefined
+  JUCE_UNITYDIR := Unity
+  JUCE_TARGET_UNITY_PLUGIN := $(JUCE_UNITYDIR)/Camomile.so
+  JUCE_UNITYDESTDIR := $(HOME)/UnityPlugins
+  JUCE_COPYCMD_UNITY_PLUGIN := $(JUCE_OUTDIR)/$(JUCE_UNITYDIR)/. $(JUCE_UNITYDESTDIR)
+
+  JUCE_CPPFLAGS_SHARED_CODE :=  "-DJucePlugin_Build_VST=0" "-DJucePlugin_Build_VST3=1" "-DJucePlugin_Build_AU=0" "-DJucePlugin_Build_AUv3=0" "-DJucePlugin_Build_RTAS=0" "-DJucePlugin_Build_AAX=0" "-DJucePlugin_Build_Standalone=0" "-DJucePlugin_Build_Unity=1" "-DJUCE_SHARED_CODE=1"
   JUCE_TARGET_SHARED_CODE := Camomile.a
 
   JUCE_CFLAGS += $(JUCE_CPPFLAGS) $(TARGET_ARCH) -fPIC -O3 -fPIC $(CFLAGS)
@@ -91,6 +107,9 @@ OBJECTS_ALL := \
 
 OBJECTS_VST3 := \
   $(JUCE_OBJDIR)/include_juce_audio_plugin_client_VST3_dd633589.o \
+
+OBJECTS_UNITY_PLUGIN := \
+  $(JUCE_OBJDIR)/include_juce_audio_plugin_client_Unity_f9553f92.o \
 
 OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/PluginProcessor_319d19ef.o \
@@ -123,11 +142,12 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/include_juce_gui_basics_e3f79785.o \
   $(JUCE_OBJDIR)/include_juce_gui_extra_6dee1c1a.o \
 
-.PHONY: clean all strip VST3
+.PHONY: clean all strip VST3 Unity
 
-all : VST3
+all : VST3 Unity
 
 VST3 : $(JUCE_OUTDIR)/$(JUCE_TARGET_VST3)
+Unity : $(JUCE_OUTDIR)/$(JUCE_TARGET_UNITY_PLUGIN)
 
 
 $(JUCE_OUTDIR)/$(JUCE_TARGET_VST3) : $(OBJECTS_VST3) $(RESOURCES) $(JUCE_OUTDIR)/$(JUCE_TARGET_SHARED_CODE)
@@ -142,6 +162,19 @@ $(JUCE_OUTDIR)/$(JUCE_TARGET_VST3) : $(OBJECTS_VST3) $(RESOURCES) $(JUCE_OUTDIR)
 	-$(V_AT)mkdir -p $(JUCE_VST3DESTDIR)
 	-$(V_AT)cp -R $(JUCE_COPYCMD_VST3)
 
+$(JUCE_OUTDIR)/$(JUCE_TARGET_UNITY_PLUGIN) : $(OBJECTS_UNITY_PLUGIN) $(RESOURCES) $(JUCE_OUTDIR)/$(JUCE_TARGET_SHARED_CODE)
+	@command -v pkg-config >/dev/null 2>&1 || { echo >&2 "pkg-config not installed. Please, install it."; exit 1; }
+	@pkg-config --print-errors freetype2
+	@echo Linking "Camomile - Unity Plugin"
+	-$(V_AT)mkdir -p $(JUCE_BINDIR)
+	-$(V_AT)mkdir -p $(JUCE_LIBDIR)
+	-$(V_AT)mkdir -p $(JUCE_OUTDIR)
+	-$(V_AT)mkdir -p $(JUCE_OUTDIR)/$(JUCE_UNITYDIR)
+	$(V_AT)$(CXX) -o $(JUCE_OUTDIR)/$(JUCE_TARGET_UNITY_PLUGIN) $(OBJECTS_UNITY_PLUGIN) $(JUCE_OUTDIR)/$(JUCE_TARGET_SHARED_CODE) $(JUCE_LDFLAGS) $(JUCE_LDFLAGS_UNITY_PLUGIN) $(RESOURCES) $(TARGET_ARCH)
+	-$(V_AT)cp ../../JuceLibraryCode/audioplugin_Camomile_UnityScript.cs $(JUCE_OUTDIR)/$(JUCE_UNITYDIR)
+	-$(V_AT)mkdir -p $(JUCE_UNITYDESTDIR)
+	-$(V_AT)cp -R $(JUCE_COPYCMD_UNITY_PLUGIN)
+
 $(JUCE_OUTDIR)/$(JUCE_TARGET_SHARED_CODE) : $(OBJECTS_SHARED_CODE) $(RESOURCES)
 	@command -v pkg-config >/dev/null 2>&1 || { echo >&2 "pkg-config not installed. Please, install it."; exit 1; }
 	@pkg-config --print-errors freetype2
@@ -155,6 +188,11 @@ $(JUCE_OBJDIR)/include_juce_audio_plugin_client_VST3_dd633589.o: ../../JuceLibra
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling include_juce_audio_plugin_client_VST3.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_VST3) $(JUCE_CFLAGS_VST3) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/include_juce_audio_plugin_client_Unity_f9553f92.o: ../../JuceLibraryCode/include_juce_audio_plugin_client_Unity.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling include_juce_audio_plugin_client_Unity.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_UNITY_PLUGIN) $(JUCE_CFLAGS_UNITY_PLUGIN) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/PluginProcessor_319d19ef.o: ../../../Source/PluginProcessor.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
@@ -310,4 +348,5 @@ strip:
 	-$(V_AT)$(STRIP) --strip-unneeded $(JUCE_OUTDIR)/$(TARGET)
 
 -include $(OBJECTS_VST3:%.o=%.d)
+-include $(OBJECTS_UNITY_PLUGIN:%.o=%.d)
 -include $(OBJECTS_SHARED_CODE:%.o=%.d)
