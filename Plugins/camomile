@@ -6,6 +6,7 @@ CamomileLV2="CamomileLV2"
 
 AppleVst3Extension=vst3
 AppleAuExtension=component
+AppleUnityExtension=bundle
 AppleLV2Extension=dylib
 LinuxVst3Extension=vst3
 LinuxLV2Extension=so
@@ -236,6 +237,59 @@ generate_plugin_vst3_mac() {
     fi
 }
 
+#############################################s###################################
+#                       GENERATE UNITY PLUGIN MAC                              #
+################################################################################
+
+generate_plugin_unity_mac() {
+    local camo_name
+    local plugin_input_dir=$1
+    local plugin_output_dir=$2
+    local plugin_name=$(basename $1)
+
+    # Check if the folder exists and get the type of the plugin
+    if [ -d $plugin_input_dir ]; then
+        local plugin_type=$(plugin_get_type $plugin_input_dir $plugin_name)
+        if [ "$plugin_type" == "error" ]; then
+            post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
+            return
+        elif [[ "$plugin_type" == *"instrument"* ]]; then
+            camo_name=$CamomileInstrument
+        elif [[ "$plugin_type" == *"effect"* ]]; then
+            camo_name=$CamomileEffect
+        else
+            post_error "$plugin_type is not a valid"
+            return
+        fi
+    else
+        post_error "$plugin_input_dir is not a directory"
+        return
+    fi
+
+    # Get the dynamic libraries
+    if [ -d "$ThisPath/audioplugin_$camo_name.$AppleUnityExtension" ]; then
+        if [ -d "$plugin_output_dir/audioplugin_$plugin_name.$AppleUnityExtension" ]; then
+            rm -rf "$plugin_output_dir/audioplugin_$plugin_name.$AppleUnityExtension"
+        fi
+
+        local bundleFolder="$plugin_output_dir/audioplugin_$plugin_name.$AppleUnityExtension"
+        local contentFolder="$bundleFolder/Contents"
+        cp -rf "$ThisPath/audioplugin_$camo_name.$AppleUnityExtension" "$plugin_output_dir/audioplugin_$plugin_name.$AppleUnityExtension"
+        cp -rf "$plugin_input_dir"/* "$contentFolder/Resources/"
+        sed -i -e "s/$camo_name/$plugin_name/g" $contentFolder/Info.plist
+        sed -i -e "s/com.pierreguillot.camomile/com.pierreguillot.$plugin_name/g" $contentFolder/Info.plist
+        rm "$contentFolder/Info.plist-e"
+        local unityScript="$plugin_output_dir/audioplugin_$plugin_name""_UnityScript.cs"
+        mv "$contentFolder/MacOS/audioplugin_$camo_name" "$contentFolder/MacOS/audioplugin_$plugin_name"
+        mv "$contentFolder/Resources/audioplugin_$camo_name""_UnityScript.cs" "$unityScript"
+        sed -i -e "s/$camo_name/$plugin_name/g" $unityScript
+        rm "$unityScript-e"
+        post_log "$plugin_output_dir/audioplugin_$plugin_name.$AppleUnityExtension"
+    else
+        post_error "audioplugin_$camo_name.$AppleUnityExtension is not available"
+    fi
+}
+
 ################################################################################
 #                       GENERATE LV2 PLUGIN LINUX                              #
 ################################################################################
@@ -331,6 +385,7 @@ generate_plugins() {
         generate_plugin_vst3_mac $1 $2
         generate_plugin_au_mac $1 $2
         generate_plugin_lv2_mac $1 $2
+        generate_plugin_unity_mac $1 $2
     elif [ $machine == "Linux" ]; then
         generate_plugin_vst3_linux "$1" "$2"
         generate_plugin_lv2_linux "$1" "$2"
