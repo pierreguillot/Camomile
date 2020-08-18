@@ -107,7 +107,7 @@ bool CamomileEnvironment::localize()
     if(plugin.exists() && plugin.hasFileExtension("dylib"))
     {
         
-        plugin_name = plugin.getFileNameWithoutExtension().toStdString();
+        plugin_name = plugin.getFileNameWithoutExtension().replace("audioplugin_", "").toStdString();
         plugin_path = plugin.getParentDirectory().getFullPathName().toStdString();
         patch_name = plugin_name + std::string(".pd");
         patch_path = plugin_path + std::string("/Contents/Resources");
@@ -121,7 +121,7 @@ bool CamomileEnvironment::localize()
                            plugin.hasFileExtension("bundle") ))
     {
         
-        plugin_name = plugin.getFileNameWithoutExtension().toStdString();
+        plugin_name = plugin.getFileNameWithoutExtension().replace("audioplugin_", "").toStdString();
         plugin_path = plugin.getParentDirectory().getFullPathName().toStdString();
         patch_name = plugin_name + std::string(".pd");
         patch_path = plugin_path + "/" + plugin.getFileName().toStdString() + std::string("/Contents/Resources");
@@ -140,7 +140,7 @@ bool CamomileEnvironment::localize()
                                plugin.hasFileExtension("bundle") ))
         {
             errors.clear();
-            plugin_name = plugin.getFileNameWithoutExtension().toStdString();
+            plugin_name = plugin.getFileNameWithoutExtension().replace("audioplugin_", "").toStdString();
             plugin_path = plugin.getParentDirectory().getFullPathName().toStdString();
             patch_name = plugin_name + std::string(".pd");
             patch_path = plugin_path;
@@ -155,7 +155,7 @@ bool CamomileEnvironment::localize()
     File plugin(File::getSpecialLocation(File::currentExecutableFile));
     if(plugin.exists() && plugin.hasFileExtension("so"))
     {
-        plugin_name = plugin.getFileNameWithoutExtension().toStdString();
+        plugin_name = plugin.getFileNameWithoutExtension().replace("audioplugin_", "").toStdString();
         plugin_path = plugin.getParentDirectory().getFullPathName().toStdString();
         patch_name = plugin_name + std::string(".pd");
         patch_path = plugin_path;
@@ -170,7 +170,7 @@ bool CamomileEnvironment::localize()
         if(plugin.exists() && plugin.hasFileExtension("so"))
         {
             errors.clear();
-            plugin_name = plugin.getFileNameWithoutExtension().toStdString();
+            plugin_name = plugin.getFileNameWithoutExtension().replace("audioplugin_", "").toStdString();
             plugin_path = plugin.getParentDirectory().getFullPathName().toStdString();
             patch_name = plugin_name + std::string(".pd");
             patch_path = plugin_path;
@@ -185,7 +185,7 @@ bool CamomileEnvironment::localize()
     File plugin(File::getSpecialLocation(File::currentExecutableFile));
     if(plugin.exists() && (plugin.hasFileExtension("dll") || plugin.hasFileExtension("vst3")))
     {
-        plugin_name = plugin.getFileNameWithoutExtension().toStdString();
+        plugin_name = plugin.getFileNameWithoutExtension().replace("audioplugin_", "").toStdString();
         plugin_path = plugin.getParentDirectory().getFullPathName().toStdString();
         patch_name = plugin_name + std::string(".pd");
         patch_path = plugin_path;
@@ -200,7 +200,7 @@ bool CamomileEnvironment::localize()
         if(plugin.exists() && (plugin.hasFileExtension("dll") || plugin.hasFileExtension("vst3")))
         {
             errors.clear();
-            plugin_name = plugin.getFileNameWithoutExtension().toStdString();
+            plugin_name = plugin.getFileNameWithoutExtension().replace("audioplugin_", "").toStdString();
             plugin_path = plugin.getParentDirectory().getFullPathName().toStdString();
             patch_name = plugin_name + std::string(".pd");
             patch_path = plugin_path;
