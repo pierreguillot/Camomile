@@ -19,7 +19,7 @@
 #include "../../Source/PluginConfig.h"
 
 #ifndef  JucePlugin_VersionString
-#define JucePlugin_VersionString          "1.0.6"
+#define JucePlugin_VersionString          "1.0.7"
 #endif
 
 #ifndef JucePlugin_ManufacturerCode
