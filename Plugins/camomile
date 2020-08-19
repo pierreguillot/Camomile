@@ -308,12 +308,14 @@ generate_plugin_vst3_linux() {
 
     # Get the dynamic libraries
     if [ -d "$ThisPath/$camo_name.$LinuxVst3Extension" ]; then
-        if [ -d "$plugin_output_dir/$plugin_name" ]; then
-            rm -rf "$plugin_output_dir/$plugin_name"
+      local plugin_bundle="$plugin_output_dir/$plugin_name.$LinuxVst3Extension"
+        if [ -d $plugin_bundle ]; then
+            rm -rf $plugin_bundle
         fi
 
-        cp -rf "$ThisPath/$camo_name.$LinuxVst3Extension" "$plugin_output_dir/$plugin_name.$LinuxVst3Extension"
-        cp -rf "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.$LinuxVst3Extension/Contents/x86_64-linux"
+        cp -rf "$ThisPath/$camo_name.$LinuxVst3Extension" $plugin_bundle
+        cp -rf "$plugin_input_dir"/* "$plugin_bundle/Contents/x86_64-linux"
+        mv -f "$plugin_bundle/Contents/x86_64-linux/$camo_name.so" "$plugin_bundle/Contents/x86_64-linux/$plugin_name.so"
         post_log "$plugin_output_dir/$plugin_name.$LinuxVst3Extension"
     else
         post_error "$camo_name.$LinuxVst3Extension is not available"
