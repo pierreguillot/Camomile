@@ -27,6 +27,7 @@ matrix:
     after_success:
     - cd $TRAVIS_BUILD_DIR
     - ./Plugins/camomile -d ./Plugins/Examples -o ./Plugins/Builds
+    - ls -R ./Plugins/Builds
     - curl -L https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Linux.zip -o ./pluginval.zip
     - unzip ./pluginval.zip
     - ./pluginval --strictnessLevel 10 --validate ./Plugins/Builds/ > /dev/null
