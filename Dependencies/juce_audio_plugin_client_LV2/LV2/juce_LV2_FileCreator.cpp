@@ -169,7 +169,6 @@ class JuceLV2FileCreator
         text += "    rdfs:seeAlso <" + binary + ".ttl> .\n";
         text += "\n";
         
-#if ! JUCE_AUDIOPROCESSOR_NO_GUI
         // UIs
         if (filter->hasEditor())
         {
@@ -194,7 +193,6 @@ class JuceLV2FileCreator
             text += "    lv2:extensionData <" LV2_PROGRAMS__UIInterface "> .\n";
             text += "\n";
         }
-#endif
         
 #if JUCE_LV2_SUPPORTS_PRESETS
         const String presetSeparator(pluginURI.contains("#") ? ":" : "#");
@@ -243,7 +241,6 @@ class JuceLV2FileCreator
         text += "                      <" LV2_PROGRAMS__Interface "> ;\n";
         text += "\n";
         
-#if ! JUCE_AUDIOPROCESSOR_NO_GUI
         // UIs
         if (filter->hasEditor())
         {
@@ -251,7 +248,6 @@ class JuceLV2FileCreator
             text += "          <" + pluginURI + "#ParentUI> ;\n";
             text += "\n";
         }
-#endif
         
         uint32 portIndex = 0;
         
