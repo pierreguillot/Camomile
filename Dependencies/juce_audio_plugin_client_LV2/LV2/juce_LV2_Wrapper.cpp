@@ -1014,14 +1014,13 @@ public:
                         if (event->time.frames >= sampleCount)
                             break;
                         
-#if JucePlugin_WantsMidiInput
-                        if (event->body.type == uridMidiEvent)
+                        if (filter->acceptsMidi() && event->body.type == uridMidiEvent)
                         {
                             const uint8* data = (const uint8*)(event + 1);
                             midiEvents.addEvent(data, event->body.size, static_cast<int>(event->time.frames));
                             continue;
                         }
-#endif
+                        
                         if (event->body.type == uridAtomBlank || event->body.type == uridAtomObject)
                         {
                             const LV2_Atom_Object* obj = (LV2_Atom_Object*)&event->body;
