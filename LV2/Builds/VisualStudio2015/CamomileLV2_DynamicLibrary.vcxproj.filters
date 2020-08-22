@@ -59,77 +59,107 @@
     <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\includes">
       <UniqueIdentifier>{0C17CED8-A49C-D191-C66F-52A1946CB71B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\atom">
-      <UniqueIdentifier>{B1933C53-BF25-0677-A8D6-2369398BBE63}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\doc">
+      <UniqueIdentifier>{1B29CD54-DA65-8CAF-25AC-08A01FB4D10F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\buf-size">
-      <UniqueIdentifier>{A318FD1C-4C68-0024-013C-7778A91B4DE8}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom">
+      <UniqueIdentifier>{DB54D8CF-EAF7-FCAA-FA5D-BB26C02C1B91}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\core">
-      <UniqueIdentifier>{2495508D-8029-BBC5-B769-6F686C8C6374}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\buf-size">
+      <UniqueIdentifier>{7E6A12CA-D49C-DCEF-CF6A-46CF0BB515B2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\data-access">
-      <UniqueIdentifier>{911278C1-53FB-B27A-1E39-BE4123792915}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\core">
+      <UniqueIdentifier>{337B7F77-C28F-EB2B-B1D1-D7B81313F45F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\dynmanifest">
-      <UniqueIdentifier>{9DA53A33-CFAD-87A3-65F7-32444AB0E34F}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\data-access">
+      <UniqueIdentifier>{B92725BE-6383-4A1D-086B-81F2A520E35F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\event">
-      <UniqueIdentifier>{9BE448CF-5DB8-7B7E-42AC-47CFA36FCE32}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\dynmanifest">
+      <UniqueIdentifier>{1977BE94-CFE2-6AA7-7DE3-4908CF23151F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\instance-access">
-      <UniqueIdentifier>{E8EB4B30-D6DF-82F8-CF0B-0BF1BF5F3559}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\event">
+      <UniqueIdentifier>{EA80EB0B-3968-0506-664F-0385D0500309}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\log">
-      <UniqueIdentifier>{E2ADC2C9-2FFB-99BE-B598-56BE58204698}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\instance-access">
+      <UniqueIdentifier>{A218CA1D-7271-DBE4-1802-A8FE35FE3E0A}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\midi">
-      <UniqueIdentifier>{CA599219-5315-C71D-AE4D-5EEC37AE00A0}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\log">
+      <UniqueIdentifier>{507C87DB-5DCC-B941-97E5-DEEE244CC7BF}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\morph">
-      <UniqueIdentifier>{CA359D39-11EE-7E0E-0323-11B5A4E25AB8}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\midi">
+      <UniqueIdentifier>{DB03905C-4EE3-7741-8F46-FB9DEF9BA832}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\options">
-      <UniqueIdentifier>{9274504C-FF61-4BAF-E470-5A3388FD3406}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\morph">
+      <UniqueIdentifier>{C0C3545D-E40E-42E2-8506-8A38ABBC399A}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\parameters">
-      <UniqueIdentifier>{F004E36E-30ED-439E-D1E7-1A7C9EE72033}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\options">
+      <UniqueIdentifier>{1ADDF280-008D-947E-9686-000F38BD7D15}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\patch">
-      <UniqueIdentifier>{048B17AB-0912-D6E5-CB6E-621F1C431813}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\parameters">
+      <UniqueIdentifier>{F9B9102F-BEC5-0513-1BA3-E43CB8473E9F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\port-groups">
-      <UniqueIdentifier>{2BA26368-294D-79D4-06A2-7409A401CA51}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\patch">
+      <UniqueIdentifier>{D6AE2980-DFA8-040B-D6EC-D52B83C44417}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\port-props">
-      <UniqueIdentifier>{7BC770A9-ED26-BA08-C1D7-FB86D3D173C0}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\port-groups">
+      <UniqueIdentifier>{E37EF13F-B0C1-3990-0CB0-6D0D8B8F47EF}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\presets">
-      <UniqueIdentifier>{F5DB3F58-600B-2C5C-2AF8-B4832D3D3D2B}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\port-props">
+      <UniqueIdentifier>{32FAB2F2-6967-5549-0C43-1F73DB25EC62}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\resize-port">
-      <UniqueIdentifier>{8DB3B297-89B0-2E8F-943A-D604009D231E}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\presets">
+      <UniqueIdentifier>{8A5E6DAD-F9C9-C688-8758-2350EAE7B742}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\state">
-      <UniqueIdentifier>{7E97EC27-34D8-241A-BA89-ADCC23728FD1}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\resize-port">
+      <UniqueIdentifier>{D86BB8B7-A4A2-3FA2-AE72-AA64B3BAADE7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\time">
-      <UniqueIdentifier>{DF32C45B-8289-F518-72A3-FE3D769BB5AB}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\state">
+      <UniqueIdentifier>{9FBBD7B2-B8EF-8E05-8E15-91A65BEDE1F2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\ui">
-      <UniqueIdentifier>{3CA0AB8E-641E-9E53-CB9B-7244F0C42DC0}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\time">
+      <UniqueIdentifier>{15148588-5C24-DFBA-ADA7-160F3777DA09}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\units">
-      <UniqueIdentifier>{2FFBC013-341A-EC77-4D8C-32E93AF5F6B8}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\ui">
+      <UniqueIdentifier>{944DD363-12E0-F7BD-B752-185C0727D117}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\uri-map">
-      <UniqueIdentifier>{048E9F87-50C2-B63E-43B4-9F6FC1C5AFBC}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\units">
+      <UniqueIdentifier>{604B67C1-D511-4A74-BBCB-6CA2007CB6B8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\urid">
-      <UniqueIdentifier>{DDD1AE0E-184B-C279-0864-9A662B111C3E}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\uri-map">
+      <UniqueIdentifier>{8CE0E2DD-EC2D-52AA-8083-2D558950810E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\worker">
-      <UniqueIdentifier>{FF9874BC-05B2-79DD-EB76-200575C0C1F7}</UniqueIdentifier>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\urid">
+      <UniqueIdentifier>{7E2ABFA3-0571-8A29-8348-EDC42A4ADEF7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\worker">
+      <UniqueIdentifier>{B7614E28-AADF-B209-A930-AE8BDEBC9AD1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2">
+      <UniqueIdentifier>{637EB30B-F0A0-F8BD-A975-91946514A031}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-amp.lv2">
+      <UniqueIdentifier>{0DFDCA77-F1F8-B15D-21C9-86FFD2CCCA7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-fifths.lv2">
+      <UniqueIdentifier>{9DDC3FB0-35EE-BB43-7D4B-7801BBD6D1BB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-metro.lv2">
+      <UniqueIdentifier>{B1D02D11-FD16-3C7F-FC11-9F71A32F1A08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-midigate.lv2">
+      <UniqueIdentifier>{0B3A95C0-0734-55D7-C437-7BC95B70CCD3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-params.lv2">
+      <UniqueIdentifier>{1B93EFC2-70FA-604C-6869-9F93DB3EE244}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2">
+      <UniqueIdentifier>{AB32EB2F-437B-5B24-0AD9-21A6DFECE3E9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-scope.lv2">
+      <UniqueIdentifier>{4B774F99-076F-02E9-970C-8102C154C9A0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins">
+      <UniqueIdentifier>{A054AAFF-7CED-F480-36D0-4CE42DB2CA5B}</UniqueIdentifier>
     </Filter>
     <Filter Include="JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2">
       <UniqueIdentifier>{3781AA2E-6B89-B16D-0362-AD5F3E4E3AFB}</UniqueIdentifier>
@@ -586,14 +616,41 @@
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client_VST_utils.mm">
       <Filter>JUCE Modules\juce_audio_plugin_client</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\atom\atom-test-utils.c">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\atom</Filter>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom\atom-test-utils.c">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\atom\atom-test.c">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\atom</Filter>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom\atom-test.c">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\atom\forge-overflow-test.c">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\atom</Filter>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom\forge-overflow-test.c">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-amp.lv2\amp.c">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-amp.lv2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-fifths.lv2\fifths.c">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-fifths.lv2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-metro.lv2\metro.c">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-metro.lv2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-midigate.lv2\midigate.c">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-midigate.lv2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-params.lv2\params.c">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-params.lv2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2\sampler.c">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2\sampler_ui.c">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-scope.lv2\examploscope.c">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-scope.lv2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-scope.lv2\examploscope_ui.c">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-scope.lv2</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\juce_LV2_FileCreator.cpp">
       <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2</Filter>
@@ -2274,95 +2331,113 @@
     <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\includes\lv2_programs.h">
       <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\includes</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\atom\atom.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\atom</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom\atom.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\atom\forge.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\atom</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom\forge.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\atom\util.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\atom</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom\util.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\buf-size\buf-size.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\buf-size</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\buf-size\buf-size.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\buf-size</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\core\attributes.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\core</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\core\attributes.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\core\lv2.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\core</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\core\lv2.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\core\lv2_util.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\core</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\core\lv2_util.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\data-access\data-access.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\data-access</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\data-access\data-access.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\data-access</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\dynmanifest\dynmanifest.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\dynmanifest</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\dynmanifest\dynmanifest.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\dynmanifest</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\event\event-helpers.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\event</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\event\event-helpers.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\event</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\event\event.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\event</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\event\event.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\event</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\instance-access\instance-access.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\instance-access</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\instance-access\instance-access.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\instance-access</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\log\log.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\log</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\log\log.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\log</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\log\logger.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\log</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\log\logger.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\log</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\midi\midi.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\midi</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\midi\midi.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\midi</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\morph\morph.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\morph</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\morph\morph.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\morph</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\options\options.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\options</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\options\options.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\options</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\parameters\parameters.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\parameters</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\parameters\parameters.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\parameters</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\patch\patch.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\patch</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\patch\patch.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\patch</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\port-groups\port-groups.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\port-groups</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\port-groups\port-groups.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\port-groups</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\port-props\port-props.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\port-props</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\port-props\port-props.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\port-props</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\presets\presets.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\presets</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\presets\presets.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\presets</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\resize-port\resize-port.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\resize-port</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\resize-port\resize-port.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\resize-port</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\state\state.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\state</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\state\state.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\state</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\time\time.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\time</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\time\time.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\time</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\ui\ui.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\ui</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\ui\ui.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\ui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\units\units.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\units</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\units\units.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\units</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\uri-map\uri-map.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\uri-map</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\uri-map\uri-map.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\uri-map</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\urid\urid.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\urid</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\urid\urid.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\urid</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\worker\worker.h">
-      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\worker</Filter>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\worker\worker.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\lv2\worker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-fifths.lv2\uris.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-fifths.lv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-params.lv2\state_map.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-params.lv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2\atom_sink.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2\peaks.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2\uris.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-scope.lv2\uris.h">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-scope.lv2</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\juce_audio_plugin_client_LV2.h">
       <Filter>JUCE Modules\juce_audio_plugin_client_LV2</Filter>
@@ -3901,6 +3976,36 @@
     </None>
     <None Include="..\..\..\Ressources\Images\settings.png">
       <Filter>CamomileLV2\Source\Ressources\Images</Filter>
+    </None>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\doc\mainpage.md">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\doc</Filter>
+    </None>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-amp.lv2\README.txt">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-amp.lv2</Filter>
+    </None>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-fifths.lv2\README.txt">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-fifths.lv2</Filter>
+    </None>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-metro.lv2\README.txt">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-metro.lv2</Filter>
+    </None>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-midigate.lv2\README.txt">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-midigate.lv2</Filter>
+    </None>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-params.lv2\README.txt">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-params.lv2</Filter>
+    </None>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2\README.txt">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2</Filter>
+    </None>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-scope.lv2\README.txt">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-scope.lv2</Filter>
+    </None>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\README.txt">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2\plugins</Filter>
+    </None>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\README.md">
+      <Filter>JUCE Modules\juce_audio_plugin_client_LV2\LV2\lv2</Filter>
     </None>
     <None Include="..\..\..\Juce\modules\juce_audio_processors\format_types\VST3_SDK\base\LICENSE.txt">
       <Filter>JUCE Modules\juce_audio_processors\format_types\VST3_SDK\base</Filter>

@@ -21,6 +21,7 @@
   website:
   license:          
 
+  searchpaths: LV2/lv2
   dependencies:     juce_gui_basics, juce_audio_basics, juce_audio_processors, juce_audio_plugin_client
 
  END_JUCE_MODULE_DECLARATION

@@ -99,7 +99,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\Juce\modules;..\..\..\Dependencies;../../../Dependencies/LibPd/pure-data/src;../../../Dependencies/LibPd/libpd_wrapper;../../../Dependencies/LibPd/libpd_wrapper/util;../../../Dependencies/LibPd/cpp;../../../Juce;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\Juce\modules;..\..\..\Dependencies;..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2;../../../Dependencies/LibPd/pure-data/src;../../../Dependencies/LibPd/libpd_wrapper;../../../Dependencies/LibPd/libpd_wrapper/util;../../../Dependencies/LibPd/cpp;../../../Juce;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD_INTERNAL=1;JucePlugin_IsSynth=0;JucePlugin_ProducesMidiOutput=1;JucePlugin_WantsMidiInput=1;JucePlugin_EditorRequiresKeyboardFocus=1;JucePlugin_ManufacturerCode=0x50494755;JucePlugin_Build_LV2_FileCreator=1;JucePlugin_WantsLV2Presets=0;JucePlugin_Build_LV2=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Enable_IAA=0;PD_LONGINTTYPE=long long;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.7;JUCE_APP_VERSION_HEX=0x10007;JucePlugin_Build_Unity=0;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -146,7 +146,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Full</Optimization>
-      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\Juce\modules;..\..\..\Dependencies;../../../Dependencies/LibPd/pure-data/src;../../../Dependencies/LibPd/libpd_wrapper;../../../Dependencies/LibPd/libpd_wrapper/util;../../../Dependencies/LibPd/cpp;../../../Juce;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\Juce\modules;..\..\..\Dependencies;..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2;../../../Dependencies/LibPd/pure-data/src;../../../Dependencies/LibPd/libpd_wrapper;../../../Dependencies/LibPd/libpd_wrapper/util;../../../Dependencies/LibPd/cpp;../../../Juce;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD_INTERNAL=1;JucePlugin_IsSynth=0;JucePlugin_ProducesMidiOutput=1;JucePlugin_WantsMidiInput=1;JucePlugin_EditorRequiresKeyboardFocus=1;JucePlugin_ManufacturerCode=0x50494755;JucePlugin_Build_LV2_FileCreator=1;JucePlugin_WantsLV2Presets=0;JucePlugin_Build_LV2=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Enable_IAA=0;PD_LONGINTTYPE=long long;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.7;JUCE_APP_VERSION_HEX=0x10007;JucePlugin_Build_Unity=0;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -196,7 +196,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\Juce\modules;..\..\..\Dependencies;../../../Dependencies/LibPd/pure-data/src;../../../Dependencies/LibPd/libpd_wrapper;../../../Dependencies/LibPd/libpd_wrapper/util;../../../Dependencies/LibPd/cpp;../../../Juce;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\Juce\modules;..\..\..\Dependencies;..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2;../../../Dependencies/LibPd/pure-data/src;../../../Dependencies/LibPd/libpd_wrapper;../../../Dependencies/LibPd/libpd_wrapper/util;../../../Dependencies/LibPd/cpp;../../../Juce;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD_INTERNAL=1;JucePlugin_IsSynth=0;JucePlugin_ProducesMidiOutput=1;JucePlugin_WantsMidiInput=1;JucePlugin_EditorRequiresKeyboardFocus=1;JucePlugin_ManufacturerCode=0x50494755;JucePlugin_Build_LV2_FileCreator=1;JucePlugin_WantsLV2Presets=0;JucePlugin_Build_LV2=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Enable_IAA=0;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.7;JUCE_APP_VERSION_HEX=0x10007;JucePlugin_Build_Unity=0;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -244,7 +244,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Full</Optimization>
-      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\Juce\modules;..\..\..\Dependencies;../../../Dependencies/LibPd/pure-data/src;../../../Dependencies/LibPd/libpd_wrapper;../../../Dependencies/LibPd/libpd_wrapper/util;../../../Dependencies/LibPd/cpp;../../../Juce;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\Juce\modules;..\..\..\Dependencies;..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2;../../../Dependencies/LibPd/pure-data/src;../../../Dependencies/LibPd/libpd_wrapper;../../../Dependencies/LibPd/libpd_wrapper/util;../../../Dependencies/LibPd/cpp;../../../Juce;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD_INTERNAL=1;JucePlugin_IsSynth=0;JucePlugin_ProducesMidiOutput=1;JucePlugin_WantsMidiInput=1;JucePlugin_EditorRequiresKeyboardFocus=1;JucePlugin_ManufacturerCode=0x50494755;JucePlugin_Build_LV2_FileCreator=1;JucePlugin_WantsLV2Presets=0;JucePlugin_Build_LV2=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Enable_IAA=0;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.7;JUCE_APP_VERSION_HEX=0x10007;JucePlugin_Build_Unity=0;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -412,13 +412,40 @@
     <ClCompile Include="..\..\..\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client_utils.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\atom\atom-test-utils.c">
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom\atom-test-utils.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\atom\atom-test.c">
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom\atom-test.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\atom\forge-overflow-test.c">
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom\forge-overflow-test.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-amp.lv2\amp.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-fifths.lv2\fifths.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-metro.lv2\metro.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-midigate.lv2\midigate.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-params.lv2\params.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2\sampler.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2\sampler_ui.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-scope.lv2\examploscope.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-scope.lv2\examploscope_ui.c">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\juce_LV2_FileCreator.cpp">
@@ -1847,36 +1874,42 @@
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_plugin_client\juce_audio_plugin_client.h"/>
     <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\includes\lv2_external_ui.h"/>
     <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\includes\lv2_programs.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\atom\atom.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\atom\forge.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\atom\util.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\buf-size\buf-size.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\core\attributes.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\core\lv2.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\core\lv2_util.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\data-access\data-access.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\dynmanifest\dynmanifest.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\event\event-helpers.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\event\event.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\instance-access\instance-access.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\log\log.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\log\logger.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\midi\midi.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\morph\morph.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\options\options.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\parameters\parameters.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\patch\patch.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\port-groups\port-groups.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\port-props\port-props.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\presets\presets.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\resize-port\resize-port.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\state\state.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\time\time.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\ui\ui.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\units\units.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\uri-map\uri-map.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\urid\urid.h"/>
-    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\worker\worker.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom\atom.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom\forge.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\atom\util.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\buf-size\buf-size.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\core\attributes.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\core\lv2.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\core\lv2_util.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\data-access\data-access.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\dynmanifest\dynmanifest.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\event\event-helpers.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\event\event.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\instance-access\instance-access.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\log\log.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\log\logger.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\midi\midi.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\morph\morph.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\options\options.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\parameters\parameters.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\patch\patch.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\port-groups\port-groups.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\port-props\port-props.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\presets\presets.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\resize-port\resize-port.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\state\state.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\time\time.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\ui\ui.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\units\units.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\uri-map\uri-map.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\urid\urid.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\lv2\worker\worker.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-fifths.lv2\uris.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-params.lv2\state_map.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2\atom_sink.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2\peaks.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2\uris.h"/>
+    <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-scope.lv2\uris.h"/>
     <ClInclude Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\juce_audio_plugin_client_LV2.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_processors\format\juce_AudioPluginFormat.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_processors\format\juce_AudioPluginFormatManager.h"/>
@@ -2391,6 +2424,16 @@
     <None Include="..\..\..\Ressources\Images\garbage.png"/>
     <None Include="..\..\..\Ressources\Images\reload.png"/>
     <None Include="..\..\..\Ressources\Images\settings.png"/>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\doc\mainpage.md"/>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-amp.lv2\README.txt"/>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-fifths.lv2\README.txt"/>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-metro.lv2\README.txt"/>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-midigate.lv2\README.txt"/>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-params.lv2\README.txt"/>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-sampler.lv2\README.txt"/>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\eg-scope.lv2\README.txt"/>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\plugins\README.txt"/>
+    <None Include="..\..\..\Dependencies\juce_audio_plugin_client_LV2\LV2\lv2\README.md"/>
     <None Include="..\..\..\Juce\modules\juce_audio_processors\format_types\VST3_SDK\base\LICENSE.txt"/>
     <None Include="..\..\..\Juce\modules\juce_audio_processors\format_types\VST3_SDK\base\README.md"/>
     <None Include="..\..\..\Juce\modules\juce_audio_processors\format_types\VST3_SDK\pluginterfaces\LICENSE.txt"/>
