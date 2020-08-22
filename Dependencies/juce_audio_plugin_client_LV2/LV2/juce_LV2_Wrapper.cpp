@@ -1450,31 +1450,29 @@ static LV2_Handle juceLV2_Instantiate (const LV2_Descriptor*, double sampleRate,
     return new JuceLv2Wrapper (sampleRate, features);
 }
 
-#define handlePtr ((JuceLv2Wrapper*)handle)
-
 static void juceLV2_ConnectPort (LV2_Handle handle, uint32 port, void* dataLocation)
 {
-    handlePtr->lv2ConnectPort (port, dataLocation);
+    ((JuceLv2Wrapper*)handle)->lv2ConnectPort (port, dataLocation);
 }
 
 static void juceLV2_Activate (LV2_Handle handle)
 {
-    handlePtr->lv2Activate();
+    ((JuceLv2Wrapper*)handle)->lv2Activate();
 }
 
 static void juceLV2_Run( LV2_Handle handle, uint32 sampleCount)
 {
-    handlePtr->lv2Run (sampleCount);
+    ((JuceLv2Wrapper*)handle)->lv2Run (sampleCount);
 }
 
 static void juceLV2_Deactivate (LV2_Handle handle)
 {
-    handlePtr->lv2Deactivate();
+    ((JuceLv2Wrapper*)handle)->lv2Deactivate();
 }
 
 static void juceLV2_Cleanup (LV2_Handle handle)
 {
-    delete handlePtr;
+    delete ((JuceLv2Wrapper*)handle);
 }
 
 //==============================================================================
@@ -1482,35 +1480,33 @@ static void juceLV2_Cleanup (LV2_Handle handle)
 
 static uint32_t juceLV2_getOptions (LV2_Handle handle, LV2_Options_Option* options)
 {
-    return handlePtr->lv2GetOptions(options);
+    return ((JuceLv2Wrapper*)handle)->lv2GetOptions(options);
 }
 
 static uint32_t juceLV2_setOptions (LV2_Handle handle, const LV2_Options_Option* options)
 {
-    return handlePtr->lv2SetOptions(options);
+    return ((JuceLv2Wrapper*)handle)->lv2SetOptions(options);
 }
 
 static const LV2_Program_Descriptor* juceLV2_getProgram (LV2_Handle handle, uint32_t index)
 {
-    return handlePtr->lv2GetProgram(index);
+    return ((JuceLv2Wrapper*)handle)->lv2GetProgram(index);
 }
 
 static void juceLV2_selectProgram (LV2_Handle handle, uint32_t bank, uint32_t program)
 {
-    handlePtr->lv2SelectProgram(bank, program);
+    ((JuceLv2Wrapper*)handle)->lv2SelectProgram(bank, program);
 }
 
 static LV2_State_Status juceLV2_SaveState (LV2_Handle handle, LV2_State_Store_Function store, LV2_State_Handle stateHandle, uint32_t, const LV2_Feature* const*)
 {
-    return handlePtr->lv2SaveState(store, stateHandle);
+    return ((JuceLv2Wrapper*)handle)->lv2SaveState(store, stateHandle);
 }
 
 static LV2_State_Status juceLV2_RestoreState (LV2_Handle handle, LV2_State_Retrieve_Function retrieve, LV2_State_Handle stateHandle, uint32_t flags, const LV2_Feature* const*)
 {
-    return handlePtr->lv2RestoreState(retrieve, stateHandle, flags);
+    return ((JuceLv2Wrapper*)handle)->lv2RestoreState(retrieve, stateHandle, flags);
 }
-
-#undef handlePtr
 
 static const void* juceLV2_ExtensionData (const char* uri)
 {
