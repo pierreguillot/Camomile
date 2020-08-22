@@ -241,9 +241,7 @@ class JuceLV2FileCreator
 #endif
         text += "                        <" LV2_URID__map "> ;\n";
         text += "    lv2:extensionData <" LV2_OPTIONS__interface "> ,\n";
-#if JucePlugin_WantsLV2State
         text += "                      <" LV2_STATE__interface "> ,\n";
-#endif
         text += "                      <" LV2_PROGRAMS__Interface "> ;\n";
         text += "\n";
         
@@ -439,7 +437,6 @@ class JuceLV2FileCreator
             preset += "<" + pluginURI + presetSeparator + "preset" + String::formatted("%03i", i+1) + "> a pset:Preset ;\n";
             
             // State
-#if JucePlugin_WantsLV2State
             preset += "    state:state [\n";
             MemoryBlock chunkMemory;
             filter->getCurrentProgramStateInformation(chunkMemory);
@@ -456,7 +453,6 @@ class JuceLV2FileCreator
             }
             
             preset += "    ] ;\n\n";
-#endif
             
             // Port values
             getUsedSymbols().clear();

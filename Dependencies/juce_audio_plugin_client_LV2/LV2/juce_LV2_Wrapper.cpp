@@ -16,11 +16,6 @@
 
 #if JucePlugin_Build_LV2
 
-/** Use non-parameter states */
-#ifndef JucePlugin_WantsLV2State
-#define JucePlugin_WantsLV2State 1
-#endif
-
 #if JUCE_LINUX && ! JUCE_AUDIOPROCESSOR_NO_GUI
 #include <X11/Xlib.h>
 #define JUCE_GUI_BASICS_INCLUDE_XHEADERS 1
