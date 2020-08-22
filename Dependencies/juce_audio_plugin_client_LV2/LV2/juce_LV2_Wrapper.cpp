@@ -656,34 +656,10 @@ class JuceLv2Wrapper : public AudioPlayHead
 {
 public:
     //==============================================================================
-    JuceLv2Wrapper (double sampleRate_, const LV2_Feature* const* features)
-    : bufferSize (2048),
-    sampleRate (sampleRate_),
-    uridMap (nullptr),
-    uridAtomBlank (0),
-    uridAtomObject (0),
-    uridAtomDouble (0),
-    uridAtomFloat (0),
-    uridAtomInt (0),
-    uridAtomLong (0),
-    uridAtomSequence (0),
-    uridMidiEvent (0),
-    uridTimePos (0),
-    uridTimeBar (0),
-    uridTimeBarBeat (0),
-    uridTimeBeatsPerBar (0),
-    uridTimeBeatsPerMinute (0),
-    uridTimeBeatUnit (0),
-    uridTimeFrame (0),
-    uridTimeSpeed (0),
-    usingNominalBlockLength (false)
+    JuceLv2Wrapper (std::unique_ptr<AudioProcessor> processor, double sampleRate_, const LV2_Feature* const* features)
+    : filter(std::move(processor)), bufferSize(2048), sampleRate(sampleRate_)
     {
         inParameterChangedCallback = false;
-        {
-            const MessageManagerLock mmLock;
-            filter = std::unique_ptr<AudioProcessor>(createPluginFilterOfType (AudioProcessor::wrapperType_LV2));
-        }
-        jassert (filter != nullptr);
         
         filter->setPlayConfigDetails (filter->getTotalNumInputChannels(), filter->getTotalNumOutputChannels(), 0, 0);
         filter->setPlayHead (this);
@@ -1417,25 +1393,24 @@ private:
     };
     Lv2PositionData lastPositionData;
     
-    const LV2_URID_Map* uridMap;
-    LV2_URID uridAtomBlank;
-    LV2_URID uridAtomObject;
-    LV2_URID uridAtomDouble;
-    LV2_URID uridAtomFloat;
-    LV2_URID uridAtomInt;
-    LV2_URID uridAtomLong;
-    LV2_URID uridAtomSequence;
-    LV2_URID uridMidiEvent;
-    LV2_URID uridTimePos;
-    LV2_URID uridTimeBar;
-    LV2_URID uridTimeBarBeat;
-    LV2_URID uridTimeBeatsPerBar;    // timeSigNumerator
-    LV2_URID uridTimeBeatsPerMinute; // bpm
-    LV2_URID uridTimeBeatUnit;       // timeSigDenominator
-    LV2_URID uridTimeFrame;          // timeInSamples
-    LV2_URID uridTimeSpeed;
-    
-    bool usingNominalBlockLength; // if false use maxBlockLength
+    LV2_URID_Map const* uridMap = nullptr;
+    LV2_URID uridAtomBlank = 0;
+    LV2_URID uridAtomObject = 0;
+    LV2_URID uridAtomDouble = 0;
+    LV2_URID uridAtomFloat = 0;
+    LV2_URID uridAtomInt = 0;
+    LV2_URID uridAtomLong = 0;
+    LV2_URID uridAtomSequence = 0;
+    LV2_URID uridMidiEvent = 0;
+    LV2_URID uridTimePos = 0;
+    LV2_URID uridTimeBar = 0;
+    LV2_URID uridTimeBarBeat = 0;
+    LV2_URID uridTimeBeatsPerBar = 0;
+    LV2_URID uridTimeBeatsPerMinute = 0;
+    LV2_URID uridTimeBeatUnit = 0;
+    LV2_URID uridTimeFrame = 0;
+    LV2_URID uridTimeSpeed = 0;
+    bool usingNominalBlockLength = false;
     
     LV2_Program_Descriptor progDesc;
     
@@ -1447,7 +1422,12 @@ private:
 
 static LV2_Handle juceLV2_Instantiate (const LV2_Descriptor*, double sampleRate, const char*, const LV2_Feature* const* features)
 {
-    return new JuceLv2Wrapper (sampleRate, features);
+    auto createProcessor = []()
+    {
+        const MessageManagerLock mmLock;
+        return std::unique_ptr<AudioProcessor>(createPluginFilterOfType (AudioProcessor::wrapperType_LV2));
+    };
+    return new JuceLv2Wrapper(createProcessor(), sampleRate, features);
 }
 
 static void juceLV2_ConnectPort (LV2_Handle handle, uint32 port, void* dataLocation)
