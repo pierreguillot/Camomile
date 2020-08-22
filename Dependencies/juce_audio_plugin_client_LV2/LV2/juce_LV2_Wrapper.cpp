@@ -31,11 +31,6 @@
 #define JucePlugin_WantsLV2StateString 0
 #endif
 
-/** Export presets */
-#ifndef JucePlugin_WantsLV2Presets
-#define JucePlugin_WantsLV2Presets 1
-#endif
-
 /** Request time position */
 #ifndef JucePlugin_WantsLV2TimePos
 #define JucePlugin_WantsLV2TimePos 1

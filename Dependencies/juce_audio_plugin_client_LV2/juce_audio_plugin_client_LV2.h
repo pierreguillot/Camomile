@@ -43,3 +43,11 @@
 #ifndef JUCE_LV2_WANTS_FIXED_BLOCK_SIZE
 #define JUCE_LV2_WANTS_FIXED_BLOCK_SIZE 0
 #endif
+
+/** Config: JUCE_LV2_SUPPORTS_PRESETS
+ 
+ Enable this if  your LV2 plug-in supports presets.
+ */
+#ifndef JUCE_LV2_SUPPORTS_PRESETS
+#define JUCE_LV2_SUPPORTS_PRESETS 1
+#endif

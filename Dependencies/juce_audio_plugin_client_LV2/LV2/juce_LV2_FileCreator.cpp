@@ -11,12 +11,6 @@
 #include <cctype>
 #include "lv2/units/units.h"
 
-/** Export presets */
-#ifndef JucePlugin_WantsLV2Presets
-#define JucePlugin_WantsLV2Presets 1
-#endif
-
-
 //==============================================================================
 /**
  
@@ -204,7 +198,7 @@ class JuceLV2FileCreator
         }
 #endif
         
-#if JucePlugin_WantsLV2Presets
+#if JUCE_LV2_SUPPORTS_PRESETS
         const String presetSeparator(pluginURI.contains("#") ? ":" : "#");
         
         // Presets
@@ -531,7 +525,7 @@ public:
         plugin.close();
         std::cout << " done!" << std::endl;
         
-#if JucePlugin_WantsLV2Presets
+#if JUCE_LV2_SUPPORTS_PRESETS
         std::cout << "Writing presets.ttl..."; std::cout.flush();
         std::fstream presets("presets.ttl", std::ios::out);
         presets << makePresetsFile(filter) << std::endl;
