@@ -4,3 +4,6 @@ url=https://github.com/WeAreROLI/JUCE.git
 [submodule "Dependencies/LibPd"]
 	path = Dependencies/LibPd
 	url = https://pierreguillot@github.com/pierreguillot/libpd.git
+[submodule "Dependencies/juce_audio_plugin_client_LV2/LV2/lv2"]
+	path = Dependencies/juce_audio_plugin_client_LV2/LV2/lv2
+	url = https://github.com/lv2/lv2.git
