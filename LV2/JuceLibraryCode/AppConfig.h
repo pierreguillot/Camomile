@@ -97,6 +97,17 @@
 #endif
 
 //==============================================================================
+// juce_audio_plugin_client_LV2 flags:
+
+#ifndef    JUCE_LV2_WANTS_FIXED_BLOCK_SIZE
+ //#define JUCE_LV2_WANTS_FIXED_BLOCK_SIZE 0
+#endif
+
+#ifndef    JUCE_LV2_SUPPORTS_PRESETS
+ #define   JUCE_LV2_SUPPORTS_PRESETS 0
+#endif
+
+//==============================================================================
 // juce_audio_processors flags:
 
 #ifndef    JUCE_PLUGINHOST_VST
