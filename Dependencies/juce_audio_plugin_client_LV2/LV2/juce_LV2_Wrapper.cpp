@@ -420,9 +420,10 @@ public:
         }
         
         controlPortOffset += 1; // Time position and MIDI in port
-#if JucePlugin_ProducesMidiOutput
-        controlPortOffset += 1;
-#endif
+        if(filter->producesMidi())
+        {
+            controlPortOffset += 1;
+        }
         controlPortOffset += 1; // Freewheel port
         controlPortOffset += 1; // Lantecy port
         controlPortOffset += filter->getTotalNumInputChannels();
@@ -713,11 +714,6 @@ public:
         
         filter->setPlayConfigDetails (filter->getTotalNumInputChannels(), filter->getTotalNumOutputChannels(), 0, 0);
         filter->setPlayHead (this);
-        
-#if JucePlugin_ProducesMidiOutput
-        portMidiOut = nullptr;
-#endif
-        
         portAudioIns.resize(filter->getTotalNumInputChannels(), nullptr);
         portAudioOuts.resize(filter->getTotalNumOutputChannels(), nullptr);
 
@@ -874,14 +870,12 @@ public:
             portEventsIn = (LV2_Atom_Sequence*)dataLocation;
             return;
         }
-        
-#if JucePlugin_ProducesMidiOutput
-        if (portId == index++)
+
+        if (filter->producesMidi() && portId == index++)
         {
             portMidiOut = (LV2_Atom_Sequence*)dataLocation;
             return;
         }
-#endif
         
         if (portId == index++)
         {
@@ -931,11 +925,11 @@ public:
         filter->setPlayConfigDetails (filter->getTotalNumInputChannels(), filter->getTotalNumOutputChannels(), sampleRate, bufferSize);
         
         channels.calloc (filter->getTotalNumInputChannels() + filter->getTotalNumOutputChannels());
-        
-#if (JucePlugin_WantsMidiInput || JucePlugin_ProducesMidiOutput)
-        midiEvents.ensureSize (2048);
-        midiEvents.clear();
-#endif
+        if(filter->acceptsMidi() || filter->producesMidi())
+        {
+            midiEvents.ensureSize (2048);
+            midiEvents.clear();
+        }
     }
     
     void lv2Deactivate()
@@ -1225,8 +1219,7 @@ public:
             }
         }
         
-#if JucePlugin_ProducesMidiOutput
-        if (portMidiOut != nullptr)
+        if (filter->producesMidi() && portMidiOut != nullptr)
         {
             const uint32_t capacity = portMidiOut->atom.size;
             
@@ -1253,12 +1246,11 @@ public:
             }
             midiEvents.clear();
             
-        } else
-#endif
-            if (! midiEvents.isEmpty())
-            {
-                midiEvents.clear();
-            }
+        }
+        else if (! midiEvents.isEmpty())
+        {
+            midiEvents.clear();
+        }
     }
     
     //==============================================================================
@@ -1463,9 +1455,7 @@ private:
     MidiBuffer midiEvents;
     
     LV2_Atom_Sequence* portEventsIn = nullptr;
-#if JucePlugin_ProducesMidiOutput
-    LV2_Atom_Sequence* portMidiOut;
-#endif
+    LV2_Atom_Sequence* portMidiOut = nullptr;
     float* portFreewheel = nullptr;
     float* portLatency = nullptr;
     std::vector<float*> portAudioIns;
