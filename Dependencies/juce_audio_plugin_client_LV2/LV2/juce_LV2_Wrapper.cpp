@@ -62,14 +62,6 @@
 
 using namespace juce;
 
-/** Returns plugin URI */
-static const String& getPluginURI()
-{
-    // JucePlugin_LV2URI might be defined as a function (eg. allowing dynamic URIs based on filename)
-    static const String pluginURI(JucePlugin_LV2URI);
-    return pluginURI;
-}
-
 //==============================================================================
 #if JUCE_LINUX
 
@@ -1572,45 +1564,6 @@ static void juceLV2UI_Cleanup (LV2UI_Handle handle)
     ((JuceLv2UIWrapper*)handle)->lv2Cleanup();
 }
 
-//==============================================================================
-// static LV2 Descriptor objects
-
-static const LV2_Descriptor JuceLv2Plugin = {
-    strdup(getPluginURI().toRawUTF8()),
-    juceLV2_Instantiate,
-    juceLV2_ConnectPort,
-    juceLV2_Activate,
-    juceLV2_Run,
-    juceLV2_Deactivate,
-    juceLV2_Cleanup,
-    juceLV2_ExtensionData
-};
-
-static const LV2UI_Descriptor JuceLv2UI_External = {
-    strdup(String(getPluginURI() + "#ExternalUI").toRawUTF8()),
-    juceLV2UI_InstantiateExternal,
-    juceLV2UI_Cleanup,
-    nullptr,
-    nullptr
-};
-
-static const LV2UI_Descriptor JuceLv2UI_Parent = {
-    strdup(String(getPluginURI() + "#ParentUI").toRawUTF8()),
-    juceLV2UI_InstantiateParent,
-    juceLV2UI_Cleanup,
-    nullptr,
-    nullptr
-};
-
-static const struct DescriptorCleanup {
-    DescriptorCleanup() {}
-    ~DescriptorCleanup()
-    {
-        free((void*)JuceLv2Plugin.URI);
-        free((void*)JuceLv2UI_External.URI);
-        free((void*)JuceLv2UI_Parent.URI);
-    }
-} _descCleanup;
 
 #if JUCE_WINDOWS
 #define JUCE_EXPORTED_FUNCTION extern "C" __declspec (dllexport)
@@ -1624,7 +1577,23 @@ static const struct DescriptorCleanup {
 JUCE_EXPORTED_FUNCTION const LV2_Descriptor* lv2_descriptor (uint32 index);
 JUCE_EXPORTED_FUNCTION const LV2_Descriptor* lv2_descriptor (uint32 index)
 {
-    return (index == 0) ? &JuceLv2Plugin : nullptr;
+    if(index == 0)
+    {
+        static const String pluginUri(JucePlugin_LV2URI);
+        static const LV2_Descriptor JuceLv2Plugin =
+        {
+            pluginUri.toRawUTF8(),
+            juceLV2_Instantiate,
+            juceLV2_ConnectPort,
+            juceLV2_Activate,
+            juceLV2_Run,
+            juceLV2_Deactivate,
+            juceLV2_Cleanup,
+            juceLV2_ExtensionData
+        };
+        return &JuceLv2Plugin;
+    }
+    return nullptr;
 }
 
 JUCE_EXPORTED_FUNCTION const LV2UI_Descriptor* lv2ui_descriptor (uint32 index);
@@ -1633,9 +1602,32 @@ JUCE_EXPORTED_FUNCTION const LV2UI_Descriptor* lv2ui_descriptor (uint32 index)
     switch (index)
     {
         case 0:
+        {
+            static const String pluginUiUri(juce::String(JucePlugin_LV2URI) + juce::String("#ExternalUI"));
+            static const LV2UI_Descriptor JuceLv2UI_External =
+            {
+                pluginUiUri.toRawUTF8(),
+                juceLV2UI_InstantiateExternal,
+                juceLV2UI_Cleanup,
+                nullptr,
+                nullptr
+            };
             return &JuceLv2UI_External;
+        }
+            
         case 1:
+        {
+            static const String pluginUiUri(juce::String(JucePlugin_LV2URI) + juce::String("#ParentUI"));
+            static const LV2UI_Descriptor JuceLv2UI_Parent =
+            {
+                pluginUiUri.toRawUTF8(),
+                juceLV2UI_InstantiateParent,
+                juceLV2UI_Cleanup,
+                nullptr,
+                nullptr
+            };
             return &JuceLv2UI_Parent;
+        }
         default:
             return nullptr;
     }
