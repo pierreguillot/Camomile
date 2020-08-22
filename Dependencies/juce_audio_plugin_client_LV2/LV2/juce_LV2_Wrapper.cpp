@@ -21,17 +21,6 @@
 #define JucePlugin_WantsLV2State 1
 #endif
 
-/** States are strings, needs custom get/setStateInformationString */
-#ifndef JucePlugin_WantsLV2StateString
-#define JucePlugin_WantsLV2StateString 0
-#endif
-
-/** Using string states require enabling states first */
-#if JucePlugin_WantsLV2StateString && ! JucePlugin_WantsLV2State
-#undef JucePlugin_WantsLV2State
-#define JucePlugin_WantsLV2State 1
-#endif
-
 #if JUCE_LINUX && ! JUCE_AUDIOPROCESSOR_NO_GUI
 #include <X11/Xlib.h>
 #define JUCE_GUI_BASICS_INCLUDE_XHEADERS 1
@@ -1340,18 +1329,6 @@ public:
     LV2_State_Status lv2SaveState (LV2_State_Store_Function store, LV2_State_Handle stateHandle)
     {
         jassert (filter != nullptr);
-        
-#if JucePlugin_WantsLV2StateString
-        String stateData(filter->getStateInformationString().replace("\r\n","\n"));
-        CharPointer_UTF8 charData(stateData.toUTF8());
-        
-        store (stateHandle,
-               uridMap->map(uridMap->handle, JUCE_LV2_STATE_STRING_URI),
-               charData.getAddress(),
-               charData.sizeInBytes(),
-               uridMap->map(uridMap->handle, LV2_ATOM__String),
-               LV2_STATE_IS_POD|LV2_STATE_IS_PORTABLE);
-#else
         MemoryBlock chunkMemory;
         filter->getCurrentProgramStateInformation (chunkMemory);
         
@@ -1361,8 +1338,7 @@ public:
                chunkMemory.getSize(),
                uridMap->map(uridMap->handle, LV2_ATOM__Chunk),
                LV2_STATE_IS_POD|LV2_STATE_IS_PORTABLE);
-#endif
-        
+
         return LV2_STATE_SUCCESS;
     }
     
@@ -1372,31 +1348,11 @@ public:
         
         size_t size = 0;
         uint32 type = 0;
-        const void* data = retrieve (stateHandle,
-#if JucePlugin_WantsLV2StateString
-                                     uridMap->map(uridMap->handle, JUCE_LV2_STATE_STRING_URI),
-#else
-                                     uridMap->map(uridMap->handle, JUCE_LV2_STATE_BINARY_URI),
-#endif
-                                     &size, &type, &flags);
+        const void* data = retrieve (stateHandle, uridMap->map(uridMap->handle, JUCE_LV2_STATE_BINARY_URI), &size, &type, &flags);
         
         if (data == nullptr || size == 0 || type == 0)
             return LV2_STATE_ERR_UNKNOWN;
         
-#if JucePlugin_WantsLV2StateString
-        if (type == uridMap->map (uridMap->handle, LV2_ATOM__String))
-        {
-            String stateData (CharPointer_UTF8(static_cast<const char*>(data)));
-            filter->setStateInformationString (stateData);
-            
-#if ! JUCE_AUDIOPROCESSOR_NO_GUI
-            if (ui != nullptr)
-                ui->repaint();
-#endif
-            
-            return LV2_STATE_SUCCESS;
-        }
-#else
         if (type == uridMap->map (uridMap->handle, LV2_ATOM__Chunk))
         {
             filter->setCurrentProgramStateInformation (data, static_cast<int>(size));
@@ -1408,8 +1364,6 @@ public:
             
             return LV2_STATE_SUCCESS;
         }
-#endif
-        
         return LV2_STATE_ERR_BAD_TYPE;
     }
     
