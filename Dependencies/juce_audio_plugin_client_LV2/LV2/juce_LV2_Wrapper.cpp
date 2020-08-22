@@ -16,11 +16,6 @@
 
 #if JucePlugin_Build_LV2
 
-/** Enable latency port */
-#ifndef JucePlugin_WantsLV2Latency
-#define JucePlugin_WantsLV2Latency 1
-#endif
-
 /** Use non-parameter states */
 #ifndef JucePlugin_WantsLV2State
 #define JucePlugin_WantsLV2State 1
@@ -436,9 +431,7 @@ public:
         controlPortOffset += 1;
 #endif
         controlPortOffset += 1; // freewheel
-#if JucePlugin_WantsLV2Latency
-        controlPortOffset += 1;
-#endif
+        controlPortOffset += 1; // Lantecy port
         controlPortOffset += filter->getTotalNumInputChannels();
         controlPortOffset += filter->getTotalNumOutputChannels();
         
@@ -736,10 +729,7 @@ public:
 #endif
         
         portFreewheel = nullptr;
-        
-#if JucePlugin_WantsLV2Latency
         portLatency = nullptr;
-#endif
         portAudioIns.resize(filter->getTotalNumInputChannels(), nullptr);
         portAudioOuts.resize(filter->getTotalNumOutputChannels(), nullptr);
 
@@ -913,13 +903,11 @@ public:
             return;
         }
         
-#if JucePlugin_WantsLV2Latency
         if (portId == index++)
         {
             portLatency = (float*)dataLocation;
             return;
         }
-#endif
         
         for (int i=0; i < filter->getTotalNumInputChannels(); ++i)
         {
@@ -977,10 +965,8 @@ public:
     {
         jassert (filter != nullptr);
         
-#if JucePlugin_WantsLV2Latency
         if (portLatency != nullptr)
             *portLatency = filter->getLatencySamples();
-#endif
         
         if (portFreewheel != nullptr)
             filter->setNonRealtime (*portFreewheel >= 0.5f);
@@ -1508,9 +1494,7 @@ private:
     LV2_Atom_Sequence* portMidiOut;
 #endif
     float* portFreewheel;
-#if JucePlugin_WantsLV2Latency
     float* portLatency;
-#endif
     std::vector<float*> portAudioIns;
     std::vector<float*> portAudioOuts;
     Array<float*> portControls;
