@@ -661,15 +661,15 @@ public:
     {
         inParameterChangedCallback = false;
         
-        filter->setPlayConfigDetails (filter->getTotalNumInputChannels(), filter->getTotalNumOutputChannels(), 0, 0);
+        auto const numInputChannels = filter->getTotalNumInputChannels();
+        auto const numOutputChannels = filter->getTotalNumOutputChannels();
+        filter->setPlayConfigDetails (numInputChannels, numOutputChannels, sampleRate, bufferSize);
         filter->setPlayHead (this);
-        portAudioIns.resize(filter->getTotalNumInputChannels(), nullptr);
-        portAudioOuts.resize(filter->getTotalNumOutputChannels(), nullptr);
-
-        portControls.insertMultiple (0, nullptr, filter->getParameters().size());
+        portAudioIns.resize(numInputChannels, nullptr);
+        portAudioOuts.resize(numOutputChannels, nullptr);
         
-        for (int i=0; i < filter->getParameters().size(); ++i)
-            lastControlValues.add (getParameter3(i));
+        auto const numParameters = filter->getParameters().size();
+        portControls.resize(numParameters, nullptr);
         
         curPosInfo.resetToDefault();
         
@@ -755,39 +755,43 @@ public:
         
         if (progDesc.name != nullptr)
             free((void*)progDesc.name);
-        
-        portControls.clear();
-        lastControlValues.clear();
     }
     
     //==============================================================================
     // LV2 core calls
     
-    const float getParameter3(int index)
+    float getParameterValue(int index)
     {
         auto* param = filter->getParameters()[index];
         if(auto* rangeParam = dynamic_cast<RangedAudioParameter*>(param))
             return rangeParam->convertFrom0to1(param->getValue());
-        else if(param)
+        else if(param != nullptr)
             return param->getValue();
         else
             return 0.0;
     }
     
-    const void setParameter3(int index, float value)
+    const void setParameterValue(int index, float value)
     {
         auto* param = filter->getParameters()[index];
         if(auto* rangeParam = dynamic_cast<RangedAudioParameter*>(param))
         {
-            rangeParam->setValue(rangeParam->convertTo0to1(value));
-            inParameterChangedCallback = true;
-            rangeParam->sendValueChangedMessageToListeners(rangeParam->convertTo0to1(value));
+            auto const newValue = rangeParam->convertTo0to1(value);
+            if(std::abs(newValue - rangeParam->getValue()) > std::numeric_limits<float>::epsilon())
+            {
+                rangeParam->setValue(newValue);
+                inParameterChangedCallback = true;
+                rangeParam->sendValueChangedMessageToListeners(newValue);
+            }
         }
         else if (auto* param = filter->getParameters()[index])
         {
-            param->setValue(value);
-            inParameterChangedCallback = true;
-            param->sendValueChangedMessageToListeners (value);
+            if(std::abs(value - rangeParam->getValue()) > std::numeric_limits<float>::epsilon())
+            {
+                rangeParam->setValue(value);
+                inParameterChangedCallback = true;
+                rangeParam->sendValueChangedMessageToListeners(value);
+            }
         }
     }
     
@@ -813,51 +817,54 @@ public:
         
         if (portId == index++)
         {
-            portEventsIn = (LV2_Atom_Sequence*)dataLocation;
+            portEventsIn = static_cast<LV2_Atom_Sequence*>(dataLocation);
             return;
         }
 
         if (filter->producesMidi() && portId == index++)
         {
-            portMidiOut = (LV2_Atom_Sequence*)dataLocation;
+            portMidiOut = static_cast<LV2_Atom_Sequence*>(dataLocation);
             return;
         }
         
         if (portId == index++)
         {
-            portFreewheel = (float*)dataLocation;
+            portFreewheel = static_cast<float*>(dataLocation);
             return;
         }
         
         if (portId == index++)
         {
-            portLatency = (float*)dataLocation;
+            portLatency = static_cast<float*>(dataLocation);
             return;
         }
         
-        for (int i=0; i < filter->getTotalNumInputChannels(); ++i)
+        auto const numInputChannels = filter->getTotalNumInputChannels();
+        for (int i = 0; i < numInputChannels; ++i)
         {
             if (portId == index++)
             {
-                portAudioIns[i] = (float*)dataLocation;
+                portAudioIns[i] = static_cast<float*>(dataLocation);
                 return;
             }
         }
         
-        for (int i=0; i < filter->getTotalNumOutputChannels(); ++i)
+        auto const numOutputChannels = filter->getTotalNumOutputChannels();
+        for (int i = 0; i < numOutputChannels; ++i)
         {
             if (portId == index++)
             {
-                portAudioOuts[i] = (float*)dataLocation;
+                portAudioOuts[i] = static_cast<float*>(dataLocation);
                 return;
             }
         }
         
-        for (int i=0; i < filter->getParameters().size(); ++i)
+        auto const numParameters = filter->getParameters().size();
+        for (int i = 0; i < numParameters; ++i)
         {
             if (portId == index++)
             {
-                portControls.set(i, (float*)dataLocation);
+                portControls[i] = static_cast<float*>(dataLocation);
                 return;
             }
         }
@@ -907,21 +914,11 @@ public:
         }
         
         // Check for updated parameters
+        for (int i = 0; i < portControls.size(); ++i)
         {
-            float curValue;
-            
-            for (int i = 0; i < portControls.size(); ++i)
+            if (portControls[i] != nullptr)
             {
-                if (portControls[i] != nullptr)
-                {
-                    curValue = *portControls[i];
-                    
-                    if (lastControlValues[i] != curValue)
-                    {
-                        setParameter3(i, curValue);
-                        lastControlValues.setUnchecked (i, curValue);
-                    }
-                }
+                setParameterValue(i, *portControls[i]);
             }
         }
         
@@ -1273,12 +1270,10 @@ public:
             // update input control ports now
             for (int i = 0; i < portControls.size(); ++i)
             {
-                float value = getParameter3(i);
+                float value = getParameterValue(i);
                 
                 if (portControls[i] != nullptr)
                     *portControls[i] = value;
-                
-                lastControlValues.set(i, value);
             }
         }
     }
@@ -1364,11 +1359,11 @@ private:
     float* portLatency = nullptr;
     std::vector<float*> portAudioIns;
     std::vector<float*> portAudioOuts;
-    Array<float*> portControls;
+    std::vector<float*> portControls;
     
     uint32 bufferSize;
     double sampleRate;
-    Array<float> lastControlValues;
+    
     AudioPlayHead::CurrentPositionInfo curPosInfo;
     
     struct Lv2PositionData {
