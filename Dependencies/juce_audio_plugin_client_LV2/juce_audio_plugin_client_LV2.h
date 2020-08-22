@@ -22,7 +22,7 @@
   license:          
 
   searchpaths: LV2/lv2
-  dependencies:     juce_gui_basics, juce_audio_basics, juce_audio_processors, juce_audio_plugin_client
+  dependencies:    juce_audio_plugin_client
 
  END_JUCE_MODULE_DECLARATION
 
@@ -32,9 +32,7 @@
 #pragma once
 #define JUCE_AUDIO_PLUGIN_CLIENT_LV2_H_INCLUDED
 
-#include <juce_audio_plugin_client/utility/juce_CheckSettingMacros.h>
-#include <juce_audio_plugin_client/utility/juce_IncludeModuleHeaders.h>
-#include <juce_core/system/juce_TargetPlatform.h>
+#include <juce_audio_plugin_client/juce_audio_plugin_client.h>
 
 /** Config: JUCE_LV2_WANTS_FIXED_BLOCK_SIZE
  

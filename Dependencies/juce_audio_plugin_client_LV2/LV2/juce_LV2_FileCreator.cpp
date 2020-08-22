@@ -6,8 +6,6 @@
   ==============================================================================
 */
 
-#if JucePlugin_Build_LV2_FileCreator
-
 #include <cctype>
 #include "lv2/units/units.h"
 
@@ -540,4 +538,3 @@ JUCE_EXPORTED_FUNCTION void lv2_generate_ttl (const char* basename)
     JuceLV2FileCreator::createLv2Files (basename);
 }
 
-#endif
