@@ -26,11 +26,6 @@
 #define JucePlugin_WantsLV2StateString 0
 #endif
 
-/** Request time position */
-#ifndef JucePlugin_WantsLV2TimePos
-#define JucePlugin_WantsLV2TimePos 1
-#endif
-
 /** Using string states require enabling states first */
 #if JucePlugin_WantsLV2StateString && ! JucePlugin_WantsLV2State
 #undef JucePlugin_WantsLV2State
@@ -424,13 +419,11 @@ public:
                 *widget = nullptr;
         }
         
-#if (JucePlugin_WantsMidiInput || JucePlugin_WantsLV2TimePos)
-        controlPortOffset += 1;
-#endif
+        controlPortOffset += 1; // Time position and MIDI in port
 #if JucePlugin_ProducesMidiOutput
         controlPortOffset += 1;
 #endif
-        controlPortOffset += 1; // freewheel
+        controlPortOffset += 1; // Freewheel port
         controlPortOffset += 1; // Lantecy port
         controlPortOffset += filter->getTotalNumInputChannels();
         controlPortOffset += filter->getTotalNumOutputChannels();
@@ -721,15 +714,10 @@ public:
         filter->setPlayConfigDetails (filter->getTotalNumInputChannels(), filter->getTotalNumOutputChannels(), 0, 0);
         filter->setPlayHead (this);
         
-#if (JucePlugin_WantsMidiInput || JucePlugin_WantsLV2TimePos)
-        portEventsIn = nullptr;
-#endif
 #if JucePlugin_ProducesMidiOutput
         portMidiOut = nullptr;
 #endif
         
-        portFreewheel = nullptr;
-        portLatency = nullptr;
         portAudioIns.resize(filter->getTotalNumInputChannels(), nullptr);
         portAudioOuts.resize(filter->getTotalNumOutputChannels(), nullptr);
 
@@ -881,13 +869,11 @@ public:
     {
         uint32 index = 0;
         
-#if (JucePlugin_WantsMidiInput || JucePlugin_WantsLV2TimePos)
         if (portId == index++)
         {
             portEventsIn = (LV2_Atom_Sequence*)dataLocation;
             return;
         }
-#endif
         
 #if JucePlugin_ProducesMidiOutput
         if (portId == index++)
@@ -1021,7 +1007,6 @@ public:
                 for (; i < filter->getTotalNumInputChannels(); ++i)
                     channels [i] = portAudioIns[i];
                 
-#if (JucePlugin_WantsMidiInput || JucePlugin_WantsLV2TimePos)
                 if (portEventsIn != nullptr)
                 {
                     midiEvents.clear();
@@ -1043,7 +1028,6 @@ public:
                             continue;
                         }
 #endif
-#if JucePlugin_WantsLV2TimePos
                         if (event->body.type == uridAtomBlank || event->body.type == uridAtomObject)
                         {
                             const LV2_Atom_Object* obj = (LV2_Atom_Object*)&event->body;
@@ -1188,10 +1172,8 @@ public:
                                                            lastPositionData.beatUnit > 0 &&
                                                            lastPositionData.beatsPerBar > 0.0f);
                         }
-#endif
                     }
                 }
-#endif
                 {
                     AudioSampleBuffer chans (channels, jmax (filter->getTotalNumInputChannels(), filter->getTotalNumOutputChannels()), sampleCount);
                     filter->processBlock (chans, midiEvents);
@@ -1199,7 +1181,6 @@ public:
             }
         }
         
-#if JucePlugin_WantsLV2TimePos
         // update timePos for next callback
         if (lastPositionData.speed != 0.0)
         {
@@ -1243,7 +1224,6 @@ public:
                 curPosInfo.bpm = std::abs(beatsPerMinute);
             }
         }
-#endif
         
 #if JucePlugin_ProducesMidiOutput
         if (portMidiOut != nullptr)
@@ -1447,13 +1427,8 @@ public:
     
     bool getCurrentPosition (AudioPlayHead::CurrentPositionInfo& info)
     {
-#if JucePlugin_WantsLV2TimePos
         info = curPosInfo;
         return true;
-#else
-        ignoreUnused(info);
-        return false;
-#endif
     }
     
 #if ! JUCE_AUDIOPROCESSOR_NO_GUI
@@ -1487,14 +1462,12 @@ private:
     HeapBlock<float*> channels;
     MidiBuffer midiEvents;
     
-#if (JucePlugin_WantsMidiInput || JucePlugin_WantsLV2TimePos)
-    LV2_Atom_Sequence* portEventsIn;
-#endif
+    LV2_Atom_Sequence* portEventsIn = nullptr;
 #if JucePlugin_ProducesMidiOutput
     LV2_Atom_Sequence* portMidiOut;
 #endif
-    float* portFreewheel;
-    float* portLatency;
+    float* portFreewheel = nullptr;
+    float* portLatency = nullptr;
     std::vector<float*> portAudioIns;
     std::vector<float*> portAudioOuts;
     Array<float*> portControls;
