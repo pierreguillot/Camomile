@@ -11,11 +11,6 @@
 #include <cctype>
 #include "lv2/units/units.h"
 
-/** Plugin requires processing with a fixed/constant block size */
-#ifndef JucePlugin_WantsLV2FixedBlockSize
-#define JucePlugin_WantsLV2FixedBlockSize 0
-#endif
-
 /** Export presets */
 #ifndef JucePlugin_WantsLV2Presets
 #define JucePlugin_WantsLV2Presets 1
@@ -247,7 +242,7 @@ class JuceLV2FileCreator
         text += "<" + pluginURI + ">\n";
         text += "    a " + getPluginType(filter) + " ;\n";
         text += "    lv2:requiredFeature <" LV2_BUF_SIZE__boundedBlockLength "> ,\n";
-#if JucePlugin_WantsLV2FixedBlockSize
+#if JUCE_LV2_WANTS_FIXED_BLOCK_SIZE
         text += "                        <" LV2_BUF_SIZE__fixedBlockLength "> ,\n";
 #endif
         text += "                        <" LV2_URID__map "> ;\n";

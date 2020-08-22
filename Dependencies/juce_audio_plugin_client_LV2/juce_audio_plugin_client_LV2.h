@@ -35,3 +35,11 @@
 #include <juce_audio_plugin_client/utility/juce_CheckSettingMacros.h>
 #include <juce_audio_plugin_client/utility/juce_IncludeModuleHeaders.h>
 #include <juce_core/system/juce_TargetPlatform.h>
+
+/** Config: JUCE_LV2_WANTS_FIXED_BLOCK_SIZE
+ 
+ Enable this if  your LV2 plug-in requires a fixed block size.
+ */
+#ifndef JUCE_LV2_WANTS_FIXED_BLOCK_SIZE
+#define JUCE_LV2_WANTS_FIXED_BLOCK_SIZE 0
+#endif

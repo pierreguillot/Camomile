@@ -16,11 +16,6 @@
 
 #if JucePlugin_Build_LV2
 
-/** Plugin requires processing with a fixed/constant block size */
-#ifndef JucePlugin_WantsLV2FixedBlockSize
-#define JucePlugin_WantsLV2FixedBlockSize 0
-#endif
-
 /** Enable latency port */
 #ifndef JucePlugin_WantsLV2Latency
 #define JucePlugin_WantsLV2Latency 1
