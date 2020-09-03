@@ -32,16 +32,15 @@ class JuceLV2FileCreator
 
     
     /** Returns plugin extension */
-    static const String& getPluginExtension()
+    static String getPluginExtension()
     {
 #if JUCE_MAC
-        static const String pluginExtension(".dylib");
+        return ".dylib";
 #elif JUCE_LINUX
-        static const String pluginExtension(".so");
+        return ".so";
 #elif JUCE_WINDOWS
-        static const String pluginExtension(".dll");
+        return ".dll";
 #endif
-        return pluginExtension;
     }
     
     /** Returns plugin URI */
