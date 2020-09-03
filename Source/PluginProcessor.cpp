@@ -445,6 +445,8 @@ void CamomileAudioProcessor::processBlockBypassed (AudioBuffer<float>& buffer, M
     if(m_auto_bypass)
     {
         sendMessagesFromQueue();
+        sendPlayhead();
+        sendParameters();
         processMessages();
         const int nsamples  = buffer.getNumSamples();
         const int nins      = getTotalNumInputChannels();
