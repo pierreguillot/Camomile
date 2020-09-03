@@ -102,160 +102,65 @@ struct SharedMessageThread  : public Thread
 
 //==============================================================================
 /**
- Lightweight DocumentWindow subclass for external ui
- */
-class JuceLv2ExternalUIWindow : public DocumentWindow
-{
-public:
-    /** Creates a Document Window wrapper */
-    JuceLv2ExternalUIWindow (AudioProcessorEditor* editor, const String& title) :
-    DocumentWindow (title, Colours::white, DocumentWindow::minimiseButton | DocumentWindow::closeButton, false),
-    closed (false),
-    lastPos (0, 0)
-    {
-        setOpaque (true);
-        setContentNonOwned (editor, true);
-        setSize (editor->getWidth(), editor->getHeight());
-        setUsingNativeTitleBar (true);
-    }
-    
-    /** Close button handler */
-    void closeButtonPressed()
-    {
-        saveLastPos();
-        removeFromDesktop();
-        closed = true;
-    }
-    
-    void saveLastPos()
-    {
-        lastPos = getScreenPosition();
-    }
-    
-    void restoreLastPos()
-    {
-        setTopLeftPosition (lastPos.getX(), lastPos.getY());
-    }
-    
-    Point<int> getLastPos()
-    {
-        return lastPos;
-    }
-    
-    bool isClosed()
-    {
-        return closed;
-    }
-    
-    void reset()
-    {
-        closed = false;
-    }
-    
-private:
-    bool closed;
-    Point<int> lastPos;
-    
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (JuceLv2ExternalUIWindow);
-};
-
-//==============================================================================
-/**
  Juce LV2 External UI handle
  */
 class JuceLv2ExternalUIWrapper : public LV2_External_UI_Widget
 {
 public:
-    JuceLv2ExternalUIWrapper (AudioProcessorEditor* editor, const String& title)
-    : window (editor, title)
+    JuceLv2ExternalUIWrapper (AudioProcessorEditor* editor, LV2_External_UI_Host const* host, LV2UI_Controller controller, const String& title)
+    : window (editor, host, controller, title)
     {
         // external UI calls
-        run  = doRun;
-        show = doShow;
-        hide = doHide;
-    }
-    
-    ~JuceLv2ExternalUIWrapper()
-    {
-        if (window.isOnDesktop())
-            window.removeFromDesktop();
-    }
-    
-    void close()
-    {
-        window.closeButtonPressed();
-    }
-    
-    bool isClosed()
-    {
-        return window.isClosed();
-    }
-    
-    void reset(const String& title)
-    {
-        window.reset();
-        window.setName(title);
-    }
-    
-    void repaint()
-    {
-        window.repaint();
-    }
-    
-    Point<int> getScreenPosition()
-    {
-        if (window.isClosed())
-            return window.getLastPos();
-        else
-            return window.getScreenPosition();
-    }
-    
-    void setScreenPos (int x, int y)
-    {
-        if (! window.isClosed())
-            window.setTopLeftPosition(x, y);
-    }
-    
-    //==============================================================================
-    static void doRun (LV2_External_UI_Widget* _this_)
-    {
-        const MessageManagerLock mmLock;
-        JuceLv2ExternalUIWrapper* self = (JuceLv2ExternalUIWrapper*) _this_;
-        
-        if (! self->isClosed())
-            self->window.repaint();
-    }
-    
-    static void doShow (LV2_External_UI_Widget* _this_)
-    {
-        const MessageManagerLock mmLock;
-        JuceLv2ExternalUIWrapper* self = (JuceLv2ExternalUIWrapper*) _this_;
-        
-        if (! self->isClosed())
+        run  = [](LV2_External_UI_Widget* widget)
         {
-            if (! self->window.isOnDesktop())
-                self->window.addToDesktop();
-            
-            self->window.restoreLastPos();
-            self->window.setVisible(true);
-        }
+            const MessageManagerLock mmLock;
+            static_cast<JuceLv2ExternalUIWrapper*>(widget)->window.repaint();
+        };
+        
+        show = [](LV2_External_UI_Widget* widget)
+        {
+            const MessageManagerLock mmLock;
+            static_cast<JuceLv2ExternalUIWrapper*>(widget)->window.setVisible(false);
+        };
+        
+        hide = [](LV2_External_UI_Widget* widget)
+        {
+            const MessageManagerLock mmLock;
+            static_cast<JuceLv2ExternalUIWrapper*>(widget)->window.setVisible(false);
+        };
     }
     
-    static void doHide (LV2_External_UI_Widget* _this_)
-    {
-        const MessageManagerLock mmLock;
-        JuceLv2ExternalUIWrapper* self = (JuceLv2ExternalUIWrapper*) _this_;
-        
-        if (! self->isClosed())
-        {
-            self->window.saveLastPos();
-            self->window.setVisible(false);
-        }
-    }
+    ~JuceLv2ExternalUIWrapper() = default;
+    
     
 private:
-    JuceLv2ExternalUIWindow window;
+    class InternalWindow : public DocumentWindow
+    {
+    public:
+        InternalWindow (AudioProcessorEditor* editor, LV2_External_UI_Host const* _host, LV2UI_Controller _controller, const String& title)
+        : DocumentWindow (title, Colours::white, DocumentWindow::minimiseButton | DocumentWindow::closeButton, true)
+        , host(_host)
+        , controller(_controller)
+        {
+            setOpaque (true);
+            setContentNonOwned (editor, true);
+            setSize (editor->getWidth(), editor->getHeight());
+            setUsingNativeTitleBar (true);
+        }
+        
+        void closeButtonPressed() override
+        {
+            setVisible(false);
+            host->ui_closed(controller);
+        }
+        
+    private:
+        LV2_External_UI_Host const* host;
+        LV2UI_Controller controller;
+        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (InternalWindow);
+    };
     
+    InternalWindow window;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (JuceLv2ExternalUIWrapper);
 };
 
@@ -321,8 +226,7 @@ private:
 /**
  Juce LV2 UI handle
  */
-class JuceLv2UIWrapper : public AudioProcessorListener,
-public Timer
+class JuceLv2UIWrapper : public AudioProcessorListener
 {
 public:
     JuceLv2UIWrapper (ThreadLocalValue<bool>& inParameterChangedCallback_, AudioProcessor* filter_, LV2UI_Write_Function writeFunction_, LV2UI_Controller controller_,
@@ -375,9 +279,8 @@ public:
                 if (externalUIHost->plugin_human_id != nullptr)
                     title = externalUIHost->plugin_human_id;
                 
-                externalUI = std::make_unique<JuceLv2ExternalUIWrapper>(editor.get(), title);
+                externalUI = std::make_unique<JuceLv2ExternalUIWrapper>(editor.get(), externalUIHost, controller_, title);
                 *widget = externalUI.get();
-                startTimer (100);
             }
             else
             {
@@ -433,15 +336,11 @@ public:
         
         if (isExternal)
         {
-            if (isTimerRunning())
-                stopTimer();
-            
             externalUIHost = nullptr;
             
             if (externalUI != nullptr)
             {
-                lastExternalUIPos = externalUI->getScreenPosition();
-                externalUI->close();
+                externalUI->hide(externalUI.get());
             }
         }
         else
@@ -497,18 +396,6 @@ public:
             uiTouch->touch (uiTouch->handle, parameterIndex + controlPortOffset, false);
     }
     
-    void timerCallback()
-    {
-        if (externalUI != nullptr && externalUI->isClosed())
-        {
-            if (externalUIHost != nullptr)
-                externalUIHost->ui_closed (controller);
-            
-            if (isTimerRunning())
-                stopTimer();
-        }
-    }
-    
     //==============================================================================
     void resetIfNeeded (LV2UI_Write_Function writeFunction_, LV2UI_Controller controller_, LV2UI_Widget* widget,
                         const LV2_Feature* const* features)
@@ -541,16 +428,18 @@ public:
     
     void repaint()
     {
-        const MessageManagerLock mmLock;
-        
-        if (editor != nullptr)
-            editor->repaint();
-        
-        if (parentContainer != nullptr)
-            parentContainer->repaint();
+        {
+            const MessageManagerLock mmLock;
+            
+            if (editor != nullptr)
+                editor->repaint();
+            
+            if (parentContainer != nullptr)
+                parentContainer->repaint();
+        }
         
         if (externalUI != nullptr)
-            externalUI->repaint();
+            externalUI->run(externalUI.get());
     }
     
 private:
@@ -591,20 +480,6 @@ private:
                 externalUIHost = (const LV2_External_UI_Host*)features[i]->data;
                 break;
             }
-        }
-        
-        if (externalUI != nullptr)
-        {
-            String title(filter->getName());
-            
-            if (externalUIHost->plugin_human_id != nullptr)
-                title = externalUIHost->plugin_human_id;
-            
-            if (lastExternalUIPos.getX() != -1 && lastExternalUIPos.getY() != -1)
-                externalUI->setScreenPos(lastExternalUIPos.getX(), lastExternalUIPos.getY());
-            
-            externalUI->reset(title);
-            startTimer (100);
         }
     }
     
@@ -1327,8 +1202,7 @@ public:
     }
     
     //==============================================================================
-    JuceLv2UIWrapper* getUI (LV2UI_Write_Function writeFunction, LV2UI_Controller controller, LV2UI_Widget* widget,
-                             const LV2_Feature* const* features, bool isExternal)
+    JuceLv2UIWrapper* instantiateUI (LV2UI_Write_Function writeFunction, LV2UI_Controller controller, LV2UI_Widget* widget, const LV2_Feature* const* features, bool isExternal)
     {
         const MessageManagerLock mmLock;
         
@@ -1502,19 +1376,17 @@ static const void* juceLV2_ExtensionData (const char* uri)
 //==============================================================================
 // LV2 UI descriptor functions
 
-static LV2UI_Handle juceLV2UI_Instantiate (LV2UI_Write_Function writeFunction, LV2UI_Controller controller,
-                                           LV2UI_Widget* widget, const LV2_Feature* const* features, bool isExternal)
+static LV2UI_Handle juceLV2UI_Instantiate (LV2UI_Write_Function writeFunction, LV2UI_Controller controller, LV2UI_Widget* widget, const LV2_Feature* const* features, bool isExternal)
 {
     for (int i = 0; features[i] != nullptr; ++i)
     {
         if (strcmp(features[i]->URI, LV2_INSTANCE_ACCESS_URI) == 0 && features[i]->data != nullptr)
         {
-            JuceLv2Wrapper* wrapper = (JuceLv2Wrapper*)features[i]->data;
-            return wrapper->getUI(writeFunction, controller, widget, features, isExternal);
+            JuceLv2Wrapper* wrapper = static_cast<JuceLv2Wrapper*>(features[i]->data);
+            return wrapper->instantiateUI(writeFunction, controller, widget, features, isExternal);
         }
     }
     
-    std::cerr << "Host does not support instance-access, cannot use UI" << std::endl;
     return nullptr;
 }
 
