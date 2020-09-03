@@ -121,7 +121,7 @@ void CamomileAudioProcessor::reloadPatch()
     MemoryBlock xml;
     suspendProcessing(true);
     releaseResources();
-    dequeueMessages();
+    sendMessagesFromQueue();
     {
         const MessageManagerLock mmLock;
         getStateInformation(xml);
@@ -273,7 +273,7 @@ void CamomileAudioProcessor::sendMidiBuffer()
 
 void CamomileAudioProcessor::processInternal()
 {
-    dequeueMessages();
+    sendMessagesFromQueue();
     sendPlayhead();
     sendMidiBuffer();
     processMessages();
@@ -444,7 +444,7 @@ void CamomileAudioProcessor::processBlockBypassed (AudioBuffer<float>& buffer, M
 {
     if(m_auto_bypass)
     {
-        dequeueMessages();
+        sendMessagesFromQueue();
         processMessages();
         const int nsamples  = buffer.getNumSamples();
         const int nins      = getTotalNumInputChannels();
@@ -469,7 +469,7 @@ void CamomileAudioProcessor::messageEnqueued()
 {
     if(isNonRealtime() || isSuspended())
     {
-        dequeueMessages();
+        sendMessagesFromQueue();
         processMessages();
     }
     else
@@ -477,7 +477,7 @@ void CamomileAudioProcessor::messageEnqueued()
         const CriticalSection& cs = getCallbackLock();
         if(cs.tryEnter())
         {
-            dequeueMessages();
+            sendMessagesFromQueue();
             processMessages();
             cs.exit();
         }

@@ -73,7 +73,7 @@ namespace pd
         
         virtual void messageEnqueued() {};
         
-        void dequeueMessages();
+        void sendMessagesFromQueue();
         void processMessages();
         void processPrints();
         void processMidi();

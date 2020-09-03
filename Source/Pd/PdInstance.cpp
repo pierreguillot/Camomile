@@ -372,7 +372,7 @@ namespace pd
         messageEnqueued();
     }
     
-    void Instance::dequeueMessages()
+    void Instance::sendMessagesFromQueue()
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
         dmessage mess;
