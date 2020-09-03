@@ -179,6 +179,18 @@ void CamomileAudioProcessor::releaseResources()
     m_audio_advancement = 0;
 }
 
+void CamomileAudioProcessor::sendParameters()
+{
+    auto const& parameters = AudioProcessor::getParameters();
+    for(int i = 0; i < parameters.size(); ++i)
+    {
+        auto const* param = static_cast<CamomileAudioParameter const*>(parameters.getUnchecked(i));
+        m_atoms_param[0] = static_cast<float>(i+1);
+        m_atoms_param[1] = param->convertFrom0to1(param->getValue());
+        sendList("param", m_atoms_param);
+    }
+}
+
 void CamomileAudioProcessor::processInternal()
 {
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -269,24 +281,7 @@ void CamomileAudioProcessor::processInternal()
     //                                  RETRIEVE MESSAGES                                   //
     //////////////////////////////////////////////////////////////////////////////////////////
     processMessages();
-    
-    //////////////////////////////////////////////////////////////////////////////////////////
-    //                                  PARAMETERS                                          //
-    //////////////////////////////////////////////////////////////////////////////////////////
-    {
-        auto const& parameters = AudioProcessor::getParameters();
-        for(int i = 0; i < parameters.size(); ++i)
-        {
-            auto const* param = static_cast<CamomileAudioParameter const*>(parameters.getUnchecked(i));
-            m_atoms_param[0] = static_cast<float>(i+1);
-            m_atoms_param[1] = param->convertFrom0to1(param->getValue());
-            sendList("param", m_atoms_param);
-        }
-    }
-    
-    //////////////////////////////////////////////////////////////////////////////////////////
-    //                                          AUDIO                                       //
-    //////////////////////////////////////////////////////////////////////////////////////////
+    sendParameters();
     performDSP(m_audio_buffer_in.data(), m_audio_buffer_out.data());
     
     //////////////////////////////////////////////////////////////////////////////////////////

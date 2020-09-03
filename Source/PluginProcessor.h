@@ -114,6 +114,7 @@ private:
     
     
     void processInternal();
+    void sendParameters();
     
     typedef moodycamel::ReaderWriterQueue<MessageGui> QueueGui;
     
