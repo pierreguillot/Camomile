@@ -231,14 +231,8 @@ void CamomileAudioProcessor::sendPlayhead()
     }
 }
 
-void CamomileAudioProcessor::processInternal()
+void CamomileAudioProcessor::sendMidiBuffer()
 {
-    dequeueMessages();
-    sendPlayhead();
-
-    //////////////////////////////////////////////////////////////////////////////////////////
-    //                                          MIDI IN                                     //
-    //////////////////////////////////////////////////////////////////////////////////////////
     if(m_accepts_midi)
     {
         for(auto it = m_midi_buffer_in.cbegin(); it != m_midi_buffer_in.cend(); ++it) {
@@ -268,16 +262,20 @@ void CamomileAudioProcessor::processInternal()
                     sendSysRealTime(0, static_cast<int>(message.getRawData()[i]));
                 }
             }
-             
+            
             for(int i = 0; i < message.getRawDataSize(); i++)  {
                 sendMidiByte(0, static_cast<int>(message.getRawData()[i]));
             }
         }
         m_midi_buffer_in.clear();
     }
-    //////////////////////////////////////////////////////////////////////////////////////////
-    //                                  RETRIEVE MESSAGES                                   //
-    //////////////////////////////////////////////////////////////////////////////////////////
+}
+
+void CamomileAudioProcessor::processInternal()
+{
+    dequeueMessages();
+    sendPlayhead();
+    sendMidiBuffer();
     processMessages();
     sendParameters();
     performDSP(m_audio_buffer_in.data(), m_audio_buffer_out.data());
