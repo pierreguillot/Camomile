@@ -1,4 +1,7 @@
 v1.0.7
+- Update Pd version (0.51)
+- Update Juce version (6.0.0)
+- Remove VST2 support
 - Fix PdStalFx - DSP not recompiled (#126)
 - Fix PdStalFx - no loadbang (#126)
 - Fix PdStalFx - undefined when reloaded (#126)
@@ -8,6 +11,21 @@ v1.0.7
 - Fix midiin objects support to output all the midi messages (#134)
 - Fix midiout objects support for 3 bytes messages and system exclusive messages (#134)
 - Fix camomile script to support white space in the path (#136)
+- Fix LV2 plugin freeze on Linux (#183)
+- Add support for manufacturer (#152)
+- Fix support for Logic X (#166)
+- Fix default display of parameters of Audio Unit (#153)
+- Fix expr objects on Windows (#139)
+- Fix MIDI in support for LV2 plugins (#160)
+- Fix object position and margin of GOP (#130)
+- Improved dynamic parching support (#128)
+- Fix LV2 parameters crash on Ardour (#188)
+- Add parameter range support for LV2 (#188)
+- Add parameter label support for LV2 (#188)
+- Fix one LV2 plugin instance limitation on macOS
+- Update AlmondOrgan example
+- Add a release bundle with pre-compiled examples
+- Minor fixes and improvements
 
 v1.0.6
 - Add LV2 format support (#70)

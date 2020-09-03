@@ -8,6 +8,9 @@
 #include "PdInstance.hpp"
 extern "C"
 {
+#include <z_libpd.h>
+#include <m_pd.h>
+#include <g_canvas.h>
 #include "x_libpd_extra_utils.h"
 }
 
@@ -60,9 +63,28 @@ namespace pd
             int x = 0, y = 0, w = 0, h = 0;
             m_instance->setThis();
             libpd_get_object_bounds(m_patch, m_ptr, &x, &y, &w, &h);
+            
+            t_canvas const* cnv = static_cast<t_canvas*>(m_patch);
+            if(cnv != nullptr)
+            {
+                x -= cnv->gl_xmargin;
+                y -= cnv->gl_ymargin;
+            }
+
             return {x, y, w, h};
         }
         return {0, 0, 0, 0};
+    }
+    
+    
+    bool Object::operator==(Object const& other) const noexcept
+    {
+        return m_ptr == other.m_ptr;
+    }
+    
+    bool Object::operator!=(Object const& other) const noexcept
+    {
+        return m_ptr != other.m_ptr;
     }
 }
 

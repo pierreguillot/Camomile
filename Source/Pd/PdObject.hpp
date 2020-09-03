@@ -34,6 +34,12 @@ namespace pd
         //! @brief The copy operator.
         Object& operator=(Object const& other) noexcept = default;
         
+        //! @brief The compare equal operator.
+        bool operator==(Object const& other) const noexcept;
+        
+        //! @brief The compare unequal operator.
+        bool operator!=(Object const& other) const noexcept;
+        
         //! @brief The destructor.
         virtual ~Object() noexcept = default;
         

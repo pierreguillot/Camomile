@@ -1,3 +1,5 @@
+#pragma code_page(65001)
+
 #ifdef JUCE_USER_DEFINED_RC_FILE
  #include JUCE_USER_DEFINED_RC_FILE
 #else
@@ -7,7 +9,7 @@
 #include <windows.h>
 
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION  1,0,6,0
+FILEVERSION  1,0,7,0
 BEGIN
   BLOCK "StringFileInfo"
   BEGIN
@@ -16,9 +18,9 @@ BEGIN
       VALUE "CompanyName",  "Pierre Guillot\0"
       VALUE "LegalCopyright",  "Pierre Guillot\0"
       VALUE "FileDescription",  "CamomileLV2\0"
-      VALUE "FileVersion",  "1.0.6\0"
+      VALUE "FileVersion",  "1.0.7\0"
       VALUE "ProductName",  "CamomileLV2\0"
-      VALUE "ProductVersion",  "1.0.6\0"
+      VALUE "ProductVersion",  "1.0.7\0"
     END
   END
 

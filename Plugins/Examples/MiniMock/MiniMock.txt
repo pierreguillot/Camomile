@@ -1,8 +1,9 @@
 code zWry;
 type instrument;
 midiin true;
-compatibility 1.0.5;
+compatibility 1.0.7;
 iolayout 0 2;
+manufacturer Pierre Guillot;
 description Infos.txt;
 param -name OSC1 Waveform -list Triangular/Sawtooth Triangular/Sawtooth/Square/Wide Rectangular/Narrow Rectangular/Reverse Sawtooth;
 param -name OSC1 Octave -min -3 -max 3 -default 0 -nsteps 7;

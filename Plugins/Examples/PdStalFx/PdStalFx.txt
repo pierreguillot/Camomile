@@ -5,7 +5,8 @@ midiin true;
 midiout true;
 midionly false;
 playhead true;
-compatibility 1.0.6;
+compatibility 1.0.7;
+manufacturer Pierre Guillot;
 
 param -name Param-1;
 param -name Param-2;

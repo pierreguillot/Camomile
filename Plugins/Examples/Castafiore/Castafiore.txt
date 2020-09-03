@@ -8,4 +8,5 @@ code zUrt;
 type effect;
 image Castafiore.png;
 description Infos.txt;
-compatibility 1.0.5;
+manufacturer Pierre Guillot;
+compatibility 1.0.7;

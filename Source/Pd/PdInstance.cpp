@@ -246,25 +246,25 @@ namespace pd
     //////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     
-    void Instance::sendBang(std::string const& receiver) const
+    void Instance::sendBang(const char* receiver) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        libpd_bang(receiver.c_str());
+        libpd_bang(receiver);
     }
     
-    void Instance::sendFloat(std::string const& receiver, float const value) const
+    void Instance::sendFloat(const char* receiver, float const value) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        libpd_float(receiver.c_str(), value);
+        libpd_float(receiver, value);
     }
     
-    void Instance::sendSymbol(std::string const& receiver, std::string const& symbol) const
+    void Instance::sendSymbol(const char* receiver, const char* symbol) const
     {
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
-        libpd_symbol(receiver.c_str(), symbol.c_str());
+        libpd_symbol(receiver, symbol);
     }
     
-    void Instance::sendList(std::string const& receiver, const std::vector<Atom>& list) const
+    void Instance::sendList(const char* receiver, const std::vector<Atom>& list) const
     {
         t_atom* argv = static_cast<t_atom*>(m_atoms);
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
@@ -275,10 +275,10 @@ namespace pd
             else
                 libpd_set_symbol(argv+i, list[i].getSymbol().c_str());
         }
-        libpd_list(receiver.c_str(), (int)list.size(), argv);
+        libpd_list(receiver, (int)list.size(), argv);
     }
     
-    void Instance::sendMessage(std::string const& receiver, const std::string& msg, const std::vector<Atom>& list) const
+    void Instance::sendMessage(const char* receiver, const char* msg, const std::vector<Atom>& list) const
     {
         t_atom* argv = static_cast<t_atom*>(m_atoms);
         libpd_set_instance(static_cast<t_pdinstance *>(m_instance));
@@ -289,7 +289,7 @@ namespace pd
             else
                 libpd_set_symbol(argv+i, list[i].getSymbol().c_str());
         }
-        libpd_message(receiver.c_str(), msg.c_str(), (int)list.size(), argv);
+        libpd_message(receiver, msg, (int)list.size(), argv);
     }
     
     void Instance::processMessages()
@@ -297,13 +297,13 @@ namespace pd
         Message mess;
         while(m_message_queue.try_dequeue(mess))
         {
-            if(mess.selector == std::string("bang"))
+            if(mess.selector == "bang")
                 receiveBang();
-            else if(mess.selector == std::string("float"))
+            else if(mess.selector == "float")
                 receiveFloat(mess.list[0].getFloat());
-            else if(mess.selector == std::string("symbol"))
+            else if(mess.selector == "symbol")
                 receiveSymbol(mess.list[0].getSymbol());
-            else if(mess.selector == std::string("list"))
+            else if(mess.selector == "list")
                 receiveList(mess.list);
             else
                 receiveMessage(mess.selector, mess.list);
@@ -395,7 +395,7 @@ namespace pd
             }
             else
             {
-                sendMessage(mess.destination, mess.selector, mess.list);
+                sendMessage(mess.destination.c_str(), mess.selector.c_str(), mess.list);
             }
         }
     }

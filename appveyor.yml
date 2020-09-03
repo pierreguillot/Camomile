@@ -51,10 +51,7 @@ build_script:
 
 after_build:
     - cd %APPVEYOR_BUILD_FOLDER%
-    - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST\Camomile.dll %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.dll
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\Camomile.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.vst3
-    - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST\CamomileFx.dll %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileFx.dll
-    - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\CamomileFx.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileFx.vst3
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\CamomileFx.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileFx.vst3
     - copy %APPVEYOR_BUILD_FOLDER%\Plugins\"Dynamic Library"\CamomileLV2.dll %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileLV2.dll
     - copy %APPVEYOR_BUILD_FOLDER%\README.md %APPVEYOR_BUILD_FOLDER%\Plugins\README.md
@@ -63,10 +60,17 @@ after_build:
     - del %APPVEYOR_BUILD_FOLDER%\Plugins\camomile /Q
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\"Dynamic Library"\ /S /Q
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\"Shared Code"\ /S /Q
-    - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST\ /S /Q
     - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\ /S /Q
     - rename %APPVEYOR_BUILD_FOLDER%\Plugins Camomile
     - 7z a %ZIPFILE%.zip %APPVEYOR_BUILD_FOLDER%\Camomile\
+    - Xcopy %APPVEYOR_BUILD_FOLDER%\Camomile\Examples %APPVEYOR_BUILD_FOLDER%\Examples /E /I
+    - copy %APPVEYOR_BUILD_FOLDER%\Camomile\Camomile.vst3 %APPVEYOR_BUILD_FOLDER%\Examples\AlmondOrgan\AlmondOrgan.vst3
+    - copy %APPVEYOR_BUILD_FOLDER%\Camomile\CamomileFx.vst3 %APPVEYOR_BUILD_FOLDER%\Examples\Bulgroz\Bulgroz.vst3
+    - copy %APPVEYOR_BUILD_FOLDER%\Camomile\CamomileFx.vst3 %APPVEYOR_BUILD_FOLDER%\Examples\Castafiore\Castafiore.vst3
+    - copy %APPVEYOR_BUILD_FOLDER%\Camomile\Camomile.vst3 %APPVEYOR_BUILD_FOLDER%\Examples\MiniMock\MiniMock.vst3
+    - copy %APPVEYOR_BUILD_FOLDER%\Camomile\Camomile.vst3 %APPVEYOR_BUILD_FOLDER%\Examples\PdStal\PdStal.vst3
+    - copy %APPVEYOR_BUILD_FOLDER%\Camomile\CamomileFx.vst3 %APPVEYOR_BUILD_FOLDER%\Examples\PdStalFx\PdStalFx.vst3
+    - 7z a %ZIPFILE%-examples.zip %APPVEYOR_BUILD_FOLDER%\Examples\
 
 artifacts:
   - path: '*.zip'
@@ -77,7 +81,7 @@ deploy:
   overwrite: true
   draft: true
   auth_token:
-    secure: dOi2z1hWIXjc8+TuIZOviwwdVx94sbDnvu/n+70AUcs9tKivL6AoX37oEN2TGigE
+    secure: FQkZgYP0Sdct7NPGZ1NgXLin1lO6VEoYUdGKcLAyAn7eqvSVi5UuivpKwtjU/kDD
   artifact: /.*\.zip/
   on:
     appveyor_repo_tag: true

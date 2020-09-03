@@ -117,11 +117,11 @@ unsigned int CamomileParser::getHexadecimalCode(std::string const& value)
     throw std::string("is empty");
 }
 
-std::string const& CamomileParser::getString(std::string const& value)
+std::string CamomileParser::getString(std::string const& value)
 {
     if(!value.empty())
     {
-        return value;
+        return value.substr(0, value.find_last_not_of(" \t") + 1);
     }
     throw std::string("is empty");
 }

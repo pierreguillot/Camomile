@@ -6,6 +6,83 @@
 
 #include "PluginEditorObject.hpp"
 #include "PluginLookAndFeel.hpp"
+#include <algorithm>
+
+//////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////     PATCH              ////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+GuiPatch::GuiPatch(CamomileEditorMouseManager& processor, pd::Patch patch) : m_processor(processor), m_patch(patch)
+{
+    setInterceptsMouseClicks(false, true);
+    updateSize();
+    updateObjects();
+}
+
+void GuiPatch::updateObjects()
+{
+    auto guis = m_patch.getGuis();
+    auto isObjectDeprecated = [&](object_pair const& pair)
+    {
+        return pair.first != nullptr && std::find(guis.begin(), guis.end(), pair.first->getGUI()) == guis.end();
+    };
+    m_objects.erase(std::remove_if(m_objects.begin(), m_objects.end(), isObjectDeprecated), m_objects.end());
+    
+    for(auto& gui : guis)
+    {
+        auto it = std::find_if(m_objects.begin(), m_objects.end(), [&gui](object_pair const& pair)
+                               {
+            return pair.first != nullptr && pair.first->getGUI() == gui;
+        });
+        if(it == m_objects.end())
+        {
+            object_uptr object(PluginEditorObject::createTyped(m_processor, gui));
+            if(object != nullptr)
+            {
+                addAndMakeVisible(object.get());
+                auto label = object->getLabel();
+                if(label != nullptr)
+                {
+                    addAndMakeVisible(label.get());
+                }
+                m_objects.push_back({std::move(object), std::move(label)});
+            }
+        }
+        else
+        {
+            it->first->updateInterface();
+            auto label = it->first->getLabel();
+            if(label != nullptr)
+            {
+                addAndMakeVisible(label.get());
+            }
+            it->second = std::move(label);
+        }
+    }
+}
+
+void GuiPatch::updateSize()
+{
+    auto const bounds = m_patch.getBounds();
+    int const width  = bounds[2] > 0 ? std::max(bounds[2], 100) : 400;
+    int const height = bounds[3] > 0 ? std::max(bounds[3], 100) : 300;
+    setSize(width, height);
+}
+
+void GuiPatch::updateObjectsValues()
+{
+    for(auto const& object : m_objects)
+    {
+        if(object.first != nullptr)
+        {
+            object.first->updateValue();
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////     Object              ////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
 
 PluginEditorObject* PluginEditorObject::createTyped(CamomileEditorMouseManager& p, pd::Gui& g)
 {
@@ -67,9 +144,8 @@ PluginEditorObject* PluginEditorObject::createTyped(CamomileEditorMouseManager& 
 PluginEditorObject::PluginEditorObject(CamomileEditorMouseManager& p, pd::Gui& g) : gui(g), patch(p), edited(false),
 value(g.getValue()), min(g.getMinimum()), max(g.getMaximum())
 {
-    std::array<int, 4> const bounds(gui.getBounds());
-    setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
     setOpaque(false);
+    updateInterface();
 }
 
 PluginEditorObject::~PluginEditorObject() {}
@@ -110,7 +186,7 @@ void PluginEditorObject::stopEdition() noexcept
     patch.stopEdition();
 }
 
-void PluginEditorObject::update()
+void PluginEditorObject::updateValue()
 {
     if(edited == false)
     {
@@ -123,13 +199,24 @@ void PluginEditorObject::update()
     }
 }
 
-Label* PluginEditorObject::getLabel()
+void PluginEditorObject::updateInterface()
+{
+    std::array<int, 4> const bounds(gui.getBounds());
+    setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
+    repaint();
+}
+
+std::unique_ptr<Label> PluginEditorObject::getLabel()
 {
     pd::Label const lbl = gui.getLabel();
     const String text = String(lbl.getText());
     if(text.isNotEmpty())
     {
-        Label* label = new Label();
+        auto label = std::make_unique<Label>();
+        if(label == nullptr)
+        {
+            return nullptr;
+        }
         const Font ft = CamoLookAndFeel::getFont(lbl.getFontName()).withPointHeight(static_cast<float>(lbl.getFontHeight()));
         const int width = ft.getStringWidth(text) + 1;
         const int height = ft.getHeight();
@@ -148,6 +235,10 @@ Label* PluginEditorObject::getLabel()
     return nullptr;
 }
 
+pd::Gui PluginEditorObject::getGUI()
+{
+    return gui;
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////     BANG        /////////////////////////////////////
@@ -463,17 +554,16 @@ GuiTextEditor::GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g) : Plugin
     const float fs = static_cast<float>(gui.getFontHeight());
     Font const tf = CamoLookAndFeel::getDefaultFont().withPointHeight(fs);
     
-    label = new Label();
-    label->setBounds(2, 0, getWidth() - 2, getHeight() - 1);
-    label->setFont(tf);
-    label->setMinimumHorizontalScale(1.f);
-    label->setJustificationType(Justification::centredLeft);
-    label->setBorderSize(BorderSize<int>(border+2, border, border, border));
-    label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
-    label->setEditable(false, false);
-    label->setInterceptsMouseClicks(false, false);
-    label->addListener(this);
-    label->setColour(Label::textColourId, Colour(static_cast<uint32>(gui.getForegroundColor())));
+    label.setBounds(2, 0, getWidth() - 2, getHeight() - 1);
+    label.setFont(tf);
+    label.setMinimumHorizontalScale(1.f);
+    label.setJustificationType(Justification::centredLeft);
+    label.setBorderSize(BorderSize<int>(border+2, border, border, border));
+    label.setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+    label.setEditable(false, false);
+    label.setInterceptsMouseClicks(false, false);
+    label.addListener(this);
+    label.setColour(Label::textColourId, Colour(static_cast<uint32>(gui.getForegroundColor())));
     setInterceptsMouseClicks(true, false);
     addAndMakeVisible(label);
 }
@@ -500,7 +590,7 @@ void GuiTextEditor::editorHidden(Label*, TextEditor&)
     stopEdition();
 }
 
-void GuiTextEditor::update()
+void GuiTextEditor::updateValue()
 {
     if(edited == false)
     {
@@ -508,7 +598,7 @@ void GuiTextEditor::update()
         if(v != value)
         {
             value = v;
-            label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+            label.setText(String(getValueOriginal()), NotificationType::dontSendNotification);
         }
     }
 }
@@ -522,8 +612,8 @@ GuiNumber::GuiNumber(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(
 {
     const float w = static_cast<float>(getWidth());
     const float h = static_cast<float>(getHeight());
-    label->setBounds(static_cast<int>(h * 0.5f), static_cast<int>(0.5f),
-                     static_cast<int>(w - h * 0.5f), static_cast<int>(h));
+    label.setBounds(static_cast<int>(h * 0.5f), static_cast<int>(0.5f),
+                    static_cast<int>(w - h * 0.5f), static_cast<int>(h));
 }
 
 void GuiNumber::paint(Graphics& g)
@@ -549,7 +639,7 @@ void GuiNumber::paint(Graphics& g)
 
 void GuiNumber::mouseDown(const MouseEvent& event)
 {
-    if(!label->hasKeyboardFocus(true))
+    if(!label.hasKeyboardFocus(true))
     {
         startEdition();
         shift = event.mods.isShiftDown();
@@ -559,7 +649,7 @@ void GuiNumber::mouseDown(const MouseEvent& event)
 
 void GuiNumber::mouseUp(const MouseEvent& e)
 {
-    if(!label->hasKeyboardFocus(true))
+    if(!label.hasKeyboardFocus(true))
     {
         stopEdition();
     }
@@ -580,15 +670,15 @@ void GuiNumber::mouseDrag(const MouseEvent& e)
     {
         setValueOriginal(last + inc);
     }
-    label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+    label.setText(String(getValueOriginal()), NotificationType::dontSendNotification);
 }
 
 void GuiNumber::mouseDoubleClick(const MouseEvent&)
 {
     startEdition();
-    label->grabKeyboardFocus();
-    label->showEditor();
-    TextEditor* editor = label->getCurrentTextEditor();
+    label.grabKeyboardFocus();
+    label.showEditor();
+    TextEditor* editor = label.getCurrentTextEditor();
     if(editor)
     {
         editor->setIndents(0, 2);
@@ -630,9 +720,9 @@ void GuiAtomNumber::mouseDown(const MouseEvent& event)
     {
         startEdition();
         setValueOriginal(static_cast<float>(getValueOriginal() <= std::numeric_limits<float>::epsilon()));
-        label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+        label.setText(String(getValueOriginal()), NotificationType::dontSendNotification);
     }
-    else if(!label->hasKeyboardFocus(true))
+    else if(!label.hasKeyboardFocus(true))
     {
         startEdition();
         shift = event.mods.isShiftDown();
@@ -642,7 +732,7 @@ void GuiAtomNumber::mouseDown(const MouseEvent& event)
 
 void GuiAtomNumber::mouseUp(const MouseEvent& e)
 {
-    if(gui.getNumberOfSteps() == 1 || !label->hasKeyboardFocus(true))
+    if(gui.getNumberOfSteps() == 1 || !label.hasKeyboardFocus(true))
     {
         stopEdition();
     }
@@ -665,7 +755,7 @@ void GuiAtomNumber::mouseDrag(const MouseEvent& e)
         {
             setValueOriginal(last + inc);
         }
-        label->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+        label.setText(String(getValueOriginal()), NotificationType::dontSendNotification);
     }
 }
 
@@ -674,9 +764,9 @@ void GuiAtomNumber::mouseDoubleClick(const MouseEvent&)
     if(!gui.getNumberOfSteps())
     {
         startEdition();
-        label->grabKeyboardFocus();
-        label->showEditor();
-        TextEditor* editor = label->getCurrentTextEditor();
+        label.grabKeyboardFocus();
+        label.showEditor();
+        TextEditor* editor = label.getCurrentTextEditor();
         if(editor)
         {
             editor->setIndents(1, 2);
@@ -691,7 +781,7 @@ void GuiAtomNumber::mouseDoubleClick(const MouseEvent&)
 
 GuiAtomSymbol::GuiAtomSymbol(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(p, g), last(gui.getSymbol())
 {
-    label->setText(String(last), NotificationType::dontSendNotification);
+    label.setText(String(last), NotificationType::dontSendNotification);
 }
 
 void GuiAtomSymbol::paint(Graphics& g)
@@ -716,9 +806,9 @@ void GuiAtomSymbol::paint(Graphics& g)
 void GuiAtomSymbol::mouseDoubleClick(const MouseEvent&)
 {
     startEdition();
-    label->grabKeyboardFocus();
-    label->showEditor();
-    TextEditor* editor = label->getCurrentTextEditor();
+    label.grabKeyboardFocus();
+    label.showEditor();
+    TextEditor* editor = label.getCurrentTextEditor();
     if(editor)
     {
         editor->setIndents(1, 2);
@@ -737,7 +827,7 @@ void GuiAtomSymbol::labelTextChanged(Label* lbl)
     }
 }
 
-void GuiAtomSymbol::update()
+void GuiAtomSymbol::updateValue()
 {
     if(edited == false)
     {
@@ -745,7 +835,7 @@ void GuiAtomSymbol::update()
         if(v != last)
         {
             last = v;
-            label->setText(String(last), NotificationType::dontSendNotification);
+            label.setText(String(last), NotificationType::dontSendNotification);
         }
     }
 }
@@ -762,16 +852,16 @@ void GuiArray::resized()
 {
     m_array.setBounds(getLocalBounds());
 }
-
+    
 //////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////     GOP               /////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
-GuiGraphOnParent::GuiGraphOnParent(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g)
+GuiGraphOnParent::GuiGraphOnParent(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g), m_patch(p, g.getPatch())
 {
     setInterceptsMouseClicks(false, true);
     edited = true;
-    resized();
+    addAndMakeVisible(m_patch);
 }
 
 void GuiGraphOnParent::paint(Graphics& g)
@@ -780,30 +870,15 @@ void GuiGraphOnParent::paint(Graphics& g)
     g.drawRect(getLocalBounds(), 1);
 }
 
-void GuiGraphOnParent::resized()
+void GuiGraphOnParent::updateValue()
 {
-    m_labels.clear();
-    m_objects.clear();
-    const auto bounds = getLocalBounds().expanded(1);
-    for(auto& g : gui.getPatch().getGuis())
-    {
-        PluginEditorObject* obj = PluginEditorObject::createTyped(patch, g);
-        if(obj && bounds.contains(obj->getBounds()))
-        {
-            Component* label = obj->getLabel();
-            addAndMakeVisible(m_objects.add(obj));
-            if(label)
-            {
-                addAndMakeVisible(m_labels.add(label));
-            }
-        }
-    }
+    m_patch.updateObjectsValues();
 }
 
-void GuiGraphOnParent::update()
+void GuiGraphOnParent::updateInterface()
 {
-    for(auto object : m_objects) {
-        object->update(); }
+    PluginEditorObject::updateInterface();
+    m_patch.updateObjects();
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////

@@ -47,6 +47,10 @@ const char* CamomileEnvironment::getPluginDescriptionUTF8() { return get().plugi
 
 std::string CamomileEnvironment::getPluginDescription() { return get().plugin_desc; }
 
+const char* CamomileEnvironment::getPluginManufacturerUTF8() { return get().plugin_manufacturer.c_str(); }
+
+std::string CamomileEnvironment::getPluginManufacturer() { return get().plugin_manufacturer; }
+
 bool CamomileEnvironment::isValid() { return get().valid; }
 
 std::string CamomileEnvironment::getPdVersion() {
@@ -113,7 +117,8 @@ bool CamomileEnvironment::localize()
     if(plugin.exists() && (plugin.hasFileExtension("component") ||
                            plugin.hasFileExtension("vst") ||
                            plugin.hasFileExtension("vst3") ||
-                           plugin.hasFileExtension("dylib") ))
+                           plugin.hasFileExtension("dylib") ||
+                           plugin.hasFileExtension("bundle") ))
     {
         
         plugin_name = plugin.getFileNameWithoutExtension().toStdString();
@@ -131,7 +136,8 @@ bool CamomileEnvironment::localize()
         if(plugin.exists() && (plugin.hasFileExtension("component") ||
                                plugin.hasFileExtension("vst") ||
                                plugin.hasFileExtension("vst3")  ||
-                               plugin.hasFileExtension("dylib") ))
+                               plugin.hasFileExtension("dylib") ||
+                               plugin.hasFileExtension("bundle") ))
         {
             errors.clear();
             plugin_name = plugin.getFileNameWithoutExtension().toStdString();
@@ -213,6 +219,7 @@ CamomileEnvironment::CamomileEnvironment()
 {
     if(localize())
     {
+        DBG("Camomile: " + plugin_name);
         std::string const sep = String(File::getSeparatorString()).toStdString();
         std::string const ext = std::string(".txt");
         File file(patch_path + sep + plugin_name + ext);
@@ -327,6 +334,13 @@ CamomileEnvironment::CamomileEnvironment()
                                 throw std::string("already defined");
                             plugin_desc = CamomileParser::getString(entry.second);
                             state.set(init_desc);
+                        }
+                        else if(entry.first == "manufacturer")
+                        {
+                            if(state.test(init_manufacturer))
+                                throw std::string("already defined");
+                            plugin_manufacturer = CamomileParser::getString(entry.second);
+                            state.set(init_manufacturer);
                         }
                         else if(entry.first == "compatibility")
                         {

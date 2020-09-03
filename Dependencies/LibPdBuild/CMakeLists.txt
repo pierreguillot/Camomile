@@ -9,23 +9,9 @@ project(libpd C)
 # CMAKE MAC OS SPECIFIC
 #------------------------------------------------------------------------------#
 
-if(CMAKE_GENERATOR STREQUAL Xcode)
-	if(XCODE_VERSION VERSION_LESS "10.0")
-		set(XCODE_32BIT_LIMITATION OFF)
-	else()
-		set(XCODE_32BIT_LIMITATION ON)
-		message("32 bit limitation")
-	endif()
-endif()
-
 set(CMAKE_OSX_DEPLOYMENT_TARGET 10.7)
 set(CMAKE_MACOSX_RPATH ON)
-
-if(XCODE_32BIT_LIMITATION)
-	set(CMAKE_OSX_ARCHITECTURES "i386;x86_64")
-else()
-	set(CMAKE_OSX_ARCHITECTURES "x86_64")
-endif()
+set(CMAKE_OSX_ARCHITECTURES "x86_64")
 
 set(LIBPD_PATH "${PROJECT_SOURCE_DIR}/../LibPd")
 set(LIBPD_OUTPUT_DIRECTORY "./..")
@@ -93,6 +79,7 @@ file(GLOB PD_SOURCES
     ${LIBPD_PATH}/pure-data/src/g_canvas.c
     ${LIBPD_PATH}/pure-data/src/g_canvas.h
     ${LIBPD_PATH}/pure-data/src/g_clone.c
+		${LIBPD_PATH}/pure-data/src/g_editor_extras.c
     ${LIBPD_PATH}/pure-data/src/g_editor.c
     ${LIBPD_PATH}/pure-data/src/g_graph.c
     ${LIBPD_PATH}/pure-data/src/g_guiconnect.c
@@ -108,6 +95,8 @@ file(GLOB PD_SOURCES
     ${LIBPD_PATH}/pure-data/src/g_text.c
     ${LIBPD_PATH}/pure-data/src/g_toggle.c
     ${LIBPD_PATH}/pure-data/src/g_traversal.c
+		${LIBPD_PATH}/pure-data/src/g_undo.c
+		${LIBPD_PATH}/pure-data/src/g_undo.h
     ${LIBPD_PATH}/pure-data/src/g_vdial.c
     ${LIBPD_PATH}/pure-data/src/g_vslider.c
     ${LIBPD_PATH}/pure-data/src/g_vumeter.c
@@ -127,6 +116,8 @@ file(GLOB PD_SOURCES
     ${LIBPD_PATH}/pure-data/src/s_inter.c
     ${LIBPD_PATH}/pure-data/src/s_loader.c
     ${LIBPD_PATH}/pure-data/src/s_main.c
+		${LIBPD_PATH}/pure-data/src/s_net.c
+		${LIBPD_PATH}/pure-data/src/s_net.h
     ${LIBPD_PATH}/pure-data/src/s_path.c
     ${LIBPD_PATH}/pure-data/src/s_print.c
     ${LIBPD_PATH}/pure-data/src/s_stuff.h
@@ -329,17 +320,6 @@ endif()
 #------------------------------------------------------------------------------#
 set(THREADS_PREFER_PTHREAD_FLAG On)
 set(CMAKE_THREAD_PREFER_PTHREAD True)
-if(NOT XCODE_32BIT_LIMITATION)
-	find_package(Threads REQUIRED)
-
-	if(LIBPD_INCLUDE_DYNAMIC_LIBRARY)
-	  target_link_libraries(libpdshared Threads::Threads)
-	endif()
-	if(LIBPD_INCLUDE_STATIC_LIBRARY)
-	  target_link_libraries(libpdstatic Threads::Threads)
-	endif()
-endif()
-
 
 if(MSVC)
     link_directories(${PROJECT_SOURCE_DIR}/pure-data)

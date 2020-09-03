@@ -12,11 +12,17 @@
 #define JucePlugin_Name CamomileEnvironment::getPluginNameUTF8()
 #define JucePlugin_PluginCode CamomileEnvironment::getPluginCode()
 #define JucePlugin_Desc CamomileEnvironment::getPluginDescriptionUTF8()
-#define JucePlugin_LV2URI (juce::String("http://github.com/pierreguillot/Camomile/") + juce::String(JucePlugin_Name)).toUTF8()
-#ifndef  JucePlugin_Manufacturer
-#define JucePlugin_Manufacturer           "Pierre Guillot"
-#endif
-
+#define JucePlugin_LV2URI (juce::String("urn:Camomile:") + juce::String(JucePlugin_Name)).toUTF8()
+#define JucePlugin_Manufacturer CamomileEnvironment::getPluginManufacturerUTF8()
 #ifndef JucePlugin_Build_LV2
 #define JucePlugin_Build_LV2 0
 #endif
+
+#define JUCE_DONT_DECLARE_PROJECTINFO 1
+namespace ProjectInfo
+{
+    const char* const  projectName    = CamomileEnvironment::getPluginNameUTF8();
+    const char* const  companyName    = CamomileEnvironment::getPluginManufacturerUTF8();
+    const char* const  versionString  = "1.0.7";
+    const int          versionNumber  = 0x10007;
+}

@@ -25,69 +25,24 @@ AudioProcessorEditor (&p), CamomileEditorInteractionManager(p), m_processor (p),
                         "background image " + CamomileEnvironment::getImageName() +
                         " is invalid or doesn't exist.");
     }
-    updatePatch();
     addAndMakeVisible(m_button);
+    m_button.setAlwaysOnTop(true);
+    reloadPatch();
     startTimer(25);
 }
 
 CamomileEditor::~CamomileEditor() {}
 
-void CamomileEditor::updatePatch()
-{
-    auto const bounds = m_processor.getPatch().getBounds();
-    int const width  = bounds[2] > 0 ? std::max(bounds[2], 100) : 400;
-    int const height = bounds[3] > 0 ? std::max(bounds[3], 100) : 300;
-    if(width != getWidth() || height != getHeight())
-    {
-        setSize(width, height);
-        if(m_image.getImage().isValid())
-        {
-            m_image.setTransformToFit(getBounds().toType<float>(), RectanglePlacement::fillDestination + RectanglePlacement::xLeft + RectanglePlacement::yTop);
-            if(!m_image.isVisible())
-            {
-                addAndMakeVisible(m_image, 0);
-            }
-        }
-    }
-    updateObjects();
-}
-
-void CamomileEditor::updateObjects()
-{
-    m_labels.clear();
-    m_objects.clear();
-    auto const pbounds = m_processor.getPatch().getBounds();
-    const auto bounds = getLocalBounds().expanded(2).translated(1, 1);
-    for(auto& gui : m_processor.getPatch().getGuis())
-    {
-        PluginEditorObject* obj = PluginEditorObject::createTyped(*this, gui);
-        if(obj)
-        {
-            obj->setTopLeftPosition(obj->getX() - pbounds[0], obj->getY() - pbounds[1]);
-            if(bounds.contains(obj->getBounds()))
-            {
-                Component* label = obj->getLabel();
-                addAndMakeVisible(m_objects.add(obj));
-                if(label)
-                {
-                    addAndMakeVisible(m_labels.add(label));
-                }
-            }
-        }
-    }
-}
-
 void CamomileEditor::timerCallback()
 {
     CamomileEditorMessageManager::processMessages();
-    for(auto object : m_objects)
+    if(m_patch != nullptr)
     {
-        object->update();
+        m_patch->updateObjectsValues();
     }
 }
 
-
-void CamomileEditor::paint (Graphics& g)
+void CamomileEditor::paint(Graphics& g)
 {
     g.fillAll(Colours::white);
     if(!CamomileEnvironment::isValid())
@@ -99,6 +54,18 @@ void CamomileEditor::paint (Graphics& g)
     {
         g.setColour(Colours::black);
         g.drawText("No Graphical User Interface Available", 0, 0, getWidth(), getHeight(), juce::Justification::centred);
+    }
+}
+
+void CamomileEditor::resized()
+{
+    if(m_image.getImage().isValid())
+    {
+        m_image.setTransformToFit(getBounds().toType<float>(), RectanglePlacement::fillDestination + RectanglePlacement::xLeft + RectanglePlacement::yTop);
+        if(!m_image.isVisible())
+        {
+            addAndMakeVisible(m_image, 0);
+        }
     }
 }
 
@@ -127,13 +94,28 @@ void CamomileEditor::modifierKeysChanged(const ModifierKeys& modifiers)
 
 void CamomileEditor::guiResize()
 {
-    updatePatch();
+    if(m_patch != nullptr)
+    {
+        m_patch->updateSize();
+        setSize(m_patch->getWidth(), m_patch->getHeight());
+    }
 }
 
 void CamomileEditor::guiRedraw()
 {
-    updateObjects();
+    if(m_patch != nullptr)
+    {
+        m_patch->updateObjects();
+    }
 }
 
-
-
+void CamomileEditor::reloadPatch()
+{
+    m_patch = std::make_unique<GuiPatch>(*this, m_processor.getPatch());
+    guiResize();
+    if(m_patch)
+    {
+        m_patch->setTopLeftPosition(0, 0);
+        addAndMakeVisible(m_patch.get());
+    }
+}

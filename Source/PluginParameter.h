@@ -13,7 +13,7 @@
 //                                      PARAMETER                                           //
 // ======================================================================================== //
 
-class CamomileAudioParameter : public AudioProcessorParameter
+class CamomileAudioParameter : public RangedAudioParameter
 {
 public:
     CamomileAudioParameter(const String& name, const String& label,
@@ -27,43 +27,26 @@ public:
     
     ~CamomileAudioParameter();
     
-    String getName(int maximumStringLength) const final;
-    String getLabel() const final;
+    NormalisableRange<float> const& getNormalisableRange() const override;
     
-    float getValue() const final;
-    float getOriginalScaledValue() const;
-    
-    void setValue(float newValue) final;
-    void setOriginalScaledValue(float newValue);
-    void setOriginalScaledValueNotifyingHost(float newValue);
-    
-    float getDefaultValue() const final;
-    int getNumSteps() const final;
-    
-    bool isDiscrete() const final;
-    String getText(float value, int maximumStringLength) const final;
-    float getValueForText(const String& text) const final;
-    
-    bool isOrientationInverted() const final;
-    bool isAutomatable() const final;
-    bool isMetaParameter() const final;
-    
-    bool isNumeric() const { return m_elements.isEmpty(); }
-    bool isList() const { return !m_elements.isEmpty(); }
+    float getValue() const override;
+    void setValue(float newValue) override;
+    float getDefaultValue() const override;
+    String getText(float value, int maximumStringLength) const override;
+    float getValueForText(const String& text) const override;
+    bool isDiscrete() const override;
+    bool isOrientationInverted() const override;
+    bool isAutomatable() const override;
+    bool isMetaParameter() const override;
     
     static CamomileAudioParameter* parse(const std::string& definition);
-    static void saveStateInformation(XmlElement& xml, OwnedArray<AudioProcessorParameter> const& parameters);
-    static void loadStateInformation(XmlElement const& xml, OwnedArray<AudioProcessorParameter> const& parameters);
+    static void saveStateInformation(XmlElement& xml, Array<AudioProcessorParameter*> const& parameters);
+    static void loadStateInformation(XmlElement const& xml, Array<AudioProcessorParameter*> const& parameters);
 private:
-    float m_value;
-    String const m_name;
-    String const m_label;
+    std::atomic<float> m_value;
+    NormalisableRange<float> const m_norm_range;
     
-    float const m_minimum;
-    float const m_maximum;
     float const m_default;
-    int   const m_nsteps;
-    
     bool const  m_automatable;
     bool const  m_meta;
     

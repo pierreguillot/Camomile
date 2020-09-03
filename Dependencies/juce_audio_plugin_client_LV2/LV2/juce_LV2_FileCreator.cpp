@@ -9,6 +9,7 @@
 #if JucePlugin_Build_LV2_FileCreator
 
 #include <cctype>
+#include "lv2/units/units.h"
 
 /** Plugin requires processing with a fixed/constant block size */
 #ifndef JucePlugin_WantsLV2FixedBlockSize
@@ -28,17 +29,20 @@
 class JuceLV2FileCreator
 {
     /** Returns plugin type, defined in AppConfig.h or JucePluginCharacteristics.h */
-    static const String& getPluginType()
+    static String getPluginType(AudioProcessor const* filter)
     {
+        String pluginType;
 #ifdef JucePlugin_LV2Category
-        static const String pluginType("lv2:" + JucePlugin_LV2Category + ", lv2:Plugin");
-#elif JucePlugin_IsSynth
-        static const String pluginType("lv2:InstrumentPlugin, lv2:Plugin");
-#else
-        static const String pluginType("lv2:Plugin");
+        pluginType  = "lv2:" JucePlugin_LV2Category + ", ";
 #endif
+        if(filter->acceptsMidi())
+        {
+            pluginType  += "lv2:InstrumentPlugin, ";
+        }
+        pluginType += "lv2:Plugin";
         return pluginType;
     }
+
     
     /** Returns plugin extension */
     static const String& getPluginExtension()
@@ -236,11 +240,12 @@ class JuceLV2FileCreator
         text += "@prefix lv2:  <" LV2_CORE_PREFIX "> .\n";
         text += "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n";
         text += "@prefix ui:   <" LV2_UI_PREFIX "> .\n";
+        text += "@prefix unit: <" LV2_UNITS_PREFIX "> .\n";
         text += "\n";
         
         // Plugin
         text += "<" + pluginURI + ">\n";
-        text += "    a " + getPluginType() + " ;\n";
+        text += "    a " + getPluginType(filter) + " ;\n";
         text += "    lv2:requiredFeature <" LV2_BUF_SIZE__boundedBlockLength "> ,\n";
 #if JucePlugin_WantsLV2FixedBlockSize
         text += "                        <" LV2_BUF_SIZE__fixedBlockLength "> ,\n";
@@ -269,10 +274,10 @@ class JuceLV2FileCreator
         text += "    lv2:port [\n";
         text += "        a lv2:InputPort, atom:AtomPort ;\n";
         text += "        atom:bufferType atom:Sequence ;\n";
-        text += "        atom:supports <" LV2_TIME__Position "> ;\n";
+        text += "        atom:supports <" LV2_MIDI__MidiEvent ">, <" LV2_TIME__Position "> ;\n";
         text += "        lv2:index " + String(portIndex++) + " ;\n";
-        text += "        lv2:symbol \"lv2_events_in\" ;\n";
-        text += "        lv2:name \"Events Input\" ;\n";
+        text += "        lv2:symbol \"lv2_midi_in\" ;\n";
+        text += "        lv2:name \"MIDI Input\" ;\n";
         text += "        lv2:designation lv2:control ;\n";
 #if ! JucePlugin_IsSynth
         text += "        lv2:portProperty lv2:connectionOptional ;\n";
@@ -374,12 +379,32 @@ class JuceLV2FileCreator
             else
                 text += "        lv2:name \"Port " + String(i+1) + "\" ;\n";
             
-            text += "        lv2:default " + String::formatted("%f", safeParamValue(params[i]->getDefaultValue())) + " ;\n";
-            text += "        lv2:minimum 0.0 ;\n";
-            text += "        lv2:maximum 1.0 ;\n";
+            if(auto* rangeParam = dynamic_cast<RangedAudioParameter*>(params[i]))
+            {
+                auto const normRange = rangeParam->getNormalisableRange();
+                text += "        lv2:default " + String(normRange.convertFrom0to1(rangeParam->getDefaultValue()), 2) + " ;\n";
+                text += "        lv2:minimum " +  String(normRange.start, 2) + " ;\n";
+                text += "        lv2:maximum " + String(normRange.end, 2) + " ;\n";
+            }
+            else
+            {
+                text += "        lv2:default " + String::formatted("%f", safeParamValue(params[i]->getDefaultValue())) + " ;\n";
+                text += "        lv2:minimum 0.0 ;\n";
+                text += "        lv2:maximum 1.0 ;\n";
+            }
             
             if (! params[i]->isAutomatable())
                 text += "        lv2:portProperty <" LV2_PORT_PROPS__expensive "> ;\n";
+            
+            auto const label = params[i]->getLabel();
+            if(!label.isEmpty())
+            {
+                text += "        unit:unit [\n";
+                text += "            rdfs:label \"" + label + "\" ;\n";
+                text += "            unit:symbol \"" + label + "\" ;\n";
+                text += "            unit:render \"%f " + label + "\" ;\n";
+                text += "        ] ;\n";
+            }
             
             if (i+1 == params.size())
                 text += "    ] ;\n\n";
@@ -491,23 +516,23 @@ public:
     static void createLv2Files(const char* basename)
     {
         const ScopedJuceInitialiser_GUI juceInitialiser;
-        ScopedPointer<AudioProcessor> filter(createPluginFilterOfType (AudioProcessor::wrapperType_LV2));
+        std::unique_ptr<AudioProcessor> filter(createPluginFilterOfType (AudioProcessor::wrapperType_LV2));
         
         int maxNumInputChannels, maxNumOutputChannels;
-        findMaxTotalChannels(filter, maxNumInputChannels, maxNumOutputChannels);
+        findMaxTotalChannels(filter.get(), maxNumInputChannels, maxNumOutputChannels);
         
         String binary(basename);
         String binaryTTL(binary + ".ttl");
         
         std::cout << "Writing manifest.ttl..."; std::cout.flush();
         std::fstream manifest("manifest.ttl", std::ios::out);
-        manifest << makeManifestFile(filter, binary) << std::endl;
+        manifest << makeManifestFile(filter.get(), binary) << std::endl;
         manifest.close();
         std::cout << " done!" << std::endl;
         
         std::cout << "Writing " << binary << ".ttl..."; std::cout.flush();
         std::fstream plugin(binaryTTL.toUTF8(), std::ios::out);
-        plugin << makePluginFile(filter, maxNumInputChannels, maxNumOutputChannels) << std::endl;
+        plugin << makePluginFile(filter.get(), maxNumInputChannels, maxNumOutputChannels) << std::endl;
         plugin.close();
         std::cout << " done!" << std::endl;
         

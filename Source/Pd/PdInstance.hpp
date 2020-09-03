@@ -53,11 +53,11 @@ namespace pd
         virtual void receivePolyAftertouch(const int channel, const int pitch, const int value) {}
         virtual void receiveMidiByte(const int port, const int byte) {}
         
-        void sendBang(std::string const& receiver) const;
-        void sendFloat(std::string const& receiver, float const value) const;
-        void sendSymbol(std::string const& receiver, std::string const& symbol) const;
-        void sendList(std::string const& receiver, const std::vector<Atom>& list) const;
-        void sendMessage(std::string const& receiver, const std::string& msg, const std::vector<Atom>& list) const;
+        void sendBang(const char* receiver) const;
+        void sendFloat(const char* receiver, float const value) const;
+        void sendSymbol(const char* receiver, const char* symbol) const;
+        void sendList(const char* receiver, const std::vector<Atom>& list) const;
+        void sendMessage(const char* receiver, const char* msg, const std::vector<Atom>& list) const;
         
         virtual void receivePrint(const std::string& message) {};
         

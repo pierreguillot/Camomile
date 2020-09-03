@@ -1,5 +1,5 @@
 language: cpp
-dist: trusty
+dist: xenial
 sudo: required
 notifications:
   email: false
@@ -23,16 +23,17 @@ matrix:
     - sudo apt-get install -y libwebkit2gtk-4.0-37 libwebkit2gtk-4.0-dev libstdc++6
     script:
     - cd Dependencies/LibPdBuild/LinuxMakefile && cmake .. -DCMAKE_BUILD_TYPE=Release && cd ../../..
-    - make
-    - make -C LV2/lv2_file_generator
+    - make TARGET_ARCH=-m64 CONFIG=Release
     after_success:
     - cd $TRAVIS_BUILD_DIR
     - ./Plugins/camomile -d ./Plugins/Examples -o ./Plugins/Builds
+    - ls -R ./Plugins/Builds
     - curl -L https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Linux.zip -o ./pluginval.zip
     - unzip ./pluginval.zip
     - ./pluginval --strictnessLevel 10 --validate ./Plugins/Builds/ > /dev/null
     before_deploy:
-    - rm -r Plugins/Builds
+    - mv Plugins/Builds Examples
+    - zip -r $release-examples.zip Examples
     - rm Plugins/Camomile.a
     - rm Plugins/CamomileFx.a
     - cp README.md Plugins/README.md
@@ -44,7 +45,6 @@ matrix:
   - os: osx
     compiler: clang++
     env: release=CamomileMacOS
-    osx_image: xcode8.3
     script:
     - cd Dependencies/LibPdBuild/MacOSX && cmake .. -GXcode && cd ../../..
     - xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release | egrep '^(/.+:[0-9+:[0-9]+:.(error|warning):|fatal|===)' -
@@ -56,7 +56,8 @@ matrix:
     - tar zxvf ./pluginval.zip
     - ./pluginval.app/Contents/MacOS/pluginval --strictnessLevel 10 --validate ./Plugins/Builds/ > /dev/null
     before_deploy:
-    - rm -r Plugins/Builds
+    - mv Plugins/Builds Examples
+    - zip -r $release-examples.zip Examples
     - rm Plugins/libCamomile.a
     - rm Plugins/libCamomileFx.a
     - cp README.md Plugins/README.md
@@ -74,8 +75,10 @@ deploy:
   name: ${TRAVIS_TAG}
   tag_name: ${TRAVIS_TAG}
   api_key:
-    secure: IaAt+xohgcO99ho2SEAPR2sGcC5w0KtzmGiarM02/VrY7ECu5JfeSsoohuxWSqI8K+Dnf0O/akIVbTcnXizigpK8cDH+tUC/0j9a/9MannlEhOXYAUjFsikWMEpiHQ5hqs84QTpwjzTMTPrYwxJft1GIChqJDUq2X+0++BPKwrTi+31V+1ZVQtZBF/ra80ivaigvC4ikm5FCFgWhemKdxiASi3s7pmTY68LYy7TvEJim4OHW7IUPJh9q1N2+TLfgrI8gP1lWkolU/dLSBjEZxsh/SEO1FO5lVNxoiGq/7urDVjoG6Bcow3JLWdw1k8WdjoIj5/ndUucgWzgd/6UoYbtnwnsHreg4EFE86NtkdELiP12bzk0B6rHJge+DHk3LYx0UH17a2y54WaiEuNCoDXlYlqARHzjz2KeglzldYnzoEEFi98ds68eyJVaFsnj0p3pvdujFtduPltbBfXyLVqNOJP+mjQyu7YvZiaev+mlCqYfZTM7B8eYowoP1K+jAsC4ulYWOaNqJWt/K+aFU+o7C1/wTkuSXhGV4wfCj5JvNwcsCt1XNiC29R6SAkThZk4D4+8hj5u+WQg4AUBdT2E3GVP+Fdg/C+bFRoKO2v9Yv7GBDxhfKwRrxRnSrUwmWEeZEWJwq3s2EMNXf0ycDiizzxJ3YxoPPkVUdSAQmVME=
-  file: $release.zip
+    secure: KhjoDswm7tGKjBCsUFFi1u9Dwl8WXSiPcDD+WhwibpgkTBzPuWyngJBL6VtHHPNi/0wAhvlg7ng4IgtBMW5vMI9q1YoOOgd2smADYY+bsKNEcDNblQZhXYf0A5MQ77fYjiNKDC08psmDIrnL2NTxn3Aqwsnz8vH8lSYX/r1eo9+kD+U9gyGT9Xv4qk1lGok4/A6ACx/Pd18m9Lc4X+XLaK8ZFrRemCRgP3dHIMiObPqSkS6oJCG/DH0C3gBF29bMJHJKMxUeKNBrMv5xQqJY4fpuiUILHgk2hE6CFNj9mFt0huR6IW/2NOuuvy00O0AeTj7WeH7oQEneHIeZPwXwyKvV1ihI73qCYdh8RJ9R/eg06x3ppLM+uBlgmBcSKfEPw0M1FkBg7PgVBTNQ3UTQpjiwCButcyxN04Yec9e3I3pt16R4nqdMl49W+mXd5XHbmedj9t1D53G8fMnsF8zQf6LaiC/SHbMq1B5odGxNVS7+XkKWG8vlXrn8ksBKK0WGMsdF+kquMIZ99OYMlALNntv9e5J50WTeUz6jRcTuVaDU9o/6CDEDp8VC9N+UkQF3IDw4p/jS34681R1wgsme9XcHjbvpWwVbfVc/ymqaRucYA1+Tdh0ilrrGymgygmJjK0aRtYfS3HaIhGC0iZk6lo1wJ1AQMxE99hwnBRH9+Sg=
+  file:
+  - $release.zip
+  - $release-examples.zip
   on:
     repo: pierreguillot/Camomile
     tags: true

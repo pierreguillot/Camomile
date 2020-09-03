@@ -30,7 +30,7 @@ public:
     static int getInteger(std::string const& value);
     static float getFloat(std::string const& value);
     static unsigned int getHexadecimalCode(std::string const& value);
-    static std::string const& getString(std::string const& value);
+    static std::string getString(std::string const& value);
     static std::pair<int, int> getTwoIntegers(std::string const& value);
     static std::pair<size_t, size_t> getTwoUnsignedIntegers(std::string const& value);
     

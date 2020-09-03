@@ -60,11 +60,10 @@
 !/Dependencies/LibPdBuild/VisualStudio2015/infos.txt
 
 #Examples
-/Plugins/Examples/*
+/Plugins/*
 !/Plugins/Examples/AlmondOrgan/
 !/Plugins/Examples/Bulgroz/
 !/Plugins/Examples/Castafiore/
 !/Plugins/Examples/MiniMock/
 !/Plugins/Examples/PdStalFx/
 !/Plugins/Examples/PdStal/
-/Plugins/lv2_file_generator
