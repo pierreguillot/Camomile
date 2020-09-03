@@ -191,18 +191,10 @@ void CamomileAudioProcessor::sendParameters()
     }
 }
 
-void CamomileAudioProcessor::processInternal()
+void CamomileAudioProcessor::sendPlayhead()
 {
-    //////////////////////////////////////////////////////////////////////////////////////////
-    //                                     DEQUEUE MESSAGES                                 //
-    //////////////////////////////////////////////////////////////////////////////////////////
-    dequeueMessages();
-    
-    //////////////////////////////////////////////////////////////////////////////////////////
-    //                                     PLAY HEAD                                        //
-    //////////////////////////////////////////////////////////////////////////////////////////
     int const phl = CamomileEnvironment::getPlayHeadLevel();
-    if(phl)
+    if(phl > 0)
     {
         AudioPlayHead* playhead = getPlayHead();
         AudioPlayHead::CurrentPositionInfo infos;
@@ -237,7 +229,13 @@ void CamomileAudioProcessor::processInternal()
             m_atoms_playhead.resize(1);
         }
     }
-    
+}
+
+void CamomileAudioProcessor::processInternal()
+{
+    dequeueMessages();
+    sendPlayhead();
+
     //////////////////////////////////////////////////////////////////////////////////////////
     //                                          MIDI IN                                     //
     //////////////////////////////////////////////////////////////////////////////////////////
