@@ -903,60 +903,73 @@ void GraphicalArray::paint(Graphics& g)
     {
         g.setFont(CamoLookAndFeel::getDefaultFont());
         g.drawText("array " + m_array.getName() + " is invalid", 0, 0, getWidth(), getHeight(), juce::Justification::centred);
+        return;
+    }
+    if(m_vector.empty())
+    {
+        return;
+    }
+    
+    auto const height = static_cast<float>(getHeight());
+    auto const width = static_cast<float>(getWidth());
+    auto const clipBounds = g.getClipBounds();
+    auto const scale = m_array.getScale();
+    auto const dh = height / (scale[1] - scale[0]);
+    auto const wRadio = static_cast<float>(m_vector.size()) / width;
+    g.setColour(juce::Colours::black);
+    
+    if(m_array.isDrawingCurve())
+    {
+        juce::Path p;
+        for(int i = clipBounds.getX() + 1; i < clipBounds.getRight() - 1; i += 2)
+        {
+            auto const x1 = static_cast<float>(i);
+            auto const previousIndex = static_cast<size_t>((x1 - 1.0f) * wRadio);
+            auto const currentIndex = static_cast<size_t>(x1 * wRadio);
+            auto const nextIndex = static_cast<size_t>((x1 + 1.0f) * wRadio);
+            auto const y1 = height - (m_vector[previousIndex] - scale[0]) * dh;
+            auto const y2 = height - (m_vector[currentIndex] - scale[0]) * dh;
+            auto const y3 = height - (m_vector[nextIndex] - scale[0]) * dh;
+            p.cubicTo(x1 - 1.0f, y1, x1, y2, x1 + 1.0f, y3);
+        }
+        g.strokePath(p, juce::PathStrokeType(1));
+    }
+    else if(m_array.isDrawingLine())
+    {
+        juce::Path p;
+        for(int i = clipBounds.getX(); i < clipBounds.getRight(); i++)
+        {
+            auto const x1 = static_cast<float>(i);
+            auto const currentIndex = static_cast<size_t>(x1 * wRadio);
+            auto const nextIndex = static_cast<size_t>((x1 + 1.0f) * wRadio);
+            auto const max = std::max_element(m_vector.cbegin()+currentIndex, m_vector.cbegin()+nextIndex, [](float const lhs, float const rhs) { return std::abs(lhs) < std::abs(rhs); });
+            if(max != m_vector.cend())
+            {
+                auto const y = std::floor(height - (*max - scale[0]) * dh);
+                p.lineTo(x1, y);
+            }
+        }
+        g.strokePath(p, juce::PathStrokeType(1));
     }
     else
     {
-        const float h = static_cast<float>(getHeight());
-        const float w = static_cast<float>(getWidth());
-        if(!m_vector.empty())
+        juce::RectangleList<float> rectangles;
+        for(int i = clipBounds.getX(); i < clipBounds.getRight(); i++)
         {
-            const std::array<float, 2> scale = m_array.getScale();
-            if(m_array.isDrawingCurve())
+            auto const x1 = static_cast<float>(i);
+            auto const currentIndex = static_cast<size_t>(x1 * wRadio);
+            auto const nextIndex = static_cast<size_t>((x1 + 1.0f) * wRadio);
+            auto const minmax = std::minmax_element(m_vector.cbegin()+currentIndex, m_vector.cbegin()+nextIndex);
+            if(minmax.first != m_vector.cend() && minmax.first != m_vector.cend())
             {
-                const float dh = h / (scale[1] - scale[0]);
-                const float dw = w / static_cast<float>(m_vector.size() - 1);
-                Path p;
-                p.startNewSubPath(0, h - (clip(m_vector[0], scale[0], scale[1]) - scale[0]) * dh);
-                for(size_t i = 1; i < m_vector.size() - 1; i += 2)
-                {
-                    const float y1 = h - (clip(m_vector[i-1], scale[0], scale[1]) - scale[0]) * dh;
-                    const float y2 = h - (clip(m_vector[i], scale[0], scale[1]) - scale[0]) * dh;
-                    const float y3 = h - (clip(m_vector[i+1], scale[0], scale[1]) - scale[0]) * dh;
-                    p.cubicTo(static_cast<float>(i-1) * dw, y1,
-                              static_cast<float>(i) * dw, y2,
-                              static_cast<float>(i+1) * dw, y3);
-                }
-                g.setColour(Colours::black);
-                g.strokePath(p, PathStrokeType(1));
-            }
-            else if(m_array.isDrawingLine())
-            {
-                const float dh = h / (scale[1] - scale[0]);
-                const float dw = w / static_cast<float>(m_vector.size() - 1);
-                Path p;
-                p.startNewSubPath(0, h - (clip(m_vector[0], scale[0], scale[1]) - scale[0]) * dh);
-                for(size_t i = 1; i < m_vector.size(); ++i)
-                {
-                    const float y = h - (clip(m_vector[i], scale[0], scale[1]) - scale[0]) * dh;
-                    p.lineTo(static_cast<float>(i) * dw, y);
-                }
-                g.setColour(Colours::black);
-                g.strokePath(p, PathStrokeType(1));
-            }
-            else
-            {
-                const float dh = h / (scale[1] - scale[0]);
-                const float dw = w / static_cast<float>(m_vector.size());
-                g.setColour(Colours::black);
-                for(size_t i = 0; i < m_vector.size(); ++i)
-                {
-                    const float y = h - (clip(m_vector[i], scale[0], scale[1]) - scale[0]) * dh;
-                    g.drawLine(static_cast<float>(i) * dw, y, static_cast<float>(i+1) * dw, y);
-                }
+                auto const y1 = std::floor(height - (*minmax.second - scale[0]) * dh);
+                auto const y2 = std::floor(height - (*minmax.first - scale[0]) * dh);
+                rectangles.add(x1, y1, 1.0f , std::max(y2 - y1, 1.0f));
             }
         }
+        g.fillRectList(rectangles);
     }
-    g.setColour(Colours::black);
+    
     g.drawRect(getLocalBounds(), 1);
 }
 
