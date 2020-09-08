@@ -254,7 +254,6 @@ namespace pd
         if(!m_ptr || m_type == Type::Comment || m_type == Type::AtomSymbol)
             return;
         m_instance->enqueueDirectMessages(m_ptr, value);
-        
     }
     
     bool Gui::jumpOnClick() const noexcept
