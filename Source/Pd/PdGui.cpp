@@ -236,7 +236,13 @@ namespace pd
         }
         else if(m_type == Type::Bang)
         {
-            return (static_cast<t_bng*>(m_ptr))->x_flashed;
+            // hack to trigger off the bang if no GUI update
+            if((static_cast<t_bng*>(m_ptr))->x_flashed > 0)
+            {
+                static_cast<t_bng*>(m_ptr)->x_flashed = 0;
+                return 1.0f;
+            }
+            return 0.0f;
         }
         else if(m_type == Type::VuMeter)
         {
