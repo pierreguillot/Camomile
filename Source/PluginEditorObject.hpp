@@ -168,14 +168,12 @@ public:
     void paint(Graphics& g) override;
 };
 
-class GuiTextEditor : public PluginEditorObject, public Label::Listener
+class GuiTextEditor : public PluginEditorObject
 {
 public:
     GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g);
-    void labelTextChanged(Label* label) override;
-    void editorShown(Label*, TextEditor&) override;
-    void editorHidden(Label*, TextEditor&) override;
     void updateValue() override;
+    void mouseDoubleClick(const juce::MouseEvent&) override;
 protected:
     juce::Label label;
 };
@@ -188,7 +186,6 @@ public:
     void mouseDown(const MouseEvent& e) override;
     void mouseDrag(const MouseEvent& e) override;
     void mouseUp(const MouseEvent& e) override;
-    void mouseDoubleClick(const MouseEvent&) override;
 private:
     bool    shift = false;
     float   last  = 0.f;
@@ -199,25 +196,21 @@ class GuiAtomNumber : public GuiTextEditor
 public:
     GuiAtomNumber(CamomileEditorMouseManager& p, pd::Gui& g);
     void paint(Graphics& g) override;
-    void mouseDown(const MouseEvent& e) override;
-    void mouseDrag(const MouseEvent& e) override;
-    void mouseUp(const MouseEvent& e) override;
-    void mouseDoubleClick(const MouseEvent&) override;
+    void mouseDown(const juce::MouseEvent& e) override;
+    void mouseDrag(const juce::MouseEvent& e) override;
+    void mouseUp(const juce::MouseEvent& e) override;
+    void mouseDoubleClick(const juce::MouseEvent&) override;
 private:
     bool    shift = false;
-    float   last  = 0.f;
+    float   last  = 0.0f;
 };
 
 class GuiAtomSymbol : public GuiTextEditor
 {
 public:
     GuiAtomSymbol(CamomileEditorMouseManager& p, pd::Gui& g);
-    void paint(Graphics& g) override;
-    void mouseDoubleClick(const MouseEvent&) override;
-    void labelTextChanged(Label* label) override;
+    void paint(juce::Graphics& g) override;
     void updateValue() override;
-private:
-    std::string last;
 };
 
 class GuiArray : public PluginEditorObject

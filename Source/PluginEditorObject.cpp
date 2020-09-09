@@ -550,7 +550,7 @@ void GuiComment::paint(Graphics& g)
 
 GuiTextEditor::GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g) : PluginEditorObject(p, g)
 {
-    const int border = 1;
+    static const int border = 1;
     const float fs = static_cast<float>(gui.getFontHeight());
     Font const tf = CamoLookAndFeel::getDefaultFont().withPointHeight(fs);
     
@@ -562,47 +562,48 @@ GuiTextEditor::GuiTextEditor(CamomileEditorMouseManager& p, pd::Gui& g) : Plugin
     label.setText(String(getValueOriginal()), NotificationType::dontSendNotification);
     label.setEditable(false, false);
     label.setInterceptsMouseClicks(false, false);
-    label.addListener(this);
     label.setColour(Label::textColourId, Colour(static_cast<uint32>(gui.getForegroundColor())));
     setInterceptsMouseClicks(true, false);
     addAndMakeVisible(label);
-}
-
-void GuiTextEditor::labelTextChanged(Label* lbl)
-{
-    const String strval = lbl->getText();
-    if(strval.isNotEmpty())
+    
+    label.onEditorHide = [this]()
     {
-        startEdition();
-        setValueOriginal(static_cast<float>(strval.getDoubleValue()));
-        lbl->setText(String(getValueOriginal()), NotificationType::dontSendNotification);
-        stopEdition();
-    }
+        auto const newValue = label.getText().getFloatValue();
+        if(std::abs(newValue - getValueOriginal()) > std::numeric_limits<float>::epsilon())
+        {
+            startEdition();
+            setValueOriginal(newValue);
+            stopEdition();
+            label.setText(juce::String(getValueOriginal()), juce::NotificationType::dontSendNotification);
+        }
+    };
+    
+    label.onEditorShow = [this]()
+    {
+        auto* editor = label.getCurrentTextEditor();
+        if(editor != nullptr)
+        {
+            editor->setIndents(1, 2);
+            editor->setBorder(juce::BorderSize<int>(0));
+        }
+    };
+    
+    updateValue();
 }
 
-void GuiTextEditor::editorShown(Label*, TextEditor&)
+void GuiTextEditor::mouseDoubleClick(const juce::MouseEvent&)
 {
-    startEdition();
-}
-
-void GuiTextEditor::editorHidden(Label*, TextEditor&)
-{
-    stopEdition();
+    label.showEditor();
 }
 
 void GuiTextEditor::updateValue()
 {
-    if(edited == false)
+    if(edited == false && !label.isBeingEdited())
     {
-        float const v = gui.getValue();
-        if(v != value)
-        {
-            value = v;
-            label.setText(String(getValueOriginal()), NotificationType::dontSendNotification);
-        }
+        value = gui.getValue();
+        label.setText(juce::String(value), juce::NotificationType::dontSendNotification);
     }
 }
-
 
 //////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////     NUMBER              /////////////////////////////
@@ -614,75 +615,70 @@ GuiNumber::GuiNumber(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(
     const float h = static_cast<float>(getHeight());
     label.setBounds(static_cast<int>(h * 0.5f), static_cast<int>(0.5f),
                     static_cast<int>(w - h * 0.5f), static_cast<int>(h));
+    
+    label.onEditorShow = [this]()
+    {
+        auto* editor = label.getCurrentTextEditor();
+        if(editor != nullptr)
+        {
+            editor->setIndents(0, 2);
+            editor->setBorder(juce::BorderSize<int>(0));
+        }
+    };
 }
 
 void GuiNumber::paint(Graphics& g)
 {
-    const float border = 1.f;
+    static auto const border = 1.0f;
     const float h = static_cast<float>(getHeight());
     const float w = static_cast<float>(getWidth());
-    Path p;
+    juce::Path p;
     p.startNewSubPath(0.5f, 0.5f);
     p.lineTo(0.5f, h - 0.5f);
     p.lineTo(w - 0.5f, h - 0.5f);
     p.lineTo(w - 0.5f, h * 0.25f);
     p.lineTo(w - (h * 0.25f), 0.5f);
     p.closeSubPath();
-    g.setColour(Colour(static_cast<uint32>(gui.getBackgroundColor())));
+    g.setColour(juce::Colour(static_cast<uint32>(gui.getBackgroundColor())));
     g.fillPath(p);
-    g.setColour(Colour(static_cast<uint32>(gui.getForegroundColor())));
+    g.setColour(juce::Colour(static_cast<uint32>(gui.getForegroundColor())));
     g.drawLine(0.f, 0.f, h * 0.5f, h * 0.5f, border);
     g.drawLine(0.f, h, h * 0.5f, h * 0.5f, border);
-    g.setColour(Colours::black);
-    g.strokePath(p, PathStrokeType(border));
+    g.setColour(juce::Colours::black);
+    g.strokePath(p, juce::PathStrokeType(border));
 }
 
-void GuiNumber::mouseDown(const MouseEvent& event)
+void GuiNumber::mouseDown(const juce::MouseEvent& event)
 {
-    if(!label.hasKeyboardFocus(true))
+    if(!label.isBeingEdited())
     {
         startEdition();
         shift = event.mods.isShiftDown();
         last  = getValueOriginal();
+        setValueOriginal(last);
     }
 }
 
-void GuiNumber::mouseUp(const MouseEvent& e)
+void GuiNumber::mouseUp(const juce::MouseEvent& e)
 {
-    if(!label.hasKeyboardFocus(true))
+    if(!label.isBeingEdited())
     {
         stopEdition();
     }
 }
 
-void GuiNumber::mouseDrag(const MouseEvent& e)
+void GuiNumber::mouseDrag(const juce::MouseEvent& e)
 {
-    const float inc = static_cast<float>(-e.getDistanceFromDragStartY());
-    if(std::abs(inc) < 1)
+    // Dragging mode
+    if(!label.isBeingEdited())
     {
-        return;
-    }
-    if(shift)
-    {
-        setValueOriginal(last + inc * 0.01f);
-    }
-    else
-    {
-        setValueOriginal(last + inc);
-    }
-    label.setText(String(getValueOriginal()), NotificationType::dontSendNotification);
-}
-
-void GuiNumber::mouseDoubleClick(const MouseEvent&)
-{
-    startEdition();
-    label.grabKeyboardFocus();
-    label.showEditor();
-    TextEditor* editor = label.getCurrentTextEditor();
-    if(editor)
-    {
-        editor->setIndents(0, 2);
-        editor->setBorder(BorderSize<int>(0));
+        auto const inc = static_cast<float>(-e.getDistanceFromDragStartY());
+        if(std::abs(inc) < 1.0f)
+        {
+            return;
+        }
+        setValueOriginal(last + inc * (shift ? 0.01f : 1.0f));
+        label.setText(juce::String(getValueOriginal()), juce::NotificationType::dontSendNotification);
     }
 }
 
@@ -692,86 +688,78 @@ void GuiNumber::mouseDoubleClick(const MouseEvent&)
 
 GuiAtomNumber::GuiAtomNumber(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(p, g)
 {
-    ;
 }
 
-void GuiAtomNumber::paint(Graphics& g)
+void GuiAtomNumber::paint(juce::Graphics& g)
 {
-    const float border = 1.f;
+    static auto const border = 1.0f;
     const float h = static_cast<float>(getHeight());
     const float w = static_cast<float>(getWidth());
     const float o = h * 0.25f;
-    Path p;
+    juce::Path p;
     p.startNewSubPath(0.5f, 0.5f);
     p.lineTo(0.5f, h - 0.5f);
     p.lineTo(w - 0.5f, h - 0.5f);
     p.lineTo(w - 0.5f, o);
     p.lineTo(w - o, 0.5f);
     p.closeSubPath();
-    g.setColour(Colour(static_cast<uint32>(gui.getBackgroundColor())));
+    g.setColour(juce::Colour(static_cast<uint32>(gui.getBackgroundColor())));
     g.fillPath(p);
-    g.setColour(Colours::black);
-    g.strokePath(p, PathStrokeType(border));
+    g.setColour(juce::Colours::black);
+    g.strokePath(p, juce::PathStrokeType(border));
 }
 
-void GuiAtomNumber::mouseDown(const MouseEvent& event)
+void GuiAtomNumber::mouseDown(const juce::MouseEvent& event)
 {
-    if(gui.getNumberOfSteps() == 1)
+    if(label.isBeingEdited())
     {
-        startEdition();
-        setValueOriginal(static_cast<float>(getValueOriginal() <= std::numeric_limits<float>::epsilon()));
-        label.setText(String(getValueOriginal()), NotificationType::dontSendNotification);
+        return;
     }
-    else if(!label.hasKeyboardFocus(true))
+    startEdition();
+    if(gui.getNumberOfSteps() == 1) // Toggle mode
     {
-        startEdition();
+        setValueOriginal(static_cast<float>(getValueOriginal() <= std::numeric_limits<float>::epsilon()));
+        stopEdition();
+        label.setText(juce::String(getValueOriginal()), juce::NotificationType::dontSendNotification);
+    }
+    else // Dragging mode
+    {
         shift = event.mods.isShiftDown();
         last  = getValueOriginal();
+        setValueOriginal(last);
     }
 }
 
-void GuiAtomNumber::mouseUp(const MouseEvent& e)
+void GuiAtomNumber::mouseDrag(const juce::MouseEvent& e)
 {
-    if(gui.getNumberOfSteps() == 1 || !label.hasKeyboardFocus(true))
+    // Toggle mode is off and dragging mode
+    if(gui.getNumberOfSteps() == 0 && !label.isBeingEdited())
+    {
+        auto const inc = static_cast<float>(-e.getDistanceFromDragStartY());
+        if(std::abs(inc) < 1.0f)
+        {
+            return;
+        }
+        setValueOriginal(last + inc * (shift ? 0.01f : 1.0f));
+        label.setText(juce::String(getValueOriginal()), juce::NotificationType::dontSendNotification);
+    }
+}
+
+void GuiAtomNumber::mouseUp(const juce::MouseEvent&)
+{
+    // Toggle mode is off and dragging mode
+    if(gui.getNumberOfSteps() == 0 || !label.isBeingEdited())
     {
         stopEdition();
     }
 }
 
-void GuiAtomNumber::mouseDrag(const MouseEvent& e)
+void GuiAtomNumber::mouseDoubleClick(const juce::MouseEvent&)
 {
-    if(!gui.getNumberOfSteps())
+    // Toggle mode is off
+    if(gui.getNumberOfSteps() == 0)
     {
-        const float inc = static_cast<float>(-e.getDistanceFromDragStartY());
-        if(std::abs(inc) < 1)
-        {
-            return;
-        }
-        if(shift)
-        {
-            setValueOriginal(last + inc * 0.01f);
-        }
-        else
-        {
-            setValueOriginal(last + inc);
-        }
-        label.setText(String(getValueOriginal()), NotificationType::dontSendNotification);
-    }
-}
-
-void GuiAtomNumber::mouseDoubleClick(const MouseEvent&)
-{
-    if(!gui.getNumberOfSteps())
-    {
-        startEdition();
-        label.grabKeyboardFocus();
         label.showEditor();
-        TextEditor* editor = label.getCurrentTextEditor();
-        if(editor)
-        {
-            editor->setIndents(1, 2);
-            editor->setBorder(BorderSize<int>(0));
-        }
     }
 }
 
@@ -779,64 +767,57 @@ void GuiAtomNumber::mouseDoubleClick(const MouseEvent&)
 ////////////////////////////////////     GATOM SYMBOL        /////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
-GuiAtomSymbol::GuiAtomSymbol(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(p, g), last(gui.getSymbol())
+GuiAtomSymbol::GuiAtomSymbol(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(p, g)
 {
-    label.setText(String(last), NotificationType::dontSendNotification);
+    label.onEditorHide = [this]()
+    {
+        auto const strval = label.getText().toStdString();
+        if(strval != gui.getSymbol())
+        {
+            startEdition();
+            gui.setSymbol(strval);
+            stopEdition();
+            label.setText(juce::String(gui.getSymbol()), juce::NotificationType::dontSendNotification);
+        }
+    };
+    
+    label.onEditorShow = [this]()
+    {
+        auto* editor = label.getCurrentTextEditor();
+        if(editor != nullptr)
+        {
+            editor->setIndents(1, 2);
+            editor->setBorder(juce::BorderSize<int>(0));
+        }
+    };
+    
+    updateValue();
 }
 
-void GuiAtomSymbol::paint(Graphics& g)
+void GuiAtomSymbol::paint(juce::Graphics& g)
 {
-    const float border = 1.f;
+    static auto const border = 1.0f;
     const float h = static_cast<float>(getHeight());
     const float w = static_cast<float>(getWidth());
     const float o = h * 0.25f;
-    Path p;
+    juce::Path p;
     p.startNewSubPath(0.5f, 0.5f);
     p.lineTo(0.5f, h - 0.5f);
     p.lineTo(w - 0.5f, h - 0.5f);
     p.lineTo(w - 0.5f, o);
     p.lineTo(w - o, 0.5f);
     p.closeSubPath();
-    g.setColour(Colour(static_cast<uint32>(gui.getBackgroundColor())));
+    g.setColour(juce::Colour(static_cast<uint32>(gui.getBackgroundColor())));
     g.fillPath(p);
-    g.setColour(Colours::black);
-    g.strokePath(p, PathStrokeType(border));
-}
-
-void GuiAtomSymbol::mouseDoubleClick(const MouseEvent&)
-{
-    startEdition();
-    label.grabKeyboardFocus();
-    label.showEditor();
-    TextEditor* editor = label.getCurrentTextEditor();
-    if(editor)
-    {
-        editor->setIndents(1, 2);
-        editor->setBorder(BorderSize<int>(0));
-    }
-}
-
-void GuiAtomSymbol::labelTextChanged(Label* lbl)
-{
-    const String strval = lbl->getText();
-    if(strval.isNotEmpty())
-    {
-        gui.setSymbol(strval.toStdString());
-        lbl->setText(String(gui.getSymbol()), NotificationType::dontSendNotification);
-        last = gui.getSymbol();
-    }
+    g.setColour(juce::Colours::black);
+    g.strokePath(p, juce::PathStrokeType(border));
 }
 
 void GuiAtomSymbol::updateValue()
 {
-    if(edited == false)
+    if(edited == false && !label.isBeingEdited())
     {
-        std::string const v = gui.getSymbol();
-        if(v != last)
-        {
-            last = v;
-            label.setText(String(last), NotificationType::dontSendNotification);
-        }
+        label.setText(juce::String(gui.getSymbol()), juce::NotificationType::dontSendNotification);
     }
 }
 
