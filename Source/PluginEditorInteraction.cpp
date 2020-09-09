@@ -249,7 +249,11 @@ bool CamomileEditorMessageManager::processMessages()
     {
         if(message[0] == string_openpanel)
         {
+#ifdef JUCE_LINUX
+            FileChooser fc("Open...", File(message[1]), {},  m_processor.wrapperType != AudioProcessor::wrapperType_Undefined);
+#else
             FileChooser fc("Open...", File(message[1]));
+#endif
             if(fc.browseForFileToOpen())
             {
                 File const f(fc.getResult());
@@ -267,7 +271,11 @@ bool CamomileEditorMessageManager::processMessages()
         }
         else if(message[0] == string_savepanel)
         {
+#ifdef JUCE_LINUX
+            FileChooser fc("Save...", File(message[1]), {},  m_processor.wrapperType != AudioProcessor::wrapperType_Undefined);
+#else
             FileChooser fc("Save...", File(message[1]));
+#endif
             if(fc.browseForFileToSave(true))
             {
                 File const f(fc.getResult());
