@@ -307,6 +307,8 @@ static void libpd_defaultfont_init(void)
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 
+void pd_tilde_setup(void);
+
 void libpd_multi_init(void)
 {
     static int initialized = 0;
@@ -323,6 +325,7 @@ void libpd_multi_init(void)
         
         libpd_set_verbose(0);
         libpd_init();
+        pd_tilde_setup();
         libpd_multi_receiver_setup();
         libpd_multi_midi_setup();
         libpd_multi_print_setup();
