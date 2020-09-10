@@ -324,11 +324,7 @@ void GuiSliderHorizontal::paint(Graphics& g)
 void GuiSliderHorizontal::mouseDown(const MouseEvent& e)
 {
     startEdition();
-    if(gui.jumpOnClick())
-    {
-        mouseDrag(e);
-    }
-    else
+    if(!gui.jumpOnClick())
     {
         if(gui.isLogScale())
         {
@@ -339,6 +335,7 @@ void GuiSliderHorizontal::mouseDown(const MouseEvent& e)
             m_temp = getValueScaled();
         }
     }
+    mouseDrag(e);
 }
 
 void GuiSliderHorizontal::mouseDrag(const MouseEvent& e)
@@ -397,11 +394,7 @@ void GuiSliderVertical::paint(Graphics& g)
 void GuiSliderVertical::mouseDown(const MouseEvent& e)
 {
     startEdition();
-    if(gui.jumpOnClick())
-    {
-        mouseDrag(e);
-    }
-    else
+    if(!gui.jumpOnClick())
     {
         if(gui.isLogScale())
         {
@@ -412,6 +405,7 @@ void GuiSliderVertical::mouseDown(const MouseEvent& e)
             m_temp = getValueScaled();
         }
     }
+    mouseDrag(e);
 }
 
 void GuiSliderVertical::mouseDrag(const MouseEvent& e)
