@@ -154,6 +154,8 @@ if(PD_EXTRA)
     ${LIBPD_PATH}/pure-data/extra/fiddle~/fiddle~.c
     ${LIBPD_PATH}/pure-data/extra/loop~/loop~.c
     ${LIBPD_PATH}/pure-data/extra/lrshift~/lrshift~.c
+    ${LIBPD_PATH}/pure-data/extra/pd~/pd~.c
+    ${LIBPD_PATH}/pure-data/extra/pd~/pdsched.c
     ${LIBPD_PATH}/pure-data/extra/pique/pique.c
     ${LIBPD_PATH}/pure-data/extra/sigmund~/sigmund~.c
     ${LIBPD_PATH}/pure-data/extra/stdout/stdout.c
