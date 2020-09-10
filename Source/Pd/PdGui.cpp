@@ -155,7 +155,7 @@ namespace pd
         else if(m_type == Type::AtomNumber)
         {
             t_fake_gatom const* gatom = static_cast<t_fake_gatom const*>(m_ptr);
-            if(std::abs(gatom->a_draglo) > std::numeric_limits<float>::epsilon() &&
+            if(std::abs(gatom->a_draglo) > std::numeric_limits<float>::epsilon() ||
                std::abs(gatom->a_draghi) > std::numeric_limits<float>::epsilon())
             {
                 return gatom->a_draglo;
@@ -196,7 +196,7 @@ namespace pd
         else if(m_type == Type::AtomNumber)
         {
             t_fake_gatom const* gatom = static_cast<t_fake_gatom const*>(m_ptr);
-            if(std::abs(gatom->a_draglo) > std::numeric_limits<float>::epsilon() &&
+            if(std::abs(gatom->a_draglo) > std::numeric_limits<float>::epsilon() ||
                std::abs(gatom->a_draghi) > std::numeric_limits<float>::epsilon())
             {
                 return gatom->a_draghi;
