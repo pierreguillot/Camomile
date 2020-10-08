@@ -7,12 +7,6 @@
     A plugin that loads and controls Pure Data patches.
   </p>
   <p align="center">
-    <a href="https://travis-ci.org/pierreguillot/Camomile"><img src="https://img.shields.io/travis/pierreguillot/Camomile.svg?label=travis" alt="Travis CI"></a>
-    <a href="https://www.codacy.com/app/pierreguillot/Camomile?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pierreguillot/Camomile&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/3396e70b99fd4144aa26df2ce98d7e66"/></a>
-  </p>
-  <p align="center">
-    <a href="https://github.com/pierreguillot/Camomile/releases/latest"><img src="https://img.shields.io/github/downloads/pierreguillot/Camomile/total.svg?colorB=007ec6" alt="Downloads"></a>
-    <a href="https://github.com/pierreguillot/Camomile/releases/latest"><img src="https://img.shields.io/github/release/pierreguillot/Camomile.svg" alt="Release"></a>
     <a href="https://github.com/pierreguillot/Camomile/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-GPL--v3-blue.svg" alt="License"></a>
   </p>
   <p align="center">
