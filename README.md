@@ -53,6 +53,7 @@ At last, this [part](https://github.com/pierreguillot/Camomile/wiki/How-to-creat
 Download Camomile and its dependencies using git:
 
 ```
+git clone --recurse-submodules https://github.com/libpd/libpd.git
 git clone --recursive https://github.com/pierreguillot/Camomile.git
 ```
 
@@ -60,7 +61,7 @@ Generate the libpd project using [CMake](https://cmake.org) and compile the libp
 
 - **Linux**  
 ```
-cd Camomile
+cd Camomile-ELSE
 cd Dependencies/LibPdBuild/LinuxMakefile && cmake .. -DCMAKE_BUILD_TYPE=Release && cd ../../..
 make
 ```
@@ -71,14 +72,14 @@ sudo apt-get install -y libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev 
 ```
 - **Mac**
 ```
-cd Camomile
+cd Camomile-ELSE
 cd Dependencies/LibPdBuild/MacOSX && cmake .. -GXcode && cd ../../..
 xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release
 ```
 - **Windows**  
 Important: libpd requires the static [pthread](https://github.com/GerHobbelt/pthread-win32.git) library for windows with multithread static runtime library (MT).
 ```
-cd Camomile
+cd Camomile-ELSE
 mkdir Dependencies\LibPd\build && mkdir Dependencies\LibPd\build\msvc && cd Dependencies\LibPd\build\msvc
 cmake -G "Visual Studio 14 2015 Win64" -DPD_MULTI=ON -DPD_UTILS=OFF -DMSVC_STATIC_RUNTIME=ON -DMSVC_PTHREAD_LIB="pthread.lib" ../..
 msbuild libpd.sln /t:libpdstatic /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=x64
