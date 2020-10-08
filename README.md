@@ -2,7 +2,7 @@
   <a href="https://github.com/pierreguillot/Camomile/wiki">
     <img src="https://user-images.githubusercontent.com/1409918/37906678-2b998b0a-3103-11e8-946a-10df0f3d2eca.png" alt="Logo" width=72 height=72>
   </a>
-  <h1 align="center">Camomile</h1>
+  <h1 align="center">Camomile-ELSE</h1>
   <p align="center">
     A plugin that loads and controls Pure Data patches.
   </p>
@@ -23,6 +23,10 @@
   </p>
 </p>
 
+## WARNING
+This repository is a simple fork with some little edits to compile Camomile with support to [ELSE library](https://github.com/porres/pd-else).
+- Issues about the support of ELSE library in Camomile are welcomed.
+- Issues about Camomile itself, please fill your issue in https://github.com/pierreguillot/Camomile/issues for better support.
 
 ## Presentation
 
