@@ -95,11 +95,11 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>..\..\..\Juce\modules\juce_audio_processors\format_types\VST3_SDK;..\..\..\Dependencies\Vst2;..\..\JuceLibraryCode;..\..\..\Juce\modules;../../../Dependencies/LibPd/pure-data/src;../../../Dependencies/LibPd/libpd_wrapper;../../../Dependencies/LibPd/libpd_wrapper/util;../../../Dependencies/LibPd/cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD_INTERNAL=1;JUCE_VST3_CAN_REPLACE_VST2=0;PD_LONGINTTYPE=long long;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.7;JUCE_APP_VERSION_HEX=0x10007;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\Juce\modules\juce_audio_processors\format_types\VST3_SDK;..\..\..\Dependencies\Vst2;..\..\JuceLibraryCode;..\..\..\Juce\modules;../../../Dependencies/LibPd/pure-data/src;../../../Dependencies/LibPd/libpd_wrapper;../../../Dependencies/LibPd/libpd_wrapper/util;../../../Dependencies/LibPd/cpp;../../../Source/Pd/Externals;../../../Source/Pd/Externals/shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD_INTERNAL=1;JUCE_VST3_CAN_REPLACE_VST2=0;PD=1;PDINSTANCE=1;CAMOMILE=1;PD_LONGINTTYPE=long long;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.7;JUCE_APP_VERSION_HEX=0x10007;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader/>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <AssemblerListingLocation>$(IntDir)\</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)\</ObjectFileName>
       <ProgramDataBaseFileName>$(IntDir)\</ProgramDataBaseFileName>
@@ -136,11 +136,11 @@
     </Midl>
     <ClCompile>
       <Optimization>Full</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\Juce\modules\juce_audio_processors\format_types\VST3_SDK;..\..\..\Dependencies\Vst2;..\..\JuceLibraryCode;..\..\..\Juce\modules;../../../Dependencies/LibPd/pure-data/src;../../../Dependencies/LibPd/libpd_wrapper;../../../Dependencies/LibPd/libpd_wrapper/util;../../../Dependencies/LibPd/cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD_INTERNAL=1;JUCE_VST3_CAN_REPLACE_VST2=0;PD_LONGINTTYPE=long long;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.7;JUCE_APP_VERSION_HEX=0x10007;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\Juce\modules\juce_audio_processors\format_types\VST3_SDK;..\..\..\Dependencies\Vst2;..\..\JuceLibraryCode;..\..\..\Juce\modules;../../../Dependencies/LibPd/pure-data/src;../../../Dependencies/LibPd/libpd_wrapper;../../../Dependencies/LibPd/libpd_wrapper/util;../../../Dependencies/LibPd/cpp;../../../Source/Pd/Externals;../../../Source/Pd/Externals/shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD_INTERNAL=1;JUCE_VST3_CAN_REPLACE_VST2=0;PD=1;PDINSTANCE=1;CAMOMILE=1;PD_LONGINTTYPE=long long;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.7;JUCE_APP_VERSION_HEX=0x10007;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader/>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <AssemblerListingLocation>$(IntDir)\</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)\</ObjectFileName>
       <ProgramDataBaseFileName>$(IntDir)\</ProgramDataBaseFileName>
@@ -163,6 +163,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LargeAddressAware>true</LargeAddressAware>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -180,11 +181,11 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>..\..\..\Juce\modules\juce_audio_processors\format_types\VST3_SDK;..\..\..\Dependencies\Vst2;..\..\JuceLibraryCode;..\..\..\Juce\modules;../../../Dependencies/LibPd/pure-data/src;../../../Dependencies/LibPd/libpd_wrapper;../../../Dependencies/LibPd/libpd_wrapper/util;../../../Dependencies/LibPd/cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD_INTERNAL=1;JUCE_VST3_CAN_REPLACE_VST2=0;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.7;JUCE_APP_VERSION_HEX=0x10007;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\Juce\modules\juce_audio_processors\format_types\VST3_SDK;..\..\..\Dependencies\Vst2;..\..\JuceLibraryCode;..\..\..\Juce\modules;../../../Dependencies/LibPd/pure-data/src;../../../Dependencies/LibPd/libpd_wrapper;../../../Dependencies/LibPd/libpd_wrapper/util;../../../Dependencies/LibPd/cpp;../../../Source/Pd/Externals;../../../Source/Pd/Externals/shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;PD_INTERNAL=1;JUCE_VST3_CAN_REPLACE_VST2=0;PD=1;PDINSTANCE=1;CAMOMILE=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.7;JUCE_APP_VERSION_HEX=0x10007;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader/>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <AssemblerListingLocation>$(IntDir)\</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)\</ObjectFileName>
       <ProgramDataBaseFileName>$(IntDir)\</ProgramDataBaseFileName>
@@ -225,11 +226,11 @@
     </Midl>
     <ClCompile>
       <Optimization>Full</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\Juce\modules\juce_audio_processors\format_types\VST3_SDK;..\..\..\Dependencies\Vst2;..\..\JuceLibraryCode;..\..\..\Juce\modules;../../../Dependencies/LibPd/pure-data/src;../../../Dependencies/LibPd/libpd_wrapper;../../../Dependencies/LibPd/libpd_wrapper/util;../../../Dependencies/LibPd/cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD_INTERNAL=1;JUCE_VST3_CAN_REPLACE_VST2=0;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.7;JUCE_APP_VERSION_HEX=0x10007;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\Juce\modules\juce_audio_processors\format_types\VST3_SDK;..\..\..\Dependencies\Vst2;..\..\JuceLibraryCode;..\..\..\Juce\modules;../../../Dependencies/LibPd/pure-data/src;../../../Dependencies/LibPd/libpd_wrapper;../../../Dependencies/LibPd/libpd_wrapper/util;../../../Dependencies/LibPd/cpp;../../../Source/Pd/Externals;../../../Source/Pd/Externals/shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;PD_INTERNAL=1;JUCE_VST3_CAN_REPLACE_VST2=0;PD=1;PDINSTANCE=1;CAMOMILE=1;PTW32_STATIC_LIB=1;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.7;JUCE_APP_VERSION_HEX=0x10007;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader/>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <AssemblerListingLocation>$(IntDir)\</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)\</ObjectFileName>
       <ProgramDataBaseFileName>$(IntDir)\</ProgramDataBaseFileName>
@@ -253,6 +254,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LargeAddressAware>true</LargeAddressAware>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -275,6 +277,249 @@
     <ClCompile Include="..\..\..\Source\PluginParameter.cpp"/>
     <ClCompile Include="..\..\..\Source\PluginParser.cpp"/>
     <ClCompile Include="..\..\..\Source\PluginLookAndFeel.cpp"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\buffer.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\file.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\grow.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\magic.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\mifi.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\random.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\above~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\add~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\adsr~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\allpass.2nd~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\allpass.rev~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\args.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\asr~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\autofade~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\autofade2~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\balance~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\bandpass~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\bandstop~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\bend.in.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\bend.out.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\bicoeff.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\biquads~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\blocksize~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\break.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\brown~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\button.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.active.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.bounds.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.edit.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.gop.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.mouse.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.name.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.pos.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.setname.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.vis.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.wname.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.zoom.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\ceil.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\ceil~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\cents2ratio.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\cents2ratio~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\changed.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\changed~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\changed2~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\click.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\clipnoise~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\cmul~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\coin.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\coin~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\colors.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\comb.filt~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\comb.rev~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\common.div.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\cosine~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\crackle~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\crossover~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\ctl.in.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\ctl.out.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\cusp~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\decay~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\decay2~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\detect~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\dir.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\dollsym.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\downsample~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\drive~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\dust~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\dust2~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\else.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\envgen~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\eq~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\f2s~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\factor.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\fader~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\fbdelay~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\fbsine~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\fbsine2~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\fdn.rev~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\ffdelay~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\float2bits.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\float2sig~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\floor.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\floor~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\fold.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\fold~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\fontsize.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\format.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\freq.shift~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\function.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\function~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\gate2imp~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\gbman~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\giga.rev~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\glide~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\glide2~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\gray~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\gui.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\henon~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\highpass~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\highshelf~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\hot.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\hz2rad.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\hz2rad~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\ikeda~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\imp~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\imp2~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\impseq~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\impulse~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\impulse2~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\initmess.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\int~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\keyboard.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\lag~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\lag2~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\lastvalue~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\latoocarfian~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\lb.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\lfnoise~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\lincong~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\loadbanger.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\logistic~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\loop.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\lorenz~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\lowpass~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\lowshelf~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\match~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\median~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\merge.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\message.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\messbox.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\midi.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\mouse.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\mov.avg~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\mov.rms~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\mtx~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\nbang.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\note.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\note.in.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\note.out.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\nyquist~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\op~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\openfile.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pack2.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pad.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pan2~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pan4~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\panic.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\parabolic~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\peak~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pgm.in.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pgm.out.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pic.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pimp~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pinknoise~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pluck~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pmosc~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\properties.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pulse~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pulsecount~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pulsediv~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\quad~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\quantizer.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\quantizer~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rad2hz.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rad2hz~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\ramp~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rampnoise~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rand.f.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rand.f~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rand.i.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rand.i~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rand.seq.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\randpulse~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\randpulse2~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\range~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\ratio2cents.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\ratio2cents~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\receiver.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rescale.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rescale~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\resonant~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\resonant2~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rint.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rint~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rms~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rotate~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\routeall.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\router.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\routetype.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\s2f~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\saw~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\saw2~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\schmitt~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\selector.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\separate.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\sequencer~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\sh~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\shaper~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\sig2float~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\sin~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\sine~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\slice.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\sort.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\spread~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\square~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\sr~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\standard~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\status~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\stepnoise~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\susloop~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\suspedal.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\svfilter~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\symbol2any.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\t2.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\table~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\tabplayer~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\tabwriter~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\tempo~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\timed.gate~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\toggleff~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\touch.in.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\touch.out.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\tri~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\trig.delay~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\trig.delay2~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\trigger2.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\trighold~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\unmerge.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\voices.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\vsaw~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\vu~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\wavetable~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\wrap2.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\wrap2~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\wt~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\xfade~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\xgate~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\xgate2~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\xmod~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\xmod2~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\xselect~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\xselect2~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\zerocross~.c"/>
     <ClCompile Include="..\..\..\Source\Pd\PdInstance.cpp"/>
     <ClCompile Include="..\..\..\Source\Pd\PdPatch.cpp"/>
     <ClCompile Include="..\..\..\Source\Pd\PdGui.cpp"/>
@@ -1746,6 +1991,12 @@
     <ClInclude Include="..\..\..\Source\PluginParser.h"/>
     <ClInclude Include="..\..\..\Source\PluginLookAndFeel.hpp"/>
     <ClInclude Include="..\..\..\Source\PluginConfig.h"/>
+    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\buffer.h"/>
+    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\file.h"/>
+    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\grow.h"/>
+    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\magic.h"/>
+    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\mifi.h"/>
+    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\random.h"/>
     <ClInclude Include="..\..\..\Source\Pd\PdInstance.hpp"/>
     <ClInclude Include="..\..\..\Source\Pd\PdPatch.hpp"/>
     <ClInclude Include="..\..\..\Source\Pd\PdGui.hpp"/>
@@ -1870,6 +2121,7 @@
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_processors\format_types\VST3_SDK\public.sdk\source\vst\vsteditcontroller.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_processors\format_types\VST3_SDK\public.sdk\source\vst\vstparameters.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_processors\format_types\VST3_SDK\public.sdk\source\vst\vstpresetfile.h"/>
+    <ClInclude Include="..\..\..\Juce\modules\juce_audio_processors\format_types\juce_AU_Shared.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_processors\format_types\juce_AudioUnitPluginFormat.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_processors\format_types\juce_LADSPAPluginFormat.h"/>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_processors\format_types\juce_VST3Common.h"/>

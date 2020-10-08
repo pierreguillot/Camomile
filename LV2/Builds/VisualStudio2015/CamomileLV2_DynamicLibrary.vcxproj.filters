@@ -2,6 +2,12 @@
 
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="CamomileLV2\Source\Pd\Externals\shared">
+      <UniqueIdentifier>{1EAF3506-47D2-174A-5F17-27B768B63B87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CamomileLV2\Source\Pd\Externals">
+      <UniqueIdentifier>{3E544DDE-8A53-7AE0-9E42-110757B30FC5}</UniqueIdentifier>
+    </Filter>
     <Filter Include="CamomileLV2\Source\Pd">
       <UniqueIdentifier>{D03AC0A6-3443-795F-C827-173561D164DE}</UniqueIdentifier>
     </Filter>
@@ -450,6 +456,735 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Source\PluginLookAndFeel.cpp">
       <Filter>CamomileLV2\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\buffer.c">
+      <Filter>CamomileLV2\Source\Pd\Externals\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\file.c">
+      <Filter>CamomileLV2\Source\Pd\Externals\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\grow.c">
+      <Filter>CamomileLV2\Source\Pd\Externals\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\magic.c">
+      <Filter>CamomileLV2\Source\Pd\Externals\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\mifi.c">
+      <Filter>CamomileLV2\Source\Pd\Externals\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\random.c">
+      <Filter>CamomileLV2\Source\Pd\Externals\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\above~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\add~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\adsr~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\allpass.2nd~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\allpass.rev~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\args.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\asr~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\autofade~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\autofade2~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\balance~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\bandpass~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\bandstop~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\bend.in.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\bend.out.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\bicoeff.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\biquads~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\blocksize~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\break.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\brown~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\button.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.active.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.bounds.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.edit.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.gop.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.mouse.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.name.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.pos.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.setname.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.vis.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.wname.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.zoom.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\ceil.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\ceil~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\cents2ratio.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\cents2ratio~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\changed.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\changed~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\changed2~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\click.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\clipnoise~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\cmul~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\coin.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\coin~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\colors.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\comb.filt~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\comb.rev~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\common.div.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\cosine~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\crackle~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\crossover~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\ctl.in.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\ctl.out.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\cusp~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\decay~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\decay2~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\detect~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\dir.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\dollsym.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\downsample~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\drive~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\dust~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\dust2~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\else.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\envgen~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\eq~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\f2s~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\factor.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\fader~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\fbdelay~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\fbsine~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\fbsine2~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\fdn.rev~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\ffdelay~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\float2bits.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\float2sig~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\floor.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\floor~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\fold.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\fold~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\fontsize.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\format.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\freq.shift~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\function.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\function~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\gate2imp~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\gbman~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\giga.rev~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\glide~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\glide2~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\gray~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\gui.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\henon~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\highpass~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\highshelf~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\hot.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\hz2rad.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\hz2rad~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\ikeda~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\imp~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\imp2~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\impseq~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\impulse~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\impulse2~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\initmess.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\int~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\keyboard.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\lag~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\lag2~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\lastvalue~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\latoocarfian~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\lb.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\lfnoise~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\lincong~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\loadbanger.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\logistic~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\loop.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\lorenz~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\lowpass~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\lowshelf~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\match~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\median~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\merge.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\message.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\messbox.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\midi.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\mouse.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\mov.avg~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\mov.rms~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\mtx~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\nbang.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\note.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\note.in.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\note.out.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\nyquist~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\op~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\openfile.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pack2.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pad.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pan2~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pan4~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\panic.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\parabolic~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\peak~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pgm.in.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pgm.out.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pic.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pimp~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pinknoise~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pluck~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pmosc~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\properties.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pulse~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pulsecount~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\pulsediv~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\quad~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\quantizer.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\quantizer~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rad2hz.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rad2hz~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\ramp~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rampnoise~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rand.f.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rand.f~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rand.i.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rand.i~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rand.seq.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\randpulse~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\randpulse2~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\range~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\ratio2cents.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\ratio2cents~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\receiver.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rescale.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rescale~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\resonant~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\resonant2~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rint.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rint~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rms~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\rotate~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\routeall.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\router.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\routetype.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\s2f~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\saw~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\saw2~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\schmitt~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\selector.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\separate.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\sequencer~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\sh~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\shaper~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\sig2float~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\sin~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\sine~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\slice.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\sort.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\spread~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\square~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\sr~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\standard~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\status~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\stepnoise~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\susloop~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\suspedal.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\svfilter~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\symbol2any.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\t2.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\table~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\tabplayer~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\tabwriter~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\tempo~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\timed.gate~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\toggleff~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\touch.in.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\touch.out.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\tri~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\trig.delay~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\trig.delay2~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\trigger2.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\trighold~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\unmerge.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\voices.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\vsaw~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\vu~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\wavetable~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\wrap2.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\wrap2~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\wt~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\xfade~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\xgate~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\xgate2~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\xmod~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\xmod2~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\xselect~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\xselect2~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\zerocross~.c">
+      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\PdInstance.cpp">
       <Filter>CamomileLV2\Source\Pd</Filter>
@@ -2094,6 +2829,24 @@
     <ClInclude Include="..\..\..\Source\PluginConfig.h">
       <Filter>CamomileLV2\Source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\buffer.h">
+      <Filter>CamomileLV2\Source\Pd\Externals\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\file.h">
+      <Filter>CamomileLV2\Source\Pd\Externals\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\grow.h">
+      <Filter>CamomileLV2\Source\Pd\Externals\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\magic.h">
+      <Filter>CamomileLV2\Source\Pd\Externals\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\mifi.h">
+      <Filter>CamomileLV2\Source\Pd\Externals\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\random.h">
+      <Filter>CamomileLV2\Source\Pd\Externals\shared</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Source\Pd\PdInstance.hpp">
       <Filter>CamomileLV2\Source\Pd</Filter>
     </ClInclude>
@@ -2564,6 +3317,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_processors\format_types\VST3_SDK\public.sdk\source\vst\vstpresetfile.h">
       <Filter>JUCE Modules\juce_audio_processors\format_types\VST3_SDK\public.sdk\source\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Juce\modules\juce_audio_processors\format_types\juce_AU_Shared.h">
+      <Filter>JUCE Modules\juce_audio_processors\format_types</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Juce\modules\juce_audio_processors\format_types\juce_AudioUnitPluginFormat.h">
       <Filter>JUCE Modules\juce_audio_processors\format_types</Filter>

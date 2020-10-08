@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="Kpq9Ee" name="CamomileFx" displaySplashScreen="0" reportAppUsage="0"
+<JUCERPROJECT id="Kpq9Ee" name="CamomileFx" displaySplashScreen="1" reportAppUsage="0"
               splashScreenColour="Dark" projectType="audioplug" version="1.0.7"
               bundleIdentifier="com.pierreguillot.camomile" includeBinaryInAppConfig="1"
               cppLanguageStandard="11" companyCopyright="Pierre Guillot" buildVST="0"
@@ -10,8 +10,8 @@
               pluginCode="Kpq9" pluginChannelConfigs="" pluginIsSynth="0" pluginWantsMidiIn="1"
               pluginProducesMidiOut="1" pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="1"
               pluginAUExportPrefix="CamomileFxAU" aaxIdentifier="com.pierreguillot.camomilefx"
-              pluginAAXCategory="2" companyName="Pierre Guillot" headerPath="../../../Dependencies/LibPd/pure-data/src&#10;../../../Dependencies/LibPd/libpd_wrapper&#10;../../../Dependencies/LibPd/libpd_wrapper/util&#10;../../../Dependencies/LibPd/cpp&#10;"
-              companyWebsite="github.com/pierreguillot/camomile" defines="PD_INTERNAL=1&#10;JUCE_VST3_CAN_REPLACE_VST2=0"
+              pluginAAXCategory="2" companyName="Pierre Guillot" headerPath="../../../Dependencies/LibPd/pure-data/src&#10;../../../Dependencies/LibPd/libpd_wrapper&#10;../../../Dependencies/LibPd/libpd_wrapper/util&#10;../../../Dependencies/LibPd/cpp&#10;../../../Source/Pd/Externals&#10;../../../Source/Pd/Externals/shared"
+              companyWebsite="github.com/pierreguillot/camomile" defines="PD_INTERNAL=1&#10;JUCE_VST3_CAN_REPLACE_VST2=0&#10;PD=1&#10;PDINSTANCE=1&#10;CAMOMILE=1"
               pluginFormats="buildAU,buildVST3" pluginCharacteristicsValue="pluginWantsMidiIn,pluginProducesMidiOut,pluginEditorRequiresKeys"
               jucerFormatVersion="1">
   <MAINGROUP id="BLNPyv" name="CamomileFx">
@@ -61,6 +61,260 @@
             file="../Source/PluginLookAndFeel.hpp"/>
       <FILE id="JQzA9b" name="PluginConfig.h" compile="0" resource="0" file="../Source/PluginConfig.h"/>
       <GROUP id="{42D4795F-C693-1C4C-D4AF-C6B0DC06B00D}" name="Pd">
+        <GROUP id="{93306B76-6071-98A3-01B2-24871AC30CA4}" name="Externals">
+          <GROUP id="{735388B7-30E3-6D9B-35BF-3A5C86EA8145}" name="shared">
+            <FILE id="wjr4JA" name="buffer.c" compile="1" resource="0" file="../Source/Pd/Externals/shared/buffer.c"/>
+            <FILE id="u6nEOP" name="buffer.h" compile="0" resource="0" file="../Source/Pd/Externals/shared/buffer.h"/>
+            <FILE id="vSVnpr" name="file.c" compile="1" resource="0" file="../Source/Pd/Externals/shared/file.c"/>
+            <FILE id="iz40yo" name="file.h" compile="0" resource="0" file="../Source/Pd/Externals/shared/file.h"/>
+            <FILE id="dOlFgX" name="grow.c" compile="1" resource="0" file="../Source/Pd/Externals/shared/grow.c"/>
+            <FILE id="qcQXxt" name="grow.h" compile="0" resource="0" file="../Source/Pd/Externals/shared/grow.h"/>
+            <FILE id="Oo3kkM" name="magic.c" compile="1" resource="0" file="../Source/Pd/Externals/shared/magic.c"/>
+            <FILE id="uOxLdc" name="magic.h" compile="0" resource="0" file="../Source/Pd/Externals/shared/magic.h"/>
+            <FILE id="pgOWcs" name="mifi.c" compile="1" resource="0" file="../Source/Pd/Externals/shared/mifi.c"/>
+            <FILE id="mQWGEH" name="mifi.h" compile="0" resource="0" file="../Source/Pd/Externals/shared/mifi.h"/>
+            <FILE id="lymHCE" name="random.c" compile="1" resource="0" file="../Source/Pd/Externals/shared/random.c"/>
+            <FILE id="OUewz4" name="random.h" compile="0" resource="0" file="../Source/Pd/Externals/shared/random.h"/>
+          </GROUP>
+          <FILE id="EVF3ww" name="above~.c" compile="1" resource="0" file="../Source/Pd/Externals/above~.c"/>
+          <FILE id="vytIaM" name="add~.c" compile="1" resource="0" file="../Source/Pd/Externals/add~.c"/>
+          <FILE id="tEBJ9Z" name="adsr~.c" compile="1" resource="0" file="../Source/Pd/Externals/adsr~.c"/>
+          <FILE id="L7FG02" name="allpass.2nd~.c" compile="1" resource="0" file="../Source/Pd/Externals/allpass.2nd~.c"/>
+          <FILE id="ty2UCO" name="allpass.rev~.c" compile="1" resource="0" file="../Source/Pd/Externals/allpass.rev~.c"/>
+          <FILE id="fmHc2K" name="args.c" compile="1" resource="0" file="../Source/Pd/Externals/args.c"/>
+          <FILE id="wN1Qr5" name="asr~.c" compile="1" resource="0" file="../Source/Pd/Externals/asr~.c"/>
+          <FILE id="Qt7Mrm" name="autofade~.c" compile="1" resource="0" file="../Source/Pd/Externals/autofade~.c"/>
+          <FILE id="v0dukB" name="autofade2~.c" compile="1" resource="0" file="../Source/Pd/Externals/autofade2~.c"/>
+          <FILE id="srAieH" name="balance~.c" compile="1" resource="0" file="../Source/Pd/Externals/balance~.c"/>
+          <FILE id="lI7LE4" name="bandpass~.c" compile="1" resource="0" file="../Source/Pd/Externals/bandpass~.c"/>
+          <FILE id="v9RFbi" name="bandstop~.c" compile="1" resource="0" file="../Source/Pd/Externals/bandstop~.c"/>
+          <FILE id="uK8cku" name="bend.in.c" compile="1" resource="0" file="../Source/Pd/Externals/bend.in.c"/>
+          <FILE id="VyoXI4" name="bend.out.c" compile="1" resource="0" file="../Source/Pd/Externals/bend.out.c"/>
+          <FILE id="SyjUp9" name="bicoeff.c" compile="1" resource="0" file="../Source/Pd/Externals/bicoeff.c"/>
+          <FILE id="SXLT1k" name="biquads~.c" compile="1" resource="0" file="../Source/Pd/Externals/biquads~.c"/>
+          <FILE id="IjfR9t" name="blocksize~.c" compile="1" resource="0" file="../Source/Pd/Externals/blocksize~.c"/>
+          <FILE id="BZroFL" name="break.c" compile="1" resource="0" file="../Source/Pd/Externals/break.c"/>
+          <FILE id="jZeFAW" name="brown~.c" compile="1" resource="0" file="../Source/Pd/Externals/brown~.c"/>
+          <FILE id="VNot0u" name="button.c" compile="1" resource="0" file="../Source/Pd/Externals/button.c"/>
+          <FILE id="P55VZB" name="canvas.active.c" compile="1" resource="0" file="../Source/Pd/Externals/canvas.active.c"/>
+          <FILE id="Qj4fq3" name="canvas.bounds.c" compile="1" resource="0" file="../Source/Pd/Externals/canvas.bounds.c"/>
+          <FILE id="OPh7Nw" name="canvas.edit.c" compile="1" resource="0" file="../Source/Pd/Externals/canvas.edit.c"/>
+          <FILE id="UusqBt" name="canvas.gop.c" compile="1" resource="0" file="../Source/Pd/Externals/canvas.gop.c"/>
+          <FILE id="okVgdE" name="canvas.mouse.c" compile="1" resource="0" file="../Source/Pd/Externals/canvas.mouse.c"/>
+          <FILE id="oCEOAF" name="canvas.name.c" compile="1" resource="0" file="../Source/Pd/Externals/canvas.name.c"/>
+          <FILE id="oRuvq2" name="canvas.pos.c" compile="1" resource="0" file="../Source/Pd/Externals/canvas.pos.c"/>
+          <FILE id="voS4BB" name="canvas.setname.c" compile="1" resource="0"
+                file="../Source/Pd/Externals/canvas.setname.c"/>
+          <FILE id="tqw2Wx" name="canvas.vis.c" compile="1" resource="0" file="../Source/Pd/Externals/canvas.vis.c"/>
+          <FILE id="rPgp34" name="canvas.wname.c" compile="1" resource="0" file="../Source/Pd/Externals/canvas.wname.c"/>
+          <FILE id="AvYyYz" name="canvas.zoom.c" compile="1" resource="0" file="../Source/Pd/Externals/canvas.zoom.c"/>
+          <FILE id="wFZk6z" name="ceil.c" compile="1" resource="0" file="../Source/Pd/Externals/ceil.c"/>
+          <FILE id="szdgVL" name="ceil~.c" compile="1" resource="0" file="../Source/Pd/Externals/ceil~.c"/>
+          <FILE id="H9V5RT" name="cents2ratio.c" compile="1" resource="0" file="../Source/Pd/Externals/cents2ratio.c"/>
+          <FILE id="et0uZR" name="cents2ratio~.c" compile="1" resource="0" file="../Source/Pd/Externals/cents2ratio~.c"/>
+          <FILE id="h1GwOU" name="changed.c" compile="1" resource="0" file="../Source/Pd/Externals/changed.c"/>
+          <FILE id="KDGoqh" name="changed~.c" compile="1" resource="0" file="../Source/Pd/Externals/changed~.c"/>
+          <FILE id="i02wCg" name="changed2~.c" compile="1" resource="0" file="../Source/Pd/Externals/changed2~.c"/>
+          <FILE id="PRNEt7" name="click.c" compile="1" resource="0" file="../Source/Pd/Externals/click.c"/>
+          <FILE id="rq2g73" name="clipnoise~.c" compile="1" resource="0" file="../Source/Pd/Externals/clipnoise~.c"/>
+          <FILE id="zWm1nm" name="cmul~.c" compile="1" resource="0" file="../Source/Pd/Externals/cmul~.c"/>
+          <FILE id="jsl3gu" name="coin.c" compile="1" resource="0" file="../Source/Pd/Externals/coin.c"/>
+          <FILE id="l0iSbs" name="coin~.c" compile="1" resource="0" file="../Source/Pd/Externals/coin~.c"/>
+          <FILE id="FCV18I" name="colors.c" compile="1" resource="0" file="../Source/Pd/Externals/colors.c"/>
+          <FILE id="d3hiWU" name="comb.filt~.c" compile="1" resource="0" file="../Source/Pd/Externals/comb.filt~.c"/>
+          <FILE id="EDkUvh" name="comb.rev~.c" compile="1" resource="0" file="../Source/Pd/Externals/comb.rev~.c"/>
+          <FILE id="Wg0N8W" name="common.div.c" compile="1" resource="0" file="../Source/Pd/Externals/common.div.c"/>
+          <FILE id="dQHWna" name="cosine~.c" compile="1" resource="0" file="../Source/Pd/Externals/cosine~.c"/>
+          <FILE id="Ij9lal" name="crackle~.c" compile="1" resource="0" file="../Source/Pd/Externals/crackle~.c"/>
+          <FILE id="yTSoL2" name="crossover~.c" compile="1" resource="0" file="../Source/Pd/Externals/crossover~.c"/>
+          <FILE id="GYmCoK" name="ctl.in.c" compile="1" resource="0" file="../Source/Pd/Externals/ctl.in.c"/>
+          <FILE id="U1EPbX" name="ctl.out.c" compile="1" resource="0" file="../Source/Pd/Externals/ctl.out.c"/>
+          <FILE id="fdFMko" name="cusp~.c" compile="1" resource="0" file="../Source/Pd/Externals/cusp~.c"/>
+          <FILE id="XF9jnD" name="decay~.c" compile="1" resource="0" file="../Source/Pd/Externals/decay~.c"/>
+          <FILE id="dAKltL" name="decay2~.c" compile="1" resource="0" file="../Source/Pd/Externals/decay2~.c"/>
+          <FILE id="FmNts0" name="detect~.c" compile="1" resource="0" file="../Source/Pd/Externals/detect~.c"/>
+          <FILE id="uRiGD7" name="dir.c" compile="1" resource="0" file="../Source/Pd/Externals/dir.c"/>
+          <FILE id="BQqnJy" name="dollsym.c" compile="1" resource="0" file="../Source/Pd/Externals/dollsym.c"/>
+          <FILE id="tqSKld" name="downsample~.c" compile="1" resource="0" file="../Source/Pd/Externals/downsample~.c"/>
+          <FILE id="yHnJnk" name="drive~.c" compile="1" resource="0" file="../Source/Pd/Externals/drive~.c"/>
+          <FILE id="POy826" name="dust~.c" compile="1" resource="0" file="../Source/Pd/Externals/dust~.c"/>
+          <FILE id="a9RJzf" name="dust2~.c" compile="1" resource="0" file="../Source/Pd/Externals/dust2~.c"/>
+          <FILE id="Pr5fEy" name="else.c" compile="1" resource="0" file="../Source/Pd/Externals/else.c"/>
+          <FILE id="QANnGU" name="envgen~.c" compile="1" resource="0" file="../Source/Pd/Externals/envgen~.c"/>
+          <FILE id="g3G1y1" name="eq~.c" compile="1" resource="0" file="../Source/Pd/Externals/eq~.c"/>
+          <FILE id="wyDyCz" name="f2s~.c" compile="1" resource="0" file="../Source/Pd/Externals/f2s~.c"/>
+          <FILE id="iW2Wcd" name="factor.c" compile="1" resource="0" file="../Source/Pd/Externals/factor.c"/>
+          <FILE id="KhBODk" name="fader~.c" compile="1" resource="0" file="../Source/Pd/Externals/fader~.c"/>
+          <FILE id="OP3CkR" name="fbdelay~.c" compile="1" resource="0" file="../Source/Pd/Externals/fbdelay~.c"/>
+          <FILE id="i9rHoG" name="fbsine~.c" compile="1" resource="0" file="../Source/Pd/Externals/fbsine~.c"/>
+          <FILE id="LWbYZy" name="fbsine2~.c" compile="1" resource="0" file="../Source/Pd/Externals/fbsine2~.c"/>
+          <FILE id="LB3rl5" name="fdn.rev~.c" compile="1" resource="0" file="../Source/Pd/Externals/fdn.rev~.c"/>
+          <FILE id="o9j9zb" name="ffdelay~.c" compile="1" resource="0" file="../Source/Pd/Externals/ffdelay~.c"/>
+          <FILE id="T9nPjc" name="float2bits.c" compile="1" resource="0" file="../Source/Pd/Externals/float2bits.c"/>
+          <FILE id="x8TDYF" name="float2sig~.c" compile="1" resource="0" file="../Source/Pd/Externals/float2sig~.c"/>
+          <FILE id="BXkZng" name="floor.c" compile="1" resource="0" file="../Source/Pd/Externals/floor.c"/>
+          <FILE id="DYdkvO" name="floor~.c" compile="1" resource="0" file="../Source/Pd/Externals/floor~.c"/>
+          <FILE id="QNb3e8" name="fold.c" compile="1" resource="0" file="../Source/Pd/Externals/fold.c"/>
+          <FILE id="zZOB9I" name="fold~.c" compile="1" resource="0" file="../Source/Pd/Externals/fold~.c"/>
+          <FILE id="gHSnRh" name="fontsize.c" compile="1" resource="0" file="../Source/Pd/Externals/fontsize.c"/>
+          <FILE id="BHUOPC" name="format.c" compile="1" resource="0" file="../Source/Pd/Externals/format.c"/>
+          <FILE id="SeSnZA" name="freq.shift~.c" compile="1" resource="0" file="../Source/Pd/Externals/freq.shift~.c"/>
+          <FILE id="w15sBq" name="function.c" compile="1" resource="0" file="../Source/Pd/Externals/function.c"/>
+          <FILE id="DunXcq" name="function~.c" compile="1" resource="0" file="../Source/Pd/Externals/function~.c"/>
+          <FILE id="iHLF06" name="gate2imp~.c" compile="1" resource="0" file="../Source/Pd/Externals/gate2imp~.c"/>
+          <FILE id="laYJFy" name="gbman~.c" compile="1" resource="0" file="../Source/Pd/Externals/gbman~.c"/>
+          <FILE id="m4zu0d" name="giga.rev~.c" compile="1" resource="0" file="../Source/Pd/Externals/giga.rev~.c"/>
+          <FILE id="J4KXz8" name="glide~.c" compile="1" resource="0" file="../Source/Pd/Externals/glide~.c"/>
+          <FILE id="mVdavE" name="glide2~.c" compile="1" resource="0" file="../Source/Pd/Externals/glide2~.c"/>
+          <FILE id="NVa3O7" name="gray~.c" compile="1" resource="0" file="../Source/Pd/Externals/gray~.c"/>
+          <FILE id="zU2U1d" name="gui.c" compile="1" resource="0" file="../Source/Pd/Externals/gui.c"/>
+          <FILE id="irCPVX" name="henon~.c" compile="1" resource="0" file="../Source/Pd/Externals/henon~.c"/>
+          <FILE id="jCJ5ai" name="highpass~.c" compile="1" resource="0" file="../Source/Pd/Externals/highpass~.c"/>
+          <FILE id="LInrLe" name="highshelf~.c" compile="1" resource="0" file="../Source/Pd/Externals/highshelf~.c"/>
+          <FILE id="kQGpM5" name="hot.c" compile="1" resource="0" file="../Source/Pd/Externals/hot.c"/>
+          <FILE id="SlTKah" name="hz2rad.c" compile="1" resource="0" file="../Source/Pd/Externals/hz2rad.c"/>
+          <FILE id="RSKycd" name="hz2rad~.c" compile="1" resource="0" file="../Source/Pd/Externals/hz2rad~.c"/>
+          <FILE id="xyy0t6" name="ikeda~.c" compile="1" resource="0" file="../Source/Pd/Externals/ikeda~.c"/>
+          <FILE id="Hhuhkd" name="imp~.c" compile="1" resource="0" file="../Source/Pd/Externals/imp~.c"/>
+          <FILE id="kgrYOv" name="imp2~.c" compile="1" resource="0" file="../Source/Pd/Externals/imp2~.c"/>
+          <FILE id="shHSGO" name="impseq~.c" compile="1" resource="0" file="../Source/Pd/Externals/impseq~.c"/>
+          <FILE id="gcNE0C" name="impulse~.c" compile="1" resource="0" file="../Source/Pd/Externals/impulse~.c"/>
+          <FILE id="qVRi5a" name="impulse2~.c" compile="1" resource="0" file="../Source/Pd/Externals/impulse2~.c"/>
+          <FILE id="s0gga1" name="initmess.c" compile="1" resource="0" file="../Source/Pd/Externals/initmess.c"/>
+          <FILE id="nqNfNT" name="int~.c" compile="1" resource="0" file="../Source/Pd/Externals/int~.c"/>
+          <FILE id="HHgLij" name="keyboard.c" compile="1" resource="0" file="../Source/Pd/Externals/keyboard.c"/>
+          <FILE id="IBVsgw" name="lag~.c" compile="1" resource="0" file="../Source/Pd/Externals/lag~.c"/>
+          <FILE id="ubHYkF" name="lag2~.c" compile="1" resource="0" file="../Source/Pd/Externals/lag2~.c"/>
+          <FILE id="kKaUca" name="lastvalue~.c" compile="1" resource="0" file="../Source/Pd/Externals/lastvalue~.c"/>
+          <FILE id="Kom2BD" name="latoocarfian~.c" compile="1" resource="0" file="../Source/Pd/Externals/latoocarfian~.c"/>
+          <FILE id="q5tGLZ" name="lb.c" compile="1" resource="0" file="../Source/Pd/Externals/lb.c"/>
+          <FILE id="it81XU" name="lfnoise~.c" compile="1" resource="0" file="../Source/Pd/Externals/lfnoise~.c"/>
+          <FILE id="FoAkbg" name="lincong~.c" compile="1" resource="0" file="../Source/Pd/Externals/lincong~.c"/>
+          <FILE id="R8UsME" name="loadbanger.c" compile="1" resource="0" file="../Source/Pd/Externals/loadbanger.c"/>
+          <FILE id="T29b9W" name="logistic~.c" compile="1" resource="0" file="../Source/Pd/Externals/logistic~.c"/>
+          <FILE id="rAoWwz" name="loop.c" compile="1" resource="0" file="../Source/Pd/Externals/loop.c"/>
+          <FILE id="oFPO8Q" name="lorenz~.c" compile="1" resource="0" file="../Source/Pd/Externals/lorenz~.c"/>
+          <FILE id="XPUUsx" name="lowpass~.c" compile="1" resource="0" file="../Source/Pd/Externals/lowpass~.c"/>
+          <FILE id="c1yBBg" name="lowshelf~.c" compile="1" resource="0" file="../Source/Pd/Externals/lowshelf~.c"/>
+          <FILE id="dL2su5" name="match~.c" compile="1" resource="0" file="../Source/Pd/Externals/match~.c"/>
+          <FILE id="syiAhL" name="median~.c" compile="1" resource="0" file="../Source/Pd/Externals/median~.c"/>
+          <FILE id="NDOgTW" name="merge.c" compile="1" resource="0" file="../Source/Pd/Externals/merge.c"/>
+          <FILE id="yVMMUX" name="message.c" compile="1" resource="0" file="../Source/Pd/Externals/message.c"/>
+          <FILE id="x9L5j7" name="messbox.c" compile="1" resource="0" file="../Source/Pd/Externals/messbox.c"/>
+          <FILE id="XltMId" name="midi.c" compile="1" resource="0" file="../Source/Pd/Externals/midi.c"/>
+          <FILE id="YuBppV" name="mouse.c" compile="1" resource="0" file="../Source/Pd/Externals/mouse.c"/>
+          <FILE id="bzc0io" name="mov.avg~.c" compile="1" resource="0" file="../Source/Pd/Externals/mov.avg~.c"/>
+          <FILE id="gRoyAD" name="mov.rms~.c" compile="1" resource="0" file="../Source/Pd/Externals/mov.rms~.c"/>
+          <FILE id="HJMOaJ" name="mtx~.c" compile="1" resource="0" file="../Source/Pd/Externals/mtx~.c"/>
+          <FILE id="ToPOcY" name="nbang.c" compile="1" resource="0" file="../Source/Pd/Externals/nbang.c"/>
+          <FILE id="PNJwC0" name="note.c" compile="1" resource="0" file="../Source/Pd/Externals/note.c"/>
+          <FILE id="U9sTud" name="note.in.c" compile="1" resource="0" file="../Source/Pd/Externals/note.in.c"/>
+          <FILE id="IH3f24" name="note.out.c" compile="1" resource="0" file="../Source/Pd/Externals/note.out.c"/>
+          <FILE id="mHNYbe" name="nyquist~.c" compile="1" resource="0" file="../Source/Pd/Externals/nyquist~.c"/>
+          <FILE id="H4bdbo" name="op~.c" compile="1" resource="0" file="../Source/Pd/Externals/op~.c"/>
+          <FILE id="moB2h1" name="openfile.c" compile="1" resource="0" file="../Source/Pd/Externals/openfile.c"/>
+          <FILE id="kBxrub" name="pack2.c" compile="1" resource="0" file="../Source/Pd/Externals/pack2.c"/>
+          <FILE id="w7nLde" name="pad.c" compile="1" resource="0" file="../Source/Pd/Externals/pad.c"/>
+          <FILE id="QYzC9X" name="pan2~.c" compile="1" resource="0" file="../Source/Pd/Externals/pan2~.c"/>
+          <FILE id="pUevcQ" name="pan4~.c" compile="1" resource="0" file="../Source/Pd/Externals/pan4~.c"/>
+          <FILE id="mL17N3" name="panic.c" compile="1" resource="0" file="../Source/Pd/Externals/panic.c"/>
+          <FILE id="Q2GJJY" name="parabolic~.c" compile="1" resource="0" file="../Source/Pd/Externals/parabolic~.c"/>
+          <FILE id="t3WxhU" name="peak~.c" compile="1" resource="0" file="../Source/Pd/Externals/peak~.c"/>
+          <FILE id="ZEgunS" name="pgm.in.c" compile="1" resource="0" file="../Source/Pd/Externals/pgm.in.c"/>
+          <FILE id="lWSblG" name="pgm.out.c" compile="1" resource="0" file="../Source/Pd/Externals/pgm.out.c"/>
+          <FILE id="XeY5nI" name="pic.c" compile="1" resource="0" file="../Source/Pd/Externals/pic.c"/>
+          <FILE id="GywLav" name="pimp~.c" compile="1" resource="0" file="../Source/Pd/Externals/pimp~.c"/>
+          <FILE id="W0HZOy" name="pinknoise~.c" compile="1" resource="0" file="../Source/Pd/Externals/pinknoise~.c"/>
+          <FILE id="wjXZtZ" name="pluck~.c" compile="1" resource="0" file="../Source/Pd/Externals/pluck~.c"/>
+          <FILE id="B31npY" name="pmosc~.c" compile="1" resource="0" file="../Source/Pd/Externals/pmosc~.c"/>
+          <FILE id="uLD74X" name="properties.c" compile="1" resource="0" file="../Source/Pd/Externals/properties.c"/>
+          <FILE id="uijbcg" name="pulse~.c" compile="1" resource="0" file="../Source/Pd/Externals/pulse~.c"/>
+          <FILE id="nEP7IK" name="pulsecount~.c" compile="1" resource="0" file="../Source/Pd/Externals/pulsecount~.c"/>
+          <FILE id="OtHjsu" name="pulsediv~.c" compile="1" resource="0" file="../Source/Pd/Externals/pulsediv~.c"/>
+          <FILE id="QcDmP1" name="quad~.c" compile="1" resource="0" file="../Source/Pd/Externals/quad~.c"/>
+          <FILE id="RR6cdM" name="quantizer.c" compile="1" resource="0" file="../Source/Pd/Externals/quantizer.c"/>
+          <FILE id="MXIxVc" name="quantizer~.c" compile="1" resource="0" file="../Source/Pd/Externals/quantizer~.c"/>
+          <FILE id="EVpgm1" name="rad2hz.c" compile="1" resource="0" file="../Source/Pd/Externals/rad2hz.c"/>
+          <FILE id="BCd5T4" name="rad2hz~.c" compile="1" resource="0" file="../Source/Pd/Externals/rad2hz~.c"/>
+          <FILE id="fm3U8K" name="ramp~.c" compile="1" resource="0" file="../Source/Pd/Externals/ramp~.c"/>
+          <FILE id="TFTJTo" name="rampnoise~.c" compile="1" resource="0" file="../Source/Pd/Externals/rampnoise~.c"/>
+          <FILE id="WaOWW0" name="rand.f.c" compile="1" resource="0" file="../Source/Pd/Externals/rand.f.c"/>
+          <FILE id="ahmkg9" name="rand.f~.c" compile="1" resource="0" file="../Source/Pd/Externals/rand.f~.c"/>
+          <FILE id="gHaGgN" name="rand.i.c" compile="1" resource="0" file="../Source/Pd/Externals/rand.i.c"/>
+          <FILE id="CMa6yB" name="rand.i~.c" compile="1" resource="0" file="../Source/Pd/Externals/rand.i~.c"/>
+          <FILE id="ZvN5hr" name="rand.seq.c" compile="1" resource="0" file="../Source/Pd/Externals/rand.seq.c"/>
+          <FILE id="MgGcyW" name="randpulse~.c" compile="1" resource="0" file="../Source/Pd/Externals/randpulse~.c"/>
+          <FILE id="FunIpH" name="randpulse2~.c" compile="1" resource="0" file="../Source/Pd/Externals/randpulse2~.c"/>
+          <FILE id="innjFt" name="range~.c" compile="1" resource="0" file="../Source/Pd/Externals/range~.c"/>
+          <FILE id="mRUE9d" name="ratio2cents.c" compile="1" resource="0" file="../Source/Pd/Externals/ratio2cents.c"/>
+          <FILE id="brhFLS" name="ratio2cents~.c" compile="1" resource="0" file="../Source/Pd/Externals/ratio2cents~.c"/>
+          <FILE id="uFkkTW" name="receiver.c" compile="1" resource="0" file="../Source/Pd/Externals/receiver.c"/>
+          <FILE id="hTjsrf" name="rescale.c" compile="1" resource="0" file="../Source/Pd/Externals/rescale.c"/>
+          <FILE id="GV6z9s" name="rescale~.c" compile="1" resource="0" file="../Source/Pd/Externals/rescale~.c"/>
+          <FILE id="R8fH6K" name="resonant~.c" compile="1" resource="0" file="../Source/Pd/Externals/resonant~.c"/>
+          <FILE id="IAsgvk" name="resonant2~.c" compile="1" resource="0" file="../Source/Pd/Externals/resonant2~.c"/>
+          <FILE id="ert55n" name="rint.c" compile="1" resource="0" file="../Source/Pd/Externals/rint.c"/>
+          <FILE id="s3eZC6" name="rint~.c" compile="1" resource="0" file="../Source/Pd/Externals/rint~.c"/>
+          <FILE id="LPkDhG" name="rms~.c" compile="1" resource="0" file="../Source/Pd/Externals/rms~.c"/>
+          <FILE id="TFVLD0" name="rotate~.c" compile="1" resource="0" file="../Source/Pd/Externals/rotate~.c"/>
+          <FILE id="m0TFzs" name="routeall.c" compile="1" resource="0" file="../Source/Pd/Externals/routeall.c"/>
+          <FILE id="T9igs1" name="router.c" compile="1" resource="0" file="../Source/Pd/Externals/router.c"/>
+          <FILE id="PPpMP8" name="routetype.c" compile="1" resource="0" file="../Source/Pd/Externals/routetype.c"/>
+          <FILE id="U2moi9" name="s2f~.c" compile="1" resource="0" file="../Source/Pd/Externals/s2f~.c"/>
+          <FILE id="EIAivv" name="saw~.c" compile="1" resource="0" file="../Source/Pd/Externals/saw~.c"/>
+          <FILE id="YdGeNg" name="saw2~.c" compile="1" resource="0" file="../Source/Pd/Externals/saw2~.c"/>
+          <FILE id="nwBCyK" name="schmitt~.c" compile="1" resource="0" file="../Source/Pd/Externals/schmitt~.c"/>
+          <FILE id="KHeJBQ" name="selector.c" compile="1" resource="0" file="../Source/Pd/Externals/selector.c"/>
+          <FILE id="TjC4qq" name="separate.c" compile="1" resource="0" file="../Source/Pd/Externals/separate.c"/>
+          <FILE id="Rkc8Gm" name="sequencer~.c" compile="1" resource="0" file="../Source/Pd/Externals/sequencer~.c"/>
+          <FILE id="HosMsE" name="sh~.c" compile="1" resource="0" file="../Source/Pd/Externals/sh~.c"/>
+          <FILE id="Jx0MyY" name="shaper~.c" compile="1" resource="0" file="../Source/Pd/Externals/shaper~.c"/>
+          <FILE id="xp2gwI" name="sig2float~.c" compile="1" resource="0" file="../Source/Pd/Externals/sig2float~.c"/>
+          <FILE id="mBIvwk" name="sin~.c" compile="1" resource="0" file="../Source/Pd/Externals/sin~.c"/>
+          <FILE id="HqfGpH" name="sine~.c" compile="1" resource="0" file="../Source/Pd/Externals/sine~.c"/>
+          <FILE id="Oh2c0m" name="slice.c" compile="1" resource="0" file="../Source/Pd/Externals/slice.c"/>
+          <FILE id="iFmWJe" name="sort.c" compile="1" resource="0" file="../Source/Pd/Externals/sort.c"/>
+          <FILE id="iQkGhS" name="spread~.c" compile="1" resource="0" file="../Source/Pd/Externals/spread~.c"/>
+          <FILE id="cr4SP0" name="square~.c" compile="1" resource="0" file="../Source/Pd/Externals/square~.c"/>
+          <FILE id="SAgIEW" name="sr~.c" compile="1" resource="0" file="../Source/Pd/Externals/sr~.c"/>
+          <FILE id="BiUpRV" name="standard~.c" compile="1" resource="0" file="../Source/Pd/Externals/standard~.c"/>
+          <FILE id="zvzO6a" name="status~.c" compile="1" resource="0" file="../Source/Pd/Externals/status~.c"/>
+          <FILE id="Pft1Xl" name="stepnoise~.c" compile="1" resource="0" file="../Source/Pd/Externals/stepnoise~.c"/>
+          <FILE id="K2MnQD" name="susloop~.c" compile="1" resource="0" file="../Source/Pd/Externals/susloop~.c"/>
+          <FILE id="RvCVkA" name="suspedal.c" compile="1" resource="0" file="../Source/Pd/Externals/suspedal.c"/>
+          <FILE id="stQBHa" name="svfilter~.c" compile="1" resource="0" file="../Source/Pd/Externals/svfilter~.c"/>
+          <FILE id="reiMDS" name="symbol2any.c" compile="1" resource="0" file="../Source/Pd/Externals/symbol2any.c"/>
+          <FILE id="a7fP5a" name="t2.c" compile="1" resource="0" file="../Source/Pd/Externals/t2.c"/>
+          <FILE id="Ezbxnt" name="table~.c" compile="1" resource="0" file="../Source/Pd/Externals/table~.c"/>
+          <FILE id="Sk7zym" name="tabplayer~.c" compile="1" resource="0" file="../Source/Pd/Externals/tabplayer~.c"/>
+          <FILE id="DYdlYe" name="tabwriter~.c" compile="1" resource="0" file="../Source/Pd/Externals/tabwriter~.c"/>
+          <FILE id="Is8m8w" name="tempo~.c" compile="1" resource="0" file="../Source/Pd/Externals/tempo~.c"/>
+          <FILE id="FiitFs" name="timed.gate~.c" compile="1" resource="0" file="../Source/Pd/Externals/timed.gate~.c"/>
+          <FILE id="oCNIvX" name="toggleff~.c" compile="1" resource="0" file="../Source/Pd/Externals/toggleff~.c"/>
+          <FILE id="zIlAbE" name="touch.in.c" compile="1" resource="0" file="../Source/Pd/Externals/touch.in.c"/>
+          <FILE id="gvWJCE" name="touch.out.c" compile="1" resource="0" file="../Source/Pd/Externals/touch.out.c"/>
+          <FILE id="tIn9wQ" name="tri~.c" compile="1" resource="0" file="../Source/Pd/Externals/tri~.c"/>
+          <FILE id="TZaydU" name="trig.delay~.c" compile="1" resource="0" file="../Source/Pd/Externals/trig.delay~.c"/>
+          <FILE id="l4nH3x" name="trig.delay2~.c" compile="1" resource="0" file="../Source/Pd/Externals/trig.delay2~.c"/>
+          <FILE id="cGs6Ot" name="trigger2.c" compile="1" resource="0" file="../Source/Pd/Externals/trigger2.c"/>
+          <FILE id="WU85U2" name="trighold~.c" compile="1" resource="0" file="../Source/Pd/Externals/trighold~.c"/>
+          <FILE id="PMlbIt" name="unmerge.c" compile="1" resource="0" file="../Source/Pd/Externals/unmerge.c"/>
+          <FILE id="XPtwrw" name="voices.c" compile="1" resource="0" file="../Source/Pd/Externals/voices.c"/>
+          <FILE id="ZUWZiM" name="vsaw~.c" compile="1" resource="0" file="../Source/Pd/Externals/vsaw~.c"/>
+          <FILE id="gCTe3m" name="vu~.c" compile="1" resource="0" file="../Source/Pd/Externals/vu~.c"/>
+          <FILE id="Y9Rdlo" name="wavetable~.c" compile="1" resource="0" file="../Source/Pd/Externals/wavetable~.c"/>
+          <FILE id="fyabUM" name="wrap2.c" compile="1" resource="0" file="../Source/Pd/Externals/wrap2.c"/>
+          <FILE id="ZPvwFu" name="wrap2~.c" compile="1" resource="0" file="../Source/Pd/Externals/wrap2~.c"/>
+          <FILE id="vf5j8B" name="wt~.c" compile="1" resource="0" file="../Source/Pd/Externals/wt~.c"/>
+          <FILE id="Cc74hY" name="xfade~.c" compile="1" resource="0" file="../Source/Pd/Externals/xfade~.c"/>
+          <FILE id="b6yXCi" name="xgate~.c" compile="1" resource="0" file="../Source/Pd/Externals/xgate~.c"/>
+          <FILE id="sBeINb" name="xgate2~.c" compile="1" resource="0" file="../Source/Pd/Externals/xgate2~.c"/>
+          <FILE id="xusBdZ" name="xmod~.c" compile="1" resource="0" file="../Source/Pd/Externals/xmod~.c"/>
+          <FILE id="ypoPMr" name="xmod2~.c" compile="1" resource="0" file="../Source/Pd/Externals/xmod2~.c"/>
+          <FILE id="kiwHaM" name="xselect~.c" compile="1" resource="0" file="../Source/Pd/Externals/xselect~.c"/>
+          <FILE id="KFMXWB" name="xselect2~.c" compile="1" resource="0" file="../Source/Pd/Externals/xselect2~.c"/>
+          <FILE id="pN99pJ" name="zerocross~.c" compile="1" resource="0" file="../Source/Pd/Externals/zerocross~.c"/>
+        </GROUP>
         <FILE id="OkoB07" name="PdInstance.cpp" compile="1" resource="0" file="../Source/Pd/PdInstance.cpp"/>
         <FILE id="blrCIt" name="PdInstance.hpp" compile="0" resource="0" file="../Source/Pd/PdInstance.hpp"/>
         <FILE id="Yh77qx" name="PdPatch.cpp" compile="1" resource="0" file="../Source/Pd/PdPatch.cpp"/>
