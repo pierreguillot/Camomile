@@ -8,7 +8,6 @@
   </p>
   <p align="center">
     <a href="https://travis-ci.org/pierreguillot/Camomile"><img src="https://img.shields.io/travis/pierreguillot/Camomile.svg?label=travis" alt="Travis CI"></a>
-    <a href="https://ci.appveyor.com/project/pierreguillot/camomile/history"><img src="https://img.shields.io/appveyor/ci/pierreguillot/Camomile.svg?label=appveyor" alt="Appveyor CI"></a>
     <a href="https://www.codacy.com/app/pierreguillot/Camomile?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pierreguillot/Camomile&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/3396e70b99fd4144aa26df2ce98d7e66"/></a>
   </p>
   <p align="center">
@@ -24,7 +23,7 @@
 </p>
 
 ## WARNING
-This repository is a simple fork with some little edits to compile Camomile with support to [ELSE library](https://github.com/porres/pd-else).
+This repository is a simple fork with some [little edits](https://github.com/pierreguillot/Camomile/issues/214#issuecomment-704670696) to compile Camomile with support to [ELSE library](https://github.com/porres/pd-else).
 - Issues about the support of ELSE library in Camomile are welcomed.
 - Issues about Camomile itself, please fill your issue in https://github.com/pierreguillot/Camomile/issues for better support.
 
