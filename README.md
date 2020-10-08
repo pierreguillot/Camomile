@@ -53,7 +53,6 @@ At last, this [part](https://github.com/pierreguillot/Camomile/wiki/How-to-creat
 Download Camomile and its dependencies using git:
 
 ```
-git clone --recurse-submodules https://github.com/libpd/libpd.git
 git clone --recursive https://github.com/pierreguillot/Camomile.git
 ```
 
