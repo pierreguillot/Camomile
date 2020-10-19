@@ -112,7 +112,6 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/grow_d1b4beb5.o \
   $(JUCE_OBJDIR)/magic_84cfc095.o \
   $(JUCE_OBJDIR)/mifi_db6eb301.o \
-  $(JUCE_OBJDIR)/oscilloscope_dialog_aa443660.o \
   $(JUCE_OBJDIR)/random_28400425.o \
   $(JUCE_OBJDIR)/s_utf8_3323409f.o \
   $(JUCE_OBJDIR)/above~_3182b7d3.o \
@@ -487,11 +486,6 @@ $(JUCE_OBJDIR)/magic_84cfc095.o: ../../../Source/Pd/Externals/shared/magic.c
 $(JUCE_OBJDIR)/mifi_db6eb301.o: ../../../Source/Pd/Externals/shared/mifi.c
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling mifi.c"
-	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/oscilloscope_dialog_aa443660.o: ../../../Source/Pd/Externals/shared/oscilloscope_dialog.c
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling oscilloscope_dialog.c"
 	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/random_28400425.o: ../../../Source/Pd/Externals/shared/random.c

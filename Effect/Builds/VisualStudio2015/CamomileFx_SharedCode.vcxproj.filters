@@ -388,14 +388,14 @@
     <ClCompile Include="..\..\..\Source\Pd\Externals\shared\mifi.c">
       <Filter>CamomileFx\Source\Pd\Externals\shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\oscilloscope_dialog.c">
-      <Filter>CamomileFx\Source\Pd\Externals\shared</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\Externals\shared\random.c">
       <Filter>CamomileFx\Source\Pd\Externals\shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\Externals\shared\s_utf8.c">
       <Filter>CamomileFx\Source\Pd\Externals\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\oscilloscope_dialog.c">
+      <Filter>CamomileFx\Source\Pd\Externals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\Externals\above~.c">
       <Filter>CamomileFx\Source\Pd\Externals</Filter>

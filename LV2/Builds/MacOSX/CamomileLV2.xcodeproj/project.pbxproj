@@ -165,10 +165,6 @@
 			isa = PBXBuildFile;
 			fileRef = 8B058F3581AE97E6B2061C76;
 		};
-		3016C79CFDD7A378ADF2B615 = {
-			isa = PBXBuildFile;
-			fileRef = 758B2383C18665114151AB4A;
-		};
 		43140B4B388BA9FD011D0BE3 = {
 			isa = PBXBuildFile;
 			fileRef = 91A80EE352328778850E5211;
@@ -2227,13 +2223,6 @@
 			path = "../../../Source/Pd/Externals/shared/s_utf8.c";
 			sourceTree = "SOURCE_ROOT";
 		};
-		758B2383C18665114151AB4A = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.c;
-			name = "oscilloscope_dialog.c";
-			path = "../../../Source/Pd/Externals/shared/oscilloscope_dialog.c";
-			sourceTree = "SOURCE_ROOT";
-		};
 		75E37D9F91970ED5DF37D3D5 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.c;
@@ -3361,6 +3350,13 @@
 			path = "../../../Source/Pd/Externals/bandstop~.c";
 			sourceTree = "SOURCE_ROOT";
 		};
+		E938DABC97409AA1C8D5D1A6 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = "oscilloscope_dialog.c";
+			path = "../../../Source/Pd/Externals/oscilloscope_dialog.c";
+			sourceTree = "SOURCE_ROOT";
+		};
 		E97760B339C8ADCA696EBDFF = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.c;
@@ -3605,7 +3601,6 @@
 				6500A792E41E5B9227164AEB,
 				8B058F3581AE97E6B2061C76,
 				6825F5C9A27AFE50097EB509,
-				758B2383C18665114151AB4A,
 				91A80EE352328778850E5211,
 				2C1A22D5F46690D7D1F01460,
 				70DCD2BC77CBF90389441D09,
@@ -3618,6 +3613,7 @@
 			isa = PBXGroup;
 			children = (
 				BFB66DD610998FD2512A857E,
+				E938DABC97409AA1C8D5D1A6,
 				D34DF31A824B4497DD5E2F3C,
 				4E28CDBD99FC2F8BE9039395,
 				7793D70AF2B0DC107CCD6858,
@@ -4373,7 +4369,6 @@
 				34BB5C1EAE58994EB2A173CE,
 				2BE801235684CE1D03601549,
 				F53A616B1775465EC4A8887F,
-				3016C79CFDD7A378ADF2B615,
 				43140B4B388BA9FD011D0BE3,
 				AF1D48530F4D7A9902C01855,
 				2122028908F143AE3D154017,

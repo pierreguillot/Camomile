@@ -67,13 +67,13 @@
             <FILE id="sy5bMX" name="magic.h" compile="0" resource="0" file="../Source/Pd/Externals/shared/magic.h"/>
             <FILE id="uVOQHh" name="mifi.c" compile="1" resource="0" file="../Source/Pd/Externals/shared/mifi.c"/>
             <FILE id="oeoRQA" name="mifi.h" compile="0" resource="0" file="../Source/Pd/Externals/shared/mifi.h"/>
-            <FILE id="EUlIIU" name="oscilloscope_dialog.c" compile="1" resource="0"
-                  file="../Source/Pd/Externals/shared/oscilloscope_dialog.c"/>
             <FILE id="sQf6Xb" name="random.c" compile="1" resource="0" file="../Source/Pd/Externals/shared/random.c"/>
             <FILE id="goZ3zC" name="random.h" compile="0" resource="0" file="../Source/Pd/Externals/shared/random.h"/>
             <FILE id="zUzE4z" name="s_utf8.c" compile="1" resource="0" file="../Source/Pd/Externals/shared/s_utf8.c"/>
             <FILE id="xeGXLr" name="s_utf8.h" compile="0" resource="0" file="../Source/Pd/Externals/shared/s_utf8.h"/>
           </GROUP>
+          <FILE id="WcxxtY" name="oscilloscope_dialog.c" compile="0" resource="0"
+                file="../Source/Pd/Externals/oscilloscope_dialog.c"/>
           <FILE id="Dofll6" name="above~.c" compile="1" resource="0" file="../Source/Pd/Externals/above~.c"/>
           <FILE id="cucfPE" name="add~.c" compile="1" resource="0" file="../Source/Pd/Externals/add~.c"/>
           <FILE id="vXrW3t" name="adsr~.c" compile="1" resource="0" file="../Source/Pd/Externals/adsr~.c"/>
