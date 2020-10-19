@@ -113,6 +113,7 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/magic_84cfc095.o \
   $(JUCE_OBJDIR)/mifi_db6eb301.o \
   $(JUCE_OBJDIR)/random_28400425.o \
+  $(JUCE_OBJDIR)/s_utf8_3323409f.o \
   $(JUCE_OBJDIR)/above~_3182b7d3.o \
   $(JUCE_OBJDIR)/add~_93b8d78f.o \
   $(JUCE_OBJDIR)/adsr~_e4312cb4.o \
@@ -249,6 +250,8 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/nyquist~_36c98275.o \
   $(JUCE_OBJDIR)/op~_dc44a8f5.o \
   $(JUCE_OBJDIR)/openfile_9e21dd98.o \
+  $(JUCE_OBJDIR)/oscilloscope_9a06b221.o \
+  $(JUCE_OBJDIR)/oscilloscope_dialog_4f888cf0.o \
   $(JUCE_OBJDIR)/pack2_f7aa57b1.o \
   $(JUCE_OBJDIR)/pad_dc4b8d4b.o \
   $(JUCE_OBJDIR)/pan2~_f82c8e61.o \
@@ -489,6 +492,11 @@ $(JUCE_OBJDIR)/mifi_db6eb301.o: ../../../Source/Pd/Externals/shared/mifi.c
 $(JUCE_OBJDIR)/random_28400425.o: ../../../Source/Pd/Externals/shared/random.c
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling random.c"
+	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/s_utf8_3323409f.o: ../../../Source/Pd/Externals/shared/s_utf8.c
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling s_utf8.c"
 	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/above~_3182b7d3.o: ../../../Source/Pd/Externals/above~.c
@@ -1169,6 +1177,16 @@ $(JUCE_OBJDIR)/op~_dc44a8f5.o: ../../../Source/Pd/Externals/op~.c
 $(JUCE_OBJDIR)/openfile_9e21dd98.o: ../../../Source/Pd/Externals/openfile.c
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling openfile.c"
+	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/oscilloscope_9a06b221.o: ../../../Source/Pd/Externals/oscilloscope.c
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling oscilloscope.c"
+	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/oscilloscope_dialog_4f888cf0.o: ../../../Source/Pd/Externals/oscilloscope_dialog.c
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling oscilloscope_dialog.c"
 	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/pack2_f7aa57b1.o: ../../../Source/Pd/Externals/pack2.c

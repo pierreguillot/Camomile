@@ -1,6 +1,7 @@
 // Porres 2017
 
 #include "m_pd.h"
+#include <stdlib.h>
 
 static t_class *randf_class;
 
@@ -132,9 +133,11 @@ static void *randf_new(t_symbol *s, int ac, t_atom *av){
         high = 1;
         }
 /////////////////////////////////////////////////////////////////////////////////////
-    static int init_seed = 74599;
-    init_seed *= 1319;
-    t_int seed = init_seed;
+    
+    static unsigned int static_seed = 74599;
+    static_seed *= 1319;
+    srand((unsigned int)clock_getlogicaltime());
+    t_int seed = static_seed * (unsigned int)rand();
     x->x_val = seed; // load seed value
 //
     x->x_lastin = 0;

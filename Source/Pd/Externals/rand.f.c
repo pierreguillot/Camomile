@@ -1,6 +1,7 @@
 // Porres 2017
  
 #include "m_pd.h"
+#include <stdlib.h>
 
 static t_class *randf_class;
 
@@ -24,8 +25,12 @@ static void randf_bang(t_randf *x){
 }
 
 static void *randf_new(t_symbol *s, int argc, t_atom *argv){
+    s = NULL;
     t_randf *x = (t_randf *) pd_new(randf_class);
-    static int init_seed = 54569;
+    int seed_arg = 0;
+    static unsigned int static_seed = 54569;
+    srand((unsigned int)clock_getlogicaltime());
+    unsigned int rand_seed = (unsigned int)rand();
 /////////////////////////////////////////////
     x->x_min = 0.;
     x->x_max = 1.;
@@ -50,7 +55,8 @@ static void *randf_new(t_symbol *s, int argc, t_atom *argv){
                         argc--;
                         argv++;
                         break;
-                    case 2: init_seed = atom_getfloatarg(0, argc, argv);
+                        case 2: static_seed = atom_getfloatarg(0, argc, argv);
+                        seed_arg = 1;
                         numargs++;
                         argc--;
                         argv++;
@@ -68,7 +74,11 @@ static void *randf_new(t_symbol *s, int argc, t_atom *argv){
     else if(argc > 3)
         goto errstate;
 ///////////////////////////////////////////////
-    x->x_val = init_seed *= 1319; // load seed value
+    if(!seed_arg)
+        static_seed = static_seed * rand_seed + 938284287;
+    else
+        static_seed = rand_seed;
+    x->x_val = static_seed *= 1319; // load seed value
     floatinlet_new((t_object *)x, &x->x_min);
     floatinlet_new((t_object *)x, &x->x_max);
     outlet_new((t_object *)x, &s_float);

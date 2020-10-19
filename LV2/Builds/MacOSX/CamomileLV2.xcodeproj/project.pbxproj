@@ -169,6 +169,10 @@
 			isa = PBXBuildFile;
 			fileRef = 91A80EE352328778850E5211;
 		};
+		AF1D48530F4D7A9902C01855 = {
+			isa = PBXBuildFile;
+			fileRef = 70DCD2BC77CBF90389441D09;
+		};
 		2122028908F143AE3D154017 = {
 			isa = PBXBuildFile;
 			fileRef = D34DF31A824B4497DD5E2F3C;
@@ -712,6 +716,14 @@
 		BB0613580D6EB33D02352C80 = {
 			isa = PBXBuildFile;
 			fileRef = 5275F851250394051B498DAB;
+		};
+		2B2145460B4AEBB3DFB17BCE = {
+			isa = PBXBuildFile;
+			fileRef = 360D5878F8991337F9454A2B;
+		};
+		644F0B2911B9DD5AD380BD32 = {
+			isa = PBXBuildFile;
+			fileRef = E938DABC97409AA1C8D5D1A6;
 		};
 		4B2FD81D9DEA6A592BCD4B85 = {
 			isa = PBXBuildFile;
@@ -1536,6 +1548,13 @@
 			path = ../../../Ressources/Images/settings.png;
 			sourceTree = "SOURCE_ROOT";
 		};
+		2BC6E1E3EE32A9C25B14662B = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = "s_utf8.h";
+			path = "../../../Source/Pd/Externals/shared/s_utf8.h";
+			sourceTree = "SOURCE_ROOT";
+		};
 		2C1A22D5F46690D7D1F01460 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -1611,6 +1630,13 @@
 			lastKnownFileType = sourcecode.c.c;
 			name = "crossover~.c";
 			path = "../../../Source/Pd/Externals/crossover~.c";
+			sourceTree = "SOURCE_ROOT";
+		};
+		360D5878F8991337F9454A2B = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = oscilloscope.c;
+			path = ../../../Source/Pd/Externals/oscilloscope.c;
 			sourceTree = "SOURCE_ROOT";
 		};
 		363259136F6ABCCF9B30BFB0 = {
@@ -2192,6 +2218,13 @@
 			lastKnownFileType = sourcecode.c.c;
 			name = button.c;
 			path = ../../../Source/Pd/Externals/button.c;
+			sourceTree = "SOURCE_ROOT";
+		};
+		70DCD2BC77CBF90389441D09 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = "s_utf8.c";
+			path = "../../../Source/Pd/Externals/shared/s_utf8.c";
 			sourceTree = "SOURCE_ROOT";
 		};
 		75E37D9F91970ED5DF37D3D5 = {
@@ -3321,6 +3354,13 @@
 			path = "../../../Source/Pd/Externals/bandstop~.c";
 			sourceTree = "SOURCE_ROOT";
 		};
+		E938DABC97409AA1C8D5D1A6 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = "oscilloscope_dialog.c";
+			path = "../../../Source/Pd/Externals/oscilloscope_dialog.c";
+			sourceTree = "SOURCE_ROOT";
+		};
 		E97760B339C8ADCA696EBDFF = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.c;
@@ -3567,6 +3607,8 @@
 				6825F5C9A27AFE50097EB509,
 				91A80EE352328778850E5211,
 				2C1A22D5F46690D7D1F01460,
+				70DCD2BC77CBF90389441D09,
+				2BC6E1E3EE32A9C25B14662B,
 			);
 			name = shared;
 			sourceTree = "<group>";
@@ -3711,6 +3753,8 @@
 				B2CE47A01A1CB67833142C41,
 				FC222D4EC6F6B68CCF2C68B1,
 				5275F851250394051B498DAB,
+				360D5878F8991337F9454A2B,
+				E938DABC97409AA1C8D5D1A6,
 				05F77330A7E93CEAD5ACF7EF,
 				CCE9CD80EFDDFAF4D349832C,
 				9C5BBCC01AD7DA2281F6F8E9,
@@ -4330,6 +4374,7 @@
 				2BE801235684CE1D03601549,
 				F53A616B1775465EC4A8887F,
 				43140B4B388BA9FD011D0BE3,
+				AF1D48530F4D7A9902C01855,
 				2122028908F143AE3D154017,
 				BC625F7719E8346D5D5AB216,
 				4A5417B949EB6D515CE95FAA,
@@ -4466,6 +4511,8 @@
 				1E264DD19F9372EA7D0EA825,
 				B432B4561A0922C498E9480F,
 				BB0613580D6EB33D02352C80,
+				2B2145460B4AEBB3DFB17BCE,
+				644F0B2911B9DD5AD380BD32,
 				4B2FD81D9DEA6A592BCD4B85,
 				F4F491E1015D724EF738CE57,
 				71D983EE4D1125978765CB12,

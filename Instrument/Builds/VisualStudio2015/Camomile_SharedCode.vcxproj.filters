@@ -391,6 +391,9 @@
     <ClCompile Include="..\..\..\Source\Pd\Externals\shared\random.c">
       <Filter>Camomile\Source\Pd\Externals\shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\s_utf8.c">
+      <Filter>Camomile\Source\Pd\Externals\shared</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\Externals\above~.c">
       <Filter>Camomile\Source\Pd\Externals</Filter>
     </ClCompile>
@@ -797,6 +800,12 @@
       <Filter>Camomile\Source\Pd\Externals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\Externals\openfile.c">
+      <Filter>Camomile\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\oscilloscope.c">
+      <Filter>Camomile\Source\Pd\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\oscilloscope_dialog.c">
       <Filter>Camomile\Source\Pd\Externals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\Externals\pack2.c">
@@ -2740,6 +2749,9 @@
       <Filter>Camomile\Source\Pd\Externals\shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\Pd\Externals\shared\random.h">
+      <Filter>Camomile\Source\Pd\Externals\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\s_utf8.h">
       <Filter>Camomile\Source\Pd\Externals\shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\Pd\PdInstance.hpp">

@@ -1,6 +1,6 @@
+// porres
+
 #include "m_pd.h"
-#include "m_imp.h"
-#include <string.h>
 
 typedef struct else_obj{
     t_object x_obj;
@@ -39,7 +39,7 @@ void print_else_obj(t_else_obj *x){
     post("-------------------------------------------------------------------------------");
     post("  ~~~~~~~~~~|| ELSE - EL Locus Solus' Externals for Pure Data ||~~~~~~~~~~");
     post("-------------------------------------------------------------------------------");
-    post("- Version: 1.0-0 %s-%d; Unreleased", STATUS, status_number);
+    post("- Version: 1.0-0 %s-%d; Released october 19th 2020", STATUS, status_number);
     post("- Author: Alexandre Torres Porres");
     post("- Repository: https://github.com/porres/pd-else");
     post("- License: Do What The Fuck You Want To Public License, unless otherwise noted");
@@ -72,8 +72,6 @@ static void *else_obj_new(void){
     outlet_new((t_object *)x, 0);
     return(x);
 }
-
-/* ----------------------------- SETUP ------------------------------ */
 
 void else_setup(void){
     else_obj_class = class_new(gensym("else"), else_obj_new, 0, sizeof(t_else_obj), 0, 0);

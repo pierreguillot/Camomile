@@ -1,6 +1,7 @@
 // Porres 2017
 
 #include "m_pd.h"
+#include <stdlib.h>
 
 static t_class *randi_class;
 
@@ -130,10 +131,13 @@ static void *randi_new(t_symbol *s, int ac, t_atom *av){
         high = 1;
         }
 /////////////////////////////////////////////////////////////////////////////////////
-    static unsigned int random_seed = 1489853723;
-    random_seed = random_seed * 435898247 + 938284287;
-    t_int seed = random_seed & 0x7fffffff;
+    
+    static unsigned int static_seed = 74599;
+    static_seed = static_seed * (435898247 + 938284287);
+    srand((unsigned int)clock_getlogicaltime());
+    t_int seed = (static_seed * (unsigned int)rand()) & 0x7fffffff;
     x->x_val = seed; // load seed value
+    
     x->x_lastin = 0;
     x->x_low_let = inlet_new((t_object *)x, (t_pd *)x, &s_signal, &s_signal);
         pd_float((t_pd *)x->x_low_let, low);
