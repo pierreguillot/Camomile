@@ -219,7 +219,7 @@
           <FILE id="JZ7EAD" name="nyquist~.c" compile="1" resource="0" file="../Source/Pd/Externals/nyquist~.c"/>
           <FILE id="OAxZSc" name="op~.c" compile="1" resource="0" file="../Source/Pd/Externals/op~.c"/>
           <FILE id="z2e2y5" name="openfile.c" compile="1" resource="0" file="../Source/Pd/Externals/openfile.c"/>
-          <FILE id="WTLIrp" name="oscilloscope.c" compile="1" resource="0" file="../Source/Pd/Externals/oscilloscope.c"/>
+          <FILE id="WTLIrp" name="oscilloscope.c" compile="0" resource="0" file="../Source/Pd/Externals/oscilloscope.c"/>
           <FILE id="SHKFi3" name="pack2.c" compile="1" resource="0" file="../Source/Pd/Externals/pack2.c"/>
           <FILE id="zXg91n" name="pad.c" compile="1" resource="0" file="../Source/Pd/Externals/pad.c"/>
           <FILE id="VX5h0V" name="pan2~.c" compile="1" resource="0" file="../Source/Pd/Externals/pan2~.c"/>
