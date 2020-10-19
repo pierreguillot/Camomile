@@ -444,7 +444,7 @@ void setup_note0x2eout(void);
 void nyquist_tilde_setup(void);
 void op_tilde_setup(void);
 void openfile_setup(void);
-void oscilloscope_tilde_setup(void);
+//void oscilloscope_tilde_setup(void);
 extern void pack2_setup(void);
 void pad_setup(void);
 void pan2_tilde_setup(void);
@@ -710,7 +710,7 @@ void libpd_multi_init(void)
         nyquist_tilde_setup();
         op_tilde_setup();
         openfile_setup();
-        oscilloscope_tilde_setup();
+        //oscilloscope_tilde_setup();
         pack2_setup();
         pad_setup();
         pan2_tilde_setup();
