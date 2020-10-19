@@ -442,8 +442,12 @@
     <ClCompile Include="..\..\..\Source\Pd\Externals\nyquist~.c"/>
     <ClCompile Include="..\..\..\Source\Pd\Externals\op~.c"/>
     <ClCompile Include="..\..\..\Source\Pd\Externals\openfile.c"/>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\oscilloscope.c"/>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\oscilloscope_dialog.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\oscilloscope.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\oscilloscope_dialog.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\Externals\pack2.c"/>
     <ClCompile Include="..\..\..\Source\Pd\Externals\pad.c"/>
     <ClCompile Include="..\..\..\Source\Pd\Externals\pan2~.c"/>

@@ -209,8 +209,8 @@
           <FILE id="uI95Xv" name="nyquist~.c" compile="1" resource="0" file="../Source/Pd/Externals/nyquist~.c"/>
           <FILE id="xsBMKN" name="op~.c" compile="1" resource="0" file="../Source/Pd/Externals/op~.c"/>
           <FILE id="kssivb" name="openfile.c" compile="1" resource="0" file="../Source/Pd/Externals/openfile.c"/>
-          <FILE id="y5wHfB" name="oscilloscope.c" compile="1" resource="0" file="../Source/Pd/Externals/oscilloscope.c"/>
-          <FILE id="M8Lzti" name="oscilloscope_dialog.c" compile="1" resource="0"
+          <FILE id="y5wHfB" name="oscilloscope.c" compile="0" resource="0" file="../Source/Pd/Externals/oscilloscope.c"/>
+          <FILE id="M8Lzti" name="oscilloscope_dialog.c" compile="0" resource="0"
                 file="../Source/Pd/Externals/oscilloscope_dialog.c"/>
           <FILE id="b4UuwB" name="pack2.c" compile="1" resource="0" file="../Source/Pd/Externals/pack2.c"/>
           <FILE id="HnXvjQ" name="pad.c" compile="1" resource="0" file="../Source/Pd/Externals/pad.c"/>

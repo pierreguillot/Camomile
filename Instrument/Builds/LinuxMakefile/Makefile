@@ -250,8 +250,6 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/nyquist~_36c98275.o \
   $(JUCE_OBJDIR)/op~_dc44a8f5.o \
   $(JUCE_OBJDIR)/openfile_9e21dd98.o \
-  $(JUCE_OBJDIR)/oscilloscope_9a06b221.o \
-  $(JUCE_OBJDIR)/oscilloscope_dialog_4f888cf0.o \
   $(JUCE_OBJDIR)/pack2_f7aa57b1.o \
   $(JUCE_OBJDIR)/pad_dc4b8d4b.o \
   $(JUCE_OBJDIR)/pan2~_f82c8e61.o \
@@ -1177,16 +1175,6 @@ $(JUCE_OBJDIR)/op~_dc44a8f5.o: ../../../Source/Pd/Externals/op~.c
 $(JUCE_OBJDIR)/openfile_9e21dd98.o: ../../../Source/Pd/Externals/openfile.c
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling openfile.c"
-	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/oscilloscope_9a06b221.o: ../../../Source/Pd/Externals/oscilloscope.c
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling oscilloscope.c"
-	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/oscilloscope_dialog_4f888cf0.o: ../../../Source/Pd/Externals/oscilloscope_dialog.c
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling oscilloscope_dialog.c"
 	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/pack2_f7aa57b1.o: ../../../Source/Pd/Externals/pack2.c
