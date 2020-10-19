@@ -472,6 +472,9 @@
     <ClCompile Include="..\..\..\Source\Pd\Externals\shared\mifi.c">
       <Filter>CamomileLV2\Source\Pd\Externals\shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\oscilloscope_dialog.c">
+      <Filter>CamomileLV2\Source\Pd\Externals\shared</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\Externals\shared\random.c">
       <Filter>CamomileLV2\Source\Pd\Externals\shared</Filter>
     </ClCompile>
@@ -887,9 +890,6 @@
       <Filter>CamomileLV2\Source\Pd\Externals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\Externals\oscilloscope.c">
-      <Filter>CamomileLV2\Source\Pd\Externals</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\oscilloscope_dialog.c">
       <Filter>CamomileLV2\Source\Pd\Externals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\Externals\pack2.c">

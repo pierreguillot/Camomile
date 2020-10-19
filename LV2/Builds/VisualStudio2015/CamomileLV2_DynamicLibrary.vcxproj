@@ -304,6 +304,7 @@
     <ClCompile Include="..\..\..\Source\Pd\Externals\shared\grow.c"/>
     <ClCompile Include="..\..\..\Source\Pd\Externals\shared\magic.c"/>
     <ClCompile Include="..\..\..\Source\Pd\Externals\shared\mifi.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\oscilloscope_dialog.c"/>
     <ClCompile Include="..\..\..\Source\Pd\Externals\shared\random.c"/>
     <ClCompile Include="..\..\..\Source\Pd\Externals\shared\s_utf8.c"/>
     <ClCompile Include="..\..\..\Source\Pd\Externals\above~.c"/>
@@ -443,7 +444,6 @@
     <ClCompile Include="..\..\..\Source\Pd\Externals\op~.c"/>
     <ClCompile Include="..\..\..\Source\Pd\Externals\openfile.c"/>
     <ClCompile Include="..\..\..\Source\Pd\Externals\oscilloscope.c"/>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\oscilloscope_dialog.c"/>
     <ClCompile Include="..\..\..\Source\Pd\Externals\pack2.c"/>
     <ClCompile Include="..\..\..\Source\Pd\Externals\pad.c"/>
     <ClCompile Include="..\..\..\Source\Pd\Externals\pan2~.c"/>

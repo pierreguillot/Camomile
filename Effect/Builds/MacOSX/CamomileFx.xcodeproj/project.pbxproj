@@ -61,7 +61,6 @@
 		1C14042711794AC4CA7A99AC /* saw~.c in Sources */ = {isa = PBXBuildFile; fileRef = 36BEB633C2DCFA57A4D73BED /* saw~.c */; };
 		1D6A35377B315D4C5DD8988C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F064420B996DA482F0524 /* IOKit.framework */; };
 		1DE9FA1FA28964054400F254 /* imp2~.c in Sources */ = {isa = PBXBuildFile; fileRef = D33B73A90C96D80D48F1B6EC /* imp2~.c */; };
-		1F1B218D1B5889D22FECFA49 /* oscilloscope_dialog.c in Sources */ = {isa = PBXBuildFile; fileRef = 652EFF60A37F462F28A877CC /* oscilloscope_dialog.c */; };
 		206092AB1767607CB17F9B29 /* include_juce_audio_plugin_client_AU_1.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5D7ECB5D028435D6C0D2B563 /* include_juce_audio_plugin_client_AU_1.mm */; };
 		21364D28FC22E9DA46CD293D /* pgm.out.c in Sources */ = {isa = PBXBuildFile; fileRef = 576D1B0E6DA270EAE26CEE84 /* pgm.out.c */; };
 		21A664051D59FAF73E839298 /* henon~.c in Sources */ = {isa = PBXBuildFile; fileRef = 315BCD868B701A3F908838B1 /* henon~.c */; };
@@ -124,18 +123,19 @@
 		575B85DFAC177DE306BACED2 /* lowshelf~.c in Sources */ = {isa = PBXBuildFile; fileRef = D2B6558F32B70FF19C4555B0 /* lowshelf~.c */; };
 		5851EBF58911550EB364B273 /* message.c in Sources */ = {isa = PBXBuildFile; fileRef = 2DD562041BB3259BA8C381A7 /* message.c */; };
 		599B2DDB8AD2505AD5E5F1C5 /* pan2~.c in Sources */ = {isa = PBXBuildFile; fileRef = 81E9E093337B11C7BFCF94E6 /* pan2~.c */; };
-		5B888E51253D1C8C004CA102 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8126A2FEEEADA13BE0FBBEDC /* RecentFilesMenuTemplate.nib */; };
-		5B888E52253D1C8C004CA102 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1E3A85F79B93B336420138 /* Accelerate.framework */; };
-		5B888E53253D1C8C004CA102 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8F36AEFDA9E963BDBA6C1C /* AudioToolbox.framework */; };
-		5B888E54253D1C8C004CA102 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
-		5B888E55253D1C8C004CA102 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22689D9A7644931A85906FC /* Cocoa.framework */; };
-		5B888E56253D1C8C004CA102 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE27C1948ACEC6272612D72E /* CoreAudio.framework */; };
-		5B888E57253D1C8C004CA102 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF6201286A446C72F198F49 /* CoreMIDI.framework */; };
-		5B888E58253D1C8C004CA102 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F064420B996DA482F0524 /* IOKit.framework */; };
-		5B888E59253D1C8C004CA102 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBF9F7DFC62377D880D402F /* QuartzCore.framework */; };
-		5B888E5A253D1C8C004CA102 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBD83515A888D164A72466A /* WebKit.framework */; };
+		5B888E8D253D1FCB004CA102 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8126A2FEEEADA13BE0FBBEDC /* RecentFilesMenuTemplate.nib */; };
+		5B888E8E253D1FCB004CA102 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1E3A85F79B93B336420138 /* Accelerate.framework */; };
+		5B888E8F253D1FCB004CA102 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8F36AEFDA9E963BDBA6C1C /* AudioToolbox.framework */; };
+		5B888E90253D1FCB004CA102 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
+		5B888E91253D1FCB004CA102 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22689D9A7644931A85906FC /* Cocoa.framework */; };
+		5B888E92253D1FCB004CA102 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE27C1948ACEC6272612D72E /* CoreAudio.framework */; };
+		5B888E93253D1FCB004CA102 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF6201286A446C72F198F49 /* CoreMIDI.framework */; };
+		5B888E94253D1FCB004CA102 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F064420B996DA482F0524 /* IOKit.framework */; };
+		5B888E95253D1FCB004CA102 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBF9F7DFC62377D880D402F /* QuartzCore.framework */; };
+		5B888E96253D1FCB004CA102 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBD83515A888D164A72466A /* WebKit.framework */; };
 		5B9DEC2B731165020FA1049D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
 		5F6386EEC1090282FCF8F8E9 /* impulse2~.c in Sources */ = {isa = PBXBuildFile; fileRef = 3C74F658FD33382202B70CAD /* impulse2~.c */; };
+		5F969863A4F14353F3A211C6 /* oscilloscope_dialog.c in Sources */ = {isa = PBXBuildFile; fileRef = ECECDB861722F69A3C9F5310 /* oscilloscope_dialog.c */; };
 		60741917CEE8BCADF504F1DC /* s_utf8.c in Sources */ = {isa = PBXBuildFile; fileRef = 4644CB0D904979C728F9EF06 /* s_utf8.c */; };
 		64427C83B38B702B1048671A /* keyboard.c in Sources */ = {isa = PBXBuildFile; fileRef = 36A9B455DA7DA6E4F10E13AF /* keyboard.c */; };
 		6468A06B2848D60180B425B6 /* blocksize~.c in Sources */ = {isa = PBXBuildFile; fileRef = 65C9AC8D63DA4E05335BF6D5 /* blocksize~.c */; };
@@ -327,35 +327,35 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5B888E60253D1C8D004CA102 /* PBXContainerItemProxy */ = {
+		5B888E9C253D1FCB004CA102 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 074FFE22626A916E5D070022;
 			remoteInfo = "CamomileFx - VST3";
 		};
-		5B888E61253D1C8D004CA102 /* PBXContainerItemProxy */ = {
+		5B888E9D253D1FCB004CA102 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = DDC710B892FDE37A0F19292D;
 			remoteInfo = "CamomileFx - Shared Code";
 		};
-		5B888E62253D1C8D004CA102 /* PBXContainerItemProxy */ = {
+		5B888E9E253D1FCB004CA102 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 6E51637F255AB3A3BE377A27;
 			remoteInfo = "CamomileFx - AU";
 		};
-		5B888E63253D1C8D004CA102 /* PBXContainerItemProxy */ = {
+		5B888E9F253D1FCB004CA102 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = DDC710B892FDE37A0F19292D;
 			remoteInfo = "CamomileFx - Shared Code";
 		};
-		5B888E64253D1C8D004CA102 /* PBXContainerItemProxy */ = {
+		5B888EA0253D1FCB004CA102 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
@@ -513,7 +513,6 @@
 		626848B9AD95B1CDC07CCB8A /* touch.out.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = touch.out.c; path = ../../../Source/Pd/Externals/touch.out.c; sourceTree = SOURCE_ROOT; };
 		62AE406B0AB1237903C5C14B /* juce_audio_processors */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_audio_processors; path = ../../../Juce/modules/juce_audio_processors; sourceTree = SOURCE_ROOT; };
 		650C8FCBE60809C9D537483C /* break.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = break.c; path = ../../../Source/Pd/Externals/break.c; sourceTree = SOURCE_ROOT; };
-		652EFF60A37F462F28A877CC /* oscilloscope_dialog.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = oscilloscope_dialog.c; path = ../../../Source/Pd/Externals/oscilloscope_dialog.c; sourceTree = SOURCE_ROOT; };
 		65A024AA107454877315A000 /* PluginParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginParser.h; path = ../../../Source/PluginParser.h; sourceTree = SOURCE_ROOT; };
 		65C9AC8D63DA4E05335BF6D5 /* blocksize~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "blocksize~.c"; path = "../../../Source/Pd/Externals/blocksize~.c"; sourceTree = SOURCE_ROOT; };
 		66080BAE8DCE7B3DC31D1395 /* PdInstance.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PdInstance.cpp; path = ../../../Source/Pd/PdInstance.cpp; sourceTree = SOURCE_ROOT; };
@@ -695,6 +694,7 @@
 		EB353129FF98CB45D57329FE /* x_libpd_multi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = x_libpd_multi.h; path = ../../../Source/Pd/x_libpd_multi.h; sourceTree = SOURCE_ROOT; };
 		EC895B876103DBE759BFAE01 /* colors.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = colors.c; path = ../../../Source/Pd/Externals/colors.c; sourceTree = SOURCE_ROOT; };
 		ECA218C8F959D75DB14BDA70 /* include_juce_audio_processors.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_processors.mm; path = ../../JuceLibraryCode/include_juce_audio_processors.mm; sourceTree = SOURCE_ROOT; };
+		ECECDB861722F69A3C9F5310 /* oscilloscope_dialog.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = oscilloscope_dialog.c; path = ../../../Source/Pd/Externals/shared/oscilloscope_dialog.c; sourceTree = SOURCE_ROOT; };
 		ED170D50B5DA5B0C1BA9BD1C /* canvas.bounds.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = canvas.bounds.c; path = ../../../Source/Pd/Externals/canvas.bounds.c; sourceTree = SOURCE_ROOT; };
 		EE837A1173A0C0259A88C9AF /* cents2ratio.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = cents2ratio.c; path = ../../../Source/Pd/Externals/cents2ratio.c; sourceTree = SOURCE_ROOT; };
 		EFEAFD3910E19645C122C0D0 /* lag2~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "lag2~.c"; path = "../../../Source/Pd/Externals/lag2~.c"; sourceTree = SOURCE_ROOT; };
@@ -720,16 +720,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0E616AAADE2C8DFABCA8F14 /* AudioUnit.framework in Frameworks */,
-				5B888E52253D1C8C004CA102 /* Accelerate.framework in Frameworks */,
-				5B888E53253D1C8C004CA102 /* AudioToolbox.framework in Frameworks */,
-				5B888E54253D1C8C004CA102 /* Carbon.framework in Frameworks */,
-				5B888E55253D1C8C004CA102 /* Cocoa.framework in Frameworks */,
-				5B888E56253D1C8C004CA102 /* CoreAudio.framework in Frameworks */,
+				5B888E8E253D1FCB004CA102 /* Accelerate.framework in Frameworks */,
+				5B888E8F253D1FCB004CA102 /* AudioToolbox.framework in Frameworks */,
+				5B888E90253D1FCB004CA102 /* Carbon.framework in Frameworks */,
+				5B888E91253D1FCB004CA102 /* Cocoa.framework in Frameworks */,
+				5B888E92253D1FCB004CA102 /* CoreAudio.framework in Frameworks */,
 				BABB947ED89952F98B386B72 /* CoreAudioKit.framework in Frameworks */,
-				5B888E57253D1C8C004CA102 /* CoreMIDI.framework in Frameworks */,
-				5B888E58253D1C8C004CA102 /* IOKit.framework in Frameworks */,
-				5B888E59253D1C8C004CA102 /* QuartzCore.framework in Frameworks */,
-				5B888E5A253D1C8C004CA102 /* WebKit.framework in Frameworks */,
+				5B888E93253D1FCB004CA102 /* CoreMIDI.framework in Frameworks */,
+				5B888E94253D1FCB004CA102 /* IOKit.framework in Frameworks */,
+				5B888E95253D1FCB004CA102 /* QuartzCore.framework in Frameworks */,
+				5B888E96253D1FCB004CA102 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -893,7 +893,6 @@
 				861476384C585D43ACE9631E /* op~.c */,
 				9EF6EABEF9A203BF3CCFDC71 /* openfile.c */,
 				16944EB3E0345D1473894BBC /* oscilloscope.c */,
-				652EFF60A37F462F28A877CC /* oscilloscope_dialog.c */,
 				2D47F58BC035A22C1CE28188 /* pack2.c */,
 				5E59782517927BAF8ADB2420 /* pad.c */,
 				81E9E093337B11C7BFCF94E6 /* pan2~.c */,
@@ -1177,6 +1176,7 @@
 				11DB4434BA2106275545B0C8 /* magic.h */,
 				264A8275EA9CDF1F83C644AB /* mifi.c */,
 				C5812CAC975E0B63C263C94B /* mifi.h */,
+				ECECDB861722F69A3C9F5310 /* oscilloscope_dialog.c */,
 				9172A567D71F06A2845978D7 /* random.c */,
 				60F1C07CB8461757F320E33F /* random.h */,
 				4644CB0D904979C728F9EF06 /* s_utf8.c */,
@@ -1397,7 +1397,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B888E51253D1C8C004CA102 /* RecentFilesMenuTemplate.nib in Resources */,
+				5B888E8D253D1FCB004CA102 /* RecentFilesMenuTemplate.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1460,6 +1460,7 @@
 				EF9CC5F82E9859E6989B73A8 /* grow.c in Sources */,
 				8AB45285DC012C48D221AB2D /* magic.c in Sources */,
 				C0AA18FAC3C20AB5991353C0 /* mifi.c in Sources */,
+				5F969863A4F14353F3A211C6 /* oscilloscope_dialog.c in Sources */,
 				DFE28DBA567F367825374EE3 /* random.c in Sources */,
 				60741917CEE8BCADF504F1DC /* s_utf8.c in Sources */,
 				6D2790E0CB1F0D6E60C21F32 /* above~.c in Sources */,
@@ -1599,7 +1600,6 @@
 				B037CC42E7F22AA5D30C359B /* op~.c in Sources */,
 				91CB3BC5E987CB4DC4A90050 /* openfile.c in Sources */,
 				FA92870C024F10DF0BAB43CC /* oscilloscope.c in Sources */,
-				1F1B218D1B5889D22FECFA49 /* oscilloscope_dialog.c in Sources */,
 				49A51162534829968D70C874 /* pack2.c in Sources */,
 				FDB2903084A0A90D6DBCB902 /* pad.c in Sources */,
 				599B2DDB8AD2505AD5E5F1C5 /* pan2~.c in Sources */,
@@ -1728,27 +1728,27 @@
 		3042C8CA77DD74930771F01B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 074FFE22626A916E5D070022 /* CamomileFx - VST3 */;
-			targetProxy = 5B888E60253D1C8D004CA102 /* PBXContainerItemProxy */;
+			targetProxy = 5B888E9C253D1FCB004CA102 /* PBXContainerItemProxy */;
 		};
 		8CDEB77D51FBBF215D1E6A25 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DDC710B892FDE37A0F19292D /* CamomileFx - Shared Code */;
-			targetProxy = 5B888E64253D1C8D004CA102 /* PBXContainerItemProxy */;
+			targetProxy = 5B888EA0253D1FCB004CA102 /* PBXContainerItemProxy */;
 		};
 		BA090E170831C3A0722ED77C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6E51637F255AB3A3BE377A27 /* CamomileFx - AU */;
-			targetProxy = 5B888E62253D1C8D004CA102 /* PBXContainerItemProxy */;
+			targetProxy = 5B888E9E253D1FCB004CA102 /* PBXContainerItemProxy */;
 		};
 		EA92790AFA86A37CC4101A72 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DDC710B892FDE37A0F19292D /* CamomileFx - Shared Code */;
-			targetProxy = 5B888E63253D1C8D004CA102 /* PBXContainerItemProxy */;
+			targetProxy = 5B888E9F253D1FCB004CA102 /* PBXContainerItemProxy */;
 		};
 		F9068086A3D939FE5C492C3B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DDC710B892FDE37A0F19292D /* CamomileFx - Shared Code */;
-			targetProxy = 5B888E61253D1C8D004CA102 /* PBXContainerItemProxy */;
+			targetProxy = 5B888E9D253D1FCB004CA102 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

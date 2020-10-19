@@ -388,6 +388,9 @@
     <ClCompile Include="..\..\..\Source\Pd\Externals\shared\mifi.c">
       <Filter>CamomileFx\Source\Pd\Externals\shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\oscilloscope_dialog.c">
+      <Filter>CamomileFx\Source\Pd\Externals\shared</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\Externals\shared\random.c">
       <Filter>CamomileFx\Source\Pd\Externals\shared</Filter>
     </ClCompile>
@@ -803,9 +806,6 @@
       <Filter>CamomileFx\Source\Pd\Externals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\Externals\oscilloscope.c">
-      <Filter>CamomileFx\Source\Pd\Externals</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\oscilloscope_dialog.c">
       <Filter>CamomileFx\Source\Pd\Externals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\Externals\pack2.c">
