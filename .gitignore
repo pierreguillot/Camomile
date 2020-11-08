@@ -1,63 +1,3 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-*.pd_darwin
-
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-*.component
-*.vst
-*.vst3
-*.lv2
-*.appex
-
-# Packages
-*.zip
-
-# Mac Xcode
-*.xcuserstate
-*.xcuserdatad
-
-# Windows MSVC
-*.tlog
-*.res
-
-# Juce & ThirdParty
-/Instrument/Builds/MacOSX/build/
-/Instrument/Builds/LinuxMakefile/build/
-/Effect/Builds/MacOSX/build/
-/Effect/Builds/LinuxMakefile/build/
-/LV2/Builds/MacOSX/build/
-/LV2/Builds/LinuxMakefile/build/
-/.backup/
-
-# libpd
-/Dependencies/LibPdBuild/MacOSX/
-!/Dependencies/LibPdBuild/MacOSX/infos.txt
-/Dependencies/LibPdBuild/LinuxMakefile/
-!/Dependencies/LibPdBuild/LinuxMakefile/infos.txt
-/Dependencies/LibPdBuild/VisualStudio2015/
-!/Dependencies/LibPdBuild/VisualStudio2015/infos.txt
 
 #Examples
 /Plugins/*
@@ -67,3 +7,6 @@
 !/Plugins/Examples/MiniMock/
 !/Plugins/Examples/PdStalFx/
 !/Plugins/Examples/PdStal/
+
+*.zip
+/build/*

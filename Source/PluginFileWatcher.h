@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
-#include "PluginEnvironment.h"
+#include <JuceHeader.h>
+#include "PluginConfig.h"
 
 // ======================================================================================== //
 //                                      FILE WATCHER                                        //
