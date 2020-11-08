@@ -4,9 +4,9 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "PluginEnvironment.h"
+#include "PluginConfig.h"
 #include "PluginParser.h"
-#include "../JuceLibraryCode/JuceHeader.h"
+#include <JuceHeader.h>
 #include <cctype>
 #include <string>
 extern "C"
@@ -380,12 +380,12 @@ CamomileEnvironment::CamomileEnvironment()
                             std::string const type = CamomileParser::getString(entry.second);
                             if(type == "instrument")
                             {
-                                if(!JucePlugin_Build_LV2 && !JucePlugin_IsSynth)
+                                if(PluginHostType::getPluginLoadedAs() != AudioProcessor::wrapperType_Undefined && !JucePlugin_IsSynth )
                                     throw std::string("wrong: effect binary expected.");
                             }
                             else if(type == "effect")
                             {
-                                if(!JucePlugin_Build_LV2 && JucePlugin_IsSynth)
+                                if(PluginHostType::getPluginLoadedAs() != AudioProcessor::wrapperType_Undefined && JucePlugin_IsSynth)
                                     throw std::string("wrong: instrument binary expected.");
                             }
                             else

@@ -46,11 +46,19 @@ At last, this [part](https://github.com/pierreguillot/Camomile/wiki/How-to-creat
 
 ### Compilation
 
-Download Camomile and its dependencies using git:
-
 ```
 git clone --recursive https://github.com/pierreguillot/Camomile.git
+cd Camomile
+mkdir build && cd build
+cmake .. (the generator can be specified using -G"Unix Makefiles", -G"XCode" or -G"Visual Studio 16 2019" -A x64)
+cmake --build .
 ```
+
+**Important:**
+- Please ensure that the git submodules are initialized and updated! You can use the `--recursive` option while cloning or `git submodule update --init --recursive` in the Camomile repository .
+- On Linux OS, Juce framework requires to install dependencies, please refer to [Linux Dependencies.md](https://github.com/juce-framework/JUCE/blob/master/docs/Linux%20Dependencies.md) and use the full command.
+- The CMake build system have been tested with *Unix Makefiles*, *XCode* and *Visual Studio 16 2019*. For examples, please refer to the approaches defined for the gitlab and appveyor CI.
+
 
 Generate the libpd project using [CMake](https://cmake.org) and compile the libpd library and the plugins:
 

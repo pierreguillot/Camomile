@@ -10,7 +10,7 @@
 #include <utility>
 #include <vector>
 #include <map>
-#include "PluginEnvironment.h"
+#include "PluginConfig.h"
 
 
 // ======================================================================================== //

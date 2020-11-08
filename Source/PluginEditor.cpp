@@ -5,7 +5,7 @@
  */
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
-#include "PluginEnvironment.h"
+#include "PluginConfig.h"
 #include "PluginLookAndFeel.hpp"
 #include "Pd/PdPatch.hpp"
 

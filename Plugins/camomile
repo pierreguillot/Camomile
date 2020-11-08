@@ -2,7 +2,7 @@
 
 CamomileInstrument="Camomile"
 CamomileEffect="CamomileFx"
-CamomileLV2="CamomileLV2"
+CamomileLV2="Camomile_LV2"
 
 AppleVst3Extension=vst3
 AppleAuExtension=component
@@ -61,7 +61,7 @@ plugin_get_type() {
 ################################################################################
 
 generate_plugin_lv2_mac() {
-    local camo_name="CamomileLV2"
+    local camo_name=$CamomileLV2
     local plugin_input_dir=$1
     local plugin_output_dir=$2
     local plugin_name=$(basename $1)
@@ -84,7 +84,7 @@ generate_plugin_lv2_mac() {
         cp -f "$ThisPath/$CamomileLV2.$AppleLV2Extension" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.$AppleLV2Extension"
         cp -rf "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.lv2/Contents/Resources"
 
-        "$ThisPath/lv2_file_generator" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.$AppleLV2Extension" $plugin_name > /dev/null
+        "$ThisPath/lv2_file_generator" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.$AppleLV2Extension" $plugin_name
         mv -f "$PWD/manifest.ttl" "$plugin_output_dir/$plugin_name.lv2/manifest.ttl"
         if [ -f "$PWD/presets.ttl" ]; then
             mv -f "$PWD/presets.ttl" "$plugin_output_dir/$plugin_name.lv2/presets.ttl"
@@ -241,10 +241,7 @@ generate_plugin_vst3_mac() {
 ################################################################################
 
 generate_plugin_lv2_linux() {
-    local camo_name="CamomileLV2"
-    if [ -f "$ThisPath/libCamomileLV2" ]; then
-      camo_name="libCamomileLV2"
-    fi
+    local camo_name=$CamomileLV2
     local plugin_input_dir=$1
     local plugin_output_dir=$2
     local plugin_name=$(basename $1)

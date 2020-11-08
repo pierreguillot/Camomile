@@ -67,3 +67,7 @@
 !/Plugins/Examples/MiniMock/
 !/Plugins/Examples/PdStalFx/
 !/Plugins/Examples/PdStal/
+
+#CMake
+/Build/*
+/vstsdk2.4/*

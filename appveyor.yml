@@ -14,53 +14,18 @@ os: Visual Studio 2015
 
 install:
     - git submodule update --init --recursive
-    # Install pthread-win32
-    - git clone -q https://github.com/GerHobbelt/pthread-win32.git Dependencies\PthreadWin32
 build_script:
-    # Compile pthread-win32
-    - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\PthreadWin32
-    - sed -i 's/4820;4668;4255;/4820;4668;4255;4711;4100;4312;4127;4296;4456;4619;4310;4311;/' pthread_lib.2015.vcxproj
-    - sed -i 's/MultiThreadedDLL/MultiThreaded/' pthread_lib.2015.vcxproj
-    - sed -i 's/MultiThreadedDebugDLL/MultiThreadedDebug/' pthread_lib.2015.vcxproj
-    - msbuild pthread.2015.sln /t:pthread_lib /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=%PLATFORM% /p:OutDir=lib/
-    # Copy pthread-win32 headers and library in pure-data directory
-    - copy pthread.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\pthread.h
-    - copy sched.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\sched.h
-    - copy semaphore.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\semaphore.h
-    - copy lib\pthread_lib.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPdBuild\VisualStudio2015\pthread.lib
-    - copy lib\pthread_lib.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPdBuild\pthread.lib
-    # Compile libpd
-    - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPdBuild\VisualStudio2015
+    - mkdir build && cd build
     - cmake -G "%COMPILER%" ..
-    - msbuild libpd.sln /t:libpdstatic /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=%PLATFORM%
-    # Compile Camomile Instrument
-    - cd %APPVEYOR_BUILD_FOLDER%\Instrument\Builds\VisualStudio2015\
-    - msbuild Camomile.sln /nologo /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
-    # Compile Camomile Effect
-    - cd %APPVEYOR_BUILD_FOLDER%\Effect\Builds\VisualStudio2015\
-    - msbuild CamomileFx.sln /nologo /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
-    # Compile Camomile LV2
-    - cd %APPVEYOR_BUILD_FOLDER%\LV2\Builds\VisualStudio2015\
-    - msbuild CamomileLV2.sln /nologo /p:Configuration=%RELEASE% /p:Platform=%PLATFORM%
-    # Compile LV2 file Generator
-    - if "%PLATFORM%"=="Win32" (call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86)
-    - if "%PLATFORM%"=="x64" (call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64)
-    - if "%PLATFORM%"=="x64" (call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64)
-    - cd %APPVEYOR_BUILD_FOLDER%\LV2\lv2_file_generator
-    - cl /EHsc main.c
+    - cmake --build . --target ALL_BUILD --config Release
+    - cmake --build . --target install
 
 after_build:
     - cd %APPVEYOR_BUILD_FOLDER%
-    - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\Camomile.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\Camomile.vst3
-    - copy %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\CamomileFx.vst3 %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileFx.vst3
-    - copy %APPVEYOR_BUILD_FOLDER%\Plugins\"Dynamic Library"\CamomileLV2.dll %APPVEYOR_BUILD_FOLDER%\Plugins\CamomileLV2.dll
     - copy %APPVEYOR_BUILD_FOLDER%\README.md %APPVEYOR_BUILD_FOLDER%\Plugins\README.md
     - copy %APPVEYOR_BUILD_FOLDER%\ChangeLog.md %APPVEYOR_BUILD_FOLDER%\Plugins\ChangeLog.md
     - copy %APPVEYOR_BUILD_FOLDER%\LICENSE %APPVEYOR_BUILD_FOLDER%\Plugins\LICENSE.txt
     - del %APPVEYOR_BUILD_FOLDER%\Plugins\camomile /Q
-    - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\"Dynamic Library"\ /S /Q
-    - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\"Shared Code"\ /S /Q
-    - rmdir %APPVEYOR_BUILD_FOLDER%\Plugins\VST3\ /S /Q
     - rename %APPVEYOR_BUILD_FOLDER%\Plugins Camomile
     - 7z a %ZIPFILE%.zip %APPVEYOR_BUILD_FOLDER%\Camomile\
     - Xcopy %APPVEYOR_BUILD_FOLDER%\Camomile\Examples %APPVEYOR_BUILD_FOLDER%\Examples /E /I
