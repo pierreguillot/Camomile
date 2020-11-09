@@ -161,7 +161,7 @@ if(PD_EXTRA)
     ${LIBPD_PATH}/pure-data/extra/stdout/stdout.c
     )
     include_directories(${LIBPD_PATH}/pure-data/extra)
-    source_group(pd/extra FILES ${PD_EXTRA_SOURCES})
+    source_group(pd\\extra FILES ${PD_EXTRA_SOURCES})
     list(APPEND SOURCE_FILES ${PD_EXTRA_SOURCES})
 endif()
 
@@ -191,7 +191,7 @@ if(PD_UTILS)
         ${LIBPD_PATH}/libpd_wrapper/util/z_queued.h
     )
     include_directories(${LIBPD_PATH}/libpd_wrapper/util)
-    source_group(libpd/util FILES ${LIBPD_UTIL_SOURCES})
+    source_group(libpd\\util FILES ${LIBPD_UTIL_SOURCES})
     list(APPEND SOURCE_FILES ${LIBPD_UTIL_SOURCES})
 endif()
 

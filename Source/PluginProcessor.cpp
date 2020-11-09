@@ -489,7 +489,7 @@ void CamomileAudioProcessor::messageEnqueued()
 //==============================================================================
 bool CamomileAudioProcessor::hasEditor() const
 {
-    return PluginHostType::getPluginLoadedAs() != AudioProcessor::wrapperType_Unity;
+    return wrapperType != AudioProcessor::wrapperType_Unity;
 }
 
 AudioProcessorEditor* CamomileAudioProcessor::createEditor()

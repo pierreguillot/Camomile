@@ -5,11 +5,10 @@ project(Camomile VERSION 1.0.8 LANGUAGES C CXX)
 add_subdirectory(Juce)
 add_subdirectory(Dependencies/LibPdBuild)
 
-# juce_set_vst2_sdk_path(...)
-# juce_set_aax_sdk_path(...)
+juce_set_vst2_sdk_path(/Users/guillot/Downloads/vstsdk2.4)
 
 set(CAMOMILE_VERSION                    "1.0.8")
-set(CAMOMILE_COMPANY_NAME               "Pierre Guillot")
+set(CAMOMILE_COMPANY_NAME               "Camomile")
 set(CAMOMILE_COMPANY_COPYRIGHT          "Camomile by Pierre Guillot")
 set(CAMOMILE_COMPANY_WEBSITE            "github.com/pierreguillot/camomile")
 set(CAMOMILE_ICON_BIG                   "${CMAKE_CURRENT_SOURCE_DIR}/Ressources/Images/icon.png")
@@ -19,6 +18,7 @@ juce_add_plugin(Camomile
     COMPANY_NAME                ${CAMOMILE_COMPANY_NAME}
     COMPANY_COPYRIGHT           ${CAMOMILE_COMPANY_COPYRIGHT}
     COMPANY_WEBSITE             ${CAMOMILE_COMPANY_WEBSITE}
+    PLUGIN_DESCRIPTION          "A plugin that loads Pure Data patches"
     ICON_BIG                    ${CAMOMILE_ICON_BIG}
     IS_SYNTH                    TRUE
     NEEDS_MIDI_INPUT            TRUE
@@ -28,7 +28,7 @@ juce_add_plugin(Camomile
     COPY_PLUGIN_AFTER_BUILD     FALSE
     PLUGIN_MANUFACTURER_CODE    PIGU
     PLUGIN_CODE                 Kpq8
-    FORMATS                     AU VST3 # AAX Unity VST AU AUv3
+    FORMATS                     AU VST VST3 # AAX Unity VST AU AUv3
     PRODUCT_NAME                "Camomile"
     AU_MAIN_TYPE                kAudioUnitType_MusicDevice
     VST3_CATEGORIES             Instrument)
@@ -48,7 +48,7 @@ juce_add_plugin(CamomileFx
     COPY_PLUGIN_AFTER_BUILD     FALSE
     PLUGIN_MANUFACTURER_CODE    PIGU
     PLUGIN_CODE                 Kpq9
-    FORMATS                     AU VST3 # AAX Unity VST AU AUv3
+    FORMATS                     AU VST VST3 # AAX Unity VST AU AUv3
     PRODUCT_NAME                "CamomileFx"
     AU_MAIN_TYPE                kAudioUnitType_MusicEffect
     VST3_CATEGORIES             Fx)
@@ -62,22 +62,54 @@ set_target_properties(CamomileFx PROPERTIES CXX_STANDARD 20)
 
 set(SOURCES_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Source)
 
-#file(GLOB_RECURSE GlobalSources
-#    ${SOURCES_DIRECTORY}/main.cpp
-#    ${CMAKE_CACHEFILE_DIR}/Camomile_artefacts/JuceLibraryCode/JuceHeader.h)
+file(GLOB CamomileGlobalSources
+    ${CMAKE_CACHEFILE_DIR}/Camomile_artefacts/JuceLibraryCode/JuceHeader.h)
+source_group("Source" FILES ${CamomileGlobalSources})
 
-file(GLOB_RECURSE CamomileSources
-    ${SOURCES_DIRECTORY}/*.c
-    ${SOURCES_DIRECTORY}/*.h
-    ${SOURCES_DIRECTORY}/*.cpp
-    ${SOURCES_DIRECTORY}/*.hpp)
+file(GLOB CamomileFxGlobalSources
+    ${CMAKE_CACHEFILE_DIR}/CamomileFx_artefacts/JuceLibraryCode/JuceHeader.h)
+source_group("Source" FILES ${CamomileFxGlobalSources})
+
+file(GLOB CamomileSources
+    ${SOURCES_DIRECTORY}/PluginConsole.h
+    ${SOURCES_DIRECTORY}/PluginConfig.h
+    ${SOURCES_DIRECTORY}/PluginEditor.cpp
+    ${SOURCES_DIRECTORY}/PluginEditor.h
+    ${SOURCES_DIRECTORY}/PluginEditorComponents.cpp
+    ${SOURCES_DIRECTORY}/PluginEditorComponents.h
+    ${SOURCES_DIRECTORY}/PluginEditorConsole.cpp
+    ${SOURCES_DIRECTORY}/PluginEditorConsole.hpp
+    ${SOURCES_DIRECTORY}/PluginEditorInteraction.cpp
+    ${SOURCES_DIRECTORY}/PluginEditorInteraction.h
+    ${SOURCES_DIRECTORY}/PluginEditorObject.cpp
+    ${SOURCES_DIRECTORY}/PluginEditorObject.hpp
+    ${SOURCES_DIRECTORY}/PluginEnvironment.cpp
+    ${SOURCES_DIRECTORY}/PluginEnvironment.h
+    ${SOURCES_DIRECTORY}/PluginFileWatcher.cpp
+    ${SOURCES_DIRECTORY}/PluginFileWatcher.h
+    ${SOURCES_DIRECTORY}/PluginLookAndFeel.cpp
+    ${SOURCES_DIRECTORY}/PluginLookAndFeel.hpp
+    ${SOURCES_DIRECTORY}/PluginParameter.cpp
+    ${SOURCES_DIRECTORY}/PluginParameter.h
+    ${SOURCES_DIRECTORY}/PluginParser.cpp
+    ${SOURCES_DIRECTORY}/PluginParser.h
+    ${SOURCES_DIRECTORY}/PluginProcessor.cpp
+    ${SOURCES_DIRECTORY}/PluginProcessor.h
+    ${SOURCES_DIRECTORY}/PluginProcessorBuses.cpp
+    ${SOURCES_DIRECTORY}/PluginProcessorReceive.cpp)
+source_group("Source" FILES ${CamomileSources})
+
+file(GLOB_RECURSE CamomilePdSources
+    ${SOURCES_DIRECTORY}/Pd/*.c
+    ${SOURCES_DIRECTORY}/Pd/*.h
+    ${SOURCES_DIRECTORY}/Pd/*.cpp
+    ${SOURCES_DIRECTORY}/Pd/*.hpp)
+source_group("Source\\Pd" FILES ${CamomilePdSources})
 
 function(create_module_group TARGET GROUP_PATH MODULE_PATH)
 if(APPLE)
     file(GLOB MAIN_CPP_SOURCES ${MODULE_PATH}/*.cpp)
-    set_source_files_properties(${MAIN_CPP_SOURCES} PROPERTIES HEADER_FILE_ONLY TRUE)
     source_group(${GROUP_PATH} FILES ${MAIN_CPP_SOURCES})
-    target_sources(${TARGET} PRIVATE ${MAIN_CPP_SOURCES})
 
     file(GLOB MAIN_OTHER_SOURCES ${MODULE_PATH}/*.h ${MODULE_PATH}/*.mm)
     source_group(${GROUP_PATH} FILES ${MAIN_OTHER_SOURCES})
@@ -109,6 +141,9 @@ create_module_group(Camomile "Modules\\juce_data_structures" "${CMAKE_CURRENT_SO
 create_module_group(Camomile "Modules\\juce_audio_basics" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_basics")
 create_module_group(Camomile "Modules\\juce_audio_devices" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_devices")
 create_module_group(Camomile "Modules\\juce_audio_processors" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_processors")
+create_module_group(Camomile "Modules\\juce_audio_plugin_client" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_plugin_client")
+create_module_group(Camomile "Modules\\juce_audio_formats" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_formats")
+create_module_group(Camomile "Modules\\juce_audio_utils" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_utils")
 
 create_module_group(CamomileFx "Modules\\juce_core" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_core")
 create_module_group(CamomileFx "Modules\\juce_graphics" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_graphics")
@@ -119,9 +154,12 @@ create_module_group(CamomileFx "Modules\\juce_data_structures" "${CMAKE_CURRENT_
 create_module_group(CamomileFx "Modules\\juce_audio_basics" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_basics")
 create_module_group(CamomileFx "Modules\\juce_audio_devices" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_devices")
 create_module_group(CamomileFx "Modules\\juce_audio_processors" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_processors")
+create_module_group(CamomileFx "Modules\\juce_audio_plugin_client" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_plugin_client")
+create_module_group(CamomileFx "Modules\\juce_audio_formats" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_formats")
+create_module_group(Camomile "Modules\\juce_audio_utils" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_utils")
 
-target_sources(Camomile PRIVATE ${CamomileSources} )
-target_sources(CamomileFx PRIVATE ${CamomileSources} )
+target_sources(Camomile PRIVATE ${CamomileSources} ${CamomilePdSources})
+target_sources(CamomileFx PRIVATE ${CamomileSources} ${CamomilePdSources})
 
 set(CAMOMILE_COMPILE_DEFINITIONS
     JUCE_ALLOW_STATIC_NULL_VARIABLES=0
@@ -130,10 +168,11 @@ set(CAMOMILE_COMPILE_DEFINITIONS
     JUCE_REPORT_APP_USAGE=0
     JUCE_LOG_ASSERTIONS=1
     JUCE_STRICT_REFCOUNTEDPOINTER=1
-    PD_INTERNAL=1)
+    PD_INTERNAL=1
+    JucePlugin_Build_LV2=0)
 
-target_compile_definitions(Camomile INTERFACE ${CAMOMILE_COMPILE_DEFINITIONS})
-target_compile_definitions(CamomileFx INTERFACE ${CAMOMILE_COMPILE_DEFINITIONS})
+target_compile_definitions(Camomile PUBLIC ${CAMOMILE_COMPILE_DEFINITIONS})
+target_compile_definitions(CamomileFx PUBLIC ${CAMOMILE_COMPILE_DEFINITIONS})
 
 list(APPEND LIBPD_INCLUDE_DIRECTORY
     "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/LibPd/pure-data/src"
@@ -163,9 +202,40 @@ juce_add_binary_data(CamomileBinaryData SOURCES ${CamomileBinaryDataSources})
 target_link_libraries(Camomile PRIVATE
     libpdstatic
     CamomileBinaryData
-    juce::juce_audio_utils)
+    juce::juce_audio_utils
+    juce::juce_audio_plugin_client)
 
 target_link_libraries(CamomileFx PRIVATE
     libpdstatic
     CamomileBinaryData
-    juce::juce_audio_utils)
+    juce::juce_audio_utils
+    juce::juce_audio_plugin_client)
+
+function(clean_compile_definition TARGET PLUGIN_CODE)
+    get_target_property(CompileDefinitions ${TARGET} COMPILE_DEFINITIONS)
+    list(REMOVE_ITEM CompileDefinitions "JucePlugin_Name=\"$<TARGET_PROPERTY:${TARGET},JUCE_PLUGIN_NAME>\"")
+    list(REMOVE_ITEM CompileDefinitions "JucePlugin_Desc=\"$<TARGET_PROPERTY:${TARGET},JUCE_DESCRIPTION>\"")
+    list(REMOVE_ITEM CompileDefinitions "JucePlugin_Manufacturer=\"$<TARGET_PROPERTY:${TARGET},JUCE_COMPANY_NAME>\"")
+    list(REMOVE_ITEM CompileDefinitions "JucePlugin_AUManufacturerCode=JucePlugin_ManufacturerCode")
+    list(APPEND CompileDefinitions "JucePlugin_AUManufacturerCode=\"${PLUGIN_CODE}\"")
+    #list(FILTER CompileDefinitions EXCLUDE REGEX [[^JucePlugin_PluginCode$]])
+    set_property(TARGET ${TARGET} PROPERTY COMPILE_DEFINITIONS ${CompileDefinitions})
+
+    target_compile_definitions("${TARGET}_AU" PUBLIC "JucePlugin_Name=\"${TARGET}\"")
+    target_compile_definitions("${TARGET}_AU" PUBLIC "JucePlugin_Desc=\"${TARGET}\"")
+endfunction()
+
+clean_compile_definition(Camomile Kpq8)
+clean_compile_definition(CamomileFx Kpq9)
+
+function(clean_au_file TARGET AUMainType)
+    set(SecretDirecory ${CMAKE_CACHEFILE_DIR}/${TARGET}_artefacts/JuceLibraryCode/${TARGET}_AU/secret)
+    file(MAKE_DIRECTORY ${SecretDirecory})
+    set(DEFINE_FILE_SRC ${CMAKE_CURRENT_SOURCE_DIR}/JucePluginDefines.h.in)
+    set(DEFINE_FILE_DES ${SecretDirecory}/JucePluginDefines.h)
+    file(TOUCH ${SecretDirecory}/JucePluginDefines.h)
+    configure_file(${DEFINE_FILE_SRC} ${DEFINE_FILE_DES})
+endfunction()
+
+clean_au_file(Camomile aumu)
+clean_au_file(CamomileFx aumf)
