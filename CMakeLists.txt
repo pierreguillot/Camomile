@@ -239,3 +239,5 @@ endfunction()
 
 clean_au_file(Camomile aumu)
 clean_au_file(CamomileFx aumf)
+
+add_executable(lv2_file_generator ${CMAKE_CURRENT_SOURCE_DIR}/LV2/lv2_file_generator/main.c)
