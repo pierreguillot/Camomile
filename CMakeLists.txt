@@ -5,7 +5,7 @@ project(Camomile VERSION 1.0.8 LANGUAGES C CXX)
 add_subdirectory(Juce)
 add_subdirectory(Dependencies/LibPdBuild)
 
-juce_set_vst2_sdk_path(/Users/guillot/Downloads/vstsdk2.4)
+# juce_set_vst2_sdk_path(/Users/guillot/Downloads/vstsdk2.4)
 
 set(CAMOMILE_VERSION                    "1.0.8")
 set(CAMOMILE_COMPANY_NAME               "Camomile")
@@ -28,7 +28,7 @@ juce_add_plugin(Camomile
     COPY_PLUGIN_AFTER_BUILD     FALSE
     PLUGIN_MANUFACTURER_CODE    PIGU
     PLUGIN_CODE                 Kpq8
-    FORMATS                     AU VST VST3 # AAX Unity VST AU AUv3
+    FORMATS                     AU VST3 # AAX Unity VST AU AUv3
     PRODUCT_NAME                "Camomile"
     AU_MAIN_TYPE                kAudioUnitType_MusicDevice
     VST3_CATEGORIES             Instrument)
@@ -48,7 +48,7 @@ juce_add_plugin(CamomileFx
     COPY_PLUGIN_AFTER_BUILD     FALSE
     PLUGIN_MANUFACTURER_CODE    PIGU
     PLUGIN_CODE                 Kpq9
-    FORMATS                     AU VST VST3 # AAX Unity VST AU AUv3
+    FORMATS                     AU VST3 # AAX Unity VST AU AUv3
     PRODUCT_NAME                "CamomileFx"
     AU_MAIN_TYPE                kAudioUnitType_MusicEffect
     VST3_CATEGORIES             Fx)
