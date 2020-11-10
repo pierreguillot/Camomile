@@ -230,7 +230,6 @@ clean_compile_definition(CamomileFx Kpq9)
 
 function(clean_au_file TARGET AUMainType)
     set(SecretDirecory ${CMAKE_CACHEFILE_DIR}/${TARGET}_artefacts/JuceLibraryCode/${TARGET}_AU/secret)
-    file(MAKE_DIRECTORY ${SecretDirecory})
     set(DEFINE_FILE_SRC ${CMAKE_CURRENT_SOURCE_DIR}/JucePluginDefines.h.in)
     set(DEFINE_FILE_DES ${SecretDirecory}/JucePluginDefines.h)
     file(TOUCH ${SecretDirecory}/JucePluginDefines.h)
