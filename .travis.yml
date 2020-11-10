@@ -1,5 +1,4 @@
 language: cpp
-dist: xenial
 sudo: required
 notifications:
   email: false
