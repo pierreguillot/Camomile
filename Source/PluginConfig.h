@@ -29,6 +29,6 @@ namespace ProjectInfo
 {
     const char* const  projectName    = JucePlugin_Name;
     const char* const  companyName    = JucePlugin_Manufacturer;
-    const char* const  versionString  = "1.0.8";
+    const char* const  versionString  = JucePlugin_VersionString;
     const int          versionNumber  = 0x1008;
 }

@@ -6,7 +6,6 @@ add_subdirectory(Juce)
 add_subdirectory(Dependencies/LibPdBuild)
 
 option(VST2_SUPPORT "Compile VST2 version of Camomile" ON)
-option(VST2_SDK_PATH "VST2 SDK PATH" ${CMAKE_CACHEFILE_DIR}/vstsdk2.4)
 
 set(CAMOMILE_VERSION                    "1.0.8")
 set(CAMOMILE_COMPANY_NAME               "Camomile")
@@ -15,7 +14,12 @@ set(CAMOMILE_COMPANY_WEBSITE            "github.com/pierreguillot/camomile")
 set(CAMOMILE_ICON_BIG                   "${CMAKE_CURRENT_SOURCE_DIR}/Ressources/Images/icon.png")
 set(CAMOMILE_PLUGINS_LOCATION           "${CMAKE_CURRENT_SOURCE_DIR}/Plugins")
 if(VST2_SUPPORT)
-    juce_set_vst2_sdk_path(/Users/guillot/Downloads/vstsdk2.4)
+    set(FTS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/FTS/fst)
+    set(VST2_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/vstsdk2.4/pluginterfaces/vst2.x)
+    file(COPY ${FTS_DIRECTORY}/aeffect.h DESTINATION ${VST2_DIRECTORY})
+    file(COPY ${FTS_DIRECTORY}/aeffectx.h DESTINATION ${VST2_DIRECTORY})
+    file(COPY ${FTS_DIRECTORY}/fst.h DESTINATION ${VST2_DIRECTORY})
+    juce_set_vst2_sdk_path(${CMAKE_CURRENT_SOURCE_DIR}/vstsdk2.4)
     set(CAMOMILE_PLUGIN_FORMATS         AU VST3 VST) # AAX Unity AUv3
 else()
     set(CAMOMILE_PLUGIN_FORMATS         AU VST3)
@@ -178,6 +182,7 @@ target_sources(Camomile PRIVATE ${CamomileSources} ${CamomilePdSources})
 target_sources(CamomileFx PRIVATE ${CamomileSources} ${CamomilePdSources})
 
 set(CAMOMILE_COMPILE_DEFINITIONS
+    FST_DONT_DEPRECATE_UNKNOWN=1
     JUCE_DONT_DECLARE_PROJECTINFO=1
     JUCE_ALLOW_STATIC_NULL_VARIABLES=0
     JUCE_DISPLAY_SPLASH_SCREEN=0

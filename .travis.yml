@@ -4,7 +4,6 @@ notifications:
   email: false
 git:
   submodules: true
-  depth: 3
 
 matrix:
   include:
