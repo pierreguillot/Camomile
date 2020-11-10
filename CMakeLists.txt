@@ -5,25 +5,19 @@ project(Camomile VERSION 1.0.8 LANGUAGES C CXX)
 add_subdirectory(Juce)
 add_subdirectory(Dependencies/LibPdBuild)
 
-option(VST2_SUPPORT "Compile VST2 version of Camomile" ON)
+set(FTS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/FTS/fst)
+set(VST2_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/vstsdk2.4/pluginterfaces/vst2.x)
+file(COPY ${FTS_DIRECTORY}/aeffect.h DESTINATION ${VST2_DIRECTORY})
+file(COPY ${FTS_DIRECTORY}/aeffectx.h DESTINATION ${VST2_DIRECTORY})
+file(COPY ${FTS_DIRECTORY}/fst.h DESTINATION ${VST2_DIRECTORY})
+juce_set_vst2_sdk_path(${CMAKE_CURRENT_SOURCE_DIR}/vstsdk2.4)
 
 set(CAMOMILE_VERSION                    "1.0.8")
 set(CAMOMILE_COMPANY_NAME               "Camomile")
 set(CAMOMILE_COMPANY_COPYRIGHT          "Camomile by Pierre Guillot")
 set(CAMOMILE_COMPANY_WEBSITE            "github.com/pierreguillot/camomile")
-set(CAMOMILE_ICON_BIG                   "${CMAKE_CURRENT_SOURCE_DIR}/Ressources/Images/icon.png")
+set(CAMOMILE_ICON_BIG                   "${CMAKE_CURRENT_SOURCE_DIR}/Resources/Images/icon.png")
 set(CAMOMILE_PLUGINS_LOCATION           "${CMAKE_CURRENT_SOURCE_DIR}/Plugins")
-if(VST2_SUPPORT)
-    set(FTS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/FTS/fst)
-    set(VST2_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/vstsdk2.4/pluginterfaces/vst2.x)
-    file(COPY ${FTS_DIRECTORY}/aeffect.h DESTINATION ${VST2_DIRECTORY})
-    file(COPY ${FTS_DIRECTORY}/aeffectx.h DESTINATION ${VST2_DIRECTORY})
-    file(COPY ${FTS_DIRECTORY}/fst.h DESTINATION ${VST2_DIRECTORY})
-    juce_set_vst2_sdk_path(${CMAKE_CURRENT_SOURCE_DIR}/vstsdk2.4)
-    set(CAMOMILE_PLUGIN_FORMATS         AU VST3 VST) # AAX Unity AUv3
-else()
-    set(CAMOMILE_PLUGIN_FORMATS         AU VST3)
-endif()
 
 juce_add_plugin(Camomile
     VERSION                     ${CAMOMILE_VERSION}
@@ -40,7 +34,7 @@ juce_add_plugin(Camomile
     COPY_PLUGIN_AFTER_BUILD     FALSE
     PLUGIN_MANUFACTURER_CODE    PIGU
     PLUGIN_CODE                 Kpq8
-    FORMATS                     ${CAMOMILE_PLUGIN_FORMATS}
+    FORMATS                     AU VST3 VST # AAX Unity AUv3
     PRODUCT_NAME                "Camomile"
     AU_MAIN_TYPE                kAudioUnitType_MusicDevice
     VST3_CATEGORIES             Instrument
@@ -56,6 +50,7 @@ juce_add_plugin(CamomileFx
     COMPANY_COPYRIGHT           ${CAMOMILE_COMPANY_COPYRIGHT}
     COMPANY_WEBSITE             ${CAMOMILE_COMPANY_WEBSITE}
     ICON_BIG                    ${CAMOMILE_ICON_BIG}
+    PLUGIN_DESCRIPTION          "A plugin that loads Pure Data patches"
     IS_SYNTH                    FALSE
     NEEDS_MIDI_INPUT            TRUE
     NEEDS_MIDI_OUTPUT           TRUE
@@ -64,7 +59,7 @@ juce_add_plugin(CamomileFx
     COPY_PLUGIN_AFTER_BUILD     FALSE
     PLUGIN_MANUFACTURER_CODE    PIGU
     PLUGIN_CODE                 Kpq9
-    FORMATS                     ${CAMOMILE_PLUGIN_FORMATS}
+    FORMATS                     AU VST3 VST # AAX Unity AUv3
     PRODUCT_NAME                "CamomileFx"
     AU_MAIN_TYPE                kAudioUnitType_MusicEffect
     VST3_CATEGORIES             Fx
@@ -206,18 +201,18 @@ target_include_directories(Camomile PRIVATE "$<BUILD_INTERFACE:${LIBPD_INCLUDE_D
 target_include_directories(CamomileFx PRIVATE "$<BUILD_INTERFACE:${LIBPD_INCLUDE_DIRECTORY}>")
 
 file(GLOB CamomileBinaryDataSources
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ressources/Credits/CreditsAU
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ressources/Credits/CreditsLV2
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ressources/Credits/CreditsVST
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ressources/Credits/CreditsAU
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ressources/Fonts/DejaVuSansMono.ttf
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ressources/Images/settings.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ressources/Images/garbage.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ressources/Images/copy.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ressources/Images/reload.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ressources/Images/flower_petals.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ressources/Images/icon.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ressources/Images/flower_center.png)
+    ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Credits/CreditsAU
+    ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Credits/CreditsLV2
+    ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Credits/CreditsVST
+    ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Credits/CreditsAU
+    ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Fonts/DejaVuSansMono.ttf
+    ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Images/settings.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Images/garbage.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Images/copy.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Images/reload.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Images/flower_petals.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Images/icon.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Images/flower_center.png)
 
 juce_add_binary_data(CamomileBinaryData SOURCES ${CamomileBinaryDataSources})
 
