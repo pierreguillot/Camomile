@@ -13,8 +13,6 @@ matrix:
     env: release=CamomileLinux64
     addons:
       apt:
-        sources:
-          - george-edison55-precise-backports
         packages:
           - cmake-data
           - cmake
