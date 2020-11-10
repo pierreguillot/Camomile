@@ -29,7 +29,7 @@ matrix:
     script:
     - mkdir build && cd build
     - cmake .. -GXcode
-    - cmake --build . --target ALL_BUILD --config=Release
+    - cmake --build . --target ALL_BUILD --config Release
     - cmake --build . --target install
     after_success:
     - cd $TRAVIS_BUILD_DIR
@@ -55,7 +55,7 @@ matrix:
     script:
     - mkdir build && cd build
     - cmake .. -GXcode
-    - cmake --build . --target ALL_BUILD --config=Release
+    - cmake --build . --target ALL_BUILD --config Release
     - cmake --build . --target install
     after_success:
     - cd $TRAVIS_BUILD_DIR

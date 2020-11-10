@@ -32,7 +32,7 @@ build_script:
     # Compile libpd
     - cd %APPVEYOR_BUILD_FOLDER%\build
     - cmake -G "%COMPILER%" ..
-    - cmake --build . --target ALL_BUILD --config=Release
+    - cmake --build . --target ALL_BUILD --config Release
     - cmake --build . --target install
 
 after_build:
