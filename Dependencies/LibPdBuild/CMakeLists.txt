@@ -31,7 +31,7 @@ endif()
 
 if(MSVC)
     option(MSVC_STATIC_RUNTIME "Set the runtime library of MSVC" ON)
-    option(MSVC_PTHREAD_LIB "Set the Pthread library to link" "pthread.lib")
+    option(MSVC_PTHREAD_LIB "Set the Pthread library to link" "pthreadsVC2")
 endif()
 
 #------------------------------------------------------------------------------#
@@ -329,7 +329,7 @@ if(MSVC)
       target_link_libraries(libpdshared ${MSVC_PTHREAD_LIB})
     endif()
     if(LIBPD_INCLUDE_STATIC_LIBRARY)
-      target_link_libraries(libpdstatic ${MSVC_PTHREAD_LIB})
+      #target_link_libraries(libpdstatic ${MSVC_PTHREAD_LIB})
     endif()
 
 endif()

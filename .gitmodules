@@ -7,3 +7,6 @@ url=https://github.com/WeAreROLI/JUCE.git
 [submodule "FTS"]
 	path = FTS
 	url = https://github.com/pierreguillot/FTS.git
+[submodule "pthreads-win32.cmake"]
+	path = pthreads-win32.cmake
+	url = https://github.com/pierreguillot/pthreads-win32.cmake.git

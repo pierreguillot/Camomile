@@ -14,23 +14,8 @@ os: Visual Studio 2015
 
 install:
     - git submodule update --init --recursive
-    # Install pthread-win32
-    - git clone -q https://github.com/GerHobbelt/pthread-win32.git Dependencies\PthreadWin32
 build_script:
-    # Compile pthread-win32
-    - mkdir %APPVEYOR_BUILD_FOLDER%\build
-    - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\PthreadWin32
-    - sed -i 's/4820;4668;4255;/4820;4668;4255;4711;4100;4312;4127;4296;4456;4619;4310;4311;/' pthread_lib.2015.vcxproj
-    - sed -i 's/MultiThreadedDLL/MultiThreaded/' pthread_lib.2015.vcxproj
-    - sed -i 's/MultiThreadedDebugDLL/MultiThreadedDebug/' pthread_lib.2015.vcxproj
-    - msbuild pthread.2015.sln /t:pthread_lib /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=%PLATFORM% /p:OutDir=lib/
-    # Copy pthread-win32 headers and library in pure-data directory
-    - copy pthread.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\pthread.h
-    - copy sched.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\sched.h
-    - copy semaphore.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\semaphore.h
-    - copy lib\pthread_lib.lib %APPVEYOR_BUILD_FOLDER%\build\pthread.lib
-    # Compile libpd
-    - cd %APPVEYOR_BUILD_FOLDER%\build
+    - mkdir build && cd build
     - cmake -G "%COMPILER%" ..
     - cmake --build . --target ALL_BUILD --config Release
     - cmake --build . --target install
