@@ -3,11 +3,7 @@ cmake_minimum_required(VERSION 3.12)
 project(Camomile VERSION 1.0.8 LANGUAGES C CXX)
 
 add_subdirectory(Juce)
-if (MSVC)
-    set(PTHREADS_BUILD_STATIC TRUE)
-    add_subdirectory(pthreads-win32.cmake)
-endif()
-add_subdirectory(Dependencies/LibPdBuild)
+add_subdirectory(libpd.cmake)
 
 set(FTS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/FTS/fst)
 set(VST2_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/vstsdk2.4/pluginterfaces/vst2.x)

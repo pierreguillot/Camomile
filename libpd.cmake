@@ -3,7 +3,14 @@ cmake_minimum_required(VERSION 3.1)
 #------------------------------------------------------------------------------#
 # LIBPD PROJECT IN C
 #------------------------------------------------------------------------------#
-project(libpd C)
+project(libpd C VERSION 1.0.0)
+
+
+if (MSVC)
+    set(PTHREADS_BUILD_STATIC TRUE)
+    add_subdirectory(pthreads-win32.cmake)
+    # pthreadsVC2
+endif()
 
 #------------------------------------------------------------------------------#
 # CMAKE MAC OS SPECIFIC
@@ -13,7 +20,7 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET 10.7)
 set(CMAKE_MACOSX_RPATH ON)
 set(CMAKE_OSX_ARCHITECTURES "x86_64")
 
-set(LIBPD_PATH "${PROJECT_SOURCE_DIR}/../LibPd")
+set(LIBPD_PATH "${PROJECT_SOURCE_DIR}/Dependencies/LibPd")
 set(LIBPD_OUTPUT_DIRECTORY "./..")
 #------------------------------------------------------------------------------#
 # OPTIONS
@@ -31,7 +38,8 @@ endif()
 
 if(MSVC)
     option(MSVC_STATIC_RUNTIME "Set the runtime library of MSVC" ON)
-    option(MSVC_PTHREAD_LIB "Set the Pthread library to link" "pthreadsVC2")
+    option(MSVC_PTHREAD_LIB "Set the Pthread library to link" pthreadsVC2)
+		message(STATUS ${MSVC_PTHREAD_LIB})
 endif()
 
 #------------------------------------------------------------------------------#
@@ -329,9 +337,8 @@ if(MSVC)
       target_link_libraries(libpdshared ${MSVC_PTHREAD_LIB})
     endif()
     if(LIBPD_INCLUDE_STATIC_LIBRARY)
-      #target_link_libraries(libpdstatic ${MSVC_PTHREAD_LIB})
+      target_link_libraries(libpdstatic ${MSVC_PTHREAD_LIB})
     endif()
-
 endif()
 
 #------------------------------------------------------------------------------#
