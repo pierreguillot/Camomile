@@ -70,3 +70,4 @@
 
 #CMake
 /Build/*
+/vstsdk2.4/*

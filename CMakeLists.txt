@@ -5,13 +5,21 @@ project(Camomile VERSION 1.0.8 LANGUAGES C CXX)
 add_subdirectory(Juce)
 add_subdirectory(Dependencies/LibPdBuild)
 
-# juce_set_vst2_sdk_path(/Users/guillot/Downloads/vstsdk2.4)
+option(VST2_SUPPORT "Compile VST2 version of Camomile" ON)
+option(VST2_SDK_PATH "VST2 SDK PATH" ${CMAKE_CACHEFILE_DIR}/vstsdk2.4)
 
 set(CAMOMILE_VERSION                    "1.0.8")
 set(CAMOMILE_COMPANY_NAME               "Camomile")
 set(CAMOMILE_COMPANY_COPYRIGHT          "Camomile by Pierre Guillot")
 set(CAMOMILE_COMPANY_WEBSITE            "github.com/pierreguillot/camomile")
 set(CAMOMILE_ICON_BIG                   "${CMAKE_CURRENT_SOURCE_DIR}/Ressources/Images/icon.png")
+set(CAMOMILE_PLUGINS_LOCATION           "${CMAKE_CURRENT_SOURCE_DIR}/Plugins")
+if(VST2_SUPPORT)
+    juce_set_vst2_sdk_path(/Users/guillot/Downloads/vstsdk2.4)
+    set(CAMOMILE_PLUGIN_FORMATS         AU VST3 VST) # AAX Unity AUv3
+else()
+    set(CAMOMILE_PLUGIN_FORMATS         AU VST3)
+endif()
 
 juce_add_plugin(Camomile
     VERSION                     ${CAMOMILE_VERSION}
@@ -28,11 +36,15 @@ juce_add_plugin(Camomile
     COPY_PLUGIN_AFTER_BUILD     FALSE
     PLUGIN_MANUFACTURER_CODE    PIGU
     PLUGIN_CODE                 Kpq8
-    FORMATS                     AU VST3 # AAX Unity VST AU AUv3
+    FORMATS                     ${CAMOMILE_PLUGIN_FORMATS}
     PRODUCT_NAME                "Camomile"
     AU_MAIN_TYPE                kAudioUnitType_MusicDevice
-    VST3_CATEGORIES             Instrument)
-    # VST2_CATEGORY kPlugCategSynth
+    VST3_CATEGORIES             Instrument
+    VST2_CATEGORY               kPlugCategSynth
+    COPY_PLUGIN_AFTER_BUILD     TRUE
+    VST_COPY_DIR                ${CAMOMILE_PLUGINS_LOCATION}
+    VST3_COPY_DIR               ${CAMOMILE_PLUGINS_LOCATION}
+    AU_COPY_DIR                 ${CAMOMILE_PLUGINS_LOCATION})
 
 juce_add_plugin(CamomileFx
     VERSION                     ${CAMOMILE_VERSION}
@@ -48,11 +60,15 @@ juce_add_plugin(CamomileFx
     COPY_PLUGIN_AFTER_BUILD     FALSE
     PLUGIN_MANUFACTURER_CODE    PIGU
     PLUGIN_CODE                 Kpq9
-    FORMATS                     AU VST3 # AAX Unity VST AU AUv3
+    FORMATS                     ${CAMOMILE_PLUGIN_FORMATS}
     PRODUCT_NAME                "CamomileFx"
     AU_MAIN_TYPE                kAudioUnitType_MusicEffect
-    VST3_CATEGORIES             Fx)
-    # VST2_CATEGORY kPlugCategEffect
+    VST3_CATEGORIES             Fx
+    VST2_CATEGORY               kPlugCategEffect
+    COPY_PLUGIN_AFTER_BUILD     TRUE
+    VST_COPY_DIR                ${CAMOMILE_PLUGINS_LOCATION}
+    VST3_COPY_DIR               ${CAMOMILE_PLUGINS_LOCATION}
+    AU_COPY_DIR                 ${CAMOMILE_PLUGINS_LOCATION})
 
 juce_generate_juce_header(Camomile)
 set_target_properties(Camomile PROPERTIES CXX_STANDARD 20)

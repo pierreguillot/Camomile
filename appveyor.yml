@@ -30,8 +30,10 @@ build_script:
     - copy semaphore.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\semaphore.h
     - copy lib\pthread_lib.lib %APPVEYOR_BUILD_FOLDER%\build\pthread.lib
     # Compile libpd
-    - cd %APPVEYOR_BUILD_FOLDER%\build && cmake -G "%COMPILER%" ..
-    - msbuild Camomile.sln /t:libpdstatic /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=%PLATFORM%
+    - cd %APPVEYOR_BUILD_FOLDER%\build
+    - cmake -G "%COMPILER%" ..
+    - cmake --build . --target ALL_BUILD --config=Release
+    - cmake --build . --target install
 
 after_build:
     - cd %APPVEYOR_BUILD_FOLDER%
