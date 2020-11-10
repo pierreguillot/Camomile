@@ -5,7 +5,7 @@
  */
 
 #include "PluginLookAndFeel.hpp"
-#include "PluginEnvironment.h"
+#include "PluginConfig.h"
 
 CamoLookAndFeel::CamoLookAndFeel()
 {    

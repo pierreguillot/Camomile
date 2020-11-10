@@ -162,6 +162,7 @@ target_sources(Camomile PRIVATE ${CamomileSources} ${CamomilePdSources})
 target_sources(CamomileFx PRIVATE ${CamomileSources} ${CamomilePdSources})
 
 set(CAMOMILE_COMPILE_DEFINITIONS
+    JUCE_DONT_DECLARE_PROJECTINFO=1
     JUCE_ALLOW_STATIC_NULL_VARIABLES=0
     JUCE_DISPLAY_SPLASH_SCREEN=0
     JUCE_VST3_CAN_REPLACE_VST2=0
@@ -210,37 +211,5 @@ target_link_libraries(CamomileFx PRIVATE
     CamomileBinaryData
     juce::juce_audio_utils
     juce::juce_audio_plugin_client)
-
-function(clean_compile_definition TARGET PLUGIN_CODE)
-    get_target_property(CompileDefinitions ${TARGET} COMPILE_DEFINITIONS)
-    list(REMOVE_ITEM CompileDefinitions "JucePlugin_Name=\"$<TARGET_PROPERTY:${TARGET},JUCE_PLUGIN_NAME>\"")
-    list(REMOVE_ITEM CompileDefinitions "JucePlugin_Desc=\"$<TARGET_PROPERTY:${TARGET},JUCE_DESCRIPTION>\"")
-    list(REMOVE_ITEM CompileDefinitions "JucePlugin_Manufacturer=\"$<TARGET_PROPERTY:${TARGET},JUCE_COMPANY_NAME>\"")
-    list(REMOVE_ITEM CompileDefinitions "JucePlugin_AUManufacturerCode=JucePlugin_ManufacturerCode")
-    list(APPEND CompileDefinitions "JucePlugin_AUManufacturerCode=\"${PLUGIN_CODE}\"")
-    #list(FILTER CompileDefinitions EXCLUDE REGEX [[^JucePlugin_PluginCode$]])
-    set_property(TARGET ${TARGET} PROPERTY COMPILE_DEFINITIONS ${CompileDefinitions})
-    if(APPLE)
-        target_compile_definitions("${TARGET}_AU" PUBLIC "JucePlugin_Name=\"${TARGET}\"")
-        target_compile_definitions("${TARGET}_AU" PUBLIC "JucePlugin_Desc=\"${TARGET}\"")
-    endif()
-endfunction()
-
-clean_compile_definition(Camomile Kpq8)
-clean_compile_definition(CamomileFx Kpq9)
-
-if(APPLE)
-    function(clean_au_file TARGET AUMainType)
-        set(SecretDirecory ${CMAKE_CACHEFILE_DIR}/${TARGET}_artefacts/JuceLibraryCode/${TARGET}_AU/secret)
-        set(DEFINE_FILE_SRC ${CMAKE_CURRENT_SOURCE_DIR}/JucePluginDefines.h.in)
-        set(DEFINE_FILE_DES ${SecretDirecory}/JucePluginDefines.h)
-        file(TOUCH ${SecretDirecory}/JucePluginDefines.h)
-        configure_file(${DEFINE_FILE_SRC} ${DEFINE_FILE_DES})
-    endfunction()
-
-    clean_au_file(Camomile aumu)
-    clean_au_file(CamomileFx aumf)
-endif()
-
 
 add_executable(lv2_file_generator ${CMAKE_CURRENT_SOURCE_DIR}/LV2/lv2_file_generator/main.c)

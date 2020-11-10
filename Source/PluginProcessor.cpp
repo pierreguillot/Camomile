@@ -7,7 +7,7 @@
 #include "PluginProcessor.h"
 #include "PluginParameter.h"
 #include "PluginEditor.h"
-#include "PluginEnvironment.h"
+#include "PluginConfig.h"
 
 #include <iostream>
 #include <exception>

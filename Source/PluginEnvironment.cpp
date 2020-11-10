@@ -4,7 +4,7 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "PluginEnvironment.h"
+#include "PluginConfig.h"
 #include "PluginParser.h"
 #include "../JuceLibraryCode/JuceHeader.h"
 #include <cctype>
