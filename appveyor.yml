@@ -18,6 +18,7 @@ install:
     - git clone -q https://github.com/GerHobbelt/pthread-win32.git Dependencies\PthreadWin32
 build_script:
     # Compile pthread-win32
+    - mkdir build
     - cd %APPVEYOR_BUILD_FOLDER%\Dependencies\PthreadWin32
     - sed -i 's/4820;4668;4255;/4820;4668;4255;4711;4100;4312;4127;4296;4456;4619;4310;4311;/' pthread_lib.2015.vcxproj
     - sed -i 's/MultiThreadedDLL/MultiThreaded/' pthread_lib.2015.vcxproj
@@ -27,10 +28,9 @@ build_script:
     - copy pthread.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\pthread.h
     - copy sched.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\sched.h
     - copy semaphore.h %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPd\pure-data\src\semaphore.h
-    - copy lib\pthread_lib.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPdBuild\VisualStudio2015\pthread.lib
-    - copy lib\pthread_lib.lib %APPVEYOR_BUILD_FOLDER%\Dependencies\LibPdBuild\pthread.lib
+    - copy lib\pthread_lib.lib %APPVEYOR_BUILD_FOLDER%\build\pthread.lib
     # Compile libpd
-    - mkdir build && cd build && cmake -G "%COMPILER%" ..
+    - cd build && cmake -G "%COMPILER%" ..
     - msbuild Camomile.sln /t:libpdstatic /nologo /verbosity:quiet /p:Configuration=Release /p:Platform=%PLATFORM%
 
 after_build:
