@@ -228,4 +228,7 @@ target_link_libraries(CamomileFx PRIVATE
     juce::juce_audio_utils
     juce::juce_audio_plugin_client)
 
+get_target_property(libpdstatic_linked_libraries libpdstatic LINK_LIBRARIES)
+message(STATUS ${libpdstatic_linked_libraries})
+
 add_executable(lv2_file_generator ${CMAKE_CURRENT_SOURCE_DIR}/LV2/lv2_file_generator/main.c)
