@@ -7,7 +7,7 @@ project(libpd VERSION 1.0.0 LANGUAGES C)
 
 if (MSVC)
     set(PTHREADS_BUILD_STATIC TRUE)
-    add_subdirectory(pthreads-win32.cmake)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../pthreads-win32.cmake)
     # pthreadsVC2
 endif()
 
@@ -20,7 +20,6 @@ set(CMAKE_MACOSX_RPATH ON)
 set(CMAKE_OSX_ARCHITECTURES "x86_64")
 
 set(LIBPD_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/LibPd")
-message(STATUS "libpd path" ${LIBPD_PATH})
 set(LIBPD_OUTPUT_DIRECTORY "./..")
 #------------------------------------------------------------------------------#
 # OPTIONS
