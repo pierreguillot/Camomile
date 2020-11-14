@@ -3,8 +3,7 @@ cmake_minimum_required(VERSION 3.1)
 #------------------------------------------------------------------------------#
 # LIBPD PROJECT IN C
 #------------------------------------------------------------------------------#
-project(libpd C VERSION 1.0.0)
-
+project(libpd VERSION 1.0.0 LANGUAGES C)
 
 if (MSVC)
     set(PTHREADS_BUILD_STATIC TRUE)
@@ -20,7 +19,8 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET 10.7)
 set(CMAKE_MACOSX_RPATH ON)
 set(CMAKE_OSX_ARCHITECTURES "x86_64")
 
-set(LIBPD_PATH "${PROJECT_SOURCE_DIR}/Dependencies/LibPd")
+set(LIBPD_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../Dependencies/LibPd")
+message(STATUS "libpd path" ${LIBPD_PATH})
 set(LIBPD_OUTPUT_DIRECTORY "./..")
 #------------------------------------------------------------------------------#
 # OPTIONS
@@ -31,10 +31,6 @@ option(PD_MULTI "Compile with multiple instance support" ON)
 option(PD_LOCALE "Set the LC_NUMERIC number format to the default C locale" ON)
 option(LIBPD_INCLUDE_STATIC_LIBRARY  "Compile the libpd static library" ON)
 option(LIBPD_INCLUDE_DYNAMIC_LIBRARY  "Compile the libpd dynamic library" OFF)
-
-if(NOT DEFINED LIBPD_PATH)
-	set(LIBPD_PATH "${PROJECT_SOURCE_DIR}/../libpd")
-endif()
 
 if(MSVC)
     option(MSVC_STATIC_RUNTIME "Set the runtime library of MSVC" ON)
