@@ -26,7 +26,7 @@ matrix:
     - sudo apt-get install -y libwebkit2gtk-4.0-37 libwebkit2gtk-4.0-dev libstdc++6
     script:
     - mkdir build && cd build
-    - cmake .. -GXcode
+    - cmake .. -G"Unix Makefiles"
     - cmake --build . --target ALL_BUILD --config Release -- -quiet
     - cmake --build . --target install
     after_success:
