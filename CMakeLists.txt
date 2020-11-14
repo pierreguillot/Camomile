@@ -197,8 +197,8 @@ list(APPEND LIBPD_INCLUDE_DIRECTORY
     "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/LibPd/libpd_wrapper/util"
     "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/LibPd/cpp")
 
-target_include_directories(Camomile PRIVATE "$<BUILD_INTERFACE:${LIBPD_INCLUDE_DIRECTORY}>")
-target_include_directories(CamomileFx PRIVATE "$<BUILD_INTERFACE:${LIBPD_INCLUDE_DIRECTORY}>")
+target_include_directories(Camomile PUBLIC "$<BUILD_INTERFACE:${LIBPD_INCLUDE_DIRECTORY}>")
+target_include_directories(CamomileFx PUBLIC "$<BUILD_INTERFACE:${LIBPD_INCLUDE_DIRECTORY}>")
 
 file(GLOB CamomileBinaryDataSources
     ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Credits/CreditsAU
