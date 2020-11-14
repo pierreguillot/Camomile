@@ -2,11 +2,11 @@
 	path = Juce
 url=https://github.com/WeAreROLI/JUCE.git
 [submodule "Dependencies/LibPd"]
-	path = Dependencies/LibPd
+	path = libpd/libpd
 	url = https://pierreguillot@github.com/pierreguillot/libpd.git
 [submodule "FTS"]
 	path = FTS
 	url = https://github.com/pierreguillot/FTS.git
 [submodule "pthreads-win32.cmake"]
-	path = pthreads-win32.cmake
+	path = libpd/pthreads-win32.cmake
 	url = https://github.com/pierreguillot/pthreads-win32.cmake.git
