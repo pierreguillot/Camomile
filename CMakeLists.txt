@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 
 project(Camomile VERSION 1.0.8 LANGUAGES C CXX)
 
-add_subdirectory(LibPdBuild)
+add_subdirectory(libpd)
 add_subdirectory(Juce)
 
 set(FTS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/FTS/fst)
