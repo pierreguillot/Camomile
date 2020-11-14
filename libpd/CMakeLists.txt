@@ -6,9 +6,7 @@ cmake_minimum_required(VERSION 3.1)
 project(libpd VERSION 1.0.0 LANGUAGES C)
 
 if (MSVC)
-    set(PTHREADS_BUILD_STATIC TRUE)
     add_subdirectory(pthreads-win32.cmake)
-    # pthreadsVC2
 endif()
 
 #------------------------------------------------------------------------------#
@@ -30,12 +28,6 @@ option(PD_MULTI "Compile with multiple instance support" ON)
 option(PD_LOCALE "Set the LC_NUMERIC number format to the default C locale" ON)
 option(LIBPD_INCLUDE_STATIC_LIBRARY  "Compile the libpd static library" ON)
 option(LIBPD_INCLUDE_DYNAMIC_LIBRARY  "Compile the libpd dynamic library" OFF)
-
-if(MSVC)
-    option(MSVC_STATIC_RUNTIME "Set the runtime library of MSVC" ON)
-    option(MSVC_PTHREAD_LIB "Set the Pthread library to link" pthreadsVC2)
-		message(STATUS ${MSVC_PTHREAD_LIB})
-endif()
 
 #------------------------------------------------------------------------------#
 # OUTPUT DIRECTORY
@@ -329,10 +321,10 @@ set(CMAKE_THREAD_PREFER_PTHREAD True)
 if(MSVC)
     link_directories(${PROJECT_SOURCE_DIR}/pure-data)
     if(LIBPD_INCLUDE_DYNAMIC_LIBRARY)
-      target_link_libraries(libpdshared ${MSVC_PTHREAD_LIB})
+      target_link_libraries(libpdshared pthreads)
     endif()
     if(LIBPD_INCLUDE_STATIC_LIBRARY)
-      target_link_libraries(libpdstatic ${MSVC_PTHREAD_LIB})
+      target_link_libraries(libpdstatic pthreads)
     endif()
 endif()
 
