@@ -31,7 +31,7 @@ juce_add_plugin(Camomile
     NEEDS_MIDI_OUTPUT           TRUE
     IS_MIDI_EFFECT              FALSE
     EDITOR_WANTS_KEYBOARD_FOCUS TRUE
-    COPY_PLUGIN_AFTER_BUILD     FALSE
+    COPY_PLUGIN_AFTER_BUILD     TRUE
     PLUGIN_MANUFACTURER_CODE    PIGU
     PLUGIN_CODE                 Kpq8
     FORMATS                     AU VST3 VST # AAX Unity AUv3
@@ -56,7 +56,7 @@ juce_add_plugin(CamomileFx
     NEEDS_MIDI_OUTPUT           TRUE
     IS_MIDI_EFFECT              FALSE
     EDITOR_WANTS_KEYBOARD_FOCUS TRUE
-    COPY_PLUGIN_AFTER_BUILD     FALSE
+    COPY_PLUGIN_AFTER_BUILD     TRUE
     PLUGIN_MANUFACTURER_CODE    PIGU
     PLUGIN_CODE                 Kpq9
     FORMATS                     AU VST3 VST # AAX Unity AUv3
@@ -232,3 +232,4 @@ get_target_property(libpdstatic_linked_libraries libpdstatic LINK_LIBRARIES)
 message(STATUS ${libpdstatic_linked_libraries})
 
 add_executable(lv2_file_generator ${CMAKE_CURRENT_SOURCE_DIR}/LV2/lv2_file_generator/main.c)
+set_target_properties(lv2_file_generator PROPERTIES CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CAMOMILE_PLUGINS_LOCATION})
