@@ -186,16 +186,18 @@ set(CAMOMILE_COMPILE_DEFINITIONS
     JUCE_LOG_ASSERTIONS=1
     JUCE_STRICT_REFCOUNTEDPOINTER=1
     PD_INTERNAL=1
-    JucePlugin_Build_LV2=0)
+    JucePlugin_Build_LV2=0
+    JUCE_WEB_BROWSER=0
+    JUCE_USE_CURL=0)
 
 target_compile_definitions(Camomile PUBLIC ${CAMOMILE_COMPILE_DEFINITIONS})
 target_compile_definitions(CamomileFx PUBLIC ${CAMOMILE_COMPILE_DEFINITIONS})
 
 list(APPEND LIBPD_INCLUDE_DIRECTORY
-    "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/LibPd/pure-data/src"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/LibPd/libpd_wrapper"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/LibPd/libpd_wrapper/util"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/LibPd/cpp")
+    "${CMAKE_CURRENT_SOURCE_DIR}/libpd/libpd/pure-data/src"
+    "${CMAKE_CURRENT_SOURCE_DIR}/libpd/libpd/libpd_wrapper"
+    "${CMAKE_CURRENT_SOURCE_DIR}/libpd/libpd/libpd_wrapper/util"
+    "${CMAKE_CURRENT_SOURCE_DIR}/libpd/libpd/cpp")
 
 target_include_directories(Camomile PUBLIC "$<BUILD_INTERFACE:${LIBPD_INCLUDE_DIRECTORY}>")
 target_include_directories(CamomileFx PUBLIC "$<BUILD_INTERFACE:${LIBPD_INCLUDE_DIRECTORY}>")
@@ -232,4 +234,6 @@ get_target_property(libpdstatic_linked_libraries libpdstatic LINK_LIBRARIES)
 message(STATUS ${libpdstatic_linked_libraries})
 
 add_executable(lv2_file_generator ${CMAKE_CURRENT_SOURCE_DIR}/LV2/lv2_file_generator/main.c)
+target_link_libraries(lv2_file_generator ${CMAKE_DL_LIBS})
 set_target_properties(lv2_file_generator PROPERTIES CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CAMOMILE_PLUGINS_LOCATION})
+set_target_properties(CamomileBinaryData PROPERTIES POSITION_INDEPENDENT_CODE ON)
