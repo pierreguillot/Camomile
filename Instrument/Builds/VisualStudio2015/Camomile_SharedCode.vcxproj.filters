@@ -2,11 +2,14 @@
 
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Camomile\Source\Pd\Externals\shared">
-      <UniqueIdentifier>{671216D1-DEA3-2039-6712-004F2E4EAFD3}</UniqueIdentifier>
+    <Filter Include="Camomile\Source\Pd\ELSE\Abstractions">
+      <UniqueIdentifier>{0B08CC60-8E28-2850-E04E-968610D6BEA1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Camomile\Source\Pd\Externals">
-      <UniqueIdentifier>{6D4FB501-67D6-B0C3-50C8-035280B99568}</UniqueIdentifier>
+    <Filter Include="Camomile\Source\Pd\ELSE\shared">
+      <UniqueIdentifier>{154ADB3B-8540-A7D7-6224-E15EEA0C7C02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camomile\Source\Pd\ELSE">
+      <UniqueIdentifier>{15EF46CE-D2B4-0720-B8AE-0B4DB6647A0D}</UniqueIdentifier>
     </Filter>
     <Filter Include="Camomile\Source\Pd">
       <UniqueIdentifier>{2EC11BD7-CEBB-B832-8CB3-D70D257E2DEE}</UniqueIdentifier>
@@ -373,743 +376,746 @@
     <ClCompile Include="..\..\..\Source\PluginLookAndFeel.cpp">
       <Filter>Camomile\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\buffer.c">
-      <Filter>Camomile\Source\Pd\Externals\shared</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\shared\buffer.c">
+      <Filter>Camomile\Source\Pd\ELSE\shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\file.c">
-      <Filter>Camomile\Source\Pd\Externals\shared</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\shared\file.c">
+      <Filter>Camomile\Source\Pd\ELSE\shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\grow.c">
-      <Filter>Camomile\Source\Pd\Externals\shared</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\shared\grow.c">
+      <Filter>Camomile\Source\Pd\ELSE\shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\magic.c">
-      <Filter>Camomile\Source\Pd\Externals\shared</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\shared\magic.c">
+      <Filter>Camomile\Source\Pd\ELSE\shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\mifi.c">
-      <Filter>Camomile\Source\Pd\Externals\shared</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\shared\mifi.c">
+      <Filter>Camomile\Source\Pd\ELSE\shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\random.c">
-      <Filter>Camomile\Source\Pd\Externals\shared</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\shared\random.c">
+      <Filter>Camomile\Source\Pd\ELSE\shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\shared\s_utf8.c">
-      <Filter>Camomile\Source\Pd\Externals\shared</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\shared\s_utf8.c">
+      <Filter>Camomile\Source\Pd\ELSE\shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\above~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\above~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\add~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\add~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\adsr~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\adsr~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\allpass.2nd~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\allpass.2nd~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\allpass.rev~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\allpass.rev~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\args.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\args.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\asr~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\asr~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\autofade~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\autofade~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\autofade2~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\autofade2~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\balance~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\balance~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\bandpass~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\bandpass~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\bandstop~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\bandstop~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\bend.in.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\bend.in.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\bend.out.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\bend.out.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\bicoeff.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\bicoeff.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\biquads~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\biquads~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\blocksize~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\blocksize~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\break.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\break.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\brown~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\brown~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\button.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\button.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.active.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\canvas.active.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.bounds.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\canvas.bounds.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.edit.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\canvas.edit.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.gop.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\canvas.gop.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.mouse.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\canvas.mouse.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.name.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\canvas.name.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.pos.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\canvas.pos.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.setname.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\canvas.setname.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.vis.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\canvas.vis.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.wname.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\canvas.wname.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\canvas.zoom.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\canvas.zoom.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\ceil.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\ceil.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\ceil~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\ceil~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\cents2ratio.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\cents2ratio.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\cents2ratio~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\cents2ratio~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\changed.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\chance.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\changed~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\chance~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\changed2~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\changed.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\click.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\changed~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\clipnoise~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\changed2~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\cmul~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\click.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\coin.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\clipnoise~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\coin~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\cmul~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\colors.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\coin.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\comb.filt~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\coin~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\comb.rev~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\colors.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\common.div.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\comb.filt~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\cosine~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\comb.rev~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\crackle~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\common.div.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\crossover~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\cosine~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\ctl.in.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\crackle~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\ctl.out.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\crossover~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\cusp~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\ctl.in.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\decay~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\ctl.out.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\decay2~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\cusp~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\detect~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\decay~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\dir.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\decay2~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\dollsym.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\detect~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\downsample~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\dir.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\drive~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\dollsym.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\dust~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\downsample~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\dust2~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\drive~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\else.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\dust~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\envgen~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\dust2~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\eq~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\else.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\f2s~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\envgen~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\factor.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\eq~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\fader~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\f2s~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\fbdelay~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\factor.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\fbsine~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\fader~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\fbsine2~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\fbdelay~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\fdn.rev~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\fbsine~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\ffdelay~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\fbsine2~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\float2bits.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\fdn.rev~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\float2sig~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\ffdelay~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\floor.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\float2bits.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\floor~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\float2sig~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\fold.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\floor.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\fold~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\floor~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\fontsize.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\fold.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\format.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\fold~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\freq.shift~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\fontsize.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\function.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\format.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\function~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\freq.shift~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\gate2imp~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\function.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\gbman~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\function~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\giga.rev~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\gate2imp~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\glide~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\gbman~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\glide2~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\giga.rev~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\gray~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\glide~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\gui.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\glide2~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\henon~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\gray~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\highpass~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\gui.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\highshelf~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\henon~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\hot.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\highpass~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\hz2rad.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\highshelf~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\hz2rad~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\hot.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\ikeda~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\hz2rad.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\imp~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\hz2rad~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\imp2~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\ikeda~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\impseq~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\imp~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\impulse~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\imp2~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\impulse2~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\impseq~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\initmess.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\impulse~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\int~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\impulse2~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\keyboard.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\initmess.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\lag~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\int~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\lag2~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\keyboard.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\lastvalue~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\lag~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\latoocarfian~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\lag2~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\lb.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\lastvalue~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\lfnoise~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\latoocarfian~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\lincong~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\lb.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\loadbanger.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\lfnoise~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\logistic~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\lincong~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\loop.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\loadbanger.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\lorenz~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\logistic~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\lowpass~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\loop.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\lowshelf~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\lorenz~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\match~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\lowpass~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\median~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\lowshelf~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\merge.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\match~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\message.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\median~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\messbox.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\merge.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\midi.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\message.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\mouse.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\messbox.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\mov.avg~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\midi.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\mov.rms~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\mouse.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\mtx~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\mov.avg~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\nbang.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\mov.rms~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\note.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\mtx~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\note.in.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\nbang.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\note.out.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\note.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\nyquist~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\note.in.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\op~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\note.out.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\openfile.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\nyquist~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\oscilloscope.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\op~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\oscilloscope_dialog.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\openfile.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\pack2.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\pack2.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\pad.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\pad.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\pan2~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\pan2~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\pan4~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\pan4~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\panic.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\panic.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\parabolic~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\parabolic~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\peak~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\peak~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\pgm.in.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\pgm.in.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\pgm.out.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\pgm.out.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\pic.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\pic.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\pimp~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\pimp~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\pinknoise~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\pinknoise~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\pluck~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\pluck~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\pmosc~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\pmosc~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\properties.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\properties.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\pulse~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\pulse~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\pulsecount~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\pulsecount~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\pulsediv~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\pulsediv~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\quad~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\quad~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\quantizer.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\quantizer.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\quantizer~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\quantizer~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\rad2hz.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\rad2hz.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\rad2hz~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\rad2hz~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\ramp~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\ramp~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\rampnoise~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\rampnoise~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\rand.f.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\rand.f.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\rand.f~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\rand.f~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\rand.i.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\rand.i.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\rand.i~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\rand.i~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\rand.seq.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\rand.seq.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\randpulse~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\randpulse~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\randpulse2~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\randpulse2~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\range~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\range~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\ratio2cents.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\ratio2cents.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\ratio2cents~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\ratio2cents~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\receiver.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\receiver.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\rescale.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\rescale.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\rescale~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\rescale~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\resonant~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\resonant~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\resonant2~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\resonant2~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\rint.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\rint.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\rint~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\rint~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\rms~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\rms~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\rotate~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\rotate~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\routeall.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\routeall.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\router.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\router.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\routetype.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\routetype.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\s2f~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\s2f~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\saw~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\saw~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\saw2~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\saw2~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\schmitt~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\schmitt~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\selector.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\selector.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\separate.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\separate.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\sequencer~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\sequencer~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\sh~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\sh~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\shaper~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\shaper~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\sig2float~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\sig2float~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\sin~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\sin~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\sine~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\sine~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\slice.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\slice.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\sort.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\sort.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\spread~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\spread.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\square~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\spread~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\sr~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\square~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\standard~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\sr~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\status~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\standard~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\stepnoise~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\status~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\susloop~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\stepnoise~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\suspedal.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\susloop~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\svfilter~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\suspedal.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\symbol2any.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\svfilter~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\t2.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\symbol2any.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\table~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\t2.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\tabplayer~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\table~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\tabwriter~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\tabplayer~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\tempo~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\tabwriter~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\timed.gate~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\tempo~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\toggleff~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\timed.gate~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\touch.in.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\toggleff~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\touch.out.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\touch.in.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\tri~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\touch.out.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\trig.delay~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\tri~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\trig.delay2~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\trig.delay~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\trigger2.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\trig.delay2~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\trighold~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\trigger2.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\unmerge.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\trighold~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\voices.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\unmerge.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\vsaw~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\voices.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\vu~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\vsaw~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\wavetable~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\vu~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\wrap2.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\wavetable~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\wrap2~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\wrap2.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\wt~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\wrap2~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\xfade~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\wt~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\xgate~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\xfade~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\xgate2~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\xgate~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\xmod~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\xgate2~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\xmod2~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\xmod~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\xselect~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\xmod2~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\xselect2~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\xselect~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\Externals\zerocross~.c">
-      <Filter>Camomile\Source\Pd\Externals</Filter>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\xselect2~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\zerocross~.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\PdInstance.cpp">
       <Filter>Camomile\Source\Pd</Filter>
@@ -2733,26 +2739,26 @@
     <ClInclude Include="..\..\..\Source\PluginConfig.h">
       <Filter>Camomile\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\buffer.h">
-      <Filter>Camomile\Source\Pd\Externals\shared</Filter>
+    <ClInclude Include="..\..\..\Source\Pd\ELSE\shared\buffer.h">
+      <Filter>Camomile\Source\Pd\ELSE\shared</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\file.h">
-      <Filter>Camomile\Source\Pd\Externals\shared</Filter>
+    <ClInclude Include="..\..\..\Source\Pd\ELSE\shared\file.h">
+      <Filter>Camomile\Source\Pd\ELSE\shared</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\grow.h">
-      <Filter>Camomile\Source\Pd\Externals\shared</Filter>
+    <ClInclude Include="..\..\..\Source\Pd\ELSE\shared\grow.h">
+      <Filter>Camomile\Source\Pd\ELSE\shared</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\magic.h">
-      <Filter>Camomile\Source\Pd\Externals\shared</Filter>
+    <ClInclude Include="..\..\..\Source\Pd\ELSE\shared\magic.h">
+      <Filter>Camomile\Source\Pd\ELSE\shared</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\mifi.h">
-      <Filter>Camomile\Source\Pd\Externals\shared</Filter>
+    <ClInclude Include="..\..\..\Source\Pd\ELSE\shared\mifi.h">
+      <Filter>Camomile\Source\Pd\ELSE\shared</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\random.h">
-      <Filter>Camomile\Source\Pd\Externals\shared</Filter>
+    <ClInclude Include="..\..\..\Source\Pd\ELSE\shared\random.h">
+      <Filter>Camomile\Source\Pd\ELSE\shared</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\Pd\Externals\shared\s_utf8.h">
-      <Filter>Camomile\Source\Pd\Externals\shared</Filter>
+    <ClInclude Include="..\..\..\Source\Pd\ELSE\shared\s_utf8.h">
+      <Filter>Camomile\Source\Pd\ELSE\shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\Pd\PdInstance.hpp">
       <Filter>Camomile\Source\Pd</Filter>
@@ -4439,6 +4445,459 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\above.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\add.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\allpass.filt~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\any2symbol.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\avg.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\bangdiv.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\batch.rec~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\batch.write~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\bin.shift~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\biplot.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\bl.imp~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\bl.imp2~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\bl.saw~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\bl.saw2~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\bl.sine~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\bl.square~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\bl.tri~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\bl.vsaw~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\bl.wavetable~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\bpbank~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\bpm.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\brickwall~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\car2pol.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\car2pol~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\chorus~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\circle.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\clock.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\combine.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\compress~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\conv~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\count.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\crusher~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\db2lin.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\db2lin~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\dec2hex.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\display.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\display~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\drum.seq.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\drunkard.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\drunkard~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\duck~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\e.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\echo.rev~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\envelope~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\euclid.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\expand~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\flanger~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\free.rev~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\freeze~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\gain~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\gain2~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\gatehold~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\gran.player~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\graph~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\group.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\hann~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\hex2dec.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\hip.bw~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\impulse.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\insert.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\iterate.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\lastvalue.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\lfnoise.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\lfo.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\limit.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\lin2db.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\lin2db~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\lop.bw~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\mag.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\mag~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\markov.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\maxpeak~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\median.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\meter.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\meter~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\meter2~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\meter4~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\meter8~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\mix2~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\mix4~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\mono.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\mono.rev~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\morph~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\mov.avg.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\ms2samps.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\ms2samps~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\mtx.ctl.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\noisegate~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\norm~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\order.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\oscbank~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\oscbank2~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\out~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\out1~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\out4~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\out8~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\output~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\pan8~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\perlin~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\phaser~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\phasor.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\pi.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\pick.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\ping.pong~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\pitch.shift~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\plate.rev~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\play.file~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\player~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\pol2car.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\pol2car~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\pulse.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\pvoc.freeze~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\pvoc.live~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\pvoc.player~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\rampnoise.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\randpulse.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\randpulse2.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\range.hsl.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\range.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\rec.file~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\resonbank~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\resonbank2~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\reverse.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\rm~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\rotate.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\sample~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\samps2ms.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\samps2ms~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\schmitt.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\scramble.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\sequencer.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\setdsp~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\slider2d.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\spectrograph~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\stack.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\status.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\stepnoise.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\stereo.rev~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\stream.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\stretch.shift~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\sum.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\sysrt.in.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\sysrt.out.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\tempo.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\timed.gate.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\tremolo~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\trig2bang.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\trig2bang~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\unite.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\vibrato~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\vocoder~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
     <None Include="..\..\..\Ressources\Credits\CreditsAU">
       <Filter>Camomile\Source\Ressources\Credits</Filter>
     </None>
