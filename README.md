@@ -23,7 +23,9 @@ This repository is a simple fork with some [little edits](https://github.com/pie
 
 ## Presentation
 
-Camomile-ELSE is a plugin with Pure Data and ELSE library embedded that offers to load and to control patches inside a digital audio workstation. The plugin is available as VST, VST3, LV2 and Audio Unit for Windows, Linux and MacOS. Downloads, documentation and further information are available on the [wiki](https://github.com/pierreguillot/Camomile/wiki) pages of the project.
+Camomile-ELSE is a plugin with Pure Data and ELSE library embedded that offers to load and to control patches inside a digital audio workstation. The plugin is available as VST, VST3, LV2 and Audio Unit for Windows, Linux and MacOS. Documentation and further information are available on the [wiki](https://github.com/pierreguillot/Camomile/wiki) pages of the official Camomile project. Downloads and some more information can be found in the [wiki](https://github.com/emviveros/Camomile-ELSE/wiki) of Camomile-ELSE and in [Camomile-ELSE releases](https://github.com/emviveros/Camomile-ELSE/releases).
+
+Specific documentation to use Camomile-ELSE will be disponible soon.
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/1409918/35470969-05182302-0353-11e8-90b5-d37450206adf.png" alt="Examples" width=425 height=325>
