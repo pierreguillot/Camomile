@@ -23,7 +23,7 @@ This repository is a simple fork with some [little edits](https://github.com/pie
 
 ## Presentation
 
-Camomile is a plugin with Pure Data embedded that offers to load and to control patches inside a digital audio workstation. The plugin is available as VST, VST3, LV2 and Audio Unit for Windows, Linux and MacOS. Downloads, documentation and further information are available on the [wiki](https://github.com/pierreguillot/Camomile/wiki) pages of the project.
+Camomile-ELSE is a plugin with Pure Data and ELSE library embedded that offers to load and to control patches inside a digital audio workstation. The plugin is available as VST, VST3, LV2 and Audio Unit for Windows, Linux and MacOS. Downloads, documentation and further information are available on the [wiki](https://github.com/pierreguillot/Camomile/wiki) pages of the project.
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/1409918/35470969-05182302-0353-11e8-90b5-d37450206adf.png" alt="Examples" width=425 height=325>
@@ -31,7 +31,7 @@ Camomile is a plugin with Pure Data embedded that offers to load and to control 
 
 ### Download
 
-The last stable release of the plugin is directly downloadable [here](https://github.com/pierreguillot/Camomile/releases/latest) and a list of all the releases is available [here](https://github.com/pierreguillot/Camomile/releases).
+The last stable release of the plugin is directly downloadable [here](https://github.com/emviveros/Camomile-ELSE/releases/latest) and a list of all the releases is available [here](https://github.com/emviveros/Camomile-ELSE/releases).
 
 ### Instruction
 
@@ -80,6 +80,7 @@ msbuild Instrument/Builds/VisualStudio2015/Camomile.sln /nologo /p:Configuration
 msbuild Effect/Builds/VisualStudio2015/Camomile.sln /nologo /p:Configuration=Release /p:Platform=x64
 msbuild LV2/Builds/VisualStudio2015/Camomile.sln /nologo /p:Configuration=Release /p:Platform=x64
 ```
+For a step by step compilation process, see: https://github.com/emviveros/Camomile-ELSE/wiki/Compiling-Camomile-ELSE-in-Windows-10
 
 ### Organization
 
