@@ -25,12 +25,17 @@
 #include <string.h>
 #include <math.h>
 
-typedef union{
-    unsigned int i;
-    float f;
-}t_flint;
+typedef  union _isdenorm {
+    t_float f;
+    uint32_t ui;
+}t_isdenorm;
 
-#define IS_DENORMAL(f) (((((t_flint)(f)).i) & 0x7f800000) == 0)
+static inline int denorm_check(t_float f)
+{
+    t_isdenorm mask;
+    mask.f = f;
+    return ((mask.ui & 0x07f800000) == 0);
+}
 
 // por mim essa merda toda vem pra baixo
 typedef struct fdnctl{
@@ -258,7 +263,7 @@ static t_int *fdn_perform(t_int *w){
         tap[0] = (tap[0] + 1)&mask;
         for(j = 0; j < order; j++){
             save = gain_in[j] * cvec[j] + gain_state[j] * lvec[j];
-            save = IS_DENORMAL(save) ? 0 : save;
+            save = denorm_check(save) ? 0 : save;
             cvec[j] = save;
             buf[tap[j+1]] = save;
             tap[j+1] = (tap[j+1] + 1) & mask;

@@ -3,7 +3,7 @@
 #include "m_pd.h"
 #include "math.h"
 
-#define TWOPI (M_PI * 2)
+#define TWOPI (3.14159265358979323846 * 2)
 
 static t_class *pmosc_class;
 

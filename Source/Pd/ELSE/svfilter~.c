@@ -8,6 +8,10 @@
 #include <math.h>
 #include "m_pd.h"
 
+#ifndef M_PI
+    #define M_PI 3.14159265358979323846
+#endif
+
 #define SVFILTER_DRIVE     .0001
 #define SVFILTER_QSTRETCH  1.2   /* CHECKED */
 #define SVFILTER_MINR      0.    /* CHECKME */

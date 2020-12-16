@@ -8,12 +8,12 @@
 
 typedef struct _loop{
     t_object    x_obj;
-    t_int       x_target;
-    t_int       x_counter_start;
-    t_int       x_offset;
-    t_int       x_count;
+    float       x_counter_start;
+    float       x_target;
+    float       x_offset;
+    double      x_count;
+    float       x_step;
     t_int       x_iter;
-    t_int       x_step;
     t_int       x_upwards;
     t_int       x_status;
     t_int       x_b;
@@ -25,12 +25,15 @@ static void loop_do_loop(t_loop *x){ // The Actual Loop
     x->x_status = RUNNING;
     if(x->x_upwards){
         if(x->x_iter){
-            while(x->x_count <= x->x_target * x->x_step){
+//            post("(float)x->x_target * x->x_step = %f", (float)x->x_target * x->x_step);
+            while(x->x_count <= ((double)x->x_target * (double)x->x_step)){
+//                post("x->x_count = %f", x->x_count);
                 if(x->x_b)
                     outlet_bang(((t_object *)x)->ob_outlet);
                 else
                     outlet_float(((t_object *)x)->ob_outlet, x->x_count + x->x_offset);
-                x->x_count += x->x_step;
+                x->x_count += (double)x->x_step;
+//                post("x->x_count += x->x_step = %f", x->x_count);
                 if(x->x_status == PAUSED)
                     return;
             }
@@ -53,7 +56,7 @@ static void loop_do_loop(t_loop *x){ // The Actual Loop
                 outlet_bang(((t_object *)x)->ob_outlet);
             else
                 outlet_float(((t_object *)x)->ob_outlet, x->x_count + x->x_offset);
-            x->x_count -= x->x_step;
+            x->x_count -= (double)x->x_step;
             if(x->x_status == PAUSED)
                 return;
         }
@@ -80,7 +83,7 @@ static void loop_set(t_loop *x, t_float f){
 
 static void loop_float(t_loop *x, t_float f){
     if(f < 1){
-        pd_error(x, "loop: number of iterations need to be >= 1");
+        pd_error(x, "[loop]: number of iterations need to be >= 1");
         return;
     }
     x->x_counter_start = 0;
@@ -90,12 +93,11 @@ static void loop_float(t_loop *x, t_float f){
 }
 
 static void loop_list(t_loop *x, t_symbol *s, int ac, t_atom *av){
-    t_symbol *dummy = s;
-    dummy = NULL;
-    x->x_counter_start = (int)atom_getfloat(av);
-    x->x_target = (int)atom_getfloat(av+1);
+    s = NULL;
+    x->x_counter_start = atom_getfloat(av);
+    x->x_target = atom_getfloat(av+1);
     if(ac == 3){
-        int step = (int)atom_getfloat(av+2);
+        float step = atom_getfloat(av+2);
         if(step <= 0)
             pd_error(x, "[loop]: step needs to be > 0");
         else
@@ -117,20 +119,18 @@ static void loop_continue(t_loop *x){
 }
 
 static void loop_offset(t_loop *x, t_float f){
-    x->x_offset = (int)f;
+    x->x_offset = f;
 }
 
 static void loop_step(t_loop *x, t_float f){
-    int step = (int)f;
-    if(step <= 0)
+    if(f <= 0)
         pd_error(x, "[loop]: step needs to be > 0");
     else
-        x->x_step = step;
+        x->x_step = f;
 }
 
 static void *loop_new(t_symbol *s, int argc, t_atom *argv){
-    t_symbol *dummy = s;
-    dummy = NULL;
+    s = NULL;
     t_loop *x = (t_loop *)pd_new(loop_class);
     x->x_status = OFF;
     t_float f1 = 0, f2 = 0, offset = 0, step = 1;
@@ -192,27 +192,27 @@ static void *loop_new(t_symbol *s, int argc, t_atom *argv){
     };
     ///////////////////////////////////////////////////////////////////////////////////
     x->x_offset = (int)offset;
-    if(step < 1){
+    if(step <= 0){
         step = 1;
         pd_error(x, "[loop]: step needs to be > 0 - set to default (1)");
     }
     x->x_step = step;
-    if(x->x_iter){
+    if(x->x_iter){ // only one arg
         if(f1 < 1)
             f1 = 1;
         x->x_target = (int)f1 - 1;
     }
     else{
-        x->x_counter_start = (int)f1;
-        x->x_target = (int)f2;
+        x->x_counter_start = f1;
+        x->x_target = f2;
         x->x_upwards = x->x_counter_start < x->x_target;
     }
     inlet_new((t_object *)x, (t_pd *)x, &s_float, gensym("set"));
     outlet_new((t_object *)x, 0);
-    return (x);
+    return(x);
 errstate:
-    pd_error(x, "loop: improper args");
-    return NULL;
+    pd_error(x, "[loop]: improper args");
+    return(NULL);
 }
 
 void loop_setup(void){

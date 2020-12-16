@@ -36,6 +36,7 @@ static float random_frand(uint32_t* s1, uint32_t* s2, uint32_t* s3)
 }
 
 static t_int *clipnoise_perform(t_int *w){
+    t_clipnoise *x = (t_clipnoise *)(w[1]);
     int n = (t_int)(w[2]);
     t_random_state *rstate = (t_random_state *)(w[3]);
     t_sample *out = (t_sample *)(w[4]);
@@ -52,7 +53,6 @@ static void clipnoise_dsp(t_clipnoise *x, t_signal **sp){
 }
 
 static void *clipnoise_new(t_symbol *s, int ac, t_atom *av){
-    s = NULL;
     t_clipnoise *x = (t_clipnoise *)pd_new(clipnoise_class);
     x->x_outlet = outlet_new(&x->x_obj, &s_signal);
     static int seed = 1;

@@ -60,7 +60,7 @@ static void keyboard_note_on(t_keyboard* x, int note){
     short key = note % 12, black = (key == 1 || key == 3 || key == 6 || key == 8 || key == 10);
     sys_vgui(".x%lx.c itemconfigure %xrrk%d -fill %s\n", cv, x, i, black ? BLACK_ON : WHITE_ON);
     int ac = 2;
-    t_atom at[ac];
+    t_atom at[2];
     SETFLOAT(at, note);
     SETFLOAT(at+1, x->x_velocity);
     outlet_list(x->x_out, &s_list, ac, at);
@@ -76,7 +76,7 @@ static void keyboard_note_off(t_keyboard* x, int note){
         sys_vgui(".x%lx.c itemconfigure %xrrk%d -fill %s\n", cv, x, i, black ? BLACK_OFF : c4 ? MIDDLE_C : WHITE_OFF);
     }
     int ac = 2;
-    t_atom at[ac];
+    t_atom at[2];
     SETFLOAT(at, note);
     SETFLOAT(at+1, 0);
     outlet_list(x->x_out, &s_list, ac, at);
@@ -153,7 +153,7 @@ static void keyboard_play_tgl(t_keyboard* x, int note){
      else // white
         sys_vgui(".x%lx.c itemconfigure %xrrk%d -fill %s\n", cv, x, i, on ? WHITE_ON : note == 60 ? MIDDLE_C : WHITE_OFF);
     int ac = 2;
-    t_atom at[ac];
+    t_atom at[2];
     SETFLOAT(at, note);
     SETFLOAT(at+1, on ? x->x_velocity : 0);
     outlet_list(x->x_out, &s_list, ac, at);
@@ -354,7 +354,7 @@ void keyboard_float(t_keyboard *x, t_floatarg f){
         x->x_vel_in = 127;
     int on = x->x_tgl_notes[note] = x->x_vel_in > 0;
     int ac = 2;
-    t_atom at[ac];
+    t_atom at[2];
     SETFLOAT(at, note);
     SETFLOAT(at+1, x->x_vel_in);
     outlet_list(x->x_out, &s_list, ac, at);
@@ -479,7 +479,7 @@ static void keyboard_receive(t_keyboard *x, t_symbol *s){
 static void keyboard_flush(t_keyboard* x){
     t_canvas *cv =  glist_getcanvas(x->x_glist);
     int ac = 2;
-    t_atom at[ac];
+    t_atom at[2];
     for(int note = 0 ; note < 256 ; note++){
         if(x->x_tgl_notes[note] > 0){
             int i = note - x->x_first_c;

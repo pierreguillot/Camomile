@@ -3,7 +3,7 @@
 #include "m_pd.h"
 #include "math.h"
 
-#define TWO_PI              (M_PI * 2.)
+#define TWO_PI (3.14159265358979323846 * 2.)
 
 typedef struct _freqshift{
     t_object    x_obj;

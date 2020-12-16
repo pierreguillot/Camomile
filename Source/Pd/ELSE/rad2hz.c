@@ -3,7 +3,7 @@
 #include "m_pd.h"
 #include <math.h>
 
-#define TWO_PI (2 * M_PI)
+#define TWO_PI (2 * 3.14159265358979323846)
 
 static t_class *rad2hz_class;
 

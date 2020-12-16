@@ -9,7 +9,7 @@
 
 #define UNITBIT32 1572864.  // 3*2^19; bit 32 has place value 1
 
-#define HALF_PI M_PI * 0.5
+#define HALF_PI 3.14159265358979323846 * 0.5
 
 /* machine-dependent definitions.  These ifdefs really
  should have been by CPU type and not by operating system! */
@@ -26,6 +26,13 @@
 #define LOWOFFSET 0
 #define int32 long
 #endif /* MSW */
+
+#ifdef _MSC_VER
+/* little-endian; most significant byte is at highest address */
+#define HIOFFSET 1
+#define LOWOFFSET 0
+#define int32 long
+#endif // _MSC_VER
 
 #if defined(__FreeBSD__) || defined(__APPLE__)
 #include <machine/endian.h>

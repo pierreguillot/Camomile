@@ -232,8 +232,275 @@ static const unsigned char temp_binary_data_3[] =
 
 const char* any2symbol_pd = (const char*) temp_binary_data_3;
 
-//================== avg.pd ==================
+//================== autotune.pd ==================
 static const unsigned char temp_binary_data_4[] =
+"#N canvas 725 236 626 520 12;\n"
+"#X declare -path else;\n"
+"#X obj 345 302 array define \\$0-scale;\n"
+"#X f 22;\n"
+"#X obj 237 270 - 60;\n"
+"#X obj 344 238 array max \\$0-scale;\n"
+"#X obj 344 266 / 100;\n"
+"#X obj 344 126 t b l l;\n"
+"#X obj 367 186 array set \\$0-scale;\n"
+"#X obj 418 125 list length;\n"
+"#X obj 418 149 array size \\$0-scale;\n"
+"#X obj 77 45 inlet;\n"
+"#X obj 237 299 wrap2 0 12;\n"
+"#X obj 160 259 v i_\\$0;\n"
+"#X obj 160 284 tabread \\$0-scale, f 8;\n"
+"#X obj 160 321 / 100;\n"
+"#X obj 160 360 -;\n"
+"#X obj 142 394 +;\n"
+"#X obj 137 222 t f b f;\n"
+"#N canvas 1052 561 424 442 find-index 0;\n"
+"#X obj 135 35 inlet;\n"
+"#X obj 196 134 array get \\$0-scale, f 9;\n"
+"#X obj 196 182 iterate;\n"
+"#X obj 135 62 * 100;\n"
+"#X msg 181 263 1e+20;\n"
+"#X obj 187 292 f;\n"
+"#X obj 140 292 min;\n"
+"#X obj 140 326 change;\n"
+"#X obj 140 361 t f b;\n"
+"#X obj 210 326 f;\n"
+"#X obj 228 239 count;\n"
+"#X obj 196 208 t f b;\n"
+"#X obj 210 361 v i_\\$0;\n"
+"#X obj 140 239 -;\n"
+"#X obj 140 263 abs;\n"
+"#X obj 135 91 t b f b;\n"
+"#X msg 284 132 reset;\n"
+"#X msg 77 258 set -1;\n"
+"#X connect 0 0 3 0;\n"
+"#X connect 1 0 2 0;\n"
+"#X connect 2 0 11 0;\n"
+"#X connect 3 0 15 0;\n"
+"#X connect 4 0 6 1;\n"
+"#X connect 5 0 6 1;\n"
+"#X connect 6 0 7 0;\n"
+"#X connect 7 0 8 0;\n"
+"#X connect 8 0 5 0;\n"
+"#X connect 8 1 9 0;\n"
+"#X connect 9 0 12 0;\n"
+"#X connect 10 0 9 1;\n"
+"#X connect 11 0 13 0;\n"
+"#X connect 11 1 10 0;\n"
+"#X connect 13 0 14 0;\n"
+"#X connect 14 0 6 0;\n"
+"#X connect 15 0 1 0;\n"
+"#X connect 15 1 13 1;\n"
+"#X connect 15 2 16 0;\n"
+"#X connect 15 2 4 0;\n"
+"#X connect 15 2 17 0;\n"
+"#X connect 16 0 10 0;\n"
+"#X connect 17 0 7 0;\n"
+"#X restore 237 336 pd find-index;\n"
+"#X obj 344 45 inlet;\n"
+"#N canvas 999 363 599 403 init 0;\n"
+"#X obj 201 369 outlet;\n"
+"#X msg 395 194 0 100 200 300 400 500 600 700 800 900 1000 1100 1200\n"
+", f 26;\n"
+"#X obj 202 217 list split 1;\n"
+"#X obj 201 275 route bang;\n"
+"#X obj 107 41 lb -init 2, f 28;\n"
+"#X obj 96 273 s \\$0-base;\n"
+"#X obj 107 76 args -;\n"
+"#X obj 107 112 route bang list -base -bypass;\n"
+"#X obj 256 146 s \\$0-bp;\n"
+"#X connect 1 0 0 0;\n"
+"#X connect 2 0 5 0;\n"
+"#X connect 2 1 3 0;\n"
+"#X connect 3 1 0 0;\n"
+"#X connect 4 0 6 0;\n"
+"#X connect 4 1 1 0;\n"
+"#X connect 6 0 7 0;\n"
+"#X connect 7 1 0 0;\n"
+"#X connect 7 2 2 0;\n"
+"#X connect 7 3 8 0;\n"
+"#X restore 355 91 pd init;\n"
+"#X obj 77 458 outlet;\n"
+"#X obj 449 80 declare -path else;\n"
+"#X obj 261 204 r \\$0-base;\n"
+"#X text 247 395 Part of ELSE \\; https://github.com/porres/pd-else;\n"
+"#X text 249 376 Alexandre Torres Porres (2020);\n"
+"#X obj 77 93 route float bypass base;\n"
+"#N canvas 931 463 309 350 bypass 0;\n"
+"#X obj 73 239 router 2 2;\n"
+"#X obj 139 108 == 1;\n"
+"#X msg 139 194 1;\n"
+"#X obj 139 132 sel 1 0;\n"
+"#X msg 175 194 2;\n"
+"#X obj 139 75 != 0;\n"
+"#X obj 184 161 r \\$0-bp;\n"
+"#X obj 136 44 inlet;\n"
+"#X obj 65 42 inlet;\n"
+"#X obj 77 290 outlet;\n"
+"#X obj 148 292 outlet;\n"
+"#X connect 0 0 9 0;\n"
+"#X connect 0 1 10 0;\n"
+"#X connect 1 0 3 0;\n"
+"#X connect 2 0 0 1;\n"
+"#X connect 3 0 2 0;\n"
+"#X connect 3 1 4 0;\n"
+"#X connect 4 0 0 1;\n"
+"#X connect 5 0 1 0;\n"
+"#X connect 6 0 2 0;\n"
+"#X connect 7 0 5 0;\n"
+"#X connect 8 0 0 0;\n"
+"#X restore 77 134 pd bypass;\n"
+"#X connect 1 0 9 0;\n"
+"#X connect 2 0 3 0;\n"
+"#X connect 3 0 9 2;\n"
+"#X connect 4 0 2 0;\n"
+"#X connect 4 1 5 0;\n"
+"#X connect 4 2 6 0;\n"
+"#X connect 6 0 7 0;\n"
+"#X connect 8 0 24 0;\n"
+"#X connect 9 0 13 1;\n"
+"#X connect 9 0 16 0;\n"
+"#X connect 10 0 11 0;\n"
+"#X connect 11 0 12 0;\n"
+"#X connect 12 0 13 0;\n"
+"#X connect 13 0 14 1;\n"
+"#X connect 14 0 19 0;\n"
+"#X connect 15 0 14 0;\n"
+"#X connect 15 1 10 0;\n"
+"#X connect 15 2 1 0;\n"
+"#X connect 17 0 4 0;\n"
+"#X connect 18 0 4 0;\n"
+"#X connect 21 0 1 1;\n"
+"#X connect 24 0 25 0;\n"
+"#X connect 24 1 25 1;\n"
+"#X connect 24 2 1 1;\n"
+"#X connect 25 0 19 0;\n"
+"#X connect 25 1 15 0;\n";
+
+const char* autotune_pd = (const char*) temp_binary_data_4;
+
+//================== autotune2.pd ==================
+static const unsigned char temp_binary_data_5[] =
+"#N canvas 683 219 573 534 12;\n"
+"#X declare -path else;\n"
+"#X obj 362 291 array define \\$0-scale;\n"
+"#X obj 316 245 array max \\$0-scale;\n"
+"#X obj 316 158 t b l l;\n"
+"#X obj 339 212 array set \\$0-scale;\n"
+"#X obj 390 157 list length;\n"
+"#X obj 390 181 array size \\$0-scale;\n"
+"#X obj 47 35 inlet;\n"
+"#X obj 138 266 v i_\\$0;\n"
+"#X obj 138 291 tabread \\$0-scale, f 8;\n"
+"#X obj 138 367 -;\n"
+"#X obj 115 401 +;\n"
+"#X obj 115 229 t f b f;\n"
+"#N canvas 1042 459 424 442 find-index 0;\n"
+"#X obj 135 55 inlet;\n"
+"#X obj 196 134 array get \\$0-scale, f 9;\n"
+"#X obj 196 182 iterate;\n"
+"#X msg 181 263 1e+20;\n"
+"#X obj 187 292 f;\n"
+"#X obj 140 292 min;\n"
+"#X obj 140 326 change;\n"
+"#X obj 140 361 t f b;\n"
+"#X obj 210 326 f;\n"
+"#X obj 228 239 count;\n"
+"#X obj 196 208 t f b;\n"
+"#X obj 210 361 v i_\\$0;\n"
+"#X obj 140 239 -;\n"
+"#X obj 140 263 abs;\n"
+"#X obj 135 91 t b f b;\n"
+"#X msg 284 132 reset;\n"
+"#X msg 77 258 set -1;\n"
+"#X connect 0 0 14 0;\n"
+"#X connect 1 0 2 0;\n"
+"#X connect 2 0 10 0;\n"
+"#X connect 3 0 5 1;\n"
+"#X connect 4 0 5 1;\n"
+"#X connect 5 0 6 0;\n"
+"#X connect 6 0 7 0;\n"
+"#X connect 7 0 4 0;\n"
+"#X connect 7 1 8 0;\n"
+"#X connect 8 0 11 0;\n"
+"#X connect 9 0 8 1;\n"
+"#X connect 10 0 12 0;\n"
+"#X connect 10 1 9 0;\n"
+"#X connect 12 0 13 0;\n"
+"#X connect 13 0 5 0;\n"
+"#X connect 14 0 1 0;\n"
+"#X connect 14 1 12 1;\n"
+"#X connect 14 2 15 0;\n"
+"#X connect 14 2 3 0;\n"
+"#X connect 14 2 16 0;\n"
+"#X connect 15 0 9 0;\n"
+"#X connect 16 0 6 0;\n"
+"#X restore 235 323 pd find-index;\n"
+"#X obj 316 35 inlet;\n"
+"#N canvas 999 363 587 334 init 0;\n"
+"#X obj 226 256 outlet;\n"
+"#X msg 293 156 0 100 200 300 400 500 600 700 800 900 1000 1100 1200\n"
+", f 26;\n"
+"#X obj 107 41 lb -init 2, f 28;\n"
+"#X obj 211 159 s \\$0-bp;\n"
+"#X obj 107 112 route bang list -bypass;\n"
+"#X obj 27 97 pdcontrol;\n"
+"#X msg 27 65 args;\n"
+"#X obj 28 128 break -;\n"
+"#X connect 1 0 0 0;\n"
+"#X connect 2 0 6 0;\n"
+"#X connect 2 1 1 0;\n"
+"#X connect 4 1 0 0;\n"
+"#X connect 4 2 3 0;\n"
+"#X connect 5 0 7 0;\n"
+"#X connect 6 0 5 0;\n"
+"#X connect 7 0 4 0;\n"
+"#X restore 327 123 pd init;\n"
+"#X obj 115 485 outlet;\n"
+"#X obj 387 330 declare -path else;\n"
+"#X text 230 413 Part of ELSE \\; https://github.com/porres/pd-else;\n"
+"#X text 232 394 Alexandre Torres Porres (2020);\n"
+"#X obj 47 177 router 2 2;\n"
+"#X obj 141 140 == 1;\n"
+"#X msg 141 196 1;\n"
+"#X obj 141 164 sel 1 0;\n"
+"#X msg 177 196 2;\n"
+"#X obj 47 73 route float bypass;\n"
+"#X obj 141 110 != 0;\n"
+"#X obj 219 162 r \\$0-bp;\n"
+"#X obj 235 286 wrap2 0 1200;\n"
+"#X connect 1 0 27 2;\n"
+"#X connect 2 0 1 0;\n"
+"#X connect 2 1 3 0;\n"
+"#X connect 2 2 4 0;\n"
+"#X connect 4 0 5 0;\n"
+"#X connect 6 0 24 0;\n"
+"#X connect 7 0 8 0;\n"
+"#X connect 8 0 9 0;\n"
+"#X connect 9 0 10 1;\n"
+"#X connect 10 0 15 0;\n"
+"#X connect 11 0 10 0;\n"
+"#X connect 11 1 7 0;\n"
+"#X connect 11 2 27 0;\n"
+"#X connect 13 0 2 0;\n"
+"#X connect 14 0 2 0;\n"
+"#X connect 19 0 15 0;\n"
+"#X connect 19 1 11 0;\n"
+"#X connect 20 0 22 0;\n"
+"#X connect 21 0 19 1;\n"
+"#X connect 22 0 21 0;\n"
+"#X connect 22 1 23 0;\n"
+"#X connect 23 0 19 1;\n"
+"#X connect 24 0 19 0;\n"
+"#X connect 24 1 25 0;\n"
+"#X connect 25 0 20 0;\n"
+"#X connect 26 0 21 0;\n"
+"#X connect 27 0 9 1;\n"
+"#X connect 27 0 12 0;\n";
+
+const char* autotune2_pd = (const char*) temp_binary_data_5;
+
+//================== avg.pd ==================
+static const unsigned char temp_binary_data_6[] =
 "#N canvas 657 160 607 427 12;\n"
 "#X obj 137 228 f;\n"
 "#X obj 103 228 +;\n"
@@ -264,10 +531,10 @@ static const unsigned char temp_binary_data_4[] =
 "#X connect 10 0 6 1;\n"
 "#X connect 10 0 1 1;\n";
 
-const char* avg_pd = (const char*) temp_binary_data_4;
+const char* avg_pd = (const char*) temp_binary_data_6;
 
 //================== bangdiv.pd ==================
-static const unsigned char temp_binary_data_5[] =
+static const unsigned char temp_binary_data_7[] =
 "#N canvas 645 183 514 455 10;\n"
 "#X declare -path else;\n"
 "#X obj 145 253 wrap;\n"
@@ -337,10 +604,10 @@ static const unsigned char temp_binary_data_5[] =
 "#X connect 29 0 4 0;\n"
 "#X connect 31 0 32 0;\n";
 
-const char* bangdiv_pd = (const char*) temp_binary_data_5;
+const char* bangdiv_pd = (const char*) temp_binary_data_7;
 
 //================== batch.rec~.pd ==================
-static const unsigned char temp_binary_data_6[] =
+static const unsigned char temp_binary_data_8[] =
 "#N canvas 951 73 969 408 10;\n"
 "#X declare -path else;\n"
 "#X obj 175 70 inlet~ fwd;\n"
@@ -352,78 +619,74 @@ static const unsigned char temp_binary_data_6[] =
 "#X obj 157 235 delay;\n"
 "#X obj 417 95 canvas.setname \\$0-patch 1;\n"
 "#X obj 157 174 max 10;\n"
-"#N canvas 432 92 762 549 dynamic-patching 0;\n"
-"#X obj 200 180 loop;\n"
-"#X obj 200 203 t f f, f 6;\n"
-"#X obj 200 229 * 15;\n"
-"#N canvas 1054 234 810 520 load_args 0;\n"
-"#X obj 187 58 inlet;\n"
-"#X obj 423 214 s \\$0-filename;\n"
-"#X obj 469 156 dir 1;\n"
-"#X msg 526 208 set \\$1;\n"
-"#X obj 526 184 makefilename %s/%%s;\n"
-"#X obj 423 129 t s b;\n"
-"#X obj 526 235 s \\$0-set-path;\n"
-"#X obj 187 162 args;\n"
-"#X obj 187 216 break -;\n"
-"#X obj 361 212 v ch_\\$0;\n"
-"#X msg 361 185 1;\n"
-"#X obj 266 357 v ch_\\$0;\n"
-"#X obj 266 334 clip 1 64;\n"
-"#X obj 226 382 s \\$0-filename;\n"
-"#X msg 423 95 symbol file.wav;\n"
-"#X msg 469 130 dir;\n"
-"#X obj 150 351 route float;\n"
-"#X obj 108 286 unmerge 3;\n"
-"#X obj 162 330 s \\$0-time;\n"
-"#X obj 342 280 max 5;\n"
-"#X msg 283 272 50;\n"
-"#X obj 187 190 trigger anything bang;\n"
-"#X text 613 235 useless;\n"
-"#X obj 159 125 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144\n"
-"-1 -1;\n"
-"#X obj 187 245 route bang symbol float list -time;\n"
-"#X connect 0 0 7 0;\n"
-"#X connect 2 1 4 0;\n"
-"#X connect 3 0 6 0;\n"
-"#X connect 4 0 3 0;\n"
-"#X connect 5 0 1 0;\n"
-"#X connect 5 1 15 0;\n"
-"#X connect 7 0 21 0;\n"
-"#X connect 8 0 24 0;\n"
-"#X connect 10 0 9 0;\n"
-"#X connect 12 0 11 0;\n"
-"#X connect 14 0 5 0;\n"
-"#X connect 15 0 2 0;\n"
-"#X connect 16 1 13 0;\n"
+"#N canvas 432 92 521 419 dynamic-patching 0;\n"
+"#X obj 103 147 loop;\n"
+"#X obj 103 170 t f f, f 6;\n"
+"#X obj 103 196 * 15;\n"
+"#N canvas 1054 234 655 356 load_args 0;\n"
+"#X obj 148 33 inlet;\n"
+"#X obj 384 138 s \\$0-filename;\n"
+"#X msg 487 182 set \\$1;\n"
+"#X obj 487 158 makefilename %s/%%s;\n"
+"#X obj 384 103 t s b;\n"
+"#X obj 487 209 s \\$0-set-path;\n"
+"#X obj 148 87 args;\n"
+"#X obj 148 141 break -;\n"
+"#X obj 385 191 v ch_\\$0;\n"
+"#X msg 385 164 1;\n"
+"#X obj 227 282 v ch_\\$0;\n"
+"#X obj 227 259 clip 1 64;\n"
+"#X obj 187 307 s \\$0-filename;\n"
+"#X msg 384 69 symbol file.wav;\n"
+"#X obj 111 276 route float;\n"
+"#X obj 69 211 unmerge 3;\n"
+"#X obj 123 255 s \\$0-time;\n"
+"#X obj 303 205 max 5;\n"
+"#X msg 244 197 50;\n"
+"#X obj 148 115 trigger anything bang;\n"
+"#X obj 148 170 route bang symbol float list -time;\n"
+"#X obj 487 131 pdcontrol;\n"
+"#X msg 487 104 dir 1;\n"
+"#X connect 0 0 6 0;\n"
+"#X connect 2 0 5 0;\n"
+"#X connect 3 0 2 0;\n"
+"#X connect 4 0 1 0;\n"
+"#X connect 4 1 22 0;\n"
+"#X connect 6 0 19 0;\n"
+"#X connect 7 0 20 0;\n"
+"#X connect 9 0 8 0;\n"
+"#X connect 11 0 10 0;\n"
+"#X connect 13 0 4 0;\n"
+"#X connect 14 1 12 0;\n"
+"#X connect 15 0 14 0;\n"
+"#X connect 15 1 11 0;\n"
+"#X connect 15 2 16 0;\n"
 "#X connect 17 0 16 0;\n"
-"#X connect 17 1 12 0;\n"
-"#X connect 17 2 18 0;\n"
-"#X connect 19 0 18 0;\n"
-"#X connect 20 0 18 0;\n"
-"#X connect 21 0 8 0;\n"
-"#X connect 21 1 10 0;\n"
-"#X connect 21 1 14 0;\n"
-"#X connect 21 1 20 0;\n"
-"#X connect 23 0 7 0;\n"
-"#X connect 24 1 13 0;\n"
-"#X connect 24 2 12 0;\n"
-"#X connect 24 3 17 0;\n"
-"#X connect 24 4 19 0;\n"
-"#X restore 280 83 pd load_args;\n"
-"#X obj 200 87 v ch_\\$0;\n"
-"#X obj 200 112 trigger float float;\n"
-"#X obj 211 391 s \\$0-patch;\n"
-"#X obj 199 136 - 1;\n"
-"#X obj 199 158 moses 1;\n"
-"#X obj 200 258 + 250;\n"
-"#X obj 211 286 pack f f f;\n"
-"#X obj 239 258 + 1;\n"
-"#X obj 191 52 lb -init 2;\n"
-"#X msg 346 317 obj 175 175 writesf~ \\$1 \\, connect 0 0 6 0 \\, connect\n"
+"#X connect 18 0 16 0;\n"
+"#X connect 19 0 7 0;\n"
+"#X connect 19 1 9 0;\n"
+"#X connect 19 1 13 0;\n"
+"#X connect 19 1 18 0;\n"
+"#X connect 20 1 12 0;\n"
+"#X connect 20 2 11 0;\n"
+"#X connect 20 3 15 0;\n"
+"#X connect 20 4 17 0;\n"
+"#X connect 21 0 3 0;\n"
+"#X connect 22 0 21 0;\n"
+"#X restore 121 54 pd load_args;\n"
+"#X obj 64 54 v ch_\\$0;\n"
+"#X obj 64 79 trigger float float;\n"
+"#X obj 249 328 s \\$0-patch;\n"
+"#X obj 64 103 - 1;\n"
+"#X obj 64 125 moses 1;\n"
+"#X obj 103 225 + 250;\n"
+"#X obj 114 253 pack f f f;\n"
+"#X obj 142 225 + 1;\n"
+"#X obj 64 29 lb -init 2;\n"
+"#X msg 249 278 obj 175 175 writesf~ \\$1 \\, connect 0 0 6 0 \\, connect\n"
 "2 0 6 0, f 41;\n"
-"#X obj 268 257 + 7;\n"
-"#X msg 211 311 obj \\$1 70 inlet~ \\, connect \\$3 0 6 \\$2, f 19;\n"
+"#X obj 171 224 + 7;\n"
+"#X msg 114 278 obj \\$1 70 inlet~ \\, connect \\$3 0 6 \\$2, f 19;\n"
 "#X connect 0 0 1 0;\n"
 "#X connect 1 0 2 0;\n"
 "#X connect 1 1 11 0;\n"
@@ -445,7 +708,7 @@ static const unsigned char temp_binary_data_6[] =
 "#X restore 455 125 pd dynamic-patching;\n"
 "#X obj 157 143 f;\n"
 "#X obj 355 354 s \\$0-rec;\n"
-"#X obj 205 144 r \\$0-time;\n"
+"#X obj 193 144 r \\$0-time;\n"
 "#X obj 156 308 s \\$0-done;\n"
 "#X msg 183 269 stop;\n"
 "#X obj 122 85 route bang rec set;\n"
@@ -502,11 +765,11 @@ static const unsigned char temp_binary_data_6[] =
 "#X connect 0 1 1 0;\n"
 "#X connect 3 0 4 0;\n";
 
-const char* batch_rec_pd = (const char*) temp_binary_data_6;
+const char* batch_rec_pd = (const char*) temp_binary_data_8;
 
 //================== batch.write~.pd ==================
-static const unsigned char temp_binary_data_7[] =
-"#N canvas 282 475 969 408 10;\n"
+static const unsigned char temp_binary_data_9[] =
+"#N canvas 532 97 969 408 10;\n"
 "#X declare -path else;\n"
 "#X obj 175 70 inlet~ fwd;\n"
 "#N canvas 931 564 561 522 guts 0;\n"
@@ -655,10 +918,10 @@ static const unsigned char temp_binary_data_7[] =
 "#X connect 0 1 1 0;\n"
 "#X connect 3 0 4 0;\n";
 
-const char* batch_write_pd = (const char*) temp_binary_data_7;
+const char* batch_write_pd = (const char*) temp_binary_data_9;
 
 //================== bin.shift~.pd ==================
-static const unsigned char temp_binary_data_8[] =
+static const unsigned char temp_binary_data_10[] =
 "#N canvas 680 389 522 278 10;\n"
 "#X declare -path else;\n"
 "#N canvas 559 171 259 221 send 0;\n"
@@ -757,10 +1020,10 @@ static const unsigned char temp_binary_data_8[] =
 "#X connect 8 0 0 0;\n"
 "#X connect 8 1 7 0;\n";
 
-const char* bin_shift_pd = (const char*) temp_binary_data_8;
+const char* bin_shift_pd = (const char*) temp_binary_data_10;
 
 //================== biplot.pd ==================
-static const unsigned char temp_binary_data_9[] =
+static const unsigned char temp_binary_data_11[] =
 "#N canvas 456 218 1040 458 10;\n"
 "#X declare -path else;\n"
 "#N canvas 660 137 340 350 plot 0;\n"
@@ -1111,10 +1374,10 @@ static const unsigned char temp_binary_data_9[] =
 "#X connect 47 0 49 0;\n"
 "#X coords 0 -1 1 1 900 290 1 100 100;\n";
 
-const char* biplot_pd = (const char*) temp_binary_data_9;
+const char* biplot_pd = (const char*) temp_binary_data_11;
 
 //================== bl.imp~.pd ==================
-static const unsigned char temp_binary_data_10[] =
+static const unsigned char temp_binary_data_12[] =
 "#N canvas 730 304 482 232 10;\n"
 "#X declare -path else;\n"
 "#X obj 60 45 inlet~;\n"
@@ -1146,10 +1409,10 @@ static const unsigned char temp_binary_data_10[] =
 "#X connect 9 0 10 0;\n"
 "#X connect 10 0 3 0;\n";
 
-const char* bl_imp_pd = (const char*) temp_binary_data_10;
+const char* bl_imp_pd = (const char*) temp_binary_data_12;
 
 //================== bl.imp2~.pd ==================
-static const unsigned char temp_binary_data_11[] =
+static const unsigned char temp_binary_data_13[] =
 "#N canvas 735 282 482 232 10;\n"
 "#X declare -path else;\n"
 "#X obj 60 45 inlet~;\n"
@@ -1189,10 +1452,10 @@ static const unsigned char temp_binary_data_11[] =
 "#X connect 9 2 6 0;\n"
 "#X connect 11 0 3 0;\n";
 
-const char* bl_imp2_pd = (const char*) temp_binary_data_11;
+const char* bl_imp2_pd = (const char*) temp_binary_data_13;
 
 //================== bl.saw~.pd ==================
-static const unsigned char temp_binary_data_12[] =
+static const unsigned char temp_binary_data_14[] =
 "#N canvas 698 258 482 232 10;\n"
 "#X declare -path else;\n"
 "#X obj 50 45 inlet~;\n"
@@ -1225,10 +1488,10 @@ static const unsigned char temp_binary_data_12[] =
 "#X connect 8 1 2 0;\n"
 "#X connect 10 0 3 0;\n";
 
-const char* bl_saw_pd = (const char*) temp_binary_data_12;
+const char* bl_saw_pd = (const char*) temp_binary_data_14;
 
 //================== bl.saw2~.pd ==================
-static const unsigned char temp_binary_data_13[] =
+static const unsigned char temp_binary_data_15[] =
 "#N canvas 703 293 482 232 10;\n"
 "#X declare -path else;\n"
 "#X obj 60 45 inlet~;\n"
@@ -1261,10 +1524,10 @@ static const unsigned char temp_binary_data_13[] =
 "#X connect 8 1 2 0;\n"
 "#X connect 10 0 3 0;\n";
 
-const char* bl_saw2_pd = (const char*) temp_binary_data_13;
+const char* bl_saw2_pd = (const char*) temp_binary_data_15;
 
 //================== bl.sine~.pd ==================
-static const unsigned char temp_binary_data_14[] =
+static const unsigned char temp_binary_data_16[] =
 "#N canvas 777 294 482 232 10;\n"
 "#X declare -path else;\n"
 "#X obj 61 52 inlet~;\n"
@@ -1297,10 +1560,10 @@ static const unsigned char temp_binary_data_14[] =
 "#X connect 8 1 2 0;\n"
 "#X connect 10 0 4 0;\n";
 
-const char* bl_sine_pd = (const char*) temp_binary_data_14;
+const char* bl_sine_pd = (const char*) temp_binary_data_16;
 
 //================== bl.square~.pd ==================
-static const unsigned char temp_binary_data_15[] =
+static const unsigned char temp_binary_data_17[] =
 "#N canvas 643 257 482 232 10;\n"
 "#X declare -path else;\n"
 "#X obj 40 45 inlet~;\n"
@@ -1341,10 +1604,10 @@ static const unsigned char temp_binary_data_15[] =
 "#X connect 9 2 8 0;\n"
 "#X connect 11 0 3 0;\n";
 
-const char* bl_square_pd = (const char*) temp_binary_data_15;
+const char* bl_square_pd = (const char*) temp_binary_data_17;
 
 //================== bl.tri~.pd ==================
-static const unsigned char temp_binary_data_16[] =
+static const unsigned char temp_binary_data_18[] =
 "#N canvas 667 287 482 232 10;\n"
 "#X declare -path else;\n"
 "#X obj 61 45 inlet~;\n"
@@ -1377,10 +1640,10 @@ static const unsigned char temp_binary_data_16[] =
 "#X connect 8 1 2 0;\n"
 "#X connect 10 0 3 0;\n";
 
-const char* bl_tri_pd = (const char*) temp_binary_data_16;
+const char* bl_tri_pd = (const char*) temp_binary_data_18;
 
 //================== bl.vsaw~.pd ==================
-static const unsigned char temp_binary_data_17[] =
+static const unsigned char temp_binary_data_19[] =
 "#N canvas 521 281 482 232 10;\n"
 "#X declare -path else;\n"
 "#X obj 60 45 inlet~;\n"
@@ -1418,10 +1681,10 @@ static const unsigned char temp_binary_data_17[] =
 "#X connect 9 2 8 0;\n"
 "#X connect 11 0 3 0;\n";
 
-const char* bl_vsaw_pd = (const char*) temp_binary_data_17;
+const char* bl_vsaw_pd = (const char*) temp_binary_data_19;
 
 //================== bl.wavetable~.pd ==================
-static const unsigned char temp_binary_data_18[] =
+static const unsigned char temp_binary_data_20[] =
 "#N canvas 678 269 470 248 10;\n"
 "#X declare -path else;\n"
 "#X obj 156 78 inlet~;\n"
@@ -1455,10 +1718,10 @@ static const unsigned char temp_binary_data_18[] =
 "#X connect 10 0 6 0;\n"
 "#X connect 10 1 6 0;\n";
 
-const char* bl_wavetable_pd = (const char*) temp_binary_data_18;
+const char* bl_wavetable_pd = (const char*) temp_binary_data_20;
 
 //================== bpbank~.pd ==================
-static const unsigned char temp_binary_data_19[] =
+static const unsigned char temp_binary_data_21[] =
 "#N canvas 532 95 584 263 10;\n"
 "#X declare -path else;\n"
 "#X text 316 157 Part of ELSE \\; https://github.com/porres/pd-else;\n"
@@ -1551,10 +1814,10 @@ static const unsigned char temp_binary_data_19[] =
 "#X connect 7 1 5 0;\n"
 "#X connect 8 0 6 0;\n";
 
-const char* bpbank_pd = (const char*) temp_binary_data_19;
+const char* bpbank_pd = (const char*) temp_binary_data_21;
 
 //================== bpm.pd ==================
-static const unsigned char temp_binary_data_20[] =
+static const unsigned char temp_binary_data_22[] =
 "#N canvas 682 147 357 464 10;\n"
 "#X declare -path else;\n"
 "#X obj 59 33 inlet;\n"
@@ -1579,10 +1842,10 @@ static const unsigned char temp_binary_data_20[] =
 "#X connect 9 0 1 0;\n"
 "#X connect 10 0 8 0;\n";
 
-const char* bpm_pd = (const char*) temp_binary_data_20;
+const char* bpm_pd = (const char*) temp_binary_data_22;
 
 //================== brickwall~.pd ==================
-static const unsigned char temp_binary_data_21[] =
+static const unsigned char temp_binary_data_23[] =
 "#N canvas 673 231 523 332 10;\n"
 "#X declare -path else;\n"
 "#X obj 84 52 inlet~;\n"
@@ -1957,10 +2220,10 @@ static const unsigned char temp_binary_data_21[] =
 "#X connect 10 0 5 0;\n"
 "#X connect 10 1 5 1;\n";
 
-const char* brickwall_pd = (const char*) temp_binary_data_21;
+const char* brickwall_pd = (const char*) temp_binary_data_23;
 
 //================== car2pol.pd ==================
-static const unsigned char temp_binary_data_22[] =
+static const unsigned char temp_binary_data_24[] =
 "#N canvas 777 189 551 332 10;\n"
 "#X obj 223 35 inlet;\n"
 "#X obj 62 34 inlet;\n"
@@ -2005,10 +2268,10 @@ static const unsigned char temp_binary_data_22[] =
 "#X connect 15 1 13 0;\n"
 "#X connect 15 2 13 0;\n";
 
-const char* car2pol_pd = (const char*) temp_binary_data_22;
+const char* car2pol_pd = (const char*) temp_binary_data_24;
 
 //================== car2pol~.pd ==================
-static const unsigned char temp_binary_data_23[] =
+static const unsigned char temp_binary_data_25[] =
 "#N canvas 713 173 551 332 10;\n"
 "#X text 290 145 Part of ELSE \\; https://github.com/porres/pd-else;\n"
 "#X text 292 126 Alexandre Torres Porres (2018);\n"
@@ -2033,10 +2296,10 @@ static const unsigned char temp_binary_data_23[] =
 "#X connect 9 0 5 0;\n"
 "#X connect 10 0 8 0;\n";
 
-const char* car2pol_pd2 = (const char*) temp_binary_data_23;
+const char* car2pol_pd2 = (const char*) temp_binary_data_25;
 
 //================== chorus~.pd ==================
-static const unsigned char temp_binary_data_24[] =
+static const unsigned char temp_binary_data_26[] =
 "#N canvas 632 186 572 331 12;\n"
 "#X declare -path else;\n"
 "#X obj 119 37 inlet;\n"
@@ -2093,10 +2356,10 @@ static const unsigned char temp_binary_data_24[] =
 "#X connect 14 0 10 4;\n"
 "#X connect 15 0 8 2;\n";
 
-const char* chorus_pd = (const char*) temp_binary_data_24;
+const char* chorus_pd = (const char*) temp_binary_data_26;
 
 //================== circle.pd ==================
-static const unsigned char temp_binary_data_25[] =
+static const unsigned char temp_binary_data_27[] =
 { 35,78,32,99,97,110,118,97,115,32,53,56,49,32,50,50,56,32,55,49,53,32,52,55,51,32,49,48,59,10,35,88,32,100,101,99,108,97,114,101,32,45,112,97,116,104,32,101,108,115,101,59,10,35,78,32,99,97,110,118,97,115,32,54,52,54,32,50,57,50,32,54,50,56,32,51,51,57,
 32,92,36,48,45,112,111,105,110,116,32,48,59,10,35,88,32,111,98,106,32,51,52,51,32,49,48,53,32,114,32,92,36,48,45,103,114,105,100,59,10,35,88,32,111,98,106,32,49,55,56,32,56,57,32,102,105,108,108,101,100,99,117,114,118,101,32,45,120,32,48,32,102,103,32,
 56,32,120,48,32,121,48,32,120,48,32,121,48,32,120,48,32,121,48,44,32,102,32,50,48,59,10,35,88,32,116,101,120,116,32,53,56,53,32,49,52,50,32,118,59,10,35,88,32,116,101,120,116,32,53,54,55,32,49,55,53,32,104,59,10,35,88,32,116,101,120,116,32,49,51,57,32,
@@ -2552,10 +2815,10 @@ static const unsigned char temp_binary_data_25[] =
 49,32,48,32,56,32,48,59,10,35,88,32,99,111,110,110,101,99,116,32,54,32,48,32,50,32,48,59,10,35,88,32,99,111,110,110,101,99,116,32,56,32,48,32,49,50,32,48,59,10,35,88,32,99,111,110,110,101,99,116,32,57,32,48,32,50,32,49,59,10,35,88,32,99,111,110,110,101,
 99,116,32,49,49,32,48,32,52,32,48,59,10,35,88,32,99,111,110,110,101,99,116,32,49,50,32,48,32,49,49,32,48,59,10,0,0 };
 
-const char* circle_pd = (const char*) temp_binary_data_25;
+const char* circle_pd = (const char*) temp_binary_data_27;
 
 //================== clock.pd ==================
-static const unsigned char temp_binary_data_26[] =
+static const unsigned char temp_binary_data_28[] =
 "#N canvas 579 138 703 525 10;\n"
 "#X declare -path else;\n"
 "#X obj 180 350 expr 60000 / ($f1 * 24);\n"
@@ -2636,10 +2899,10 @@ static const unsigned char temp_binary_data_26[] =
 "#X connect 29 1 18 1;\n"
 "#X connect 32 0 16 0;\n";
 
-const char* clock_pd = (const char*) temp_binary_data_26;
+const char* clock_pd = (const char*) temp_binary_data_28;
 
 //================== combine.pd ==================
-static const unsigned char temp_binary_data_27[] =
+static const unsigned char temp_binary_data_29[] =
 "#N canvas 696 164 534 530 12;\n"
 "#X declare -path else;\n"
 "#X obj 103 316 timer;\n"
@@ -2700,10 +2963,10 @@ static const unsigned char temp_binary_data_27[] =
 "#X connect 25 0 5 0;\n"
 "#X connect 26 0 6 0;\n";
 
-const char* combine_pd = (const char*) temp_binary_data_27;
+const char* combine_pd = (const char*) temp_binary_data_29;
 
 //================== compress~.pd ==================
-static const unsigned char temp_binary_data_28[] =
+static const unsigned char temp_binary_data_30[] =
 "#N canvas 654 244 524 446 12;\n"
 "#X declare -path else;\n"
 "#N canvas 753 33 585 655 set 0;\n"
@@ -2797,10 +3060,10 @@ static const unsigned char temp_binary_data_28[] =
 "#X connect 22 0 16 0;\n"
 "#X connect 22 1 0 0;\n";
 
-const char* compress_pd = (const char*) temp_binary_data_28;
+const char* compress_pd = (const char*) temp_binary_data_30;
 
 //================== conv~.pd ==================
-static const unsigned char temp_binary_data_29[] =
+static const unsigned char temp_binary_data_31[] =
 "#N canvas 739 296 390 175 10;\n"
 "#X declare -path /Users/porres/Desktop/git/pd-else/Classes/Abstractions\n"
 ";\n"
@@ -3145,10 +3408,10 @@ static const unsigned char temp_binary_data_29[] =
 "#X connect 4 0 1 0;\n"
 "#X connect 4 1 1 1;\n";
 
-const char* conv_pd = (const char*) temp_binary_data_29;
+const char* conv_pd = (const char*) temp_binary_data_31;
 
 //================== count.pd ==================
-static const unsigned char temp_binary_data_30[] =
+static const unsigned char temp_binary_data_32[] =
 "#N canvas 747 284 428 260 10;\n"
 "#X declare -path else;\n"
 "#X obj 36 33 inlet;\n"
@@ -3534,10 +3797,10 @@ static const unsigned char temp_binary_data_30[] =
 "#X connect 10 0 11 0;\n"
 "#X connect 12 0 13 0;\n";
 
-const char* count_pd = (const char*) temp_binary_data_30;
+const char* count_pd = (const char*) temp_binary_data_32;
 
 //================== crusher~.pd ==================
-static const unsigned char temp_binary_data_31[] =
+static const unsigned char temp_binary_data_33[] =
 "#N canvas 665 174 513 342 10;\n"
 "#X declare -path else;\n"
 "#X obj 236 70 inlet~;\n"
@@ -3578,10 +3841,10 @@ static const unsigned char temp_binary_data_31[] =
 "#X connect 12 1 0 0;\n"
 "#X connect 14 0 7 0;\n";
 
-const char* crusher_pd = (const char*) temp_binary_data_31;
+const char* crusher_pd = (const char*) temp_binary_data_33;
 
 //================== db2lin.pd ==================
-static const unsigned char temp_binary_data_32[] =
+static const unsigned char temp_binary_data_34[] =
 "#N canvas 880 108 445 286 10;\n"
 "#X obj 68 24 inlet;\n"
 "#X obj 125 105 / 20;\n"
@@ -3603,10 +3866,10 @@ static const unsigned char temp_binary_data_32[] =
 "#X connect 8 1 2 1;\n"
 "#X connect 9 0 4 0;\n";
 
-const char* db2lin_pd = (const char*) temp_binary_data_32;
+const char* db2lin_pd = (const char*) temp_binary_data_34;
 
 //================== db2lin~.pd ==================
-static const unsigned char temp_binary_data_33[] =
+static const unsigned char temp_binary_data_35[] =
 "#N canvas 880 108 473 264 10;\n"
 "#X declare -path else;\n"
 "#X obj 144 108 /~ 20;\n"
@@ -3624,10 +3887,10 @@ static const unsigned char temp_binary_data_33[] =
 "#X connect 3 0 0 0;\n"
 "#X connect 7 0 2 0;\n";
 
-const char* db2lin_pd2 = (const char*) temp_binary_data_33;
+const char* db2lin_pd2 = (const char*) temp_binary_data_35;
 
 //================== dec2hex.pd ==================
-static const unsigned char temp_binary_data_34[] =
+static const unsigned char temp_binary_data_36[] =
 "#N canvas 490 121 498 245 10;\n"
 "#X obj 98 143 makefilename %x;\n"
 "#X obj 98 61 inlet;\n"
@@ -3642,10 +3905,10 @@ static const unsigned char temp_binary_data_34[] =
 "#X connect 2 0 6 1;\n"
 "#X connect 6 0 0 0;\n";
 
-const char* dec2hex_pd = (const char*) temp_binary_data_34;
+const char* dec2hex_pd = (const char*) temp_binary_data_36;
 
 //================== display.pd ==================
-static const unsigned char temp_binary_data_35[] =
+static const unsigned char temp_binary_data_37[] =
 "#N canvas 595 212 684 399 12;\n"
 "#X declare -path else;\n"
 "#X obj 463 165 namecanvas \\$0-canvas, f 21;\n"
@@ -4231,10 +4494,10 @@ static const unsigned char temp_binary_data_35[] =
 "#X connect 16 0 15 0;\n"
 "#X coords 0 1 1 -1 14 22 2 100 100;\n";
 
-const char* display_pd = (const char*) temp_binary_data_35;
+const char* display_pd = (const char*) temp_binary_data_37;
 
 //================== display~.pd ==================
-static const unsigned char temp_binary_data_36[] =
+static const unsigned char temp_binary_data_38[] =
 "#N canvas 595 265 805 447 10;\n"
 "#X declare -path else;\n"
 "#X obj 101 101 cnv 10 12 20 empty \\$0-display 0 2 10 0 12 -199730 -69635\n"
@@ -4443,10 +4706,10 @@ static const unsigned char temp_binary_data_36[] =
 "#X connect 23 0 21 1;\n"
 "#X coords 0 1 1 -1 14 22 2 100 100;\n";
 
-const char* display_pd2 = (const char*) temp_binary_data_36;
+const char* display_pd2 = (const char*) temp_binary_data_38;
 
 //================== drum.seq.pd ==================
-static const unsigned char temp_binary_data_37[] =
+static const unsigned char temp_binary_data_39[] =
 "#N struct 1006-slot float x float y float slotsize float color float\n"
 "width float bordercolor;\n"
 "#N canvas 610 135 844 445 10;\n"
@@ -5308,10 +5571,10 @@ static const unsigned char temp_binary_data_37[] =
 "#X connect 5 0 2 0;\n"
 "#X coords 0 61 161 0 161 61 2 150 150;\n";
 
-const char* drum_seq_pd = (const char*) temp_binary_data_37;
+const char* drum_seq_pd = (const char*) temp_binary_data_39;
 
 //================== drunkard.pd ==================
-static const unsigned char temp_binary_data_38[] =
+static const unsigned char temp_binary_data_40[] =
 "#N canvas 694 186 532 615 10;\n"
 "#X declare -path else;\n"
 "#X obj 107 479 v last_\\$0;\n"
@@ -5410,10 +5673,10 @@ static const unsigned char temp_binary_data_38[] =
 "#X connect 22 0 17 0;\n"
 "#X connect 23 0 15 0;\n";
 
-const char* drunkard_pd = (const char*) temp_binary_data_38;
+const char* drunkard_pd = (const char*) temp_binary_data_40;
 
 //================== drunkard~.pd ==================
-static const unsigned char temp_binary_data_39[] =
+static const unsigned char temp_binary_data_41[] =
 "#N canvas 757 43 616 484 10;\n"
 "#X declare -path else;\n"
 "#X obj 137 191 r \\$0-step;\n"
@@ -5544,10 +5807,10 @@ static const unsigned char temp_binary_data_39[] =
 "#X connect 14 0 7 1;\n"
 "#X connect 15 0 7 2;\n";
 
-const char* drunkard_pd2 = (const char*) temp_binary_data_39;
+const char* drunkard_pd2 = (const char*) temp_binary_data_41;
 
 //================== duck~.pd ==================
-static const unsigned char temp_binary_data_40[] =
+static const unsigned char temp_binary_data_42[] =
 "#N canvas 718 260 510 266 12;\n"
 "#X declare -path else;\n"
 "#X obj 185 48 inlet~;\n"
@@ -5650,10 +5913,10 @@ static const unsigned char temp_binary_data_40[] =
 "#X connect 9 0 5 0;\n"
 "#X connect 9 1 2 0;\n";
 
-const char* duck_pd = (const char*) temp_binary_data_40;
+const char* duck_pd = (const char*) temp_binary_data_42;
 
 //================== e.pd ==================
-static const unsigned char temp_binary_data_41[] =
+static const unsigned char temp_binary_data_43[] =
 "#N canvas 655 217 610 504 10;\n"
 "#X declare -path else;\n"
 "#X obj 121 66 inlet;\n"
@@ -5687,10 +5950,10 @@ static const unsigned char temp_binary_data_41[] =
 "#X connect 13 0 7 0;\n"
 "#X connect 14 0 2 0;\n";
 
-const char* e_pd = (const char*) temp_binary_data_41;
+const char* e_pd = (const char*) temp_binary_data_43;
 
 //================== echo.rev~.pd ==================
-static const unsigned char temp_binary_data_42[] =
+static const unsigned char temp_binary_data_44[] =
 "#N canvas 852 372 408 224 10;\n"
 "#X declare -path else;\n"
 "#X obj 86 14 inlet;\n"
@@ -5776,10 +6039,10 @@ static const unsigned char temp_binary_data_42[] =
 "#X connect 7 0 8 1;\n"
 "#X connect 8 0 2 0;\n";
 
-const char* echo_rev_pd = (const char*) temp_binary_data_42;
+const char* echo_rev_pd = (const char*) temp_binary_data_44;
 
 //================== envelope~.pd ==================
-static const unsigned char temp_binary_data_43[] =
+static const unsigned char temp_binary_data_45[] =
 "#N canvas 616 270 577 328 10;\n"
 "#X declare -path else;\n"
 "#X obj 72 216 *~ 0.5;\n"
@@ -5842,10 +6105,59 @@ static const unsigned char temp_binary_data_43[] =
 "#X connect 14 2 4 0;\n"
 "#X connect 15 0 12 1;\n";
 
-const char* envelope_pd = (const char*) temp_binary_data_43;
+const char* envelope_pd = (const char*) temp_binary_data_45;
+
+//================== eqdiv.pd ==================
+static const unsigned char temp_binary_data_46[] =
+"#N canvas 887 231 571 416 12;\n"
+"#X declare -path else;\n"
+"#X obj 260 227 ratio2cents;\n"
+"#X obj 106 327 group;\n"
+"#X obj 353 74 declare -path else;\n"
+"#X obj 260 24 inlet;\n"
+"#X obj 25 24 inlet;\n"
+"#X obj 106 372 outlet;\n"
+"#X obj 25 78 route bang;\n"
+"#X obj 138 81 args;\n"
+"#X text 307 145 Part of ELSE \\; https://github.com/porres/pd-else;\n"
+"#X text 309 126 Alexandre Torres Porres (2020);\n"
+"#X msg 260 251 step \\$1;\n"
+"#X obj 158 289 loop;\n"
+"#X obj 158 186 expr $f2 + 1 \\; pow($f1 \\, 1/$f2);\n"
+"#X obj 106 201 t b a;\n"
+"#X obj 138 105 route bang;\n"
+"#X obj 138 57 lb -init 2, f 12;\n"
+"#X msg 219 114 2 12;\n"
+"#X obj 124 145 unpack;\n"
+"#X obj 106 172 f;\n"
+"#X obj 92 111 t b a;\n"
+"#X connect 0 0 10 0;\n"
+"#X connect 1 0 5 0;\n"
+"#X connect 3 0 12 1;\n"
+"#X connect 4 0 6 0;\n"
+"#X connect 6 0 18 0;\n"
+"#X connect 6 1 19 0;\n"
+"#X connect 7 0 14 0;\n"
+"#X connect 10 0 11 0;\n"
+"#X connect 11 0 1 0;\n"
+"#X connect 12 0 11 0;\n"
+"#X connect 12 1 0 0;\n"
+"#X connect 13 0 1 0;\n"
+"#X connect 13 1 12 0;\n"
+"#X connect 14 1 17 0;\n"
+"#X connect 15 0 7 0;\n"
+"#X connect 15 1 16 0;\n"
+"#X connect 16 0 17 0;\n"
+"#X connect 17 0 18 1;\n"
+"#X connect 17 1 12 1;\n"
+"#X connect 18 0 13 0;\n"
+"#X connect 19 0 18 0;\n"
+"#X connect 19 1 17 0;\n";
+
+const char* eqdiv_pd = (const char*) temp_binary_data_46;
 
 //================== euclid.pd ==================
-static const unsigned char temp_binary_data_44[] =
+static const unsigned char temp_binary_data_47[] =
 "#N canvas 660 217 732 411 12;\n"
 "#X declare -path else;\n"
 "#X obj 70 36 inlet;\n"
@@ -5904,10 +6216,10 @@ static const unsigned char temp_binary_data_44[] =
 "#X connect 19 0 21 0;\n"
 "#X connect 19 1 20 0;\n";
 
-const char* euclid_pd = (const char*) temp_binary_data_44;
+const char* euclid_pd = (const char*) temp_binary_data_47;
 
 //================== expand~.pd ==================
-static const unsigned char temp_binary_data_45[] =
+static const unsigned char temp_binary_data_48[] =
 "#N canvas 578 151 499 518 12;\n"
 "#X declare -path else;\n"
 "#N canvas 667 241 423 456 set 0;\n"
@@ -5985,10 +6297,10 @@ static const unsigned char temp_binary_data_45[] =
 "#X connect 23 0 13 0;\n"
 "#X connect 23 1 0 0;\n";
 
-const char* expand_pd = (const char*) temp_binary_data_45;
+const char* expand_pd = (const char*) temp_binary_data_48;
 
 //================== flanger~.pd ==================
-static const unsigned char temp_binary_data_46[] =
+static const unsigned char temp_binary_data_49[] =
 "#N canvas 661 414 671 380 12;\n"
 "#X declare -path else;\n"
 "#X obj 108 39 inlet~;\n"
@@ -6049,10 +6361,39 @@ static const unsigned char temp_binary_data_46[] =
 "#X connect 15 0 1 0;\n"
 "#X connect 16 0 12 0;\n";
 
-const char* flanger_pd = (const char*) temp_binary_data_46;
+const char* flanger_pd = (const char*) temp_binary_data_49;
+
+//================== frac2ratio.pd ==================
+static const unsigned char temp_binary_data_50[] =
+"#N canvas 660 65 602 342 12;\n"
+"#X declare -path else;\n"
+"#X obj 73 297 outlet;\n"
+"#X obj 73 52 inlet;\n"
+"#X obj 105 168 separate /;\n"
+"#X obj 105 111 iterate;\n"
+"#X obj 105 197 route float list;\n"
+"#X obj 159 226 /;\n"
+"#X obj 73 263 group;\n"
+"#X obj 73 84 t b a;\n"
+"#X text 256 172 Part of ELSE \\; https://github.com/porres/pd-else;\n"
+"#X text 258 153 Alexandre Torres Porres (2017);\n"
+"#X obj 308 94 declare -path else;\n"
+"#X obj 105 139 any2symbol;\n"
+"#X connect 1 0 7 0;\n"
+"#X connect 2 0 4 0;\n"
+"#X connect 3 0 11 0;\n"
+"#X connect 4 0 6 0;\n"
+"#X connect 4 1 5 0;\n"
+"#X connect 5 0 6 0;\n"
+"#X connect 6 0 0 0;\n"
+"#X connect 7 0 6 0;\n"
+"#X connect 7 1 3 0;\n"
+"#X connect 11 0 2 0;\n";
+
+const char* frac2ratio_pd = (const char*) temp_binary_data_50;
 
 //================== free.rev~.pd ==================
-static const unsigned char temp_binary_data_47[] =
+static const unsigned char temp_binary_data_51[] =
 "#N canvas 634 221 671 320 12;\n"
 "#X declare -path else;\n"
 "#X obj 141 55 inlet~;\n"
@@ -6928,10 +7269,10 @@ static const unsigned char temp_binary_data_47[] =
 "#X connect 10 0 8 0;\n"
 "#X connect 10 1 6 0;\n";
 
-const char* free_rev_pd = (const char*) temp_binary_data_47;
+const char* free_rev_pd = (const char*) temp_binary_data_51;
 
 //================== freeze~.pd ==================
-static const unsigned char temp_binary_data_48[] =
+static const unsigned char temp_binary_data_52[] =
 "#N canvas 702 218 516 269 10;\n"
 "#X declare -path else;\n"
 "#X obj 73 193 outlet~;\n"
@@ -6988,10 +7329,10 @@ static const unsigned char temp_binary_data_48[] =
 "#X connect 7 0 5 0;\n"
 "#X connect 7 1 1 1;\n";
 
-const char* freeze_pd = (const char*) temp_binary_data_48;
+const char* freeze_pd = (const char*) temp_binary_data_52;
 
 //================== gain~.pd ==================
-static const unsigned char temp_binary_data_49[] =
+static const unsigned char temp_binary_data_53[] =
 "#N canvas 718 378 486 301 10;\n"
 "#X declare -path else;\n"
 "#N canvas 457 395 385 241 set_GUI 0;\n"
@@ -7387,10 +7728,10 @@ static const unsigned char temp_binary_data_49[] =
 "#X connect 15 0 6 0;\n"
 "#X coords 0 0 1 1 20 102 2 150 100;\n";
 
-const char* gain_pd = (const char*) temp_binary_data_49;
+const char* gain_pd = (const char*) temp_binary_data_53;
 
 //================== gain2~.pd ==================
-static const unsigned char temp_binary_data_50[] =
+static const unsigned char temp_binary_data_54[] =
 "#N canvas 742 248 486 301 10;\n"
 "#X declare -path else;\n"
 "#X text 226 125 Alexandre Torres Porres (2016);\n"
@@ -7802,10 +8143,10 @@ static const unsigned char temp_binary_data_50[] =
 "#X connect 19 0 5 0;\n"
 "#X coords 0 0 1 1 26 102 2 150 100;\n";
 
-const char* gain2_pd = (const char*) temp_binary_data_50;
+const char* gain2_pd = (const char*) temp_binary_data_54;
 
 //================== gatehold~.pd ==================
-static const unsigned char temp_binary_data_51[] =
+static const unsigned char temp_binary_data_55[] =
 "#N canvas 611 291 668 292 10;\n"
 "#X declare -path else;\n"
 "#X obj 238 96 fexpr~ $x1 == 0 && $x1[-1] != 0;\n"
@@ -7833,22 +8174,379 @@ static const unsigned char temp_binary_data_51[] =
 "#X connect 10 0 7 1;\n"
 "#X connect 11 0 9 1;\n";
 
-const char* gatehold_pd = (const char*) temp_binary_data_51;
+const char* gatehold_pd = (const char*) temp_binary_data_55;
+
+//================== grain.live~.pd ==================
+static const unsigned char temp_binary_data_56[] =
+"#N canvas 380 180 678 312 12;\n"
+"#X declare -path else;\n"
+"#X obj 63 244 outlet~;\n"
+"#X obj 221 239 outlet~;\n"
+"#X obj 379 96 declare -path else;\n"
+"#X text 341 161 Part of ELSE \\; https://github.com/porres/pd-else;\n"
+"#X text 343 142 Alexandre Torres Porres (2020);\n"
+"#N canvas 302 191 311 379 route 0;\n"
+"#X obj 188 257 insert all;\n"
+"#X obj 203 199 dollsym 1;\n"
+"#X msg 203 227 set \\$1;\n"
+"#X obj 188 318 outlet;\n"
+"#X obj 49 26 inlet;\n"
+"#X obj 203 173 symbol;\n"
+"#X msg 48 247 \\$1 bang;\n"
+"#X obj 49 68 route bang float set;\n"
+"#X obj 48 221 loop 16;\n"
+"#X obj 94 189 r \\$0-n;\n"
+"#X obj 94 164 s \\$0-n;\n"
+"#X obj 94 136 clip 1 256;\n"
+"#X connect 0 0 3 0;\n"
+"#X connect 1 0 2 0;\n"
+"#X connect 2 0 0 0;\n"
+"#X connect 4 0 7 0;\n"
+"#X connect 5 0 1 0;\n"
+"#X connect 6 0 3 0;\n"
+"#X connect 7 0 8 0;\n"
+"#X connect 7 1 11 0;\n"
+"#X connect 7 2 5 0;\n"
+"#X connect 7 3 0 0;\n"
+"#X connect 8 0 6 0;\n"
+"#X connect 9 0 8 1;\n"
+"#X connect 9 0 0 0;\n"
+"#X connect 11 0 10 0;\n"
+"#X restore 221 127 pd route;\n"
+"#N canvas 151 471 1709 591 init 0;\n"
+"#X obj 253 302 dollsym 1;\n"
+"#X obj 704 481 outlet;\n"
+"#X obj 232 257 symbol;\n"
+"#X obj 350 314 insert all amp;\n"
+"#X obj 458 314 insert all size;\n"
+"#X obj 833 314 insert all pan;\n"
+"#X msg 253 328 all set \\$1;\n"
+"#X obj 253 220 unpack f s;\n"
+"#X obj 1092 314 insert all scale;\n"
+"#X obj 943 314 insert all autotune;\n"
+"#X obj 206 375 message;\n"
+"#X obj 206 405 route bang;\n"
+"#X obj 116 274 del 0;\n"
+"#X obj 198 124 args -;\n"
+"#X obj 703 314 insert all transp;\n"
+"#X obj 1389 223 s pd-\\$0-delwrite~;\n"
+"#X msg 1389 168 clear \\, obj 50 50 inlet~ \\, obj 50 100 delwrite~ \\$1-buf\n"
+"\\$2 \\, connect 0 0 1 0, f 32;\n"
+"#X obj 1282 222 s pd-\\$0-delin;\n"
+"#X msg 1263 185 connect 0 0 2 0;\n"
+"#X obj 1264 153 t b b;\n"
+"#X obj 199 87 lb -init 2;\n"
+"#X obj 1263 95 t b f;\n"
+"#X obj 1226 314 insert all length;\n"
+"#X obj 1200 216 max 500;\n"
+"#X obj 1364 313 insert all pos;\n"
+"#X obj 1389 140 pack \\$0 5000;\n"
+"#X obj 575 314 insert all dur;\n"
+"#X obj 198 153 route float symbol list -amp -size -dur -transp -pan\n"
+"-autotune -scale -length -pos -sync, f 93;\n"
+"#X obj 181 302 s \\$0-n;\n"
+"#X obj 181 264 clip 1 256, f 5;\n"
+"#X msg 1488 313 all sync 1;\n"
+"#X connect 0 0 6 0;\n"
+"#X connect 2 0 0 0;\n"
+"#X connect 3 0 1 0;\n"
+"#X connect 4 0 1 0;\n"
+"#X connect 5 0 1 0;\n"
+"#X connect 6 0 10 1;\n"
+"#X connect 7 0 29 0;\n"
+"#X connect 7 1 0 0;\n"
+"#X connect 8 0 1 0;\n"
+"#X connect 9 0 1 0;\n"
+"#X connect 10 0 11 0;\n"
+"#X connect 11 1 1 0;\n"
+"#X connect 12 0 10 0;\n"
+"#X connect 13 0 27 0;\n"
+"#X connect 14 0 1 0;\n"
+"#X connect 16 0 15 0;\n"
+"#X connect 18 0 17 0;\n"
+"#X connect 19 0 18 0;\n"
+"#X connect 19 1 25 0;\n"
+"#X connect 20 0 12 0;\n"
+"#X connect 20 0 13 0;\n"
+"#X connect 20 1 19 0;\n"
+"#X connect 21 0 19 0;\n"
+"#X connect 21 1 25 1;\n"
+"#X connect 22 0 1 0;\n"
+"#X connect 23 0 22 0;\n"
+"#X connect 23 0 21 0;\n"
+"#X connect 24 0 1 0;\n"
+"#X connect 25 0 16 0;\n"
+"#X connect 26 0 1 0;\n"
+"#X connect 27 0 29 0;\n"
+"#X connect 27 1 2 0;\n"
+"#X connect 27 2 7 0;\n"
+"#X connect 27 3 3 0;\n"
+"#X connect 27 4 4 0;\n"
+"#X connect 27 5 26 0;\n"
+"#X connect 27 6 14 0;\n"
+"#X connect 27 7 5 0;\n"
+"#X connect 27 8 9 0;\n"
+"#X connect 27 9 8 0;\n"
+"#X connect 27 10 23 0;\n"
+"#X connect 27 11 24 0;\n"
+"#X connect 27 12 30 0;\n"
+"#X connect 29 0 28 0;\n"
+"#X connect 30 0 1 0;\n"
+"#X restore 236 155 pd init;\n"
+"#X obj 63 48 inlet~ fwd;\n"
+"#X obj 130 93 route bang;\n"
+"#X obj 221 48 inlet;\n"
+"#X obj 63 193 clone grain.live.grain 256 \\$0-buf, f 23;\n"
+"#N canvas 320 373 450 300 \\$0-delin 0;\n"
+"#X obj 83 77 inlet~;\n"
+"#X obj 80 196 outlet~;\n"
+"#N canvas 269 682 450 300 \\$0-delwrite~ 0;\n"
+"#X obj 50 50 inlet~;\n"
+"#X obj 50 100 delwrite~ 2304-buf 5000;\n"
+"#X connect 0 0 1 0;\n"
+"#X restore 81 133 pd \\$0-delwrite~;\n"
+"#X connect 0 0 2 0;\n"
+"#X restore 63 155 pd \\$0-delin;\n"
+"#X connect 5 0 10 1;\n"
+"#X connect 6 0 10 1;\n"
+"#X connect 7 0 11 0;\n"
+"#X connect 7 1 8 0;\n"
+"#X connect 8 0 5 0;\n"
+"#X connect 9 0 5 0;\n"
+"#X connect 10 0 0 0;\n"
+"#X connect 10 1 1 0;\n"
+"#X connect 11 0 10 0;\n";
+
+const char* grain_live_pd = (const char*) temp_binary_data_56;
+
+//================== grain.sampler~.pd ==================
+static const unsigned char temp_binary_data_57[] =
+"#N canvas 878 130 505 289 12;\n"
+"#X declare -path else;\n"
+"#X obj 50 36 inlet;\n"
+"#X obj 49 214 outlet~;\n"
+"#X obj 249 209 outlet~;\n"
+"#X obj 319 162 declare -path else;\n"
+"#X text 172 98 Part of ELSE \\; https://github.com/porres/pd-else;\n"
+"#X text 174 79 Alexandre Torres Porres (2020);\n"
+"#N canvas 845 238 331 363 route 0;\n"
+"#X obj 188 227 insert all;\n"
+"#X obj 203 169 dollsym 1;\n"
+"#X msg 203 197 set \\$1;\n"
+"#X obj 188 308 outlet;\n"
+"#X obj 49 26 inlet;\n"
+"#X obj 203 143 symbol;\n"
+"#X msg 48 247 \\$1 bang;\n"
+"#X obj 49 68 route bang float set;\n"
+"#X obj 48 221 loop 16;\n"
+"#X obj 94 180 r \\$0-n;\n"
+"#X obj 94 151 s \\$0-n;\n"
+"#X obj 94 123 clip 1 256;\n"
+"#X connect 0 0 3 0;\n"
+"#X connect 1 0 2 0;\n"
+"#X connect 2 0 0 0;\n"
+"#X connect 4 0 7 0;\n"
+"#X connect 5 0 1 0;\n"
+"#X connect 6 0 3 0;\n"
+"#X connect 7 0 8 0;\n"
+"#X connect 7 1 11 0;\n"
+"#X connect 7 2 5 0;\n"
+"#X connect 7 3 0 0;\n"
+"#X connect 8 0 6 0;\n"
+"#X connect 9 0 8 1;\n"
+"#X connect 9 0 0 0;\n"
+"#X connect 11 0 10 0;\n"
+"#X restore 50 85 pd route;\n"
+"#N canvas 374 165 1482 572 init 1;\n"
+"#X obj 153 302 dollsym 1;\n"
+"#X obj 604 481 outlet;\n"
+"#X obj 132 257 symbol;\n"
+"#X obj 250 314 insert all amp;\n"
+"#X obj 358 314 insert all size;\n"
+"#X obj 475 314 insert all dur;\n"
+"#X obj 729 314 insert all pan;\n"
+"#X msg 153 328 all set \\$1;\n"
+"#X obj 161 220 unpack f s;\n"
+"#X obj 988 314 insert all scale;\n"
+"#X obj 1112 314 insert all base, f 16;\n"
+"#X obj 839 314 insert all autotune;\n"
+"#X obj 75 85 lb -init;\n"
+"#X obj 106 375 message;\n"
+"#X obj 106 405 route bang;\n"
+"#X obj 24 274 del 0;\n"
+"#X obj 98 124 args -;\n"
+"#X obj 603 313 insert all speed;\n"
+"#X obj 1249 314 insert all pos, f 16;\n"
+"#X obj 98 154 route float symbol list -amp -size -dur -speed -pan -autotune\n"
+"-scale -base -pos -sync, f 150;\n"
+"#X msg 1380 314 all sync 1;\n"
+"#X obj 75 295 s \\$0-n;\n"
+"#X obj 75 257 clip 1 256, f 5;\n"
+"#X connect 0 0 7 0;\n"
+"#X connect 2 0 0 0;\n"
+"#X connect 3 0 1 0;\n"
+"#X connect 4 0 1 0;\n"
+"#X connect 5 0 1 0;\n"
+"#X connect 6 0 1 0;\n"
+"#X connect 7 0 13 1;\n"
+"#X connect 8 0 22 0;\n"
+"#X connect 8 1 0 0;\n"
+"#X connect 9 0 1 0;\n"
+"#X connect 10 0 1 0;\n"
+"#X connect 11 0 1 0;\n"
+"#X connect 12 0 15 0;\n"
+"#X connect 12 0 16 0;\n"
+"#X connect 13 0 14 0;\n"
+"#X connect 14 1 1 0;\n"
+"#X connect 15 0 13 0;\n"
+"#X connect 16 0 19 0;\n"
+"#X connect 17 0 1 0;\n"
+"#X connect 18 0 1 0;\n"
+"#X connect 19 0 22 0;\n"
+"#X connect 19 1 2 0;\n"
+"#X connect 19 2 8 0;\n"
+"#X connect 19 3 3 0;\n"
+"#X connect 19 4 4 0;\n"
+"#X connect 19 5 5 0;\n"
+"#X connect 19 6 17 0;\n"
+"#X connect 19 7 6 0;\n"
+"#X connect 19 8 11 0;\n"
+"#X connect 19 9 9 0;\n"
+"#X connect 19 10 10 0;\n"
+"#X connect 19 11 18 0;\n"
+"#X connect 19 12 20 0;\n"
+"#X connect 20 0 1 0;\n"
+"#X connect 22 0 21 0;\n"
+"#X restore 72 132 pd init;\n"
+"#X obj 49 167 clone grain.sampler.grain 256;\n"
+"#X connect 0 0 6 0;\n"
+"#X connect 6 0 8 0;\n"
+"#X connect 7 0 8 0;\n"
+"#X connect 8 0 1 0;\n"
+"#X connect 8 1 2 0;\n";
+
+const char* grain_sampler_pd = (const char*) temp_binary_data_57;
+
+//================== grain.synth~.pd ==================
+static const unsigned char temp_binary_data_58[] =
+"#N canvas 154 112 505 289 12;\n"
+"#X declare -path else;\n"
+"#X obj 50 36 inlet;\n"
+"#X obj 49 214 outlet~;\n"
+"#X obj 235 209 outlet~;\n"
+"#X obj 319 162 declare -path else;\n"
+"#X text 172 98 Part of ELSE \\; https://github.com/porres/pd-else;\n"
+"#X text 174 79 Alexandre Torres Porres (2020);\n"
+"#N canvas 167 336 331 363 route 0;\n"
+"#X obj 188 207 insert all;\n"
+"#X obj 203 149 dollsym 1;\n"
+"#X msg 203 177 set \\$1;\n"
+"#X obj 188 268 outlet;\n"
+"#X obj 49 26 inlet;\n"
+"#X obj 203 123 symbol;\n"
+"#X obj 94 165 r \\$0-n;\n"
+"#X msg 48 217 \\$1 bang;\n"
+"#X obj 49 68 route bang float set;\n"
+"#X obj 48 191 loop 16;\n"
+"#X obj 94 140 s \\$0-n;\n"
+"#X obj 94 112 clip 1 256;\n"
+"#X connect 0 0 3 0;\n"
+"#X connect 1 0 2 0;\n"
+"#X connect 2 0 0 0;\n"
+"#X connect 4 0 8 0;\n"
+"#X connect 5 0 1 0;\n"
+"#X connect 6 0 9 1;\n"
+"#X connect 6 0 0 0;\n"
+"#X connect 7 0 3 0;\n"
+"#X connect 8 0 9 0;\n"
+"#X connect 8 1 11 0;\n"
+"#X connect 8 2 5 0;\n"
+"#X connect 8 3 0 0;\n"
+"#X connect 9 0 7 0;\n"
+"#X connect 11 0 10 0;\n"
+"#X restore 50 85 pd route;\n"
+"#N canvas 126 225 1325 518 init 0;\n"
+"#X obj 140 279 dollsym 1;\n"
+"#X obj 532 448 outlet;\n"
+"#X obj 119 224 symbol;\n"
+"#X obj 218 279 insert all amp;\n"
+"#X obj 326 279 insert all size;\n"
+"#X obj 443 279 insert all dur;\n"
+"#X obj 552 279 insert all pitch;\n"
+"#X obj 678 279 insert all pan;\n"
+"#X msg 140 315 all set \\$1;\n"
+"#X obj 140 187 unpack f s;\n"
+"#X obj 937 279 insert all scale;\n"
+"#X obj 1061 279 insert all base, f 16;\n"
+"#X obj 788 279 insert all autotune;\n"
+"#X obj 69 267 s \\$0-n;\n"
+"#X obj 46 50 lb -init;\n"
+"#X obj 93 342 message;\n"
+"#X obj 93 372 route bang;\n"
+"#X obj 46 302 del 0;\n"
+"#X obj 66 91 args -;\n"
+"#X obj 69 229 clip 1 256, f 5;\n"
+"#X obj 66 120 route float symbol list -amp -size -dur -pitch -pan -autotune\n"
+"-scale -base -sync, f 111;\n"
+"#X msg 1191 279 all sync 1;\n"
+"#X connect 0 0 8 0;\n"
+"#X connect 2 0 0 0;\n"
+"#X connect 3 0 1 0;\n"
+"#X connect 4 0 1 0;\n"
+"#X connect 5 0 1 0;\n"
+"#X connect 6 0 1 0;\n"
+"#X connect 7 0 1 0;\n"
+"#X connect 8 0 15 1;\n"
+"#X connect 9 0 19 0;\n"
+"#X connect 9 1 0 0;\n"
+"#X connect 10 0 1 0;\n"
+"#X connect 11 0 1 0;\n"
+"#X connect 12 0 1 0;\n"
+"#X connect 14 0 17 0;\n"
+"#X connect 14 0 18 0;\n"
+"#X connect 15 0 16 0;\n"
+"#X connect 16 1 1 0;\n"
+"#X connect 17 0 15 0;\n"
+"#X connect 18 0 20 0;\n"
+"#X connect 19 0 13 0;\n"
+"#X connect 20 0 19 0;\n"
+"#X connect 20 1 2 0;\n"
+"#X connect 20 2 9 0;\n"
+"#X connect 20 3 3 0;\n"
+"#X connect 20 4 4 0;\n"
+"#X connect 20 5 5 0;\n"
+"#X connect 20 6 6 0;\n"
+"#X connect 20 7 7 0;\n"
+"#X connect 20 8 12 0;\n"
+"#X connect 20 9 10 0;\n"
+"#X connect 20 10 11 0;\n"
+"#X connect 20 11 21 0;\n"
+"#X connect 21 0 1 0;\n"
+"#X restore 72 134 pd init;\n"
+"#X obj 49 167 clone grain.synth.grain 256;\n"
+"#X connect 0 0 6 0;\n"
+"#X connect 6 0 8 0;\n"
+"#X connect 7 0 8 0;\n"
+"#X connect 8 0 1 0;\n"
+"#X connect 8 1 2 0;\n";
+
+const char* grain_synth_pd = (const char*) temp_binary_data_58;
 
 //================== gran.player~.pd ==================
-static const unsigned char temp_binary_data_52[] =
-"#N canvas 733 361 643 437 10;\n"
-"#X declare -path /Users/porres/Documents/pd/externals/else;\n"
+static const unsigned char temp_binary_data_59[] =
+"#N canvas 497 27 643 437 10;\n"
+"#X declare -path /Users/porres/Desktop/git/pd-else/Classes/Abstractions\n"
+";\n"
 "#X declare -path else;\n"
 "#X obj 44 59 inlet;\n"
-"#X obj 95 59 inlet;\n"
-"#X obj 147 59 inlet;\n"
+"#X obj 126 59 inlet;\n"
+"#X obj 178 59 inlet;\n"
 "#N canvas 1044 474 637 268 guts 0;\n"
 "#X obj 74 83 inlet;\n"
-"#X obj 163 83 inlet;\n"
-"#X obj 249 84 inlet;\n"
-"#X text 253 58 cents;\n"
-"#X text 158 57 speed;\n"
+"#X obj 233 83 inlet;\n"
+"#X obj 319 84 inlet;\n"
+"#X text 323 58 cents;\n"
+"#X text 228 57 speed;\n"
 "#N canvas 815 269 328 176 dynamic-patching 0;\n"
 "#N canvas 522 184 883 653 load-args 0;\n"
 "#X obj 99 117 args;\n"
@@ -7886,8 +8584,7 @@ static const unsigned char temp_binary_data_52[] =
 "#X obj 43 145 trigger float float;\n"
 "#X obj 70 342 s pd-\\$0-buffers;\n"
 "#N canvas 621 356 434 343 \\$0-buffers 0;\n"
-"#X obj 20 50 table 1270-ch1;\n"
-"#X obj 130 50 table 1270-ch2;\n"
+"#X obj 20 50 table 1003-ch1;\n"
 "#X restore 194 98 pd \\$0-buffers;\n"
 "#X obj 43 111 loop;\n"
 "#X obj 43 209 makefilename \\$0-ch%d, f 12;\n"
@@ -7911,17 +8608,10 @@ static const unsigned char temp_binary_data_52[] =
 "#X connect 13 0 12 1;\n"
 "#X connect 14 0 7 0;\n"
 "#X restore 510 553 pd set-buffers;\n"
-"#N canvas 990 572 636 322 init 0;\n"
+"#N canvas 848 168 636 322 init 1;\n"
 "#X obj 248 144 send pd-\\$0-buffers;\n"
 "#X msg 248 113 clear;\n"
 "#X obj 228 172 s \\$0-init-buflist;\n"
-"#X obj 380 156 send pd-\\$0-path;\n"
-"#X obj 323 105 dir 1;\n"
-"#X msg 380 132 clear \\, obj 30 20 declare -path \\$1;\n"
-"#N canvas 169 23 493 100 \\$0-path 0;\n"
-"#X obj 30 20 declare -path /Users/porres/Documents/pd/externals/else\n"
-";\n"
-"#X restore 499 167 pd \\$0-path;\n"
 "#X obj 194 35 inlet;\n"
 "#X msg 148 179 0;\n"
 "#X msg 42 181 100;\n"
@@ -7929,18 +8619,31 @@ static const unsigned char temp_binary_data_52[] =
 "#X obj 148 236 s \\$0-transp-set;\n"
 "#X obj 186 205 s \\$0-grain-size-set;\n"
 "#X msg 186 178 75;\n"
+"#N canvas 106 61 319 243 dir 0;\n"
+"#X obj 48 160 send pd-\\$0-path;\n"
+"#X msg 48 136 clear \\, obj 30 20 declare -path \\$1;\n"
+"#N canvas 169 23 493 100 \\$0-path 0;\n"
+"#X obj 30 20 declare -path /Users/porres/Desktop/git/pd-else/Classes/Abstractions\n"
+";\n"
+"#X restore 150 160 pd \\$0-path;\n"
+"#X obj 48 109 pdcontrol;\n"
+"#X msg 48 82 dir 1;\n"
+"#X obj 48 50 inlet;\n"
 "#X connect 1 0 0 0;\n"
-"#X connect 4 1 5 0;\n"
-"#X connect 5 0 3 0;\n"
-"#X connect 7 0 4 0;\n"
-"#X connect 7 0 2 0;\n"
-"#X connect 7 0 1 0;\n"
-"#X connect 7 0 13 0;\n"
-"#X connect 7 0 9 0;\n"
-"#X connect 7 0 8 0;\n"
-"#X connect 8 0 11 0;\n"
-"#X connect 9 0 10 0;\n"
-"#X connect 13 0 12 0;\n"
+"#X connect 3 0 1 0;\n"
+"#X connect 4 0 3 0;\n"
+"#X connect 5 0 4 0;\n"
+"#X restore 323 105 pd dir;\n"
+"#X connect 1 0 0 0;\n"
+"#X connect 3 0 2 0;\n"
+"#X connect 3 0 1 0;\n"
+"#X connect 3 0 9 0;\n"
+"#X connect 3 0 5 0;\n"
+"#X connect 3 0 4 0;\n"
+"#X connect 3 0 10 0;\n"
+"#X connect 4 0 7 0;\n"
+"#X connect 5 0 6 0;\n"
+"#X connect 9 0 8 0;\n"
 "#X restore 316 64 pd init;\n"
 "#N canvas 167 330 353 306 +args 0;\n"
 "#X obj 72 22 inlet;\n"
@@ -8144,8 +8847,6 @@ static const unsigned char temp_binary_data_52[] =
 "#X restore 82 133 pd initialize;\n"
 "#N canvas 569 67 718 405 create-grains 0;\n"
 "#X obj 352 311 s \\$0-player;\n"
-"#X obj 397 213 + 7;\n"
-"#X obj 443 210 + 8;\n"
 "#X obj 443 185 * 2;\n"
 "#X obj 352 209 + 1;\n"
 "#X obj 352 240 pack float float float float \\$0;\n"
@@ -8154,47 +8855,49 @@ static const unsigned char temp_binary_data_52[] =
 "#X obj 352 129 loop;\n"
 "#X obj 136 92 v ch_\\$0;\n"
 "#X obj 80 282 s \\$0-player;\n"
-"#X obj 144 188 + 7;\n"
 "#X obj 144 162 * 2;\n"
 "#X obj 80 180 + 1;\n"
 "#X obj 489 192 expr 20 + 140 * $f1;\n"
-"#X msg 80 238 obj \\$3 285 outlet \\, connect 7 1 \\$2 0;\n"
 "#X obj 80 211 pack float float float;\n"
 "#X obj 209 174 expr 20 + 140 * $f1;\n"
 "#X msg 352 267 obj \\$4 260 gran~ \\$5 ch\\$1 \\, obj \\$4 285 outlet~ \\,\n"
 "connect \\$2 0 \\$3 0, f 51;\n"
 "#X obj 136 113 trigger float float float;\n"
-"#X connect 1 0 5 1;\n"
-"#X connect 2 0 5 2;\n"
-"#X connect 3 0 1 0;\n"
-"#X connect 3 0 2 0;\n"
-"#X connect 4 0 5 0;\n"
-"#X connect 5 0 18 0;\n"
+"#X obj 397 213 + 8;\n"
+"#X obj 443 210 + 9;\n"
+"#X obj 144 188 + 8;\n"
+"#X msg 80 238 obj \\$3 285 outlet \\, connect 8 1 \\$2 0;\n"
+"#X connect 1 0 16 0;\n"
+"#X connect 1 0 17 0;\n"
+"#X connect 2 0 3 0;\n"
+"#X connect 3 0 14 0;\n"
+"#X connect 4 0 2 0;\n"
+"#X connect 4 1 1 0;\n"
+"#X connect 4 1 11 0;\n"
+"#X connect 5 0 7 0;\n"
 "#X connect 6 0 4 0;\n"
-"#X connect 6 1 3 0;\n"
-"#X connect 6 1 14 0;\n"
-"#X connect 7 0 9 0;\n"
-"#X connect 8 0 6 0;\n"
-"#X connect 9 0 19 0;\n"
-"#X connect 11 0 16 1;\n"
-"#X connect 12 0 11 0;\n"
-"#X connect 13 0 16 0;\n"
-"#X connect 14 0 5 3;\n"
+"#X connect 7 0 15 0;\n"
+"#X connect 9 0 18 0;\n"
+"#X connect 10 0 12 0;\n"
+"#X connect 11 0 3 3;\n"
+"#X connect 12 0 19 0;\n"
+"#X connect 13 0 12 2;\n"
+"#X connect 14 0 0 0;\n"
 "#X connect 15 0 10 0;\n"
-"#X connect 16 0 15 0;\n"
-"#X connect 17 0 16 2;\n"
-"#X connect 18 0 0 0;\n"
-"#X connect 19 0 13 0;\n"
-"#X connect 19 1 12 0;\n"
-"#X connect 19 1 17 0;\n"
-"#X connect 19 2 8 0;\n"
+"#X connect 15 1 9 0;\n"
+"#X connect 15 1 13 0;\n"
+"#X connect 15 2 6 0;\n"
+"#X connect 16 0 3 1;\n"
+"#X connect 17 0 3 2;\n"
+"#X connect 18 0 12 1;\n"
+"#X connect 19 0 8 0;\n"
 "#X restore 152 104 pd create-grains;\n"
 "#X connect 1 0 2 0;\n"
 "#X connect 1 1 3 0;\n"
 "#X connect 1 2 0 0;\n"
-"#X restore 179 159 pd dynamic-patching;\n"
-"#X obj 249 115 s \\$0-transp;\n"
-"#X obj 163 115 s \\$0-speed;\n"
+"#X restore 249 159 pd dynamic-patching;\n"
+"#X obj 319 115 s \\$0-transp;\n"
+"#X obj 233 115 s \\$0-speed;\n"
 "#X text 72 57 messages;\n"
 "#N canvas 725 185 895 513 route 0;\n"
 "#X obj 235 233 symbol;\n"
@@ -8347,22 +9050,30 @@ static const unsigned char temp_binary_data_52[] =
 "#X connect 26 8 24 0;\n"
 "#X connect 28 0 17 0;\n"
 "#X restore 74 168 pd route;\n"
-"#X obj 369 122 declare -path else;\n"
+"#X obj 439 122 declare -path else;\n"
+"#X obj 155 80 inlet;\n"
+"#X msg 155 112 size \\$1;\n"
+"#X text 157 55 size;\n"
 "#X connect 0 0 9 0;\n"
 "#X connect 1 0 7 0;\n"
 "#X connect 2 0 6 0;\n"
+"#X connect 11 0 12 0;\n"
+"#X connect 12 0 9 0;\n"
 "#X restore 76 108 pd guts;\n"
+"#X f 13;\n"
 "#X obj 176 106 namecanvas \\$0-player;\n"
 "#X text 70 169 Alexandre Torres Porres (2018) \\; Part of ELSE:;\n"
 "#X text 71 203 https://github.com/porres/pd-else;\n"
+"#X obj 84 59 inlet;\n"
 "#X connect 0 0 3 0;\n"
-"#X connect 1 0 3 1;\n"
-"#X connect 2 0 3 2;\n";
+"#X connect 1 0 3 2;\n"
+"#X connect 2 0 3 3;\n"
+"#X connect 7 0 3 1;\n";
 
-const char* gran_player_pd = (const char*) temp_binary_data_52;
+const char* gran_player_pd = (const char*) temp_binary_data_59;
 
 //================== graph~.pd ==================
-static const unsigned char temp_binary_data_53[] =
+static const unsigned char temp_binary_data_60[] =
 "#N canvas 489 159 937 588 10;\n"
 "#X declare -path else;\n"
 "#X obj 53 102 cnv 15 198 138 empty \\$0-bgcnv empty 20 12 0 14 -233017\n"
@@ -8771,10 +9482,10 @@ static const unsigned char temp_binary_data_53[] =
 "#X connect 6 1 1 1;\n"
 "#X coords 0 1 100 -1 202 142 2 51 100;\n";
 
-const char* graph_pd = (const char*) temp_binary_data_53;
+const char* graph_pd = (const char*) temp_binary_data_60;
 
 //================== group.pd ==================
-static const unsigned char temp_binary_data_54[] =
+static const unsigned char temp_binary_data_61[] =
 "#N canvas 621 220 687 474 10;\n"
 "#X declare -path else;\n"
 "#X obj 309 33 inlet;\n"
@@ -8871,10 +9582,10 @@ static const unsigned char temp_binary_data_54[] =
 "#X connect 21 0 2 0;\n"
 "#X connect 22 0 10 1;\n";
 
-const char* group_pd = (const char*) temp_binary_data_54;
+const char* group_pd = (const char*) temp_binary_data_61;
 
 //================== hann~.pd ==================
-static const unsigned char temp_binary_data_55[] =
+static const unsigned char temp_binary_data_62[] =
 "#N canvas 672 318 568 285 10;\n"
 "#X declare -path else;\n"
 "#X obj 87 180 outlet~;\n"
@@ -8922,10 +9633,10 @@ static const unsigned char temp_binary_data_55[] =
 "#X connect 2 0 1 0;\n"
 "#X connect 3 0 1 1;\n";
 
-const char* hann_pd = (const char*) temp_binary_data_55;
+const char* hann_pd = (const char*) temp_binary_data_62;
 
 //================== hex2dec.pd ==================
-static const unsigned char temp_binary_data_56[] =
+static const unsigned char temp_binary_data_63[] =
 "#N canvas 707 231 412 305 10;\n"
 "#X declare -path else;\n"
 "#X msg 204 158 0;\n"
@@ -8990,10 +9701,10 @@ static const unsigned char temp_binary_data_56[] =
 "#X connect 10 1 9 0;\n"
 "#X connect 10 2 0 0;\n";
 
-const char* hex2dec_pd = (const char*) temp_binary_data_56;
+const char* hex2dec_pd = (const char*) temp_binary_data_63;
 
 //================== hip.bw~.pd ==================
-static const unsigned char temp_binary_data_57[] =
+static const unsigned char temp_binary_data_64[] =
 "#N canvas 736 239 496 243 10;\n"
 "#X declare -path else;\n"
 "#N canvas 861 291 280 230 coeffs 0;\n"
@@ -9132,10 +9843,10 @@ static const unsigned char temp_binary_data_57[] =
 "#X connect 11 0 5 1;\n"
 "#X connect 11 1 10 0;\n";
 
-const char* hip_bw_pd = (const char*) temp_binary_data_57;
+const char* hip_bw_pd = (const char*) temp_binary_data_64;
 
 //================== impulse.pd ==================
-static const unsigned char temp_binary_data_58[] =
+static const unsigned char temp_binary_data_65[] =
 "#N canvas 633 206 666 329 12;\n"
 "#X declare -path else;\n"
 "#X obj 68 141 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1\n"
@@ -9283,10 +9994,10 @@ static const unsigned char temp_binary_data_58[] =
 "#X connect 12 0 3 0;\n"
 "#X connect 12 1 13 0;\n";
 
-const char* impulse_pd = (const char*) temp_binary_data_58;
+const char* impulse_pd = (const char*) temp_binary_data_65;
 
 //================== insert.pd ==================
-static const unsigned char temp_binary_data_59[] =
+static const unsigned char temp_binary_data_66[] =
 "#N canvas 490 194 547 389 10;\n"
 "#X declare -path else;\n"
 "#X text 278 253 Part of ELSE \\; https://github.com/porres/pd-else;\n"
@@ -9351,10 +10062,10 @@ static const unsigned char temp_binary_data_59[] =
 "#X connect 19 0 13 0;\n"
 "#X connect 20 0 19 0;\n";
 
-const char* insert_pd = (const char*) temp_binary_data_59;
+const char* insert_pd = (const char*) temp_binary_data_66;
 
 //================== iterate.pd ==================
-static const unsigned char temp_binary_data_60[] =
+static const unsigned char temp_binary_data_67[] =
 "#N canvas 613 281 498 222 10;\n"
 "#X declare -path else;\n"
 "#X obj 81 23 inlet;\n"
@@ -9441,10 +10152,10 @@ static const unsigned char temp_binary_data_60[] =
 "#X connect 7 0 5 0;\n"
 "#X connect 8 0 5 1;\n";
 
-const char* iterate_pd = (const char*) temp_binary_data_60;
+const char* iterate_pd = (const char*) temp_binary_data_67;
 
 //================== lastvalue.pd ==================
-static const unsigned char temp_binary_data_61[] =
+static const unsigned char temp_binary_data_68[] =
 "#N canvas 755 23 519 653 10;\n"
 "#X declare -path else;\n"
 "#X obj 341 586 outlet;\n"
@@ -9498,10 +10209,10 @@ static const unsigned char temp_binary_data_61[] =
 "#X connect 17 1 12 0;\n"
 "#X connect 17 2 9 0;\n";
 
-const char* lastvalue_pd = (const char*) temp_binary_data_61;
+const char* lastvalue_pd = (const char*) temp_binary_data_68;
 
 //================== lfnoise.pd ==================
-static const unsigned char temp_binary_data_62[] =
+static const unsigned char temp_binary_data_69[] =
 "#N canvas 646 183 550 606 10;\n"
 "#X declare -path else;\n"
 "#X obj 89 38 inlet;\n"
@@ -9602,10 +10313,10 @@ static const unsigned char temp_binary_data_62[] =
 "#X connect 30 0 18 0;\n"
 "#X connect 32 0 17 0;\n";
 
-const char* lfnoise_pd = (const char*) temp_binary_data_62;
+const char* lfnoise_pd = (const char*) temp_binary_data_69;
 
 //================== lfo.pd ==================
-static const unsigned char temp_binary_data_63[] =
+static const unsigned char temp_binary_data_70[] =
 "#N canvas 665 64 536 404 10;\n"
 "#X declare -path else;\n"
 "#X obj 52 32 inlet;\n"
@@ -10011,75 +10722,10 @@ static const unsigned char temp_binary_data_63[] =
 "#X connect 25 0 6 0;\n"
 "#X connect 26 0 11 0;\n";
 
-const char* lfo_pd = (const char*) temp_binary_data_63;
-
-//================== limit.pd ==================
-static const unsigned char temp_binary_data_64[] =
-"#N canvas 716 175 521 466 12;\n"
-"#X declare -path else;\n"
-"#X obj 70 296 message;\n"
-"#X obj 67 136 timer;\n"
-"#X obj 76 99 t b b a;\n"
-"#X obj 70 364 outlet;\n"
-"#X obj 76 40 inlet;\n"
-"#X obj 223 40 inlet;\n"
-"#X text 230 302 Part of ELSE \\; https://github.com/porres/pd-else;\n"
-"#X text 232 283 Alexandre Torres Porres (2019);\n"
-"#X msg 173 206 start;\n"
-"#X msg 165 177 stop;\n"
-"#X obj 93 333 r \\$0-bypass;\n"
-"#X obj 223 145 max 0;\n"
-"#X obj 223 113 f \\$1;\n"
-"#X obj 67 176 moses;\n"
-"#X obj 165 145 del;\n"
-"#X obj 165 232 tempo -ms, f 17;\n"
-"#N canvas 68 23 450 300 bybass 0;\n"
-"#X obj 184 85 inlet;\n"
-"#X obj 258 84 inlet;\n"
-"#X obj 184 256 outlet;\n"
-"#X obj 258 213 s \\$0-bypass;\n"
-"#X obj 184 184 router;\n"
-"#X obj 258 115 == 0;\n"
-"#X obj 258 144 + 1;\n"
-"#X connect 0 0 4 0;\n"
-"#X connect 1 0 5 0;\n"
-"#X connect 4 0 2 0;\n"
-"#X connect 4 1 3 0;\n"
-"#X connect 5 0 6 0;\n"
-"#X connect 6 0 4 1;\n"
-"#X restore 76 70 pd bybass;\n"
-"#X obj 232 172 sel 0;\n"
-"#X obj 240 80 lb -init;\n"
-"#X obj 319 155 declare -path else;\n"
-"#X connect 0 0 3 0;\n"
-"#X connect 1 0 13 0;\n"
-"#X connect 2 0 1 0;\n"
-"#X connect 2 0 14 0;\n"
-"#X connect 2 1 1 1;\n"
-"#X connect 2 2 0 1;\n"
-"#X connect 4 0 16 0;\n"
-"#X connect 5 0 12 0;\n"
-"#X connect 8 0 15 0;\n"
-"#X connect 9 0 15 0;\n"
-"#X connect 10 0 3 0;\n"
-"#X connect 11 0 13 1;\n"
-"#X connect 11 0 14 1;\n"
-"#X connect 11 0 15 1;\n"
-"#X connect 11 0 16 1;\n"
-"#X connect 11 0 17 0;\n"
-"#X connect 12 0 11 0;\n"
-"#X connect 13 1 8 0;\n"
-"#X connect 14 0 9 0;\n"
-"#X connect 15 0 0 0;\n"
-"#X connect 16 0 2 0;\n"
-"#X connect 17 0 9 0;\n"
-"#X connect 17 1 8 0;\n"
-"#X connect 18 0 12 0;\n";
-
-const char* limit_pd = (const char*) temp_binary_data_64;
+const char* lfo_pd = (const char*) temp_binary_data_70;
 
 //================== lin2db.pd ==================
-static const unsigned char temp_binary_data_65[] =
+static const unsigned char temp_binary_data_71[] =
 "#N canvas 844 45 483 351 10;\n"
 "#X obj 86 226 max -999;\n"
 "#X obj 86 92 inlet;\n"
@@ -10095,10 +10741,10 @@ static const unsigned char temp_binary_data_65[] =
 "#X connect 6 0 7 0;\n"
 "#X connect 7 0 0 0;\n";
 
-const char* lin2db_pd = (const char*) temp_binary_data_65;
+const char* lin2db_pd = (const char*) temp_binary_data_71;
 
 //================== lin2db~.pd ==================
-static const unsigned char temp_binary_data_66[] =
+static const unsigned char temp_binary_data_72[] =
 "#N canvas 844 45 462 349 10;\n"
 "#X obj 86 195 max~ -999;\n"
 "#X obj 86 82 inlet~;\n"
@@ -10112,10 +10758,10 @@ static const unsigned char temp_binary_data_66[] =
 "#X connect 5 0 6 0;\n"
 "#X connect 6 0 0 0;\n";
 
-const char* lin2db_pd2 = (const char*) temp_binary_data_66;
+const char* lin2db_pd2 = (const char*) temp_binary_data_72;
 
 //================== lop.bw~.pd ==================
-static const unsigned char temp_binary_data_67[] =
+static const unsigned char temp_binary_data_73[] =
 "#N canvas 791 200 496 243 10;\n"
 "#X declare -path else;\n"
 "#N canvas 155 428 236 257 coeffs 0;\n"
@@ -10254,10 +10900,10 @@ static const unsigned char temp_binary_data_67[] =
 "#X connect 11 0 5 1;\n"
 "#X connect 11 1 10 0;\n";
 
-const char* lop_bw_pd = (const char*) temp_binary_data_67;
+const char* lop_bw_pd = (const char*) temp_binary_data_73;
 
 //================== mag.pd ==================
-static const unsigned char temp_binary_data_68[] =
+static const unsigned char temp_binary_data_74[] =
 "#N canvas 815 117 489 435 10;\n"
 "#X declare -path else;\n"
 "#X obj 66 34 inlet;\n"
@@ -10308,10 +10954,10 @@ static const unsigned char temp_binary_data_68[] =
 "#X connect 19 0 6 0;\n"
 "#X connect 20 0 12 0;\n";
 
-const char* mag_pd = (const char*) temp_binary_data_68;
+const char* mag_pd = (const char*) temp_binary_data_74;
 
 //================== mag~.pd ==================
-static const unsigned char temp_binary_data_69[] =
+static const unsigned char temp_binary_data_75[] =
 "#N canvas 904 172 403 327 10;\n"
 "#X declare -path else;\n"
 "#X text 183 195 Part of ELSE \\; https://github.com/porres/pd-else;\n"
@@ -10349,10 +10995,10 @@ static const unsigned char temp_binary_data_69[] =
 "#X connect 14 0 11 1;\n"
 "#X connect 15 0 9 0;\n";
 
-const char* mag_pd2 = (const char*) temp_binary_data_69;
+const char* mag_pd2 = (const char*) temp_binary_data_75;
 
 //================== markov.pd ==================
-static const unsigned char temp_binary_data_70[] =
+static const unsigned char temp_binary_data_76[] =
 "#N canvas 531 129 694 386 10;\n"
 "#X obj 55 29 inlet;\n"
 "#X obj 288 135 text size \\$0-markov;\n"
@@ -10701,10 +11347,10 @@ static const unsigned char temp_binary_data_70[] =
 "#X connect 12 5 13 0;\n"
 "#X connect 18 0 19 0;\n";
 
-const char* markov_pd = (const char*) temp_binary_data_70;
+const char* markov_pd = (const char*) temp_binary_data_76;
 
 //================== maxpeak~.pd ==================
-static const unsigned char temp_binary_data_71[] =
+static const unsigned char temp_binary_data_77[] =
 "#N canvas 635 289 619 353 12;\n"
 "#X declare -path else;\n"
 "#X obj 98 74 abs~;\n"
@@ -10732,10 +11378,10 @@ static const unsigned char temp_binary_data_71[] =
 "#X connect 11 0 8 0;\n"
 "#X connect 12 0 11 0;\n";
 
-const char* maxpeak_pd = (const char*) temp_binary_data_71;
+const char* maxpeak_pd = (const char*) temp_binary_data_77;
 
 //================== median.pd ==================
-static const unsigned char temp_binary_data_72[] =
+static const unsigned char temp_binary_data_78[] =
 "#N canvas 502 131 620 250 10;\n"
 "#X declare -path else;\n"
 "#X obj 31 12 inlet;\n"
@@ -10768,10 +11414,10 @@ static const unsigned char temp_binary_data_72[] =
 "#X connect 14 0 5 0;\n"
 "#X connect 14 1 1 0;\n";
 
-const char* median_pd = (const char*) temp_binary_data_72;
+const char* median_pd = (const char*) temp_binary_data_78;
 
 //================== meter.pd ==================
-static const unsigned char temp_binary_data_73[] =
+static const unsigned char temp_binary_data_79[] =
 "#N canvas 1135 151 450 300 10;\n"
 "#X declare -path else;\n"
 "#X obj 100 162 cputime;\n"
@@ -10805,10 +11451,10 @@ static const unsigned char temp_binary_data_73[] =
 "#X connect 5 0 2 0;\n"
 "#X connect 6 0 2 0;\n";
 
-const char* meter_pd = (const char*) temp_binary_data_73;
+const char* meter_pd = (const char*) temp_binary_data_79;
 
 //================== meter~.pd ==================
-static const unsigned char temp_binary_data_74[] =
+static const unsigned char temp_binary_data_80[] =
 "#N canvas 646 227 558 470 10;\n"
 "#X declare -path else;\n"
 "#X obj 51 201 cnv 15 50 134 empty empty empty 20 12 0 14 -233017 -66577\n"
@@ -10861,10 +11507,10 @@ static const unsigned char temp_binary_data_74[] =
 "#X connect 13 1 1 1;\n"
 "#X coords 0 -1 1 1 52 136 2 50 200;\n";
 
-const char* meter_pd2 = (const char*) temp_binary_data_74;
+const char* meter_pd2 = (const char*) temp_binary_data_80;
 
 //================== meter2~.pd ==================
-static const unsigned char temp_binary_data_75[] =
+static const unsigned char temp_binary_data_81[] =
 "#N canvas 668 166 701 490 10;\n"
 "#X declare -path else;\n"
 "#X obj 51 151 cnv 15 70 134 empty empty empty 20 12 0 14 -233017 -66577\n"
@@ -10958,10 +11604,10 @@ static const unsigned char temp_binary_data_75[] =
 "#X connect 21 1 1 1;\n"
 "#X coords 0 -1 1 1 72 136 2 50 150;\n";
 
-const char* meter2_pd = (const char*) temp_binary_data_75;
+const char* meter2_pd = (const char*) temp_binary_data_81;
 
 //================== meter4~.pd ==================
-static const unsigned char temp_binary_data_76[] =
+static const unsigned char temp_binary_data_82[] =
 "#N canvas 504 174 879 425 10;\n"
 "#X declare -path else;\n"
 "#X obj 51 151 cnv 15 104 134 empty empty empty 20 12 0 14 -233017 -66577\n"
@@ -11135,10 +11781,10 @@ static const unsigned char temp_binary_data_76[] =
 "#X connect 36 0 34 1;\n"
 "#X coords 0 -1 1 1 106 136 2 50 150;\n";
 
-const char* meter4_pd = (const char*) temp_binary_data_76;
+const char* meter4_pd = (const char*) temp_binary_data_82;
 
 //================== meter8~.pd ==================
-static const unsigned char temp_binary_data_77[] =
+static const unsigned char temp_binary_data_83[] =
 "#N canvas 386 192 1166 439 10;\n"
 "#X declare -path else;\n"
 "#X obj 51 151 cnv 15 176 144 empty empty empty 20 12 0 14 -233017 -66577\n"
@@ -11484,10 +12130,37 @@ static const unsigned char temp_binary_data_77[] =
 "#X connect 71 0 69 1;\n"
 "#X coords 0 -1 1 1 178 146 2 50 150;\n";
 
-const char* meter8_pd = (const char*) temp_binary_data_77;
+const char* meter8_pd = (const char*) temp_binary_data_83;
+
+//================== midi2freq.pd ==================
+static const unsigned char temp_binary_data_84[] =
+"#N canvas 459 285 519 275 12;\n"
+"#X declare -path else;\n"
+"#X obj 39 21 inlet;\n"
+"#X obj 99 164 v A4_\\$0;\n"
+"#X obj 39 201 expr pow(2 \\, ($f1 - 69)/12) * A4_\\$0;\n"
+"#X obj 112 75 args;\n"
+"#X msg 166 130 440;\n"
+"#X obj 112 52 lb;\n"
+"#X obj 112 99 route float bang;\n"
+"#X obj 99 21 inlet;\n"
+"#X obj 180 65 declare -path else;\n"
+"#X text 253 132 Part of ELSE \\; https://github.com/porres/pd-else;\n"
+"#X text 255 113 Alexandre Torres Porres (2020);\n"
+"#X obj 39 233 outlet;\n"
+"#X connect 0 0 2 0;\n"
+"#X connect 2 0 11 0;\n"
+"#X connect 3 0 6 0;\n"
+"#X connect 4 0 1 0;\n"
+"#X connect 5 0 3 0;\n"
+"#X connect 6 0 1 0;\n"
+"#X connect 6 1 4 0;\n"
+"#X connect 7 0 1 0;\n";
+
+const char* midi2freq_pd = (const char*) temp_binary_data_84;
 
 //================== mix2~.pd ==================
-static const unsigned char temp_binary_data_78[] =
+static const unsigned char temp_binary_data_85[] =
 "#N canvas 618 185 670 351 10;\n"
 "#X declare -path else;\n"
 "#X obj 356 256 outlet~;\n"
@@ -11811,10 +12484,10 @@ static const unsigned char temp_binary_data_78[] =
 "#X connect 24 1 11 0;\n"
 "#X coords 0 0 1 1 89 177 2 150 100;\n";
 
-const char* mix2_pd = (const char*) temp_binary_data_78;
+const char* mix2_pd = (const char*) temp_binary_data_85;
 
 //================== mix4~.pd ==================
-static const unsigned char temp_binary_data_79[] =
+static const unsigned char temp_binary_data_86[] =
 "#N canvas 447 182 967 384 10;\n"
 "#X declare -path else;\n"
 "#X obj 500 297 outlet~;\n"
@@ -12431,10 +13104,10 @@ static const unsigned char temp_binary_data_79[] =
 "#X connect 41 1 5 0;\n"
 "#X coords 0 0 1 1 176 175 2 150 100;\n";
 
-const char* mix4_pd = (const char*) temp_binary_data_79;
+const char* mix4_pd = (const char*) temp_binary_data_86;
 
 //================== mono.pd ==================
-static const unsigned char temp_binary_data_80[] =
+static const unsigned char temp_binary_data_87[] =
 "#N canvas 657 251 558 229 10;\n"
 "#X declare -path else;\n"
 "#X obj 112 163 outlet;\n"
@@ -12653,10 +13326,10 @@ static const unsigned char temp_binary_data_80[] =
 "#X connect 7 0 6 0;\n"
 "#X connect 9 0 3 0;\n";
 
-const char* mono_pd = (const char*) temp_binary_data_80;
+const char* mono_pd = (const char*) temp_binary_data_87;
 
 //================== mono.rev~.pd ==================
-static const unsigned char temp_binary_data_81[] =
+static const unsigned char temp_binary_data_88[] =
 "#N canvas 720 157 474 309 10;\n"
 "#X declare -path else;\n"
 "#N canvas 426 108 879 607 delwrite 0;\n"
@@ -13697,10 +14370,10 @@ static const unsigned char temp_binary_data_81[] =
 "#X connect 11 0 9 1;\n"
 "#X connect 11 1 10 0;\n";
 
-const char* mono_rev_pd = (const char*) temp_binary_data_81;
+const char* mono_rev_pd = (const char*) temp_binary_data_88;
 
 //================== morph~.pd ==================
-static const unsigned char temp_binary_data_82[] =
+static const unsigned char temp_binary_data_89[] =
 "#N canvas 653 70 662 551 12;\n"
 "#X declare -path else;\n"
 "#X obj 92 42 inlet~;\n"
@@ -13772,10 +14445,10 @@ static const unsigned char temp_binary_data_82[] =
 "#X connect 29 0 26 0;\n"
 "#X connect 30 0 21 0;\n";
 
-const char* morph_pd = (const char*) temp_binary_data_82;
+const char* morph_pd = (const char*) temp_binary_data_89;
 
 //================== mov.avg.pd ==================
-static const unsigned char temp_binary_data_83[] =
+static const unsigned char temp_binary_data_90[] =
 "#N canvas 645 181 524 513 12;\n"
 "#X declare -path else;\n"
 "#X obj 250 395 table tab_\\$0 \\$1;\n"
@@ -13817,10 +14490,10 @@ static const unsigned char temp_binary_data_83[] =
 "#X connect 16 1 14 0;\n"
 "#X connect 19 0 15 0;\n";
 
-const char* mov_avg_pd = (const char*) temp_binary_data_83;
+const char* mov_avg_pd = (const char*) temp_binary_data_90;
 
 //================== ms2samps.pd ==================
-static const unsigned char temp_binary_data_84[] =
+static const unsigned char temp_binary_data_91[] =
 "#N canvas 611 141 581 463 10;\n"
 "#X declare -path else;\n"
 "#X obj 92 61 inlet;\n"
@@ -13850,10 +14523,10 @@ static const unsigned char temp_binary_data_84[] =
 "#X connect 11 0 5 0;\n"
 "#X connect 13 0 8 0;\n";
 
-const char* ms2samps_pd = (const char*) temp_binary_data_84;
+const char* ms2samps_pd = (const char*) temp_binary_data_91;
 
 //================== ms2samps~.pd ==================
-static const unsigned char temp_binary_data_85[] =
+static const unsigned char temp_binary_data_92[] =
 "#N canvas 537 91 518 219 10;\n"
 "#X declare -path else;\n"
 "#X text 199 101 Part of ELSE \\; https://github.com/porres/pd-else;\n"
@@ -13869,10 +14542,10 @@ static const unsigned char temp_binary_data_85[] =
 "#X connect 5 0 4 1;\n"
 "#X connect 6 0 5 0;\n";
 
-const char* ms2samps_pd2 = (const char*) temp_binary_data_85;
+const char* ms2samps_pd2 = (const char*) temp_binary_data_92;
 
 //================== mtx.ctl.pd ==================
-static const unsigned char temp_binary_data_86[] =
+static const unsigned char temp_binary_data_93[] =
 "#N struct 1005-cell float x float y float cellsize float color;\n"
 "#N canvas 447 131 993 645 10;\n"
 "#X declare -path else;\n"
@@ -14565,10 +15238,10 @@ static const unsigned char temp_binary_data_86[] =
 "#X connect 3 0 2 0;\n"
 "#X coords 0 146 465 0 465 146 2 150 150;\n";
 
-const char* mtx_ctl_pd = (const char*) temp_binary_data_86;
+const char* mtx_ctl_pd = (const char*) temp_binary_data_93;
 
 //================== noisegate~.pd ==================
-static const unsigned char temp_binary_data_87[] =
+static const unsigned char temp_binary_data_94[] =
 "#N canvas 689 172 513 364 10;\n"
 "#X declare -path else;\n"
 "#X obj 51 263 *~;\n"
@@ -14613,10 +15286,10 @@ static const unsigned char temp_binary_data_87[] =
 "#X connect 17 0 1 0;\n"
 "#X connect 18 0 3 0;\n";
 
-const char* noisegate_pd = (const char*) temp_binary_data_87;
+const char* noisegate_pd = (const char*) temp_binary_data_94;
 
 //================== norm~.pd ==================
-static const unsigned char temp_binary_data_88[] =
+static const unsigned char temp_binary_data_95[] =
 "#N canvas 682 173 483 379 10;\n"
 "#X declare -path else;\n"
 "#X obj 93 287 /~;\n"
@@ -14657,10 +15330,10 @@ static const unsigned char temp_binary_data_88[] =
 "#X connect 16 0 5 0;\n"
 "#X connect 17 0 8 0;\n";
 
-const char* norm_pd = (const char*) temp_binary_data_88;
+const char* norm_pd = (const char*) temp_binary_data_95;
 
 //================== order.pd ==================
-static const unsigned char temp_binary_data_89[] =
+static const unsigned char temp_binary_data_96[] =
 "#N canvas 639 153 597 498 10;\n"
 "#X declare -path else;\n"
 "#X obj 353 385 + 1;\n"
@@ -14714,10 +15387,10 @@ static const unsigned char temp_binary_data_89[] =
 "#X connect 19 2 6 0;\n"
 "#X connect 20 0 1 0;\n";
 
-const char* order_pd = (const char*) temp_binary_data_89;
+const char* order_pd = (const char*) temp_binary_data_96;
 
 //================== oscbank~.pd ==================
-static const unsigned char temp_binary_data_90[] =
+static const unsigned char temp_binary_data_97[] =
 "#N canvas 636 188 716 405 10;\n"
 "#X declare -path else;\n"
 "#X text 369 185 Part of ELSE \\; https://github.com/porres/pd-else;\n"
@@ -14813,10 +15486,10 @@ static const unsigned char temp_binary_data_90[] =
 "#X connect 6 1 3 0;\n"
 "#X connect 7 0 6 0;\n";
 
-const char* oscbank_pd = (const char*) temp_binary_data_90;
+const char* oscbank_pd = (const char*) temp_binary_data_97;
 
 //================== oscbank2~.pd ==================
-static const unsigned char temp_binary_data_91[] =
+static const unsigned char temp_binary_data_98[] =
 "#N canvas 608 248 612 262 10;\n"
 "#X declare -path else;\n"
 "#X text 359 130 Part of ELSE \\; https://github.com/porres/pd-else;\n"
@@ -14908,10 +15581,10 @@ static const unsigned char temp_binary_data_91[] =
 "#X connect 7 0 3 0;\n"
 "#X connect 8 0 7 0;\n";
 
-const char* oscbank2_pd = (const char*) temp_binary_data_91;
+const char* oscbank2_pd = (const char*) temp_binary_data_98;
 
 //================== out~.pd ==================
-static const unsigned char temp_binary_data_92[] =
+static const unsigned char temp_binary_data_99[] =
 "#N canvas 691 318 448 310 10;\n"
 "#X declare -path else;\n"
 "#X obj 54 227 *~;\n"
@@ -15542,10 +16215,10 @@ static const unsigned char temp_binary_data_92[] =
 "#X connect 14 0 0 0;\n"
 "#X coords 0 0 1 1 94 51 1 260 90;\n";
 
-const char* out_pd = (const char*) temp_binary_data_92;
+const char* out_pd = (const char*) temp_binary_data_99;
 
 //================== out1~.pd ==================
-static const unsigned char temp_binary_data_93[] =
+static const unsigned char temp_binary_data_100[] =
 "#N canvas 713 95 519 407 10;\n"
 "#X declare -path else;\n"
 "#X obj 53 193 *~;\n"
@@ -16157,10 +16830,10 @@ static const unsigned char temp_binary_data_93[] =
 "#X connect 11 1 3 0;\n"
 "#X coords 0 0 1 1 94 51 1 260 90;\n";
 
-const char* out1_pd = (const char*) temp_binary_data_93;
+const char* out1_pd = (const char*) temp_binary_data_100;
 
 //================== out4~.pd ==================
-static const unsigned char temp_binary_data_94[] =
+static const unsigned char temp_binary_data_101[] =
 "#N canvas 713 95 575 304 10;\n"
 "#X declare -path else;\n"
 "#X obj 23 193 *~;\n"
@@ -16782,10 +17455,10 @@ static const unsigned char temp_binary_data_94[] =
 "#X connect 19 1 6 0;\n"
 "#X coords 0 0 1 1 94 51 1 360 90;\n";
 
-const char* out4_pd = (const char*) temp_binary_data_94;
+const char* out4_pd = (const char*) temp_binary_data_101;
 
 //================== out8~.pd ==================
-static const unsigned char temp_binary_data_95[] =
+static const unsigned char temp_binary_data_102[] =
 "#N canvas 614 278 694 296 10;\n"
 "#X declare -path else;\n"
 "#X obj 31 190 *~;\n"
@@ -17435,10 +18108,10 @@ static const unsigned char temp_binary_data_95[] =
 "#X connect 31 1 6 0;\n"
 "#X coords 0 0 1 1 94 51 1 480 90;\n";
 
-const char* out8_pd = (const char*) temp_binary_data_95;
+const char* out8_pd = (const char*) temp_binary_data_102;
 
 //================== output~.pd ==================
-static const unsigned char temp_binary_data_96[] =
+static const unsigned char temp_binary_data_103[] =
 "#N canvas 689 239 467 404 10;\n"
 "#X obj 14 106 hsl 66 20 0 1 0 0 \\$0-slider \\$0-set-slider volume 19\n"
 "7 1 13 -228856 -1 -1 0 1;\n"
@@ -17933,10 +18606,10 @@ static const unsigned char temp_binary_data_96[] =
 "#X connect 21 0 19 0;\n"
 "#X coords 0 -1 1 1 90 40 1 10 90;\n";
 
-const char* output_pd = (const char*) temp_binary_data_96;
+const char* output_pd = (const char*) temp_binary_data_103;
 
 //================== pan8~.pd ==================
-static const unsigned char temp_binary_data_97[] =
+static const unsigned char temp_binary_data_104[] =
 "#N canvas 561 303 774 255 10;\n"
 "#X declare -path else;\n"
 "#X obj 55 210 outlet~;\n"
@@ -18526,10 +19199,10 @@ static const unsigned char temp_binary_data_97[] =
 "#X connect 23 7 18 1;\n"
 "#X coords 0 255 1 254 155 33 0;\n";
 
-const char* pan8_pd = (const char*) temp_binary_data_97;
+const char* pan8_pd = (const char*) temp_binary_data_104;
 
 //================== perlin~.pd ==================
-static const unsigned char temp_binary_data_98[] =
+static const unsigned char temp_binary_data_105[] =
 "#N canvas 743 148 509 494 12;\n"
 "#X declare -path else;\n"
 "#X obj 179 148 inlet~;\n"
@@ -18617,10 +19290,10 @@ static const unsigned char temp_binary_data_98[] =
 "#X connect 14 0 0 0;\n"
 "#X connect 15 0 12 0;\n";
 
-const char* perlin_pd = (const char*) temp_binary_data_98;
+const char* perlin_pd = (const char*) temp_binary_data_105;
 
 //================== phaser~.pd ==================
-static const unsigned char temp_binary_data_99[] =
+static const unsigned char temp_binary_data_106[] =
 "#N canvas 635 209 451 259 10;\n"
 "#X declare -path else;\n"
 "#X obj 75 198 outlet~;\n"
@@ -18673,10 +19346,10 @@ static const unsigned char temp_binary_data_99[] =
 "#X connect 5 0 3 0;\n"
 "#X connect 5 1 3 2;\n";
 
-const char* phaser_pd = (const char*) temp_binary_data_99;
+const char* phaser_pd = (const char*) temp_binary_data_106;
 
 //================== phasor.pd ==================
-static const unsigned char temp_binary_data_100[] =
+static const unsigned char temp_binary_data_107[] =
 "#N canvas 1006 287 666 329 12;\n"
 "#X declare -path else;\n"
 "#X obj 68 141 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1\n"
@@ -18826,10 +19499,10 @@ static const unsigned char temp_binary_data_100[] =
 "#X connect 11 1 12 0;\n"
 "#X connect 14 0 5 0;\n";
 
-const char* phasor_pd = (const char*) temp_binary_data_100;
+const char* phasor_pd = (const char*) temp_binary_data_107;
 
 //================== pi.pd ==================
-static const unsigned char temp_binary_data_101[] =
+static const unsigned char temp_binary_data_108[] =
 "#N canvas 631 163 465 455 10;\n"
 "#X declare -path else;\n"
 "#X obj 83 264 b;\n"
@@ -18869,10 +19542,10 @@ static const unsigned char temp_binary_data_101[] =
 "#X connect 16 0 9 0;\n"
 "#X connect 17 0 15 0;\n";
 
-const char* pi_pd = (const char*) temp_binary_data_101;
+const char* pi_pd = (const char*) temp_binary_data_108;
 
 //================== pick.pd ==================
-static const unsigned char temp_binary_data_102[] =
+static const unsigned char temp_binary_data_109[] =
 "#N canvas 656 250 488 324 12;\n"
 "#X declare -path else;\n"
 "#X obj 64 64 inlet;\n"
@@ -18974,10 +19647,10 @@ static const unsigned char temp_binary_data_102[] =
 "#X connect 4 1 3 0;\n"
 "#X connect 9 0 6 0;\n";
 
-const char* pick_pd = (const char*) temp_binary_data_102;
+const char* pick_pd = (const char*) temp_binary_data_109;
 
 //================== ping.pong~.pd ==================
-static const unsigned char temp_binary_data_103[] =
+static const unsigned char temp_binary_data_110[] =
 "#N canvas 486 231 762 445 12;\n"
 "#X declare -path else;\n"
 "#X obj 93 277 +~;\n"
@@ -19027,10 +19700,10 @@ static const unsigned char temp_binary_data_103[] =
 "#X connect 22 0 18 0;\n"
 "#X connect 22 0 17 0;\n";
 
-const char* ping_pong_pd = (const char*) temp_binary_data_103;
+const char* ping_pong_pd = (const char*) temp_binary_data_110;
 
 //================== pitch.shift~.pd ==================
-static const unsigned char temp_binary_data_104[] =
+static const unsigned char temp_binary_data_111[] =
 "#N canvas 477 180 864 551 12;\n"
 "#X declare -path else;\n"
 "#X obj 172 381 *~;\n"
@@ -19094,10 +19767,10 @@ static const unsigned char temp_binary_data_104[] =
 "#X connect 28 0 27 0;\n"
 "#X connect 29 0 28 0;\n";
 
-const char* pitch_shift_pd = (const char*) temp_binary_data_104;
+const char* pitch_shift_pd = (const char*) temp_binary_data_111;
 
 //================== plate.rev~.pd ==================
-static const unsigned char temp_binary_data_105[] =
+static const unsigned char temp_binary_data_112[] =
 "#N canvas 712 192 524 397 10;\n"
 "#X declare -path else;\n"
 "#X text 82 53 in;\n"
@@ -19483,14 +20156,14 @@ static const unsigned char temp_binary_data_105[] =
 "#X connect 13 0 8 0;\n"
 "#X connect 13 1 9 0;\n";
 
-const char* plate_rev_pd = (const char*) temp_binary_data_105;
+const char* plate_rev_pd = (const char*) temp_binary_data_112;
 
 //================== play.file~.pd ==================
-static const unsigned char temp_binary_data_106[] =
-"#N canvas 645 451 853 361 10;\n"
+static const unsigned char temp_binary_data_113[] =
+"#N canvas 665 82 853 361 10;\n"
 "#X declare -path else;\n"
 "#X obj 76 28 inlet;\n"
-"#N canvas 563 283 351 320 messages 0;\n"
+"#N canvas 657 379 677 337 guts 0;\n"
 "#X msg 262 181 stop;\n"
 "#X msg 208 264 bang;\n"
 "#X obj 101 165 route float;\n"
@@ -19520,15 +20193,15 @@ static const unsigned char temp_binary_data_106[] =
 "#X obj 188 89 r \\$0-to_symbolarg;\n"
 "#X obj 363 53 inlet;\n"
 "#X obj 221 111 r \\$0-file-found;\n"
-"#N canvas 557 214 653 793 search-root 0;\n"
+"#N canvas 557 214 587 727 search-root 0;\n"
 "#X obj 137 81 list fromsymbol;\n"
 "#X obj 74 108 symbol;\n"
-"#X obj 74 21 inlet;\n"
+"#X obj 74 31 inlet;\n"
 "#X obj 74 139 t s s;\n"
 "#X obj 137 187 + 1;\n"
 "#X obj 74 209 router;\n"
 "#X obj 187 182 separate /;\n"
-"#X obj 262 475 select s;\n"
+"#X obj 262 465 select s;\n"
 "#X obj 456 352 symbol;\n"
 "#X msg 443 405 set \\$1%s/;\n"
 "#X obj 279 312 list split;\n"
@@ -19537,29 +20210,29 @@ static const unsigned char temp_binary_data_106[] =
 "#X obj 187 207 list;\n"
 "#X obj 359 373 symbol;\n"
 "#X obj 359 347 t b l;\n"
-"#X obj 404 449 sel 1;\n"
+"#X obj 386 449 sel 1;\n"
 "#X msg 359 396 open \\$1;\n"
 "#X obj 187 232 trigger list list bang;\n"
 "#X obj 137 443 router;\n"
-"#X msg 200 416 1;\n"
-"#X msg 262 501 2;\n"
-"#X obj 359 424 dir;\n"
-"#X msg 419 235 set /%s/;\n"
-"#X msg 404 471 dump;\n"
-"#X obj 137 644 print;\n"
-"#X msg 137 619 error: [play.file~] can't load \\$1;\n"
+"#X msg 170 402 1;\n"
+"#X msg 262 491 2;\n"
+"#X obj 359 424 dir, f 5;\n"
+"#X msg 416 245 set /%s/;\n"
+"#X msg 386 471 dump;\n"
+"#X obj 137 614 print;\n"
+"#X msg 137 589 error: [play.file~] can't load \\$1;\n"
 "#X obj 137 238 t s s;\n"
-"#X obj 74 697 outlet;\n"
-"#X obj 201 550 s \\$0-file-found;\n"
-"#X obj 308 549 s \\$0-makefilename;\n"
-"#X msg 308 524 set %s;\n"
+"#X obj 74 658 outlet;\n"
+"#X obj 170 550 s \\$0-file-found;\n"
+"#X obj 277 549 s \\$0-makefilename;\n"
+"#X msg 277 524 set %s;\n"
 "#X obj 137 105 expr $f1 == 47 \\; $f2 == 58;\n"
 "#X obj 137 166 ||;\n"
-"#X obj 483 213 sel 1;\n"
-"#X msg 483 235 set %s/;\n"
-"#X obj 419 213 sel 1;\n"
+"#X obj 480 223 sel 1;\n"
+"#X msg 480 245 set %s/;\n"
+"#X obj 416 223 sel 1;\n"
 "#X obj 416 378 makefilename;\n"
-"#X obj 201 524 t s b;\n"
+"#X obj 170 524 t s b;\n"
 "#N canvas 68 23 450 300 iterate 0;\n"
 "#X obj 122 118 until;\n"
 "#X obj 135 201 list store;\n"
@@ -19645,24 +20318,24 @@ static const unsigned char temp_binary_data_106[] =
 "#X obj 112 98 list;\n"
 "#X obj 328 253 symbol;\n"
 "#X obj 328 227 t b l;\n"
-"#X obj 385 334 sel 1;\n"
-"#X msg 385 356 dump \\, reset;\n"
+"#X obj 355 334 sel 1;\n"
+"#X msg 355 356 dump \\, reset;\n"
 "#X msg 328 279 open \\$1;\n"
 "#X obj 238 258 route bang;\n"
 "#X obj 59 20 inlet;\n"
-"#X msg 190 483 set \\$1;\n"
-"#X obj 190 510 s \\$0-makefilename;\n"
-"#X obj 190 459 makefilename %s/%%s;\n"
-"#X obj 171 436 dir 1;\n"
+"#X msg 150 483 set \\$1;\n"
+"#X obj 150 510 s \\$0-makefilename;\n"
+"#X obj 150 459 makefilename %s/%%s;\n"
+"#X obj 141 436 dir 1;\n"
 "#X obj 328 309 dir 1;\n"
-"#X obj 122 535 s \\$0-file-found;\n"
+"#X obj 92 535 s \\$0-file-found;\n"
 "#X obj 112 123 trigger list list bang;\n"
 "#X obj 59 383 router;\n"
-"#X msg 122 357 1;\n"
-"#X msg 162 383 2;\n"
-"#X obj 122 437 t s b;\n"
+"#X msg 92 356 1;\n"
+"#X msg 156 380 2;\n"
+"#X obj 92 437 t s b;\n"
 "#X obj 59 96 t s s;\n"
-"#X obj 162 357 sel s;\n"
+"#X obj 156 354 sel s;\n"
 "#X obj 59 590 outlet;\n"
 "#X obj 385 258 makefilename;\n"
 "#N canvas 68 23 450 300 iterate 0;\n"
@@ -19689,7 +20362,7 @@ static const unsigned char temp_binary_data_106[] =
 "#X connect 7 0 2 0;\n"
 "#X restore 395 208 pd iterate;\n"
 "#X msg 238 279 reopen \\, dump;\n"
-"#X msg 171 412 reopen \\, dir;\n"
+"#X msg 141 412 reopen \\, dir;\n"
 "#X connect 0 0 7 0;\n"
 "#X connect 1 0 29 0;\n"
 "#X connect 2 0 29 0;\n"
@@ -19752,14 +20425,14 @@ static const unsigned char temp_binary_data_106[] =
 "#X obj 156 98 list;\n"
 "#X obj 358 224 symbol;\n"
 "#X obj 358 198 t b l;\n"
-"#X obj 403 340 sel 1;\n"
-"#X msg 403 362 dump \\, reset;\n"
+"#X obj 385 340 sel 1;\n"
+"#X msg 385 362 dump \\, reset;\n"
 "#X obj 282 228 route bang;\n"
 "#X msg 282 249 dump;\n"
 "#X obj 103 40 inlet;\n"
-"#X msg 230 503 set \\$1;\n"
-"#X obj 230 530 s \\$0-makefilename;\n"
-"#X obj 230 479 makefilename %s/%%s;\n"
+"#X msg 224 503 set \\$1;\n"
+"#X obj 224 530 s \\$0-makefilename;\n"
+"#X obj 224 479 makefilename %s/%%s;\n"
 "#X obj 166 555 s \\$0-file-found;\n"
 "#X obj 156 123 trigger list list bang;\n"
 "#X obj 103 403 router;\n"
@@ -19768,8 +20441,8 @@ static const unsigned char temp_binary_data_106[] =
 "#X obj 166 457 t s b;\n"
 "#X obj 103 116 t s s;\n"
 "#X obj 206 377 sel s;\n"
-"#X obj 358 314 dir;\n"
-"#X obj 215 456 dir;\n"
+"#X obj 358 314 dir, f 5;\n"
+"#X obj 215 456 dir, f 5;\n"
 "#X obj 415 229 makefilename;\n"
 "#N canvas 68 23 450 300 iterate 0;\n"
 "#X obj 122 118 until;\n"
@@ -19876,45 +20549,17 @@ static const unsigned char temp_binary_data_106[] =
 "#X connect 26 0 23 1;\n"
 "#X restore 43 144 pd open;\n"
 "#X obj 43 57 route open loop stop start bang float set;\n"
-"#X connect 0 0 3 0;\n"
-"#X connect 1 0 8 0;\n"
-"#X connect 2 0 4 0;\n"
-"#X connect 5 0 10 0;\n"
-"#X connect 6 0 7 0;\n"
-"#X connect 7 0 1 0;\n"
-"#X connect 7 1 0 0;\n"
-"#X connect 9 0 3 0;\n"
-"#X connect 10 0 9 0;\n"
-"#X connect 10 1 2 0;\n"
-"#X connect 10 2 0 0;\n"
-"#X connect 10 3 1 0;\n"
-"#X connect 10 4 1 0;\n"
-"#X connect 10 5 6 0;\n"
-"#X connect 10 6 9 1;\n"
-"#X restore 76 59 pd messages;\n"
-"#X obj 71 91 namecanvas \\$0-sampler;\n"
-"#N canvas 105 383 897 372 \\$0-readsf 0;\n"
-"#X obj 20 21 r \\$0-readsf~;\n"
-"#X obj 384 56 r \\$0-spigot;\n"
-"#X obj 351 78 spigot;\n"
-"#X obj 351 105 s \\$0-to_symbol;\n"
-"#X connect 1 0 2 1;\n"
-"#X connect 2 0 3 0;\n"
-"#X restore 74 162 pd \\$0-readsf;\n"
-"#N canvas 588 115 593 557 init 0;\n"
+"#N canvas 901 156 593 557 init 0;\n"
 "#X obj 347 259 s pd-\\$0-readsf;\n"
 "#X obj 211 111 v n_ch_\\$0;\n"
 "#X obj 211 144 loop;\n"
 "#X obj 211 201 * 60;\n"
 "#X obj 211 230 + 20;\n"
 "#X obj 347 176 v n_ch_\\$0;\n"
-"#X obj 306 231 f \\$0;\n"
+"#X obj 287 232 f \\$0;\n"
 "#X text 182 26 Dynamic Patching;\n"
-"#X obj 273 232 + 5;\n"
 "#X msg 347 204 obj 20 100 readsf~ \\$1 \\, connect 0 0 4 0 \\, connect\n"
 "4 \\$1 2 0, f 22;\n"
-"#X msg 227 290 \\; pd-\\$4-readsf obj \\$1 200 outlet~ \\, connect 4 \\$2\n"
-"\\$3 0 \\; \\$4-sampler obj \\$1 200 outlet~ \\, connect 3 \\$2 \\$3 0;\n"
 "#N canvas 321 169 605 784 get_n_ch 0;\n"
 "#X obj 104 35 inlet;\n"
 "#X obj 104 85 args;\n"
@@ -19966,23 +20611,23 @@ static const unsigned char temp_binary_data_106[] =
 "#X obj 109 101 list;\n"
 "#X obj 311 257 symbol;\n"
 "#X obj 311 231 t b l;\n"
-"#X obj 356 333 sel 1;\n"
-"#X msg 356 355 dump \\, reset;\n"
+"#X obj 338 333 sel 1;\n"
+"#X msg 338 355 dump \\, reset;\n"
 "#X msg 311 283 open \\$1;\n"
 "#X obj 235 261 route bang;\n"
 "#X msg 235 282 dump;\n"
 "#X msg 168 415 dir;\n"
-"#X msg 183 486 set \\$1;\n"
-"#X obj 183 513 s \\$0-makefilename;\n"
-"#X obj 183 462 makefilename %s/%%s;\n"
+"#X msg 177 486 set \\$1;\n"
+"#X obj 177 513 s \\$0-makefilename;\n"
+"#X obj 177 462 makefilename %s/%%s;\n"
 "#X obj 109 126 trigger list list bang;\n"
 "#X obj 56 386 router;\n"
 "#X msg 119 360 1;\n"
 "#X msg 159 386 2;\n"
 "#X obj 56 99 t s s;\n"
 "#X obj 159 360 sel s;\n"
-"#X obj 311 307 dir;\n"
-"#X obj 168 439 dir;\n"
+"#X obj 311 307 dir, f 5;\n"
+"#X obj 168 439 dir, f 5;\n"
 "#X obj 119 440 t b b;\n"
 "#X obj 368 262 makefilename;\n"
 "#N canvas 68 23 450 300 iterate 0;\n"
@@ -20063,15 +20708,15 @@ static const unsigned char temp_binary_data_106[] =
 "#X obj 147 143 list;\n"
 "#X obj 349 299 symbol;\n"
 "#X obj 349 273 t b l;\n"
-"#X obj 406 375 sel 1;\n"
-"#X msg 406 397 dump \\, reset;\n"
+"#X obj 376 375 sel 1;\n"
+"#X msg 376 397 dump \\, reset;\n"
 "#X msg 349 325 open \\$1;\n"
 "#X obj 277 303 route bang;\n"
 "#X msg 277 324 dump;\n"
 "#X msg 226 457 dir;\n"
-"#X msg 245 528 set \\$1;\n"
-"#X obj 245 555 s \\$0-makefilename;\n"
-"#X obj 245 504 makefilename %s/%%s;\n"
+"#X msg 235 528 set \\$1;\n"
+"#X obj 235 555 s \\$0-makefilename;\n"
+"#X obj 235 504 makefilename %s/%%s;\n"
 "#X obj 147 168 trigger list list bang;\n"
 "#X obj 94 428 router;\n"
 "#X msg 157 402 1;\n"
@@ -20170,24 +20815,24 @@ static const unsigned char temp_binary_data_106[] =
 "#X obj 189 194 list;\n"
 "#X obj 361 360 symbol;\n"
 "#X obj 361 334 t b l;\n"
-"#X obj 416 439 sel 1;\n"
+"#X obj 388 439 sel 1;\n"
 "#X msg 361 383 open \\$1;\n"
 "#X obj 189 219 trigger list list bang;\n"
 "#X obj 139 430 router;\n"
 "#X msg 202 403 1;\n"
 "#X msg 264 488 2;\n"
-"#X obj 371 414 dir;\n"
-"#X msg 421 222 set /%s/;\n"
-"#X msg 416 461 dump;\n"
+"#X obj 361 414 dir, f 5;\n"
+"#X msg 418 222 set /%s/;\n"
+"#X msg 388 461 dump;\n"
 "#X obj 139 225 t s s;\n"
 "#X obj 76 669 outlet;\n"
 "#X obj 310 536 s \\$0-makefilename;\n"
 "#X msg 310 511 set %s;\n"
 "#X obj 139 92 expr $f1 == 47 \\; $f2 == 58;\n"
 "#X obj 139 153 ||;\n"
-"#X obj 485 200 sel 1;\n"
-"#X msg 485 222 set %s/;\n"
-"#X obj 421 200 sel 1;\n"
+"#X obj 482 200 sel 1;\n"
+"#X msg 482 222 set %s/;\n"
+"#X obj 418 200 sel 1;\n"
 "#X obj 418 365 makefilename;\n"
 "#X obj 203 537 s \\$0-loadit;\n"
 "#X obj 203 511 t b b;\n"
@@ -20312,7 +20957,7 @@ static const unsigned char temp_binary_data_106[] =
 "#X connect 39 0 38 0;\n"
 "#X connect 39 1 30 1;\n"
 "#X restore 425 170 pd get_n_ch;\n"
-"#N canvas 401 332 315 238 load 0;\n"
+"#N canvas 596 528 315 238 load 0;\n"
 "#X obj 85 76 v sym_\\$0;\n"
 "#X obj 85 49 inlet;\n"
 "#N canvas 129 448 425 422 1st_is_not_filename 0;\n"
@@ -20376,60 +21021,99 @@ static const unsigned char temp_binary_data_106[] =
 "#X connect 1 0 0 0;\n"
 "#X connect 4 0 2 0;\n"
 "#X connect 4 1 3 0;\n"
-"#X restore 76 313 pd load \\; args;\n"
-"#X obj 190 376 * 60;\n"
-"#X obj 190 403 + 20;\n"
-"#X obj 270 404 + 5;\n"
-"#X obj 140 312 v n_ch_\\$0;\n"
-"#X obj 240 403 + 6;\n"
-"#X obj 211 175 t f f;\n"
-"#X obj 140 398 f \\$0;\n"
-"#X obj 140 341 trigger bang float;\n"
-"#X obj 140 427 pack float float float float float;\n"
-"#X msg 140 459 \\; pd-\\$1-readsf obj \\$2 200 s \\$1-didit \\, connect\n"
-"4 \\$5 \\$4 0 \\; \\$1-sampler obj \\$2 200 r \\$1-didit \\, obj \\$2 240 outlet\n"
-"\\, connect \\$4 0 \\$3 0, f 55;\n"
-"#X obj 227 258 pack f f f f;\n"
+"#X restore 33 351 pd load \\; args;\n"
+"#X obj 144 414 * 60;\n"
+"#X obj 144 439 + 20;\n"
+"#X obj 97 350 v n_ch_\\$0;\n"
+"#X obj 211 175 t f f, f 7;\n"
+"#X obj 97 439 f \\$0;\n"
+"#X obj 97 379 trigger bang float, f 32;\n"
 "#X obj 168 54 loadbanger -init 5;\n"
-"#X obj 401 88 declare -path else;\n"
+"#X obj 262 232 + 3;\n"
+"#X obj 227 258 pack f f f f f;\n"
+"#X obj 318 232 + 5;\n"
+"#X msg 227 290 \\; pd-\\$4-readsf obj \\$1 200 outlet~ \\, connect 4 \\$2\n"
+"\\$5 0 \\; \\$4-sampler obj \\$1 200 outlet~ \\, connect 2 \\$2 \\$3 0;\n"
+"#X obj 136 315 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144\n"
+"-1 -1;\n"
+"#X obj 191 439 + 4;\n"
+"#X obj 239 439 + 3;\n"
+"#X obj 97 463 pack float float float float float float;\n"
+"#X msg 97 492 \\; pd-\\$1-readsf obj \\$2 200 s \\$1-didit \\, connect 4\n"
+"\\$5 \\$6 0 \\; \\$1-sampler obj \\$2 200 r \\$1-didit \\, obj \\$2 240 outlet\n"
+"\\, connect \\$4 0 \\$3 0, f 55;\n"
+"#X obj 334 439 + 5;\n"
 "#X connect 1 0 2 0;\n"
-"#X connect 2 0 18 0;\n"
+"#X connect 2 0 14 0;\n"
 "#X connect 3 0 4 0;\n"
-"#X connect 4 0 23 0;\n"
-"#X connect 5 0 9 0;\n"
-"#X connect 6 0 23 3;\n"
-"#X connect 8 0 23 2;\n"
-"#X connect 9 0 0 0;\n"
-"#X connect 13 0 14 0;\n"
-"#X connect 14 0 21 1;\n"
-"#X connect 15 0 21 3;\n"
-"#X connect 16 0 20 0;\n"
-"#X connect 17 0 21 2;\n"
-"#X connect 18 0 3 0;\n"
-"#X connect 18 1 8 0;\n"
-"#X connect 18 1 23 1;\n"
+"#X connect 4 0 19 0;\n"
+"#X connect 5 0 8 0;\n"
+"#X connect 6 0 19 3;\n"
+"#X connect 8 0 0 0;\n"
+"#X connect 11 0 12 0;\n"
+"#X connect 12 0 25 1;\n"
+"#X connect 13 0 16 0;\n"
+"#X connect 14 0 3 0;\n"
+"#X connect 14 1 18 0;\n"
+"#X connect 14 1 19 1;\n"
+"#X connect 14 1 20 0;\n"
+"#X connect 15 0 25 0;\n"
+"#X connect 16 0 15 0;\n"
+"#X connect 16 1 11 0;\n"
+"#X connect 16 1 23 0;\n"
+"#X connect 16 1 24 0;\n"
+"#X connect 16 1 25 4;\n"
+"#X connect 16 1 27 0;\n"
+"#X connect 17 0 10 0;\n"
+"#X connect 17 1 13 0;\n"
+"#X connect 17 2 1 0;\n"
+"#X connect 17 3 5 0;\n"
+"#X connect 17 3 6 0;\n"
+"#X connect 17 4 9 0;\n"
+"#X connect 18 0 19 2;\n"
 "#X connect 19 0 21 0;\n"
-"#X connect 20 0 19 0;\n"
-"#X connect 20 1 15 0;\n"
-"#X connect 20 1 17 0;\n"
-"#X connect 20 1 13 0;\n"
-"#X connect 20 1 21 4;\n"
-"#X connect 21 0 22 0;\n"
-"#X connect 23 0 10 0;\n"
-"#X connect 24 0 12 0;\n"
-"#X connect 24 1 16 0;\n"
-"#X connect 24 2 1 0;\n"
-"#X connect 24 3 5 0;\n"
-"#X connect 24 3 6 0;\n"
-"#X connect 24 4 11 0;\n"
-"#X restore 73 121 pd init;\n"
+"#X connect 20 0 19 4;\n"
+"#X connect 22 0 13 0;\n"
+"#X connect 23 0 25 2;\n"
+"#X connect 24 0 25 3;\n"
+"#X connect 25 0 26 0;\n"
+"#X connect 27 0 25 5;\n"
+"#X restore 382 174 pd init;\n"
+"#X obj 376 84 declare -path else;\n"
+"#X obj 372 116 canvas.setname \\$0-sampler 1;\n"
+"#X text 375 241 Part of ELSE \\; https://github.com/porres/pd-else;\n"
+"#X text 377 222 Alexandre Torres Porres (2018-2020);\n"
+"#X connect 0 0 3 0;\n"
+"#X connect 1 0 8 0;\n"
+"#X connect 2 0 4 0;\n"
+"#X connect 5 0 10 0;\n"
+"#X connect 6 0 7 0;\n"
+"#X connect 7 0 1 0;\n"
+"#X connect 7 1 0 0;\n"
+"#X connect 9 0 3 0;\n"
+"#X connect 10 0 9 0;\n"
+"#X connect 10 1 2 0;\n"
+"#X connect 10 2 0 0;\n"
+"#X connect 10 3 1 0;\n"
+"#X connect 10 4 1 0;\n"
+"#X connect 10 5 6 0;\n"
+"#X connect 10 6 9 1;\n"
+"#X restore 76 59 pd guts;\n"
+"#N canvas 417 280 897 372 \\$0-readsf 0;\n"
+"#X obj 20 21 r \\$0-readsf~;\n"
+"#X obj 384 56 r \\$0-spigot;\n"
+"#X obj 351 78 spigot;\n"
+"#X obj 351 105 s \\$0-to_symbol;\n"
+"#X connect 1 0 2 1;\n"
+"#X connect 2 0 3 0;\n"
+"#X restore 74 122 pd \\$0-readsf;\n"
 "#X connect 0 0 1 0;\n";
 
-const char* play_file_pd = (const char*) temp_binary_data_106;
+const char* play_file_pd = (const char*) temp_binary_data_113;
 
 //================== player~.pd ==================
-static const unsigned char temp_binary_data_107[] =
-"#N canvas 521 314 493 349 10;\n"
+static const unsigned char temp_binary_data_114[] =
+"#N canvas 998 265 493 349 10;\n"
 "#X declare -path /Users/porres/Documents/pd/externals/else;\n"
 "#X declare -path else;\n"
 "#X obj 76 28 inlet;\n"
@@ -20469,41 +21153,33 @@ static const unsigned char temp_binary_data_107[] =
 "#X obj 183 291 list append;\n"
 "#X obj 267 291 r \\$0-buflist;\n"
 "#X obj 156 235 t b s;\n"
-"#X obj 51 233 r \\$0-file;\n"
-"#X obj 51 259 t b s;\n"
-"#X obj 51 290 v autostart_\\$0;\n"
-"#X obj 51 320 sel 1;\n"
 "#X obj 172 161 click;\n"
 "#X obj 183 266 list prepend read -resize;\n"
 "#X obj 274 145 symbol;\n"
 "#X obj 100 63 route open set reload;\n"
 "#X obj 280 418 outlet;\n"
-"#X obj 282 113 r \\$0-file;\n"
+"#X obj 272 99 r \\$0-file;\n"
 "#X obj 156 426 s \\$0-tabplayer~;\n"
 "#X connect 0 0 9 0;\n"
 "#X connect 1 0 2 0;\n"
 "#X connect 1 1 0 0;\n"
 "#X connect 2 0 0 0;\n"
-"#X connect 3 0 17 0;\n"
+"#X connect 3 0 13 0;\n"
 "#X connect 4 0 5 0;\n"
 "#X connect 5 0 6 0;\n"
 "#X connect 7 0 4 0;\n"
 "#X connect 8 0 7 1;\n"
-"#X connect 9 0 20 0;\n"
-"#X connect 9 1 15 0;\n"
-"#X connect 10 0 11 0;\n"
-"#X connect 11 0 12 0;\n"
-"#X connect 11 1 15 0;\n"
-"#X connect 12 0 13 0;\n"
-"#X connect 13 0 20 0;\n"
-"#X connect 14 0 2 0;\n"
-"#X connect 15 0 7 0;\n"
-"#X connect 16 0 0 1;\n"
-"#X connect 17 0 1 0;\n"
-"#X connect 17 1 16 0;\n"
-"#X connect 17 2 0 0;\n"
-"#X connect 17 3 18 0;\n"
-"#X connect 19 0 16 0;\n"
+"#X connect 9 0 16 0;\n"
+"#X connect 9 1 11 0;\n"
+"#X connect 10 0 2 0;\n"
+"#X connect 11 0 7 0;\n"
+"#X connect 12 0 0 1;\n"
+"#X connect 13 0 1 0;\n"
+"#X connect 13 1 12 0;\n"
+"#X connect 13 2 0 0;\n"
+"#X connect 13 3 14 0;\n"
+"#X connect 15 0 12 0;\n"
+"#X connect 15 0 11 0;\n"
 "#X restore 167 89 pd load;\n"
 "#X obj 32 60 route show hide sr norm;\n"
 "#N canvas 1027 348 442 492 tabplayer~ 0;\n"
@@ -20513,8 +21189,8 @@ static const unsigned char temp_binary_data_107[] =
 "#X obj 162 160 clip 0 1;\n"
 "#X obj 92 133 unpack f f;\n"
 "#X obj 92 160 clip 0 1;\n"
-"#X obj 177 184 r \\$0-size;\n"
-"#X obj 177 209 samps2ms;\n"
+"#X obj 279 146 r \\$0-size;\n"
+"#X obj 279 171 samps2ms;\n"
 "#X obj 92 239 pack2 0 f;\n"
 "#X obj 162 238 pack2 1 f;\n"
 "#X obj 162 269 *;\n"
@@ -20522,6 +21198,7 @@ static const unsigned char temp_binary_data_107[] =
 "#X obj 47 74 r \\$0-set-range;\n"
 "#X msg 92 351 range \\$1 \\$2;\n"
 "#X obj 92 318 pack;\n"
+"#X obj 186 212 t f f;\n"
 "#X connect 0 0 2 0;\n"
 "#X connect 2 0 4 0;\n"
 "#X connect 2 2 1 0;\n"
@@ -20530,8 +21207,7 @@ static const unsigned char temp_binary_data_107[] =
 "#X connect 4 1 3 0;\n"
 "#X connect 5 0 8 0;\n"
 "#X connect 6 0 7 0;\n"
-"#X connect 7 0 8 1;\n"
-"#X connect 7 0 9 1;\n"
+"#X connect 7 0 15 0;\n"
 "#X connect 8 0 11 0;\n"
 "#X connect 9 0 10 0;\n"
 "#X connect 10 0 14 1;\n"
@@ -20539,6 +21215,8 @@ static const unsigned char temp_binary_data_107[] =
 "#X connect 12 0 4 0;\n"
 "#X connect 13 0 1 0;\n"
 "#X connect 14 0 13 0;\n"
+"#X connect 15 0 8 1;\n"
+"#X connect 15 1 9 1;\n"
 "#X restore 167 111 pd tabplayer~;\n"
 "#X connect 0 0 8 0;\n"
 "#X connect 1 0 4 0;\n"
@@ -20553,7 +21231,7 @@ static const unsigned char temp_binary_data_107[] =
 "#X restore 76 59 pd messages;\n"
 "#X obj 71 91 namecanvas \\$0-sampler;\n"
 "#N canvas 665 178 600 186 init 0;\n"
-"#N canvas 369 114 958 663 load-args 0;\n"
+"#N canvas 731 76 958 663 load-args 0;\n"
 "#X obj 219 193 samplerate~;\n"
 "#X obj 219 214 s \\$0-sr;\n"
 "#X obj 220 140 send pd-\\$0-buffers;\n"
@@ -20659,7 +21337,7 @@ static const unsigned char temp_binary_data_107[] =
 "#X obj 87 110 t l l;\n"
 "#X obj 154 289 s \\$0-loop;\n"
 "#X obj 121 316 != 0;\n"
-"#X obj 121 344 v autostart_\\$0;\n"
+"#X obj 121 343 v autostart_\\$0;\n"
 "#X connect 0 0 12 0;\n"
 "#X connect 3 0 14 0;\n"
 "#X connect 3 1 13 0;\n"
@@ -20675,7 +21353,7 @@ static const unsigned char temp_binary_data_107[] =
 "#X restore 142 226 pd 1st_is_not_filename;\n"
 "#N canvas 184 344 358 270 1st_is_filename 0;\n"
 "#X obj 64 63 inlet;\n"
-"#X text 197 206 2nd is autostart;\n"
+"#X text 196 206 2nd is autostart;\n"
 "#X text 223 172 3nd is loop;\n"
 "#X obj 64 108 list split 1;\n"
 "#X obj 98 137 unpack;\n"
@@ -20716,23 +21394,30 @@ static const unsigned char temp_binary_data_107[] =
 "#X obj 487 286 t s s;\n"
 "#X msg 143 522 1;\n"
 "#X obj 531 503 r \\$0-init-buflist;\n"
-"#X obj 363 80 send pd-\\$0-path;\n"
-"#X obj 199 60 dir 1;\n"
-"#X msg 363 56 clear \\, obj 30 20 declare -path \\$1;\n"
-"#N canvas 169 23 493 100 \\$0-path 0;\n"
-"#X obj 30 20 declare -path /Users/porres/Documents/pd/externals/else\n"
-";\n"
-"#X restore 465 80 pd \\$0-path;\n"
 "#X msg 166 254 100;\n"
 "#X obj 34 584 t b f;\n"
 "#X obj 34 616 s \\$0-load-buffer;\n"
 "#X obj 554 370 r \\$0-load-buffer;\n"
-"#X msg 200 34 dir;\n"
 "#X obj 67 287 route bang -loop -speed -range;\n"
 "#X msg 213 239 1;\n"
 "#X obj 199 357 s \\$0-range;\n"
 "#X obj 213 261 v max_\\$0;\n"
 "#X msg 215 324 0 1;\n"
+"#N canvas 106 61 319 243 dir 0;\n"
+"#X obj 48 160 send pd-\\$0-path;\n"
+"#X msg 48 136 clear \\, obj 30 20 declare -path \\$1;\n"
+"#N canvas 169 23 493 100 \\$0-path 0;\n"
+"#X obj 30 20 declare -path /Users/porres/Documents/pd/externals/else\n"
+";\n"
+"#X restore 150 160 pd \\$0-path;\n"
+"#X obj 48 109 pdcontrol;\n"
+"#X msg 48 82 dir 1;\n"
+"#X obj 48 50 inlet;\n"
+"#X connect 1 0 0 0;\n"
+"#X connect 3 0 1 0;\n"
+"#X connect 4 0 3 0;\n"
+"#X connect 5 0 4 0;\n"
+"#X restore 213 61 pd dir;\n"
 "#X connect 0 0 1 0;\n"
 "#X connect 3 0 2 0;\n"
 "#X connect 3 0 17 0;\n"
@@ -20747,9 +21432,9 @@ static const unsigned char temp_binary_data_107[] =
 "#X connect 12 0 14 0;\n"
 "#X connect 13 0 11 0;\n"
 "#X connect 15 0 25 0;\n"
-"#X connect 18 0 54 0;\n"
+"#X connect 18 0 49 0;\n"
 "#X connect 19 0 20 0;\n"
-"#X connect 20 0 50 0;\n"
+"#X connect 20 0 46 0;\n"
 "#X connect 21 0 22 0;\n"
 "#X connect 22 0 19 0;\n"
 "#X connect 24 0 23 0;\n"
@@ -20757,10 +21442,10 @@ static const unsigned char temp_binary_data_107[] =
 "#X connect 25 1 0 0;\n"
 "#X connect 25 1 3 0;\n"
 "#X connect 25 1 16 0;\n"
-"#X connect 25 1 49 0;\n"
+"#X connect 25 1 45 0;\n"
+"#X connect 25 1 50 0;\n"
 "#X connect 25 1 53 0;\n"
-"#X connect 25 1 55 0;\n"
-"#X connect 25 1 58 0;\n"
+"#X connect 25 1 54 0;\n"
 "#X connect 27 0 35 0;\n"
 "#X connect 28 0 29 0;\n"
 "#X connect 30 0 31 0;\n"
@@ -20780,37 +21465,34 @@ static const unsigned char temp_binary_data_107[] =
 "#X connect 42 1 37 0;\n"
 "#X connect 43 0 26 0;\n"
 "#X connect 44 0 11 1;\n"
-"#X connect 46 1 47 0;\n"
-"#X connect 47 0 45 0;\n"
-"#X connect 49 0 24 0;\n"
-"#X connect 50 0 51 0;\n"
-"#X connect 50 1 22 0;\n"
-"#X connect 52 0 36 0;\n"
-"#X connect 53 0 46 0;\n"
-"#X connect 54 0 20 0;\n"
-"#X connect 54 1 21 0;\n"
-"#X connect 54 1 43 0;\n"
-"#X connect 54 2 24 0;\n"
-"#X connect 54 2 21 0;\n"
-"#X connect 54 3 56 0;\n"
-"#X connect 54 4 40 0;\n"
-"#X connect 55 0 57 0;\n"
-"#X connect 58 0 56 0;\n"
+"#X connect 45 0 24 0;\n"
+"#X connect 46 0 47 0;\n"
+"#X connect 46 1 22 0;\n"
+"#X connect 48 0 36 0;\n"
+"#X connect 49 0 20 0;\n"
+"#X connect 49 1 21 0;\n"
+"#X connect 49 1 43 0;\n"
+"#X connect 49 2 24 0;\n"
+"#X connect 49 2 21 0;\n"
+"#X connect 49 3 51 0;\n"
+"#X connect 49 4 40 0;\n"
+"#X connect 50 0 52 0;\n"
+"#X connect 53 0 51 0;\n"
 "#X restore 273 69 pd load-args;\n"
 "#X text 34 45 Dynamic Patching;\n"
 "#N canvas 871 121 479 442 \\$0-buffers 0;\n"
 "#X obj 6 20 cnv 15 448 80 empty empty empty 3 10 2 14 -233017 -66577\n"
 "0;\n"
-"#N canvas 0 22 450 300 ch0_1033 0;\n"
-"#X array 0-buffer_1033 87741 float 2;\n"
+"#N canvas 0 22 450 300 ch0_1042 0;\n"
+"#X array 0-buffer_1042 87741 float 2;\n"
 "#X coords 0 1 87741 -1 450 82 2 0 0;\n"
-"#X restore 5 19 pd ch0_1033;\n"
+"#X restore 5 19 pd ch0_1042;\n"
 "#X obj 6 120 cnv 15 448 80 empty empty empty 3 10 2 14 -233017 -66577\n"
 "0;\n"
-"#N canvas 0 22 450 300 ch1_1033 0;\n"
-"#X array 1-buffer_1033 87741 float 2;\n"
+"#N canvas 0 22 450 300 ch1_1042 0;\n"
+"#X array 1-buffer_1042 87741 float 2;\n"
 "#X coords 0 1 87741 -1 450 82 2 0 0;\n"
-"#X restore 5 119 pd ch1_1033;\n"
+"#X restore 5 119 pd ch1_1042;\n"
 "#X coords 0 0 0 0 10 20 0;\n"
 "#X restore 395 110 pd \\$0-buffers;\n"
 "#X obj 390 69 declare -path else;\n"
@@ -20863,27 +21545,38 @@ static const unsigned char temp_binary_data_107[] =
 "#X connect 19 0 16 2;\n"
 "#X restore 208 101 pd dynamic-patching;\n"
 "#X obj 144 45 loadbanger -init 3, f 22;\n"
-"#N canvas 377 95 545 534 set 0;\n"
-"#X obj 191 55 inlet;\n"
-"#X obj 275 370 s \\$0-tabplayer~;\n"
-"#X obj 315 131 r \\$0-range;\n"
-"#X obj 195 202 r \\$0-speed;\n"
-"#X obj 179 226 f;\n"
-"#X obj 89 271 f;\n"
-"#X obj 275 159 message;\n"
-"#X obj 104 224 r \\$0-loop;\n"
-"#X obj 104 245 != 0;\n"
-"#X obj 275 189 s \\$0-set-range;\n"
-"#X connect 0 0 6 0;\n"
-"#X connect 0 0 4 0;\n"
-"#X connect 0 0 5 0;\n"
-"#X connect 2 0 6 1;\n"
+"#N canvas 754 406 576 393 set 0;\n"
+"#X obj 75 67 inlet;\n"
+"#X obj 179 304 s \\$0-tabplayer~;\n"
+"#X obj 466 133 r \\$0-range;\n"
+"#X obj 195 212 r \\$0-speed;\n"
+"#X obj 179 236 f;\n"
+"#X obj 295 226 f;\n"
+"#X obj 310 179 r \\$0-loop;\n"
+"#X obj 310 200 != 0;\n"
+"#X obj 403 191 s \\$0-set-range;\n"
+"#X msg 295 247 loop \\$1;\n"
+"#X msg 179 264 speed \\$1;\n"
+"#X obj 403 161 message 0 1;\n"
+"#X obj 75 242 v autostart_\\$0;\n"
+"#X obj 75 273 sel 1;\n"
+"#X obj 75 111 trigger bang bang;\n"
+"#X connect 0 0 14 0;\n"
+"#X connect 2 0 11 1;\n"
 "#X connect 3 0 4 1;\n"
-"#X connect 4 0 1 0;\n"
-"#X connect 5 0 1 0;\n"
-"#X connect 6 0 9 0;\n"
-"#X connect 7 0 8 0;\n"
-"#X connect 8 0 5 1;\n"
+"#X connect 4 0 10 0;\n"
+"#X connect 5 0 9 0;\n"
+"#X connect 6 0 7 0;\n"
+"#X connect 7 0 5 1;\n"
+"#X connect 9 0 1 0;\n"
+"#X connect 10 0 1 0;\n"
+"#X connect 11 0 8 0;\n"
+"#X connect 12 0 13 0;\n"
+"#X connect 13 0 1 0;\n"
+"#X connect 14 0 12 0;\n"
+"#X connect 14 1 5 0;\n"
+"#X connect 14 1 4 0;\n"
+"#X connect 14 1 11 0;\n"
 "#X restore 144 101 pd set;\n"
 "#X connect 5 0 6 0;\n"
 "#X connect 5 1 4 0;\n"
@@ -20891,10 +21584,10 @@ static const unsigned char temp_binary_data_107[] =
 "#X restore 70 114 pd init;\n"
 "#X connect 0 0 1 0;\n";
 
-const char* player_pd = (const char*) temp_binary_data_107;
+const char* player_pd = (const char*) temp_binary_data_114;
 
 //================== pol2car.pd ==================
-static const unsigned char temp_binary_data_108[] =
+static const unsigned char temp_binary_data_115[] =
 "#N canvas 709 239 472 239 10;\n"
 "#X text 228 104 Part of ELSE \\; https://github.com/porres/pd-else;\n"
 "#X text 230 85 Alexandre Torres Porres (2018);\n"
@@ -20908,10 +21601,10 @@ static const unsigned char temp_binary_data_108[] =
 "#X connect 3 0 2 1;\n"
 "#X connect 4 0 2 0;\n";
 
-const char* pol2car_pd = (const char*) temp_binary_data_108;
+const char* pol2car_pd = (const char*) temp_binary_data_115;
 
 //================== pol2car~.pd ==================
-static const unsigned char temp_binary_data_109[] =
+static const unsigned char temp_binary_data_116[] =
 "#N canvas 669 262 509 255 10;\n"
 "#X obj 87 99 expr~ cos($v2) * $v1 \\; sin($v2) * $v1;\n"
 "#X obj 87 161 outlet~;\n"
@@ -20925,10 +21618,10 @@ static const unsigned char temp_binary_data_109[] =
 "#X connect 3 0 0 1;\n"
 "#X connect 4 0 0 0;\n";
 
-const char* pol2car_pd2 = (const char*) temp_binary_data_109;
+const char* pol2car_pd2 = (const char*) temp_binary_data_116;
 
 //================== pulse.pd ==================
-static const unsigned char temp_binary_data_110[] =
+static const unsigned char temp_binary_data_117[] =
 "#N canvas 648 233 641 348 12;\n"
 "#X declare -path else;\n"
 "#X obj 55 101 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1\n"
@@ -21154,10 +21847,10 @@ static const unsigned char temp_binary_data_110[] =
 "#X connect 15 0 16 1;\n"
 "#X connect 16 0 9 0;\n";
 
-const char* pulse_pd = (const char*) temp_binary_data_110;
+const char* pulse_pd = (const char*) temp_binary_data_117;
 
 //================== pvoc.freeze~.pd ==================
-static const unsigned char temp_binary_data_111[] =
+static const unsigned char temp_binary_data_118[] =
 "#N canvas 704 159 488 230 10;\n"
 "#X declare -path else;\n"
 "#N canvas 434 193 336 353 pvoc-freeze 0;\n"
@@ -21362,10 +22055,10 @@ static const unsigned char temp_binary_data_111[] =
 "#X connect 4 0 3 0;\n"
 "#X connect 5 0 4 2;\n";
 
-const char* pvoc_freeze_pd = (const char*) temp_binary_data_111;
+const char* pvoc_freeze_pd = (const char*) temp_binary_data_118;
 
 //================== pvoc.live~.pd ==================
-static const unsigned char temp_binary_data_112[] =
+static const unsigned char temp_binary_data_119[] =
 "#N canvas 558 153 618 260 10;\n"
 "#X declare -path else;\n"
 "#X text 246 49 cents;\n"
@@ -21662,12 +22355,13 @@ static const unsigned char temp_binary_data_112[] =
 "#X connect 8 0 4 0;\n"
 "#X connect 9 0 8 0;\n";
 
-const char* pvoc_live_pd = (const char*) temp_binary_data_112;
+const char* pvoc_live_pd = (const char*) temp_binary_data_119;
 
 //================== pvoc.player~.pd ==================
-static const unsigned char temp_binary_data_113[] =
+static const unsigned char temp_binary_data_120[] =
 "#N canvas 940 110 643 437 10;\n"
-"#X declare -path /Users/porres/Documents/Pd/externals/else;\n"
+"#X declare -path /Users/porres/Desktop/git/pd-else/Classes/Abstractions\n"
+";\n"
 "#X declare -path else;\n"
 "#X obj 44 59 inlet;\n"
 "#X obj 95 59 inlet;\n"
@@ -21953,8 +22647,7 @@ static const unsigned char temp_binary_data_113[] =
 "#X obj 43 145 trigger float float;\n"
 "#X obj 70 342 s pd-\\$0-buffers;\n"
 "#N canvas 621 356 434 343 \\$0-buffers 0;\n"
-"#X obj 20 50 table 1320-ch1;\n"
-"#X obj 130 50 table 1320-ch2;\n"
+"#X obj 20 50 table 1006-ch1;\n"
 "#X restore 194 98 pd \\$0-buffers;\n"
 "#X obj 43 111 loop;\n"
 "#X obj 43 209 makefilename \\$0-ch%d, f 12;\n"
@@ -21978,28 +22671,34 @@ static const unsigned char temp_binary_data_113[] =
 "#X connect 13 0 12 1;\n"
 "#X connect 14 0 7 0;\n"
 "#X restore 460 553 pd set-buffers;\n"
-"#N canvas 702 273 540 306 init 0;\n"
-"#X obj 161 150 send pd-\\$0-buffers;\n"
-"#X msg 161 119 clear;\n"
-"#X obj 141 178 s \\$0-init-buflist;\n"
-"#X obj 293 162 send pd-\\$0-path;\n"
-"#X obj 236 111 dir 1;\n"
-"#X msg 293 138 clear \\, obj 30 20 declare -path \\$1;\n"
+"#N canvas 702 273 273 218 init 0;\n"
+"#X obj 106 103 send pd-\\$0-buffers;\n"
+"#X msg 106 72 clear;\n"
+"#X obj 86 131 s \\$0-init-buflist;\n"
+"#X obj 87 28 inlet;\n"
+"#X obj 66 182 v wsize_\\$0;\n"
+"#X msg 66 157 2048;\n"
+"#N canvas 106 61 319 243 dir 0;\n"
+"#X obj 48 160 send pd-\\$0-path;\n"
+"#X msg 48 136 clear \\, obj 30 20 declare -path \\$1;\n"
 "#N canvas 169 23 493 100 \\$0-path 0;\n"
-"#X obj 30 20 declare -path /Users/porres/Documents/Pd/externals/else\n"
+"#X obj 30 20 declare -path /Users/porres/Desktop/git/pd-else/Classes/Abstractions\n"
 ";\n"
-"#X restore 412 173 pd \\$0-path;\n"
-"#X obj 107 41 inlet;\n"
-"#X obj 107 230 v wsize_\\$0;\n"
-"#X msg 107 205 2048;\n"
+"#X restore 150 160 pd \\$0-path;\n"
+"#X obj 48 109 pdcontrol;\n"
+"#X msg 48 82 dir 1;\n"
+"#X obj 48 50 inlet;\n"
 "#X connect 1 0 0 0;\n"
-"#X connect 4 1 5 0;\n"
-"#X connect 5 0 3 0;\n"
-"#X connect 7 0 4 0;\n"
-"#X connect 7 0 2 0;\n"
-"#X connect 7 0 1 0;\n"
-"#X connect 7 0 9 0;\n"
-"#X connect 9 0 8 0;\n"
+"#X connect 3 0 1 0;\n"
+"#X connect 4 0 3 0;\n"
+"#X connect 5 0 4 0;\n"
+"#X restore 157 69 pd dir;\n"
+"#X connect 1 0 0 0;\n"
+"#X connect 3 0 2 0;\n"
+"#X connect 3 0 1 0;\n"
+"#X connect 3 0 5 0;\n"
+"#X connect 3 0 6 0;\n"
+"#X connect 5 0 4 0;\n"
 "#X restore 331 102 pd init;\n"
 "#N canvas 167 330 353 306 +args 0;\n"
 "#X obj 72 22 inlet;\n"
@@ -22224,10 +22923,10 @@ static const unsigned char temp_binary_data_113[] =
 "#X connect 1 0 3 1;\n"
 "#X connect 2 0 3 2;\n";
 
-const char* pvoc_player_pd = (const char*) temp_binary_data_113;
+const char* pvoc_player_pd = (const char*) temp_binary_data_120;
 
 //================== rampnoise.pd ==================
-static const unsigned char temp_binary_data_114[] =
+static const unsigned char temp_binary_data_121[] =
 "#N canvas 717 127 550 606 10;\n"
 "#X declare -path else;\n"
 "#X obj 89 38 inlet;\n"
@@ -22301,10 +23000,10 @@ static const unsigned char temp_binary_data_114[] =
 "#X connect 21 0 17 0;\n"
 "#X connect 23 0 16 0;\n";
 
-const char* rampnoise_pd = (const char*) temp_binary_data_114;
+const char* rampnoise_pd = (const char*) temp_binary_data_121;
 
 //================== randpulse.pd ==================
-static const unsigned char temp_binary_data_115[] =
+static const unsigned char temp_binary_data_122[] =
 "#N canvas 612 198 641 348 12;\n"
 "#X declare -path else;\n"
 "#X obj 55 101 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0\n"
@@ -22535,10 +23234,10 @@ static const unsigned char temp_binary_data_115[] =
 "#X connect 15 0 16 1;\n"
 "#X connect 16 0 9 0;\n";
 
-const char* randpulse_pd = (const char*) temp_binary_data_115;
+const char* randpulse_pd = (const char*) temp_binary_data_122;
 
 //================== randpulse2.pd ==================
-static const unsigned char temp_binary_data_116[] =
+static const unsigned char temp_binary_data_123[] =
 "#N canvas 699 123 510 606 10;\n"
 "#X declare -path else;\n"
 "#X obj 66 34 inlet;\n"
@@ -22593,10 +23292,10 @@ static const unsigned char temp_binary_data_116[] =
 "#X connect 22 0 21 0;\n"
 "#X connect 23 0 12 0;\n";
 
-const char* randpulse2_pd = (const char*) temp_binary_data_116;
+const char* randpulse2_pd = (const char*) temp_binary_data_123;
 
 //================== range.hsl.pd ==================
-static const unsigned char temp_binary_data_117[] =
+static const unsigned char temp_binary_data_124[] =
 "#N canvas 565 228 911 601 10;\n"
 "#X declare -path else;\n"
 "#X obj 129 201 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144\n"
@@ -23610,10 +24309,10 @@ static const unsigned char temp_binary_data_117[] =
 "#X connect 6 0 0 0;\n"
 "#X coords 0 -1 135 17 135 17 2 125 200;\n";
 
-const char* range_hsl_pd = (const char*) temp_binary_data_117;
+const char* range_hsl_pd = (const char*) temp_binary_data_124;
 
 //================== range.pd ==================
-static const unsigned char temp_binary_data_118[] =
+static const unsigned char temp_binary_data_125[] =
 "#N canvas 709 158 519 348 10;\n"
 "#X declare -path else;\n"
 "#X obj 43 33 inlet;\n"
@@ -23659,10 +24358,10 @@ static const unsigned char temp_binary_data_118[] =
 "#X connect 17 0 14 0;\n"
 "#X connect 18 0 10 0;\n";
 
-const char* range_pd = (const char*) temp_binary_data_118;
+const char* range_pd = (const char*) temp_binary_data_125;
 
 //================== rec.file~.pd ==================
-static const unsigned char temp_binary_data_119[] =
+static const unsigned char temp_binary_data_126[] =
 "#N canvas 451 40 663 522 10;\n"
 "#X declare -path else;\n"
 "#N canvas 1034 37 353 220 guts 0;\n"
@@ -23780,7 +24479,6 @@ static const unsigned char temp_binary_data_119[] =
 "#N canvas 626 174 571 495 load_args 0;\n"
 "#X obj 75 37 inlet;\n"
 "#X obj 311 192 s \\$0-filename;\n"
-"#X obj 395 154 dir 1;\n"
 "#X msg 414 206 set \\$1;\n"
 "#X obj 414 182 makefilename %s/%%s;\n"
 "#X obj 311 127 t s b;\n"
@@ -23799,39 +24497,40 @@ static const unsigned char temp_binary_data_119[] =
 "#X msg 213 194 10;\n"
 "#X obj 287 265 v max_time_\\$0;\n"
 "#X obj 287 245 max 0;\n"
-"#X msg 395 128 dir;\n"
 "#X obj 245 291 s \\$0-set-fade;\n"
 "#X obj 134 273 list split 1;\n"
 "#X obj 85 303 route float;\n"
 "#X obj 245 262 max 0;\n"
-"#X connect 0 0 7 0;\n"
-"#X connect 2 1 4 0;\n"
-"#X connect 3 0 6 0;\n"
-"#X connect 4 0 3 0;\n"
-"#X connect 5 0 1 0;\n"
-"#X connect 5 1 21 0;\n"
-"#X connect 7 0 11 0;\n"
-"#X connect 8 0 14 0;\n"
-"#X connect 10 0 9 0;\n"
-"#X connect 11 0 8 0;\n"
-"#X connect 11 1 10 0;\n"
-"#X connect 11 1 17 0;\n"
-"#X connect 11 1 18 0;\n"
-"#X connect 13 0 12 0;\n"
-"#X connect 14 1 15 0;\n"
-"#X connect 14 2 13 0;\n"
-"#X connect 14 3 23 0;\n"
-"#X connect 14 4 25 0;\n"
-"#X connect 14 5 20 0;\n"
-"#X connect 17 0 5 0;\n"
-"#X connect 18 0 16 0;\n"
-"#X connect 20 0 19 0;\n"
-"#X connect 21 0 2 0;\n"
-"#X connect 23 0 24 0;\n"
-"#X connect 23 1 13 0;\n"
-"#X connect 24 1 15 0;\n"
-"#X connect 25 0 22 0;\n"
-"#X connect 25 0 16 0;\n"
+"#X obj 414 154 pdcontrol;\n"
+"#X msg 414 128 dir 1;\n"
+"#X connect 0 0 6 0;\n"
+"#X connect 2 0 5 0;\n"
+"#X connect 3 0 2 0;\n"
+"#X connect 4 0 1 0;\n"
+"#X connect 4 1 25 0;\n"
+"#X connect 6 0 10 0;\n"
+"#X connect 7 0 13 0;\n"
+"#X connect 9 0 8 0;\n"
+"#X connect 10 0 7 0;\n"
+"#X connect 10 1 9 0;\n"
+"#X connect 10 1 16 0;\n"
+"#X connect 10 1 17 0;\n"
+"#X connect 12 0 11 0;\n"
+"#X connect 13 1 14 0;\n"
+"#X connect 13 2 12 0;\n"
+"#X connect 13 3 21 0;\n"
+"#X connect 13 4 23 0;\n"
+"#X connect 13 5 19 0;\n"
+"#X connect 16 0 4 0;\n"
+"#X connect 17 0 15 0;\n"
+"#X connect 19 0 18 0;\n"
+"#X connect 21 0 22 0;\n"
+"#X connect 21 1 12 0;\n"
+"#X connect 22 1 14 0;\n"
+"#X connect 23 0 20 0;\n"
+"#X connect 23 0 15 0;\n"
+"#X connect 24 0 3 0;\n"
+"#X connect 25 0 24 0;\n"
 "#X restore 268 87 pd load_args;\n"
 "#X obj 200 87 v ch_\\$0;\n"
 "#X obj 133 57 loadbanger -init 3;\n"
@@ -23881,10 +24580,10 @@ static const unsigned char temp_binary_data_119[] =
 "#X obj 364 322 r \\$0-done;\n"
 "#X connect 7 0 4 0;\n";
 
-const char* rec_file_pd = (const char*) temp_binary_data_119;
+const char* rec_file_pd = (const char*) temp_binary_data_126;
 
 //================== resonbank~.pd ==================
-static const unsigned char temp_binary_data_120[] =
+static const unsigned char temp_binary_data_127[] =
 "#N canvas 709 269 582 312 10;\n"
 "#X declare -path else;\n"
 "#X text 307 141 Part of ELSE \\; https://github.com/porres/pd-else;\n"
@@ -23977,10 +24676,10 @@ static const unsigned char temp_binary_data_120[] =
 "#X connect 7 1 3 0;\n"
 "#X connect 8 0 5 0;\n";
 
-const char* resonbank_pd = (const char*) temp_binary_data_120;
+const char* resonbank_pd = (const char*) temp_binary_data_127;
 
 //================== resonbank2~.pd ==================
-static const unsigned char temp_binary_data_121[] =
+static const unsigned char temp_binary_data_128[] =
 "#N canvas 648 245 605 300 10;\n"
 "#X declare -path else;\n"
 "#X text 322 128 Part of ELSE \\; https://github.com/porres/pd-else;\n"
@@ -24083,10 +24782,109 @@ static const unsigned char temp_binary_data_121[] =
 "#X connect 7 1 3 0;\n"
 "#X connect 8 0 6 0;\n";
 
-const char* resonbank2_pd = (const char*) temp_binary_data_121;
+const char* resonbank2_pd = (const char*) temp_binary_data_128;
+
+//================== retune.pd ==================
+static const unsigned char temp_binary_data_129[] =
+"#N canvas 832 89 576 581 12;\n"
+"#X declare -path else;\n"
+"#X obj 135 268 - 60;\n"
+"#X obj 64 45 inlet;\n"
+"#X obj 130 45 inlet;\n"
+"#X obj 323 100 declare -path else;\n"
+"#X obj 160 238 r \\$0-base;\n"
+"#X text 260 162 Part of ELSE \\; https://github.com/porres/pd-else;\n"
+"#X text 262 143 Alexandre Torres Porres (2020);\n"
+"#X obj 284 301 r size_\\$0;\n"
+"#X obj 135 335 wrap2 0 12;\n"
+"#X obj 135 371 tabread \\$0-scale;\n"
+"#X obj 266 371 div;\n"
+"#X obj 135 407 / 100;\n"
+"#X obj 266 413 *;\n"
+"#X obj 307 377 r max_\\$0;\n"
+"#X obj 248 450 +;\n"
+"#X obj 284 335 - 1;\n"
+"#X obj 135 301 trigger float float;\n"
+"#N canvas 332 93 560 344 load-list 0;\n"
+"#X obj 126 54 inlet;\n"
+"#X obj 291 192 array define \\$0-scale;\n"
+"#X obj 126 198 array max \\$0-scale;\n"
+"#X obj 126 226 / 100;\n"
+"#X obj 126 106 t b l l;\n"
+"#X obj 149 166 array set \\$0-scale;\n"
+"#X obj 200 85 list length;\n"
+"#X obj 200 139 array size \\$0-scale;\n"
+"#X obj 217 113 s size_\\$0;\n"
+"#X obj 126 257 s max_\\$0;\n"
+"#X connect 0 0 4 0;\n"
+"#X connect 2 0 3 0;\n"
+"#X connect 3 0 9 0;\n"
+"#X connect 4 0 2 0;\n"
+"#X connect 4 1 5 0;\n"
+"#X connect 4 2 6 0;\n"
+"#X connect 6 0 7 0;\n"
+"#X connect 6 0 8 0;\n"
+"#X restore 130 118 pd load-list;\n"
+"#N canvas 919 410 573 379 init 0;\n"
+"#X obj 208 321 outlet;\n"
+"#X msg 303 221 0 100 200 300 400 500 600 700 800 900 1000 1100 1200\n"
+", f 26;\n"
+"#X obj 107 112 route bang list -base;\n"
+"#X obj 203 143 list split 1;\n"
+"#X obj 208 227 route bang;\n"
+"#X obj 107 41 lb -init 2, f 28;\n"
+"#X obj 103 225 s \\$0-base;\n"
+"#X obj 107 76 args -;\n"
+"#X connect 1 0 0 0;\n"
+"#X connect 2 1 0 0;\n"
+"#X connect 2 2 3 0;\n"
+"#X connect 3 0 6 0;\n"
+"#X connect 3 1 4 0;\n"
+"#X connect 4 1 0 0;\n"
+"#X connect 5 0 7 0;\n"
+"#X connect 5 1 1 0;\n"
+"#X connect 7 0 2 0;\n"
+"#X restore 152 85 pd init;\n"
+"#X obj 248 519 outlet;\n"
+"#X obj 294 450 r \\$0-base;\n"
+"#X obj 248 482 + 60;\n"
+"#X obj 64 192 f;\n"
+"#X obj 64 160 route list float base;\n"
+"#X obj 112 228 rint;\n"
+"#X floatatom 317 480 5 0 0 0 - - -;\n"
+"#X floatatom 325 413 5 0 0 0 - - -;\n"
+"#X obj 160 197 s \\$0-base;\n"
+"#X connect 0 0 16 0;\n"
+"#X connect 1 0 23 0;\n"
+"#X connect 2 0 17 0;\n"
+"#X connect 4 0 0 1;\n"
+"#X connect 7 0 15 0;\n"
+"#X connect 8 0 9 0;\n"
+"#X connect 9 0 11 0;\n"
+"#X connect 10 0 12 0;\n"
+"#X connect 11 0 14 0;\n"
+"#X connect 12 0 14 1;\n"
+"#X connect 13 0 12 1;\n"
+"#X connect 13 0 26 0;\n"
+"#X connect 14 0 21 0;\n"
+"#X connect 15 0 8 2;\n"
+"#X connect 15 0 10 1;\n"
+"#X connect 16 0 8 0;\n"
+"#X connect 16 1 10 0;\n"
+"#X connect 18 0 17 0;\n"
+"#X connect 20 0 21 1;\n"
+"#X connect 20 0 25 0;\n"
+"#X connect 21 0 19 0;\n"
+"#X connect 22 0 24 0;\n"
+"#X connect 23 0 22 0;\n"
+"#X connect 23 1 24 0;\n"
+"#X connect 23 2 27 0;\n"
+"#X connect 24 0 0 0;\n";
+
+const char* retune_pd = (const char*) temp_binary_data_129;
 
 //================== reverse.pd ==================
-static const unsigned char temp_binary_data_122[] =
+static const unsigned char temp_binary_data_130[] =
 "#N canvas 698 112 727 563 12;\n"
 "#X declare -path else;\n"
 "#X obj 375 275 list store;\n"
@@ -24130,10 +24928,10 @@ static const unsigned char temp_binary_data_122[] =
 "#X connect 16 0 1 0;\n"
 "#X connect 17 0 7 0;\n";
 
-const char* reverse_pd = (const char*) temp_binary_data_122;
+const char* reverse_pd = (const char*) temp_binary_data_130;
 
 //================== rm~.pd ==================
-static const unsigned char temp_binary_data_123[] =
+static const unsigned char temp_binary_data_131[] =
 "#N canvas 712 140 532 323 10;\n"
 "#X declare -path else;\n"
 "#X obj 162 219 *~;\n"
@@ -24170,10 +24968,10 @@ static const unsigned char temp_binary_data_123[] =
 "#X connect 15 0 16 0;\n"
 "#X connect 16 0 8 1;\n";
 
-const char* rm_pd = (const char*) temp_binary_data_123;
+const char* rm_pd = (const char*) temp_binary_data_131;
 
 //================== rotate.pd ==================
-static const unsigned char temp_binary_data_124[] =
+static const unsigned char temp_binary_data_132[] =
 "#N canvas 654 250 507 296 10;\n"
 "#X declare -path else;\n"
 "#X obj 68 32 inlet;\n"
@@ -24205,26 +25003,20 @@ static const unsigned char temp_binary_data_124[] =
 "#X connect 9 0 7 1;\n"
 "#X connect 10 0 9 0;\n";
 
-const char* rotate_pd = (const char*) temp_binary_data_124;
+const char* rotate_pd = (const char*) temp_binary_data_132;
 
 //================== sample~.pd ==================
-static const unsigned char temp_binary_data_125[] =
+static const unsigned char temp_binary_data_133[] =
 "#N canvas 891 101 513 358 10;\n"
 "#X declare -path else;\n"
 "#X obj 89 31 inlet;\n"
 "#N canvas 1172 118 479 442 \\$0-buffers 0;\n"
 "#X obj 6 20 cnv 15 448 80 empty empty empty 3 10 2 14 -233017 -66577\n"
 "0;\n"
-"#N canvas 0 22 450 300 ch0_1050 0;\n"
-"#X array 0-1003-sample 87741 float 2;\n"
-"#X coords 0 1 87741 -1 450 82 2 0 0;\n"
-"#X restore 5 19 pd ch0_1050;\n"
-"#X obj 6 120 cnv 15 448 80 empty empty empty 3 10 2 14 -233017 -66577\n"
-"0;\n"
-"#N canvas 0 22 450 300 ch1_1050 0;\n"
-"#X array 1-1003-sample 87741 float 2;\n"
-"#X coords 0 1 87741 -1 450 82 2 0 0;\n"
-"#X restore 5 119 pd ch1_1050;\n"
+"#N canvas 0 22 450 300 ch0_1372 0;\n"
+"#X array 1003-IR 44100 float 2;\n"
+"#X coords 0 1 44100 -1 450 82 2 0 0;\n"
+"#X restore 5 19 pd ch0_1372;\n"
 "#X coords 0 0 0 0 10 20 0;\n"
 "#X restore 247 161 pd \\$0-buffers;\n"
 "#X obj 89 99 soundfiler;\n"
@@ -24416,39 +25208,39 @@ static const unsigned char temp_binary_data_125[] =
 "#X obj 82 88 list;\n"
 "#X obj 201 311 makefilename;\n"
 "#X obj 227 288 r \\$0-makefilename;\n"
-"#N canvas 584 23 789 768 search-here 0;\n"
-"#X obj 427 106 separate /;\n"
-"#X obj 284 440 select s;\n"
-"#X obj 164 283 makefilename %s/;\n"
-"#X msg 256 255 set %s/;\n"
-"#X obj 164 237 symbol;\n"
-"#X msg 201 321 set \\$1%s/;\n"
-"#X obj 511 189 list split;\n"
-"#X obj 563 138 list length;\n"
-"#X obj 568 161 - 1;\n"
-"#X obj 426 127 list;\n"
-"#X obj 450 151 t l l b;\n"
-"#X obj 125 320 symbol;\n"
-"#X obj 133 188 t b l;\n"
-"#X obj 176 443 sel 1;\n"
-"#X msg 176 488 dump \\, reset;\n"
-"#X msg 124 356 open \\$1;\n"
-"#X obj 76 160 route bang;\n"
-"#X msg 290 535 1;\n"
-"#X obj 353 19 inlet;\n"
-"#X obj 275 580 f;\n"
-"#X msg 413 524 0;\n"
-"#X obj 275 608 sel 0 1;\n"
-"#X msg 464 692 set \\$1;\n"
-"#X obj 464 726 s \\$0-makefilename;\n"
-"#X obj 464 643 makefilename %s/%%s;\n"
-"#X obj 379 602 dir 1;\n"
-"#X obj 124 394 dir 1;\n"
-"#X msg 398 688 set %s;\n"
-"#X obj 353 79 t b s;\n"
-"#X msg 379 576 reopen \\, dir;\n"
-"#X msg 36 355 reopen \\, dump;\n"
-"#X obj 164 213 iterate;\n"
+"#N canvas 584 23 522 664 search-here 0;\n"
+"#X obj 307 43 separate /;\n"
+"#X obj 271 394 select s;\n"
+"#X obj 136 304 makefilename %s/;\n"
+"#X msg 198 279 set %s/;\n"
+"#X obj 136 278 symbol;\n"
+"#X msg 170 334 set \\$1%s/;\n"
+"#X obj 368 176 list split;\n"
+"#X obj 425 132 list length;\n"
+"#X obj 425 153 - 1;\n"
+"#X obj 307 64 list;\n"
+"#X obj 307 88 t l l b;\n"
+"#X obj 72 287 symbol;\n"
+"#X obj 72 262 t b l;\n"
+"#X obj 90 372 sel 1;\n"
+"#X msg 90 397 dump \\, reset;\n"
+"#X msg 72 313 open \\$1;\n"
+"#X obj 15 234 route bang;\n"
+"#X msg 271 419 1;\n"
+"#X obj 254 26 inlet;\n"
+"#X obj 256 447 f;\n"
+"#X msg 350 408 0;\n"
+"#X obj 256 472 sel 0 1;\n"
+"#X msg 306 576 set \\$1;\n"
+"#X obj 306 610 s \\$0-makefilename;\n"
+"#X obj 306 547 makefilename %s/%%s;\n"
+"#X obj 297 526 dir 1;\n"
+"#X obj 72 341 dir 1;\n"
+"#X msg 255 561 set %s;\n"
+"#X obj 254 76 t b s;\n"
+"#X msg 297 500 reopen \\, dir;\n"
+"#X msg 15 282 reopen \\, dump, f 7;\n"
+"#X obj 136 254 iterate;\n"
 "#X connect 0 0 9 0;\n"
 "#X connect 1 0 17 0;\n"
 "#X connect 2 0 5 0;\n"
@@ -24927,37 +25719,37 @@ static const unsigned char temp_binary_data_125[] =
 "#X obj 295 585 v ch_\\$0;\n"
 "#X obj 180 287 s \\$0-resize;\n"
 "#X msg 180 257 0;\n"
-"#N canvas 584 23 789 815 search-here 0;\n"
-"#X obj 427 106 separate /;\n"
-"#X obj 284 440 select s;\n"
+"#N canvas 803 218 734 760 search-here 0;\n"
+"#X obj 450 99 separate /;\n"
+"#X obj 362 490 select s;\n"
 "#X obj 164 283 makefilename %s/;\n"
 "#X msg 256 255 set %s/;\n"
 "#X obj 164 237 symbol;\n"
 "#X msg 201 321 set \\$1%s/;\n"
-"#X obj 511 189 list split;\n"
-"#X obj 563 138 list length;\n"
-"#X obj 568 161 - 1;\n"
-"#X obj 426 127 list;\n"
+"#X obj 484 308 list split;\n"
+"#X obj 541 255 list length;\n"
+"#X obj 541 280 - 1;\n"
+"#X obj 450 127 list;\n"
 "#X obj 450 151 t l l b;\n"
 "#X obj 125 320 symbol;\n"
 "#X obj 133 188 t b l;\n"
-"#X obj 176 443 sel 1;\n"
-"#X msg 176 488 dump \\, reset;\n"
+"#X obj 62 464 sel 1;\n"
+"#X msg 62 489 dump \\, reset;\n"
 "#X msg 124 356 open \\$1;\n"
 "#X obj 76 160 route bang;\n"
-"#X msg 290 535 1;\n"
+"#X msg 362 520 1;\n"
 "#X obj 353 19 inlet;\n"
-"#X obj 275 580 f;\n"
-"#X msg 413 524 0;\n"
-"#X obj 275 608 sel 0 1;\n"
-"#X msg 430 703 set \\$1;\n"
-"#X obj 430 737 s \\$0-makefilename;\n"
-"#X obj 430 654 makefilename %s/%%s;\n"
-"#X obj 379 602 dir 1;\n"
+"#X obj 348 580 f;\n"
+"#X msg 416 524 0;\n"
+"#X obj 348 608 sel 0 1;\n"
+"#X msg 421 659 set \\$1;\n"
+"#X obj 421 693 s \\$0-makefilename;\n"
+"#X obj 421 630 makefilename %s/%%s;\n"
+"#X obj 412 602 dir 1;\n"
 "#X obj 124 394 dir 1;\n"
-"#X msg 372 670 set %s;\n"
+"#X msg 348 639 set %s;\n"
 "#X obj 353 79 t b s;\n"
-"#X msg 379 576 reopen \\, dir;\n"
+"#X msg 412 576 reopen \\, dir;\n"
 "#X msg 36 354 reopen \\, dump;\n"
 "#X obj 164 213 iterate;\n"
 "#X connect 0 0 9 0;\n"
@@ -24994,7 +25786,7 @@ static const unsigned char temp_binary_data_125[] =
 "#X connect 24 0 22 0;\n"
 "#X connect 25 1 24 0;\n"
 "#X connect 26 0 1 0;\n"
-"#X connect 26 2 13 0;\n"
+"#X connect 26 3 13 0;\n"
 "#X connect 27 0 23 0;\n"
 "#X connect 28 0 19 0;\n"
 "#X connect 28 1 0 0;\n"
@@ -25173,10 +25965,10 @@ static const unsigned char temp_binary_data_125[] =
 "#X connect 13 0 11 0;\n"
 "#X connect 14 0 11 0;\n";
 
-const char* sample_pd = (const char*) temp_binary_data_125;
+const char* sample_pd = (const char*) temp_binary_data_133;
 
 //================== samps2ms.pd ==================
-static const unsigned char temp_binary_data_126[] =
+static const unsigned char temp_binary_data_134[] =
 "#N canvas 530 120 589 402 10;\n"
 "#X declare -path else;\n"
 "#X text 291 230 Part of ELSE \\; https://github.com/porres/pd-else;\n"
@@ -25206,10 +25998,10 @@ static const unsigned char temp_binary_data_126[] =
 "#X connect 11 0 10 0;\n"
 "#X connect 13 0 7 0;\n";
 
-const char* samps2ms_pd = (const char*) temp_binary_data_126;
+const char* samps2ms_pd = (const char*) temp_binary_data_134;
 
 //================== samps2ms~.pd ==================
-static const unsigned char temp_binary_data_127[] =
+static const unsigned char temp_binary_data_135[] =
 "#N canvas 699 213 464 215 10;\n"
 "#X declare -path else;\n"
 "#X text 209 106 Part of ELSE \\; https://github.com/porres/pd-else;\n"
@@ -25225,10 +26017,10 @@ static const unsigned char temp_binary_data_127[] =
 "#X connect 5 0 4 0;\n"
 "#X connect 6 0 2 0;\n";
 
-const char* samps2ms_pd2 = (const char*) temp_binary_data_127;
+const char* samps2ms_pd2 = (const char*) temp_binary_data_135;
 
 //================== schmitt.pd ==================
-static const unsigned char temp_binary_data_128[] =
+static const unsigned char temp_binary_data_136[] =
 "#N canvas 721 149 567 319 10;\n"
 "#X declare -path else;\n"
 "#X obj 347 214 v last_\\$0;\n"
@@ -25257,10 +26049,10 @@ static const unsigned char temp_binary_data_128[] =
 "#X connect 13 0 4 0;\n"
 "#X connect 13 0 5 0;\n";
 
-const char* schmitt_pd = (const char*) temp_binary_data_128;
+const char* schmitt_pd = (const char*) temp_binary_data_136;
 
 //================== scramble.pd ==================
-static const unsigned char temp_binary_data_129[] =
+static const unsigned char temp_binary_data_137[] =
 "#N canvas 586 235 795 442 12;\n"
 "#X declare -path else;\n"
 "#X obj 121 129 list length;\n"
@@ -25352,10 +26144,10 @@ static const unsigned char temp_binary_data_129[] =
 "#X connect 22 0 4 0;\n"
 "#X connect 22 0 7 1;\n";
 
-const char* scramble_pd = (const char*) temp_binary_data_129;
+const char* scramble_pd = (const char*) temp_binary_data_137;
 
 //================== sequencer.pd ==================
-static const unsigned char temp_binary_data_130[] =
+static const unsigned char temp_binary_data_138[] =
 "#N canvas 687 195 575 767 10;\n"
 "#X declare -path else;\n"
 "#X obj 54 315 args;\n"
@@ -25467,10 +26259,10 @@ static const unsigned char temp_binary_data_130[] =
 "#X connect 47 0 48 0;\n"
 "#X connect 50 1 19 0;\n";
 
-const char* sequencer_pd = (const char*) temp_binary_data_130;
+const char* sequencer_pd = (const char*) temp_binary_data_138;
 
 //================== setdsp~.pd ==================
-static const unsigned char temp_binary_data_131[] =
+static const unsigned char temp_binary_data_139[] =
 "#N canvas 615 301 354 334 10;\n"
 "#X declare -path else;\n"
 "#X obj 51 101 tgl 42 0 \\$0-tgl-s \\$0-tgl-r empty 1 8 1 9 -228856 -128992\n"
@@ -25604,10 +26396,10 @@ static const unsigned char temp_binary_data_131[] =
 "#X connect 9 0 0 0;\n"
 "#X coords 0 -1 1 1 44 72 2 50 100;\n";
 
-const char* setdsp_pd = (const char*) temp_binary_data_131;
+const char* setdsp_pd = (const char*) temp_binary_data_139;
 
 //================== slider2d.pd ==================
-static const unsigned char temp_binary_data_132[] =
+static const unsigned char temp_binary_data_140[] =
 { 35,78,32,99,97,110,118,97,115,32,53,53,52,32,49,56,52,32,55,48,52,32,52,48,55,32,49,48,59,10,35,88,32,100,101,99,108,97,114,101,32,45,112,97,116,104,32,101,108,115,101,59,10,35,78,32,99,97,110,118,97,115,32,52,51,48,32,49,57,50,32,53,57,55,32,50,57,57,
 32,92,36,48,45,112,111,105,110,116,32,48,59,10,35,88,32,111,98,106,32,50,48,32,49,48,49,32,114,32,92,36,48,45,118,105,115,59,10,35,88,32,111,98,106,32,50,57,50,32,55,57,32,114,32,92,36,48,45,103,114,105,100,59,10,35,88,32,111,98,106,32,49,50,32,49,57,
 32,115,116,114,117,99,116,32,92,36,48,45,112,111,105,110,116,32,102,108,111,97,116,32,120,48,32,102,108,111,97,116,32,121,48,32,102,108,111,97,116,32,120,115,32,102,108,111,97,116,32,121,115,32,102,108,111,97,116,10,102,103,32,102,108,111,97,116,32,105,
@@ -26068,10 +26860,10 @@ static const unsigned char temp_binary_data_132[] =
 88,32,99,111,110,110,101,99,116,32,54,32,48,32,50,32,48,59,10,35,88,32,99,111,110,110,101,99,116,32,56,32,48,32,49,51,32,48,59,10,35,88,32,99,111,110,110,101,99,116,32,57,32,48,32,52,32,48,59,10,35,88,32,99,111,110,110,101,99,116,32,49,48,32,48,32,50,
 32,49,59,10,35,88,32,99,111,110,110,101,99,116,32,49,51,32,48,32,57,32,48,59,10,0,0 };
 
-const char* slider2d_pd = (const char*) temp_binary_data_132;
+const char* slider2d_pd = (const char*) temp_binary_data_140;
 
 //================== spectrograph~.pd ==================
-static const unsigned char temp_binary_data_133[] =
+static const unsigned char temp_binary_data_141[] =
 "#N canvas 739 259 598 342 10;\n"
 "#X declare -path else;\n"
 "#N canvas 404 536 523 256 guts 0;\n"
@@ -26588,10 +27380,10 @@ static const unsigned char temp_binary_data_133[] =
 "#X connect 6 1 0 1;\n"
 "#X coords 0 1 100 -1 300 140 2 51 100;\n";
 
-const char* spectrograph_pd = (const char*) temp_binary_data_133;
+const char* spectrograph_pd = (const char*) temp_binary_data_141;
 
 //================== stack.pd ==================
-static const unsigned char temp_binary_data_134[] =
+static const unsigned char temp_binary_data_142[] =
 "#N canvas 704 281 463 195 10;\n"
 "#X declare -path else;\n"
 "#N canvas 672 186 418 226 guts 0;\n"
@@ -26839,10 +27631,10 @@ static const unsigned char temp_binary_data_134[] =
 "#X connect 1 0 7 0;\n"
 "#X connect 4 0 0 0;\n";
 
-const char* stack_pd = (const char*) temp_binary_data_134;
+const char* stack_pd = (const char*) temp_binary_data_142;
 
 //================== status.pd ==================
-static const unsigned char temp_binary_data_135[] =
+static const unsigned char temp_binary_data_143[] =
 "#N canvas 493 57 573 330 10;\n"
 "#X declare -path else;\n"
 "#X obj 177 156 == 0;\n"
@@ -26880,10 +27672,10 @@ static const unsigned char temp_binary_data_135[] =
 "#X connect 14 1 5 0;\n"
 "#X connect 15 0 6 0;\n";
 
-const char* status_pd = (const char*) temp_binary_data_135;
+const char* status_pd = (const char*) temp_binary_data_143;
 
 //================== stepnoise.pd ==================
-static const unsigned char temp_binary_data_136[] =
+static const unsigned char temp_binary_data_144[] =
 "#N canvas 651 163 523 375 10;\n"
 "#X declare -path else;\n"
 "#X obj 101 43 inlet;\n"
@@ -26945,10 +27737,10 @@ static const unsigned char temp_binary_data_136[] =
 "#X connect 11 0 7 0;\n"
 "#X connect 12 0 6 0;\n";
 
-const char* stepnoise_pd = (const char*) temp_binary_data_136;
+const char* stepnoise_pd = (const char*) temp_binary_data_144;
 
 //================== stereo.rev~.pd ==================
-static const unsigned char temp_binary_data_137[] =
+static const unsigned char temp_binary_data_145[] =
 { 35,78,32,99,97,110,118,97,115,32,53,57,48,32,57,57,32,53,52,56,32,51,54,55,32,49,48,59,10,35,88,32,100,101,99,108,97,114,101,32,45,112,97,116,104,32,101,108,115,101,59,10,35,88,32,116,101,120,116,32,51,48,57,32,49,52,53,32,80,97,114,116,32,111,102,32,
 69,76,83,69,32,92,59,32,104,116,116,112,115,58,47,47,103,105,116,104,117,98,46,99,111,109,47,112,111,114,114,101,115,47,112,100,45,101,108,115,101,59,10,35,88,32,116,101,120,116,32,51,49,49,32,49,50,54,32,65,108,101,120,97,110,100,114,101,32,84,111,114,
 114,101,115,32,80,111,114,114,101,115,32,40,50,48,49,57,41,59,10,35,78,32,99,97,110,118,97,115,32,51,51,50,32,57,55,32,52,54,57,32,51,51,56,32,115,101,116,32,48,59,10,35,88,32,111,98,106,32,53,54,32,51,57,32,105,110,108,101,116,59,10,35,78,32,99,97,110,
@@ -27499,10 +28291,10 @@ static const unsigned char temp_binary_data_137[] =
 32,49,59,10,35,88,32,99,111,110,110,101,99,116,32,56,32,48,32,49,51,32,48,59,10,35,88,32,99,111,110,110,101,99,116,32,49,49,32,48,32,57,32,48,59,10,35,88,32,99,111,110,110,101,99,116,32,49,49,32,49,32,49,48,32,48,59,10,35,88,32,99,111,110,110,101,99,
 116,32,49,50,32,48,32,54,32,48,59,10,35,88,32,99,111,110,110,101,99,116,32,49,50,32,48,32,49,49,32,48,59,10,35,88,32,99,111,110,110,101,99,116,32,49,50,32,49,32,50,32,48,59,10,35,88,32,99,111,110,110,101,99,116,32,49,51,32,48,32,49,49,32,52,59,10,0,0 };
 
-const char* stereo_rev_pd = (const char*) temp_binary_data_137;
+const char* stereo_rev_pd = (const char*) temp_binary_data_145;
 
 //================== stream.pd ==================
-static const unsigned char temp_binary_data_138[] =
+static const unsigned char temp_binary_data_146[] =
 "#N canvas 832 287 481 281 10;\n"
 "#X declare -path else;\n"
 "#X obj 138 64 t f b;\n"
@@ -27562,10 +28354,10 @@ static const unsigned char temp_binary_data_138[] =
 "#X connect 12 0 4 1;\n"
 "#X connect 12 1 4 0;\n";
 
-const char* stream_pd = (const char*) temp_binary_data_138;
+const char* stream_pd = (const char*) temp_binary_data_146;
 
 //================== stretch.shift~.pd ==================
-static const unsigned char temp_binary_data_139[] =
+static const unsigned char temp_binary_data_147[] =
 "#N canvas 624 131 600 329 10;\n"
 "#X declare -path else;\n"
 "#X obj 112 48 inlet;\n"
@@ -27755,10 +28547,10 @@ static const unsigned char temp_binary_data_139[] =
 "#X connect 14 0 6 0;\n"
 "#X connect 14 1 12 0;\n";
 
-const char* stretch_shift_pd = (const char*) temp_binary_data_139;
+const char* stretch_shift_pd = (const char*) temp_binary_data_147;
 
 //================== sum.pd ==================
-static const unsigned char temp_binary_data_140[] =
+static const unsigned char temp_binary_data_148[] =
 "#N canvas 789 137 597 338 10;\n"
 "#X obj 108 214 array sum \\$0-sum;\n"
 "#X obj 179 99 list length;\n"
@@ -27780,10 +28572,10 @@ static const unsigned char temp_binary_data_140[] =
 "#X connect 7 0 2 0;\n"
 "#X connect 10 0 4 0;\n";
 
-const char* sum_pd = (const char*) temp_binary_data_140;
+const char* sum_pd = (const char*) temp_binary_data_148;
 
 //================== sysrt.in.pd ==================
-static const unsigned char temp_binary_data_141[] =
+static const unsigned char temp_binary_data_149[] =
 "#N canvas 589 218 628 194 10;\n"
 "#X obj 58 40 inlet;\n"
 "#X obj 58 110 outlet;\n"
@@ -27803,10 +28595,10 @@ static const unsigned char temp_binary_data_141[] =
 "#X connect 2 4 6 0;\n"
 "#X connect 2 5 7 0;\n";
 
-const char* sysrt_in_pd = (const char*) temp_binary_data_141;
+const char* sysrt_in_pd = (const char*) temp_binary_data_149;
 
 //================== sysrt.out.pd ==================
-static const unsigned char temp_binary_data_142[] =
+static const unsigned char temp_binary_data_150[] =
 "#N canvas 657 214 647 259 10;\n"
 "#X obj 89 29 inlet;\n"
 "#X text 397 130 Part of ELSE \\; https://github.com/porres/pd-else;\n"
@@ -27835,10 +28627,10 @@ static const unsigned char temp_binary_data_142[] =
 "#X connect 9 5 7 0;\n"
 "#X connect 11 0 9 0;\n";
 
-const char* sysrt_out_pd = (const char*) temp_binary_data_142;
+const char* sysrt_out_pd = (const char*) temp_binary_data_150;
 
 //================== tempo.pd ==================
-static const unsigned char temp_binary_data_143[] =
+static const unsigned char temp_binary_data_151[] =
 "#N canvas 764 198 528 467 10;\n"
 "#X declare -path else;\n"
 "#X obj 35 214 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0\n"
@@ -27996,10 +28788,10 @@ static const unsigned char temp_binary_data_143[] =
 "#X connect 31 0 28 0;\n"
 "#X connect 31 1 30 0;\n";
 
-const char* tempo_pd = (const char*) temp_binary_data_143;
+const char* tempo_pd = (const char*) temp_binary_data_151;
 
 //================== timed.gate.pd ==================
-static const unsigned char temp_binary_data_144[] =
+static const unsigned char temp_binary_data_152[] =
 "#N canvas 602 115 829 690 12;\n"
 "#X declare -path else;\n"
 "#X obj 156 272 f 1;\n"
@@ -28045,10 +28837,10 @@ static const unsigned char temp_binary_data_144[] =
 "#X connect 16 3 3 1;\n"
 "#X connect 17 0 2 0;\n";
 
-const char* timed_gate_pd = (const char*) temp_binary_data_144;
+const char* timed_gate_pd = (const char*) temp_binary_data_152;
 
 //================== tremolo~.pd ==================
-static const unsigned char temp_binary_data_145[] =
+static const unsigned char temp_binary_data_153[] =
 "#N canvas 708 152 709 445 10;\n"
 "#X declare -path else;\n"
 "#X obj 186 258 *~;\n"
@@ -28104,10 +28896,10 @@ static const unsigned char temp_binary_data_145[] =
 "#X connect 23 0 22 0;\n"
 "#X connect 24 0 14 0;\n";
 
-const char* tremolo_pd = (const char*) temp_binary_data_145;
+const char* tremolo_pd = (const char*) temp_binary_data_153;
 
 //================== trig2bang.pd ==================
-static const unsigned char temp_binary_data_146[] =
+static const unsigned char temp_binary_data_154[] =
 "#N canvas 807 155 450 300 12;\n"
 "#X obj 67 104 != 0;\n"
 "#X obj 67 139 change;\n"
@@ -28121,10 +28913,10 @@ static const unsigned char temp_binary_data_146[] =
 "#X connect 2 0 0 0;\n"
 "#X connect 6 0 3 0;\n";
 
-const char* trig2bang_pd = (const char*) temp_binary_data_146;
+const char* trig2bang_pd = (const char*) temp_binary_data_154;
 
 //================== trig2bang~.pd ==================
-static const unsigned char temp_binary_data_147[] =
+static const unsigned char temp_binary_data_155[] =
 "#N canvas 723 209 650 214 12;\n"
 "#X text 354 93 Part of ELSE \\; https://github.com/porres/pd-else;\n"
 "#X text 356 74 Alexandre Torres Porres (2017);\n"
@@ -28136,10 +28928,10 @@ static const unsigned char temp_binary_data_147[] =
 "#X connect 3 0 5 0;\n"
 "#X connect 5 0 4 0;\n";
 
-const char* trig2bang_pd2 = (const char*) temp_binary_data_147;
+const char* trig2bang_pd2 = (const char*) temp_binary_data_155;
 
 //================== unite.pd ==================
-static const unsigned char temp_binary_data_148[] =
+static const unsigned char temp_binary_data_156[] =
 "#N canvas 583 202 822 289 10;\n"
 "#X declare -path else;\n"
 "#X obj 171 120 makefilename %g;\n"
@@ -28239,10 +29031,10 @@ static const unsigned char temp_binary_data_148[] =
 "#X connect 6 3 4 0;\n"
 "#X connect 7 0 4 1;\n";
 
-const char* unite_pd = (const char*) temp_binary_data_148;
+const char* unite_pd = (const char*) temp_binary_data_156;
 
 //================== vibrato~.pd ==================
-static const unsigned char temp_binary_data_149[] =
+static const unsigned char temp_binary_data_157[] =
 "#N canvas 574 142 761 514 12;\n"
 "#X declare -path else;\n"
 "#X obj 99 345 *~;\n"
@@ -28295,10 +29087,10 @@ static const unsigned char temp_binary_data_149[] =
 "#X connect 24 0 15 0;\n"
 "#X connect 25 0 15 1;\n";
 
-const char* vibrato_pd = (const char*) temp_binary_data_149;
+const char* vibrato_pd = (const char*) temp_binary_data_157;
 
 //================== vocoder~.pd ==================
-static const unsigned char temp_binary_data_150[] =
+static const unsigned char temp_binary_data_158[] =
 "#N canvas 696 205 555 265 10;\n"
 "#X declare -path else;\n"
 "#X obj 41 195 outlet~;\n"
@@ -28394,10 +29186,10 @@ static const unsigned char temp_binary_data_150[] =
 "#X connect 10 1 2 0;\n"
 "#X connect 11 0 2 1;\n";
 
-const char* vocoder_pd = (const char*) temp_binary_data_150;
+const char* vocoder_pd = (const char*) temp_binary_data_158;
 
 //================== CreditsAU ==================
-static const unsigned char temp_binary_data_151[] =
+static const unsigned char temp_binary_data_159[] =
 "Camomile is a free and open-source audio plugin with Pure Data embedded that offers to load and to control patches inside a digital audio workstation.\n"
 "\n"
 "Version: 1.0.6\n"
@@ -28411,10 +29203,10 @@ static const unsigned char temp_binary_data_151[] =
 "\xe2\x80\xa2 MoodyCamel by Cameron Desrochers\n"
 "\xe2\x80\xa2 Console icons by Gregor Cresnar\n";
 
-const char* CreditsAU = (const char*) temp_binary_data_151;
+const char* CreditsAU = (const char*) temp_binary_data_159;
 
 //================== CreditsLV2 ==================
-static const unsigned char temp_binary_data_152[] =
+static const unsigned char temp_binary_data_160[] =
 "Camomile is a free and open-source audio plugin with Pure Data embedded that offers to load and to control patches inside a digital audio workstation.\n"
 "\n"
 "Version: 1.0.6\n"
@@ -28430,10 +29222,10 @@ static const unsigned char temp_binary_data_152[] =
 "\xe2\x80\xa2 MoodyCamel by Cameron Desrochers\n"
 "\xe2\x80\xa2 Console icons by Gregor Cresnar\n";
 
-const char* CreditsLV2 = (const char*) temp_binary_data_152;
+const char* CreditsLV2 = (const char*) temp_binary_data_160;
 
 //================== CreditsVST ==================
-static const unsigned char temp_binary_data_153[] =
+static const unsigned char temp_binary_data_161[] =
 "Camomile is a free and open-source audio plugin with Pure Data embedded that offers to load and to control patches inside a digital audio workstation.\n"
 "\n"
 "Version: 1.0.6\n"
@@ -28448,10 +29240,10 @@ static const unsigned char temp_binary_data_153[] =
 "\xe2\x80\xa2 MoodyCamel by Cameron Desrochers\n"
 "\xe2\x80\xa2 Console icons by Gregor Cresnar\n";
 
-const char* CreditsVST = (const char*) temp_binary_data_153;
+const char* CreditsVST = (const char*) temp_binary_data_161;
 
 //================== DejaVuSansMono.ttf ==================
-static const unsigned char temp_binary_data_154[] =
+static const unsigned char temp_binary_data_162[] =
 { 0,1,0,0,0,18,1,0,0,4,0,32,70,70,84,77,115,193,244,240,0,0,1,44,0,0,0,28,71,68,69,70,128,214,115,112,0,0,1,72,0,0,0,176,71,80,79,83,47,32,213,201,0,0,1,248,0,0,57,246,71,83,85,66,92,138,144,134,0,0,59,240,0,0,4,212,79,83,47,50,140,252,138,178,0,0,64,196,
 0,0,0,86,99,109,97,112,95,210,149,209,0,0,65,28,0,0,22,78,99,118,116,32,233,151,7,12,0,0,87,108,0,0,2,48,102,112,103,109,91,2,107,223,0,0,89,156,0,0,0,172,103,97,115,112,0,7,0,7,0,0,90,72,0,0,0,12,103,108,121,102,154,139,23,178,0,0,90,84,0,3,227,8,104,
 101,97,100,7,255,0,224,0,4,61,92,0,0,0,54,104,104,101,97,8,184,2,7,0,4,61,148,0,0,0,36,104,109,116,120,73,16,76,2,0,4,61,184,0,0,26,106,108,111,99,97,24,162,167,80,0,4,88,36,0,0,52,200,109,97,120,112,18,215,4,39,0,4,140,236,0,0,0,32,110,97,109,101,96,
@@ -32465,10 +33257,10 @@ static const unsigned char temp_binary_data_154[] =
 43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,
 43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,29,0,0,0 };
 
-const char* DejaVuSansMono_ttf = (const char*) temp_binary_data_154;
+const char* DejaVuSansMono_ttf = (const char*) temp_binary_data_162;
 
 //================== copy.png ==================
-static const unsigned char temp_binary_data_155[] =
+static const unsigned char temp_binary_data_163[] =
 { 137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,2,0,0,0,2,0,8,3,0,0,0,195,166,36,200,0,0,0,3,115,66,73,84,8,8,8,219,225,79,224,0,0,0,9,112,72,89,115,0,0,14,131,0,0,14,131,1,56,78,237,13,0,0,0,25,116,69,88,116,83,111,102,116,119,97,114,101,0,119,119,
 119,46,105,110,107,115,99,97,112,101,46,111,114,103,155,238,60,26,0,0,2,139,80,76,84,69,255,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -32519,10 +33311,10 @@ static const unsigned char temp_binary_data_155[] =
 174,153,245,33,139,52,44,108,215,246,103,210,190,176,33,100,147,161,139,61,40,250,201,116,46,30,26,178,74,211,42,4,62,86,255,170,166,144,93,6,77,90,237,76,240,223,99,255,234,73,131,66,158,233,55,126,89,238,143,10,181,46,27,223,47,228,156,218,230,9,83,
 231,47,89,179,121,71,94,143,142,119,237,216,188,102,201,252,169,19,154,107,171,170,173,127,3,217,192,72,154,199,230,175,22,0,0,0,0,73,69,78,68,174,66,96,130,0,0 };
 
-const char* copy_png = (const char*) temp_binary_data_155;
+const char* copy_png = (const char*) temp_binary_data_163;
 
 //================== flower_center.png ==================
-static const unsigned char temp_binary_data_156[] =
+static const unsigned char temp_binary_data_164[] =
 { 137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,2,0,0,0,2,0,8,6,0,0,0,244,120,212,250,0,0,0,6,98,75,71,68,0,255,0,255,0,255,160,189,167,147,0,0,0,9,112,72,89,115,0,0,11,19,0,0,11,19,1,0,154,156,24,0,0,0,7,116,73,77,69,7,223,9,12,14,31,51,16,110,155,
 17,0,0,12,112,73,68,65,84,120,218,237,221,77,142,220,56,18,6,80,185,209,62,129,119,188,80,157,217,23,138,157,79,80,139,234,69,163,225,114,117,101,165,126,72,49,72,190,7,24,24,140,61,202,212,207,40,62,134,40,230,182,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -32565,10 +33357,10 @@ static const unsigned char temp_binary_data_156[] =
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,104,228,31,147,91,47,206,240,210,17,157,0,0,0,0,73,69,78,68,174,66,96,130,0,0 };
 
-const char* flower_center_png = (const char*) temp_binary_data_156;
+const char* flower_center_png = (const char*) temp_binary_data_164;
 
 //================== flower_petals.png ==================
-static const unsigned char temp_binary_data_157[] =
+static const unsigned char temp_binary_data_165[] =
 { 137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,2,0,0,0,2,0,8,6,0,0,0,244,120,212,250,0,0,0,6,98,75,71,68,0,255,0,255,0,255,160,189,167,147,0,0,0,9,112,72,89,115,0,0,11,19,0,0,11,19,1,0,154,156,24,0,0,0,7,116,73,77,69,7,224,3,11,14,50,54,98,101,160,
 17,0,0,32,0,73,68,65,84,120,218,237,189,61,139,36,91,180,37,182,118,113,25,198,120,204,205,246,158,241,160,163,153,135,24,239,102,123,18,188,161,163,97,92,81,121,145,37,16,84,148,39,75,93,23,198,239,236,31,32,170,26,253,128,202,178,198,236,44,70,150,
 64,84,20,204,128,188,202,244,198,120,168,179,96,140,231,117,166,120,134,144,115,100,196,142,174,172,236,250,200,143,136,115,246,57,103,45,40,186,239,71,119,68,236,179,207,222,107,127,156,125,4,4,65,36,3,231,220,7,253,237,16,192,0,64,161,63,45,54,255,
@@ -32881,10 +33673,10 @@ static const unsigned char temp_binary_data_157[] =
 145,32,72,0,8,130,232,134,12,148,250,171,149,204,192,10,192,20,205,144,35,58,125,130,32,1,32,8,162,103,66,48,68,115,138,160,253,241,149,33,184,5,48,107,127,120,126,159,32,72,0,8,130,176,65,10,6,74,8,6,0,10,253,105,81,224,249,185,3,247,0,22,107,255,188,
 208,159,165,58,251,37,157,61,65,164,131,255,31,36,166,129,112,251,243,66,102,0,0,0,0,73,69,78,68,174,66,96,130,0,0 };
 
-const char* flower_petals_png = (const char*) temp_binary_data_157;
+const char* flower_petals_png = (const char*) temp_binary_data_165;
 
 //================== garbage.png ==================
-static const unsigned char temp_binary_data_158[] =
+static const unsigned char temp_binary_data_166[] =
 { 137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,2,0,0,0,2,0,8,3,0,0,0,195,166,36,200,0,0,0,3,115,66,73,84,8,8,8,219,225,79,224,0,0,0,9,112,72,89,115,0,0,14,146,0,0,14,146,1,163,29,31,35,0,0,0,25,116,69,88,116,83,111,102,116,119,97,114,101,0,119,119,
 119,46,105,110,107,115,99,97,112,101,46,111,114,103,155,238,60,26,0,0,2,169,80,76,84,69,255,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -32950,10 +33742,10 @@ static const unsigned char temp_binary_data_158[] =
 236,224,117,214,126,35,215,15,46,75,212,2,152,219,199,229,28,15,252,29,35,225,227,57,227,110,215,130,155,46,147,222,205,253,45,160,207,17,213,254,150,251,238,164,46,26,209,162,18,158,153,191,102,115,94,65,225,169,178,63,253,190,245,63,203,78,21,22,228,
 109,94,51,255,153,4,41,110,245,253,63,97,35,250,251,59,171,235,192,0,0,0,0,73,69,78,68,174,66,96,130,0,0 };
 
-const char* garbage_png = (const char*) temp_binary_data_158;
+const char* garbage_png = (const char*) temp_binary_data_166;
 
 //================== reload.png ==================
-static const unsigned char temp_binary_data_159[] =
+static const unsigned char temp_binary_data_167[] =
 { 137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,2,0,0,0,2,0,8,3,0,0,0,195,166,36,200,0,0,0,3,115,66,73,84,8,8,8,219,225,79,224,0,0,0,9,112,72,89,115,0,0,14,121,0,0,14,121,1,98,20,222,69,0,0,0,25,116,69,88,116,83,111,102,116,119,97,114,101,0,119,119,
 119,46,105,110,107,115,99,97,112,101,46,111,114,103,155,238,60,26,0,0,3,0,80,76,84,69,255,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -33069,10 +33861,10 @@ static const unsigned char temp_binary_data_159[] =
 20,121,1,70,24,120,135,2,153,165,96,132,129,42,169,188,182,15,97,132,133,251,120,77,41,37,96,132,135,169,188,150,78,48,194,68,204,118,254,209,19,48,194,70,217,245,252,157,236,1,48,194,136,235,225,11,252,181,61,245,96,132,151,18,115,249,63,251,7,229,131,
 17,118,42,13,250,116,207,185,140,147,159,140,104,234,130,161,154,255,3,196,114,3,2,196,188,231,130,0,0,0,0,73,69,78,68,174,66,96,130,0,0 };
 
-const char* reload_png = (const char*) temp_binary_data_159;
+const char* reload_png = (const char*) temp_binary_data_167;
 
 //================== settings.png ==================
-static const unsigned char temp_binary_data_160[] =
+static const unsigned char temp_binary_data_168[] =
 { 137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,2,0,0,0,2,0,8,3,0,0,0,195,166,36,200,0,0,0,3,115,66,73,84,8,8,8,219,225,79,224,0,0,0,9,112,72,89,115,0,0,14,206,0,0,14,206,1,206,95,197,247,0,0,0,25,116,69,88,116,83,111,102,116,119,97,114,101,0,119,119,
 119,46,105,110,107,115,99,97,112,101,46,111,114,103,155,238,60,26,0,0,3,0,80,76,84,69,255,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -33246,7 +34038,7 @@ static const unsigned char temp_binary_data_160[] =
 82,123,47,134,175,68,169,183,136,234,68,223,172,2,95,73,211,246,253,24,149,40,122,163,9,124,37,81,243,25,197,180,45,239,229,122,240,149,84,213,111,152,186,151,54,236,154,112,117,5,248,74,182,22,247,189,240,246,39,27,15,199,24,135,232,129,13,203,223,12,
 221,217,16,127,122,255,15,174,60,73,225,178,56,111,16,0,0,0,0,73,69,78,68,174,66,96,130,0,0 };
 
-const char* settings_png = (const char*) temp_binary_data_160;
+const char* settings_png = (const char*) temp_binary_data_168;
 
 
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
@@ -33263,10 +34055,12 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
         case 0xab362a52:  numBytes = 591; return add_pd;
         case 0x6eb7071b:  numBytes = 2428; return allpass_filt_pd;
         case 0xac2810f5:  numBytes = 1636; return any2symbol_pd;
+        case 0x10147f0c:  numBytes = 3355; return autotune_pd;
+        case 0xf266afc8:  numBytes = 2802; return autotune2_pd;
         case 0xac352e81:  numBytes = 681; return avg_pd;
         case 0x4e11d49a:  numBytes = 1613; return bangdiv_pd;
-        case 0x0197a0a8:  numBytes = 4025; return batch_rec_pd;
-        case 0xbca8f5b9:  numBytes = 3715; return batch_write_pd;
+        case 0x0197a0a8:  numBytes = 3903; return batch_rec_pd;
+        case 0xbca8f5b9:  numBytes = 3714; return batch_write_pd;
         case 0xe1720b09:  numBytes = 2386; return bin_shift_pd;
         case 0x40e593eb:  numBytes = 9304; return biplot_pd;
         case 0xf002a0dc:  numBytes = 759; return bl_imp_pd;
@@ -33303,15 +34097,20 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
         case 0x002f5c0e:  numBytes = 776; return e_pd;
         case 0xe6cfa26a:  numBytes = 2260; return echo_rev_pd;
         case 0x1e0f90c3:  numBytes = 1454; return envelope_pd;
+        case 0x061a340e:  numBytes = 1092; return eqdiv_pd;
         case 0x2c34261f:  numBytes = 1487; return euclid_pd;
         case 0x0109d5b9:  numBytes = 1885; return expand_pd;
         case 0xaee90ff2:  numBytes = 1427; return flanger_pd;
+        case 0x672c86ac:  numBytes = 615; return frac2ratio_pd;
         case 0x0068e843:  numBytes = 21008; return free_rev_pd;
         case 0xe79f9c9c:  numBytes = 1482; return freeze_pd;
         case 0xf42302b4:  numBytes = 9741; return gain_pd;
         case 0x9028a120:  numBytes = 10165; return gain2_pd;
         case 0xe3c39a49:  numBytes = 698; return gatehold_pd;
-        case 0x32d556eb:  numBytes = 13079; return gran_player_pd;
+        case 0x4d8dc663:  numBytes = 3573; return grain_live_pd;
+        case 0xc5f5dfcf:  numBytes = 2597; return grain_sampler_pd;
+        case 0x7ce7691b:  numBytes = 2505; return grain_synth_pd;
+        case 0x32d556eb:  numBytes = 13372; return gran_player_pd;
         case 0x06008685:  numBytes = 10300; return graph_pd;
         case 0x1e2e77b4:  numBytes = 2275; return group_pd;
         case 0x294fb37a:  numBytes = 1202; return hann_pd;
@@ -33323,7 +34122,6 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
         case 0x418c3c18:  numBytes = 1284; return lastvalue_pd;
         case 0x6e85b0b3:  numBytes = 2431; return lfnoise_pd;
         case 0xbe1ca83e:  numBytes = 15833; return lfo_pd;
-        case 0x456b48f8:  numBytes = 1413; return limit_pd;
         case 0x3e292e34:  numBytes = 373; return lin2db_pd;
         case 0x86fc987e:  numBytes = 337; return lin2db_pd2;
         case 0x63f422ac:  numBytes = 3323; return lop_bw_pd;
@@ -33337,6 +34135,7 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
         case 0xc804ec2a:  numBytes = 2619; return meter2_pd;
         case 0xc805d4e8:  numBytes = 4813; return meter4_pd;
         case 0xc807a664:  numBytes = 9439; return meter8_pd;
+        case 0xbb355eca:  numBytes = 592; return midi2freq_pd;
         case 0x3fe7457d:  numBytes = 7879; return mix2_pd;
         case 0x3fe82e3b:  numBytes = 14925; return mix4_pd;
         case 0x49b328d0:  numBytes = 5614; return mono_pd;
@@ -33365,26 +34164,27 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
         case 0x838ecdce:  numBytes = 1184; return ping_pong_pd;
         case 0xd9a0b4f0:  numBytes = 1553; return pitch_shift_pd;
         case 0x529f7059:  numBytes = 9731; return plate_rev_pd;
-        case 0x2bf9798c:  numBytes = 22302; return play_file_pd;
-        case 0x906ae012:  numBytes = 11675; return player_pd;
+        case 0x2bf9798c:  numBytes = 22688; return play_file_pd;
+        case 0x906ae012:  numBytes = 11904; return player_pd;
         case 0x00401204:  numBytes = 362; return pol2car_pd;
         case 0x07c22eae:  numBytes = 367; return pol2car_pd2;
         case 0x5e8c045a:  numBytes = 5603; return pulse_pd;
         case 0x3ac5a0f7:  numBytes = 4837; return pvoc_freeze_pd;
         case 0xd8fd6942:  numBytes = 7155; return pvoc_live_pd;
-        case 0xe390e46d:  numBytes = 13729; return pvoc_player_pd;
+        case 0xe390e46d:  numBytes = 13860; return pvoc_player_pd;
         case 0x053ed74b:  numBytes = 1784; return rampnoise_pd;
         case 0x18995b7f:  numBytes = 5715; return randpulse_pd;
         case 0xfa7d61b5:  numBytes = 1308; return randpulse2_pd;
         case 0xcc206f74:  numBytes = 24206; return range_hsl_pd;
         case 0x0f125436:  numBytes = 1033; return range_pd;
-        case 0x5ee18ae8:  numBytes = 5457; return rec_file_pd;
+        case 0x5ee18ae8:  numBytes = 5463; return rec_file_pd;
         case 0xc0aa5778:  numBytes = 2181; return resonbank_pd;
         case 0x548be4dc:  numBytes = 2413; return resonbank2_pd;
+        case 0xc8877208:  numBytes = 2385; return retune_pd;
         case 0xd1609c71:  numBytes = 1033; return reverse_pd;
         case 0x06797678:  numBytes = 848; return rm_pd;
         case 0xb586d358:  numBytes = 753; return rotate_pd;
-        case 0x425724a9:  numBytes = 23298; return sample_pd;
+        case 0x425724a9:  numBytes = 23073; return sample_pd;
         case 0x252bb6dd:  numBytes = 683; return samps2ms_pd;
         case 0x804b24f5:  numBytes = 391; return samps2ms_pd2;
         case 0x86bbe0df:  numBytes = 715; return schmitt_pd;
@@ -33433,6 +34233,8 @@ const char* namedResourceList[] =
     "add_pd",
     "allpass_filt_pd",
     "any2symbol_pd",
+    "autotune_pd",
+    "autotune2_pd",
     "avg_pd",
     "bangdiv_pd",
     "batch_rec_pd",
@@ -33473,14 +34275,19 @@ const char* namedResourceList[] =
     "e_pd",
     "echo_rev_pd",
     "envelope_pd",
+    "eqdiv_pd",
     "euclid_pd",
     "expand_pd",
     "flanger_pd",
+    "frac2ratio_pd",
     "free_rev_pd",
     "freeze_pd",
     "gain_pd",
     "gain2_pd",
     "gatehold_pd",
+    "grain_live_pd",
+    "grain_sampler_pd",
+    "grain_synth_pd",
     "gran_player_pd",
     "graph_pd",
     "group_pd",
@@ -33493,7 +34300,6 @@ const char* namedResourceList[] =
     "lastvalue_pd",
     "lfnoise_pd",
     "lfo_pd",
-    "limit_pd",
     "lin2db_pd",
     "lin2db_pd2",
     "lop_bw_pd",
@@ -33507,6 +34313,7 @@ const char* namedResourceList[] =
     "meter2_pd",
     "meter4_pd",
     "meter8_pd",
+    "midi2freq_pd",
     "mix2_pd",
     "mix4_pd",
     "mono_pd",
@@ -33551,6 +34358,7 @@ const char* namedResourceList[] =
     "rec_file_pd",
     "resonbank_pd",
     "resonbank2_pd",
+    "retune_pd",
     "reverse_pd",
     "rm_pd",
     "rotate_pd",
@@ -33598,6 +34406,8 @@ const char* originalFilenames[] =
     "add.pd",
     "allpass.filt~.pd",
     "any2symbol.pd",
+    "autotune.pd",
+    "autotune2.pd",
     "avg.pd",
     "bangdiv.pd",
     "batch.rec~.pd",
@@ -33638,14 +34448,19 @@ const char* originalFilenames[] =
     "e.pd",
     "echo.rev~.pd",
     "envelope~.pd",
+    "eqdiv.pd",
     "euclid.pd",
     "expand~.pd",
     "flanger~.pd",
+    "frac2ratio.pd",
     "free.rev~.pd",
     "freeze~.pd",
     "gain~.pd",
     "gain2~.pd",
     "gatehold~.pd",
+    "grain.live~.pd",
+    "grain.sampler~.pd",
+    "grain.synth~.pd",
     "gran.player~.pd",
     "graph~.pd",
     "group.pd",
@@ -33658,7 +34473,6 @@ const char* originalFilenames[] =
     "lastvalue.pd",
     "lfnoise.pd",
     "lfo.pd",
-    "limit.pd",
     "lin2db.pd",
     "lin2db~.pd",
     "lop.bw~.pd",
@@ -33672,6 +34486,7 @@ const char* originalFilenames[] =
     "meter2~.pd",
     "meter4~.pd",
     "meter8~.pd",
+    "midi2freq.pd",
     "mix2~.pd",
     "mix4~.pd",
     "mono.pd",
@@ -33716,6 +34531,7 @@ const char* originalFilenames[] =
     "rec.file~.pd",
     "resonbank~.pd",
     "resonbank2~.pd",
+    "retune.pd",
     "reverse.pd",
     "rm~.pd",
     "rotate.pd",

@@ -3,7 +3,7 @@
 #include "m_pd.h"
 #include <math.h>
 
-#define PI M_PI
+#define PI 3.14159265358979323846
 #define HALF_LOG2 log(2)/2
 
 typedef struct _highpass {

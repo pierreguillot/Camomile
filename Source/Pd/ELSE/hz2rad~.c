@@ -3,6 +3,8 @@
 #include "m_pd.h"
 #include <math.h>
 
+#define TWO_PI 3.14159265358979323846 * 2
+
 static t_class *hz2rad_class;
 
 typedef struct _hz2rad {
@@ -24,13 +26,13 @@ static t_int * hz2rad_perform(t_int *w){
 }
 
 static void hz2rad_dsp(t_hz2rad *x, t_signal **sp){
-      x->x_radps = 2 * M_PI / sp[0]->s_sr;
+      x->x_radps = TWO_PI / sp[0]->s_sr;
       dsp_add(hz2rad_perform, 4, x, sp[0]->s_n, sp[0]->s_vec, sp[1]->s_vec);
 }
 
 void *hz2rad_new(void){
     t_hz2rad *x = (t_hz2rad *)pd_new(hz2rad_class);
-    x->x_radps = 2 * M_PI / sys_getsr();
+    x->x_radps = TWO_PI / sys_getsr();
     x->x_outlet = outlet_new(&x->x_obj, &s_signal);
     return (void *)x;
 }

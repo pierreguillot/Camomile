@@ -102,7 +102,7 @@ static void comment_initialize(t_comment *x){
     int n_args = binbuf_getnatom(bb) - 1; // number of arguments
     if(x->x_text_flag){ // let's get the text from the attribute
         int n = x->x_text_n, ac = x->x_text_size;
-        t_atom av[ac];
+        t_atom* av = (t_atom *)getbytes(ac*sizeof(t_atom));
         char buf[128];
         for(int i = 0;  i < ac; i++){
             atom_string(binbuf_getvec(bb) + n + 1 + i, buf, 128);
@@ -110,12 +110,13 @@ static void comment_initialize(t_comment *x){
         }
         binbuf_clear(x->x_binbuf);
         binbuf_restore(x->x_binbuf, ac, av);
+        freebytes(av, ac*sizeof(t_atom));
     }
     else{
         int n = x->x_old ? 8 : 14;
         if(n_args > n){
             int ac = n_args - n;
-            t_atom av[ac];
+            t_atom* av = (t_atom *)getbytes(ac*sizeof(t_atom));
             char buf[128];
             for(int i = 0;  i < ac; i++){
                 atom_string(binbuf_getvec(bb) + n + 1 + i, buf, 128);
@@ -123,6 +124,7 @@ static void comment_initialize(t_comment *x){
             }
             binbuf_clear(x->x_binbuf);
             binbuf_restore(x->x_binbuf, ac, av);
+            freebytes(av, ac*sizeof(t_atom));
         }
     }
     binbuf_gettext(x->x_binbuf, &x->x_buf, &x->x_bufsize);
@@ -801,7 +803,7 @@ static void comment_append(t_comment *x, t_symbol *s, int ac, t_atom * av){
         comment_initialize(x);
     if(ac){
         int n = binbuf_getnatom(x->x_binbuf); // number of arguments
-        t_atom at[n+ac];
+        t_atom* at = (t_atom *)getbytes((n+ac)*sizeof(t_atom));
         char buf[128];
         int i = 0;
         for(i = 0;  i < n; i++){
@@ -814,6 +816,7 @@ static void comment_append(t_comment *x, t_symbol *s, int ac, t_atom * av){
         binbuf_restore(x->x_binbuf, n+ac, at);
         binbuf_gettext(x->x_binbuf, &x->x_buf, &x->x_bufsize);
         comment_redraw(x);
+        freebytes(at, (n+ac)*sizeof(t_atom));
     }
 }
 
@@ -823,7 +826,7 @@ static void comment_prepend(t_comment *x, t_symbol *s, int ac, t_atom * av){
         comment_initialize(x);
     if(ac){
         int n = binbuf_getnatom(x->x_binbuf); // number of arguments
-        t_atom at[n+ac];
+        t_atom* at = (t_atom *)getbytes((n+ac)*sizeof(t_atom));
         char buf[128];
         int i = 0;
         for(i = 0; i < ac; i++)
@@ -836,6 +839,7 @@ static void comment_prepend(t_comment *x, t_symbol *s, int ac, t_atom * av){
         binbuf_restore(x->x_binbuf, n+ac, at);
         binbuf_gettext(x->x_binbuf, &x->x_buf, &x->x_bufsize);
         comment_redraw(x);
+        freebytes(at, (n+ac)*sizeof(t_atom));
     }
 }
 

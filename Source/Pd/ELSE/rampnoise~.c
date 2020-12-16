@@ -1,7 +1,6 @@
 // Porres 2017
 
 #include "m_pd.h"
-#include <stdlib.h>
 
 static t_class *rampnoise_class;
 
@@ -91,18 +90,17 @@ static void *rampnoise_free(t_rampnoise *x)
 static void *rampnoise_new(t_floatarg f)
 {
     t_rampnoise *x = (t_rampnoise *)pd_new(rampnoise_class);
-// seed
-    static int static_seed = 234599;
-    srand((int)clock_getlogicaltime());
-    static_seed *= (int)((int)rand() * 1319);
-    if(f >= 0)
+// default seed
+    static int seed = 234599;
+    seed *= 1319;
+    if (f >= 0)
         x->x_phase = 1.;
     x->x_freq = f;
 // get 1st output
-    x->x_ynp1 = (((float)((static_seed & 0x7fffffff) - 0x40000000)) * (float)(1.0 / 0x40000000));
-    x->x_val = static_seed * 435898247 + 382842987;
+    x->x_ynp1 = (((float)((seed & 0x7fffffff) - 0x40000000)) * (float)(1.0 / 0x40000000));
+    x->x_val = seed * 435898247 + 382842987;
     x->x_outlet = outlet_new(&x->x_obj, &s_signal);
-    return(x);
+    return (x);
 }
 
 void rampnoise_tilde_setup(void){

@@ -7,7 +7,7 @@
 static t_class *xgate_class;
 
 #define OUTPUTLIMIT 512
-#define HALF_PI (M_PI * 0.5)
+#define HALF_PI (3.14159265358979323846 * 0.5)
 
 typedef struct _xgate {
     t_object    x_obj;

@@ -3,7 +3,7 @@
 #include "m_pd.h"
 #include <math.h>
 
-#define PI M_PI
+#define PI 3.14159265358979323846
 #define LOG001 log(0.001)
 
 typedef struct _resonant2 {

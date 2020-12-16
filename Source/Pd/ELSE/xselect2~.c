@@ -2,7 +2,7 @@
 #include "m_pd.h"
 #include <math.h>
 
-#define HALF_PI (M_PI * 0.5)
+#define HALF_PI (3.14159265358979323846 * 0.5)
 #define MAXINTPUT 500
 
 typedef struct _xselect2

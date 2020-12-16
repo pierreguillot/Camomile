@@ -19,11 +19,11 @@ static int else_minor = 0;
 static int else_bugfix = 0;
 
 #define STATUS "beta"
-static int status_number = 35;
+static int status_number = 36;
 
 static void else_obj_version(t_else_obj *x){
     int ac = 5;
-    t_atom at[ac];
+    t_atom at[5];
     SETFLOAT(at, else_major);
     SETFLOAT(at+1, else_minor);
     SETFLOAT(at+2, else_bugfix);
@@ -39,7 +39,7 @@ void print_else_obj(t_else_obj *x){
     post("-------------------------------------------------------------------------------");
     post("  ~~~~~~~~~~|| ELSE - EL Locus Solus' Externals for Pure Data ||~~~~~~~~~~");
     post("-------------------------------------------------------------------------------");
-    post("- Version: 1.0-0 %s-%d; Released december 2nd 2020", STATUS, status_number);
+    post("- Version: 1.0-0 %s-%d; Released december 16th 2020", STATUS, status_number);
     post("- Author: Alexandre Torres Porres");
     post("- Repository: https://github.com/porres/pd-else");
     post("- License: Do What The Fuck You Want To Public License, unless otherwise noted");

@@ -2,7 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-#define HALF_PI (M_PI * 0.5)
+#define HALF_PI (3.14159265358979323846 * 0.5)
 
 static t_class *rotate_class;
 
@@ -12,7 +12,7 @@ typedef struct _rotate{
     t_float    *x_inbuf;
     t_float   **x_ins;      // array of input signal vectors
     t_float   **x_outs;     // array of output signal vectors
-    t_inlet    *x_inlet_pos
+    t_inlet    *x_inlet_pos;
 }t_rotate;
 
 static t_int *rotate_perform(t_int *w){

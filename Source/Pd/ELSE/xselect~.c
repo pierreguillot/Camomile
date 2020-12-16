@@ -7,7 +7,7 @@
 static t_class *xselect_class;
 
 #define INPUTLIMIT 512
-#define HALF_PI (M_PI * 0.5)
+#define HALF_PI (3.14159265358979323846 * 0.5)
 
 typedef struct _xselect{
     t_object    x_obj;

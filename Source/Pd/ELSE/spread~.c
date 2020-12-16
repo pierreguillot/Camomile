@@ -4,7 +4,7 @@
 
 static t_class *spread_class;
 
-#define HALF_PI (M_PI / 2)
+#define HALF_PI (3.14159265358979323846 * 0.5)
 
 typedef struct _spread{
     t_object    x_obj;

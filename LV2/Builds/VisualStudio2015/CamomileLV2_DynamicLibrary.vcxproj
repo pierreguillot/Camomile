@@ -420,6 +420,7 @@
     <ClCompile Include="..\..\..\Source\Pd\ELSE\latoocarfian~.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\lb.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\lfnoise~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\limit.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\lincong~.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\loadbanger.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\logistic~.c"/>
@@ -2642,6 +2643,8 @@
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\add.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\allpass.filt~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\any2symbol.pd"/>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\autotune.pd"/>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\autotune2.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\avg.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\bangdiv.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\batch.rec~.pd"/>
@@ -2682,14 +2685,19 @@
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\e.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\echo.rev~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\envelope~.pd"/>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\eqdiv.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\euclid.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\expand~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\flanger~.pd"/>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\frac2ratio.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\free.rev~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\freeze~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\gain~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\gain2~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\gatehold~.pd"/>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\grain.live~.pd"/>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\grain.sampler~.pd"/>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\grain.synth~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\gran.player~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\graph~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\group.pd"/>
@@ -2702,7 +2710,6 @@
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\lastvalue.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\lfnoise.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\lfo.pd"/>
-    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\limit.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\lin2db.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\lin2db~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\lop.bw~.pd"/>
@@ -2716,6 +2723,7 @@
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\meter2~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\meter4~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\meter8~.pd"/>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\midi2freq.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\mix2~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\mix4~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\mono.pd"/>
@@ -2760,6 +2768,7 @@
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\rec.file~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\resonbank~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\resonbank2~.pd"/>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\retune.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\reverse.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\rm~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\rotate.pd"/>

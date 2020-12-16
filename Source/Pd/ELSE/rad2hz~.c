@@ -3,7 +3,7 @@
 #include "m_pd.h"
 #include <math.h>
 
-#define TWO_PI (2 * M_PI)
+#define TWO_PI (2 * 3.14159265358979323846)
 
 static t_class *rad2hz_class;
 
@@ -38,7 +38,7 @@ static void rad2hz_dsp(t_rad2hz *x, t_signal **sp)
 void *rad2hz_new(void)
 {
   t_rad2hz *x = (t_rad2hz *)pd_new(rad2hz_class);
-  x->x_iradps = sys_getsr() / (2 * M_PI );
+  x->x_iradps = sys_getsr() / TWO_PI;
   x->x_outlet = outlet_new(&x->x_obj, &s_signal);
   return (void *)x;
 }

@@ -6,7 +6,7 @@
 #include "buffer.h"
 #include <stdlib.h>
 
-#define HALF_PI (M_PI * 0.5)
+#define HALF_PI (3.14159265358979323846 * 0.5)
 
 #define ONE_SIXTH 0.16666666666666666666667f
 #define SHARED_FLT_MAX  1E+36
@@ -86,6 +86,8 @@ static void tabplayer_ms2samp(t_play *x){ // get index from ms
 static void tabplayer_set(t_play *x, t_symbol *s){
     buffer_setarray(x->x_buffer, s);
     x->x_npts = x->x_buffer->c_npts;
+    x->x_start = 0;
+    x->x_end = x->x_npts;
     x->x_sr_ratio = x->x_array_sr_khz/x->x_sr;
 }
 
@@ -104,9 +106,12 @@ static void tabplayer_fade(t_play *x, t_floatarg f){
 }
 
 static void tabplayer_range(t_play *x, t_floatarg f1, t_floatarg f2){
-    x->x_stms = f1 < 0 ? 0 : f1;
-    x->x_endms = f2;
-    tabplayer_ms2samp(x);
+    if(f1 < 0)
+        f1 = 0;
+    if(f2 > 1)
+        f2 = 2;
+    x->x_start = f1 * x->x_npts;
+    x->x_end = f2 * x->x_npts;
 }
 
 static void tabplayer_reset(t_play *x){
@@ -459,25 +464,23 @@ static void *tabplayer_new(t_symbol * s, int ac, t_atom *av){
     int nameset = 0;
     while(ac){
         if(av->a_type == A_SYMBOL){ // if name not passed so far, count arg as array name
-            if(!nameset){
-                arrname = atom_getsymbolarg(0, ac, av);
+            s = atom_getsymbolarg(0, ac, av);
+            if(s == gensym("-loop")){
+                loop = 1;
+                ac--, av++;
+            }
+            else if(s == gensym("-fade") && ac > 2){
+                float f = atom_getfloatarg(0, ac, av);
+                fade = f < 0 ? 0 : f;
+                ac-=2, av+=2;
+            }
+            else if(!nameset){
+                arrname = s;
                 ac--, av++;
                 nameset = 1;
             }
-            else{ // flag
-                s = atom_getsymbolarg(0, ac, av);
-                if(s == gensym("-loop")){
-                    loop = 1;
-                    ac--, av++;
-                }
-                else if(s == gensym("-fade") && ac > 2){
-                    float f = atom_getfloatarg(0, ac, av);
-                    fade = f < 0 ? 0 : f;
-                    ac-=2, av+=2;
-                }
-                else
-                    goto errstate;
-            }
+            else
+                goto errstate;
         }
         else{
             if(nameset){

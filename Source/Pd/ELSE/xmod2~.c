@@ -1,4 +1,4 @@
-#define TWOPI (M_PI * 2)
+#define TWOPI (3.14159265358979323846 * 2)
 
 #include "m_pd.h"
 #include <math.h>

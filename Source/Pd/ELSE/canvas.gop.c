@@ -11,7 +11,7 @@ typedef struct _gop{
 
 void gop_bang(t_gop *x){
     int ac = 7;
-    t_atom at[ac];
+    t_atom at[7];
     SETFLOAT(at, x->x_canvas->gl_isgraph);      // gop
     SETFLOAT(at+1, x->x_canvas->gl_pixwidth);   // width
     SETFLOAT(at+2, x->x_canvas->gl_pixheight);  // height

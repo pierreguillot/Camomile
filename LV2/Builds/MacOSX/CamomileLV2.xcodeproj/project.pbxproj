@@ -629,6 +629,10 @@
 			isa = PBXBuildFile;
 			fileRef = 2788F3CEA43C391C072EAD61;
 		};
+		8A8B3E9726CDC338104472DC = {
+			isa = PBXBuildFile;
+			fileRef = 5F9BBA0E3FC8051CD3C41B3E;
+		};
 		C868C672B7E21138D4151450 = {
 			isa = PBXBuildFile;
 			fileRef = AEE38B76D00DFBFC2C9A7395;
@@ -1272,6 +1276,13 @@
 			path = ../../../Source/Pd/ELSE/sort.c;
 			sourceTree = "SOURCE_ROOT";
 		};
+		0526B7CE75C1225618A15605 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = autotune2.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/autotune2.pd;
+			sourceTree = "SOURCE_ROOT";
+		};
 		05A3C58DD5703C8CFD9C4D8E = {
 			isa = PBXFileReference;
 			lastKnownFileType = file.pd;
@@ -1524,6 +1535,13 @@
 			path = "../../../Source/Pd/ELSE/Abstractions/perlin~.pd";
 			sourceTree = "SOURCE_ROOT";
 		};
+		1B1AEE45AD93A37B24A4F45C = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = midi2freq.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/midi2freq.pd;
+			sourceTree = "SOURCE_ROOT";
+		};
 		1BC1B28133FC065CD3EC0077 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -1692,13 +1710,6 @@
 			path = "../../../Source/Pd/ELSE/Abstractions/freeze~.pd";
 			sourceTree = "SOURCE_ROOT";
 		};
-		25E090C413EDF3583F29B402 = {
-			isa = PBXFileReference;
-			lastKnownFileType = file.pd;
-			name = limit.pd;
-			path = ../../../Source/Pd/ELSE/Abstractions/limit.pd;
-			sourceTree = "SOURCE_ROOT";
-		};
 		25F03B55949697170979E2AA = {
 			isa = PBXFileReference;
 			lastKnownFileType = file.pd;
@@ -1816,6 +1827,13 @@
 			lastKnownFileType = sourcecode.c.c;
 			name = unmerge.c;
 			path = ../../../Source/Pd/ELSE/unmerge.c;
+			sourceTree = "SOURCE_ROOT";
+		};
+		2C58175A700C4E3755A52396 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = "grain.synth~.pd";
+			path = "../../../Source/Pd/ELSE/Abstractions/grain.synth~.pd";
 			sourceTree = "SOURCE_ROOT";
 		};
 		2D50E0DC310C6E88BC709342 = {
@@ -2175,6 +2193,13 @@
 			path = ../../../Source/Pd/ELSE/canvas.bounds.c;
 			sourceTree = "SOURCE_ROOT";
 		};
+		48B144EFF61E161B092C02A4 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = "grain.sampler~.pd";
+			path = "../../../Source/Pd/ELSE/Abstractions/grain.sampler~.pd";
+			sourceTree = "SOURCE_ROOT";
+		};
 		49613FA90947BB35BD5FB491 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file.pd;
@@ -2420,6 +2445,13 @@
 			path = ../../../Source/Pd/ELSE/routeall.c;
 			sourceTree = "SOURCE_ROOT";
 		};
+		5AD593D65C13F5CA6AF3EEDA = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = autotune.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/autotune.pd;
+			sourceTree = "SOURCE_ROOT";
+		};
 		5B0E35813E4D27D0DDFAB6E0 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file.pd;
@@ -2467,6 +2499,13 @@
 			lastKnownFileType = sourcecode.c.c;
 			name = "xmod~.c";
 			path = "../../../Source/Pd/ELSE/xmod~.c";
+			sourceTree = "SOURCE_ROOT";
+		};
+		5F9BBA0E3FC8051CD3C41B3E = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = limit.c;
+			path = ../../../Source/Pd/ELSE/limit.c;
 			sourceTree = "SOURCE_ROOT";
 		};
 		5FB0A6B92683C4F83C3595C4 = {
@@ -3232,6 +3271,13 @@
 			path = ../../../Source/Pd/ELSE/Abstractions/biplot.pd;
 			sourceTree = "SOURCE_ROOT";
 		};
+		945BF8A6CF4FBEC9E53628CE = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = frac2ratio.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/frac2ratio.pd;
+			sourceTree = "SOURCE_ROOT";
+		};
 		94F5A07DFD4E86742EB80472 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.c;
@@ -3461,6 +3507,13 @@
 			lastKnownFileType = sourcecode.c.c;
 			name = "wrap2~.c";
 			path = "../../../Source/Pd/ELSE/wrap2~.c";
+			sourceTree = "SOURCE_ROOT";
+		};
+		AA3CA55A14E76A9B7E6E7E8D = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = retune.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/retune.pd;
 			sourceTree = "SOURCE_ROOT";
 		};
 		AC72612DE989C660D3479EFB = {
@@ -3762,6 +3815,13 @@
 			lastKnownFileType = file.pd;
 			name = "norm~.pd";
 			path = "../../../Source/Pd/ELSE/Abstractions/norm~.pd";
+			sourceTree = "SOURCE_ROOT";
+		};
+		BDF10FF4E15B093E47398E30 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = eqdiv.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/eqdiv.pd;
 			sourceTree = "SOURCE_ROOT";
 		};
 		BDF3C359BB89C753ADEBAF96 = {
@@ -4639,6 +4699,13 @@
 			path = "../../../Source/Pd/ELSE/Abstractions/player~.pd";
 			sourceTree = "SOURCE_ROOT";
 		};
+		FDC41B11DA35858D2141E088 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = "grain.live~.pd";
+			path = "../../../Source/Pd/ELSE/Abstractions/grain.live~.pd";
+			sourceTree = "SOURCE_ROOT";
+		};
 		FEFD1717DD4C7C99892C8A96 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.c;
@@ -4660,13 +4727,15 @@
 			path = "../../../Source/Pd/ELSE/impseq~.c";
 			sourceTree = "SOURCE_ROOT";
 		};
-		43F0FF183F58D58BE0958F79 = {
+		8A9A32FEB32B40FF235C0906 = {
 			isa = PBXGroup;
 			children = (
 				DE79FA400E6FC02E827F6BE8,
 				3A17F40982B0E9FA6B699A76,
 				9C664D8490D2348F4BA9E14F,
 				02C7D8A9A1DA83D19A205301,
+				5AD593D65C13F5CA6AF3EEDA,
+				0526B7CE75C1225618A15605,
 				043B4CA25C7A4896E599C171,
 				B5CD2589C9D7438B6BFF0AC8,
 				32904191509235B08D323667,
@@ -4707,14 +4776,19 @@
 				EEB339A6815E4450D998EABF,
 				F8747B0673F51E846424A334,
 				49613FA90947BB35BD5FB491,
+				BDF10FF4E15B093E47398E30,
 				A7A7DAC96AB7722CB6D80249,
 				A824D5B4034CD40D1718DD80,
 				B93423C28957E6FF45C40D8B,
+				945BF8A6CF4FBEC9E53628CE,
 				609E9ECBF24E486A29209F18,
 				2599DCDC4E4F7DC82331E6DB,
 				B7301439196F86D1A47BF6B7,
 				165E6C1D430F7BE0F8517711,
 				D76B16051B876EB7AB23759F,
+				FDC41B11DA35858D2141E088,
+				48B144EFF61E161B092C02A4,
+				2C58175A700C4E3755A52396,
 				F9579762595F57977C84889D,
 				CA6912436D5E5491A7C27BE3,
 				B42D994037D4FA4301C38C75,
@@ -4727,7 +4801,6 @@
 				EC65B93546FBE8119BA269EA,
 				8467B0E213593059FE34BEA4,
 				27C8172ADA5DDC568123FFCB,
-				25E090C413EDF3583F29B402,
 				B3816398913F60AD91589E65,
 				1DC12341954FABFAB9A94F72,
 				46CE98230C730D768A8A8145,
@@ -4741,6 +4814,7 @@
 				ADFEA83813106CEB0615EB5F,
 				D4BFB245E047554788531013,
 				E8E60EBCEDC35A6188940CEA,
+				1B1AEE45AD93A37B24A4F45C,
 				D375EE9F64AC900FA8A669C3,
 				268D5EF958BF9847BF852943,
 				6B53B7E2984817737BA365E0,
@@ -4785,6 +4859,7 @@
 				305190C3454425F1DADA8186,
 				F87D9CCAA10E8C24F774E248,
 				396E939F9512000C14A2954B,
+				AA3CA55A14E76A9B7E6E7E8D,
 				7BCE1354BAAA772FAF4240AB,
 				DABC96F06604B8CB12FCB0DD,
 				F9C66DC3D5015D2D57C47FA6,
@@ -4818,7 +4893,7 @@
 			name = Abstractions;
 			sourceTree = "<group>";
 		};
-		2C2CF847DF2EF0C293EEAB83 = {
+		054C3B7501D79C9073965DEC = {
 			isa = PBXGroup;
 			children = (
 				EC1CFCC21C821E3A5BA223EE,
@@ -4842,8 +4917,8 @@
 		50959EFE97C7916F3808D391 = {
 			isa = PBXGroup;
 			children = (
-				43F0FF183F58D58BE0958F79,
-				2C2CF847DF2EF0C293EEAB83,
+				8A9A32FEB32B40FF235C0906,
+				054C3B7501D79C9073965DEC,
 				AD0523F42185E8832451C127,
 				5A9F6DA02C6B119712B8E75C,
 				D2CB5E370303F748F3FC70B7,
@@ -4958,6 +5033,7 @@
 				59BE96DD2C5CAAFE5B01C17E,
 				548585DE75B24BCE4A35304B,
 				2788F3CEA43C391C072EAD61,
+				5F9BBA0E3FC8051CD3C41B3E,
 				AEE38B76D00DFBFC2C9A7395,
 				6E38D7A9877EC183E3FEE319,
 				CEC8D633176A093CCD424786,
@@ -5717,6 +5793,7 @@
 				C1C4811B5227C41E22A1A9ED,
 				D4382D1753A3B71117D78000,
 				47094A7665D29D7B0E3386AA,
+				8A8B3E9726CDC338104472DC,
 				C868C672B7E21138D4151450,
 				9444372C5DE1D6DB0586AE2F,
 				6A14148B9F8166BEF9AFEE89,

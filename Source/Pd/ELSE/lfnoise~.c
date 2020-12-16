@@ -1,7 +1,6 @@
 // Porres 2017
 
 #include "m_pd.h"
-#include <stdlib.h>
 
 static t_class *lfnoise_class;
 
@@ -114,15 +113,14 @@ static void *lfnoise_free(t_lfnoise *x)
 
 static void *lfnoise_new(t_symbol *s, int ac, t_atom *av)
 {
-    s = NULL;
     t_lfnoise *x = (t_lfnoise *)pd_new(lfnoise_class);
 // default seed
-    static int static_seed = 234599;
-    srand((int)clock_getlogicaltime());
-    static_seed *= (int)((int)rand() * 1319);
+    static int init_seed = 234599;
+    init_seed *= 1319;
 // default parameters
     t_float hz = 0;
-    int seed = 0, interp = 0, seed_arg = 0;
+    t_int seed = init_seed, interp = 0;
+    
     int argnum = 0; // argument number
     while(ac)
     {
@@ -140,7 +138,6 @@ static void *lfnoise_new(t_symbol *s, int ac, t_atom *av)
                     break;
                 case 2:
                     seed = (int)curf * 1319;
-                    seed_arg = 1;
                     break;
             };
             argnum++;
@@ -153,14 +150,8 @@ static void *lfnoise_new(t_symbol *s, int ac, t_atom *av)
     x->x_interp = interp != 0;
     
 // get 1st output
-    if(seed_arg){
-        x->x_ynp1 = (((float)((seed & 0x7fffffff) - 0x40000000)) * (float)(1.0 / 0x40000000));
-        x->x_val = seed * 435898247 + 382842987;
-    }
-    else{
-        x->x_ynp1 = (((float)((static_seed & 0x7fffffff) - 0x40000000)) * (float)(1.0 / 0x40000000));
-        x->x_val = static_seed * 435898247 + 382842987;
-    }
+    x->x_ynp1 = (((float)((seed & 0x7fffffff) - 0x40000000)) * (float)(1.0 / 0x40000000));
+    x->x_val = seed * 435898247 + 382842987;
 // in/out
     x->x_inlet_sync = inlet_new((t_object *)x, (t_pd *)x, &s_signal, &s_signal);
     x->x_outlet = outlet_new(&x->x_obj, &s_signal);

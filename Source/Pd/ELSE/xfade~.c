@@ -2,7 +2,7 @@
 #include <math.h>
 #include "m_pd.h"
 
-#define HALF_PI (M_PI * 0.5)
+#define HALF_PI (3.14159265358979323846 * 0.5)
 
 static t_class *xfade_tilde_class;
 

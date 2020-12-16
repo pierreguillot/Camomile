@@ -130,17 +130,17 @@
 		5901EEBB6135E1E1FF798631 /* lag~.c in Sources */ = {isa = PBXBuildFile; fileRef = EB84C9D4B04AC92F61DC24F3 /* lag~.c */; };
 		59D11BA897DB711B80BC1C04 /* detect~.c in Sources */ = {isa = PBXBuildFile; fileRef = 92A328C7E6B9B90DDCCA190E /* detect~.c */; };
 		5B0399DE843F57D57222FE1D /* decay~.c in Sources */ = {isa = PBXBuildFile; fileRef = 0AF8957305007D9EC4BF47E1 /* decay~.c */; };
-		5B9AF6952577454B00591584 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8126A2FEEEADA13BE0FBBEDC /* RecentFilesMenuTemplate.nib */; };
-		5B9AF6962577454B00591584 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1E3A85F79B93B336420138 /* Accelerate.framework */; };
-		5B9AF6972577454B00591584 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8F36AEFDA9E963BDBA6C1C /* AudioToolbox.framework */; };
-		5B9AF6982577454B00591584 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
-		5B9AF6992577454B00591584 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22689D9A7644931A85906FC /* Cocoa.framework */; };
-		5B9AF69A2577454B00591584 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE27C1948ACEC6272612D72E /* CoreAudio.framework */; };
-		5B9AF69B2577454B00591584 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF6201286A446C72F198F49 /* CoreMIDI.framework */; };
-		5B9AF69C2577454B00591584 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F064420B996DA482F0524 /* IOKit.framework */; };
-		5B9AF69D2577454B00591584 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBF9F7DFC62377D880D402F /* QuartzCore.framework */; };
-		5B9AF69E2577454B00591584 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBD83515A888D164A72466A /* WebKit.framework */; };
 		5B9DEC2B731165020FA1049D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
+		5BA7F7962589B84A00543D2A /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8126A2FEEEADA13BE0FBBEDC /* RecentFilesMenuTemplate.nib */; };
+		5BA7F7972589B84A00543D2A /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1E3A85F79B93B336420138 /* Accelerate.framework */; };
+		5BA7F7982589B84A00543D2A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8F36AEFDA9E963BDBA6C1C /* AudioToolbox.framework */; };
+		5BA7F7992589B84A00543D2A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
+		5BA7F79A2589B84A00543D2A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22689D9A7644931A85906FC /* Cocoa.framework */; };
+		5BA7F79B2589B84A00543D2A /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE27C1948ACEC6272612D72E /* CoreAudio.framework */; };
+		5BA7F79C2589B84A00543D2A /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF6201286A446C72F198F49 /* CoreMIDI.framework */; };
+		5BA7F79D2589B84A00543D2A /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F064420B996DA482F0524 /* IOKit.framework */; };
+		5BA7F79E2589B84A00543D2A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBF9F7DFC62377D880D402F /* QuartzCore.framework */; };
+		5BA7F79F2589B84A00543D2A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBD83515A888D164A72466A /* WebKit.framework */; };
 		5BA91E81FDE171496EE0BE44 /* pinknoise~.c in Sources */ = {isa = PBXBuildFile; fileRef = 25E2978CFBAA1D6CA9508DE3 /* pinknoise~.c */; };
 		5D2BB828836D1EE5708C3AAD /* lb.c in Sources */ = {isa = PBXBuildFile; fileRef = 64F2E379DA6E6AA27B534C3F /* lb.c */; };
 		5E5CA1C59172EB5ACA4DC8FA /* saw2~.c in Sources */ = {isa = PBXBuildFile; fileRef = 59EA71E91B1ADEDEDE4C2414 /* saw2~.c */; };
@@ -277,6 +277,7 @@
 		D88CD3F3CE013F14AC6519BD /* biquads~.c in Sources */ = {isa = PBXBuildFile; fileRef = 9372AE37B6BEBE68D3B58E7C /* biquads~.c */; };
 		D8C0EB835AB5C8588080ADA8 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF6201286A446C72F198F49 /* CoreMIDI.framework */; };
 		D9E04418ED4578A02CB767B6 /* allpass.rev~.c in Sources */ = {isa = PBXBuildFile; fileRef = 28A7E687530D292802C81B72 /* allpass.rev~.c */; };
+		DA98687610601FDE5337CE0D /* limit.c in Sources */ = {isa = PBXBuildFile; fileRef = 6F2B356EA1364222E67347AE /* limit.c */; };
 		DAF485B3FD5E59F613491FFD /* PluginParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 401E7BF7C19E1E4DE0BC6685 /* PluginParser.cpp */; };
 		DB039FF9D9ECA59BC518FDC1 /* dir.c in Sources */ = {isa = PBXBuildFile; fileRef = 7C8D3791F0CD6F96B4FB0732 /* dir.c */; };
 		DCB99510D228960203243DEF /* coin~.c in Sources */ = {isa = PBXBuildFile; fileRef = A57FDD1DC5D1E3385BE51B0A /* coin~.c */; };
@@ -328,35 +329,35 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5B9AF6AE2577454B00591584 /* PBXContainerItemProxy */ = {
+		5BA7F7A52589B84B00543D2A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 074FFE22626A916E5D070022;
 			remoteInfo = "CamomileFx - VST3";
 		};
-		5B9AF6AF2577454B00591584 /* PBXContainerItemProxy */ = {
+		5BA7F7A62589B84B00543D2A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = DDC710B892FDE37A0F19292D;
 			remoteInfo = "CamomileFx - Shared Code";
 		};
-		5B9AF6B02577454B00591584 /* PBXContainerItemProxy */ = {
+		5BA7F7A72589B84B00543D2A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 6E51637F255AB3A3BE377A27;
 			remoteInfo = "CamomileFx - AU";
 		};
-		5B9AF6B12577454B00591584 /* PBXContainerItemProxy */ = {
+		5BA7F7A82589B84B00543D2A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = DDC710B892FDE37A0F19292D;
 			remoteInfo = "CamomileFx - Shared Code";
 		};
-		5B9AF6B22577454B00591584 /* PBXContainerItemProxy */ = {
+		5BA7F7A92589B84B00543D2A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
@@ -406,6 +407,7 @@
 		1569E006FAD91877940B9956 /* s2f~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "s2f~.c"; path = "../../../Source/Pd/ELSE/s2f~.c"; sourceTree = SOURCE_ROOT; };
 		15F652904622F97951DD8760 /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
 		16A27020C0327F1E0107F796 /* randpulse2.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = randpulse2.pd; path = ../../../Source/Pd/ELSE/Abstractions/randpulse2.pd; sourceTree = SOURCE_ROOT; };
+		16E4B3466C572FFEDC05A004 /* midi2freq.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = midi2freq.pd; path = ../../../Source/Pd/ELSE/Abstractions/midi2freq.pd; sourceTree = SOURCE_ROOT; };
 		17B4F6E5296A5A17D4B1EA84 /* factor.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = factor.c; path = ../../../Source/Pd/ELSE/factor.c; sourceTree = SOURCE_ROOT; };
 		17F21FCB0AB92A6282255DEC /* sysrt.in.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = sysrt.in.pd; path = ../../../Source/Pd/ELSE/Abstractions/sysrt.in.pd; sourceTree = SOURCE_ROOT; };
 		18CBCCA96460E4BB5CF6B35A /* vocoder~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "vocoder~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/vocoder~.pd"; sourceTree = SOURCE_ROOT; };
@@ -428,6 +430,7 @@
 		1F03A036CEF78C6F5288C89A /* Info-AU.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-AU.plist"; sourceTree = SOURCE_ROOT; };
 		1FA2BD1F1640FBF3E33962C4 /* duck~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "duck~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/duck~.pd"; sourceTree = SOURCE_ROOT; };
 		1FC58794DC04DD755779CF79 /* output~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "output~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/output~.pd"; sourceTree = SOURCE_ROOT; };
+		1FC67969005310517B0BA9E0 /* frac2ratio.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = frac2ratio.pd; path = ../../../Source/Pd/ELSE/Abstractions/frac2ratio.pd; sourceTree = SOURCE_ROOT; };
 		20C1E5F03D89EA9AD9200A0B /* gui.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = gui.c; path = ../../../Source/Pd/ELSE/gui.c; sourceTree = SOURCE_ROOT; };
 		20C6F29D08114ED3F69E79D6 /* drunkard.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = drunkard.pd; path = ../../../Source/Pd/ELSE/Abstractions/drunkard.pd; sourceTree = SOURCE_ROOT; };
 		20CEA086029F58AA542CBA7F /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -493,6 +496,7 @@
 		38997C0073497B15EDFCEC5B /* decay2~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "decay2~.c"; path = "../../../Source/Pd/ELSE/decay2~.c"; sourceTree = SOURCE_ROOT; };
 		398FEACE5EE0A2AAC46AC951 /* tabplayer~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "tabplayer~.c"; path = "../../../Source/Pd/ELSE/tabplayer~.c"; sourceTree = SOURCE_ROOT; };
 		39A4AADD714328D7C402FA4B /* common.div.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = common.div.c; path = ../../../Source/Pd/ELSE/common.div.c; sourceTree = SOURCE_ROOT; };
+		39A6A8C2F3C82506D1ED8B74 /* grain.synth~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "grain.synth~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/grain.synth~.pd"; sourceTree = SOURCE_ROOT; };
 		39CFD207B5902111F5333475 /* tri~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "tri~.c"; path = "../../../Source/Pd/ELSE/tri~.c"; sourceTree = SOURCE_ROOT; };
 		3C79EF7BEC987E69CABDC0FC /* ping.pong~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "ping.pong~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/ping.pong~.pd"; sourceTree = SOURCE_ROOT; };
 		3D1FFCA121EE5927B2F227B7 /* randpulse~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "randpulse~.c"; path = "../../../Source/Pd/ELSE/randpulse~.c"; sourceTree = SOURCE_ROOT; };
@@ -519,6 +523,7 @@
 		47C7117B72917B0B1B49A7DE /* sine~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "sine~.c"; path = "../../../Source/Pd/ELSE/sine~.c"; sourceTree = SOURCE_ROOT; };
 		481CB4978913A8A7CBFB0E81 /* sum.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = sum.pd; path = ../../../Source/Pd/ELSE/Abstractions/sum.pd; sourceTree = SOURCE_ROOT; };
 		4850A1B75F2A50F371200AC2 /* PluginEnvironment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginEnvironment.h; path = ../../../Source/PluginEnvironment.h; sourceTree = SOURCE_ROOT; };
+		48818294D7A8B1305FD2CB23 /* grain.sampler~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "grain.sampler~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/grain.sampler~.pd"; sourceTree = SOURCE_ROOT; };
 		48AA47F6F213537976A1552B /* include_juce_audio_basics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_basics.mm; path = ../../JuceLibraryCode/include_juce_audio_basics.mm; sourceTree = SOURCE_ROOT; };
 		48EB9C8F875CE4A992FF4B64 /* bl.saw2~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "bl.saw2~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/bl.saw2~.pd"; sourceTree = SOURCE_ROOT; };
 		4A3F96AF84DEC9E88A773BFA /* above~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "above~.c"; path = "../../../Source/Pd/ELSE/above~.c"; sourceTree = SOURCE_ROOT; };
@@ -592,6 +597,7 @@
 		6C569392FA92BC49F01DC87D /* sin~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "sin~.c"; path = "../../../Source/Pd/ELSE/sin~.c"; sourceTree = SOURCE_ROOT; };
 		6E8CEC57F296C8E56E20CAB9 /* function.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = function.c; path = ../../../Source/Pd/ELSE/function.c; sourceTree = SOURCE_ROOT; };
 		6EB136EE3398193A678F8ECB /* count.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = count.pd; path = ../../../Source/Pd/ELSE/Abstractions/count.pd; sourceTree = SOURCE_ROOT; };
+		6F2B356EA1364222E67347AE /* limit.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = limit.c; path = ../../../Source/Pd/ELSE/limit.c; sourceTree = SOURCE_ROOT; };
 		6FA757CF07EC1C02A6B42C13 /* square~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "square~.c"; path = "../../../Source/Pd/ELSE/square~.c"; sourceTree = SOURCE_ROOT; };
 		701B387AE7DE00C378014329 /* PluginEditorComponents.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginEditorComponents.cpp; path = ../../../Source/PluginEditorComponents.cpp; sourceTree = SOURCE_ROOT; };
 		708A32A22376B7F496CD7798 /* libCamomileFx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCamomileFx.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -641,6 +647,7 @@
 		85D63268CA807DE9C3BE63D1 /* pack2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = pack2.c; path = ../../../Source/Pd/ELSE/pack2.c; sourceTree = SOURCE_ROOT; };
 		8607B94DE0A7E86CEFC253B5 /* svfilter~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "svfilter~.c"; path = "../../../Source/Pd/ELSE/svfilter~.c"; sourceTree = SOURCE_ROOT; };
 		860FF28DC84575EBD06A2049 /* resonant~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "resonant~.c"; path = "../../../Source/Pd/ELSE/resonant~.c"; sourceTree = SOURCE_ROOT; };
+		866E9F251EE3C172A32C395C /* autotune2.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = autotune2.pd; path = ../../../Source/Pd/ELSE/Abstractions/autotune2.pd; sourceTree = SOURCE_ROOT; };
 		87BB4BC19C34C8BBAFDB893C /* rotate.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = rotate.pd; path = ../../../Source/Pd/ELSE/Abstractions/rotate.pd; sourceTree = SOURCE_ROOT; };
 		8873C5617BCB982D5BAE74D0 /* imp~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "imp~.c"; path = "../../../Source/Pd/ELSE/imp~.c"; sourceTree = SOURCE_ROOT; };
 		88CE9EF939445E6A5A686245 /* pimp~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "pimp~.c"; path = "../../../Source/Pd/ELSE/pimp~.c"; sourceTree = SOURCE_ROOT; };
@@ -703,7 +710,6 @@
 		A57FDD1DC5D1E3385BE51B0A /* coin~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "coin~.c"; path = "../../../Source/Pd/ELSE/coin~.c"; sourceTree = SOURCE_ROOT; };
 		A596A49C9858995A8B8D301E /* bl.wavetable~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "bl.wavetable~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/bl.wavetable~.pd"; sourceTree = SOURCE_ROOT; };
 		A626FBD7CE299F15A2531AFE /* comb.filt~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "comb.filt~.c"; path = "../../../Source/Pd/ELSE/comb.filt~.c"; sourceTree = SOURCE_ROOT; };
-		A724DCDFD5EDDBA6CBFC9CF9 /* limit.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = limit.pd; path = ../../../Source/Pd/ELSE/Abstractions/limit.pd; sourceTree = SOURCE_ROOT; };
 		A73D7EBB41E3E6670835E44B /* canvas.mouse.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = canvas.mouse.c; path = ../../../Source/Pd/ELSE/canvas.mouse.c; sourceTree = SOURCE_ROOT; };
 		A7751FA1F04190EFB2201423 /* lastvalue~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "lastvalue~.c"; path = "../../../Source/Pd/ELSE/lastvalue~.c"; sourceTree = SOURCE_ROOT; };
 		A7C17AEA56EC4600B54CC764 /* pgm.in.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = pgm.in.c; path = ../../../Source/Pd/ELSE/pgm.in.c; sourceTree = SOURCE_ROOT; };
@@ -771,6 +777,7 @@
 		C4022284E54B6F326F68DB28 /* pan8~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "pan8~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/pan8~.pd"; sourceTree = SOURCE_ROOT; };
 		C403DA7B94F6B8E625CB5E1D /* x_libpd_extra_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = x_libpd_extra_utils.h; path = ../../../Source/Pd/x_libpd_extra_utils.h; sourceTree = SOURCE_ROOT; };
 		C41CED7969E434E966D0E93E /* include_juce_audio_plugin_client_VST_utils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_VST_utils.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_VST_utils.mm; sourceTree = SOURCE_ROOT; };
+		C439070468994F2CE58FA760 /* autotune.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = autotune.pd; path = ../../../Source/Pd/ELSE/Abstractions/autotune.pd; sourceTree = SOURCE_ROOT; };
 		C45BF9DB66699085BD6736A5 /* rms~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "rms~.c"; path = "../../../Source/Pd/ELSE/rms~.c"; sourceTree = SOURCE_ROOT; };
 		C5508539C881B23CCCF8C4F4 /* separate.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = separate.c; path = ../../../Source/Pd/ELSE/separate.c; sourceTree = SOURCE_ROOT; };
 		C5DA27B1EF5E23A867B15AD5 /* include_juce_gui_basics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_gui_basics.mm; path = ../../JuceLibraryCode/include_juce_gui_basics.mm; sourceTree = SOURCE_ROOT; };
@@ -798,6 +805,7 @@
 		D272B97D6F68AA049492AB4A /* noisegate~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "noisegate~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/noisegate~.pd"; sourceTree = SOURCE_ROOT; };
 		D2CEEADFD9382AFA11643E7F /* include_juce_core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_core.mm; path = ../../JuceLibraryCode/include_juce_core.mm; sourceTree = SOURCE_ROOT; };
 		D430D4DB4338F3E00466C5BF /* pan2~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "pan2~.c"; path = "../../../Source/Pd/ELSE/pan2~.c"; sourceTree = SOURCE_ROOT; };
+		D45378AD707BCA590F1BEC4D /* eqdiv.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = eqdiv.pd; path = ../../../Source/Pd/ELSE/Abstractions/eqdiv.pd; sourceTree = SOURCE_ROOT; };
 		D57F4EFE8EFFC292A019F35E /* giga.rev~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "giga.rev~.c"; path = "../../../Source/Pd/ELSE/giga.rev~.c"; sourceTree = SOURCE_ROOT; };
 		D58F41174549845FFD2D53D5 /* DejaVuSansMono.ttf */ = {isa = PBXFileReference; lastKnownFileType = file.ttf; name = DejaVuSansMono.ttf; path = ../../../Ressources/Fonts/DejaVuSansMono.ttf; sourceTree = SOURCE_ROOT; };
 		D634F7DEE6AA2D52FDFB27AC /* trigger2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = trigger2.c; path = ../../../Source/Pd/ELSE/trigger2.c; sourceTree = SOURCE_ROOT; };
@@ -842,11 +850,13 @@
 		ED9F16C2D809C88FD8964336 /* pluck~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "pluck~.c"; path = "../../../Source/Pd/ELSE/pluck~.c"; sourceTree = SOURCE_ROOT; };
 		EDA82E670623658604F08F88 /* wrap2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = wrap2.c; path = ../../../Source/Pd/ELSE/wrap2.c; sourceTree = SOURCE_ROOT; };
 		EDE4767E71E912DC92BCB291 /* bend.in.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bend.in.c; path = ../../../Source/Pd/ELSE/bend.in.c; sourceTree = SOURCE_ROOT; };
+		EDE9195D59A424B72D5C7EC8 /* grain.live~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "grain.live~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/grain.live~.pd"; sourceTree = SOURCE_ROOT; };
 		F0657FB482A465FFE77070B4 /* CamomileFx.component */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CamomileFx.component; sourceTree = BUILT_PRODUCTS_DIR; };
 		F088E1535FB4909D58566FFC /* xfade~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "xfade~.c"; path = "../../../Source/Pd/ELSE/xfade~.c"; sourceTree = SOURCE_ROOT; };
 		F0D75CA8092717D65C286106 /* brown~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "brown~.c"; path = "../../../Source/Pd/ELSE/brown~.c"; sourceTree = SOURCE_ROOT; };
 		F25154DC0C1175A07042ABFA /* rand.i~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "rand.i~.c"; path = "../../../Source/Pd/ELSE/rand.i~.c"; sourceTree = SOURCE_ROOT; };
 		F3729F0F5731B0549873107A /* lastvalue.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = lastvalue.pd; path = ../../../Source/Pd/ELSE/Abstractions/lastvalue.pd; sourceTree = SOURCE_ROOT; };
+		F535C6E03B53AB40B459FE24 /* retune.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = retune.pd; path = ../../../Source/Pd/ELSE/Abstractions/retune.pd; sourceTree = SOURCE_ROOT; };
 		F55FF477BBEB6B94A69C5D16 /* biplot.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = biplot.pd; path = ../../../Source/Pd/ELSE/Abstractions/biplot.pd; sourceTree = SOURCE_ROOT; };
 		F5639CA5B96F7FF71250CB01 /* PluginEnvironment.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginEnvironment.cpp; path = ../../../Source/PluginEnvironment.cpp; sourceTree = SOURCE_ROOT; };
 		F59ABB6EBA29B6F1271851BD /* mov.avg.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = mov.avg.pd; path = ../../../Source/Pd/ELSE/Abstractions/mov.avg.pd; sourceTree = SOURCE_ROOT; };
@@ -873,16 +883,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0E616AAADE2C8DFABCA8F14 /* AudioUnit.framework in Frameworks */,
-				5B9AF6962577454B00591584 /* Accelerate.framework in Frameworks */,
-				5B9AF6972577454B00591584 /* AudioToolbox.framework in Frameworks */,
-				5B9AF6982577454B00591584 /* Carbon.framework in Frameworks */,
-				5B9AF6992577454B00591584 /* Cocoa.framework in Frameworks */,
-				5B9AF69A2577454B00591584 /* CoreAudio.framework in Frameworks */,
+				5BA7F7972589B84A00543D2A /* Accelerate.framework in Frameworks */,
+				5BA7F7982589B84A00543D2A /* AudioToolbox.framework in Frameworks */,
+				5BA7F7992589B84A00543D2A /* Carbon.framework in Frameworks */,
+				5BA7F79A2589B84A00543D2A /* Cocoa.framework in Frameworks */,
+				5BA7F79B2589B84A00543D2A /* CoreAudio.framework in Frameworks */,
 				BABB947ED89952F98B386B72 /* CoreAudioKit.framework in Frameworks */,
-				5B9AF69B2577454B00591584 /* CoreMIDI.framework in Frameworks */,
-				5B9AF69C2577454B00591584 /* IOKit.framework in Frameworks */,
-				5B9AF69D2577454B00591584 /* QuartzCore.framework in Frameworks */,
-				5B9AF69E2577454B00591584 /* WebKit.framework in Frameworks */,
+				5BA7F79C2589B84A00543D2A /* CoreMIDI.framework in Frameworks */,
+				5BA7F79D2589B84A00543D2A /* IOKit.framework in Frameworks */,
+				5BA7F79E2589B84A00543D2A /* QuartzCore.framework in Frameworks */,
+				5BA7F79F2589B84A00543D2A /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -905,27 +915,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		090DFEE78DD59F74BEB0D976 /* shared */ = {
-			isa = PBXGroup;
-			children = (
-				B4DB11273DE878CA2B179737 /* buffer.c */,
-				C7E3021A4D7511451F4401DA /* buffer.h */,
-				2C6FF6833069000BD2075ABF /* file.c */,
-				8C272929FDB996328509FBEC /* file.h */,
-				088593F3DE1BB8BA7848D152 /* grow.c */,
-				DA77E7D61FF4948A3C7621CF /* grow.h */,
-				AC588842428819BE4F9FEDAE /* magic.c */,
-				32D33E3A4219B3F0FBE44405 /* magic.h */,
-				23DA6DE992A62E25B0313955 /* mifi.c */,
-				A9437251C07DFECFDCC5F7C8 /* mifi.h */,
-				46B66DB82A04D6517B15BD53 /* random.c */,
-				448FD7B98D9F48ED49DC8F9A /* random.h */,
-				A337FFBCCC6AAD923A3398FE /* s_utf8.c */,
-				93F9487C61DE941D4A61631C /* s_utf8.h */,
-			);
-			name = shared;
-			sourceTree = "<group>";
-		};
 		0CAD382A752A9E300C30E94E /* Pd */ = {
 			isa = PBXGroup;
 			children = (
@@ -973,8 +962,8 @@
 		31E8572EA2B73553FFCB1F12 /* ELSE */ = {
 			isa = PBXGroup;
 			children = (
-				34315E658C1B1AF9F73BDE03 /* Abstractions */,
-				090DFEE78DD59F74BEB0D976 /* shared */,
+				35A6AF97E646D9F73DF44C00 /* Abstractions */,
+				8CB9C937063499F39847D265 /* shared */,
 				4A3F96AF84DEC9E88A773BFA /* above~.c */,
 				6572A216D449935E7F458BE1 /* add~.c */,
 				5ED0A91EF85A37A9B4B5164B /* adsr~.c */,
@@ -1089,6 +1078,7 @@
 				8D19F6620B1A68596325DC1F /* latoocarfian~.c */,
 				64F2E379DA6E6AA27B534C3F /* lb.c */,
 				236B5C8911EB43F0B226B86E /* lfnoise~.c */,
+				6F2B356EA1364222E67347AE /* limit.c */,
 				AC189874E3EF804E5C98033C /* lincong~.c */,
 				D9FCFD9D30900A1889E3055E /* loadbanger.c */,
 				52E53754C336B7E89A676233 /* logistic~.c */,
@@ -1219,13 +1209,15 @@
 			name = ELSE;
 			sourceTree = "<group>";
 		};
-		34315E658C1B1AF9F73BDE03 /* Abstractions */ = {
+		35A6AF97E646D9F73DF44C00 /* Abstractions */ = {
 			isa = PBXGroup;
 			children = (
 				5903E4E3BC435746C2480F67 /* above.pd */,
 				7EEBFDCC19F1DBB7FBE9BB99 /* add.pd */,
 				640BE8F032A5E65049D00E64 /* allpass.filt~.pd */,
 				B8FADB68CE731F0D5AE36B30 /* any2symbol.pd */,
+				C439070468994F2CE58FA760 /* autotune.pd */,
+				866E9F251EE3C172A32C395C /* autotune2.pd */,
 				C6153B74D773EF27CEED993D /* avg.pd */,
 				9CBA66691BC06605DC40C0EC /* bangdiv.pd */,
 				4ADAEEB2F0289CAA8B741820 /* batch.rec~.pd */,
@@ -1266,14 +1258,19 @@
 				1B1B758C96A3B967EF1E1D5C /* e.pd */,
 				5F652ECED17B4AF5F010B599 /* echo.rev~.pd */,
 				76FB563CAA08266BE5E3523B /* envelope~.pd */,
+				D45378AD707BCA590F1BEC4D /* eqdiv.pd */,
 				52FDCD5240AF9D8158A06F22 /* euclid.pd */,
 				30D3C2FE048DB8DBA722B616 /* expand~.pd */,
 				7F71744DE26C13F5B942D67C /* flanger~.pd */,
+				1FC67969005310517B0BA9E0 /* frac2ratio.pd */,
 				7FCEF70DCEE2037A2B445B7C /* free.rev~.pd */,
 				E025B49BBFE56A2491782C8B /* freeze~.pd */,
 				ED28334673B4D70A7294C9AF /* gain~.pd */,
 				8C171F1D474881DF1562734A /* gain2~.pd */,
 				9740A262C82140F85822C0AD /* gatehold~.pd */,
+				EDE9195D59A424B72D5C7EC8 /* grain.live~.pd */,
+				48818294D7A8B1305FD2CB23 /* grain.sampler~.pd */,
+				39A6A8C2F3C82506D1ED8B74 /* grain.synth~.pd */,
 				E2746319AF44C335C98E05A7 /* gran.player~.pd */,
 				EB43D74F198F53591C3D574A /* graph~.pd */,
 				26AB0A59B0EEC240F6BEE191 /* group.pd */,
@@ -1286,7 +1283,6 @@
 				F3729F0F5731B0549873107A /* lastvalue.pd */,
 				98D0D48BDFB619E4922F18DE /* lfnoise.pd */,
 				50E96394620ED3EBBB00C79E /* lfo.pd */,
-				A724DCDFD5EDDBA6CBFC9CF9 /* limit.pd */,
 				E01361FFAFB9681AFA8012DA /* lin2db.pd */,
 				AF73791CD3D88E4AF30E399E /* lin2db~.pd */,
 				737BC55AAAA2F86D9EC73D30 /* lop.bw~.pd */,
@@ -1300,6 +1296,7 @@
 				B6AC633DCB2C58BC51B2DBE8 /* meter2~.pd */,
 				3FCC276D090185581DD4C77E /* meter4~.pd */,
 				E9707D30B647570EC7DD2557 /* meter8~.pd */,
+				16E4B3466C572FFEDC05A004 /* midi2freq.pd */,
 				35283FA51E8FBDE19D38165F /* mix2~.pd */,
 				27A040185715BEB9D0B267F8 /* mix4~.pd */,
 				900027F7AC3259C6048D4813 /* mono.pd */,
@@ -1344,6 +1341,7 @@
 				A84F2F5C5DDCAB6327FCDE68 /* rec.file~.pd */,
 				53E913D78E602F1C12C80ECB /* resonbank~.pd */,
 				69298B083D53F9C2D1C08DF2 /* resonbank2~.pd */,
+				F535C6E03B53AB40B459FE24 /* retune.pd */,
 				081354936131C35C2A7F96C0 /* reverse.pd */,
 				C2DFCA3F174489E1F4879235 /* rm~.pd */,
 				87BB4BC19C34C8BBAFDB893C /* rotate.pd */,
@@ -1416,6 +1414,27 @@
 				500098BCBE6DFB8790ADB5E7 /* Source */,
 			);
 			name = CamomileFx;
+			sourceTree = "<group>";
+		};
+		8CB9C937063499F39847D265 /* shared */ = {
+			isa = PBXGroup;
+			children = (
+				B4DB11273DE878CA2B179737 /* buffer.c */,
+				C7E3021A4D7511451F4401DA /* buffer.h */,
+				2C6FF6833069000BD2075ABF /* file.c */,
+				8C272929FDB996328509FBEC /* file.h */,
+				088593F3DE1BB8BA7848D152 /* grow.c */,
+				DA77E7D61FF4948A3C7621CF /* grow.h */,
+				AC588842428819BE4F9FEDAE /* magic.c */,
+				32D33E3A4219B3F0FBE44405 /* magic.h */,
+				23DA6DE992A62E25B0313955 /* mifi.c */,
+				A9437251C07DFECFDCC5F7C8 /* mifi.h */,
+				46B66DB82A04D6517B15BD53 /* random.c */,
+				448FD7B98D9F48ED49DC8F9A /* random.h */,
+				A337FFBCCC6AAD923A3398FE /* s_utf8.c */,
+				93F9487C61DE941D4A61631C /* s_utf8.h */,
+			);
+			name = shared;
 			sourceTree = "<group>";
 		};
 		8CCC4A823EBBBC964569EE98 /* Ressources */ = {
@@ -1710,7 +1729,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B9AF6952577454B00591584 /* RecentFilesMenuTemplate.nib in Resources */,
+				5BA7F7962589B84A00543D2A /* RecentFilesMenuTemplate.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1889,6 +1908,7 @@
 				33000634D7C6E9DB5D5EA5EC /* latoocarfian~.c in Sources */,
 				5D2BB828836D1EE5708C3AAD /* lb.c in Sources */,
 				9A09538E3C3EABDEFCDDF96B /* lfnoise~.c in Sources */,
+				DA98687610601FDE5337CE0D /* limit.c in Sources */,
 				C9CBDC139244A759B35A0C89 /* lincong~.c in Sources */,
 				2640D8B5E34105151B633EAC /* loadbanger.c in Sources */,
 				730D112A9E1C02A2EF65DEFD /* logistic~.c in Sources */,
@@ -2042,27 +2062,27 @@
 		3042C8CA77DD74930771F01B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 074FFE22626A916E5D070022 /* CamomileFx - VST3 */;
-			targetProxy = 5B9AF6AE2577454B00591584 /* PBXContainerItemProxy */;
+			targetProxy = 5BA7F7A52589B84B00543D2A /* PBXContainerItemProxy */;
 		};
 		8CDEB77D51FBBF215D1E6A25 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DDC710B892FDE37A0F19292D /* CamomileFx - Shared Code */;
-			targetProxy = 5B9AF6B22577454B00591584 /* PBXContainerItemProxy */;
+			targetProxy = 5BA7F7A92589B84B00543D2A /* PBXContainerItemProxy */;
 		};
 		BA090E170831C3A0722ED77C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6E51637F255AB3A3BE377A27 /* CamomileFx - AU */;
-			targetProxy = 5B9AF6B02577454B00591584 /* PBXContainerItemProxy */;
+			targetProxy = 5BA7F7A72589B84B00543D2A /* PBXContainerItemProxy */;
 		};
 		EA92790AFA86A37CC4101A72 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DDC710B892FDE37A0F19292D /* CamomileFx - Shared Code */;
-			targetProxy = 5B9AF6B12577454B00591584 /* PBXContainerItemProxy */;
+			targetProxy = 5BA7F7A82589B84B00543D2A /* PBXContainerItemProxy */;
 		};
 		F9068086A3D939FE5C492C3B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DDC710B892FDE37A0F19292D /* CamomileFx - Shared Code */;
-			targetProxy = 5B9AF6AF2577454B00591584 /* PBXContainerItemProxy */;
+			targetProxy = 5BA7F7A62589B84B00543D2A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

@@ -422,6 +422,7 @@ void lastvalue_tilde_setup(void);
 void latoocarfian_tilde_setup(void);
 void lb_setup(void);
 void lfnoise_tilde_setup(void);
+void limit_setup(void);
 void lincong_tilde_setup(void);
 void loadbanger_setup(void);
 void logistic_tilde_setup(void);
@@ -691,6 +692,7 @@ void libpd_multi_init(void)
         latoocarfian_tilde_setup();
         lb_setup();
         lfnoise_tilde_setup();
+        limit_setup();
         lincong_tilde_setup();
         loadbanger_setup();
         logistic_tilde_setup();

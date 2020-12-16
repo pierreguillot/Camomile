@@ -205,6 +205,7 @@ OBJECTS_DYNAMIC_LIBRARY := \
   $(JUCE_OBJDIR)/latoocarfian~_2ae2466e.o \
   $(JUCE_OBJDIR)/lb_3e9d0eeb.o \
   $(JUCE_OBJDIR)/lfnoise~_b94bde13.o \
+  $(JUCE_OBJDIR)/limit_76792df0.o \
   $(JUCE_OBJDIR)/lincong~_545eafd.o \
   $(JUCE_OBJDIR)/loadbanger_8a03c580.o \
   $(JUCE_OBJDIR)/logistic~_9c7f2f93.o \
@@ -1026,6 +1027,11 @@ $(JUCE_OBJDIR)/lb_3e9d0eeb.o: ../../../Source/Pd/ELSE/lb.c
 $(JUCE_OBJDIR)/lfnoise~_b94bde13.o: ../../../Source/Pd/ELSE/lfnoise~.c
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling lfnoise~.c"
+	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_DYNAMIC_LIBRARY) $(JUCE_CFLAGS_DYNAMIC_LIBRARY) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/limit_76792df0.o: ../../../Source/Pd/ELSE/limit.c
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling limit.c"
 	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_DYNAMIC_LIBRARY) $(JUCE_CFLAGS_DYNAMIC_LIBRARY) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/lincong~_545eafd.o: ../../../Source/Pd/ELSE/lincong~.c

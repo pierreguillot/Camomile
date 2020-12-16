@@ -2,7 +2,7 @@
 #include "m_pd.h"
 #include "math.h"
 
-#define PI M_PI
+#define PI 3.14159265358979323846
 
 typedef struct _bicoeff{
     t_object  x_obj;

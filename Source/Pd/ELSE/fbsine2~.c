@@ -3,7 +3,7 @@
 #include <math.h>
 #include "m_pd.h"
 
-#define TWO_PI (M_PI * 2)
+#define TWO_PI (3.14159265358979323846 * 2)
 
 static t_class *fbsine2_class;
 

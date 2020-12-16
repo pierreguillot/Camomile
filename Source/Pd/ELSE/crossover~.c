@@ -3,7 +3,7 @@
 #include "m_pd.h"
 #include <math.h>
 
-#define PI M_PI
+#define PI 3.14159265358979323846
 #define PHI ((PI/2) * (2./3))
 #define TWO_COS_PHI (2 * cosf(PHI))
 #define TWO_SIN_PHI (2 * sinf(PHI))

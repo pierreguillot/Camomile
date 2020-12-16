@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define PI M_PI
+#define PI 3.14159265358979323846
 #define PLUCK_STACK 48000 // stack buf size, 1 sec at 48k
 #define PLUCK_MAXD 4294967294 // max delay = 2**32 - 2
 
