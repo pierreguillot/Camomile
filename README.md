@@ -71,8 +71,6 @@ cd Dependencies/LibPdBuild/MacOSX && cmake .. -GXcode && cd ../../..
 xcodebuild -workspace Camomile.xcworkspace -scheme Camomile-libpd -configuration Release
 ```
 - **Windows**
-.
-**WARNING** - Compilation of Camomile-ELSE disponible in this repository will be available only after ELSE beta36 release.
 
 Important: libpd requires the static [pthread](https://github.com/GerHobbelt/pthread-win32.git) library for windows with multithread static runtime library (MT).
 ```
