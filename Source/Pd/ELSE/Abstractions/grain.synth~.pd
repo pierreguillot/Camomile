@@ -1,4 +1,4 @@
-#N canvas 154 112 505 289 12;
+#N canvas 367 101 505 289 12;
 #X declare -path else;
 #X obj 50 36 inlet;
 #X obj 49 214 outlet~;
@@ -34,7 +34,7 @@
 #X connect 9 0 7 0;
 #X connect 11 0 10 0;
 #X restore 50 85 pd route;
-#N canvas 126 225 1325 518 init 0;
+#N canvas 126 225 1455 526 init 0;
 #X obj 140 279 dollsym 1;
 #X obj 532 448 outlet;
 #X obj 119 224 symbol;
@@ -55,9 +55,10 @@
 #X obj 46 302 del 0;
 #X obj 66 91 args -;
 #X obj 69 229 clip 1 256, f 5;
-#X obj 66 120 route float symbol list -amp -size -dur -pitch -pan -autotune
--scale -base -sync, f 111;
 #X msg 1191 279 all sync 1;
+#X obj 66 119 route float symbol list -amp -size -dur -pitch -pan -autotune
+-scale -base -sync -env, f 153;
+#X obj 1280 279 insert all env, f 16;
 #X connect 0 0 8 0;
 #X connect 2 0 0 0;
 #X connect 3 0 1 0;
@@ -76,21 +77,23 @@
 #X connect 15 0 16 0;
 #X connect 16 1 1 0;
 #X connect 17 0 15 0;
-#X connect 18 0 20 0;
+#X connect 18 0 21 0;
 #X connect 19 0 13 0;
-#X connect 20 0 19 0;
-#X connect 20 1 2 0;
-#X connect 20 2 9 0;
-#X connect 20 3 3 0;
-#X connect 20 4 4 0;
-#X connect 20 5 5 0;
-#X connect 20 6 6 0;
-#X connect 20 7 7 0;
-#X connect 20 8 12 0;
-#X connect 20 9 10 0;
-#X connect 20 10 11 0;
-#X connect 20 11 21 0;
-#X connect 21 0 1 0;
+#X connect 20 0 1 0;
+#X connect 21 0 19 0;
+#X connect 21 1 2 0;
+#X connect 21 2 9 0;
+#X connect 21 3 3 0;
+#X connect 21 4 4 0;
+#X connect 21 5 5 0;
+#X connect 21 6 6 0;
+#X connect 21 7 7 0;
+#X connect 21 8 12 0;
+#X connect 21 9 10 0;
+#X connect 21 10 11 0;
+#X connect 21 11 20 0;
+#X connect 21 12 22 0;
+#X connect 22 0 1 0;
 #X restore 72 134 pd init;
 #X obj 49 167 clone grain.synth.grain 256;
 #X connect 0 0 6 0;
