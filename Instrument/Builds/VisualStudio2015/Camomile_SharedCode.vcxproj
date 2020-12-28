@@ -2692,6 +2692,7 @@
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\randpulse2.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\range.hsl.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\range.pd"/>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\rdelay~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\rec.file~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\resonbank~.pd"/>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\resonbank2~.pd"/>

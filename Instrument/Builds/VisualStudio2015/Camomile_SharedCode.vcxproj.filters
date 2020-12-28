@@ -4826,6 +4826,9 @@
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\range.pd">
       <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
     </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\rdelay~.pd">
+      <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\rec.file~.pd">
       <Filter>Camomile\Source\Pd\ELSE\Abstractions</Filter>
     </None>

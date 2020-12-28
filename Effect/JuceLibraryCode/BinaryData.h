@@ -90,7 +90,7 @@ namespace BinaryData
     const int            chorus_pdSize = 1364;
 
     extern const char*   circle_pd;
-    const int            circle_pdSize = 34713;
+    const int            circle_pdSize = 34560;
 
     extern const char*   clock_pd;
     const int            clock_pdSize = 1901;
@@ -144,7 +144,7 @@ namespace BinaryData
     const int            echo_rev_pdSize = 2260;
 
     extern const char*   envelope_pd;
-    const int            envelope_pdSize = 1454;
+    const int            envelope_pdSize = 113677;
 
     extern const char*   eqdiv_pd;
     const int            eqdiv_pdSize = 1092;
@@ -177,13 +177,13 @@ namespace BinaryData
     const int            gatehold_pdSize = 698;
 
     extern const char*   grain_live_pd;
-    const int            grain_live_pdSize = 3573;
+    const int            grain_live_pdSize = 3730;
 
     extern const char*   grain_sampler_pd;
-    const int            grain_sampler_pdSize = 2597;
+    const int            grain_sampler_pdSize = 2622;
 
     extern const char*   grain_synth_pd;
-    const int            grain_synth_pdSize = 2505;
+    const int            grain_synth_pdSize = 2592;
 
     extern const char*   gran_player_pd;
     const int            gran_player_pdSize = 13372;
@@ -351,7 +351,7 @@ namespace BinaryData
     const int            play_file_pdSize = 22688;
 
     extern const char*   player_pd;
-    const int            player_pdSize = 11904;
+    const int            player_pdSize = 11481;
 
     extern const char*   pol2car_pd;
     const int            pol2car_pdSize = 362;
@@ -385,6 +385,9 @@ namespace BinaryData
 
     extern const char*   range_pd;
     const int            range_pdSize = 1033;
+
+    extern const char*   rdelay_pd;
+    const int            rdelay_pdSize = 927;
 
     extern const char*   rec_file_pd;
     const int            rec_file_pdSize = 5463;
@@ -516,7 +519,7 @@ namespace BinaryData
     const int            settings_pngSize = 12539;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 169;
+    const int namedResourceListSize = 170;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

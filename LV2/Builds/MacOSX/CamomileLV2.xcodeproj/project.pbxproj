@@ -3964,6 +3964,13 @@
 			path = "../../JuceLibraryCode/include_juce_audio_processors.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
+		C8270CF94713D034C14B8E05 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = "rdelay~.pd";
+			path = "../../../Source/Pd/ELSE/Abstractions/rdelay~.pd";
+			sourceTree = "SOURCE_ROOT";
+		};
 		C95FE08B37298E43990D49A4 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.c;
@@ -4856,6 +4863,7 @@
 				231F25C722B301586F25B283,
 				7F6422336F3D494C1540C59B,
 				308A1D0F02F3BB95B6F2EABC,
+				C8270CF94713D034C14B8E05,
 				305190C3454425F1DADA8186,
 				F87D9CCAA10E8C24F774E248,
 				396E939F9512000C14A2954B,
