@@ -41,7 +41,10 @@ As for the examples given within the distribution, most of the time plugins crea
 
 To use the plugins, just copy the packages/folders in the audio plugins' location. If you are not familiar with plugins and/or the digital audio workstations, please read this [documentation](https://github.com/pierreguillot/Camomile/wiki/How-to-install-plugins).
 
-At last, this [part](https://github.com/pierreguillot/Camomile/wiki/How-to-create-new-plugins) of the documentation presents how to create new plugins with Camomile.
+At last, Camomile-ELSE don't have documented how to create plugins with it. But this [part](https://github.com/pierreguillot/Camomile/wiki/How-to-create-new-plugins) of official Camomile documentation presents how to create new plugins with Camomile which will work with Camomile-ELSE with some little differences which are:
+ - You need to declare else path in your pd patch with: `[declare -path else]`
+ - To guarantee else objects will be loaded correctly, you need to instantiate all else object like `[else_object_name]` avoiding use other manner like `[else/else_object_name]`.
+
 
 ### Compilation
 
