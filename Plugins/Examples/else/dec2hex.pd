@@ -1,0 +1,13 @@
+#N canvas 490 121 498 245 10;
+#X obj 98 143 makefilename %x;
+#X obj 98 61 inlet;
+#X obj 143 62 inlet;
+#X obj 98 200 outlet;
+#X text 219 61 Part of ELSE \; https://github.com/porres/pd-else;
+#X text 221 42 Alexandre Torres Porres (2018);
+#X obj 98 119 float \$1;
+#X text 204 131 I knowm pretty simple and stupid \, huh?, f 23;
+#X connect 0 0 3 0;
+#X connect 1 0 6 0;
+#X connect 2 0 6 1;
+#X connect 6 0 0 0;
