@@ -16,16 +16,17 @@
   </p>
 </p>
 
-## WARNING
-This repository is a simple fork with some [little edits](https://github.com/pierreguillot/Camomile/issues/214#issuecomment-704670696) to compile Camomile with support to [ELSE library](https://github.com/porres/pd-else).
+## DISCLAIMER
+This repository is a fork of [Camomile](https://github.com/pierreguillot/Camomile/) with [edits](https://github.com/pierreguillot/Camomile/issues/214#issuecomment-704670696) to support externals from the [ELSE library](https://github.com/porres/pd-else).
 - Issues about the support of ELSE library in Camomile are welcomed.
-- Issues about Camomile itself, please fill your issue in https://github.com/pierreguillot/Camomile/issues for better support.
+- Issues about Camomile itself, please fill your issue in https://github.com/pierreguillot/Camomile/issues.
+- Issues about ELSE itself, please fill your issue in  https://github.com/porres/pd-else/issues.
 
 ## Presentation
 
-Camomile-ELSE is a plugin with Pure Data and ELSE library embedded that offers to load and to control patches inside a digital audio workstation. The plugin is available as VST, VST3, LV2 and Audio Unit for Windows, Linux and MacOS. Documentation and further information are available on the [wiki](https://github.com/pierreguillot/Camomile/wiki) pages of the official Camomile project. Downloads and some more information can be found in the [wiki](https://github.com/emviveros/Camomile-ELSE/wiki) of Camomile-ELSE and in [Camomile-ELSE releases](https://github.com/emviveros/Camomile-ELSE/releases).
+Camomile-ELSE is a plugin with Pure Data and the ELSE library of externals embedded that offers to load and to control patches inside a digital audio workstation. The plugin is available as VST, VST3, LV2 and Audio Unit for Windows, Linux and MacOS. Documentation and further information are available on the [wiki](https://github.com/pierreguillot/Camomile/wiki) pages of the official Camomile project. Downloads and some more information can be found in the [wiki](https://github.com/emviveros/Camomile-ELSE/wiki) of Camomile-ELSE and in [Camomile-ELSE releases](https://github.com/emviveros/Camomile-ELSE/releases).
 
-Specific documentation to use Camomile-ELSE will be disponible soon.
+Specific documentation on how to use Camomile-ELSE will be disponible soon.
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/1409918/35470969-05182302-0353-11e8-90b5-d37450206adf.png" alt="Examples" width=425 height=325>
@@ -100,7 +101,8 @@ For a step by step compilation process, see: https://github.com/emviveros/Camomi
 ### Credits
 
 - [Pure Data](http://msp.ucsd.edu/software.html) by Miller Puckette and others
-- [libpd](http://libpd.cc) by the Peter Brinkmann, Dan Wilcox and others
+-  by the Peter Brinkmann, Dan Wilcox and others
+- [ELSE](https://github.com/porres/pd-else) by Alexandre Torres Porres and others
 - [Juce](https://github.com/WeAreROLI/JUCE) by ROLI Ltd.
 - [MoodyCamel](https://github.com/cameron314/concurrentqueue) by Cameron Desrochers
 - [LV2 PlugIn Technology](http://lv2plug.in) by Steve Harris, David Robillard and others
