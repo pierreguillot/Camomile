@@ -337,12 +337,26 @@ void GuiSliderHorizontal::mouseDown(const MouseEvent& e)
             m_temp = getValueScaled();
         }
     }
+    auto isShift = e.mods.isShiftDown();
+    m_shift = isShift && !gui.jumpOnClick();
     mouseDrag(e);
+    if(isShift && gui.jumpOnClick())
+    {
+        if(gui.isLogScale())
+        {
+            m_temp = log(getValueOriginal() / min) / log(max / min);
+        }
+        else
+        {
+            m_temp = getValueScaled();
+        }
+        m_shift = true;
+    }
 }
 
 void GuiSliderHorizontal::mouseDrag(const MouseEvent& e)
 {
-    if(gui.jumpOnClick())
+    if(!m_shift && gui.jumpOnClick())
     {
         const float val = static_cast<float>(e.x - 2) / static_cast<float>(getWidth() - 4);
         if(gui.isLogScale())
@@ -356,7 +370,7 @@ void GuiSliderHorizontal::mouseDrag(const MouseEvent& e)
     }
     else
     {
-        const float val = static_cast<float>(e.x - e.getMouseDownX()) / static_cast<float>(getWidth() - 4);
+        const float val = static_cast<float>(e.x - e.getMouseDownX()) / static_cast<float>(getWidth() - 4) * (m_shift ? 0.1f : 1.0f);
         if(gui.isLogScale())
         {
             setValueOriginal(exp((m_temp + val) * log(max / min)) * min);
@@ -407,12 +421,26 @@ void GuiSliderVertical::mouseDown(const MouseEvent& e)
             m_temp = getValueScaled();
         }
     }
+    auto isShift = e.mods.isShiftDown();
+    m_shift = isShift && !gui.jumpOnClick();
     mouseDrag(e);
+    if(isShift && gui.jumpOnClick())
+    {
+        if(gui.isLogScale())
+        {
+            m_temp = log(getValueOriginal() / min) / log(max / min);
+        }
+        else
+        {
+            m_temp = getValueScaled();
+        }
+        m_shift = true;
+    }
 }
 
 void GuiSliderVertical::mouseDrag(const MouseEvent& e)
 {
-    if(gui.jumpOnClick())
+    if(!m_shift && gui.jumpOnClick())
     {
         const float val = static_cast<float>(getHeight() - e.y - 2) / static_cast<float>(getHeight() - 4);
         if(gui.isLogScale())
@@ -426,7 +454,7 @@ void GuiSliderVertical::mouseDrag(const MouseEvent& e)
     }
     else
     {
-        const float val = static_cast<float>(e.getMouseDownY() - e.y) / static_cast<float>(getHeight() - 4);
+        const float val = static_cast<float>(e.getMouseDownY() - e.y) / static_cast<float>(getHeight() - 4) * (m_shift ? 0.1f : 1.0f);
         if(gui.isLogScale())
         {
             setValueOriginal(exp((m_temp + val) * log(max / min)) * min);
