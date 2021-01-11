@@ -201,6 +201,8 @@ void PluginEditorObject::updateValue()
 
 void PluginEditorObject::updateInterface()
 {
+    min = gui.getMinimum();
+    max = gui.getMaximum();
     std::array<int, 4> const bounds(gui.getBounds());
     setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
     repaint();
