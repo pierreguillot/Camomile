@@ -30,15 +30,12 @@ matrix:
     after_success:
     - cd $TRAVIS_BUILD_DIR
     - ./Plugins/camomile -d ./Plugins/Examples -o ./Plugins/Builds
-    - ls -R ./Plugins/Builds
     - curl -L https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Linux.zip -o ./pluginval.zip
     - unzip ./pluginval.zip
     - ./pluginval --strictnessLevel 10 --validate ./Plugins/Builds/ > /dev/null
     before_deploy:
     - mv Plugins/Builds Examples
     - zip -r $release-examples.zip Examples
-    - rm Plugins/Camomile.a
-    - rm Plugins/CamomileFx.a
     - cp README.md Plugins/README.md
     - cp ChangeLog.md Plugins/ChangeLog.md
     - cp LICENSE Plugins/LICENSE.txt
@@ -61,8 +58,6 @@ matrix:
     before_deploy:
     - mv Plugins/Builds Examples
     - zip -r $release-examples.zip Examples
-    - rm Plugins/libCamomile.a
-    - rm Plugins/libCamomileFx.a
     - cp README.md Plugins/README.md
     - cp ChangeLog.md Plugins/ChangeLog.md
     - cp LICENSE Plugins/LICENSE.txt
