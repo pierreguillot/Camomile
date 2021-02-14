@@ -1,0 +1,139 @@
+name: CMake
+
+on: [push]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+  ubuntu-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Install Dependencies
+      run: sudo apt -qq update && sudo apt install  -y libasound2-dev libjack-jackd2-dev libcurl4-openssl-dev libfreetype6-dev libx11-dev libxcomposite-dev libxcursor-dev libxcursor-dev libxext-dev libxinerama-dev libxrandr-dev libxrender-dev libwebkit2gtk-4.0-dev libglu1-mesa-dev mesa-common-dev
+
+    - name: Create Build Environment
+      run: cmake -E make_directory ${{github.workspace}}/build
+
+    - name: Configure CMake
+      shell: bash
+      working-directory: ${{github.workspace}}/build
+      run: cmake $GITHUB_WORKSPACE -G "Unix Makefiles"
+
+    - name: Build
+      working-directory: ${{github.workspace}}/build
+      shell: bash
+      run: cmake --build . --config $BUILD_TYPE
+
+    - name: Prepare Artefacts
+      working-directory: ${{github.workspace}}
+      shell: bash
+      run: ./.github/scripts/package.sh Linux64
+
+    - name: Archive Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Camomile-Linux64
+        path: Camomile-Linux64.zip
+
+  macos-build:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Create Build Environment
+      run: cmake -E make_directory ${{github.workspace}}/build
+
+    - name: Configure CMake
+      shell: bash
+      working-directory: ${{github.workspace}}/build
+      run: cmake $GITHUB_WORKSPACE -G "Xcode"
+
+    - name: Build
+      working-directory: ${{github.workspace}}/build
+      shell: bash
+      run: cmake --build . --config $BUILD_TYPE
+
+    - name: Prepare Artefacts
+      working-directory: ${{github.workspace}}
+      shell: bash
+      run: ./.github/scripts/package.sh MacOS64
+
+    - name: Archive Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Camomile-MacOS64
+        path: Camomile-MacOS64.zip
+
+  windows-64-build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Create Build Environment
+      run: cmake -E make_directory ${{github.workspace}}/build
+
+    - name: Configure CMake
+      shell: bash
+      working-directory: ${{github.workspace}}/build
+      run: cmake $GITHUB_WORKSPACE -G "Visual Studio 16 2019" -A x64
+
+    - name: Build
+      working-directory: ${{github.workspace}}/build
+      shell: bash
+      run: cmake --build . --config $BUILD_TYPE
+
+    - name: Prepare Artefacts
+      working-directory: ${{github.workspace}}
+      shell: cmd
+      run: ./.github/scripts/package.bat Win64
+
+    - name: Archive Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Camomile-Win64
+        path: Camomile-Win64.zip
+
+  windows-32-build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Create Build Environment
+      run: cmake -E make_directory ${{github.workspace}}/build
+
+    - name: Configure CMake
+      shell: bash
+      working-directory: ${{github.workspace}}/build
+      run: cmake $GITHUB_WORKSPACE -G "Visual Studio 16 2019" -A Win32
+
+    - name: Build
+      working-directory: ${{github.workspace}}/build
+      shell: bash
+      run: cmake --build . --config $BUILD_TYPE
+
+    - name: Prepare Artefacts
+      working-directory: ${{github.workspace}}
+      shell: cmd
+      run: ./.github/scripts/package.bat Win32
+
+    - name: Archive Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Camomile-Win32
+        path: Camomile-Win32.zip
