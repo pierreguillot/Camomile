@@ -148,11 +148,33 @@ AudioProcessor::BusesProperties CamomileAudioProcessor::getDefaultBusesPropertie
 
 bool CamomileAudioProcessor::isBusesLayoutSupported(const BusesLayout& requestedLayout) const
 {
-    const auto canoBus = CamomileBusesLayoutHelper::getCanonicalEquivalent(requestedLayout);
+    auto isBusesLayoutCompatible = [](AudioProcessor::BusesLayout const& lhs, AudioProcessor::BusesLayout const& rhs)
+    {
+        if(rhs.inputBuses.size() > lhs.inputBuses.size() && rhs.outputBuses.size() > lhs.outputBuses.size())
+        {
+            return false;
+        }
+        
+        using BusesSet = Array<AudioChannelSet>;
+        auto isBuseCompatible = [&](BusesSet const& lhs, BusesSet const& rhs)
+        {
+            for(int i = 0; i < lhs.size() && i < rhs.size(); ++i)
+            {
+                if(rhs[i].size() > lhs[i].size())
+                {
+                    return false;
+                }
+            }
+            return true;
+        };
+        return isBuseCompatible(lhs.inputBuses, rhs.inputBuses) && isBuseCompatible(lhs.outputBuses, rhs.outputBuses);
+    };
+    
+    const auto canonicalBus = CamomileBusesLayoutHelper::getCanonicalEquivalent(requestedLayout);
     const auto supportedBuses = CamomileBusesLayoutHelper::getSupportedBusesLayouts();
     for(auto& bus : supportedBuses)
     {
-        if(bus.buses == canoBus)
+        if(isBusesLayoutCompatible(canonicalBus, bus.buses))
         {
             return true;
         }
