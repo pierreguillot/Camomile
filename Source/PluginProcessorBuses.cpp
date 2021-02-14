@@ -23,20 +23,17 @@ public:
     static const Array<InternalBusesLayout> getSupportedBusesLayouts()
     {
         Array<InternalBusesLayout> layouts;
-        if(layouts.isEmpty())
+        auto const& envSupportedLayouts = CamomileEnvironment::getBusesLayouts();
+        for(auto const& envBusesLayout : envSupportedLayouts)
         {
-            auto const& envSupportedLayouts = CamomileEnvironment::getBusesLayouts();
-            for(auto const& envBusesLayout : envSupportedLayouts)
+            InternalBusesLayout pluginLayout;
+            for(auto const& envBus : envBusesLayout)
             {
-                InternalBusesLayout pluginLayout;
-                for(auto const& envBus : envBusesLayout)
-                {
-                    pluginLayout.buses.inputBuses.add(AudioChannelSet::canonicalChannelSet(static_cast<int>(envBus.inputs)));
-                    pluginLayout.buses.outputBuses.add(AudioChannelSet::canonicalChannelSet(static_cast<int>(envBus.outputs)));
-                    pluginLayout.names.add(envBus.name);
-                }
-                layouts.add(std::move(pluginLayout));
+                pluginLayout.buses.inputBuses.add(AudioChannelSet::canonicalChannelSet(static_cast<int>(envBus.inputs)));
+                pluginLayout.buses.outputBuses.add(AudioChannelSet::canonicalChannelSet(static_cast<int>(envBus.outputs)));
+                pluginLayout.names.add(envBus.name);
             }
+            layouts.add(std::move(pluginLayout));
         }
         return layouts;
     }
