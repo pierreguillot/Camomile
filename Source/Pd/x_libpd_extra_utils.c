@@ -4,11 +4,11 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
+#include "x_libpd_multi.h"
 #include <m_pd.h>
 #include <m_imp.h>
 #include <g_canvas.h>
 #include <g_all_guis.h>
-#include "x_libpd_multi.h"
 
 // False GARRAY
 typedef struct _fake_garray

@@ -4,8 +4,9 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
-
 #include <algorithm>
+#include "PdInstance.hpp"
+#include "PdPatch.hpp"
 
 extern "C"
 {
@@ -13,9 +14,6 @@ extern "C"
 #include "x_libpd_multi.h"
 #include "x_libpd_extra_utils.h"
 }
-
-#include "PdInstance.hpp"
-#include "PdPatch.hpp"
 
 extern "C"
 {

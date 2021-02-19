@@ -11,7 +11,6 @@
 extern "C"
 {
 #include <z_libpd.h>
-#include <m_pd.h>
 #include <g_canvas.h>
 #include "x_libpd_multi.h"
 }

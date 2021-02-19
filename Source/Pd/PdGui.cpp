@@ -4,15 +4,15 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
-#include "PdGui.hpp"
-#include "PdInstance.hpp"
 #include <limits>
 #include <cmath>
+
+#include "PdGui.hpp"
+#include "PdInstance.hpp"
 
 extern "C"
 {
 #include <z_libpd.h>
-#include <m_pd.h>
 #include <m_imp.h>
 #include <g_canvas.h>
 #include <g_all_guis.h>
