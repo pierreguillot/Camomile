@@ -17,7 +17,7 @@
 // ======================================================================================== //
 
 CamomileAudioProcessor::CamomileAudioProcessor() :
-AudioProcessor(getDefaultBusesProperties(PluginHostType::getPluginLoadedAs() == AudioProcessor::wrapperType_VST3)),
+AudioProcessor(getDefaultBusesProperties()),
 pd::Instance("camomile"), CamomileConsole(4),
 m_name(CamomileEnvironment::getPluginName()),
 m_accepts_midi(CamomileEnvironment::wantsMidi()),
@@ -34,7 +34,6 @@ m_programs(CamomileEnvironment::getPrograms())
         add(ConsoleLevel::Error, std::string("camomile ") + error);
         std::cout << "error : " << error << "\n";
     }
-    logBusesLayoutsInformation();
     if(CamomileEnvironment::isValid())
     {
         m_atoms_param.resize(2);

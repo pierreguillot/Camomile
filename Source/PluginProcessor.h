@@ -36,11 +36,8 @@ public:
     //////////////////////////////////////////////////////////////////////////////////////////
     bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
 private:
-    static BusesProperties getDefaultBusesProperties(const bool canonical);
+    static BusesProperties getDefaultBusesProperties();
     void sendCurrentBusesLayoutInformation();
-    void logBusesLayoutsInformation();
-    bool canAddBus (bool isInput) const override;
-    bool canRemoveBus (bool isInput) const override;
 public:
     //////////////////////////////////////////////////////////////////////////////////////////
     
