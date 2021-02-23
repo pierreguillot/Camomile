@@ -325,12 +325,28 @@ generate_plugin_vst3_linux() {
 
 generate_plugins() {
     if [ $machine == "Mac" ]; then
-        generate_plugin_vst3_mac $1 $2
-        generate_plugin_au_mac $1 $2
-        generate_plugin_lv2_mac $1 $2
+	if [[ "$vst3Only" == true ]]; then
+		generate_plugin_vst3_mac $1 $2
+	elif [[ "$auOnly" == true ]]; then
+		generate_plugin_au_mac $1 $2
+	elif [[ "$lv2Only" == true ]]; then
+		generate_plugin_lv2_mac $1 $2
+	else
+		generate_plugin_vst3_mac $1 $2
+		generate_plugin_au_mac $1 $2
+		generate_plugin_lv2_mac $1 $2
+	fi
     elif [ $machine == "Linux" ]; then
-        generate_plugin_vst3_linux "$1" "$2"
-        generate_plugin_lv2_linux "$1" "$2"
+       	if [[ "$vst3Only" == true ]]; then
+		generate_plugin_vst3_linux "$1" "$2"
+	elif [[ "$auOnly" == true ]]; then
+		generate_plugin_au_linux "$1" "$2"
+	elif [[ "$lv2Only" == true ]]; then
+		generate_plugin_lv2_linux "$1" "$2"
+	else
+		generate_plugin_vst3_linux "$1" "$2"
+		generate_plugin_lv2_linux "$1" "$2"
+	fi
     else
         post_error "$machine is not a supported"
     fi
@@ -400,7 +416,9 @@ else
     FolderMode="true"
     FileMode="false"
     pluginpath="./Examples"
-
+    auOnly="false"
+    lv2Only="false"
+    vst3Only="false"
     for var in "$@"
     do
         if [[ "$setoutput" == "true" ]]; then
@@ -422,6 +440,12 @@ else
         elif [[ $var == "-o" ]]; then
             setoutput=true
             setpath=false
+	elif [[ $var == "-au" ]]; then
+	    auOnly="true"
+	elif [[ $var == "-lv2" ]]; then
+	    lv2Only="true"
+	elif [[ $var == "-vst3" ]]; then
+	    vst3Only="true"
         else
             echo -e "\033[31m"$var" wrong arguments\033[0m"
         fi
