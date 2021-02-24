@@ -2,7 +2,7 @@
 
 CamomileInstrument="Camomile"
 CamomileEffect="CamomileFx"
-CamomileLV2="CamomileLV2"
+CamomileLV2="Camomile_LV2"
 
 AppleVst3Extension=vst3
 AppleAuExtension=component
@@ -61,39 +61,39 @@ plugin_get_type() {
 ################################################################################
 
 generate_plugin_lv2_mac() {
-    local camo_name="CamomileLV2"
+    local camo_name=$CamomileLV2
     local plugin_input_dir=$1
     local plugin_output_dir=$2
     local plugin_name=$(basename $1)
 
-# Check if the folder exists and get the type of the plugin
-if [ ! -d $plugin_input_dir ]; then
-    post_error "$plugin_input_dir is not a directory"
-    return
-fi
-
-# Get the dynamic libraries
-if [ -f "$ThisPath/$camo_name.$AppleLV2Extension" ]; then
-    if [ -d "$plugin_output_dir/$plugin_name.lv2" ]; then
-        rm -rf "$plugin_output_dir/$plugin_name.lv2"
+    # Check if the folder exists and get the type of the plugin
+    if [ ! -d $plugin_input_dir ]; then
+        post_error "$plugin_input_dir is not a directory"
+        return
     fi
 
-    mkdir "$plugin_output_dir/$plugin_name.lv2"
-    mkdir "$plugin_output_dir/$plugin_name.lv2/Contents"
-    mkdir "$plugin_output_dir/$plugin_name.lv2/Contents/Resources"
-    cp -f "$ThisPath/$CamomileLV2.$AppleLV2Extension" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.$AppleLV2Extension"
-    cp -rf "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.lv2/Contents/Resources"
+    # Get the dynamic libraries
+    if [ -f "$ThisPath/$camo_name.$AppleLV2Extension" ]; then
+        if [ -d "$plugin_output_dir/$plugin_name.lv2" ]; then
+            rm -rf "$plugin_output_dir/$plugin_name.lv2"
+        fi
 
-    "$ThisPath/lv2_file_generator" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.$AppleLV2Extension" $plugin_name > /dev/null
-    mv -f "$PWD/manifest.ttl" "$plugin_output_dir/$plugin_name.lv2/manifest.ttl"
-    if [ -f "$PWD/presets.ttl" ]; then
-        mv -f "$PWD/presets.ttl" "$plugin_output_dir/$plugin_name.lv2/presets.ttl"
+        mkdir "$plugin_output_dir/$plugin_name.lv2"
+        mkdir "$plugin_output_dir/$plugin_name.lv2/Contents"
+        mkdir "$plugin_output_dir/$plugin_name.lv2/Contents/Resources"
+        cp -f "$ThisPath/$CamomileLV2.$AppleLV2Extension" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.$AppleLV2Extension"
+        cp -rf "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.lv2/Contents/Resources"
+
+        "$ThisPath/lv2_file_generator" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.$AppleLV2Extension" $plugin_name
+        mv -f "$PWD/manifest.ttl" "$plugin_output_dir/$plugin_name.lv2/manifest.ttl"
+        if [ -f "$PWD/presets.ttl" ]; then
+            mv -f "$PWD/presets.ttl" "$plugin_output_dir/$plugin_name.lv2/presets.ttl"
+        fi
+        mv -f "$PWD/$plugin_name.ttl" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.ttl"
+        post_log "$plugin_output_dir/$plugin_name.lv2"
+    else
+        post_error "$camo_name.$AppleLV2Extension is not available"
     fi
-    mv -f "$PWD/$plugin_name.ttl" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.ttl"
-    post_log "$plugin_output_dir/$plugin_name.lv2"
-else
-    post_error "$camo_name.$AppleLV2Extension is not available"
-fi
 }
 
 ################################################################################
@@ -142,53 +142,53 @@ generate_plugin_au_mac() {
     local plugin_output_dir=$2
     local plugin_name=$(basename $1)
 
-# Check if the folder exists and get the type of the plugin
-if [ -d $plugin_input_dir ]; then
-    local plugin_type=$(plugin_get_type $plugin_input_dir $plugin_name)
-    if [ "$plugin_type" == "error" ]; then
+    # Check if the folder exists and get the type of the plugin
+    if [ -d $plugin_input_dir ]; then
+        local plugin_type=$(plugin_get_type $plugin_input_dir $plugin_name)
+        if [ "$plugin_type" == "error" ]; then
+            post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
+            return
+        elif [[ "$plugin_type" == *"instrument"* ]]; then
+            camo_name=$CamomileInstrument
+        elif [[ "$plugin_type" == *"effect"* ]]; then
+            camo_name=$CamomileEffect
+        else
+            post_error "$plugin_type is not a valid"
+            return
+        fi
+    else
+        post_error "$plugin_input_dir is not a directory"
+        return
+    fi
+
+    local code=$(au_get_plugin_code_mac $plugin_input_dir $plugin_name)
+    local manufacturer=$(au_get_plugin_manufacturer_mac $plugin_input_dir $plugin_name)
+    if [ "$code" == "undefined" ]; then
+        post_error "plugin code undefined"
+        return
+    elif [ "$code" == "undefined" ]; then
         post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
         return
-    elif [[ "$plugin_type" == *"instrument"* ]]; then
-        camo_name=$CamomileInstrument
-    elif [[ "$plugin_type" == *"effect"* ]]; then
-        camo_name=$CamomileEffect
+    fi
+
+    # Get the dynamic libraries
+    if [ -d "$ThisPath/$camo_name.$AppleAuExtension" ]; then
+        if [ -d "$plugin_output_dir/$plugin_name.$AppleAuExtension" ]; then
+            rm -rf "$plugin_output_dir/$plugin_name.$AppleAuExtension"
+        fi
+
+        cp -rf "$ThisPath/$camo_name.$AppleAuExtension" $plugin_output_dir/$plugin_name.$AppleAuExtension
+        cp -rf "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Resources"
+        plutil -replace CFBundleName -string $plugin_name "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist"
+        plutil -replace CFBundleDisplayName -string $plugin_name "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist"
+
+        plutil -replace AudioComponents.name -string "${manufacturer//[$'\t\r\n']}: $plugin_name" "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist"
+        plutil -replace AudioComponents.subtype -string $code "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist"
+
+        post_log "$plugin_output_dir/$plugin_name.$AppleAuExtension"
     else
-        post_error "$plugin_type is not a valid"
-        return
+        post_error "$camo_name.$AppleAuExtension is not available"
     fi
-else
-    post_error "$plugin_input_dir is not a directory"
-    return
-fi
-
-local code=$(au_get_plugin_code_mac $plugin_input_dir $plugin_name)
-local manufacturer=$(au_get_plugin_manufacturer_mac $plugin_input_dir $plugin_name)
-if [ "$code" == "undefined" ]; then
-    post_error "plugin code undefined"
-    return
-elif [ "$code" == "undefined" ]; then
-    post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
-    return
-fi
-
-# Get the dynamic libraries
-if [ -d "$ThisPath/$camo_name.$AppleAuExtension" ]; then
-    if [ -d "$plugin_output_dir/$plugin_name.$AppleAuExtension" ]; then
-        rm -rf "$plugin_output_dir/$plugin_name.$AppleAuExtension"
-    fi
-
-    cp -rf "$ThisPath/$camo_name.$AppleAuExtension" $plugin_output_dir/$plugin_name.$AppleAuExtension
-    cp -rf "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Resources"
-    plutil -replace CFBundleName -string $plugin_name "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist"
-    plutil -replace CFBundleDisplayName -string $plugin_name "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist"
-
-    plutil -replace AudioComponents.name -string "${manufacturer//[$'\t\r\n']}: $plugin_name" "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist"
-    plutil -replace AudioComponents.subtype -string $code "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist"
-
-    post_log "$plugin_output_dir/$plugin_name.$AppleAuExtension"
-else
-    post_error "$camo_name.$AppleAuExtension is not available"
-fi
 }
 
 #############################################s###################################
@@ -201,39 +201,39 @@ generate_plugin_vst3_mac() {
     local plugin_output_dir=$2
     local plugin_name=$(basename $1)
 
-# Check if the folder exists and get the type of the plugin
-if [ -d $plugin_input_dir ]; then
-    local plugin_type=$(plugin_get_type $plugin_input_dir $plugin_name)
-    if [ "$plugin_type" == "error" ]; then
-        post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
-        return
-    elif [[ "$plugin_type" == *"instrument"* ]]; then
-        camo_name=$CamomileInstrument
-    elif [[ "$plugin_type" == *"effect"* ]]; then
-        camo_name=$CamomileEffect
+    # Check if the folder exists and get the type of the plugin
+    if [ -d $plugin_input_dir ]; then
+        local plugin_type=$(plugin_get_type $plugin_input_dir $plugin_name)
+        if [ "$plugin_type" == "error" ]; then
+            post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
+            return
+        elif [[ "$plugin_type" == *"instrument"* ]]; then
+            camo_name=$CamomileInstrument
+        elif [[ "$plugin_type" == *"effect"* ]]; then
+            camo_name=$CamomileEffect
+        else
+            post_error "$plugin_type is not a valid"
+            return
+        fi
     else
-        post_error "$plugin_type is not a valid"
+        post_error "$plugin_input_dir is not a directory"
         return
     fi
-else
-    post_error "$plugin_input_dir is not a directory"
-    return
-fi
 
-# Get the dynamic libraries
-if [ -d "$ThisPath/$camo_name.$AppleVst3Extension" ]; then
-    if [ -d "$plugin_output_dir/$plugin_name.$AppleVst3Extension" ]; then
-        rm -rf "$plugin_output_dir/$plugin_name.$AppleVst3Extension"
+    # Get the dynamic libraries
+    if [ -d "$ThisPath/$camo_name.$AppleVst3Extension" ]; then
+        if [ -d "$plugin_output_dir/$plugin_name.$AppleVst3Extension" ]; then
+            rm -rf "$plugin_output_dir/$plugin_name.$AppleVst3Extension"
+        fi
+
+        cp -rf "$ThisPath/$camo_name.$AppleVst3Extension" "$plugin_output_dir/$plugin_name.$AppleVst3Extension"
+        cp -rf "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Resources"
+        plutil -replace CFBundleName -string $plugin_name "$plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Info.plist"
+        plutil -replace CFBundleDisplayName -string $plugin_name "$plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Info.plist"
+        post_log "$plugin_output_dir/$plugin_name.$AppleVst3Extension"
+    else
+        post_error "$camo_name.$AppleVst3Extension is not available"
     fi
-
-    cp -rf "$ThisPath/$camo_name.$AppleVst3Extension" "$plugin_output_dir/$plugin_name.$AppleVst3Extension"
-    cp -rf "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Resources"
-    plutil -replace CFBundleName -string $plugin_name "$plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Info.plist"
-    plutil -replace CFBundleDisplayName -string $plugin_name "$plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Info.plist"
-    post_log "$plugin_output_dir/$plugin_name.$AppleVst3Extension"
-else
-    post_error "$camo_name.$AppleVst3Extension is not available"
-fi
 }
 
 ################################################################################
@@ -241,40 +241,37 @@ fi
 ################################################################################
 
 generate_plugin_lv2_linux() {
-    local camo_name="CamomileLV2"
-    if [ -f "$ThisPath/libCamomileLV2" ]; then
-        camo_name="libCamomileLV2"
-    fi
+    local camo_name=$CamomileLV2
     local plugin_input_dir=$1
     local plugin_output_dir=$2
     local plugin_name=$(basename $1)
 
-# Check if the folder exists and get the type of the plugin
-if [ ! -d "$plugin_input_dir" ]; then
-    post_error "$plugin_input_dir is not a directory"
-    return
-fi
-
-# Get the dynamic libraries
-if [ -f "$ThisPath/$camo_name.$LinuxLV2Extension" ]; then
-    if [ -d "$plugin_output_dir/$plugin_name.lv2" ]; then
-        rm -rf "$plugin_output_dir/$plugin_name.lv2"
+    # Check if the folder exists and get the type of the plugin
+    if [ ! -d "$plugin_input_dir" ]; then
+        post_error "$plugin_input_dir is not a directory"
+        return
     fi
 
-    mkdir "$plugin_output_dir/$plugin_name.lv2"
-    cp -f "$ThisPath/$CamomileLV2.$LinuxLV2Extension" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.$LinuxLV2Extension"
-    cp -rf "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.lv2"
+    # Get the dynamic libraries
+    if [ -f "$ThisPath/$camo_name.$LinuxLV2Extension" ]; then
+        if [ -d "$plugin_output_dir/$plugin_name.lv2" ]; then
+            rm -rf "$plugin_output_dir/$plugin_name.lv2"
+        fi
 
-    LD_LIBRARY_PATH=$PWD "$ThisPath/lv2_file_generator" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.$LinuxLV2Extension" $plugin_name
-    mv -f "$PWD/manifest.ttl" "$plugin_output_dir/$plugin_name.lv2/manifest.ttl"
-    if [ -f "$PWD/presets.ttl" ]; then
-        mv -f "$PWD/presets.ttl" "$plugin_output_dir/$plugin_name.lv2/presets.ttl"
+        mkdir "$plugin_output_dir/$plugin_name.lv2"
+        cp -f "$ThisPath/$CamomileLV2.$LinuxLV2Extension" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.$LinuxLV2Extension"
+        cp -rf "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.lv2"
+
+        LD_LIBRARY_PATH=$PWD "$ThisPath/lv2_file_generator" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.$LinuxLV2Extension" $plugin_name
+        mv -f "$PWD/manifest.ttl" "$plugin_output_dir/$plugin_name.lv2/manifest.ttl"
+        if [ -f "$PWD/presets.ttl" ]; then
+            mv -f "$PWD/presets.ttl" "$plugin_output_dir/$plugin_name.lv2/presets.ttl"
+        fi
+        mv -f "$PWD/$plugin_name.ttl" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.ttl"
+        post_log "$plugin_output_dir/$plugin_name.lv2"
+    else
+        post_error "$camo_name.$LinuxLV2Extension is not available"
     fi
-    mv -f "$PWD/$plugin_name.ttl" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.ttl"
-    post_log "$plugin_output_dir/$plugin_name.lv2"
-else
-    post_error "$camo_name.$LinuxLV2Extension is not available"
-fi
 }
 
 ################################################################################
@@ -287,39 +284,39 @@ generate_plugin_vst3_linux() {
     local plugin_output_dir=$2
     local plugin_name=$(basename $1)
 
-# Check if the folder exists and get the type of the plugin
-if [ -d $plugin_input_dir ]; then
-    local plugin_type=$(plugin_get_type $plugin_input_dir $plugin_name)
-    if [ "$plugin_type" == "error" ]; then
-        post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
-        return
-    elif [ "$plugin_type" == "instrument" ]; then
-        camo_name=$CamomileInstrument
-    elif [ "$plugin_type" == "effect" ]; then
-        camo_name=$CamomileEffect
+    # Check if the folder exists and get the type of the plugin
+    if [ -d $plugin_input_dir ]; then
+        local plugin_type=$(plugin_get_type $plugin_input_dir $plugin_name)
+        if [ "$plugin_type" == "error" ]; then
+            post_error "$plugin_input_dir does not contain description text file $plugin_name.txt"
+            return
+        elif [ "$plugin_type" == "instrument" ]; then
+            camo_name=$CamomileInstrument
+        elif [ "$plugin_type" == "effect" ]; then
+            camo_name=$CamomileEffect
+        else
+            post_error "$plugin_type is not a valid"
+            return
+        fi
     else
-        post_error "$plugin_type is not a valid"
+        post_error "$plugin_input_dir is not a directory"
         return
     fi
-else
-    post_error "$plugin_input_dir is not a directory"
-    return
-fi
 
-# Get the dynamic libraries
-if [ -d "$ThisPath/$camo_name.$LinuxVst3Extension" ]; then
-    local plugin_bundle="$plugin_output_dir/$plugin_name.$LinuxVst3Extension"
-    if [ -d $plugin_bundle ]; then
-        rm -rf $plugin_bundle
+    # Get the dynamic libraries
+    if [ -d "$ThisPath/$camo_name.$LinuxVst3Extension" ]; then
+      local plugin_bundle="$plugin_output_dir/$plugin_name.$LinuxVst3Extension"
+        if [ -d $plugin_bundle ]; then
+            rm -rf $plugin_bundle
+        fi
+
+        cp -rf "$ThisPath/$camo_name.$LinuxVst3Extension" $plugin_bundle
+        cp -rf "$plugin_input_dir"/* "$plugin_bundle/Contents/x86_64-linux"
+        mv -f "$plugin_bundle/Contents/x86_64-linux/$camo_name.so" "$plugin_bundle/Contents/x86_64-linux/$plugin_name.so"
+        post_log "$plugin_output_dir/$plugin_name.$LinuxVst3Extension"
+    else
+        post_error "$camo_name.$LinuxVst3Extension is not available"
     fi
-
-    cp -rf "$ThisPath/$camo_name.$LinuxVst3Extension" $plugin_bundle
-    cp -rf "$plugin_input_dir"/* "$plugin_bundle/Contents/x86_64-linux"
-    mv -f "$plugin_bundle/Contents/x86_64-linux/$camo_name.so" "$plugin_bundle/Contents/x86_64-linux/$plugin_name.so"
-    post_log "$plugin_output_dir/$plugin_name.$LinuxVst3Extension"
-else
-    post_error "$camo_name.$LinuxVst3Extension is not available"
-fi
 }
 
 ################################################################################
@@ -328,31 +325,28 @@ fi
 
 generate_plugins() {
     if [ $machine == "Mac" ]; then
-        if [[ "$vst3Only" == true ]]; then
-            generate_plugin_vst3_mac $1 $2
-        fi
-        if [[ "$auOnly" == true ]]; then
-            generate_plugin_au_mac $1 $2
-        fi
-        if [[ "$lv2Only" == true ]]; then
-            generate_plugin_lv2_mac $1 $2
-        fi
-        if [[ "$vst3Only" != true ]] && [[ "$auOnly" != true ]] && [[ "$lv2Only" != true ]] ; then
-            generate_plugin_vst3_mac $1 $2
-            generate_plugin_au_mac $1 $2
-            generate_plugin_lv2_mac $1 $2
-        fi
+	if [[ "$vst3Only" == true ]]; then
+		generate_plugin_vst3_mac $1 $2
+	elif [[ "$auOnly" == true ]]; then
+		generate_plugin_au_mac $1 $2
+	elif [[ "$lv2Only" == true ]]; then
+		generate_plugin_lv2_mac $1 $2
+	else
+		generate_plugin_vst3_mac $1 $2
+		generate_plugin_au_mac $1 $2
+		generate_plugin_lv2_mac $1 $2
+	fi
     elif [ $machine == "Linux" ]; then
-        if [[ "$vst3Only" == true ]]; then
-            generate_plugin_vst3_linux "$1" "$2"
-        fi
-        if [[ "$lv2Only" == true ]]; then
-            generate_plugin_lv2_linux "$1" "$2"
-        fi
-        if [[ "$vst3Only" != true ]] && [[ "$lv2Only" != true ]] ; then
-            generate_plugin_vst3_linux "$1" "$2"
-            generate_plugin_lv2_linux "$1" "$2"
-        fi
+       	if [[ "$vst3Only" == true ]]; then
+		generate_plugin_vst3_linux "$1" "$2"
+	elif [[ "$auOnly" == true ]]; then
+		generate_plugin_au_linux "$1" "$2"
+	elif [[ "$lv2Only" == true ]]; then
+		generate_plugin_lv2_linux "$1" "$2"
+	else
+		generate_plugin_vst3_linux "$1" "$2"
+		generate_plugin_lv2_linux "$1" "$2"
+	fi
     else
         post_error "$machine is not a supported"
     fi
@@ -422,7 +416,9 @@ else
     FolderMode="true"
     FileMode="false"
     pluginpath="./Examples"
-
+    auOnly="false"
+    lv2Only="false"
+    vst3Only="false"
     for var in "$@"
     do
         if [[ "$setoutput" == "true" ]]; then
@@ -444,16 +440,17 @@ else
         elif [[ $var == "-o" ]]; then
             setoutput=true
             setpath=false
-        elif [[ $var == "-au" ]]; then
-            auOnly="true"
-        elif [[ $var == "-lv2" ]]; then
-            lv2Only="true"
-        elif [[ $var == "-vst3" ]]; then
-            vst3Only="true"
+	elif [[ $var == "-au" ]]; then
+	    auOnly="true"
+	elif [[ $var == "-lv2" ]]; then
+	    lv2Only="true"
+	elif [[ $var == "-vst3" ]]; then
+	    vst3Only="true"
         else
             echo -e "\033[31m"$var" wrong arguments\033[0m"
         fi
     done
+
 
     create_output_directory $output_dir
     echo -e "Camomile - Plugin Generator"
