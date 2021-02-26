@@ -325,12 +325,31 @@ generate_plugin_vst3_linux() {
 
 generate_plugins() {
     if [ $machine == "Mac" ]; then
-        generate_plugin_vst3_mac $1 $2
-        generate_plugin_au_mac $1 $2
-        generate_plugin_lv2_mac $1 $2
+        if [[ "$vst3Only" == true ]]; then
+            generate_plugin_vst3_mac $1 $2
+        fi
+        if [[ "$auOnly" == true ]]; then
+            generate_plugin_au_mac $1 $2
+        fi
+        if [[ "$lv2Only" == true ]]; then
+            generate_plugin_lv2_mac $1 $2
+        fi
+        if [[ "$vst3Only" != true ]] && [[ "$auOnly" != true ]] && [[ "$lv2Only" != true ]] ; then
+            generate_plugin_vst3_mac $1 $2
+            generate_plugin_au_mac $1 $2
+            generate_plugin_lv2_mac $1 $2
+        fi
     elif [ $machine == "Linux" ]; then
-        generate_plugin_vst3_linux "$1" "$2"
-        generate_plugin_lv2_linux "$1" "$2"
+        if [[ "$vst3Only" == true ]]; then
+            generate_plugin_vst3_linux "$1" "$2"
+        fi
+        if [[ "$lv2Only" == true ]]; then
+            generate_plugin_lv2_linux "$1" "$2"
+        fi
+        if [[ "$vst3Only" != true ]] && [[ "$lv2Only" != true ]] ; then
+            generate_plugin_vst3_linux "$1" "$2"
+            generate_plugin_lv2_linux "$1" "$2"
+        fi
     else
         post_error "$machine is not a supported"
     fi
@@ -422,11 +441,16 @@ else
         elif [[ $var == "-o" ]]; then
             setoutput=true
             setpath=false
+        elif [[ $var == "-au" ]]; then
+            auOnly="true"
+        elif [[ $var == "-lv2" ]]; then
+            lv2Only="true"
+        elif [[ $var == "-vst3" ]]; then
+            vst3Only="true"
         else
             echo -e "\033[31m"$var" wrong arguments\033[0m"
         fi
     done
-
 
     create_output_directory $output_dir
     echo -e "Camomile - Plugin Generator"
