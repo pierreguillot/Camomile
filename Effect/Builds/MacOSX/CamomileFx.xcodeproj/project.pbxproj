@@ -97,6 +97,7 @@
 		3ACF3FD610E8B5F880CE7D28 /* crossover~.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FE989BFBB49D52BC8FF0F5B /* crossover~.c */; };
 		3DA08389F502483643ABB373 /* selector.c in Sources */ = {isa = PBXBuildFile; fileRef = 19B0A65C399DC638ADA60F1E /* selector.c */; };
 		3DF5A1C40CCC81B5FD6EB1E7 /* message.c in Sources */ = {isa = PBXBuildFile; fileRef = 5DC222217FEA97A0490FB557 /* message.c */; };
+		3E88E296B8F3DDF2112BD9A9 /* trunc~.c in Sources */ = {isa = PBXBuildFile; fileRef = 70C23B3F28764C5912B9D31C /* trunc~.c */; };
 		41FC30E3F431ADCDFD135F4C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBF9F7DFC62377D880D402F /* QuartzCore.framework */; };
 		4285A2AE21D8AF1F3B7EC278 /* drive~.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F5C22BE1B8108ED7862280 /* drive~.c */; };
 		42B46AE19FF49203B8957D8E /* pan2~.c in Sources */ = {isa = PBXBuildFile; fileRef = D430D4DB4338F3E00466C5BF /* pan2~.c */; };
@@ -130,18 +131,18 @@
 		5901EEBB6135E1E1FF798631 /* lag~.c in Sources */ = {isa = PBXBuildFile; fileRef = EB84C9D4B04AC92F61DC24F3 /* lag~.c */; };
 		59D11BA897DB711B80BC1C04 /* detect~.c in Sources */ = {isa = PBXBuildFile; fileRef = 92A328C7E6B9B90DDCCA190E /* detect~.c */; };
 		5B0399DE843F57D57222FE1D /* decay~.c in Sources */ = {isa = PBXBuildFile; fileRef = 0AF8957305007D9EC4BF47E1 /* decay~.c */; };
+		5B36085D261BF8CE005B7A57 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8126A2FEEEADA13BE0FBBEDC /* RecentFilesMenuTemplate.nib */; };
+		5B36085E261BF8CE005B7A57 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1E3A85F79B93B336420138 /* Accelerate.framework */; };
+		5B36085F261BF8CE005B7A57 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8F36AEFDA9E963BDBA6C1C /* AudioToolbox.framework */; };
+		5B360860261BF8CE005B7A57 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
+		5B360861261BF8CE005B7A57 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22689D9A7644931A85906FC /* Cocoa.framework */; };
+		5B360862261BF8CE005B7A57 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE27C1948ACEC6272612D72E /* CoreAudio.framework */; };
+		5B360863261BF8CE005B7A57 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF6201286A446C72F198F49 /* CoreMIDI.framework */; };
+		5B360864261BF8CE005B7A57 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F064420B996DA482F0524 /* IOKit.framework */; };
+		5B360865261BF8CE005B7A57 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBF9F7DFC62377D880D402F /* QuartzCore.framework */; };
+		5B360866261BF8CE005B7A57 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBD83515A888D164A72466A /* WebKit.framework */; };
 		5B9DEC2B731165020FA1049D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
 		5BA91E81FDE171496EE0BE44 /* pinknoise~.c in Sources */ = {isa = PBXBuildFile; fileRef = 25E2978CFBAA1D6CA9508DE3 /* pinknoise~.c */; };
-		5BECA1BD259991E0003E7C4E /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8126A2FEEEADA13BE0FBBEDC /* RecentFilesMenuTemplate.nib */; };
-		5BECA1BE259991E0003E7C4E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1E3A85F79B93B336420138 /* Accelerate.framework */; };
-		5BECA1BF259991E0003E7C4E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8F36AEFDA9E963BDBA6C1C /* AudioToolbox.framework */; };
-		5BECA1C0259991E0003E7C4E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
-		5BECA1C1259991E0003E7C4E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22689D9A7644931A85906FC /* Cocoa.framework */; };
-		5BECA1C2259991E0003E7C4E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE27C1948ACEC6272612D72E /* CoreAudio.framework */; };
-		5BECA1C3259991E0003E7C4E /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF6201286A446C72F198F49 /* CoreMIDI.framework */; };
-		5BECA1C4259991E0003E7C4E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F064420B996DA482F0524 /* IOKit.framework */; };
-		5BECA1C5259991E0003E7C4E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBF9F7DFC62377D880D402F /* QuartzCore.framework */; };
-		5BECA1C6259991E0003E7C4E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBD83515A888D164A72466A /* WebKit.framework */; };
 		5D2BB828836D1EE5708C3AAD /* lb.c in Sources */ = {isa = PBXBuildFile; fileRef = 64F2E379DA6E6AA27B534C3F /* lb.c */; };
 		5E5CA1C59172EB5ACA4DC8FA /* saw2~.c in Sources */ = {isa = PBXBuildFile; fileRef = 59EA71E91B1ADEDEDE4C2414 /* saw2~.c */; };
 		614F6D242AF3FE6C13529BBE /* autofade~.c in Sources */ = {isa = PBXBuildFile; fileRef = 7F4BE5E23DF7CCB166547C6D /* autofade~.c */; };
@@ -158,6 +159,7 @@
 		6D8110CB0D25E7C9570318D4 /* fbdelay~.c in Sources */ = {isa = PBXBuildFile; fileRef = 0049F5AD47AB65DEF5CCE785 /* fbdelay~.c */; };
 		6DBDB49C3274BB326A83FE32 /* pgm.out.c in Sources */ = {isa = PBXBuildFile; fileRef = 24EFE20071A9134885856942 /* pgm.out.c */; };
 		6E9F820E4E00076026F8B29F /* PluginParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4180B270C578F80651F4E657 /* PluginParameter.cpp */; };
+		6EFF3189BD3E8AB187CF1971 /* del~.c in Sources */ = {isa = PBXBuildFile; fileRef = D1EE014ACEEDCBE588415E11 /* del~.c */; };
 		71CE59DFC9B492815819B62B /* PdArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAF008D6BEB4E12A741F90 /* PdArray.cpp */; };
 		72106F238F1451DF8E053C6C /* xfade~.c in Sources */ = {isa = PBXBuildFile; fileRef = F088E1535FB4909D58566FFC /* xfade~.c */; };
 		727A91F28E770E2543046EB9 /* gui.c in Sources */ = {isa = PBXBuildFile; fileRef = 20C1E5F03D89EA9AD9200A0B /* gui.c */; };
@@ -171,6 +173,7 @@
 		7ABE82A81DD7D031C0C622C7 /* rint.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C105F848C4D2E78531359 /* rint.c */; };
 		7B1137BE093CA4A6F93AEA46 /* rand.i.c in Sources */ = {isa = PBXBuildFile; fileRef = C673A3E050C97CA0EFA54453 /* rand.i.c */; };
 		7B7F6F55C2E21F9074EFABC2 /* PluginProcessorBuses.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C36AC6E988343B87302C5E5 /* PluginProcessorBuses.cpp */; };
+		7BA90F63C530364C14732B40 /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 44D062C61F4534BF1C107912 /* buffer.c */; };
 		7C4D1AC8D69807AB6AD9C684 /* mov.rms~.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F4DC8F95677A4DE885B590A /* mov.rms~.c */; };
 		7E4BED42B5591BFD32C645C6 /* x_libpd_extra_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 0A712B8BE5C0838F28EFDB23 /* x_libpd_extra_utils.c */; };
 		7F2680C6CFCA20A22A3378A1 /* schmitt~.c in Sources */ = {isa = PBXBuildFile; fileRef = 7F3235F7C06C1607E5044E4F /* schmitt~.c */; };
@@ -192,6 +195,7 @@
 		84F0E16FA3E08219783BABFB /* sort.c in Sources */ = {isa = PBXBuildFile; fileRef = BD20084488CC03944B1996DB /* sort.c */; };
 		856799577D66B0F7DA58AD6C /* magic.c in Sources */ = {isa = PBXBuildFile; fileRef = AC588842428819BE4F9FEDAE /* magic.c */; };
 		870BAFB58915EE654733E192 /* mov.avg~.c in Sources */ = {isa = PBXBuildFile; fileRef = 135127A208CBD1C44BF42829 /* mov.avg~.c */; };
+		880C1C1B8DC12618C8ED7242 /* gcd.c in Sources */ = {isa = PBXBuildFile; fileRef = A709569CCBF413FBFD8AEA0C /* gcd.c */; };
 		888009C529EDF7E74084D4BC /* hot.c in Sources */ = {isa = PBXBuildFile; fileRef = 22C07A900C26105A2B5DDFE3 /* hot.c */; };
 		89A0987D13336FFFE8E0A5FC /* tabwriter~.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E82010AB0FC99D71794C39F /* tabwriter~.c */; };
 		8A24A60279E9810B01ABA8F3 /* cents2ratio~.c in Sources */ = {isa = PBXBuildFile; fileRef = 215818B93476F05C05733C1B /* cents2ratio~.c */; };
@@ -315,6 +319,7 @@
 		F56255E3175C96E241DD26BF /* tri~.c in Sources */ = {isa = PBXBuildFile; fileRef = 39CFD207B5902111F5333475 /* tri~.c */; };
 		F602C1CD22553264FCB0DB22 /* include_juce_audio_processors.mm in Sources */ = {isa = PBXBuildFile; fileRef = ECA218C8F959D75DB14BDA70 /* include_juce_audio_processors.mm */; };
 		F636BB16B661A1B5CB670A3B /* zerocross~.c in Sources */ = {isa = PBXBuildFile; fileRef = 2172C9C12419BA126A097D9D /* zerocross~.c */; };
+		F6DD63921F37C98FE6C71F3D /* trunc.c in Sources */ = {isa = PBXBuildFile; fileRef = 349654D7B44C749C9B5621A4 /* trunc.c */; };
 		F7AA88D706F73F4C397B30B1 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE27C1948ACEC6272612D72E /* CoreAudio.framework */; };
 		F7C440C6BF9AD81364CBC7A6 /* messbox.c in Sources */ = {isa = PBXBuildFile; fileRef = C02497A4E305088A99EAB2CC /* messbox.c */; };
 		F8F5C3DA4CD8D03AF7F3BEC3 /* autofade2~.c in Sources */ = {isa = PBXBuildFile; fileRef = 23EBD6C97470DAAAC68787D2 /* autofade2~.c */; };
@@ -329,35 +334,35 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5BECA1D6259991E0003E7C4E /* PBXContainerItemProxy */ = {
+		5B360876261BF8CF005B7A57 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 074FFE22626A916E5D070022;
 			remoteInfo = "CamomileFx - VST3";
 		};
-		5BECA1D7259991E0003E7C4E /* PBXContainerItemProxy */ = {
+		5B360877261BF8CF005B7A57 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = DDC710B892FDE37A0F19292D;
 			remoteInfo = "CamomileFx - Shared Code";
 		};
-		5BECA1D8259991E0003E7C4E /* PBXContainerItemProxy */ = {
+		5B360878261BF8CF005B7A57 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 6E51637F255AB3A3BE377A27;
 			remoteInfo = "CamomileFx - AU";
 		};
-		5BECA1D9259991E0003E7C4E /* PBXContainerItemProxy */ = {
+		5B360879261BF8CF005B7A57 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = DDC710B892FDE37A0F19292D;
 			remoteInfo = "CamomileFx - Shared Code";
 		};
-		5BECA1DA259991E0003E7C4E /* PBXContainerItemProxy */ = {
+		5B36087A261BF8CF005B7A57 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
@@ -368,6 +373,7 @@
 
 /* Begin PBXFileReference section */
 		0049F5AD47AB65DEF5CCE785 /* fbdelay~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "fbdelay~.c"; path = "../../../Source/Pd/ELSE/fbdelay~.c"; sourceTree = SOURCE_ROOT; };
+		00AD84B7841586B13B4457FB /* allpass_unit.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = allpass_unit.pd; path = ../../../Source/Pd/ELSE/Abstractions/allpass_unit.pd; sourceTree = SOURCE_ROOT; };
 		00E54FD8388F9CE493F99AF8 /* crusher~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "crusher~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/crusher~.pd"; sourceTree = SOURCE_ROOT; };
 		013C9D8BD6D358E549C03D94 /* include_juce_audio_plugin_client_AU.r */ = {isa = PBXFileReference; lastKnownFileType = file.r; name = include_juce_audio_plugin_client_AU.r; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU.r; sourceTree = SOURCE_ROOT; };
 		0142193359A9D97378D55458 /* include_juce_audio_plugin_client_utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_utils.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_utils.cpp; sourceTree = SOURCE_ROOT; };
@@ -393,6 +399,7 @@
 		0BBBECA51AB078DEE35F45C1 /* clock.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = clock.pd; path = ../../../Source/Pd/ELSE/Abstractions/clock.pd; sourceTree = SOURCE_ROOT; };
 		0CE0AD728CD60505A88AC653 /* ms2samps.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = ms2samps.pd; path = ../../../Source/Pd/ELSE/Abstractions/ms2samps.pd; sourceTree = SOURCE_ROOT; };
 		0E4A331AAAB2A9B8211AD5E2 /* out4~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "out4~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/out4~.pd"; sourceTree = SOURCE_ROOT; };
+		0FB2118998574043B6AE8DE0 /* note2pitch.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = note2pitch.pd; path = ../../../Source/Pd/ELSE/Abstractions/note2pitch.pd; sourceTree = SOURCE_ROOT; };
 		0FB56A57FA89E41A666D9BAB /* bl.tri~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "bl.tri~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/bl.tri~.pd"; sourceTree = SOURCE_ROOT; };
 		0FCC155F74A73EA5411755C1 /* cosine~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "cosine~.c"; path = "../../../Source/Pd/ELSE/cosine~.c"; sourceTree = SOURCE_ROOT; };
 		103EDD6BDE60DE040794A0AE /* note.out.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = note.out.c; path = ../../../Source/Pd/ELSE/note.out.c; sourceTree = SOURCE_ROOT; };
@@ -450,6 +457,7 @@
 		24EFE20071A9134885856942 /* pgm.out.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = pgm.out.c; path = ../../../Source/Pd/ELSE/pgm.out.c; sourceTree = SOURCE_ROOT; };
 		25E2978CFBAA1D6CA9508DE3 /* pinknoise~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "pinknoise~.c"; path = "../../../Source/Pd/ELSE/pinknoise~.c"; sourceTree = SOURCE_ROOT; };
 		25EB1B82D4345FB0AC88189A /* drum.seq.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = drum.seq.pd; path = ../../../Source/Pd/ELSE/Abstractions/drum.seq.pd; sourceTree = SOURCE_ROOT; };
+		262922F7C5210350FD93C0AB /* frac2dec.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = frac2dec.pd; path = ../../../Source/Pd/ELSE/Abstractions/frac2dec.pd; sourceTree = SOURCE_ROOT; };
 		26AB0A59B0EEC240F6BEE191 /* group.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = group.pd; path = ../../../Source/Pd/ELSE/Abstractions/group.pd; sourceTree = SOURCE_ROOT; };
 		26D80666FBC278DBC24AF1DF /* symbol2any.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = symbol2any.c; path = ../../../Source/Pd/ELSE/symbol2any.c; sourceTree = SOURCE_ROOT; };
 		278870EB2FF6B2840518BD37 /* ceil~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "ceil~.c"; path = "../../../Source/Pd/ELSE/ceil~.c"; sourceTree = SOURCE_ROOT; };
@@ -471,6 +479,7 @@
 		2EF42BB76372D7097802C049 /* stream.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = stream.pd; path = ../../../Source/Pd/ELSE/Abstractions/stream.pd; sourceTree = SOURCE_ROOT; };
 		2F1025652FD6DD4C9BAB22FE /* xmod~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "xmod~.c"; path = "../../../Source/Pd/ELSE/xmod~.c"; sourceTree = SOURCE_ROOT; };
 		2FE989BFBB49D52BC8FF0F5B /* crossover~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "crossover~.c"; path = "../../../Source/Pd/ELSE/crossover~.c"; sourceTree = SOURCE_ROOT; };
+		300B826F535BEA7EDB0C79BF /* pitch2note.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = pitch2note.pd; path = ../../../Source/Pd/ELSE/Abstractions/pitch2note.pd; sourceTree = SOURCE_ROOT; };
 		30157F1D9414B0321037E5DE /* fdn.rev~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "fdn.rev~.c"; path = "../../../Source/Pd/ELSE/fdn.rev~.c"; sourceTree = SOURCE_ROOT; };
 		30747C59F45E6C01ACA3A1C3 /* bl.square~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "bl.square~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/bl.square~.pd"; sourceTree = SOURCE_ROOT; };
 		30925590163D028E36746091 /* break.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = break.c; path = ../../../Source/Pd/ELSE/break.c; sourceTree = SOURCE_ROOT; };
@@ -483,8 +492,10 @@
 		32D33E3A4219B3F0FBE44405 /* magic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = magic.h; path = ../../../Source/Pd/ELSE/shared/magic.h; sourceTree = SOURCE_ROOT; };
 		33389528E21FCAAB1B4B4CC0 /* stereo.rev~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "stereo.rev~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/stereo.rev~.pd"; sourceTree = SOURCE_ROOT; };
 		340134C39F0B2A67FD34E112 /* shaper~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "shaper~.c"; path = "../../../Source/Pd/ELSE/shaper~.c"; sourceTree = SOURCE_ROOT; };
+		3406BBD61B6EA390739413FD /* grain.synth.grain.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = grain.synth.grain.pd; path = ../../../Source/Pd/ELSE/Abstractions/grain.synth.grain.pd; sourceTree = SOURCE_ROOT; };
 		34491E93DD619C6E6B98818A /* PdArray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PdArray.hpp; path = ../../../Source/Pd/PdArray.hpp; sourceTree = SOURCE_ROOT; };
 		348F6D73F81AC26A236D3B38 /* impulse.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = impulse.pd; path = ../../../Source/Pd/ELSE/Abstractions/impulse.pd; sourceTree = SOURCE_ROOT; };
+		349654D7B44C749C9B5621A4 /* trunc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = trunc.c; path = ../../../Source/Pd/ELSE/trunc.c; sourceTree = SOURCE_ROOT; };
 		35283FA51E8FBDE19D38165F /* mix2~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "mix2~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/mix2~.pd"; sourceTree = SOURCE_ROOT; };
 		35A418B40437B19BEFA4B886 /* fader~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "fader~.c"; path = "../../../Source/Pd/ELSE/fader~.c"; sourceTree = SOURCE_ROOT; };
 		365722763B5D7D8BBE93FEC5 /* slider2d.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = slider2d.pd; path = ../../../Source/Pd/ELSE/Abstractions/slider2d.pd; sourceTree = SOURCE_ROOT; };
@@ -513,6 +524,7 @@
 		4180B270C578F80651F4E657 /* PluginParameter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginParameter.cpp; path = ../../../Source/PluginParameter.cpp; sourceTree = SOURCE_ROOT; };
 		4479FA1A14CAA6ABE705F2CD /* circle.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = circle.pd; path = ../../../Source/Pd/ELSE/Abstractions/circle.pd; sourceTree = SOURCE_ROOT; };
 		448FD7B98D9F48ED49DC8F9A /* random.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = random.h; path = ../../../Source/Pd/ELSE/shared/random.h; sourceTree = SOURCE_ROOT; };
+		44D062C61F4534BF1C107912 /* buffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = buffer.c; path = ../../../Source/Pd/ELSE/buffer.c; sourceTree = SOURCE_ROOT; };
 		45348FB16C797B7B013929B8 /* combine.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = combine.pd; path = ../../../Source/Pd/ELSE/Abstractions/combine.pd; sourceTree = SOURCE_ROOT; };
 		45A0091CEB10DC7CC4552776 /* hip.bw~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "hip.bw~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/hip.bw~.pd"; sourceTree = SOURCE_ROOT; };
 		463AC4ADC41FC3AF2F2FBDFE /* impulse2~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "impulse2~.c"; path = "../../../Source/Pd/ELSE/impulse2~.c"; sourceTree = SOURCE_ROOT; };
@@ -542,6 +554,7 @@
 		4F3ACF021014C40AB9079DE3 /* x_libpd_multi.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = x_libpd_multi.c; path = ../../../Source/Pd/x_libpd_multi.c; sourceTree = SOURCE_ROOT; };
 		4FEF3C2B9FD5764629BDC57A /* setdsp~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "setdsp~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/setdsp~.pd"; sourceTree = SOURCE_ROOT; };
 		50029629E62E028AEA5F7E76 /* openfile.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = openfile.c; path = ../../../Source/Pd/ELSE/openfile.c; sourceTree = SOURCE_ROOT; };
+		50274B337F3E7CF8C93E28B5 /* gran~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "gran~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/gran~.pd"; sourceTree = SOURCE_ROOT; };
 		5035FC7B5A42BAC327B8BC52 /* xmod2~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "xmod2~.c"; path = "../../../Source/Pd/ELSE/xmod2~.c"; sourceTree = SOURCE_ROOT; };
 		50B71EACA160F4D3212E776B /* merge.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = merge.c; path = ../../../Source/Pd/ELSE/merge.c; sourceTree = SOURCE_ROOT; };
 		50E96394620ED3EBBB00C79E /* lfo.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = lfo.pd; path = ../../../Source/Pd/ELSE/Abstractions/lfo.pd; sourceTree = SOURCE_ROOT; };
@@ -550,10 +563,12 @@
 		52FDCD5240AF9D8158A06F22 /* euclid.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = euclid.pd; path = ../../../Source/Pd/ELSE/Abstractions/euclid.pd; sourceTree = SOURCE_ROOT; };
 		53384ABB1C99D8C6C9F8C471 /* ctl.in.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ctl.in.c; path = ../../../Source/Pd/ELSE/ctl.in.c; sourceTree = SOURCE_ROOT; };
 		53E913D78E602F1C12C80ECB /* resonbank~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "resonbank~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/resonbank~.pd"; sourceTree = SOURCE_ROOT; };
+		54C9C78AF47AA950671683CC /* resonclone.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = resonclone.pd; path = ../../../Source/Pd/ELSE/Abstractions/resonclone.pd; sourceTree = SOURCE_ROOT; };
 		5572F28B6D89BE4A349A5D4D /* hex2dec.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = hex2dec.pd; path = ../../../Source/Pd/ELSE/Abstractions/hex2dec.pd; sourceTree = SOURCE_ROOT; };
 		55A3289E0F8CE4E26384204E /* vibrato~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "vibrato~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/vibrato~.pd"; sourceTree = SOURCE_ROOT; };
 		55B5606556670FAF5444443F /* PluginEditorObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginEditorObject.hpp; path = ../../../Source/PluginEditorObject.hpp; sourceTree = SOURCE_ROOT; };
 		56075AF5E2E476E193A07799 /* colors.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = colors.c; path = ../../../Source/Pd/ELSE/colors.c; sourceTree = SOURCE_ROOT; };
+		577311877E64B92EEFBCD8E0 /* oscclone2.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = oscclone2.pd; path = ../../../Source/Pd/ELSE/Abstractions/oscclone2.pd; sourceTree = SOURCE_ROOT; };
 		584F0645E5F980B129306159 /* PluginEditorInteraction.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginEditorInteraction.cpp; path = ../../../Source/PluginEditorInteraction.cpp; sourceTree = SOURCE_ROOT; };
 		5903E4E3BC435746C2480F67 /* above.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = above.pd; path = ../../../Source/Pd/ELSE/Abstractions/above.pd; sourceTree = SOURCE_ROOT; };
 		59EA71E91B1ADEDEDE4C2414 /* saw2~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "saw2~.c"; path = "../../../Source/Pd/ELSE/saw2~.c"; sourceTree = SOURCE_ROOT; };
@@ -601,12 +616,15 @@
 		6FA757CF07EC1C02A6B42C13 /* square~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "square~.c"; path = "../../../Source/Pd/ELSE/square~.c"; sourceTree = SOURCE_ROOT; };
 		701B387AE7DE00C378014329 /* PluginEditorComponents.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginEditorComponents.cpp; path = ../../../Source/PluginEditorComponents.cpp; sourceTree = SOURCE_ROOT; };
 		708A32A22376B7F496CD7798 /* libCamomileFx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCamomileFx.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		70C23B3F28764C5912B9D31C /* trunc~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "trunc~.c"; path = "../../../Source/Pd/ELSE/trunc~.c"; sourceTree = SOURCE_ROOT; };
 		7170A7A8E80D60AB9DC41356 /* crackle~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "crackle~.c"; path = "../../../Source/Pd/ELSE/crackle~.c"; sourceTree = SOURCE_ROOT; };
 		72486087D9E9A91C30308A0D /* PluginConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginConfig.h; path = ../../../Source/PluginConfig.h; sourceTree = SOURCE_ROOT; };
+		72D734B8B53F1081AA41A2A2 /* bpclone.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = bpclone.pd; path = ../../../Source/Pd/ELSE/Abstractions/bpclone.pd; sourceTree = SOURCE_ROOT; };
 		730886957BED53FBB3F393D9 /* rad2hz~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "rad2hz~.c"; path = "../../../Source/Pd/ELSE/rad2hz~.c"; sourceTree = SOURCE_ROOT; };
 		737BC55AAAA2F86D9EC73D30 /* lop.bw~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "lop.bw~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/lop.bw~.pd"; sourceTree = SOURCE_ROOT; };
 		740DB9497B7E9EAE65ACD704 /* quad~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "quad~.c"; path = "../../../Source/Pd/ELSE/quad~.c"; sourceTree = SOURCE_ROOT; };
 		764397615380E88365264458 /* meter~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "meter~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/meter~.pd"; sourceTree = SOURCE_ROOT; };
+		76ED37FF46491733C215C7CA /* dec2frac.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = dec2frac.pd; path = ../../../Source/Pd/ELSE/Abstractions/dec2frac.pd; sourceTree = SOURCE_ROOT; };
 		76FB563CAA08266BE5E3523B /* envelope~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "envelope~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/envelope~.pd"; sourceTree = SOURCE_ROOT; };
 		773507CE68A91B1F27D4C596 /* display.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = display.pd; path = ../../../Source/Pd/ELSE/Abstractions/display.pd; sourceTree = SOURCE_ROOT; };
 		7801484270AE109B7385CA18 /* spread.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = spread.c; path = ../../../Source/Pd/ELSE/spread.c; sourceTree = SOURCE_ROOT; };
@@ -618,6 +636,7 @@
 		7AE27A8C84BC0CDF3BA8026C /* comb.rev~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "comb.rev~.c"; path = "../../../Source/Pd/ELSE/comb.rev~.c"; sourceTree = SOURCE_ROOT; };
 		7AF244EE344A97D00355BB0D /* bandstop~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "bandstop~.c"; path = "../../../Source/Pd/ELSE/bandstop~.c"; sourceTree = SOURCE_ROOT; };
 		7B3F90B6162FAD72942CD046 /* PluginEditor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginEditor.cpp; path = ../../../Source/PluginEditor.cpp; sourceTree = SOURCE_ROOT; };
+		7B6A245A6D43E812CABB7F34 /* resonclone2.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = resonclone2.pd; path = ../../../Source/Pd/ELSE/Abstractions/resonclone2.pd; sourceTree = SOURCE_ROOT; };
 		7B7D577CFC783273F5EC6F93 /* median.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = median.pd; path = ../../../Source/Pd/ELSE/Abstractions/median.pd; sourceTree = SOURCE_ROOT; };
 		7BF6201286A446C72F198F49 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		7C40B2D7FB1D45BFD75DD0CE /* CreditsAU */ = {isa = PBXFileReference; lastKnownFileType = text; name = CreditsAU; path = ../../../Ressources/Credits/CreditsAU; sourceTree = SOURCE_ROOT; };
@@ -652,6 +671,7 @@
 		8873C5617BCB982D5BAE74D0 /* imp~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "imp~.c"; path = "../../../Source/Pd/ELSE/imp~.c"; sourceTree = SOURCE_ROOT; };
 		88CE9EF939445E6A5A686245 /* pimp~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "pimp~.c"; path = "../../../Source/Pd/ELSE/pimp~.c"; sourceTree = SOURCE_ROOT; };
 		88F4C984D9E606FCCAE8C838 /* fold~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "fold~.c"; path = "../../../Source/Pd/ELSE/fold~.c"; sourceTree = SOURCE_ROOT; };
+		89185ED7461CD0EBAAC78788 /* vocoder.band_clone.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = vocoder.band_clone.pd; path = ../../../Source/Pd/ELSE/Abstractions/vocoder.band_clone.pd; sourceTree = SOURCE_ROOT; };
 		8B21087CC58A75A883FDAF18 /* juce_core */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_core; path = ../../../Juce/modules/juce_core; sourceTree = SOURCE_ROOT; };
 		8BC188E285F92D027B2D1C50 /* juce_gui_basics */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_gui_basics; path = ../../../Juce/modules/juce_gui_basics; sourceTree = SOURCE_ROOT; };
 		8BCAF008D6BEB4E12A741F90 /* PdArray.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PdArray.cpp; path = ../../../Source/Pd/PdArray.cpp; sourceTree = SOURCE_ROOT; };
@@ -710,6 +730,7 @@
 		A57FDD1DC5D1E3385BE51B0A /* coin~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "coin~.c"; path = "../../../Source/Pd/ELSE/coin~.c"; sourceTree = SOURCE_ROOT; };
 		A596A49C9858995A8B8D301E /* bl.wavetable~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "bl.wavetable~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/bl.wavetable~.pd"; sourceTree = SOURCE_ROOT; };
 		A626FBD7CE299F15A2531AFE /* comb.filt~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "comb.filt~.c"; path = "../../../Source/Pd/ELSE/comb.filt~.c"; sourceTree = SOURCE_ROOT; };
+		A709569CCBF413FBFD8AEA0C /* gcd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = gcd.c; path = ../../../Source/Pd/ELSE/gcd.c; sourceTree = SOURCE_ROOT; };
 		A73D7EBB41E3E6670835E44B /* canvas.mouse.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = canvas.mouse.c; path = ../../../Source/Pd/ELSE/canvas.mouse.c; sourceTree = SOURCE_ROOT; };
 		A7751FA1F04190EFB2201423 /* lastvalue~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "lastvalue~.c"; path = "../../../Source/Pd/ELSE/lastvalue~.c"; sourceTree = SOURCE_ROOT; };
 		A7C17AEA56EC4600B54CC764 /* pgm.in.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = pgm.in.c; path = ../../../Source/Pd/ELSE/pgm.in.c; sourceTree = SOURCE_ROOT; };
@@ -736,6 +757,7 @@
 		B06FA80C31C7BCBA115CD7D5 /* juce_graphics */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_graphics; path = ../../../Juce/modules/juce_graphics; sourceTree = SOURCE_ROOT; };
 		B0A1241E229C27D9CD6F1298 /* hann~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "hann~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/hann~.pd"; sourceTree = SOURCE_ROOT; };
 		B0AAC6036B2298E672A6025F /* PdPatch.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PdPatch.cpp; path = ../../../Source/Pd/PdPatch.cpp; sourceTree = SOURCE_ROOT; };
+		B11786434FFCD2284DDDBE8E /* lcm.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = lcm.pd; path = ../../../Source/Pd/ELSE/Abstractions/lcm.pd; sourceTree = SOURCE_ROOT; };
 		B32A968B32C80F3BC064287E /* iterate.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = iterate.pd; path = ../../../Source/Pd/ELSE/Abstractions/iterate.pd; sourceTree = SOURCE_ROOT; };
 		B36251FC4A5BB252E3545F2B /* canvas.setname.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = canvas.setname.c; path = ../../../Source/Pd/ELSE/canvas.setname.c; sourceTree = SOURCE_ROOT; };
 		B364AC2F18B269827E71E8A4 /* PdAtom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PdAtom.hpp; path = ../../../Source/Pd/PdAtom.hpp; sourceTree = SOURCE_ROOT; };
@@ -754,6 +776,7 @@
 		BA9984C6CC97ED7B805DCB09 /* rdelay~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "rdelay~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/rdelay~.pd"; sourceTree = SOURCE_ROOT; };
 		BAA4B7E9C424D4EB4AA16EA1 /* routeall.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = routeall.c; path = ../../../Source/Pd/ELSE/routeall.c; sourceTree = SOURCE_ROOT; };
 		BBB154BFC6C6C7D97D835E2B /* PluginConsole.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginConsole.h; path = ../../../Source/PluginConsole.h; sourceTree = SOURCE_ROOT; };
+		BC591994AD63EA881DB60F2D /* All_objects.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = All_objects.pd; path = ../../../Source/Pd/ELSE/Abstractions/All_objects.pd; sourceTree = SOURCE_ROOT; };
 		BC7091137749D6E9E17BCD85 /* lowpass~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "lowpass~.c"; path = "../../../Source/Pd/ELSE/lowpass~.c"; sourceTree = SOURCE_ROOT; };
 		BC8DA5B4ABCF90A7F3F08D8B /* schmitt.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = schmitt.pd; path = ../../../Source/Pd/ELSE/Abstractions/schmitt.pd; sourceTree = SOURCE_ROOT; };
 		BD20084488CC03944B1996DB /* sort.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = sort.c; path = ../../../Source/Pd/ELSE/sort.c; sourceTree = SOURCE_ROOT; };
@@ -773,6 +796,7 @@
 		C0D31E4C7365348E514C4FD9 /* ikeda~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "ikeda~.c"; path = "../../../Source/Pd/ELSE/ikeda~.c"; sourceTree = SOURCE_ROOT; };
 		C15BA41087E57D4BC0E69B21 /* bend.out.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bend.out.c; path = ../../../Source/Pd/ELSE/bend.out.c; sourceTree = SOURCE_ROOT; };
 		C1ECD18C4787D591DDF6A194 /* susloop~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "susloop~.c"; path = "../../../Source/Pd/ELSE/susloop~.c"; sourceTree = SOURCE_ROOT; };
+		C208E49BEF527DB53BB93B1B /* oscclone.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = oscclone.pd; path = ../../../Source/Pd/ELSE/Abstractions/oscclone.pd; sourceTree = SOURCE_ROOT; };
 		C22689D9A7644931A85906FC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C2DFCA3F174489E1F4879235 /* rm~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "rm~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/rm~.pd"; sourceTree = SOURCE_ROOT; };
 		C4022284E54B6F326F68DB28 /* pan8~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "pan8~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/pan8~.pd"; sourceTree = SOURCE_ROOT; };
@@ -780,12 +804,14 @@
 		C41CED7969E434E966D0E93E /* include_juce_audio_plugin_client_VST_utils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_VST_utils.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_VST_utils.mm; sourceTree = SOURCE_ROOT; };
 		C439070468994F2CE58FA760 /* autotune.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = autotune.pd; path = ../../../Source/Pd/ELSE/Abstractions/autotune.pd; sourceTree = SOURCE_ROOT; };
 		C45BF9DB66699085BD6736A5 /* rms~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "rms~.c"; path = "../../../Source/Pd/ELSE/rms~.c"; sourceTree = SOURCE_ROOT; };
+		C48CE5036F1419EA28E54CB3 /* grain.live.grain.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = grain.live.grain.pd; path = ../../../Source/Pd/ELSE/Abstractions/grain.live.grain.pd; sourceTree = SOURCE_ROOT; };
 		C5508539C881B23CCCF8C4F4 /* separate.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = separate.c; path = ../../../Source/Pd/ELSE/separate.c; sourceTree = SOURCE_ROOT; };
 		C5DA27B1EF5E23A867B15AD5 /* include_juce_gui_basics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_gui_basics.mm; path = ../../JuceLibraryCode/include_juce_gui_basics.mm; sourceTree = SOURCE_ROOT; };
 		C6153B74D773EF27CEED993D /* avg.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = avg.pd; path = ../../../Source/Pd/ELSE/Abstractions/avg.pd; sourceTree = SOURCE_ROOT; };
 		C673A3E050C97CA0EFA54453 /* rand.i.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = rand.i.c; path = ../../../Source/Pd/ELSE/rand.i.c; sourceTree = SOURCE_ROOT; };
 		C6B89CFF6C2A074B6CC5726F /* wavetable~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "wavetable~.c"; path = "../../../Source/Pd/ELSE/wavetable~.c"; sourceTree = SOURCE_ROOT; };
 		C6BF99BF7DFB4B798237EB34 /* markov.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = markov.pd; path = ../../../Source/Pd/ELSE/Abstractions/markov.pd; sourceTree = SOURCE_ROOT; };
+		C6D180010F81B41B864C326F /* convpartition.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = convpartition.pd; path = ../../../Source/Pd/ELSE/Abstractions/convpartition.pd; sourceTree = SOURCE_ROOT; };
 		C770D7D1CDB1041A8CFAE5B3 /* meter.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = meter.pd; path = ../../../Source/Pd/ELSE/Abstractions/meter.pd; sourceTree = SOURCE_ROOT; };
 		C7BFE10B94BC8F55156302D1 /* cents2ratio.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = cents2ratio.c; path = ../../../Source/Pd/ELSE/cents2ratio.c; sourceTree = SOURCE_ROOT; };
 		C7E3021A4D7511451F4401DA /* buffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = buffer.h; path = ../../../Source/Pd/ELSE/shared/buffer.h; sourceTree = SOURCE_ROOT; };
@@ -803,6 +829,7 @@
 		CFBD008D5A7BF6AE3EAE1898 /* chorus~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "chorus~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/chorus~.pd"; sourceTree = SOURCE_ROOT; };
 		D07BF83DEC64FB3B88E0293E /* dust~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "dust~.c"; path = "../../../Source/Pd/ELSE/dust~.c"; sourceTree = SOURCE_ROOT; };
 		D092AE31C378719147EA8339 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings.png; path = ../../../Ressources/Images/settings.png; sourceTree = SOURCE_ROOT; };
+		D1EE014ACEEDCBE588415E11 /* del~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "del~.c"; path = "../../../Source/Pd/ELSE/del~.c"; sourceTree = SOURCE_ROOT; };
 		D272B97D6F68AA049492AB4A /* noisegate~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "noisegate~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/noisegate~.pd"; sourceTree = SOURCE_ROOT; };
 		D2CEEADFD9382AFA11643E7F /* include_juce_core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_core.mm; path = ../../JuceLibraryCode/include_juce_core.mm; sourceTree = SOURCE_ROOT; };
 		D430D4DB4338F3E00466C5BF /* pan2~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "pan2~.c"; path = "../../../Source/Pd/ELSE/pan2~.c"; sourceTree = SOURCE_ROOT; };
@@ -824,6 +851,7 @@
 		DDB495D39563B154CD43B2B6 /* PluginLookAndFeel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginLookAndFeel.cpp; path = ../../../Source/PluginLookAndFeel.cpp; sourceTree = SOURCE_ROOT; };
 		DE27C1948ACEC6272612D72E /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		DEBD83515A888D164A72466A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		DEDCD1358605E4571DA4508C /* echo_unit.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = echo_unit.pd; path = ../../../Source/Pd/ELSE/Abstractions/echo_unit.pd; sourceTree = SOURCE_ROOT; };
 		DEFFB2446F1B1CA55B2914FA /* table~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "table~.c"; path = "../../../Source/Pd/ELSE/table~.c"; sourceTree = SOURCE_ROOT; };
 		DF1AFE0AE737277951C8A5B4 /* dollsym.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = dollsym.c; path = ../../../Source/Pd/ELSE/dollsym.c; sourceTree = SOURCE_ROOT; };
 		DFD0BCA5E65AEC1486A9DAEE /* rescale.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = rescale.c; path = ../../../Source/Pd/ELSE/rescale.c; sourceTree = SOURCE_ROOT; };
@@ -832,6 +860,7 @@
 		E1EC22B7BD200B8AEFB95CC2 /* args.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = args.c; path = ../../../Source/Pd/ELSE/args.c; sourceTree = SOURCE_ROOT; };
 		E2746319AF44C335C98E05A7 /* gran.player~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "gran.player~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/gran.player~.pd"; sourceTree = SOURCE_ROOT; };
 		E3EB6EC628B68FCE7E2A7B1C /* ms2samps~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "ms2samps~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/ms2samps~.pd"; sourceTree = SOURCE_ROOT; };
+		E47A9F42D5BFD24546A99657 /* pvoc~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "pvoc~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/pvoc~.pd"; sourceTree = SOURCE_ROOT; };
 		E4E592B428EC2B85D832EAA1 /* stretch.shift~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "stretch.shift~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/stretch.shift~.pd"; sourceTree = SOURCE_ROOT; };
 		E52D665A06D80A15B611BAAA /* reload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = reload.png; path = ../../../Ressources/Images/reload.png; sourceTree = SOURCE_ROOT; };
 		E5DC7DE8B6BF80412177BD40 /* trig.delay2~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "trig.delay2~.c"; path = "../../../Source/Pd/ELSE/trig.delay2~.c"; sourceTree = SOURCE_ROOT; };
@@ -870,7 +899,9 @@
 		FCAB4ED2A16B862F4E7C149A /* envgen~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "envgen~.c"; path = "../../../Source/Pd/ELSE/envgen~.c"; sourceTree = SOURCE_ROOT; };
 		FDBA0F19820C3C9851E31496 /* floor.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = floor.c; path = ../../../Source/Pd/ELSE/floor.c; sourceTree = SOURCE_ROOT; };
 		FE0C29752E822414A002624D /* float2bits.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = float2bits.c; path = ../../../Source/Pd/ELSE/float2bits.c; sourceTree = SOURCE_ROOT; };
+		FEC14A582065ED3CCEC38454 /* grain.sampler.grain.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = grain.sampler.grain.pd; path = ../../../Source/Pd/ELSE/Abstractions/grain.sampler.grain.pd; sourceTree = SOURCE_ROOT; };
 		FEF6CE37D5CA84AA865C4A8B /* cmul~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "cmul~.c"; path = "../../../Source/Pd/ELSE/cmul~.c"; sourceTree = SOURCE_ROOT; };
+		FF0D694FA4878E2B0C1EB099 /* freeze.osc.clone~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "freeze.osc.clone~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/freeze.osc.clone~.pd"; sourceTree = SOURCE_ROOT; };
 		FF304866FE5791D7F05BDABD /* match~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "match~.c"; path = "../../../Source/Pd/ELSE/match~.c"; sourceTree = SOURCE_ROOT; };
 		FF7DD37BCA46E4231A5D6030 /* JuceHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JuceHeader.h; path = ../../JuceLibraryCode/JuceHeader.h; sourceTree = SOURCE_ROOT; };
 		FF8F36AEFDA9E963BDBA6C1C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -884,16 +915,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0E616AAADE2C8DFABCA8F14 /* AudioUnit.framework in Frameworks */,
-				5BECA1BE259991E0003E7C4E /* Accelerate.framework in Frameworks */,
-				5BECA1BF259991E0003E7C4E /* AudioToolbox.framework in Frameworks */,
-				5BECA1C0259991E0003E7C4E /* Carbon.framework in Frameworks */,
-				5BECA1C1259991E0003E7C4E /* Cocoa.framework in Frameworks */,
-				5BECA1C2259991E0003E7C4E /* CoreAudio.framework in Frameworks */,
+				5B36085E261BF8CE005B7A57 /* Accelerate.framework in Frameworks */,
+				5B36085F261BF8CE005B7A57 /* AudioToolbox.framework in Frameworks */,
+				5B360860261BF8CE005B7A57 /* Carbon.framework in Frameworks */,
+				5B360861261BF8CE005B7A57 /* Cocoa.framework in Frameworks */,
+				5B360862261BF8CE005B7A57 /* CoreAudio.framework in Frameworks */,
 				BABB947ED89952F98B386B72 /* CoreAudioKit.framework in Frameworks */,
-				5BECA1C3259991E0003E7C4E /* CoreMIDI.framework in Frameworks */,
-				5BECA1C4259991E0003E7C4E /* IOKit.framework in Frameworks */,
-				5BECA1C5259991E0003E7C4E /* QuartzCore.framework in Frameworks */,
-				5BECA1C6259991E0003E7C4E /* WebKit.framework in Frameworks */,
+				5B360863261BF8CE005B7A57 /* CoreMIDI.framework in Frameworks */,
+				5B360864261BF8CE005B7A57 /* IOKit.framework in Frameworks */,
+				5B360865261BF8CE005B7A57 /* QuartzCore.framework in Frameworks */,
+				5B360866261BF8CE005B7A57 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -963,8 +994,8 @@
 		31E8572EA2B73553FFCB1F12 /* ELSE */ = {
 			isa = PBXGroup;
 			children = (
-				35A6AF97E646D9F73DF44C00 /* Abstractions */,
-				8CB9C937063499F39847D265 /* shared */,
+				D3432F6E61EFA1B2F283F19A /* Abstractions */,
+				5866DA7AE091C88BEBBF9CE1 /* shared */,
 				4A3F96AF84DEC9E88A773BFA /* above~.c */,
 				6572A216D449935E7F458BE1 /* add~.c */,
 				5ED0A91EF85A37A9B4B5164B /* adsr~.c */,
@@ -984,6 +1015,7 @@
 				6ABEC894954343451E3EC4D6 /* blocksize~.c */,
 				30925590163D028E36746091 /* break.c */,
 				F0D75CA8092717D65C286106 /* brown~.c */,
+				44D062C61F4534BF1C107912 /* buffer.c */,
 				5BB36CF731FF4A5DB5A87A79 /* button.c */,
 				36EDBA6752F7BADC206A1322 /* canvas.active.c */,
 				235A1FECAFDA2BE5BAA91AB2 /* canvas.bounds.c */,
@@ -1022,6 +1054,7 @@
 				40E8A85536C86EC8BED0DDFC /* cusp~.c */,
 				0AF8957305007D9EC4BF47E1 /* decay~.c */,
 				38997C0073497B15EDFCEC5B /* decay2~.c */,
+				D1EE014ACEEDCBE588415E11 /* del~.c */,
 				92A328C7E6B9B90DDCCA190E /* detect~.c */,
 				7C8D3791F0CD6F96B4FB0732 /* dir.c */,
 				DF1AFE0AE737277951C8A5B4 /* dollsym.c */,
@@ -1053,6 +1086,7 @@
 				4168E5DFC92F9C7127A37968 /* function~.c */,
 				DC602D55CC6611FA4091CA53 /* gate2imp~.c */,
 				6A1187CD0E6FD9F12859FCA2 /* gbman~.c */,
+				A709569CCBF413FBFD8AEA0C /* gcd.c */,
 				D57F4EFE8EFFC292A019F35E /* giga.rev~.c */,
 				32D0FDFC8B79B7C7ECDA4146 /* glide~.c */,
 				D8BA8C4808B3F21739F4CF9E /* glide2~.c */,
@@ -1190,6 +1224,8 @@
 				E5DC7DE8B6BF80412177BD40 /* trig.delay2~.c */,
 				D634F7DEE6AA2D52FDFB27AC /* trigger2.c */,
 				51AB41FECEBEA8EB33B60AEE /* trighold~.c */,
+				349654D7B44C749C9B5621A4 /* trunc.c */,
+				70C23B3F28764C5912B9D31C /* trunc~.c */,
 				4BABFEC48308102E1B09D3DB /* unmerge.c */,
 				478708A3AC2F83189591AE10 /* voices.c */,
 				3F161A0CC333C8DD383B6916 /* vsaw~.c */,
@@ -1208,173 +1244,6 @@
 				2172C9C12419BA126A097D9D /* zerocross~.c */,
 			);
 			name = ELSE;
-			sourceTree = "<group>";
-		};
-		35A6AF97E646D9F73DF44C00 /* Abstractions */ = {
-			isa = PBXGroup;
-			children = (
-				5903E4E3BC435746C2480F67 /* above.pd */,
-				7EEBFDCC19F1DBB7FBE9BB99 /* add.pd */,
-				640BE8F032A5E65049D00E64 /* allpass.filt~.pd */,
-				B8FADB68CE731F0D5AE36B30 /* any2symbol.pd */,
-				C439070468994F2CE58FA760 /* autotune.pd */,
-				866E9F251EE3C172A32C395C /* autotune2.pd */,
-				C6153B74D773EF27CEED993D /* avg.pd */,
-				9CBA66691BC06605DC40C0EC /* bangdiv.pd */,
-				4ADAEEB2F0289CAA8B741820 /* batch.rec~.pd */,
-				DD9D094AC3D36AC956E3CB18 /* batch.write~.pd */,
-				FA96FB9BC46789E85C56DD22 /* bin.shift~.pd */,
-				F55FF477BBEB6B94A69C5D16 /* biplot.pd */,
-				2A50CE5D2676A4BF4B58696C /* bl.imp~.pd */,
-				8FA2EC3D7EEBF92F26F403BC /* bl.imp2~.pd */,
-				31588FF1B933D81641C2AFB9 /* bl.saw~.pd */,
-				48EB9C8F875CE4A992FF4B64 /* bl.saw2~.pd */,
-				CD87BBF4033B5B5195FAC6EE /* bl.sine~.pd */,
-				30747C59F45E6C01ACA3A1C3 /* bl.square~.pd */,
-				0FB56A57FA89E41A666D9BAB /* bl.tri~.pd */,
-				BE3D52EFD874B2E18D72D64C /* bl.vsaw~.pd */,
-				A596A49C9858995A8B8D301E /* bl.wavetable~.pd */,
-				8432FCF0E92A3528AB6D2D2B /* bpbank~.pd */,
-				7E5527FCBE45CDC8E35D57B6 /* bpm.pd */,
-				7EF8966E1B8B8C875EAD20E3 /* brickwall~.pd */,
-				B92EE6ED9226835DAF46EFD2 /* car2pol.pd */,
-				9715523FC7B1A30021EED759 /* car2pol~.pd */,
-				CFBD008D5A7BF6AE3EAE1898 /* chorus~.pd */,
-				4479FA1A14CAA6ABE705F2CD /* circle.pd */,
-				0BBBECA51AB078DEE35F45C1 /* clock.pd */,
-				45348FB16C797B7B013929B8 /* combine.pd */,
-				E79F984B7008E2306A89515E /* compress~.pd */,
-				1D8440F49E77C405A1B9B715 /* conv~.pd */,
-				6EB136EE3398193A678F8ECB /* count.pd */,
-				00E54FD8388F9CE493F99AF8 /* crusher~.pd */,
-				ABEC2DC3D47CE2A4AA14408A /* db2lin.pd */,
-				05B2310577B21DB900F735A8 /* db2lin~.pd */,
-				0A28E4E6A02AF11E28B93DF3 /* dec2hex.pd */,
-				773507CE68A91B1F27D4C596 /* display.pd */,
-				29C1E20AA486CB594ED46F04 /* display~.pd */,
-				25EB1B82D4345FB0AC88189A /* drum.seq.pd */,
-				20C6F29D08114ED3F69E79D6 /* drunkard.pd */,
-				067B899F5BB279D4FF27C2C7 /* drunkard~.pd */,
-				1FA2BD1F1640FBF3E33962C4 /* duck~.pd */,
-				1B1B758C96A3B967EF1E1D5C /* e.pd */,
-				5F652ECED17B4AF5F010B599 /* echo.rev~.pd */,
-				76FB563CAA08266BE5E3523B /* envelope~.pd */,
-				D45378AD707BCA590F1BEC4D /* eqdiv.pd */,
-				52FDCD5240AF9D8158A06F22 /* euclid.pd */,
-				30D3C2FE048DB8DBA722B616 /* expand~.pd */,
-				7F71744DE26C13F5B942D67C /* flanger~.pd */,
-				1FC67969005310517B0BA9E0 /* frac2ratio.pd */,
-				7FCEF70DCEE2037A2B445B7C /* free.rev~.pd */,
-				E025B49BBFE56A2491782C8B /* freeze~.pd */,
-				ED28334673B4D70A7294C9AF /* gain~.pd */,
-				8C171F1D474881DF1562734A /* gain2~.pd */,
-				9740A262C82140F85822C0AD /* gatehold~.pd */,
-				EDE9195D59A424B72D5C7EC8 /* grain.live~.pd */,
-				48818294D7A8B1305FD2CB23 /* grain.sampler~.pd */,
-				39A6A8C2F3C82506D1ED8B74 /* grain.synth~.pd */,
-				E2746319AF44C335C98E05A7 /* gran.player~.pd */,
-				EB43D74F198F53591C3D574A /* graph~.pd */,
-				26AB0A59B0EEC240F6BEE191 /* group.pd */,
-				B0A1241E229C27D9CD6F1298 /* hann~.pd */,
-				5572F28B6D89BE4A349A5D4D /* hex2dec.pd */,
-				45A0091CEB10DC7CC4552776 /* hip.bw~.pd */,
-				348F6D73F81AC26A236D3B38 /* impulse.pd */,
-				2D0EE22C9E553F59A17CB76D /* insert.pd */,
-				B32A968B32C80F3BC064287E /* iterate.pd */,
-				F3729F0F5731B0549873107A /* lastvalue.pd */,
-				98D0D48BDFB619E4922F18DE /* lfnoise.pd */,
-				50E96394620ED3EBBB00C79E /* lfo.pd */,
-				E01361FFAFB9681AFA8012DA /* lin2db.pd */,
-				AF73791CD3D88E4AF30E399E /* lin2db~.pd */,
-				737BC55AAAA2F86D9EC73D30 /* lop.bw~.pd */,
-				22815D6B7F16A2C0E496855B /* mag.pd */,
-				997BE329D5111180C989C30C /* mag~.pd */,
-				C6BF99BF7DFB4B798237EB34 /* markov.pd */,
-				C91348A32FFBBDD68CA7426F /* maxpeak~.pd */,
-				7B7D577CFC783273F5EC6F93 /* median.pd */,
-				C770D7D1CDB1041A8CFAE5B3 /* meter.pd */,
-				764397615380E88365264458 /* meter~.pd */,
-				B6AC633DCB2C58BC51B2DBE8 /* meter2~.pd */,
-				3FCC276D090185581DD4C77E /* meter4~.pd */,
-				E9707D30B647570EC7DD2557 /* meter8~.pd */,
-				16E4B3466C572FFEDC05A004 /* midi2freq.pd */,
-				35283FA51E8FBDE19D38165F /* mix2~.pd */,
-				27A040185715BEB9D0B267F8 /* mix4~.pd */,
-				900027F7AC3259C6048D4813 /* mono.pd */,
-				BFB25F26E1D334ED34CDC462 /* mono.rev~.pd */,
-				81FD93AD84E197F8C861441C /* morph~.pd */,
-				F59ABB6EBA29B6F1271851BD /* mov.avg.pd */,
-				0CE0AD728CD60505A88AC653 /* ms2samps.pd */,
-				E3EB6EC628B68FCE7E2A7B1C /* ms2samps~.pd */,
-				CD559DB3BCCC1E5D4A54F64A /* mtx.ctl.pd */,
-				D272B97D6F68AA049492AB4A /* noisegate~.pd */,
-				24B4A044CADFCCA09D769205 /* norm~.pd */,
-				4C750DD2B4E463AB37A88B6D /* order.pd */,
-				7D5DED7E8709498ECB6A13B0 /* oscbank~.pd */,
-				132BF7C307BF8F732089967E /* oscbank2~.pd */,
-				BF330770A77DA72D548898E4 /* out~.pd */,
-				09B52E360B5741345E358967 /* out1~.pd */,
-				0E4A331AAAB2A9B8211AD5E2 /* out4~.pd */,
-				479873FDC540EAC2A28FBE51 /* out8~.pd */,
-				1FC58794DC04DD755779CF79 /* output~.pd */,
-				C4022284E54B6F326F68DB28 /* pan8~.pd */,
-				FC1D13F6A34F2394D259D54C /* perlin~.pd */,
-				62FAD9A474D7A338B9569F69 /* phaser~.pd */,
-				5CA902E756B5A2947B89DE11 /* phasor.pd */,
-				BE488B5BD55262F60EF2A9D8 /* pi.pd */,
-				65A99D349EB6B00DEB0B98CF /* pick.pd */,
-				3C79EF7BEC987E69CABDC0FC /* ping.pong~.pd */,
-				BDC8C818120C26C0BC53469B /* pitch.shift~.pd */,
-				9C503B0CE01542786F1923AE /* plate.rev~.pd */,
-				9B99081E0F977DBE8741FCCB /* play.file~.pd */,
-				A05D767D1B087126CD86C05B /* player~.pd */,
-				9A6381DF0DE4206B67337EF6 /* pol2car.pd */,
-				1ED5BA264FF0AF325ADF7C22 /* pol2car~.pd */,
-				AE284E149180344FF335C3B8 /* pulse.pd */,
-				64F58CBAE5A714C1CDC05FB4 /* pvoc.freeze~.pd */,
-				B86193EA85D947C3AF9CF027 /* pvoc.live~.pd */,
-				5D964FB5F46FD98B22D7E54D /* pvoc.player~.pd */,
-				ECB7DC1AB535C3EB720C63A6 /* rampnoise.pd */,
-				FB2EA592EB8FB26B7CDC2CF4 /* randpulse.pd */,
-				16A27020C0327F1E0107F796 /* randpulse2.pd */,
-				4C85AC5689EE3E548ED82AAE /* range.hsl.pd */,
-				A15AF352BD4D62B6A90F084E /* range.pd */,
-				BA9984C6CC97ED7B805DCB09 /* rdelay~.pd */,
-				A84F2F5C5DDCAB6327FCDE68 /* rec.file~.pd */,
-				53E913D78E602F1C12C80ECB /* resonbank~.pd */,
-				69298B083D53F9C2D1C08DF2 /* resonbank2~.pd */,
-				F535C6E03B53AB40B459FE24 /* retune.pd */,
-				081354936131C35C2A7F96C0 /* reverse.pd */,
-				C2DFCA3F174489E1F4879235 /* rm~.pd */,
-				87BB4BC19C34C8BBAFDB893C /* rotate.pd */,
-				A7CA3FBCEFC6AE194B64403E /* sample~.pd */,
-				01B33B38AC70AE46AA502B9E /* samps2ms.pd */,
-				1EACB82E95D2414A7E36DB0F /* samps2ms~.pd */,
-				BC8DA5B4ABCF90A7F3F08D8B /* schmitt.pd */,
-				2919DDB15FB0A5426F393B14 /* scramble.pd */,
-				1B64E29497EDE1B17E607F4F /* sequencer.pd */,
-				4FEF3C2B9FD5764629BDC57A /* setdsp~.pd */,
-				365722763B5D7D8BBE93FEC5 /* slider2d.pd */,
-				C91B47B5FA08691B508C2410 /* spectrograph~.pd */,
-				917F52A93CABB77B6DDA7359 /* stack.pd */,
-				92F1A1976081555743EC41C1 /* status.pd */,
-				5A829B173223C402C7DFF245 /* stepnoise.pd */,
-				33389528E21FCAAB1B4B4CC0 /* stereo.rev~.pd */,
-				2EF42BB76372D7097802C049 /* stream.pd */,
-				E4E592B428EC2B85D832EAA1 /* stretch.shift~.pd */,
-				481CB4978913A8A7CBFB0E81 /* sum.pd */,
-				17F21FCB0AB92A6282255DEC /* sysrt.in.pd */,
-				BFEB573563326D92087B3881 /* sysrt.out.pd */,
-				60FEC6A32AE37BCE4D694666 /* tempo.pd */,
-				1D390BAB9558CC1D851837BF /* timed.gate.pd */,
-				91AA599DCB44274FB2469E82 /* tremolo~.pd */,
-				8D5E7BF2B93D1FB6338DDCC2 /* trig2bang.pd */,
-				1166E60DC2A1218F81E927E6 /* trig2bang~.pd */,
-				EA433D7540F0893D8E7EF310 /* unite.pd */,
-				55A3289E0F8CE4E26384204E /* vibrato~.pd */,
-				18CBCCA96460E4BB5CF6B35A /* vocoder~.pd */,
-			);
-			name = Abstractions;
 			sourceTree = "<group>";
 		};
 		500098BCBE6DFB8790ADB5E7 /* Source */ = {
@@ -1410,15 +1279,7 @@
 			name = Source;
 			sourceTree = "<group>";
 		};
-		6A2E49F82A1C2A08D38A666E /* CamomileFx */ = {
-			isa = PBXGroup;
-			children = (
-				500098BCBE6DFB8790ADB5E7 /* Source */,
-			);
-			name = CamomileFx;
-			sourceTree = "<group>";
-		};
-		8CB9C937063499F39847D265 /* shared */ = {
+		5866DA7AE091C88BEBBF9CE1 /* shared */ = {
 			isa = PBXGroup;
 			children = (
 				B4DB11273DE878CA2B179737 /* buffer.c */,
@@ -1437,6 +1298,14 @@
 				93F9487C61DE941D4A61631C /* s_utf8.h */,
 			);
 			name = shared;
+			sourceTree = "<group>";
+		};
+		6A2E49F82A1C2A08D38A666E /* CamomileFx */ = {
+			isa = PBXGroup;
+			children = (
+				500098BCBE6DFB8790ADB5E7 /* Source */,
+			);
+			name = CamomileFx;
 			sourceTree = "<group>";
 		};
 		8CCC4A823EBBBC964569EE98 /* Ressources */ = {
@@ -1517,6 +1386,194 @@
 				7F64050048E006DE82109198 /* CreditsVST */,
 			);
 			name = Credits;
+			sourceTree = "<group>";
+		};
+		D3432F6E61EFA1B2F283F19A /* Abstractions */ = {
+			isa = PBXGroup;
+			children = (
+				5903E4E3BC435746C2480F67 /* above.pd */,
+				7EEBFDCC19F1DBB7FBE9BB99 /* add.pd */,
+				BC591994AD63EA881DB60F2D /* All_objects.pd */,
+				640BE8F032A5E65049D00E64 /* allpass.filt~.pd */,
+				00AD84B7841586B13B4457FB /* allpass_unit.pd */,
+				B8FADB68CE731F0D5AE36B30 /* any2symbol.pd */,
+				C439070468994F2CE58FA760 /* autotune.pd */,
+				866E9F251EE3C172A32C395C /* autotune2.pd */,
+				C6153B74D773EF27CEED993D /* avg.pd */,
+				9CBA66691BC06605DC40C0EC /* bangdiv.pd */,
+				4ADAEEB2F0289CAA8B741820 /* batch.rec~.pd */,
+				DD9D094AC3D36AC956E3CB18 /* batch.write~.pd */,
+				FA96FB9BC46789E85C56DD22 /* bin.shift~.pd */,
+				F55FF477BBEB6B94A69C5D16 /* biplot.pd */,
+				2A50CE5D2676A4BF4B58696C /* bl.imp~.pd */,
+				8FA2EC3D7EEBF92F26F403BC /* bl.imp2~.pd */,
+				31588FF1B933D81641C2AFB9 /* bl.saw~.pd */,
+				48EB9C8F875CE4A992FF4B64 /* bl.saw2~.pd */,
+				CD87BBF4033B5B5195FAC6EE /* bl.sine~.pd */,
+				30747C59F45E6C01ACA3A1C3 /* bl.square~.pd */,
+				0FB56A57FA89E41A666D9BAB /* bl.tri~.pd */,
+				BE3D52EFD874B2E18D72D64C /* bl.vsaw~.pd */,
+				A596A49C9858995A8B8D301E /* bl.wavetable~.pd */,
+				8432FCF0E92A3528AB6D2D2B /* bpbank~.pd */,
+				72D734B8B53F1081AA41A2A2 /* bpclone.pd */,
+				7E5527FCBE45CDC8E35D57B6 /* bpm.pd */,
+				7EF8966E1B8B8C875EAD20E3 /* brickwall~.pd */,
+				B92EE6ED9226835DAF46EFD2 /* car2pol.pd */,
+				9715523FC7B1A30021EED759 /* car2pol~.pd */,
+				CFBD008D5A7BF6AE3EAE1898 /* chorus~.pd */,
+				4479FA1A14CAA6ABE705F2CD /* circle.pd */,
+				0BBBECA51AB078DEE35F45C1 /* clock.pd */,
+				45348FB16C797B7B013929B8 /* combine.pd */,
+				E79F984B7008E2306A89515E /* compress~.pd */,
+				1D8440F49E77C405A1B9B715 /* conv~.pd */,
+				C6D180010F81B41B864C326F /* convpartition.pd */,
+				6EB136EE3398193A678F8ECB /* count.pd */,
+				00E54FD8388F9CE493F99AF8 /* crusher~.pd */,
+				ABEC2DC3D47CE2A4AA14408A /* db2lin.pd */,
+				05B2310577B21DB900F735A8 /* db2lin~.pd */,
+				76ED37FF46491733C215C7CA /* dec2frac.pd */,
+				0A28E4E6A02AF11E28B93DF3 /* dec2hex.pd */,
+				773507CE68A91B1F27D4C596 /* display.pd */,
+				29C1E20AA486CB594ED46F04 /* display~.pd */,
+				25EB1B82D4345FB0AC88189A /* drum.seq.pd */,
+				20C6F29D08114ED3F69E79D6 /* drunkard.pd */,
+				067B899F5BB279D4FF27C2C7 /* drunkard~.pd */,
+				1FA2BD1F1640FBF3E33962C4 /* duck~.pd */,
+				1B1B758C96A3B967EF1E1D5C /* e.pd */,
+				5F652ECED17B4AF5F010B599 /* echo.rev~.pd */,
+				DEDCD1358605E4571DA4508C /* echo_unit.pd */,
+				76FB563CAA08266BE5E3523B /* envelope~.pd */,
+				D45378AD707BCA590F1BEC4D /* eqdiv.pd */,
+				52FDCD5240AF9D8158A06F22 /* euclid.pd */,
+				30D3C2FE048DB8DBA722B616 /* expand~.pd */,
+				7F71744DE26C13F5B942D67C /* flanger~.pd */,
+				262922F7C5210350FD93C0AB /* frac2dec.pd */,
+				1FC67969005310517B0BA9E0 /* frac2ratio.pd */,
+				7FCEF70DCEE2037A2B445B7C /* free.rev~.pd */,
+				FF0D694FA4878E2B0C1EB099 /* freeze.osc.clone~.pd */,
+				E025B49BBFE56A2491782C8B /* freeze~.pd */,
+				ED28334673B4D70A7294C9AF /* gain~.pd */,
+				8C171F1D474881DF1562734A /* gain2~.pd */,
+				9740A262C82140F85822C0AD /* gatehold~.pd */,
+				C48CE5036F1419EA28E54CB3 /* grain.live.grain.pd */,
+				EDE9195D59A424B72D5C7EC8 /* grain.live~.pd */,
+				FEC14A582065ED3CCEC38454 /* grain.sampler.grain.pd */,
+				48818294D7A8B1305FD2CB23 /* grain.sampler~.pd */,
+				3406BBD61B6EA390739413FD /* grain.synth.grain.pd */,
+				39A6A8C2F3C82506D1ED8B74 /* grain.synth~.pd */,
+				E2746319AF44C335C98E05A7 /* gran.player~.pd */,
+				50274B337F3E7CF8C93E28B5 /* gran~.pd */,
+				EB43D74F198F53591C3D574A /* graph~.pd */,
+				26AB0A59B0EEC240F6BEE191 /* group.pd */,
+				B0A1241E229C27D9CD6F1298 /* hann~.pd */,
+				5572F28B6D89BE4A349A5D4D /* hex2dec.pd */,
+				45A0091CEB10DC7CC4552776 /* hip.bw~.pd */,
+				348F6D73F81AC26A236D3B38 /* impulse.pd */,
+				2D0EE22C9E553F59A17CB76D /* insert.pd */,
+				B32A968B32C80F3BC064287E /* iterate.pd */,
+				F3729F0F5731B0549873107A /* lastvalue.pd */,
+				B11786434FFCD2284DDDBE8E /* lcm.pd */,
+				98D0D48BDFB619E4922F18DE /* lfnoise.pd */,
+				50E96394620ED3EBBB00C79E /* lfo.pd */,
+				E01361FFAFB9681AFA8012DA /* lin2db.pd */,
+				AF73791CD3D88E4AF30E399E /* lin2db~.pd */,
+				737BC55AAAA2F86D9EC73D30 /* lop.bw~.pd */,
+				22815D6B7F16A2C0E496855B /* mag.pd */,
+				997BE329D5111180C989C30C /* mag~.pd */,
+				C6BF99BF7DFB4B798237EB34 /* markov.pd */,
+				C91348A32FFBBDD68CA7426F /* maxpeak~.pd */,
+				7B7D577CFC783273F5EC6F93 /* median.pd */,
+				C770D7D1CDB1041A8CFAE5B3 /* meter.pd */,
+				764397615380E88365264458 /* meter~.pd */,
+				B6AC633DCB2C58BC51B2DBE8 /* meter2~.pd */,
+				3FCC276D090185581DD4C77E /* meter4~.pd */,
+				E9707D30B647570EC7DD2557 /* meter8~.pd */,
+				16E4B3466C572FFEDC05A004 /* midi2freq.pd */,
+				35283FA51E8FBDE19D38165F /* mix2~.pd */,
+				27A040185715BEB9D0B267F8 /* mix4~.pd */,
+				900027F7AC3259C6048D4813 /* mono.pd */,
+				BFB25F26E1D334ED34CDC462 /* mono.rev~.pd */,
+				81FD93AD84E197F8C861441C /* morph~.pd */,
+				F59ABB6EBA29B6F1271851BD /* mov.avg.pd */,
+				0CE0AD728CD60505A88AC653 /* ms2samps.pd */,
+				E3EB6EC628B68FCE7E2A7B1C /* ms2samps~.pd */,
+				CD559DB3BCCC1E5D4A54F64A /* mtx.ctl.pd */,
+				D272B97D6F68AA049492AB4A /* noisegate~.pd */,
+				24B4A044CADFCCA09D769205 /* norm~.pd */,
+				0FB2118998574043B6AE8DE0 /* note2pitch.pd */,
+				4C750DD2B4E463AB37A88B6D /* order.pd */,
+				7D5DED7E8709498ECB6A13B0 /* oscbank~.pd */,
+				132BF7C307BF8F732089967E /* oscbank2~.pd */,
+				C208E49BEF527DB53BB93B1B /* oscclone.pd */,
+				577311877E64B92EEFBCD8E0 /* oscclone2.pd */,
+				BF330770A77DA72D548898E4 /* out~.pd */,
+				09B52E360B5741345E358967 /* out1~.pd */,
+				0E4A331AAAB2A9B8211AD5E2 /* out4~.pd */,
+				479873FDC540EAC2A28FBE51 /* out8~.pd */,
+				1FC58794DC04DD755779CF79 /* output~.pd */,
+				C4022284E54B6F326F68DB28 /* pan8~.pd */,
+				FC1D13F6A34F2394D259D54C /* perlin~.pd */,
+				62FAD9A474D7A338B9569F69 /* phaser~.pd */,
+				5CA902E756B5A2947B89DE11 /* phasor.pd */,
+				BE488B5BD55262F60EF2A9D8 /* pi.pd */,
+				65A99D349EB6B00DEB0B98CF /* pick.pd */,
+				3C79EF7BEC987E69CABDC0FC /* ping.pong~.pd */,
+				BDC8C818120C26C0BC53469B /* pitch.shift~.pd */,
+				300B826F535BEA7EDB0C79BF /* pitch2note.pd */,
+				9C503B0CE01542786F1923AE /* plate.rev~.pd */,
+				9B99081E0F977DBE8741FCCB /* play.file~.pd */,
+				A05D767D1B087126CD86C05B /* player~.pd */,
+				9A6381DF0DE4206B67337EF6 /* pol2car.pd */,
+				1ED5BA264FF0AF325ADF7C22 /* pol2car~.pd */,
+				AE284E149180344FF335C3B8 /* pulse.pd */,
+				64F58CBAE5A714C1CDC05FB4 /* pvoc.freeze~.pd */,
+				B86193EA85D947C3AF9CF027 /* pvoc.live~.pd */,
+				5D964FB5F46FD98B22D7E54D /* pvoc.player~.pd */,
+				E47A9F42D5BFD24546A99657 /* pvoc~.pd */,
+				ECB7DC1AB535C3EB720C63A6 /* rampnoise.pd */,
+				FB2EA592EB8FB26B7CDC2CF4 /* randpulse.pd */,
+				16A27020C0327F1E0107F796 /* randpulse2.pd */,
+				4C85AC5689EE3E548ED82AAE /* range.hsl.pd */,
+				A15AF352BD4D62B6A90F084E /* range.pd */,
+				BA9984C6CC97ED7B805DCB09 /* rdelay~.pd */,
+				A84F2F5C5DDCAB6327FCDE68 /* rec.file~.pd */,
+				53E913D78E602F1C12C80ECB /* resonbank~.pd */,
+				69298B083D53F9C2D1C08DF2 /* resonbank2~.pd */,
+				54C9C78AF47AA950671683CC /* resonclone.pd */,
+				7B6A245A6D43E812CABB7F34 /* resonclone2.pd */,
+				F535C6E03B53AB40B459FE24 /* retune.pd */,
+				081354936131C35C2A7F96C0 /* reverse.pd */,
+				C2DFCA3F174489E1F4879235 /* rm~.pd */,
+				87BB4BC19C34C8BBAFDB893C /* rotate.pd */,
+				A7CA3FBCEFC6AE194B64403E /* sample~.pd */,
+				01B33B38AC70AE46AA502B9E /* samps2ms.pd */,
+				1EACB82E95D2414A7E36DB0F /* samps2ms~.pd */,
+				BC8DA5B4ABCF90A7F3F08D8B /* schmitt.pd */,
+				2919DDB15FB0A5426F393B14 /* scramble.pd */,
+				1B64E29497EDE1B17E607F4F /* sequencer.pd */,
+				4FEF3C2B9FD5764629BDC57A /* setdsp~.pd */,
+				365722763B5D7D8BBE93FEC5 /* slider2d.pd */,
+				C91B47B5FA08691B508C2410 /* spectrograph~.pd */,
+				917F52A93CABB77B6DDA7359 /* stack.pd */,
+				92F1A1976081555743EC41C1 /* status.pd */,
+				5A829B173223C402C7DFF245 /* stepnoise.pd */,
+				33389528E21FCAAB1B4B4CC0 /* stereo.rev~.pd */,
+				2EF42BB76372D7097802C049 /* stream.pd */,
+				E4E592B428EC2B85D832EAA1 /* stretch.shift~.pd */,
+				481CB4978913A8A7CBFB0E81 /* sum.pd */,
+				17F21FCB0AB92A6282255DEC /* sysrt.in.pd */,
+				BFEB573563326D92087B3881 /* sysrt.out.pd */,
+				60FEC6A32AE37BCE4D694666 /* tempo.pd */,
+				1D390BAB9558CC1D851837BF /* timed.gate.pd */,
+				91AA599DCB44274FB2469E82 /* tremolo~.pd */,
+				8D5E7BF2B93D1FB6338DDCC2 /* trig2bang.pd */,
+				1166E60DC2A1218F81E927E6 /* trig2bang~.pd */,
+				EA433D7540F0893D8E7EF310 /* unite.pd */,
+				55A3289E0F8CE4E26384204E /* vibrato~.pd */,
+				89185ED7461CD0EBAAC78788 /* vocoder.band_clone.pd */,
+				18CBCCA96460E4BB5CF6B35A /* vocoder~.pd */,
+			);
+			name = Abstractions;
 			sourceTree = "<group>";
 		};
 		E0811CE76297EA217932344A /* Products */ = {
@@ -1731,7 +1788,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BECA1BD259991E0003E7C4E /* RecentFilesMenuTemplate.nib in Resources */,
+				5B36085D261BF8CE005B7A57 /* RecentFilesMenuTemplate.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1815,6 +1872,7 @@
 				1E2E0439F68C96473EFA8F5A /* blocksize~.c in Sources */,
 				D66293CD9BCE8BB3036D32DF /* break.c in Sources */,
 				E7D83460DD37EDDF831BFDD4 /* brown~.c in Sources */,
+				7BA90F63C530364C14732B40 /* buffer.c in Sources */,
 				80734BEC803C2AE3A1D739B8 /* button.c in Sources */,
 				622FDED721FD4984CC2F1D34 /* canvas.active.c in Sources */,
 				C025722D5A358E0CE2C401CB /* canvas.bounds.c in Sources */,
@@ -1853,6 +1911,7 @@
 				ED6677578B895EFD701EE0DF /* cusp~.c in Sources */,
 				5B0399DE843F57D57222FE1D /* decay~.c in Sources */,
 				93FAFCE58C40767C30301496 /* decay2~.c in Sources */,
+				6EFF3189BD3E8AB187CF1971 /* del~.c in Sources */,
 				59D11BA897DB711B80BC1C04 /* detect~.c in Sources */,
 				DB039FF9D9ECA59BC518FDC1 /* dir.c in Sources */,
 				F1C634672C56264F398387E4 /* dollsym.c in Sources */,
@@ -1884,6 +1943,7 @@
 				C827A5E2D4AF03409F524DCD /* function~.c in Sources */,
 				8C94A02FF86394F8C011E18D /* gate2imp~.c in Sources */,
 				768A1DB235900A47F791B054 /* gbman~.c in Sources */,
+				880C1C1B8DC12618C8ED7242 /* gcd.c in Sources */,
 				01A41ED2BC898FE39B4E8AE2 /* giga.rev~.c in Sources */,
 				4597C2651CACDF0995A90D09 /* glide~.c in Sources */,
 				CD55394A3FB41B721DE0CFD1 /* glide2~.c in Sources */,
@@ -2021,6 +2081,8 @@
 				15ECF70A6485587389B75517 /* trig.delay2~.c in Sources */,
 				29FA56B7B3D4627304DC8473 /* trigger2.c in Sources */,
 				F11285390ACC22E7729E9920 /* trighold~.c in Sources */,
+				F6DD63921F37C98FE6C71F3D /* trunc.c in Sources */,
+				3E88E296B8F3DDF2112BD9A9 /* trunc~.c in Sources */,
 				800828DA0D502106BCB1D856 /* unmerge.c in Sources */,
 				09028A68C2647C13730704B7 /* voices.c in Sources */,
 				00093E9928AB9C7224706BD4 /* vsaw~.c in Sources */,
@@ -2064,27 +2126,27 @@
 		3042C8CA77DD74930771F01B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 074FFE22626A916E5D070022 /* CamomileFx - VST3 */;
-			targetProxy = 5BECA1D6259991E0003E7C4E /* PBXContainerItemProxy */;
+			targetProxy = 5B360876261BF8CF005B7A57 /* PBXContainerItemProxy */;
 		};
 		8CDEB77D51FBBF215D1E6A25 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DDC710B892FDE37A0F19292D /* CamomileFx - Shared Code */;
-			targetProxy = 5BECA1DA259991E0003E7C4E /* PBXContainerItemProxy */;
+			targetProxy = 5B36087A261BF8CF005B7A57 /* PBXContainerItemProxy */;
 		};
 		BA090E170831C3A0722ED77C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6E51637F255AB3A3BE377A27 /* CamomileFx - AU */;
-			targetProxy = 5BECA1D8259991E0003E7C4E /* PBXContainerItemProxy */;
+			targetProxy = 5B360878261BF8CF005B7A57 /* PBXContainerItemProxy */;
 		};
 		EA92790AFA86A37CC4101A72 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DDC710B892FDE37A0F19292D /* CamomileFx - Shared Code */;
-			targetProxy = 5BECA1D9259991E0003E7C4E /* PBXContainerItemProxy */;
+			targetProxy = 5B360879261BF8CF005B7A57 /* PBXContainerItemProxy */;
 		};
 		F9068086A3D939FE5C492C3B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DDC710B892FDE37A0F19292D /* CamomileFx - Shared Code */;
-			targetProxy = 5BECA1D7259991E0003E7C4E /* PBXContainerItemProxy */;
+			targetProxy = 5B360877261BF8CF005B7A57 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

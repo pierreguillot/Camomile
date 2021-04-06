@@ -538,6 +538,9 @@
     <ClCompile Include="..\..\..\Source\Pd\ELSE\brown~.c">
       <Filter>CamomileLV2\Source\Pd\ELSE</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\buffer.c">
+      <Filter>CamomileLV2\Source\Pd\ELSE</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\button.c">
       <Filter>CamomileLV2\Source\Pd\ELSE</Filter>
     </ClCompile>
@@ -652,6 +655,9 @@
     <ClCompile Include="..\..\..\Source\Pd\ELSE\decay2~.c">
       <Filter>CamomileLV2\Source\Pd\ELSE</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\del~.c">
+      <Filter>CamomileLV2\Source\Pd\ELSE</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\detect~.c">
       <Filter>CamomileLV2\Source\Pd\ELSE</Filter>
     </ClCompile>
@@ -743,6 +749,9 @@
       <Filter>CamomileLV2\Source\Pd\ELSE</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\gbman~.c">
+      <Filter>CamomileLV2\Source\Pd\ELSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\gcd.c">
       <Filter>CamomileLV2\Source\Pd\ELSE</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\giga.rev~.c">
@@ -1154,6 +1163,12 @@
       <Filter>CamomileLV2\Source\Pd\ELSE</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\trighold~.c">
+      <Filter>CamomileLV2\Source\Pd\ELSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\trunc.c">
+      <Filter>CamomileLV2\Source\Pd\ELSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\trunc~.c">
       <Filter>CamomileLV2\Source\Pd\ELSE</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\unmerge.c">
@@ -4655,7 +4670,13 @@
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\add.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\All_objects.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\allpass.filt~.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\allpass_unit.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\any2symbol.pd">
@@ -4715,6 +4736,9 @@
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\bpbank~.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\bpclone.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\bpm.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
@@ -4745,6 +4769,9 @@
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\conv~.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\convpartition.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\count.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
@@ -4755,6 +4782,9 @@
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\db2lin~.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\dec2frac.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\dec2hex.pd">
@@ -4784,6 +4814,9 @@
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\echo.rev~.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\echo_unit.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\envelope~.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
@@ -4799,10 +4832,16 @@
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\flanger~.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\frac2dec.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\frac2ratio.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\free.rev~.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\freeze.osc.clone~.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\freeze~.pd">
@@ -4817,16 +4856,28 @@
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\gatehold~.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\grain.live.grain.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\grain.live~.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\grain.sampler.grain.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\grain.sampler~.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\grain.synth.grain.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\grain.synth~.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\gran.player~.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\gran~.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\graph~.pd">
@@ -4854,6 +4905,9 @@
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\lastvalue.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\lcm.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\lfnoise.pd">
@@ -4937,6 +4991,9 @@
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\norm~.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\note2pitch.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\order.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
@@ -4944,6 +5001,12 @@
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\oscbank2~.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\oscclone.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\oscclone2.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\out~.pd">
@@ -4985,6 +5048,9 @@
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\pitch.shift~.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\pitch2note.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\plate.rev~.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
@@ -5012,6 +5078,9 @@
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\pvoc.player~.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\pvoc~.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\rampnoise.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
@@ -5037,6 +5106,12 @@
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\resonbank2~.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\resonclone.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\resonclone2.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\retune.pd">
@@ -5124,6 +5199,9 @@
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\vibrato~.pd">
+      <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
+    </None>
+    <None Include="..\..\..\Source\Pd\ELSE\Abstractions\vocoder.band_clone.pd">
       <Filter>CamomileLV2\Source\Pd\ELSE\Abstractions</Filter>
     </None>
     <None Include="..\..\..\Source\Pd\ELSE\Abstractions\vocoder~.pd">

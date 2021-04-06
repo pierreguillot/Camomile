@@ -133,6 +133,7 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/blocksize~_9dc36725.o \
   $(JUCE_OBJDIR)/break_7461fa34.o \
   $(JUCE_OBJDIR)/brown~_2a264afd.o \
+  $(JUCE_OBJDIR)/buffer_b8898b35.o \
   $(JUCE_OBJDIR)/button_d13729a7.o \
   $(JUCE_OBJDIR)/canvas.active_c5faba51.o \
   $(JUCE_OBJDIR)/canvas.bounds_aa9a0240.o \
@@ -171,6 +172,7 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/cusp~_af332144.o \
   $(JUCE_OBJDIR)/decay~_348c75f9.o \
   $(JUCE_OBJDIR)/decay2~_5ce0e33b.o \
+  $(JUCE_OBJDIR)/del~_fe351c08.o \
   $(JUCE_OBJDIR)/detect~_e5e63070.o \
   $(JUCE_OBJDIR)/dir_94983a42.o \
   $(JUCE_OBJDIR)/dollsym_5a558191.o \
@@ -202,6 +204,7 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/function~_99ee1b1b.o \
   $(JUCE_OBJDIR)/gate2imp~_befc5e2e.o \
   $(JUCE_OBJDIR)/gbman~_de88c0f4.o \
+  $(JUCE_OBJDIR)/gcd_94bf91fd.o \
   $(JUCE_OBJDIR)/giga.rev~_759e3f62.o \
   $(JUCE_OBJDIR)/glide~_e8d9de2e.o \
   $(JUCE_OBJDIR)/glide2~_324081a6.o \
@@ -339,6 +342,8 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/trig.delay2~_67e36f32.o \
   $(JUCE_OBJDIR)/trigger2_9c0ab1ef.o \
   $(JUCE_OBJDIR)/trighold~_2b059138.o \
+  $(JUCE_OBJDIR)/trunc_2d7967a1.o \
+  $(JUCE_OBJDIR)/trunc~_81b4b2c7.o \
   $(JUCE_OBJDIR)/unmerge_f3dd9e74.o \
   $(JUCE_OBJDIR)/voices_9daff036.o \
   $(JUCE_OBJDIR)/vsaw~_97e55d60.o \
@@ -596,6 +601,11 @@ $(JUCE_OBJDIR)/brown~_2a264afd.o: ../../../Source/Pd/ELSE/brown~.c
 	@echo "Compiling brown~.c"
 	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
+$(JUCE_OBJDIR)/buffer_b8898b35.o: ../../../Source/Pd/ELSE/buffer.c
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling buffer.c"
+	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
 $(JUCE_OBJDIR)/button_d13729a7.o: ../../../Source/Pd/ELSE/button.c
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling button.c"
@@ -786,6 +796,11 @@ $(JUCE_OBJDIR)/decay2~_5ce0e33b.o: ../../../Source/Pd/ELSE/decay2~.c
 	@echo "Compiling decay2~.c"
 	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
+$(JUCE_OBJDIR)/del~_fe351c08.o: ../../../Source/Pd/ELSE/del~.c
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling del~.c"
+	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
 $(JUCE_OBJDIR)/detect~_e5e63070.o: ../../../Source/Pd/ELSE/detect~.c
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling detect~.c"
@@ -939,6 +954,11 @@ $(JUCE_OBJDIR)/gate2imp~_befc5e2e.o: ../../../Source/Pd/ELSE/gate2imp~.c
 $(JUCE_OBJDIR)/gbman~_de88c0f4.o: ../../../Source/Pd/ELSE/gbman~.c
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling gbman~.c"
+	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/gcd_94bf91fd.o: ../../../Source/Pd/ELSE/gcd.c
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling gcd.c"
 	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/giga.rev~_759e3f62.o: ../../../Source/Pd/ELSE/giga.rev~.c
@@ -1624,6 +1644,16 @@ $(JUCE_OBJDIR)/trigger2_9c0ab1ef.o: ../../../Source/Pd/ELSE/trigger2.c
 $(JUCE_OBJDIR)/trighold~_2b059138.o: ../../../Source/Pd/ELSE/trighold~.c
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling trighold~.c"
+	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/trunc_2d7967a1.o: ../../../Source/Pd/ELSE/trunc.c
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling trunc.c"
+	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/trunc~_81b4b2c7.o: ../../../Source/Pd/ELSE/trunc~.c
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling trunc~.c"
 	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/unmerge_f3dd9e74.o: ../../../Source/Pd/ELSE/unmerge.c

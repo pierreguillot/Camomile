@@ -249,6 +249,10 @@
 			isa = PBXBuildFile;
 			fileRef = 7680F70E2984BEB2E785C4EC;
 		};
+		8D23A0B5BEFEDC4867E94B45 = {
+			isa = PBXBuildFile;
+			fileRef = 9F4B172C249E23C1B38A9ADF;
+		};
 		04AFA2F419C20F8A6F82B6D7 = {
 			isa = PBXBuildFile;
 			fileRef = 23C23B95EFC2ED736425E973;
@@ -401,6 +405,10 @@
 			isa = PBXBuildFile;
 			fileRef = BAF57A77FA0887CA872D2B8A;
 		};
+		221E78F47AE50CEBE6194E85 = {
+			isa = PBXBuildFile;
+			fileRef = E414309B26E2F20CED02B593;
+		};
 		429CE300F6E55AEDC41BFAD2 = {
 			isa = PBXBuildFile;
 			fileRef = 5C378BD1CDBCFCA210A46D47;
@@ -524,6 +532,10 @@
 		D2CA57B30E535D12EA42F25F = {
 			isa = PBXBuildFile;
 			fileRef = 8EEDF001D56853666362F961;
+		};
+		EECBE98AF70A5A14C61E9525 = {
+			isa = PBXBuildFile;
+			fileRef = DD1A5C932091465BB2F738D9;
 		};
 		F550196F9ECE2AA73E003414 = {
 			isa = PBXBuildFile;
@@ -1073,6 +1085,14 @@
 			isa = PBXBuildFile;
 			fileRef = 6F0699CC8F4A48C6C19F3F45;
 		};
+		642EF2E6C489DE9091FB1918 = {
+			isa = PBXBuildFile;
+			fileRef = 7879F32AB047F18AD5EAD0BA;
+		};
+		0175B6E9CEDC2A6E6AD49D45 = {
+			isa = PBXBuildFile;
+			fileRef = 567805163C2A97A2F61A10D7;
+		};
 		A8FC220B6266CEBE1FCE4E57 = {
 			isa = PBXBuildFile;
 			fileRef = 2B2601C57FB87479A26E821C;
@@ -1225,6 +1245,13 @@
 			lastKnownFileType = sourcecode.c.c;
 			name = "blocksize~.c";
 			path = "../../../Source/Pd/ELSE/blocksize~.c";
+			sourceTree = "SOURCE_ROOT";
+		};
+		015D67D659199FD05F5D5303 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = grain.live.grain.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/grain.live.grain.pd;
 			sourceTree = "SOURCE_ROOT";
 		};
 		020FB923E36EA29EA2E86556 = {
@@ -1675,6 +1702,13 @@
 			path = "../../../Source/Pd/ELSE/standard~.c";
 			sourceTree = "SOURCE_ROOT";
 		};
+		249DE2F0225A43F40A61A278 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = "All_objects.pd";
+			path = "../../../Source/Pd/ELSE/Abstractions/All_objects.pd";
+			sourceTree = "SOURCE_ROOT";
+		};
 		25190BBB70C9E0C35187ADCA = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.c;
@@ -1834,6 +1868,13 @@
 			lastKnownFileType = file.pd;
 			name = "grain.synth~.pd";
 			path = "../../../Source/Pd/ELSE/Abstractions/grain.synth~.pd";
+			sourceTree = "SOURCE_ROOT";
+		};
+		2C7A04CDE2C2563B3D23D0EA = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = pitch2note.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/pitch2note.pd;
 			sourceTree = "SOURCE_ROOT";
 		};
 		2D50E0DC310C6E88BC709342 = {
@@ -2039,6 +2080,13 @@
 			path = "../../../Juce/modules/juce_graphics";
 			sourceTree = "SOURCE_ROOT";
 		};
+		3C99F8E369EDBB71BC914172 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = note2pitch.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/note2pitch.pd;
+			sourceTree = "SOURCE_ROOT";
+		};
 		3D8D5CBC0B79F7B052201D6D = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -2114,6 +2162,13 @@
 			lastKnownFileType = sourcecode.c.c;
 			name = "highpass~.c";
 			path = "../../../Source/Pd/ELSE/highpass~.c";
+			sourceTree = "SOURCE_ROOT";
+		};
+		43A9E075D33461AB1CB71466 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = oscclone.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/oscclone.pd;
 			sourceTree = "SOURCE_ROOT";
 		};
 		4470C3A98DEFE45081EE76ED = {
@@ -2277,6 +2332,13 @@
 			path = ../../../Source/PluginEditorComponents.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		4F2B6E4D3D1CA3219DD9F884 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = grain.sampler.grain.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/grain.sampler.grain.pd;
+			sourceTree = "SOURCE_ROOT";
+		};
 		4F39B7862C72226F980CE45E = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -2373,6 +2435,13 @@
 			lastKnownFileType = sourcecode.c.c;
 			name = "xgate~.c";
 			path = "../../../Source/Pd/ELSE/xgate~.c";
+			sourceTree = "SOURCE_ROOT";
+		};
+		567805163C2A97A2F61A10D7 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = "trunc~.c";
+			path = "../../../Source/Pd/ELSE/trunc~.c";
 			sourceTree = "SOURCE_ROOT";
 		};
 		569CB865E0C2E44234A9AA06 = {
@@ -2585,6 +2654,13 @@
 			path = "../../../Source/Pd/ELSE/pluck~.c";
 			sourceTree = "SOURCE_ROOT";
 		};
+		642E372663F046157A9DD8E6 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = resonclone2.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/resonclone2.pd;
+			sourceTree = "SOURCE_ROOT";
+		};
 		64A40DF2BEF3953CFA0DEA82 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -2604,6 +2680,13 @@
 			lastKnownFileType = sourcecode.c.c;
 			name = "allpass.rev~.c";
 			path = "../../../Source/Pd/ELSE/allpass.rev~.c";
+			sourceTree = "SOURCE_ROOT";
+		};
+		65DC5A4B191B305D81084AAE = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = "echo_unit.pd";
+			path = "../../../Source/Pd/ELSE/Abstractions/echo_unit.pd";
 			sourceTree = "SOURCE_ROOT";
 		};
 		6663A5CD6BC9F9F27BE57510 = {
@@ -2690,6 +2773,13 @@
 			path = "../../../Source/Pd/ELSE/pulsecount~.c";
 			sourceTree = "SOURCE_ROOT";
 		};
+		6D22E228C91F6E473585D6BB = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = convpartition.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/convpartition.pd;
+			sourceTree = "SOURCE_ROOT";
+		};
 		6DAD46CE20FDAE9F593C5C0B = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.c;
@@ -2758,6 +2848,13 @@
 			lastKnownFileType = sourcecode.c.c;
 			name = symbol2any.c;
 			path = ../../../Source/Pd/ELSE/symbol2any.c;
+			sourceTree = "SOURCE_ROOT";
+		};
+		70A3960175310254F7508C8B = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = lcm.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/lcm.pd;
 			sourceTree = "SOURCE_ROOT";
 		};
 		714286B3955BF84D18B29D04 = {
@@ -2835,6 +2932,13 @@
 			lastKnownFileType = sourcecode.c.c;
 			name = "mov.rms~.c";
 			path = "../../../Source/Pd/ELSE/mov.rms~.c";
+			sourceTree = "SOURCE_ROOT";
+		};
+		7879F32AB047F18AD5EAD0BA = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = trunc.c;
+			path = ../../../Source/Pd/ELSE/trunc.c;
 			sourceTree = "SOURCE_ROOT";
 		};
 		789F45DE745469AB7E571469 = {
@@ -3033,6 +3137,13 @@
 			path = "../../../Source/Pd/ELSE/imp~.c";
 			sourceTree = "SOURCE_ROOT";
 		};
+		837C8420A30521EF32EF1FE3 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = dec2frac.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/dec2frac.pd;
+			sourceTree = "SOURCE_ROOT";
+		};
 		8384C2E2E29F3DCA78D5FAE0 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.c;
@@ -3052,6 +3163,13 @@
 			lastKnownFileType = file.pd;
 			name = lfnoise.pd;
 			path = ../../../Source/Pd/ELSE/Abstractions/lfnoise.pd;
+			sourceTree = "SOURCE_ROOT";
+		};
+		84C5DEA393104FD4636F4699 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = grain.synth.grain.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/grain.synth.grain.pd;
 			sourceTree = "SOURCE_ROOT";
 		};
 		862A94CAFF3812BCB8C15CB4 = {
@@ -3383,6 +3501,13 @@
 			path = ../../../Source/Pd/ELSE/shared/buffer.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		9F4B172C249E23C1B38A9ADF = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = buffer.c;
+			path = ../../../Source/Pd/ELSE/buffer.c;
+			sourceTree = "SOURCE_ROOT";
+		};
 		9F65D2D058B1C0CB28F8AC2A = {
 			isa = PBXFileReference;
 			lastKnownFileType = file.pd;
@@ -3572,6 +3697,13 @@
 			path = ../../../Source/Pd/PdPatch.hpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		AFE902241E338DE41730A1D7 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = "pvoc~.pd";
+			path = "../../../Source/Pd/ELSE/Abstractions/pvoc~.pd";
+			sourceTree = "SOURCE_ROOT";
+		};
 		AFF55FA087EFC3FCC0C32CDC = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.c;
@@ -3691,6 +3823,13 @@
 			path = "../../../Source/Pd/ELSE/randpulse2~.c";
 			sourceTree = "SOURCE_ROOT";
 		};
+		B6FDDE3B38BAC187EA167C3F = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = oscclone2.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/oscclone2.pd;
+			sourceTree = "SOURCE_ROOT";
+		};
 		B71FA169E01FB35DB2A88ACC = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.c;
@@ -3768,6 +3907,13 @@
 			path = "../../../Source/Pd/ELSE/fbdelay~.c";
 			sourceTree = "SOURCE_ROOT";
 		};
+		BA195C5EFD0A2FC623EAA7C4 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = "allpass_unit.pd";
+			path = "../../../Source/Pd/ELSE/Abstractions/allpass_unit.pd";
+			sourceTree = "SOURCE_ROOT";
+		};
 		BAA7D4146638ED9CC403207D = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -3815,6 +3961,13 @@
 			lastKnownFileType = file.pd;
 			name = "norm~.pd";
 			path = "../../../Source/Pd/ELSE/Abstractions/norm~.pd";
+			sourceTree = "SOURCE_ROOT";
+		};
+		BDC80800356AD053C1917478 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = "freeze.osc.clone~.pd";
+			path = "../../../Source/Pd/ELSE/Abstractions/freeze.osc.clone~.pd";
 			sourceTree = "SOURCE_ROOT";
 		};
 		BDF10FF4E15B093E47398E30 = {
@@ -4041,6 +4194,13 @@
 			path = "../../../Source/Pd/ELSE/Abstractions/oscbank~.pd";
 			sourceTree = "SOURCE_ROOT";
 		};
+		CDC106AE506C1D483AAED90A = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = resonclone.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/resonclone.pd;
+			sourceTree = "SOURCE_ROOT";
+		};
 		CE03B9F1C47EF92B50427D23 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.c;
@@ -4265,6 +4425,20 @@
 			path = ../../../Source/Pd/ELSE/ratio2cents.c;
 			sourceTree = "SOURCE_ROOT";
 		};
+		DD06825499ABC5A95BE214A1 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = bpclone.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/bpclone.pd;
+			sourceTree = "SOURCE_ROOT";
+		};
+		DD1A5C932091465BB2F738D9 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = gcd.c;
+			path = ../../../Source/Pd/ELSE/gcd.c;
+			sourceTree = "SOURCE_ROOT";
+		};
 		DD9674B5CF80B3D30AA826FE = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.c;
@@ -4356,6 +4530,13 @@
 			path = ../../../Source/Pd/ELSE/break.c;
 			sourceTree = "SOURCE_ROOT";
 		};
+		E414309B26E2F20CED02B593 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = "del~.c";
+			path = "../../../Source/Pd/ELSE/del~.c";
+			sourceTree = "SOURCE_ROOT";
+		};
 		E463A3C1F91E53E18758AAC2 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -4375,6 +4556,20 @@
 			lastKnownFileType = sourcecode.c.c;
 			name = trigger2.c;
 			path = ../../../Source/Pd/ELSE/trigger2.c;
+			sourceTree = "SOURCE_ROOT";
+		};
+		E74EE65A98659A353BB0EF36 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = "gran~.pd";
+			path = "../../../Source/Pd/ELSE/Abstractions/gran~.pd";
+			sourceTree = "SOURCE_ROOT";
+		};
+		E818BBC354C4C5BF180CF857 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = "vocoder.band_clone.pd";
+			path = "../../../Source/Pd/ELSE/Abstractions/vocoder.band_clone.pd";
 			sourceTree = "SOURCE_ROOT";
 		};
 		E86E57CEB8D95DE6915DE0E1 = {
@@ -4466,6 +4661,13 @@
 			lastKnownFileType = file.pd;
 			name = dec2hex.pd;
 			path = ../../../Source/Pd/ELSE/Abstractions/dec2hex.pd;
+			sourceTree = "SOURCE_ROOT";
+		};
+		EC575FD61E74B78A14F38476 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.pd;
+			name = frac2dec.pd;
+			path = ../../../Source/Pd/ELSE/Abstractions/frac2dec.pd;
 			sourceTree = "SOURCE_ROOT";
 		};
 		EC65B93546FBE8119BA269EA = {
@@ -4734,12 +4936,14 @@
 			path = "../../../Source/Pd/ELSE/impseq~.c";
 			sourceTree = "SOURCE_ROOT";
 		};
-		8A9A32FEB32B40FF235C0906 = {
+		75BAAAB5B6B8DEDE6BD08C60 = {
 			isa = PBXGroup;
 			children = (
 				DE79FA400E6FC02E827F6BE8,
 				3A17F40982B0E9FA6B699A76,
+				249DE2F0225A43F40A61A278,
 				9C664D8490D2348F4BA9E14F,
+				BA195C5EFD0A2FC623EAA7C4,
 				02C7D8A9A1DA83D19A205301,
 				5AD593D65C13F5CA6AF3EEDA,
 				0526B7CE75C1225618A15605,
@@ -4759,6 +4963,7 @@
 				27958F649FBB78F7BB577B7A,
 				A566A797911C5F15DACA6F01,
 				C9BAF7C2ECABE8B5BFFFC93E,
+				DD06825499ABC5A95BE214A1,
 				BFFF0B3DCD9741717D94D1FA,
 				606F7332294C52AE869CB6E6,
 				46D25F5BC008F896ED13EE48,
@@ -4769,10 +4974,12 @@
 				7F75EAD29CB945465DAD2968,
 				8EDF3FFC6156454DFB27D9EA,
 				CFC1B96E0A6E14365F7F5A17,
+				6D22E228C91F6E473585D6BB,
 				423FDD5CE8CC09F66CFCA623,
 				5A8A3F524E549ABCB4A4C12A,
 				2D50E0DC310C6E88BC709342,
 				25F03B55949697170979E2AA,
+				837C8420A30521EF32EF1FE3,
 				EC1F8E8439244FD3F99D977E,
 				7C46C39FC14A493259307EF2,
 				020FB923E36EA29EA2E86556,
@@ -4782,21 +4989,28 @@
 				256C4C072AB4B96D1C450FF2,
 				EEB339A6815E4450D998EABF,
 				F8747B0673F51E846424A334,
+				65DC5A4B191B305D81084AAE,
 				49613FA90947BB35BD5FB491,
 				BDF10FF4E15B093E47398E30,
 				A7A7DAC96AB7722CB6D80249,
 				A824D5B4034CD40D1718DD80,
 				B93423C28957E6FF45C40D8B,
+				EC575FD61E74B78A14F38476,
 				945BF8A6CF4FBEC9E53628CE,
 				609E9ECBF24E486A29209F18,
+				BDC80800356AD053C1917478,
 				2599DCDC4E4F7DC82331E6DB,
 				B7301439196F86D1A47BF6B7,
 				165E6C1D430F7BE0F8517711,
 				D76B16051B876EB7AB23759F,
+				015D67D659199FD05F5D5303,
 				FDC41B11DA35858D2141E088,
+				4F2B6E4D3D1CA3219DD9F884,
 				48B144EFF61E161B092C02A4,
+				84C5DEA393104FD4636F4699,
 				2C58175A700C4E3755A52396,
 				F9579762595F57977C84889D,
+				E74EE65A98659A353BB0EF36,
 				CA6912436D5E5491A7C27BE3,
 				B42D994037D4FA4301C38C75,
 				4032F6930D6281A794C78B01,
@@ -4806,6 +5020,7 @@
 				E9EF5BAEA2AF64D917017E4B,
 				4D10876E8C7DD300B3B969FC,
 				EC65B93546FBE8119BA269EA,
+				70A3960175310254F7508C8B,
 				8467B0E213593059FE34BEA4,
 				27C8172ADA5DDC568123FFCB,
 				B3816398913F60AD91589E65,
@@ -4833,9 +5048,12 @@
 				B9626E6A37014285B43568EA,
 				6F4E6346FAFBADA146077F65,
 				BDC346CE98A2B7B9568855E9,
+				3C99F8E369EDBB71BC914172,
 				542F1CB9F58CDE2C7870F6F5,
 				CD6CC9CC92CAAF6D44F29596,
 				318A2FEC04AF60640239EF08,
+				43A9E075D33461AB1CB71466,
+				B6FDDE3B38BAC187EA167C3F,
 				E242AEA602822D4F1D636B57,
 				D841AE5D8210D1C5290B26C2,
 				8E7D4BF5FAAB7153F056C369,
@@ -4849,6 +5067,7 @@
 				EF16B8622D957C10F6663CE7,
 				90395FD7B15FF1873FC0B02B,
 				EF65993051F91B6296E625E6,
+				2C7A04CDE2C2563B3D23D0EA,
 				17BF8ABB3C15F120E35FDE49,
 				C5E3B5A02826690A934492E2,
 				FD502F12737AAE39FDA94F9D,
@@ -4858,6 +5077,7 @@
 				E86E57CEB8D95DE6915DE0E1,
 				1FCF60F3C9EB2F6F60629D18,
 				584E4A91B2989711AE34FBCC,
+				AFE902241E338DE41730A1D7,
 				EDC1F8E624F012D7CC211A88,
 				79100B023F0137C1BAB55F8F,
 				231F25C722B301586F25B283,
@@ -4867,6 +5087,8 @@
 				305190C3454425F1DADA8186,
 				F87D9CCAA10E8C24F774E248,
 				396E939F9512000C14A2954B,
+				CDC106AE506C1D483AAED90A,
+				642E372663F046157A9DD8E6,
 				AA3CA55A14E76A9B7E6E7E8D,
 				7BCE1354BAAA772FAF4240AB,
 				DABC96F06604B8CB12FCB0DD,
@@ -4896,12 +5118,13 @@
 				75AFCAF2AE2491707895AA01,
 				79ED7B9DAA710E8155A3DE25,
 				C1C1D035FDCAC2523DD2F339,
+				E818BBC354C4C5BF180CF857,
 				6117928DDC9D9CCA299D74C6,
 			);
 			name = Abstractions;
 			sourceTree = "<group>";
 		};
-		054C3B7501D79C9073965DEC = {
+		3EE6A5705ACF1E103E1224F6 = {
 			isa = PBXGroup;
 			children = (
 				EC1CFCC21C821E3A5BA223EE,
@@ -4925,8 +5148,8 @@
 		50959EFE97C7916F3808D391 = {
 			isa = PBXGroup;
 			children = (
-				8A9A32FEB32B40FF235C0906,
-				054C3B7501D79C9073965DEC,
+				75BAAAB5B6B8DEDE6BD08C60,
+				3EE6A5705ACF1E103E1224F6,
 				AD0523F42185E8832451C127,
 				5A9F6DA02C6B119712B8E75C,
 				D2CB5E370303F748F3FC70B7,
@@ -4946,6 +5169,7 @@
 				0027A3E2143C154620C3D502,
 				E39C21EEB4953188B0639F4F,
 				7680F70E2984BEB2E785C4EC,
+				9F4B172C249E23C1B38A9ADF,
 				23C23B95EFC2ED736425E973,
 				F3FB2A251BDFAEA44B3BEB7A,
 				484B568B42321435A69F099E,
@@ -4984,6 +5208,7 @@
 				7091E44BFB2AA553B055992A,
 				720AFB91EB1404C367D56EA3,
 				BAF57A77FA0887CA872D2B8A,
+				E414309B26E2F20CED02B593,
 				5C378BD1CDBCFCA210A46D47,
 				94F5A07DFD4E86742EB80472,
 				D103C3B945B07D887F6E309C,
@@ -5015,6 +5240,7 @@
 				96CC33E5FE2EE65B1B49ABE9,
 				0F0DC0BD12A804604EAB993F,
 				8EEDF001D56853666362F961,
+				DD1A5C932091465BB2F738D9,
 				6FCB2B7F4D5962F0CC4FA5E9,
 				8384C2E2E29F3DCA78D5FAE0,
 				3C3CA4FC2D93455858FD17B6,
@@ -5152,6 +5378,8 @@
 				27F3A7279CEE59F28E52B84A,
 				E662934B73F25550AB04033C,
 				6F0699CC8F4A48C6C19F3F45,
+				7879F32AB047F18AD5EAD0BA,
+				567805163C2A97A2F61A10D7,
 				2B2601C57FB87479A26E821C,
 				6E17DFC58BDA6C910F9AE0E3,
 				99BBD6B5BFAB954D8A819CDE,
@@ -5706,6 +5934,7 @@
 				25A28FA2D994F8083A8BB092,
 				3203BC291E33BAF61FA42727,
 				7FF066D7F3FC50BC05A0028B,
+				8D23A0B5BEFEDC4867E94B45,
 				04AFA2F419C20F8A6F82B6D7,
 				47CD169E6C07AD2D21A23193,
 				FD47B14D0F8ADB243102E544,
@@ -5744,6 +5973,7 @@
 				B17774963951AE38F2D733B1,
 				3DA10E77C1FE3D212B86C94D,
 				F3667B6A32C851AF6E6AF155,
+				221E78F47AE50CEBE6194E85,
 				429CE300F6E55AEDC41BFAD2,
 				B2109CC382CB8CF97DF4E7EA,
 				51AA81A804D0E06A42E3A347,
@@ -5775,6 +6005,7 @@
 				5AFF3EB21541E94E939E79B1,
 				7D29658AEAE6EEA06877D4AB,
 				D2CA57B30E535D12EA42F25F,
+				EECBE98AF70A5A14C61E9525,
 				F550196F9ECE2AA73E003414,
 				452F36F5150A896CF7EBCACF,
 				81D76F3F691082508C1DDFA8,
@@ -5912,6 +6143,8 @@
 				45C7915E83F9A2096889FDF0,
 				1FB6E73D9265E54AA6D3B3E9,
 				12E68673E0D21A74862A1CF6,
+				642EF2E6C489DE9091FB1918,
+				0175B6E9CEDC2A6E6AD49D45,
 				A8FC220B6266CEBE1FCE4E57,
 				F7FA1446F9B2B9F3AA1006CB,
 				270033B3BBCC8D778E9A9177,
