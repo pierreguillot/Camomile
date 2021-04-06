@@ -146,7 +146,6 @@ static void tabplayer_play(t_play *x, t_symbol *s, int ac, t_atom *av){
     if(ac){ // args: start (ms) / end (ms), rate
         float stms = 0;
         float endms = SHARED_FLT_MAX;
-        float rate = 1;
         int argnum = 0;
         while(ac){
             if(av->a_type == A_FLOAT){
@@ -158,7 +157,8 @@ static void tabplayer_play(t_play *x, t_symbol *s, int ac, t_atom *av){
                         endms = atom_getfloatarg(0, ac, av);
                         break;
                     case 2:
-                        rate = atom_getfloatarg(0, ac, av) * 0.01;
+                        x->x_rate = (double)atom_getfloatarg(0, ac, av) * 0.01;
+                        x->x_isneg = (int)(x->x_rate < 0);
                         break;
                     default:
                         break;
@@ -397,7 +397,7 @@ static void *tabplayer_new(t_symbol * s, int ac, t_atom *av){
     x->x_sr_khz = (float)sys_getsr() * 0.001;
     x->x_array_sr_khz = x->x_sr_khz; // pd's sample rate for now
     x->x_loop = 0;
-    x->x_rate = 1;
+    x->x_rate = 1.f;
     int nameset = 0;
     while(ac){
         if(av->a_type == A_SYMBOL){ // if name not passed so far, count arg as array name
@@ -421,7 +421,7 @@ static void *tabplayer_new(t_symbol * s, int ac, t_atom *av){
                 ac-=2, av+=2;
             }
             else if(s == gensym("-speed") && ac >= 2){
-                x->x_rate = atom_getfloatarg(1, ac, av) * 0.01;
+                x->x_rate = (double)atom_getfloatarg(1, ac, av) * 0.01;
                 ac-=2, av+=2;
             }
             else if(s == gensym("-range") && ac >= 3){
@@ -447,7 +447,7 @@ static void *tabplayer_new(t_symbol * s, int ac, t_atom *av){
         }
     };
     x->x_sr_ratio = x->x_array_sr_khz/x->x_sr_khz;
-    x->x_isneg = x->x_rate < 0;
+    x->x_isneg = (int)(x->x_rate < 0);
     // one auxiliary signal:  position input
     int chn_n = (int)channels > 64 ? 64 : (int)channels;
     x->x_glist = canvas_getcurrent();

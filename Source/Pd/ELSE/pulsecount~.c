@@ -38,13 +38,13 @@ static t_int *pulsecount_perform(t_int *w){
     }
     x->x_lastin = lastin;
     x->x_count = count;
-    return(w + 6);
+    return(w+6);
 }
 
 static void pulsecount_div(t_pulsecount *x, t_floatarg f){
     x->x_mod = (int)f;
     if(x->x_mod < 1)
-        x->x_mod = 1;
+        x->x_mod = -1;
 }
 
 static void pulsecount_dsp(t_pulsecount *x, t_signal **sp){
@@ -64,10 +64,10 @@ static void *pulsecount_new(t_floatarg f){
     x->x_count = 0;
     x->x_mod = (int)f;
     if(x->x_mod < 1)
-       x->x_mod = 1;
+       x->x_mod = -1;
     x->x_triglet = inlet_new((t_object *)x, (t_pd *)x, &s_signal, &s_signal);
     x->x_outlet = outlet_new(&x->x_obj, &s_signal);
-    return (x);
+    return(x);
 }
 
 void pulsecount_tilde_setup(void){

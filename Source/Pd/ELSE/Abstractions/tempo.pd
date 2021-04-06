@@ -1,6 +1,6 @@
-#N canvas 764 198 528 467 10;
+#N canvas 536 172 528 467 10;
 #X declare -path else;
-#X obj 35 214 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 35 214 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 67 342 metro;
 #X obj 35 33 inlet;
@@ -114,16 +114,14 @@
 #X msg 217 130 0;
 #X obj 186 180 s \$0-mode;
 #X obj 247 150 v div_\$0;
-#X obj 247 128 max 1;
 #X obj 35 100 route float bang start stop hz ms bpm div;
 #X msg 156 130 2;
-#X obj 137 55 unmerge 3 -trim, f 24;
-#X obj 35 60 route bang;
 #X obj 290 268 declare -path else;
+#X obj 247 128 max 1;
 #X connect 0 0 15 0;
 #X connect 1 0 11 0;
 #X connect 1 0 21 0;
-#X connect 2 0 31 0;
+#X connect 2 0 27 0;
 #X connect 5 0 4 0;
 #X connect 6 0 22 0;
 #X connect 9 0 6 0;
@@ -139,18 +137,13 @@
 #X connect 21 0 1 0;
 #X connect 23 0 25 0;
 #X connect 24 0 25 0;
-#X connect 27 0 26 0;
-#X connect 28 0 14 0;
-#X connect 28 1 16 0;
-#X connect 28 2 18 0;
-#X connect 28 3 19 0;
-#X connect 28 4 29 0;
-#X connect 28 5 23 0;
-#X connect 28 6 24 0;
-#X connect 28 7 27 0;
-#X connect 29 0 25 0;
-#X connect 30 0 28 0;
-#X connect 30 1 6 0;
-#X connect 30 2 5 0;
-#X connect 31 0 28 0;
-#X connect 31 1 30 0;
+#X connect 27 0 14 0;
+#X connect 27 1 16 0;
+#X connect 27 2 18 0;
+#X connect 27 3 19 0;
+#X connect 27 4 28 0;
+#X connect 27 5 23 0;
+#X connect 27 6 24 0;
+#X connect 27 7 30 0;
+#X connect 28 0 25 0;
+#X connect 30 0 26 0;

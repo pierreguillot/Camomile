@@ -25,6 +25,7 @@ typedef struct _fbdelay{
     unsigned int    x_sz;       // actual size of each delay buffer
     unsigned int    x_wp;       // write head
     unsigned int    x_ms;       // ms flag
+    unsigned int    x_freeze;
 }t_fbdelay;
 
 static void fbdelay_clear(t_fbdelay *x){
@@ -58,6 +59,10 @@ static void fbdelay_sz(t_fbdelay *x){ // deal with allocation issues
         x->x_alloc = 0;
     };
     fbdelay_clear(x);
+}
+
+static void fbdelay_freeze(t_fbdelay *x, t_float f){
+    x->x_freeze = (unsigned int)(f != 0);
 }
 
 static t_int *fbdelay_perform(t_int *w){
@@ -107,7 +112,8 @@ static t_int *fbdelay_perform(t_int *w){
             ain[i] = ain[i] == 0 ? 0 : copysign(exp(log(0.001) * ms/fabs(ain[i])), ain[i]);
         double output = (double)xin[i] + y_n * (double)ain[i];
         out[i] = (t_float)output;
-        x->x_ybuf[x->x_wp] = output;       // write output to buffer
+        if(!x->x_freeze)
+            x->x_ybuf[x->x_wp] = output;       // write output to buffer
         x->x_wp = (x->x_wp + 1) % x->x_sz; // increment and wrap write head
     };
     return(w+7);
@@ -147,6 +153,7 @@ static void *fbdelay_new(t_symbol *s, int argc, t_atom * argv){
     float del_time = 0;
     float delsize = 1000;
     float fb = 0;
+    x->x_freeze = 0;
     x->x_gain = 0;
     x->x_ms = 1;
 /////////////////////////////////////////////////////////////////////////////////
@@ -242,5 +249,6 @@ void fbdelay_tilde_setup(void){
     class_addmethod(fbdelay_class, (t_method)fbdelay_clear, gensym("clear"), 0);
     class_addmethod(fbdelay_class, (t_method)fbdelay_size, gensym("size"), A_DEFFLOAT, 0);
     class_addmethod(fbdelay_class, (t_method)fbdelay_gain, gensym("gain"), A_DEFFLOAT, 0);
+    class_addmethod(fbdelay_class, (t_method)fbdelay_freeze, gensym("freeze"), A_DEFFLOAT, 0);
 }
         

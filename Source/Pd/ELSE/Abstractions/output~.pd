@@ -1,4 +1,5 @@
 #N canvas 689 239 467 404 10;
+#X declare -path else;
 #X obj 14 106 hsl 66 20 0 1 0 0 \$0-slider \$0-set-slider volume 19
 7 1 13 -228856 -1 -1 0 1;
 #X obj 83 94 tgl 16 0 \$0-dsp-toggle \$0-dsp-toggle-set off 3 6 1 9
@@ -473,6 +474,7 @@
 #X restore 303 182 pd load_args;
 #X text 164 329 Part of ELSE \; https://github.com/porres/pd-else;
 #X text 166 310 Alexandre Torres Porres (2017-2020);
+#X obj 228 368 declare -path else;
 #X connect 4 0 8 0;
 #X connect 5 0 13 0;
 #X connect 5 0 18 0;

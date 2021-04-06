@@ -53,7 +53,7 @@ static void notein_float(t_notein *x, t_float f){
                 x->x_status = x->x_ready = 0; // clear
         }
         else if(x->x_ready){
-            int flag = (x->x_status == 0x90 && bval);
+            int flag = (x->x_status == 0x90);
             if(x->x_omni){
                 outlet_float(x->x_chanout, x->x_channel + 1);
             }

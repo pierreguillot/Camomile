@@ -1,6 +1,5 @@
 #N canvas 940 110 643 437 10;
-#X declare -path /Users/porres/Desktop/git/pd-else/Classes/Abstractions
-;
+#X declare -path /Users/porres/Documents/pd/externals/else;
 #X declare -path else;
 #X obj 44 59 inlet;
 #X obj 95 59 inlet;
@@ -193,30 +192,28 @@
 #X obj 33 304 outlet;
 #X obj 79 23 inlet;
 #X obj 86 260 s \$0-stop;
-#X obj 86 186 sel 1;
+#X obj 86 166 sel 1;
 #X obj 95 59 r \$0-min;
 #X obj 172 57 r \$0-max;
-#X obj 131 164 r \$0-loop;
-#X obj 131 186 + 1;
-#X obj 86 210 router 1;
+#X obj 127 166 r \$0-loop;
 #X obj 131 237 s \$0-finished;
 #X obj 86 124 expr $f1 <= $f2 || $f1 >= $f3, f 15;
+#X obj 86 210 router;
 #X connect 0 0 1 0;
-#X connect 0 0 13 0;
+#X connect 0 0 11 0;
 #X connect 1 0 3 0;
 #X connect 2 0 0 0;
 #X connect 4 0 0 1;
-#X connect 6 0 11 0;
+#X connect 6 0 12 0;
 #X connect 7 0 1 1;
-#X connect 7 0 13 1;
+#X connect 7 0 11 1;
 #X connect 8 0 1 2;
-#X connect 8 0 13 2;
-#X connect 9 0 10 0;
-#X connect 10 0 11 1;
-#X connect 11 0 12 0;
-#X connect 11 0 5 0;
-#X connect 11 1 12 0;
-#X connect 13 0 6 0;
+#X connect 8 0 11 2;
+#X connect 9 0 12 1;
+#X connect 11 0 6 0;
+#X connect 12 0 10 0;
+#X connect 12 0 5 0;
+#X connect 12 1 10 0;
 #X restore 131 290 pd +;
 #X connect 0 0 20 0;
 #X connect 1 0 10 0;
@@ -286,7 +283,7 @@
 #X obj 43 145 trigger float float;
 #X obj 70 342 s pd-\$0-buffers;
 #N canvas 621 356 434 343 \$0-buffers 0;
-#X obj 20 50 table 1006-ch1;
+#X obj 20 50 table 1012-ch1;
 #X restore 194 98 pd \$0-buffers;
 #X obj 43 111 loop;
 #X obj 43 209 makefilename \$0-ch%d, f 12;
@@ -321,7 +318,7 @@
 #X obj 48 160 send pd-\$0-path;
 #X msg 48 136 clear \, obj 30 20 declare -path \$1;
 #N canvas 169 23 493 100 \$0-path 0;
-#X obj 30 20 declare -path /Users/porres/Desktop/git/pd-else/Classes/Abstractions
+#X obj 30 20 declare -path /Users/porres/Documents/pd/externals/else
 ;
 #X restore 150 160 pd \$0-path;
 #X obj 48 109 pdcontrol;

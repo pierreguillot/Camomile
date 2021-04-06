@@ -113,10 +113,8 @@ static void dir_loadir(t_dir *x, t_symbol *dirname, int init){
     char tempdir[MAXPDSTRING];
     strcpy(tempdir, x->x_directory); // tempdir = x->x_directory
     char *pch = strchr(dirname->s_name, ':');
-    if(pch-dirname->s_name == 1){ // absolute windows
-            post("gotcha");
-            strncpy(x->x_directory, dirname->s_name, MAXPDSTRING);
-    }
+    if(pch-dirname->s_name == 1) // absolute windows
+        strncpy(x->x_directory, dirname->s_name, MAXPDSTRING);
     else if(!strncmp(dirname->s_name, "/", 1)) // absolute mac/linux
         strncpy(x->x_directory, dirname->s_name, MAXPDSTRING);
     else if(dirname == x->x_getdir || !strcmp(dirname->s_name, ".")){ // do nothing

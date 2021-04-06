@@ -1,15 +1,16 @@
+// porres
 
 #include "m_pd.h"
 
 typedef struct _selector{
-    t_object  x_ob;
+    t_object  x_obj;
     int       x_open;
     int       x_n;         // number of channels
     t_pd    **x_proxies;
 }t_selector;
 
 typedef struct _selector_proxy{
-    t_object       p_ob;
+    t_object       p_obj;
     t_selector    *p_master;
     t_int          p_id;
     t_int          p_n;
@@ -30,7 +31,7 @@ static void selector_proxy_float(t_selector_proxy *x, t_float f){
             outlet_float(((t_object *)master)->ob_outlet, f);
     }
     else
-        master->x_open = (int)f;
+        master->x_open = (int)f + 1;
 }
 
 static void selector_proxy_anything(t_selector_proxy *x, t_symbol *s, int ac, t_atom *av){
@@ -52,7 +53,7 @@ static void selector_free(t_selector *x){
 static void *selector_new(t_floatarg f1, t_floatarg f2){
     t_selector *x = (t_selector *)pd_new(selector_class);
     t_int n = (int)f1;
-    x->x_open = (int)f2;
+    x->x_open = (int)f2 + 1;
     x->x_n = n < 2 ? 2 : n > 512 ? 512 : n;
     t_pd **proxies;
     if(!(proxies = (t_pd **)getbytes(x->x_n * sizeof(*proxies))))

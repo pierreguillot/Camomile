@@ -19,6 +19,7 @@ typedef struct _ffdelay{
     unsigned int    x_ms;                   // ms flag
     unsigned int	x_maxsize;              // buffer size in samples
     unsigned int	x_maxsofar;             // largest maxsize so far
+    unsigned int    x_freeze;
     t_float         x_bufini[FFDEL_STACK];  // default stack buffer
 }t_ffdelay;
 
@@ -67,6 +68,10 @@ static void ffdelay_size(t_ffdelay *x, t_float size){
     ffdelay_resize(x, size);
 }
 
+static void ffdelay_freeze(t_ffdelay *x, t_float f){
+    x->x_freeze = (unsigned int)(f != 0);
+}
+
 static t_int *ffdelay_perform(t_int *w){
 	t_ffdelay *x = (t_ffdelay *)(w[1]);
     int nblock = (int)(w[2]);
@@ -99,7 +104,8 @@ static t_int *ffdelay_perform(t_int *w){
         x->x_del_time = del;
     	idel = (int)del;
         frac = del - (t_sample)idel;
-        *wp = f;
+        if(!x->x_freeze)
+            *wp = f;
     	rp = wp - idel;
     	if(rp < bp)
     		rp += (maxsize + FFDEL_GUARD);
@@ -140,6 +146,7 @@ static void *ffdelay_new(t_symbol *s, int argc, t_atom * argv){
     x->x_sr_khz = sys_getsr() * 0.001;
     float delsize = 1000 * x->x_sr_khz; // default max size = 1 second
     float del_time = 0;
+    x->x_freeze = 0;
     x->x_ms = 1;
 /////////////////////////////////////////////////////////////////////////////////
     int symarg = 0;
@@ -211,4 +218,5 @@ void ffdelay_tilde_setup(void){
     class_addmethod(ffdelay_class, (t_method)ffdelay_dsp, gensym("dsp"), A_CANT, 0);
     class_addmethod(ffdelay_class, (t_method)ffdelay_clear, gensym("clear"), 0);
     class_addmethod(ffdelay_class, (t_method)ffdelay_size, gensym("size"), A_DEFFLOAT, 0);
+    class_addmethod(ffdelay_class, (t_method)ffdelay_freeze, gensym("freeze"), A_DEFFLOAT, 0);
 }

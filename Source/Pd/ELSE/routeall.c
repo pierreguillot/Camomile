@@ -10,7 +10,7 @@ typedef struct _routeall{
     t_float     x_i;
     t_outlet    **x_outs;
     t_outlet    *x_out_unmatch;
-} t_routeall;
+}t_routeall;
 
 static void routeall_bang(t_routeall *x){
     int i = (int)x->x_i;
@@ -100,11 +100,11 @@ static void routeall_list(t_routeall *x, t_symbol *s, int ac, t_atom *av){
 }
 
 static void routeall_anything(t_routeall *x, t_symbol *s, int ac, t_atom *av){
-    t_int n;
     int i = (int)x->x_i;
+    int n;
     if(i < 0)
         i = 0;
-    if(i < ac){
+    if(i <= ac){
         for(n = 0; n < x->x_ac; n++){
             if(!i){
                 if(x->x_av[n].a_type == A_SYMBOL){
@@ -167,8 +167,7 @@ static void *routeall_new(t_symbol *s, int argc, t_atom *argv){
     }
     floatinlet_new(&x->x_obj, &x->x_i);
     x->x_outs = (t_outlet **)getbytes(x->x_ac * sizeof(*outs));
-    int i;
-    for (i = 0; i < x->x_ac; i++)
+    for(int i = 0; i < x->x_ac; i++)
         x->x_outs[i] = outlet_new(&x->x_obj, &s_anything);
     x->x_out_unmatch = outlet_new(&x->x_obj, &s_anything);
     return (x);

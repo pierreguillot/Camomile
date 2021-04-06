@@ -203,8 +203,7 @@ static void trigger2_free(t_trigger2 *x)
 void trigger2_setup(void)
 {
     trigger2_class = class_new(gensym("trigger2"), (t_newmethod)trigger2_new,
-                              (t_method)trigger2_free, sizeof(t_trigger2), 0, A_GIMME, 0);
-    class_addcreator((t_newmethod)trigger2_new, gensym("t2"), A_GIMME, 0);
+        (t_method)trigger2_free, sizeof(t_trigger2), 0, A_GIMME, 0);
     class_addlist(trigger2_class, trigger2_list);
     class_addbang(trigger2_class, trigger2_bang);
     class_addpointer(trigger2_class, trigger2_pointer);

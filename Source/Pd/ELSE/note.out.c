@@ -20,21 +20,22 @@ static void noteout_float(t_noteout *x, t_float f){
         int channel = (int)x->x_channel;
         if(channel <= 0)
             channel = 1;
+        if(channel > 16)
+            channel = 16;
         int velocity = (int)x->x_velocity;
         if(velocity < 0)
             velocity = 0;
         if(velocity > 127)
             velocity = 127;
-        velocity &= 0x7F;
         if(x->x_rel){
             int status = ((int)x->x_flag ? 0x90 : 0x80);
-            outlet_float(((t_object *)x)->ob_outlet, status + ((channel-1) & 0x0F));
+            outlet_float(((t_object *)x)->ob_outlet, status + ((channel-1)));
             outlet_float(((t_object *)x)->ob_outlet, pitch);
             outlet_float(((t_object *)x)->ob_outlet, velocity);
         }
         else{
-            int status = (velocity != 0 ? 0x90 : 0x80);
-            outlet_float(((t_object *)x)->ob_outlet, status + ((channel-1) & 0x0F));
+            int status = 0x90;
+            outlet_float(((t_object *)x)->ob_outlet, status + ((channel-1)));
             outlet_float(((t_object *)x)->ob_outlet, pitch);
             outlet_float(((t_object *)x)->ob_outlet, velocity);
         }

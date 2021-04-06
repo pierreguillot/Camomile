@@ -327,6 +327,7 @@ void biquads_tilde_setup(void);
 void blocksize_tilde_setup(void);
 void break_setup(void);
 void brown_tilde_setup(void);
+void buffer_setup(void);
 void button_setup(void);
 void setup_canvas0x2eactive(void);
 void setup_canvas0x2ebounds(void);
@@ -365,6 +366,7 @@ void setup_ctl0x2eout(void);
 void cusp_tilde_setup(void);
 void decay_tilde_setup(void);
 void decay2_tilde_setup(void);
+void del_tilde_setup(void);
 void detect_tilde_setup(void);
 void dir_setup(void);
 void dollsym_setup(void);
@@ -396,6 +398,7 @@ void function_setup(void);
 void function_tilde_setup(void);
 void gate2imp_tilde_setup(void);
 void gbman_tilde_setup(void);
+void gcd_setup(void);
 void setup_giga0x2erev_tilde(void);
 void glide_tilde_setup(void);
 void glide2_tilde_setup(void);
@@ -597,6 +600,7 @@ void libpd_multi_init(void)
         blocksize_tilde_setup();
         break_setup();
         brown_tilde_setup();
+        buffer_setup();
         button_setup();
         setup_canvas0x2eactive();
         setup_canvas0x2ebounds();
@@ -635,6 +639,7 @@ void libpd_multi_init(void)
         cusp_tilde_setup();
         decay_tilde_setup();
         decay2_tilde_setup();
+        del_tilde_setup();
         detect_tilde_setup();
         dir_setup();
         dollsym_setup();
@@ -666,6 +671,7 @@ void libpd_multi_init(void)
         function_tilde_setup();
         gate2imp_tilde_setup();
         gbman_tilde_setup();
+        gcd_setup();
         setup_giga0x2erev_tilde();
         glide_tilde_setup();
         glide2_tilde_setup();
@@ -825,5 +831,3 @@ void libpd_multi_init(void)
         initialized = 1;
     }
 }
-
-

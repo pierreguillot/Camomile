@@ -1,4 +1,5 @@
 #N canvas 789 137 597 338 10;
+#X declare -path else;
 #X obj 108 214 array sum \$0-sum;
 #X obj 179 99 list length;
 #X obj 179 153 array define \$0-sum;
@@ -10,6 +11,7 @@
 #X text 344 164 Part of ELSE \; https://github.com/porres/pd-else;
 #X text 346 145 Alexandre Torres Porres (2019);
 #X obj 108 73 message;
+#X obj 371 98 declare -path else;
 #X connect 0 0 6 0;
 #X connect 1 0 7 0;
 #X connect 4 0 0 0;
