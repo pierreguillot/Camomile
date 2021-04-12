@@ -296,15 +296,15 @@
     <ClCompile Include="..\..\..\Source\Pd\ELSE\balance~.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\bandpass~.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\bandstop~.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\bend.in.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\bend.out.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\bicoeff.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\biquads~.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\blocksize~.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\break.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\brown~.c"/>
-    <ClCompile Include="..\..\..\Source\Pd\ELSE\bend.in.c"/>
-    <ClCompile Include="..\..\..\Source\Pd\ELSE\button.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\buffer_obj.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\button.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\canvas.active.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\canvas.bounds.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\canvas.edit.c"/>
