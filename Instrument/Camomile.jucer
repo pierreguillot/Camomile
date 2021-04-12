@@ -286,15 +286,15 @@
           <FILE id="MDJDW8" name="balance~.c" compile="1" resource="0" file="../Source/Pd/ELSE/balance~.c"/>
           <FILE id="xJI5HS" name="bandpass~.c" compile="1" resource="0" file="../Source/Pd/ELSE/bandpass~.c"/>
           <FILE id="IoPMMM" name="bandstop~.c" compile="1" resource="0" file="../Source/Pd/ELSE/bandstop~.c"/>
-          <FILE id="Zl15hT" name="bend.in.c" compile="1" resource="0" file="../Source/Pd/ELSE/bend.in.c"/>
           <FILE id="PG1opV" name="bend.out.c" compile="1" resource="0" file="../Source/Pd/ELSE/bend.out.c"/>
           <FILE id="CusUNQ" name="bicoeff.c" compile="1" resource="0" file="../Source/Pd/ELSE/bicoeff.c"/>
           <FILE id="iyKNKD" name="biquads~.c" compile="1" resource="0" file="../Source/Pd/ELSE/biquads~.c"/>
           <FILE id="cRoLm1" name="blocksize~.c" compile="1" resource="0" file="../Source/Pd/ELSE/blocksize~.c"/>
           <FILE id="JUCgNw" name="break.c" compile="1" resource="0" file="../Source/Pd/ELSE/break.c"/>
           <FILE id="drbDtr" name="brown~.c" compile="1" resource="0" file="../Source/Pd/ELSE/brown~.c"/>
-          <FILE id="NUJ8wf" name="buffer.c" compile="1" resource="0" file="../Source/Pd/ELSE/buffer.c"/>
+          <FILE id="Zl15hT" name="bend.in.c" compile="1" resource="0" file="../Source/Pd/ELSE/bend.in.c"/>
           <FILE id="qwNQdE" name="button.c" compile="1" resource="0" file="../Source/Pd/ELSE/button.c"/>
+          <FILE id="V6ray3" name="buffer_obj.c" compile="1" resource="0" file="../Source/Pd/ELSE/buffer_obj.c"/>
           <FILE id="YYye8m" name="canvas.active.c" compile="1" resource="0" file="../Source/Pd/ELSE/canvas.active.c"/>
           <FILE id="WHyGh8" name="canvas.bounds.c" compile="1" resource="0" file="../Source/Pd/ELSE/canvas.bounds.c"/>
           <FILE id="F0szi9" name="canvas.edit.c" compile="1" resource="0" file="../Source/Pd/ELSE/canvas.edit.c"/>

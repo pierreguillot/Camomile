@@ -303,7 +303,7 @@
     <ClCompile Include="..\..\..\Source\Pd\ELSE\blocksize~.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\break.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\brown~.c"/>
-    <ClCompile Include="..\..\..\Source\Pd\ELSE\buffer.c"/>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\buffer_obj.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\button.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\canvas.active.c"/>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\canvas.bounds.c"/>

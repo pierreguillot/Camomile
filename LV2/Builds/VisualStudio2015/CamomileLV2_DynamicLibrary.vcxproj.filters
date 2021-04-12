@@ -538,7 +538,7 @@
     <ClCompile Include="..\..\..\Source\Pd\ELSE\brown~.c">
       <Filter>CamomileLV2\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\ELSE\buffer.c">
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\buffer_obj.c">
       <Filter>CamomileLV2\Source\Pd\ELSE</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\button.c">

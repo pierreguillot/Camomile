@@ -126,15 +126,15 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/balance~_9c647397.o \
   $(JUCE_OBJDIR)/bandpass~_b77a986d.o \
   $(JUCE_OBJDIR)/bandstop~_765fa2dc.o \
-  $(JUCE_OBJDIR)/bend.in_7b52fc6f.o \
   $(JUCE_OBJDIR)/bend.out_ef654dce.o \
   $(JUCE_OBJDIR)/bicoeff_eabe0487.o \
   $(JUCE_OBJDIR)/biquads~_51cfe1ae.o \
   $(JUCE_OBJDIR)/blocksize~_9dc36725.o \
   $(JUCE_OBJDIR)/break_7461fa34.o \
   $(JUCE_OBJDIR)/brown~_2a264afd.o \
-  $(JUCE_OBJDIR)/buffer_b8898b35.o \
+  $(JUCE_OBJDIR)/bend.in_7b52fc6f.o \
   $(JUCE_OBJDIR)/button_d13729a7.o \
+  $(JUCE_OBJDIR)/buffer_obj_4a2b996d.o \
   $(JUCE_OBJDIR)/canvas.active_c5faba51.o \
   $(JUCE_OBJDIR)/canvas.bounds_aa9a0240.o \
   $(JUCE_OBJDIR)/canvas.edit_2170b5d5.o \
@@ -566,11 +566,6 @@ $(JUCE_OBJDIR)/bandstop~_765fa2dc.o: ../../../Source/Pd/ELSE/bandstop~.c
 	@echo "Compiling bandstop~.c"
 	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/bend.in_7b52fc6f.o: ../../../Source/Pd/ELSE/bend.in.c
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling bend.in.c"
-	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
-
 $(JUCE_OBJDIR)/bend.out_ef654dce.o: ../../../Source/Pd/ELSE/bend.out.c
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling bend.out.c"
@@ -601,14 +596,19 @@ $(JUCE_OBJDIR)/brown~_2a264afd.o: ../../../Source/Pd/ELSE/brown~.c
 	@echo "Compiling brown~.c"
 	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/buffer_b8898b35.o: ../../../Source/Pd/ELSE/buffer.c
+$(JUCE_OBJDIR)/bend.in_7b52fc6f.o: ../../../Source/Pd/ELSE/bend.in.c
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling buffer.c"
+	@echo "Compiling bend.in.c"
 	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/button_d13729a7.o: ../../../Source/Pd/ELSE/button.c
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling button.c"
+	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/buffer_obj_4a2b996d.o: ../../../Source/Pd/ELSE/buffer_obj.c
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling buffer_obj.c"
 	$(V_AT)$(CC) $(JUCE_CFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/canvas.active_c5faba51.o: ../../../Source/Pd/ELSE/canvas.active.c

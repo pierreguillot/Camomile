@@ -249,9 +249,9 @@
 			isa = PBXBuildFile;
 			fileRef = 7680F70E2984BEB2E785C4EC;
 		};
-		8D23A0B5BEFEDC4867E94B45 = {
+		CA7747E836865A9251F81669 = {
 			isa = PBXBuildFile;
-			fileRef = 9F4B172C249E23C1B38A9ADF;
+			fileRef = DF90A31D94D2B1C9A8F69B27;
 		};
 		04AFA2F419C20F8A6F82B6D7 = {
 			isa = PBXBuildFile;
@@ -3501,13 +3501,6 @@
 			path = ../../../Source/Pd/ELSE/shared/buffer.h;
 			sourceTree = "SOURCE_ROOT";
 		};
-		9F4B172C249E23C1B38A9ADF = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.c;
-			name = buffer.c;
-			path = ../../../Source/Pd/ELSE/buffer.c;
-			sourceTree = "SOURCE_ROOT";
-		};
 		9F65D2D058B1C0CB28F8AC2A = {
 			isa = PBXFileReference;
 			lastKnownFileType = file.pd;
@@ -4488,6 +4481,13 @@
 			path = ../../../Source/Pd/ELSE/Abstractions/scramble.pd;
 			sourceTree = "SOURCE_ROOT";
 		};
+		DF90A31D94D2B1C9A8F69B27 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = "buffer_obj.c";
+			path = "../../../Source/Pd/ELSE/buffer_obj.c";
+			sourceTree = "SOURCE_ROOT";
+		};
 		E0DBFE69D52A2526780F143F = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.c;
@@ -4936,7 +4936,7 @@
 			path = "../../../Source/Pd/ELSE/impseq~.c";
 			sourceTree = "SOURCE_ROOT";
 		};
-		75BAAAB5B6B8DEDE6BD08C60 = {
+		F099D557335E199977EC339D = {
 			isa = PBXGroup;
 			children = (
 				DE79FA400E6FC02E827F6BE8,
@@ -5124,7 +5124,7 @@
 			name = Abstractions;
 			sourceTree = "<group>";
 		};
-		3EE6A5705ACF1E103E1224F6 = {
+		C2B0ED7454A0AFBA511A5B97 = {
 			isa = PBXGroup;
 			children = (
 				EC1CFCC21C821E3A5BA223EE,
@@ -5148,8 +5148,8 @@
 		50959EFE97C7916F3808D391 = {
 			isa = PBXGroup;
 			children = (
-				75BAAAB5B6B8DEDE6BD08C60,
-				3EE6A5705ACF1E103E1224F6,
+				F099D557335E199977EC339D,
+				C2B0ED7454A0AFBA511A5B97,
 				AD0523F42185E8832451C127,
 				5A9F6DA02C6B119712B8E75C,
 				D2CB5E370303F748F3FC70B7,
@@ -5169,7 +5169,7 @@
 				0027A3E2143C154620C3D502,
 				E39C21EEB4953188B0639F4F,
 				7680F70E2984BEB2E785C4EC,
-				9F4B172C249E23C1B38A9ADF,
+				DF90A31D94D2B1C9A8F69B27,
 				23C23B95EFC2ED736425E973,
 				F3FB2A251BDFAEA44B3BEB7A,
 				484B568B42321435A69F099E,
@@ -5934,7 +5934,7 @@
 				25A28FA2D994F8083A8BB092,
 				3203BC291E33BAF61FA42727,
 				7FF066D7F3FC50BC05A0028B,
-				8D23A0B5BEFEDC4867E94B45,
+				CA7747E836865A9251F81669,
 				04AFA2F419C20F8A6F82B6D7,
 				47CD169E6C07AD2D21A23193,
 				FD47B14D0F8ADB243102E544,

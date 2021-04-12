@@ -50,6 +50,7 @@
 		1774E293FE154C1CC9790EF5 /* slice.c in Sources */ = {isa = PBXBuildFile; fileRef = 628BE459859B942C81CFFC4F /* slice.c */; };
 		18145B3C9BBD45ACC80B2206 /* canvas.wname.c in Sources */ = {isa = PBXBuildFile; fileRef = C8D3CF665A75AD78A272644D /* canvas.wname.c */; };
 		18DCE8A3FCCA6522D7F14480 /* rint~.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C601676864EEFA7A3F4D93E /* rint~.c */; };
+		18F3A70F46C280F5BE7C2786 /* buffer_obj.c in Sources */ = {isa = PBXBuildFile; fileRef = BA7060B3EF06E39365ED9AEA /* buffer_obj.c */; };
 		1A2F20808EFAB0CA928CCADB /* s2f~.c in Sources */ = {isa = PBXBuildFile; fileRef = 1569E006FAD91877940B9956 /* s2f~.c */; };
 		1C4F4473D9732A036725340C /* ffdelay~.c in Sources */ = {isa = PBXBuildFile; fileRef = B7974316C9A7DB019A0D317D /* ffdelay~.c */; };
 		1D6A35377B315D4C5DD8988C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F064420B996DA482F0524 /* IOKit.framework */; };
@@ -131,18 +132,18 @@
 		5901EEBB6135E1E1FF798631 /* lag~.c in Sources */ = {isa = PBXBuildFile; fileRef = EB84C9D4B04AC92F61DC24F3 /* lag~.c */; };
 		59D11BA897DB711B80BC1C04 /* detect~.c in Sources */ = {isa = PBXBuildFile; fileRef = 92A328C7E6B9B90DDCCA190E /* detect~.c */; };
 		5B0399DE843F57D57222FE1D /* decay~.c in Sources */ = {isa = PBXBuildFile; fileRef = 0AF8957305007D9EC4BF47E1 /* decay~.c */; };
-		5B360867261BF8CE005B7A57 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8126A2FEEEADA13BE0FBBEDC /* RecentFilesMenuTemplate.nib */; };
-		5B360868261BF8CE005B7A57 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1E3A85F79B93B336420138 /* Accelerate.framework */; };
-		5B360869261BF8CE005B7A57 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8F36AEFDA9E963BDBA6C1C /* AudioToolbox.framework */; };
-		5B36086A261BF8CE005B7A57 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
-		5B36086B261BF8CE005B7A57 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22689D9A7644931A85906FC /* Cocoa.framework */; };
-		5B36086C261BF8CE005B7A57 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE27C1948ACEC6272612D72E /* CoreAudio.framework */; };
-		5B36086D261BF8CE005B7A57 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF6201286A446C72F198F49 /* CoreMIDI.framework */; };
-		5B36086E261BF8CE005B7A57 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F064420B996DA482F0524 /* IOKit.framework */; };
-		5B36086F261BF8CE005B7A57 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBF9F7DFC62377D880D402F /* QuartzCore.framework */; };
-		5B360870261BF8CE005B7A57 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBD83515A888D164A72466A /* WebKit.framework */; };
 		5B9DEC2B731165020FA1049D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
 		5BA91E81FDE171496EE0BE44 /* pinknoise~.c in Sources */ = {isa = PBXBuildFile; fileRef = 25E2978CFBAA1D6CA9508DE3 /* pinknoise~.c */; };
+		5BD50B1A2623D55000323671 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8126A2FEEEADA13BE0FBBEDC /* RecentFilesMenuTemplate.nib */; };
+		5BD50B1B2623D55000323671 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1E3A85F79B93B336420138 /* Accelerate.framework */; };
+		5BD50B1C2623D55000323671 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8F36AEFDA9E963BDBA6C1C /* AudioToolbox.framework */; };
+		5BD50B1D2623D55000323671 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CEA086029F58AA542CBA7F /* Carbon.framework */; };
+		5BD50B1E2623D55000323671 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22689D9A7644931A85906FC /* Cocoa.framework */; };
+		5BD50B1F2623D55000323671 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE27C1948ACEC6272612D72E /* CoreAudio.framework */; };
+		5BD50B202623D55000323671 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF6201286A446C72F198F49 /* CoreMIDI.framework */; };
+		5BD50B212623D55000323671 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045F064420B996DA482F0524 /* IOKit.framework */; };
+		5BD50B222623D55000323671 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBF9F7DFC62377D880D402F /* QuartzCore.framework */; };
+		5BD50B232623D55000323671 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBD83515A888D164A72466A /* WebKit.framework */; };
 		5D2BB828836D1EE5708C3AAD /* lb.c in Sources */ = {isa = PBXBuildFile; fileRef = 64F2E379DA6E6AA27B534C3F /* lb.c */; };
 		5E5CA1C59172EB5ACA4DC8FA /* saw2~.c in Sources */ = {isa = PBXBuildFile; fileRef = 59EA71E91B1ADEDEDE4C2414 /* saw2~.c */; };
 		614F6D242AF3FE6C13529BBE /* autofade~.c in Sources */ = {isa = PBXBuildFile; fileRef = 7F4BE5E23DF7CCB166547C6D /* autofade~.c */; };
@@ -173,7 +174,6 @@
 		7ABE82A81DD7D031C0C622C7 /* rint.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C105F848C4D2E78531359 /* rint.c */; };
 		7B1137BE093CA4A6F93AEA46 /* rand.i.c in Sources */ = {isa = PBXBuildFile; fileRef = C673A3E050C97CA0EFA54453 /* rand.i.c */; };
 		7B7F6F55C2E21F9074EFABC2 /* PluginProcessorBuses.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C36AC6E988343B87302C5E5 /* PluginProcessorBuses.cpp */; };
-		7BA90F63C530364C14732B40 /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 44D062C61F4534BF1C107912 /* buffer.c */; };
 		7C4D1AC8D69807AB6AD9C684 /* mov.rms~.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F4DC8F95677A4DE885B590A /* mov.rms~.c */; };
 		7E4BED42B5591BFD32C645C6 /* x_libpd_extra_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 0A712B8BE5C0838F28EFDB23 /* x_libpd_extra_utils.c */; };
 		7F2680C6CFCA20A22A3378A1 /* schmitt~.c in Sources */ = {isa = PBXBuildFile; fileRef = 7F3235F7C06C1607E5044E4F /* schmitt~.c */; };
@@ -334,35 +334,35 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5B360871261BF8CF005B7A57 /* PBXContainerItemProxy */ = {
+		5BD50B242623D55000323671 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 074FFE22626A916E5D070022;
 			remoteInfo = "Camomile - VST3";
 		};
-		5B360872261BF8CF005B7A57 /* PBXContainerItemProxy */ = {
+		5BD50B252623D55000323671 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = DDC710B892FDE37A0F19292D;
 			remoteInfo = "Camomile - Shared Code";
 		};
-		5B360873261BF8CF005B7A57 /* PBXContainerItemProxy */ = {
+		5BD50B262623D55000323671 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 6E51637F255AB3A3BE377A27;
 			remoteInfo = "Camomile - AU";
 		};
-		5B360874261BF8CF005B7A57 /* PBXContainerItemProxy */ = {
+		5BD50B272623D55000323671 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = DDC710B892FDE37A0F19292D;
 			remoteInfo = "Camomile - Shared Code";
 		};
-		5B360875261BF8CF005B7A57 /* PBXContainerItemProxy */ = {
+		5BD50B282623D55000323671 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15ACA8DC04997A4E478AA331 /* Project object */;
 			proxyType = 1;
@@ -524,7 +524,6 @@
 		4180B270C578F80651F4E657 /* PluginParameter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginParameter.cpp; path = ../../../Source/PluginParameter.cpp; sourceTree = SOURCE_ROOT; };
 		4479FA1A14CAA6ABE705F2CD /* circle.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = circle.pd; path = ../../../Source/Pd/ELSE/Abstractions/circle.pd; sourceTree = SOURCE_ROOT; };
 		448FD7B98D9F48ED49DC8F9A /* random.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = random.h; path = ../../../Source/Pd/ELSE/shared/random.h; sourceTree = SOURCE_ROOT; };
-		44D062C61F4534BF1C107912 /* buffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = buffer.c; path = ../../../Source/Pd/ELSE/buffer.c; sourceTree = SOURCE_ROOT; };
 		45348FB16C797B7B013929B8 /* combine.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = combine.pd; path = ../../../Source/Pd/ELSE/Abstractions/combine.pd; sourceTree = SOURCE_ROOT; };
 		45A0091CEB10DC7CC4552776 /* hip.bw~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "hip.bw~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/hip.bw~.pd"; sourceTree = SOURCE_ROOT; };
 		463AC4ADC41FC3AF2F2FBDFE /* impulse2~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "impulse2~.c"; path = "../../../Source/Pd/ELSE/impulse2~.c"; sourceTree = SOURCE_ROOT; };
@@ -773,6 +772,7 @@
 		B92EE6ED9226835DAF46EFD2 /* car2pol.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = car2pol.pd; path = ../../../Source/Pd/ELSE/Abstractions/car2pol.pd; sourceTree = SOURCE_ROOT; };
 		B97BF31741E6CB80181F9DFE /* tempo~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "tempo~.c"; path = "../../../Source/Pd/ELSE/tempo~.c"; sourceTree = SOURCE_ROOT; };
 		B9946ACE245CC5FFD581971B /* hz2rad~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "hz2rad~.c"; path = "../../../Source/Pd/ELSE/hz2rad~.c"; sourceTree = SOURCE_ROOT; };
+		BA7060B3EF06E39365ED9AEA /* buffer_obj.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = buffer_obj.c; path = ../../../Source/Pd/ELSE/buffer_obj.c; sourceTree = SOURCE_ROOT; };
 		BA9984C6CC97ED7B805DCB09 /* rdelay~.pd */ = {isa = PBXFileReference; lastKnownFileType = file.pd; name = "rdelay~.pd"; path = "../../../Source/Pd/ELSE/Abstractions/rdelay~.pd"; sourceTree = SOURCE_ROOT; };
 		BAA4B7E9C424D4EB4AA16EA1 /* routeall.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = routeall.c; path = ../../../Source/Pd/ELSE/routeall.c; sourceTree = SOURCE_ROOT; };
 		BBB154BFC6C6C7D97D835E2B /* PluginConsole.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginConsole.h; path = ../../../Source/PluginConsole.h; sourceTree = SOURCE_ROOT; };
@@ -915,16 +915,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0E616AAADE2C8DFABCA8F14 /* AudioUnit.framework in Frameworks */,
-				5B360868261BF8CE005B7A57 /* Accelerate.framework in Frameworks */,
-				5B360869261BF8CE005B7A57 /* AudioToolbox.framework in Frameworks */,
-				5B36086A261BF8CE005B7A57 /* Carbon.framework in Frameworks */,
-				5B36086B261BF8CE005B7A57 /* Cocoa.framework in Frameworks */,
-				5B36086C261BF8CE005B7A57 /* CoreAudio.framework in Frameworks */,
+				5BD50B1B2623D55000323671 /* Accelerate.framework in Frameworks */,
+				5BD50B1C2623D55000323671 /* AudioToolbox.framework in Frameworks */,
+				5BD50B1D2623D55000323671 /* Carbon.framework in Frameworks */,
+				5BD50B1E2623D55000323671 /* Cocoa.framework in Frameworks */,
+				5BD50B1F2623D55000323671 /* CoreAudio.framework in Frameworks */,
 				BABB947ED89952F98B386B72 /* CoreAudioKit.framework in Frameworks */,
-				5B36086D261BF8CE005B7A57 /* CoreMIDI.framework in Frameworks */,
-				5B36086E261BF8CE005B7A57 /* IOKit.framework in Frameworks */,
-				5B36086F261BF8CE005B7A57 /* QuartzCore.framework in Frameworks */,
-				5B360870261BF8CE005B7A57 /* WebKit.framework in Frameworks */,
+				5BD50B202623D55000323671 /* CoreMIDI.framework in Frameworks */,
+				5BD50B212623D55000323671 /* IOKit.framework in Frameworks */,
+				5BD50B222623D55000323671 /* QuartzCore.framework in Frameworks */,
+				5BD50B232623D55000323671 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1013,15 +1013,15 @@
 				79B6E51DE21F77865D06A6E0 /* balance~.c */,
 				9D6DB064DBCA3FC9E4B7876F /* bandpass~.c */,
 				7AF244EE344A97D00355BB0D /* bandstop~.c */,
-				EDE4767E71E912DC92BCB291 /* bend.in.c */,
 				C15BA41087E57D4BC0E69B21 /* bend.out.c */,
 				2261FE7F4E4825695713902C /* bicoeff.c */,
 				9372AE37B6BEBE68D3B58E7C /* biquads~.c */,
 				6ABEC894954343451E3EC4D6 /* blocksize~.c */,
 				30925590163D028E36746091 /* break.c */,
 				F0D75CA8092717D65C286106 /* brown~.c */,
-				44D062C61F4534BF1C107912 /* buffer.c */,
+				EDE4767E71E912DC92BCB291 /* bend.in.c */,
 				5BB36CF731FF4A5DB5A87A79 /* button.c */,
+				BA7060B3EF06E39365ED9AEA /* buffer_obj.c */,
 				36EDBA6752F7BADC206A1322 /* canvas.active.c */,
 				235A1FECAFDA2BE5BAA91AB2 /* canvas.bounds.c */,
 				BE1AFEF988F1358E1568440B /* canvas.edit.c */,
@@ -1788,7 +1788,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B360867261BF8CE005B7A57 /* RecentFilesMenuTemplate.nib in Resources */,
+				5BD50B1A2623D55000323671 /* RecentFilesMenuTemplate.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1865,15 +1865,15 @@
 				99DF4585BA5EB464AA74D89D /* balance~.c in Sources */,
 				92E4639273653371B6B166A8 /* bandpass~.c in Sources */,
 				29A844461D3195544294CBB2 /* bandstop~.c in Sources */,
-				79E4ED3C3D129E7AAF8051D1 /* bend.in.c in Sources */,
 				36461DFC79FD9991491B928E /* bend.out.c in Sources */,
 				6D1EE6F1CBB4CBDA399C16AE /* bicoeff.c in Sources */,
 				D88CD3F3CE013F14AC6519BD /* biquads~.c in Sources */,
 				1E2E0439F68C96473EFA8F5A /* blocksize~.c in Sources */,
 				D66293CD9BCE8BB3036D32DF /* break.c in Sources */,
 				E7D83460DD37EDDF831BFDD4 /* brown~.c in Sources */,
-				7BA90F63C530364C14732B40 /* buffer.c in Sources */,
+				79E4ED3C3D129E7AAF8051D1 /* bend.in.c in Sources */,
 				80734BEC803C2AE3A1D739B8 /* button.c in Sources */,
+				18F3A70F46C280F5BE7C2786 /* buffer_obj.c in Sources */,
 				622FDED721FD4984CC2F1D34 /* canvas.active.c in Sources */,
 				C025722D5A358E0CE2C401CB /* canvas.bounds.c in Sources */,
 				97074683523EAFAB5DD5DC6D /* canvas.edit.c in Sources */,
@@ -2126,27 +2126,27 @@
 		3042C8CA77DD74930771F01B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 074FFE22626A916E5D070022 /* Camomile - VST3 */;
-			targetProxy = 5B360871261BF8CF005B7A57 /* PBXContainerItemProxy */;
+			targetProxy = 5BD50B242623D55000323671 /* PBXContainerItemProxy */;
 		};
 		8CDEB77D51FBBF215D1E6A25 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DDC710B892FDE37A0F19292D /* Camomile - Shared Code */;
-			targetProxy = 5B360875261BF8CF005B7A57 /* PBXContainerItemProxy */;
+			targetProxy = 5BD50B282623D55000323671 /* PBXContainerItemProxy */;
 		};
 		BA090E170831C3A0722ED77C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6E51637F255AB3A3BE377A27 /* Camomile - AU */;
-			targetProxy = 5B360873261BF8CF005B7A57 /* PBXContainerItemProxy */;
+			targetProxy = 5BD50B262623D55000323671 /* PBXContainerItemProxy */;
 		};
 		EA92790AFA86A37CC4101A72 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DDC710B892FDE37A0F19292D /* Camomile - Shared Code */;
-			targetProxy = 5B360874261BF8CF005B7A57 /* PBXContainerItemProxy */;
+			targetProxy = 5BD50B272623D55000323671 /* PBXContainerItemProxy */;
 		};
 		F9068086A3D939FE5C492C3B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DDC710B892FDE37A0F19292D /* Camomile - Shared Code */;
-			targetProxy = 5B360872261BF8CF005B7A57 /* PBXContainerItemProxy */;
+			targetProxy = 5BD50B252623D55000323671 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

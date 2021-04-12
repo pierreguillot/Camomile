@@ -433,9 +433,6 @@
     <ClCompile Include="..\..\..\Source\Pd\ELSE\bandstop~.c">
       <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\ELSE\bend.in.c">
-      <Filter>Camomile\Source\Pd\ELSE</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\bend.out.c">
       <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
@@ -454,10 +451,13 @@
     <ClCompile Include="..\..\..\Source\Pd\ELSE\brown~.c">
       <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Pd\ELSE\buffer.c">
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\bend.in.c">
       <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\button.c">
+      <Filter>Camomile\Source\Pd\ELSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Pd\ELSE\buffer_obj.c">
       <Filter>Camomile\Source\Pd\ELSE</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Pd\ELSE\canvas.active.c">

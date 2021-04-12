@@ -291,7 +291,7 @@
           <FILE id="ZqeaM3" name="blocksize~.c" compile="1" resource="0" file="../Source/Pd/ELSE/blocksize~.c"/>
           <FILE id="V84rhw" name="break.c" compile="1" resource="0" file="../Source/Pd/ELSE/break.c"/>
           <FILE id="ytuV41" name="brown~.c" compile="1" resource="0" file="../Source/Pd/ELSE/brown~.c"/>
-          <FILE id="Ib9vq0" name="buffer.c" compile="1" resource="0" file="../Source/Pd/ELSE/buffer.c"/>
+          <FILE id="DiScRB" name="buffer_obj.c" compile="1" resource="0" file="../Source/Pd/ELSE/buffer_obj.c"/>
           <FILE id="AwpsQU" name="button.c" compile="1" resource="0" file="../Source/Pd/ELSE/button.c"/>
           <FILE id="N0tEES" name="canvas.active.c" compile="1" resource="0" file="../Source/Pd/ELSE/canvas.active.c"/>
           <FILE id="etRv4m" name="canvas.bounds.c" compile="1" resource="0" file="../Source/Pd/ELSE/canvas.bounds.c"/>
