@@ -7,8 +7,8 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  ubuntu-build:
-    runs-on: ubuntu-latest
+  ubuntu-20_04-build:
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v2
@@ -34,13 +34,48 @@ jobs:
     - name: Prepare Artefacts
       working-directory: ${{github.workspace}}
       shell: bash
-      run: ./.github/scripts/package.sh Linux64
+      run: ./.github/scripts/package.sh Ubuntu-20.04-x64
 
     - name: Archive Artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: Camomile-Linux64
-        path: Camomile-Linux64.zip
+        name: Camomile-Ubuntu-20.04-x64
+        path: Camomile-Ubuntu-20.04-x64.zip
+
+  ubuntu-18_04-build:
+    runs-on: ubuntu-18.04
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Install Dependencies
+      run: sudo apt -qq update && sudo apt install  -y libasound2-dev libjack-jackd2-dev libcurl4-openssl-dev libfreetype6-dev libx11-dev libxcomposite-dev libxcursor-dev libxcursor-dev libxext-dev libxinerama-dev libxrandr-dev libxrender-dev libwebkit2gtk-4.0-dev libglu1-mesa-dev mesa-common-dev
+
+    - name: Create Build Environment
+      run: cmake -E make_directory ${{github.workspace}}/build
+
+    - name: Configure CMake
+      shell: bash
+      working-directory: ${{github.workspace}}/build
+      run: cmake $GITHUB_WORKSPACE -G "Unix Makefiles"
+
+    - name: Build
+      working-directory: ${{github.workspace}}/build
+      shell: bash
+      run: cmake --build . --config $BUILD_TYPE
+
+    - name: Prepare Artefacts
+      working-directory: ${{github.workspace}}
+      shell: bash
+      run: ./.github/scripts/package.sh Ubuntu-18.04-x64
+
+    - name: Archive Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Camomile-Ubuntu-18.04-x64
+        path: Camomile-Ubuntu-18.04-x64.zip
 
   macos-build:
     runs-on: macos-latest
