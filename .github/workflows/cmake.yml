@@ -77,6 +77,27 @@ jobs:
         name: Camomile-Ubuntu-18.04-x64
         path: Camomile-Ubuntu-18.04-x64.zip
 
+  ubuntu-18_04-armv7-build:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2.1.0
+      - uses: uraimo/run-on-arch-action@v2.0.9
+        name: Run commands
+        id: runcmd
+        with:
+          arch: armv7
+          distro: ubuntu18.04
+          githubToken: ${{ github.token }}
+          setup: mkdir -p "${PWD}/artifacts"
+          dockerRunArgs: --volume "${PWD}/artifacts:/artifacts"
+          shell: /bin/sh
+          install: sudo apt -qq update && sudo apt install -y git libasound2-dev libjack-jackd2-dev libcurl4-openssl-dev libfreetype6-dev libx11-dev libxcomposite-dev libxcursor-dev libxcursor-dev libxext-dev libxinerama-dev libxrandr-dev libxrender-dev libwebkit2gtk-4.0-dev libglu1-mesa-dev mesa-common-dev
+          run: |
+            cmake -E make_directory ${{github.workspace}}/build
+            cmake $GITHUB_WORKSPACE -G "Unix Makefiles"
+            cmake --build . --config $BUILD_TYPE
+
   macos-x64-build:
     runs-on: macos-latest
 
