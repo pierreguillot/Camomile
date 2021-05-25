@@ -336,7 +336,11 @@ namespace pd
         std::string print;
         while(m_print_queue.try_dequeue(print))
         {
-            if(print.back() == '\n')
+            if(print.empty())
+            {
+                continue;
+            }
+            else if(print.back() == '\n')
             {
                 while(print.back() == '\n' || print.back() == ' ') {
                     print.pop_back();
