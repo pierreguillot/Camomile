@@ -1,3 +1,9 @@
+v1.0.8
+- Fix glitches related open and save panels
+- Fix glitches related flower dropdown menu 
+- Add Apple M1 support 
+- Update Juce version (6.1.2)
+
 v1.0.7
 - Update Pd version (0.51)
 - Update Juce version (6.0.0)
