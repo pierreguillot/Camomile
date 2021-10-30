@@ -380,7 +380,6 @@ public:
     controller (controller_),
     isExternal (isExternal_),
     controlPortOffset (0),
-    lastProgramCount (0),
     uiTouch (nullptr),
     programsHost (nullptr),
     externalUIHost (nullptr),
@@ -453,8 +452,6 @@ public:
 #endif
         controlPortOffset += filter->getTotalNumInputChannels();
         controlPortOffset += filter->getTotalNumOutputChannels();
-        
-        lastProgramCount = filter->getNumPrograms();
     }
     
     ~JuceLv2UIWrapper()
@@ -508,7 +505,7 @@ public:
     //==============================================================================
     // Juce calls
     
-    void audioProcessorParameterChanged (AudioProcessor*, int index, float newValue)
+    void audioProcessorParameterChanged (AudioProcessor*, int index, float newValue) override
     {
         if (inParameterChangedCallback.get())
         {
@@ -521,33 +518,30 @@ public:
             writeFunction (controller, index + controlPortOffset, sizeof (float), 0, &newValue);
     }
     
-    void audioProcessorChanged (AudioProcessor*)
+    void audioProcessorChanged (AudioProcessor*, const ChangeDetails& details) override
     {
         if (filter != nullptr && programsHost != nullptr)
         {
-            if (filter->getNumPrograms() != lastProgramCount)
+            if(details.programChanged)
             {
                 programsHost->program_changed (programsHost->handle, -1);
-                lastProgramCount = filter->getNumPrograms();
             }
-            else
-                programsHost->program_changed (programsHost->handle, filter->getCurrentProgram());
         }
     }
     
-    void audioProcessorParameterChangeGestureBegin (AudioProcessor*, int parameterIndex)
+    void audioProcessorParameterChangeGestureBegin (AudioProcessor*, int parameterIndex) override
     {
         if (uiTouch != nullptr)
             uiTouch->touch (uiTouch->handle, parameterIndex + controlPortOffset, true);
     }
     
-    void audioProcessorParameterChangeGestureEnd (AudioProcessor*, int parameterIndex)
+    void audioProcessorParameterChangeGestureEnd (AudioProcessor*, int parameterIndex) override
     {
         if (uiTouch != nullptr)
             uiTouch->touch (uiTouch->handle, parameterIndex + controlPortOffset, false);
     }
     
-    void timerCallback()
+    void timerCallback() override
     {
         if (externalUI != nullptr && externalUI->isClosed())
         {
@@ -613,7 +607,6 @@ private:
     const bool isExternal;
     
     uint32 controlPortOffset;
-    int lastProgramCount;
     
     const LV2UI_Touch* uiTouch;
     const LV2_Programs_Host* programsHost;
