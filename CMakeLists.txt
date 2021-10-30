@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.12)
 
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Minimum OS X deployment version")
+set(JUCE_ENABLE_MODULE_SOURCE_GROUPS ON CACHE BOOL "" FORCE)
+set_property(GLOBAL PROPERTY USE_FOLDERS YES)
+
 project(Camomile VERSION 1.0.8 LANGUAGES C CXX)
 
 if("${CMAKE_SYSTEM}" MATCHES "Linux")
@@ -68,32 +71,6 @@ file(GLOB_RECURSE CamomileLV2Sources
     ${CMAKE_CURRENT_SOURCE_DIR}/LV2/juce_LV2_Wrapper.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/LV2/juce_LV2_FileCreator.cpp)
 
-function(create_module_group TARGET GROUP_PATH MODULE_PATH)
-if(APPLE)
-    file(GLOB MAIN_CPP_SOURCES ${MODULE_PATH}/*.cpp)
-    source_group(${GROUP_PATH} FILES ${MAIN_CPP_SOURCES})
-
-    file(GLOB MAIN_OTHER_SOURCES ${MODULE_PATH}/*.h ${MODULE_PATH}/*.mm)
-    source_group(${GROUP_PATH} FILES ${MAIN_OTHER_SOURCES})
-else()
-    file(GLOB MAIN_OTHER_SOURCES ${MODULE_PATH}/*.h ${MODULE_PATH}/*.cpp)
-    source_group(${GROUP_PATH} FILES ${MAIN_OTHER_SOURCES})
-endif()
-
-    file(GLOB_RECURSE SUB_SOURCES ${MODULE_PATH}/**/*.cpp ${MODULE_PATH}/**/*.h)
-    set_source_files_properties(${SUB_SOURCES} PROPERTIES HEADER_FILE_ONLY TRUE)
-
-    foreach(SOURCE ${SUB_SOURCES})
-        file(RELATIVE_PATH FILE_PATH_REL "${MODULE_PATH}" "${SOURCE}")
-        get_filename_component(DIR_PATH_REL ${FILE_PATH_REL} DIRECTORY)
-
-        string(REPLACE "/" "\\\\" SUBGROUP ${DIR_PATH_REL})
-        source_group(${GROUP_PATH}\\${SUBGROUP} FILES ${SOURCE})
-    endforeach()
-
-    target_sources(${TARGET} PRIVATE ${SUB_SOURCES})
-endfunction()
-
 juce_add_plugin(Camomile
     VERSION                     ${CAMOMILE_VERSION}
     COMPANY_NAME                ${CAMOMILE_COMPANY_NAME}
@@ -153,32 +130,6 @@ target_sources(CamomileFx PRIVATE ${CamomileSources} ${CamomilePdSources})
 add_library(Camomile_LV2 SHARED ${CamomileLV2Sources})
 target_link_libraries(Camomile_LV2 PRIVATE CamomileFx)
 set_target_properties(Camomile_LV2 PROPERTIES PREFIX "")
-
-create_module_group(Camomile "Modules\\juce_core" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_core")
-create_module_group(Camomile "Modules\\juce_graphics" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_graphics")
-create_module_group(Camomile "Modules\\juce_events" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_events")
-create_module_group(Camomile "Modules\\juce_gui_basics" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_gui_basics")
-create_module_group(Camomile "Modules\\juce_gui_extra" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_gui_extra")
-create_module_group(Camomile "Modules\\juce_data_structures" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_data_structures")
-create_module_group(Camomile "Modules\\juce_audio_basics" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_basics")
-create_module_group(Camomile "Modules\\juce_audio_devices" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_devices")
-create_module_group(Camomile "Modules\\juce_audio_processors" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_processors")
-create_module_group(Camomile "Modules\\juce_audio_plugin_client" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_plugin_client")
-create_module_group(Camomile "Modules\\juce_audio_formats" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_formats")
-create_module_group(Camomile "Modules\\juce_audio_utils" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_utils")
-
-create_module_group(CamomileFx "Modules\\juce_core" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_core")
-create_module_group(CamomileFx "Modules\\juce_graphics" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_graphics")
-create_module_group(CamomileFx "Modules\\juce_events" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_events")
-create_module_group(CamomileFx "Modules\\juce_gui_basics" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_gui_basics")
-create_module_group(CamomileFx "Modules\\juce_gui_extra" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_gui_extra")
-create_module_group(CamomileFx "Modules\\juce_data_structures" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_data_structures")
-create_module_group(CamomileFx "Modules\\juce_audio_basics" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_basics")
-create_module_group(CamomileFx "Modules\\juce_audio_devices" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_devices")
-create_module_group(CamomileFx "Modules\\juce_audio_processors" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_processors")
-create_module_group(CamomileFx "Modules\\juce_audio_plugin_client" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_plugin_client")
-create_module_group(CamomileFx "Modules\\juce_audio_formats" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_formats")
-create_module_group(CamomileFx "Modules\\juce_audio_utils" "${CMAKE_CURRENT_SOURCE_DIR}/Juce/modules/juce_audio_utils")
 
 set(CAMOMILE_COMPILE_DEFINITIONS
     JUCE_APP_CONFIG_HEADER="${SOURCES_DIRECTORY}/PluginConfig.h"
