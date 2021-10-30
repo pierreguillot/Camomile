@@ -101,13 +101,13 @@ jobs:
     - name: Prepare Artefacts
       working-directory: ${{github.workspace}}
       shell: bash
-      run: ./.github/scripts/package.sh MacOS64
+      run: ./.github/scripts/package.sh MacOS-Universal
 
     - name: Archive Artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: Camomile-MacOS64
-        path: Camomile-MacOS64.zip
+        name: Camomile-MacOS-Universal
+        path: Camomile-MacOS-Universal.zip
 
   windows-64-build:
     runs-on: windows-latest
