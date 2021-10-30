@@ -244,51 +244,79 @@ CamomileEditorMessageManager::~CamomileEditorMessageManager()
 
 bool CamomileEditorMessageManager::processMessages()
 {
+    using FileChooserFlags = FileBrowserComponent;
+#ifdef JUCE_LINUX
+    auto const useNative = m_processor.wrapperType != AudioProcessor::wrapperType_Undefined;
+#else
+    auto constexpr useNative = false;
+#endif
+    
     CamomileAudioProcessor::MessageGui message;
     while(m_processor.dequeueGui(message))
     {
         if(message[0] == string_openpanel)
         {
-#ifdef JUCE_LINUX
-            FileChooser fc("Open...", File(message[1]), {},  m_processor.wrapperType != AudioProcessor::wrapperType_Undefined);
-#else
-            FileChooser fc("Open...", File(message[1]));
-#endif
-            if(fc.browseForFileToOpen())
+            m_file_chooser = std::make_unique<FileChooser>("Open...", File(message[1]), "", useNative);
+            if(m_file_chooser != nullptr)
             {
-                File const f(fc.getResult());
-                if(!message[2].empty())
+                auto constexpr folderChooserFlags = FileChooserFlags::openMode | FileChooserFlags::canSelectDirectories;
+                auto const suspend = !message[2].empty();
+                WeakReference<CamomileEditorMessageManager> weakReference(this);
+                m_file_chooser->launchAsync(folderChooserFlags, [=, this](FileChooser const& fileChooser)
                 {
-                    m_processor.suspendProcessing(true);
-                }
-                auto const path = f.getFullPathName().replaceCharacter('\\', '/').toStdString();
-                m_processor.enqueueMessages(string_openpanel, string_symbol, {path});
-                if(!message[2].empty())
-                {
-                    m_processor.suspendProcessing(false);
-                }
+                    if(weakReference.get() == nullptr)
+                    {
+                        return;
+                    }
+                    auto const file = fileChooser.getResult();
+                    if(!file.existsAsFile())
+                    {
+                        return;
+                    }
+                    if(suspend)
+                    {
+                        m_processor.suspendProcessing(true);
+                    }
+                    auto const path = file.getFullPathName().replaceCharacter('\\', '/').toStdString();
+                    m_processor.enqueueMessages(string_openpanel, string_symbol, {path});
+                    if(suspend)
+                    {
+                        m_processor.suspendProcessing(false);
+                    }
+                });
             }
+
         }
         else if(message[0] == string_savepanel)
         {
-#ifdef JUCE_LINUX
-            FileChooser fc("Save...", File(message[1]), {},  m_processor.wrapperType != AudioProcessor::wrapperType_Undefined);
-#else
-            FileChooser fc("Save...", File(message[1]));
-#endif
-            if(fc.browseForFileToSave(true))
+            m_file_chooser = std::make_unique<FileChooser>("Save...", File(message[1]), "", useNative);
+            if(m_file_chooser != nullptr)
             {
-                File const f(fc.getResult());
-                if(!message[2].empty())
+                auto constexpr folderChooserFlags = FileChooserFlags::saveMode | FileChooserFlags::canSelectDirectories | FileChooserFlags::warnAboutOverwriting;
+                auto const suspend = !message[2].empty();
+                WeakReference<CamomileEditorMessageManager> weakReference(this);
+                m_file_chooser->launchAsync(folderChooserFlags, [=, this](FileChooser const& fileChooser)
                 {
-                    m_processor.suspendProcessing(true);
-                }
-                auto const path = f.getFullPathName().replaceCharacter('\\', '/').toStdString();
-                m_processor.enqueueMessages(string_savepanel, string_symbol, {path});
-                if(!message[2].empty())
-                {
-                    m_processor.suspendProcessing(false);
-                }
+                    if(weakReference.get() == nullptr)
+                    {
+                        return;
+                    }
+                    auto const file = fileChooser.getResult();
+                    if(!file.existsAsFile())
+                    {
+                        return;
+                    }
+                    if(suspend)
+                    {
+                        m_processor.suspendProcessing(true);
+                    }
+                    auto const path = file.getFullPathName().replaceCharacter('\\', '/').toStdString();
+                    m_processor.enqueueMessages(string_savepanel, string_symbol, {path});
+                    if(suspend)
+                    {
+                        m_processor.suspendProcessing(false);
+                    }
+                });
             }
         }
         else if(message[0] == string_array)
