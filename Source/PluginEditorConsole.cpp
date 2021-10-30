@@ -179,22 +179,29 @@ void PluginEditorConsole::buttonClicked(Button* button)
     }
     else
     {
-        juce::PopupMenu m;
-        m.addItem(1, "Fatal", true, m_level == ConsoleLevel::Fatal);
-        m.addItem(2, "Error", true, m_level == ConsoleLevel::Error);
-        m.addItem(3, "Normal", true, m_level == ConsoleLevel::Normal);
-        m.addItem(4, "All", true, m_level == ConsoleLevel::Log);
+        juce::PopupMenu menu;
+        menu.addItem(1, "Fatal", true, m_level == ConsoleLevel::Fatal);
+        menu.addItem(2, "Error", true, m_level == ConsoleLevel::Error);
+        menu.addItem(3, "Normal", true, m_level == ConsoleLevel::Normal);
+        menu.addItem(4, "All", true, m_level == ConsoleLevel::Log);
         
-        stopTimer();
-        int const level = m.show(0, 0, static_cast<int>(m_font.getHeight() + 2));
-        if(level != 0 && static_cast<ConsoleLevel>(level - 1) != m_level)
+        juce::WeakReference<juce::Component> weakReference(this);
+        menu.showMenuAsync(juce::PopupMenu::Options(), [=, this](int level)
         {
-            m_level = static_cast<ConsoleLevel>(level - 1);
-            m_size  = m_history.size(m_level);
-            m_table.updateContent();
-            m_table.deselectAllRows();
-        }
-        startTimer(100);
+            if(weakReference.get() == nullptr)
+            {
+                return;
+            }
+            if(level != 0 && static_cast<ConsoleLevel>(level - 1) != m_level)
+            {
+                stopTimer();
+                m_level = static_cast<ConsoleLevel>(level - 1);
+                m_size  = m_history.size(m_level);
+                m_table.updateContent();
+                m_table.deselectAllRows();
+                startTimer(100);
+            }
+        });
     }
 }
 
