@@ -83,6 +83,10 @@ generate_plugin_lv2_mac() {
         mkdir "$plugin_output_dir/$plugin_name.lv2/Contents/Resources"
         cp -f "$ThisPath/$CamomileLV2.$AppleLV2Extension" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.$AppleLV2Extension"
         cp -rf "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.lv2/Contents/Resources"
+        for subfile in $(find "$plugin_output_dir/$plugin_name.lv2")
+        do
+          xattr -d com.apple.quarantine "$subfile"
+        done
 
         "$ThisPath/lv2_file_generator" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.$AppleLV2Extension" $plugin_name
         mv -f "$PWD/manifest.ttl" "$plugin_output_dir/$plugin_name.lv2/manifest.ttl"
@@ -179,6 +183,11 @@ generate_plugin_au_mac() {
 
         cp -rf "$ThisPath/$camo_name.$AppleAuExtension" $plugin_output_dir/$plugin_name.$AppleAuExtension
         cp -rf "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Resources"
+        xattr -d com.apple.quarantine "$plugin_output_dir/$plugin_name.$AppleAuExtension"
+        for subfile in $(find "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents")
+        do
+          xattr -d com.apple.quarantine "$subfile"
+        done
         plutil -replace CFBundleName -string $plugin_name "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist"
         plutil -replace CFBundleDisplayName -string $plugin_name "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Info.plist"
 
@@ -228,6 +237,11 @@ generate_plugin_vst3_mac() {
 
         cp -rf "$ThisPath/$camo_name.$AppleVst3Extension" "$plugin_output_dir/$plugin_name.$AppleVst3Extension"
         cp -rf "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Resources"
+        xattr -d com.apple.quarantine "$plugin_output_dir/$plugin_name.$AppleVst3Extension"
+        for subfile in $(find "$plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents")
+        do
+          xattr -d com.apple.quarantine "$subfile"
+        done
         plutil -replace CFBundleName -string $plugin_name "$plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Info.plist"
         plutil -replace CFBundleDisplayName -string $plugin_name "$plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Info.plist"
         post_log "$plugin_output_dir/$plugin_name.$AppleVst3Extension"
