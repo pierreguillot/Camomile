@@ -154,12 +154,7 @@ target_compile_definitions(Camomile PUBLIC ${CAMOMILE_COMPILE_DEFINITIONS})
 target_compile_definitions(CamomileFx PUBLIC ${CAMOMILE_COMPILE_DEFINITIONS})
 target_compile_definitions(Camomile_LV2 PRIVATE "JucePlugin_Build_LV2=1")
 
-list(APPEND LIBPD_INCLUDE_DIRECTORY
-    "${CMAKE_CURRENT_SOURCE_DIR}/libpd/libpd/pure-data/src"
-    "${CMAKE_CURRENT_SOURCE_DIR}/libpd/libpd/libpd_wrapper"
-    "${CMAKE_CURRENT_SOURCE_DIR}/libpd/libpd/libpd_wrapper/util"
-    "${CMAKE_CURRENT_SOURCE_DIR}/libpd/libpd/cpp")
-
+list(APPEND LIBPD_INCLUDE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/libpd/pure-data/src")
 target_include_directories(Camomile PUBLIC "$<BUILD_INTERFACE:${LIBPD_INCLUDE_DIRECTORY}>")
 target_include_directories(CamomileFx PUBLIC "$<BUILD_INTERFACE:${LIBPD_INCLUDE_DIRECTORY}>")
 
