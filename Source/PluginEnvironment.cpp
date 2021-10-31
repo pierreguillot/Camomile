@@ -419,7 +419,7 @@ CamomileEnvironment::CamomileEnvironment()
     {
         m_buses_layouts.insert(m_buses_layouts.begin(), m_buses);
         m_buses.clear();
-        //errors.push_back("compatibility mode used: bus property will be deprecated, please use buses");
+        errors.push_back("compatibility mode used: bus property will be deprecated, please use buses");
     }
     size_t max_ios = 0;
     for(auto const& clayout : m_buses_layouts)
