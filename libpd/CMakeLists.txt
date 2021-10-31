@@ -14,7 +14,7 @@ endif()
 set(CMAKE_MACOSX_RPATH ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-set(LIBPD_PATH "libpd")
+set(LIBPD_PATH "pure-data")
 set(LIBPD_OUTPUT_DIRECTORY "./..")
 
 #------------------------------------------------------------------------------#
@@ -50,90 +50,108 @@ set(SOURCE_FILES)
 # PURE DATA SOURCES
 #------------------------------------------------------------------------------#
 file(GLOB PD_SOURCES
-    ${LIBPD_PATH}/pure-data/src/d_arithmetic.c
-    ${LIBPD_PATH}/pure-data/src/d_array.c
-    ${LIBPD_PATH}/pure-data/src/d_ctl.c
-    ${LIBPD_PATH}/pure-data/src/d_dac.c
-    ${LIBPD_PATH}/pure-data/src/d_delay.c
-    ${LIBPD_PATH}/pure-data/src/d_fft.c
-    ${LIBPD_PATH}/pure-data/src/d_fft_fftsg.c
-    ${LIBPD_PATH}/pure-data/src/d_filter.c
-    ${LIBPD_PATH}/pure-data/src/d_global.c
-    ${LIBPD_PATH}/pure-data/src/d_math.c
-    ${LIBPD_PATH}/pure-data/src/d_misc.c
-    ${LIBPD_PATH}/pure-data/src/d_osc.c
-    ${LIBPD_PATH}/pure-data/src/d_resample.c
-    ${LIBPD_PATH}/pure-data/src/d_soundfile.c
-    ${LIBPD_PATH}/pure-data/src/d_ugen.c
-    ${LIBPD_PATH}/pure-data/src/g_all_guis.c
-    ${LIBPD_PATH}/pure-data/src/g_all_guis.h
-    ${LIBPD_PATH}/pure-data/src/g_array.c
-    ${LIBPD_PATH}/pure-data/src/g_bang.c
-    ${LIBPD_PATH}/pure-data/src/g_canvas.c
-    ${LIBPD_PATH}/pure-data/src/g_canvas.h
-    ${LIBPD_PATH}/pure-data/src/g_clone.c
-		${LIBPD_PATH}/pure-data/src/g_editor_extras.c
-    ${LIBPD_PATH}/pure-data/src/g_editor.c
-    ${LIBPD_PATH}/pure-data/src/g_graph.c
-    ${LIBPD_PATH}/pure-data/src/g_guiconnect.c
-    ${LIBPD_PATH}/pure-data/src/g_hdial.c
-    ${LIBPD_PATH}/pure-data/src/g_hslider.c
-    ${LIBPD_PATH}/pure-data/src/g_io.c
-    ${LIBPD_PATH}/pure-data/src/g_mycanvas.c
-    ${LIBPD_PATH}/pure-data/src/g_numbox.c
-    ${LIBPD_PATH}/pure-data/src/g_readwrite.c
-    ${LIBPD_PATH}/pure-data/src/g_rtext.c
-    ${LIBPD_PATH}/pure-data/src/g_scalar.c
-    ${LIBPD_PATH}/pure-data/src/g_template.c
-    ${LIBPD_PATH}/pure-data/src/g_text.c
-    ${LIBPD_PATH}/pure-data/src/g_toggle.c
-    ${LIBPD_PATH}/pure-data/src/g_traversal.c
-		${LIBPD_PATH}/pure-data/src/g_undo.c
-		${LIBPD_PATH}/pure-data/src/g_undo.h
-    ${LIBPD_PATH}/pure-data/src/g_vdial.c
-    ${LIBPD_PATH}/pure-data/src/g_vslider.c
-    ${LIBPD_PATH}/pure-data/src/g_vumeter.c
-    ${LIBPD_PATH}/pure-data/src/m_atom.c
-    ${LIBPD_PATH}/pure-data/src/m_binbuf.c
-    ${LIBPD_PATH}/pure-data/src/m_class.c
-    ${LIBPD_PATH}/pure-data/src/m_conf.c
-    ${LIBPD_PATH}/pure-data/src/m_glob.c
-    ${LIBPD_PATH}/pure-data/src/m_imp.h
-    ${LIBPD_PATH}/pure-data/src/m_memory.c
-    ${LIBPD_PATH}/pure-data/src/m_obj.c
-    ${LIBPD_PATH}/pure-data/src/m_pd.c
-    ${LIBPD_PATH}/pure-data/src/m_pd.h
-    ${LIBPD_PATH}/pure-data/src/m_sched.c
-    ${LIBPD_PATH}/pure-data/src/s_audio.c
-    ${LIBPD_PATH}/pure-data/src/s_audio_dummy.c
-    ${LIBPD_PATH}/pure-data/src/s_inter.c
-    ${LIBPD_PATH}/pure-data/src/s_loader.c
-    ${LIBPD_PATH}/pure-data/src/s_main.c
-		${LIBPD_PATH}/pure-data/src/s_net.c
-		${LIBPD_PATH}/pure-data/src/s_net.h
-    ${LIBPD_PATH}/pure-data/src/s_path.c
-    ${LIBPD_PATH}/pure-data/src/s_print.c
-    ${LIBPD_PATH}/pure-data/src/s_stuff.h
-    ${LIBPD_PATH}/pure-data/src/s_utf8.c
-    ${LIBPD_PATH}/pure-data/src/s_utf8.h
-    ${LIBPD_PATH}/pure-data/src/x_acoustics.c
-    ${LIBPD_PATH}/pure-data/src/x_arithmetic.c
-    ${LIBPD_PATH}/pure-data/src/x_array.c
-    ${LIBPD_PATH}/pure-data/src/x_connective.c
-    ${LIBPD_PATH}/pure-data/src/x_gui.c
-    ${LIBPD_PATH}/pure-data/src/x_interface.c
-    ${LIBPD_PATH}/pure-data/src/x_list.c
-    ${LIBPD_PATH}/pure-data/src/x_midi.c
-    ${LIBPD_PATH}/pure-data/src/x_misc.c
-    ${LIBPD_PATH}/pure-data/src/x_net.c
-    ${LIBPD_PATH}/pure-data/src/x_scalar.c
-    ${LIBPD_PATH}/pure-data/src/x_text.c
-    ${LIBPD_PATH}/pure-data/src/x_time.c
-    ${LIBPD_PATH}/pure-data/src/x_vexp.c
-    ${LIBPD_PATH}/pure-data/src/x_vexp_fun.c
-    ${LIBPD_PATH}/pure-data/src/x_vexp_if.c
+    ${LIBPD_PATH}/src/d_arithmetic.c
+    ${LIBPD_PATH}/src/d_array.c
+    ${LIBPD_PATH}/src/d_ctl.c
+    ${LIBPD_PATH}/src/d_dac.c
+    ${LIBPD_PATH}/src/d_delay.c
+    ${LIBPD_PATH}/src/d_fft.c
+    ${LIBPD_PATH}/src/d_fft_fftsg.c
+    ${LIBPD_PATH}/src/d_filter.c
+    ${LIBPD_PATH}/src/d_global.c
+    ${LIBPD_PATH}/src/d_math.c
+    ${LIBPD_PATH}/src/d_misc.c
+    ${LIBPD_PATH}/src/d_osc.c
+    ${LIBPD_PATH}/src/d_resample.c
+    ${LIBPD_PATH}/src/d_soundfile_aiff.c
+    ${LIBPD_PATH}/src/d_soundfile_caf.c
+    ${LIBPD_PATH}/src/d_soundfile_next.c
+    ${LIBPD_PATH}/src/d_soundfile_wave.c
+    ${LIBPD_PATH}/src/d_soundfile.c
+    ${LIBPD_PATH}/src/d_ugen.c
+    ${LIBPD_PATH}/src/g_all_guis.c
+    ${LIBPD_PATH}/src/g_all_guis.h
+    ${LIBPD_PATH}/src/g_array.c
+    ${LIBPD_PATH}/src/g_bang.c
+    ${LIBPD_PATH}/src/g_canvas.c
+    ${LIBPD_PATH}/src/g_canvas.h
+    ${LIBPD_PATH}/src/g_clone.c
+		${LIBPD_PATH}/src/g_editor_extras.c
+    ${LIBPD_PATH}/src/g_editor.c
+    ${LIBPD_PATH}/src/g_graph.c
+    ${LIBPD_PATH}/src/g_guiconnect.c
+    ${LIBPD_PATH}/src/g_hdial.c
+    ${LIBPD_PATH}/src/g_hslider.c
+    ${LIBPD_PATH}/src/g_io.c
+    ${LIBPD_PATH}/src/g_mycanvas.c
+    ${LIBPD_PATH}/src/g_numbox.c
+    ${LIBPD_PATH}/src/g_readwrite.c
+    ${LIBPD_PATH}/src/g_rtext.c
+    ${LIBPD_PATH}/src/g_scalar.c
+    ${LIBPD_PATH}/src/g_template.c
+    ${LIBPD_PATH}/src/g_text.c
+    ${LIBPD_PATH}/src/g_toggle.c
+    ${LIBPD_PATH}/src/g_traversal.c
+		${LIBPD_PATH}/src/g_undo.c
+		${LIBPD_PATH}/src/g_undo.h
+    ${LIBPD_PATH}/src/g_vdial.c
+    ${LIBPD_PATH}/src/g_vslider.c
+    ${LIBPD_PATH}/src/g_vumeter.c
+    ${LIBPD_PATH}/src/m_atom.c
+    ${LIBPD_PATH}/src/m_binbuf.c
+    ${LIBPD_PATH}/src/m_class.c
+    ${LIBPD_PATH}/src/m_conf.c
+    ${LIBPD_PATH}/src/m_glob.c
+    ${LIBPD_PATH}/src/m_imp.h
+    ${LIBPD_PATH}/src/m_memory.c
+    ${LIBPD_PATH}/src/m_obj.c
+    ${LIBPD_PATH}/src/m_pd.c
+    ${LIBPD_PATH}/src/m_pd.h
+    ${LIBPD_PATH}/src/m_sched.c
+    ${LIBPD_PATH}/src/s_audio.c
+    ${LIBPD_PATH}/src/s_audio_dummy.c
+    ${LIBPD_PATH}/src/s_inter.c
+    ${LIBPD_PATH}/src/s_libpdmidi.c
+    ${LIBPD_PATH}/src/s_loader.c
+    ${LIBPD_PATH}/src/s_main.c
+		${LIBPD_PATH}/src/s_net.c
+		${LIBPD_PATH}/src/s_net.h
+    ${LIBPD_PATH}/src/s_path.c
+    ${LIBPD_PATH}/src/s_print.c
+    ${LIBPD_PATH}/src/s_stuff.h
+    ${LIBPD_PATH}/src/s_utf8.c
+    ${LIBPD_PATH}/src/s_utf8.h
+    ${LIBPD_PATH}/src/x_acoustics.c
+    ${LIBPD_PATH}/src/x_arithmetic.c
+    ${LIBPD_PATH}/src/x_array.c
+    ${LIBPD_PATH}/src/x_connective.c
+    ${LIBPD_PATH}/src/x_file.c
+    ${LIBPD_PATH}/src/x_gui.c
+    ${LIBPD_PATH}/src/x_interface.c
+    ${LIBPD_PATH}/src/x_libpdreceive.c
+    ${LIBPD_PATH}/src/x_libpdreceive.h
+    ${LIBPD_PATH}/src/x_list.c
+    ${LIBPD_PATH}/src/x_midi.c
+    ${LIBPD_PATH}/src/x_misc.c
+    ${LIBPD_PATH}/src/x_net.c
+    ${LIBPD_PATH}/src/x_scalar.c
+    ${LIBPD_PATH}/src/x_text.c
+    ${LIBPD_PATH}/src/x_time.c
+    ${LIBPD_PATH}/src/x_vexp.c
+    ${LIBPD_PATH}/src/x_vexp_fun.c
+    ${LIBPD_PATH}/src/x_vexp_if.c
+    ${LIBPD_PATH}/src/z_hooks.c
+    ${LIBPD_PATH}/src/z_hooks.h
+    ${LIBPD_PATH}/src/z_libpd.c
+    ${LIBPD_PATH}/src/z_libpd.h
+    ${LIBPD_PATH}/src/z_print_util.c
+    ${LIBPD_PATH}/src/z_print_util.h
+    ${LIBPD_PATH}/src/z_queued.c
+    ${LIBPD_PATH}/src/z_queued.h
+    ${LIBPD_PATH}/src/z_ringbuffer.c
+    ${LIBPD_PATH}/src/z_ringbuffer.h
 )
-include_directories(${LIBPD_PATH}/pure-data/src)
+include_directories(${LIBPD_PATH}/src)
 source_group(pd FILES ${PD_SOURCES})
 list(APPEND SOURCE_FILES ${PD_SOURCES})
 
@@ -141,51 +159,21 @@ list(APPEND SOURCE_FILES ${PD_SOURCES})
 #------------------------------------------------------------------------------#
 if(PD_EXTRA)
     file(GLOB PD_EXTRA_SOURCES
-    ${LIBPD_PATH}/pure-data/extra/bob~/bob~.c
-    ${LIBPD_PATH}/pure-data/extra/bonk~/bonk~.c
-    ${LIBPD_PATH}/pure-data/extra/choice/choice.c
-    ${LIBPD_PATH}/pure-data/extra/fiddle~/fiddle~.c
-    ${LIBPD_PATH}/pure-data/extra/loop~/loop~.c
-    ${LIBPD_PATH}/pure-data/extra/lrshift~/lrshift~.c
-    ${LIBPD_PATH}/pure-data/extra/pd~/pd~.c
-    ${LIBPD_PATH}/pure-data/extra/pd~/pdsched.c
-    ${LIBPD_PATH}/pure-data/extra/pique/pique.c
-    ${LIBPD_PATH}/pure-data/extra/sigmund~/sigmund~.c
-    ${LIBPD_PATH}/pure-data/extra/stdout/stdout.c
+    ${LIBPD_PATH}/extra/bob~/bob~.c
+    ${LIBPD_PATH}/extra/bonk~/bonk~.c
+    ${LIBPD_PATH}/extra/choice/choice.c
+    ${LIBPD_PATH}/extra/fiddle~/fiddle~.c
+    ${LIBPD_PATH}/extra/loop~/loop~.c
+    ${LIBPD_PATH}/extra/lrshift~/lrshift~.c
+    ${LIBPD_PATH}/extra/pd~/pd~.c
+    ${LIBPD_PATH}/extra/pd~/pdsched.c
+    ${LIBPD_PATH}/extra/pique/pique.c
+    ${LIBPD_PATH}/extra/sigmund~/sigmund~.c
+    ${LIBPD_PATH}/extra/stdout/stdout.c
     )
     include_directories(${LIBPD_PATH}/pure-data/extra)
     source_group(pd\\extra FILES ${PD_EXTRA_SOURCES})
     list(APPEND SOURCE_FILES ${PD_EXTRA_SOURCES})
-endif()
-
-# LIBPD SOURCES
-#------------------------------------------------------------------------------#
-file(GLOB LIBPD_SOURCES
-    ${LIBPD_PATH}/libpd_wrapper/s_libpdmidi.c
-    ${LIBPD_PATH}/libpd_wrapper/x_libpdreceive.c
-    ${LIBPD_PATH}/libpd_wrapper/x_libpdreceive.h
-    ${LIBPD_PATH}/libpd_wrapper/z_hooks.c
-    ${LIBPD_PATH}/libpd_wrapper/z_hooks.h
-    ${LIBPD_PATH}/libpd_wrapper/z_libpd.c
-)
-include_directories(libpd_wrapper)
-source_group(libpd FILES ${LIBPD_SOURCES})
-list(APPEND SOURCE_FILES ${LIBPD_SOURCES})
-
-# LIBPD UTIL SOURCES
-#------------------------------------------------------------------------------#
-if(PD_UTILS)
-    file(GLOB LIBPD_UTIL_SOURCES
-        ${LIBPD_PATH}/libpd_wrapper/util/ringbuffer.c
-        ${LIBPD_PATH}/libpd_wrapper/util/ringbuffer.h
-        ${LIBPD_PATH}/libpd_wrapper/util/z_print_util.c
-        ${LIBPD_PATH}/libpd_wrapper/util/z_print_util.h
-        ${LIBPD_PATH}/libpd_wrapper/util/z_queued.c
-        ${LIBPD_PATH}/libpd_wrapper/util/z_queued.h
-    )
-    include_directories(${LIBPD_PATH}/libpd_wrapper/util)
-    source_group(libpd\\util FILES ${LIBPD_UTIL_SOURCES})
-    list(APPEND SOURCE_FILES ${LIBPD_UTIL_SOURCES})
 endif()
 
 #------------------------------------------------------------------------------#

@@ -1,9 +1,9 @@
 [submodule "Juce"]
 	path = Juce
 url=https://github.com/WeAreROLI/JUCE.git
-[submodule "Dependencies/LibPd"]
-	path = libpd/libpd
-	url = https://pierreguillot@github.com/pierreguillot/libpd.git
 [submodule "libpd/pthreads-win32/pthread-win32"]
 	path = libpd/pthreads-win32/pthread-win32
 	url = https://github.com/GerHobbelt/pthread-win32.git
+[submodule "libpd/pure-data"]
+	path = libpd/pure-data
+	url = https://github.com/pierreguillot/pure-data.git
