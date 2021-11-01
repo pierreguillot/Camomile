@@ -47,6 +47,7 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       with:
         prerelease: true
+        draft: true
         files: Camomile-Ubuntu-20.04-x64.zip
 
   ubuntu-18_04-build:
@@ -89,6 +90,7 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       with:
         prerelease: true
+        draft: true
         files: Camomile-Ubuntu-18.04-x64.zip
 
   macos-universal-build:
@@ -128,6 +130,7 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       with:
         prerelease: true
+        draft: true
         files: Camomile-MacOS-Universal.zip
 
   windows-64-build:
@@ -167,6 +170,7 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       with:
         prerelease: true
+        draft: true
         files: Camomile-Win64.zip
 
   windows-32-build:
@@ -206,4 +210,5 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       with:
         prerelease: true
+        draft: true
         files: Camomile-Win32.zip
