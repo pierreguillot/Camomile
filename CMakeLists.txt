@@ -162,7 +162,6 @@ file(GLOB CamomileBinaryDataSources
     ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Credits/CreditsAU
     ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Credits/CreditsLV2
     ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Credits/CreditsVST
-    ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Credits/CreditsAU
     ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Fonts/DejaVuSansMono.ttf
     ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Images/settings.png
     ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Images/garbage.png
