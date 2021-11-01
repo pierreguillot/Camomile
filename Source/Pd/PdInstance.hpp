@@ -70,6 +70,7 @@ namespace pd
         void enqueueMessages(const std::string& dest, const std::string& msg, std::vector<Atom>&& list);
         void enqueueDirectMessages(void* object, const std::string& msg);
         void enqueueDirectMessages(void* object, const float msg);
+        void enqueueDirectMessages(void* object, std::vector<Atom> const& list);
         
         virtual void messageEnqueued() {};
         

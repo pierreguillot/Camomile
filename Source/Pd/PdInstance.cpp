@@ -368,13 +368,19 @@ namespace pd
     
     void Instance::enqueueDirectMessages(void* object, const std::string& msg)
     {
-        m_send_queue.try_enqueue(dmessage{object, std::string(), std::string(), std::vector<Atom>(1, msg)});
+        m_send_queue.try_enqueue(dmessage{object, std::string(), "symbol", std::vector<Atom>(1, msg)});
         messageEnqueued();
     }
     
     void Instance::enqueueDirectMessages(void* object, const float msg)
     {
-        m_send_queue.try_enqueue(dmessage{object, std::string(), std::string(), std::vector<Atom>(1, msg)});
+        m_send_queue.try_enqueue(dmessage{object, std::string(), "float", std::vector<Atom>(1, msg)});
+        messageEnqueued();
+    }
+    
+    void Instance::enqueueDirectMessages(void* object, std::vector<Atom> const& list)
+    {
+        m_send_queue.try_enqueue(dmessage{object, std::string(), "list", list});
         messageEnqueued();
     }
     
@@ -386,13 +392,33 @@ namespace pd
         {
             if(mess.object && !mess.list.empty())
             {
-                if(mess.list[0].isFloat())
+                if(mess.selector == "list")
+                {
+                    t_atom* argv = static_cast<t_atom*>(m_atoms);
+                    for(size_t i = 0; i < mess.list.size(); ++i)
+                    {
+                        if(mess.list[i].isFloat())
+                            SETFLOAT(argv+i, mess.list[i].getFloat());
+                        else if(mess.list[i].isSymbol())
+                        {
+                            sys_lock();
+                            SETSYMBOL(argv+i, gensym(mess.list[i].getSymbol().data()));
+                            sys_unlock();
+                        }
+                        else
+                            SETFLOAT(argv+i, 0.0);
+                    }
+                    sys_lock();
+                    pd_list(static_cast<t_pd *>(mess.object), gensym("list"), static_cast<int>(mess.list.size()), argv);
+                    sys_unlock();
+                }
+                else if(mess.selector == "float" && mess.list[0].isFloat())
                 {
                     sys_lock();
                     pd_float(static_cast<t_pd *>(mess.object), mess.list[0].getFloat());
                     sys_unlock();
                 }
-                else
+                else if(mess.selector == "symbol")
                 {
                     sys_lock();
                     pd_symbol(static_cast<t_pd *>(mess.object), gensym(mess.list[0].getSymbol().c_str()));
