@@ -7,6 +7,7 @@
 
 #include "PdObject.hpp"
 #include "PdArray.hpp"
+#include "PdAtom.hpp"
 
 namespace pd
 {
@@ -39,8 +40,9 @@ namespace pd
             Comment          = 10,
             AtomNumber       = 11,
             AtomSymbol       = 12,
-            Array            = 13,
-            GraphOnParent    = 14
+            AtomList         = 13,
+            Array            = 14,
+            GraphOnParent    = 15
         };
         
         //! @brief The default constructor
@@ -70,7 +72,7 @@ namespace pd
         //! @brief If the GUI is an Atom GUI (AtomNumber or AtomSymbol).
         bool isAtom() const noexcept
         {
-            return (m_type == Type::AtomNumber) || (m_type == Type::AtomSymbol);
+            return (m_type == Type::AtomNumber) || (m_type == Type::AtomSymbol) || (m_type == Type::AtomList);
         }
         
         //! @brief Get the font height.
@@ -96,6 +98,10 @@ namespace pd
         std::string getSymbol() const noexcept;
         
         void setSymbol(std::string const& value) noexcept;
+        
+        std::vector<Atom> getList() const noexcept;
+        
+        void setList(std::vector<Atom> const& value) noexcept;
         
         std::array<int, 4> getBounds() const noexcept override;
         
