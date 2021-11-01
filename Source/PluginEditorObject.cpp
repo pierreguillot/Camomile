@@ -130,6 +130,10 @@ PluginEditorObject* PluginEditorObject::createTyped(CamomileEditorMouseManager& 
     {
         return new GuiAtomSymbol(p, g);
     }
+    else if(g.getType() == pd::Gui::Type::AtomList)
+    {
+        return new GuiAtomList(p, g);
+    }
     else if(g.getType() == pd::Gui::Type::Array)
     {
         return new GuiArray(p, g);
@@ -842,6 +846,92 @@ void GuiAtomSymbol::updateValue()
     if(edited == false && !label.isBeingEdited())
     {
         label.setText(juce::String(gui.getSymbol()), juce::NotificationType::dontSendNotification);
+    }
+}
+
+GuiAtomList::GuiAtomList(CamomileEditorMouseManager& p, pd::Gui& g) : GuiTextEditor(p, g)
+{
+    label.onEditorHide = [this]()
+    {
+        auto array = StringArray();
+        array.addTokens(label.getText(), true);
+        std::vector<pd::Atom> list;
+        list.reserve(array.size());
+        for(auto const& elem : array)
+        {
+            if(elem.getCharPointer().isDigit())
+            {
+                list.push_back({elem.getFloatValue()});
+            }
+            else
+            {
+                list.push_back({elem.toStdString()});
+            }
+        }
+        if(list != gui.getList())
+        {
+            startEdition();
+            gui.setList(list);
+            stopEdition();
+            label.setText(juce::String(gui.getSymbol()), juce::NotificationType::dontSendNotification);
+        }
+    };
+    
+    label.onEditorShow = [this]()
+    {
+        auto* editor = label.getCurrentTextEditor();
+        if(editor != nullptr)
+        {
+            editor->setIndents(1, 2);
+            editor->setBorder(juce::BorderSize<int>(0));
+        }
+    };
+    
+    updateValue();
+}
+
+void GuiAtomList::paint(juce::Graphics& g)
+{
+    static auto const border = 1.0f;
+    const float h = static_cast<float>(getHeight());
+    const float w = static_cast<float>(getWidth());
+    const float o = h * 0.25f;
+    juce::Path p;
+    p.startNewSubPath(0.5f, 0.5f);
+    p.lineTo(0.5f, h - 0.5f);
+    p.lineTo(w - o, h - 0.5f);
+    p.lineTo(w - 0.5f, h - o);
+    p.lineTo(w - 0.5f, o);
+    p.lineTo(w - o, 0.5f);
+    p.closeSubPath();
+    g.setColour(juce::Colour(static_cast<uint32>(gui.getBackgroundColor())));
+    g.fillPath(p);
+    g.setColour(juce::Colours::black);
+    g.strokePath(p, juce::PathStrokeType(border));
+}
+
+void GuiAtomList::updateValue()
+{
+    if(edited == false && !label.isBeingEdited())
+    {
+        auto const array = gui.getList();
+        juce::String message;
+        for(auto const& atom : array)
+        {
+            if(message.isNotEmpty())
+            {
+                message += " ";
+            }
+            if(atom.isFloat())
+            {
+                message += juce::String(atom.getFloat());
+            }
+            else if(atom.isSymbol())
+            {
+                message += juce::String(atom.getSymbol());
+            }
+        }
+        label.setText(message, juce::NotificationType::dontSendNotification);
     }
 }
 

@@ -215,6 +215,14 @@ public:
     void updateValue() override;
 };
 
+class GuiAtomList : public GuiTextEditor
+{
+public:
+    GuiAtomList(CamomileEditorMouseManager& p, pd::Gui& g);
+    void paint(juce::Graphics& g) override;
+    void updateValue() override;
+};
+
 class GuiArray : public PluginEditorObject
 {
 public:
