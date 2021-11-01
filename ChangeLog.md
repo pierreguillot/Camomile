@@ -1,8 +1,18 @@
 v1.0.8
-- Fix glitches related open and save panels
-- Fix glitches related flower dropdown menu 
+- Updates Pd to 0.52-0
 - Add Apple M1 support 
 - Update Juce version (6.1.2)
+- Fix glitches related to the openpanel and the savepanel (#197)
+- Fix glitches related to flower dropdown menu (#201)
+- Fixes the "openpanel" and "savepanel" messages for on Linux (#203)
+- Fixes the update of the parameters when the plugin is bypassed (#199)
+- Fixes the range of the gatom number box (#210)
+- Fixes the freeze of  parameters when editing the gatom symbol and number boxes (#207)
+- Improves the graphical table when using large size (#196)
+- Fixes core dump when execute lv2_file_generator on arch linux  (#208)
+- Fixes readsf~ support (#218)
+- Fixes fine-control mode for sliders (click & drag + shift) (#222)
+- Fixes updates of the range of GUI using the "gui redraw" message (#229)
 
 v1.0.7
 - Update Pd version (0.51)
