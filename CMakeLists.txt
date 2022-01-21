@@ -130,7 +130,11 @@ target_sources(CamomileFx PRIVATE ${CamomileSources} ${CamomilePdSources})
 
 add_library(Camomile_LV2 SHARED ${CamomileLV2Sources})
 target_link_libraries(Camomile_LV2 PRIVATE CamomileFx)
-set_target_properties(Camomile_LV2 PROPERTIES PREFIX "")
+set_target_properties(Camomile_LV2 PROPERTIES PREFIX "" CXX_STANDARD 20)
+
+if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+    target_compile_options(Camomile_LV2 PRIVATE "-fno-gnu-unique")
+endif()
 
 set(CAMOMILE_COMPILE_DEFINITIONS
     JUCE_APP_CONFIG_HEADER="${SOURCES_DIRECTORY}/PluginConfig.h"
