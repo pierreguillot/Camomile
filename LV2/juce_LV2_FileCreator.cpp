@@ -515,9 +515,9 @@ class JuceLV2FileCreator
                     preset += "    [\n";
                 }
                 
-                String const paramName = params[i]->getName(1000);
+                String const paramName = params[j]->getName(1000);
                 preset += "        lv2:symbol \"" + nameToSymbol(paramName, j) + "\" ;\n";
-                preset += "        pset:value " + String::formatted("%f", safeParamValue(params[i]->getValue())) + " ;\n";
+                preset += "        pset:value " + String::formatted("%f", safeParamValue(params[j]->getValue())) + " ;\n";
                 
                 if (j + 1 == params.size())
                 {
