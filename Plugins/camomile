@@ -82,7 +82,7 @@ generate_plugin_lv2_mac() {
         mkdir "$plugin_output_dir/$plugin_name.lv2/Contents"
         mkdir "$plugin_output_dir/$plugin_name.lv2/Contents/Resources"
         cp -f "$ThisPath/$CamomileLV2.$AppleLV2Extension" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.$AppleLV2Extension"
-        cp -rf "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.lv2/Contents/Resources"
+        cp -RfL "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.lv2/Contents/Resources"
         for subfile in $(find "$plugin_output_dir/$plugin_name.lv2")
         do
           xattr -d com.apple.quarantine "$subfile"
@@ -181,8 +181,8 @@ generate_plugin_au_mac() {
             rm -rf "$plugin_output_dir/$plugin_name.$AppleAuExtension"
         fi
 
-        cp -rf "$ThisPath/$camo_name.$AppleAuExtension" $plugin_output_dir/$plugin_name.$AppleAuExtension
-        cp -rf "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Resources"
+        cp -Rf "$ThisPath/$camo_name.$AppleAuExtension" $plugin_output_dir/$plugin_name.$AppleAuExtension
+        cp -RfL "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents/Resources"
         xattr -d com.apple.quarantine "$plugin_output_dir/$plugin_name.$AppleAuExtension"
         for subfile in $(find "$plugin_output_dir/$plugin_name.$AppleAuExtension/Contents")
         do
@@ -235,8 +235,8 @@ generate_plugin_vst3_mac() {
             rm -rf "$plugin_output_dir/$plugin_name.$AppleVst3Extension"
         fi
 
-        cp -rf "$ThisPath/$camo_name.$AppleVst3Extension" "$plugin_output_dir/$plugin_name.$AppleVst3Extension"
-        cp -rf "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Resources"
+        cp -Rf "$ThisPath/$camo_name.$AppleVst3Extension" "$plugin_output_dir/$plugin_name.$AppleVst3Extension"
+        cp -RfL "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents/Resources"
         xattr -d com.apple.quarantine "$plugin_output_dir/$plugin_name.$AppleVst3Extension"
         for subfile in $(find "$plugin_output_dir/$plugin_name.$AppleVst3Extension/Contents")
         do
@@ -274,7 +274,7 @@ generate_plugin_lv2_linux() {
 
         mkdir "$plugin_output_dir/$plugin_name.lv2"
         cp -f "$ThisPath/$CamomileLV2.$LinuxLV2Extension" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.$LinuxLV2Extension"
-        cp -rf "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.lv2"
+        cp -RfL "$plugin_input_dir"/* "$plugin_output_dir/$plugin_name.lv2"
 
         LD_LIBRARY_PATH=$PWD "$ThisPath/lv2_file_generator" "$plugin_output_dir/$plugin_name.lv2/$plugin_name.$LinuxLV2Extension" $plugin_name
         mv -f "$PWD/manifest.ttl" "$plugin_output_dir/$plugin_name.lv2/manifest.ttl"
@@ -324,8 +324,8 @@ generate_plugin_vst3_linux() {
             rm -rf $plugin_bundle
         fi
 
-        cp -rf "$ThisPath/$camo_name.$LinuxVst3Extension" $plugin_bundle
-        cp -rf "$plugin_input_dir"/* "$plugin_bundle/Contents/x86_64-linux"
+        cp -Rf "$ThisPath/$camo_name.$LinuxVst3Extension" $plugin_bundle
+        cp -RfL "$plugin_input_dir"/* "$plugin_bundle/Contents/x86_64-linux"
         mv -f "$plugin_bundle/Contents/x86_64-linux/$camo_name.so" "$plugin_bundle/Contents/x86_64-linux/$plugin_name.so"
         post_log "$plugin_output_dir/$plugin_name.$LinuxVst3Extension"
     else
