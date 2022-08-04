@@ -259,7 +259,10 @@ bool CamomileEditorMessageManager::processMessages()
             m_file_chooser = std::make_unique<FileChooser>("Open...", File(message[1]), "", useNative);
             if(m_file_chooser != nullptr)
             {
-                auto constexpr folderChooserFlags = FileChooserFlags::openMode | FileChooserFlags::canSelectDirectories;
+                auto constexpr folderChooserFlags = \
+                    FileChooserFlags::openMode \
+                    | FileChooserFlags::canSelectFiles \
+                    | FileChooserFlags::canSelectDirectories;
                 auto const suspend = !message[2].empty();
                 WeakReference<CamomileEditorMessageManager> weakReference(this);
                 m_file_chooser->launchAsync(folderChooserFlags, [=, this](FileChooser const& fileChooser)
@@ -292,7 +295,11 @@ bool CamomileEditorMessageManager::processMessages()
             m_file_chooser = std::make_unique<FileChooser>("Save...", File(message[1]), "", useNative);
             if(m_file_chooser != nullptr)
             {
-                auto constexpr folderChooserFlags = FileChooserFlags::saveMode | FileChooserFlags::canSelectDirectories | FileChooserFlags::warnAboutOverwriting;
+                auto constexpr folderChooserFlags = \
+                    FileChooserFlags::saveMode \
+                    | FileChooserFlags::canSelectFiles \
+                    | FileChooserFlags::canSelectDirectories \
+                    | FileChooserFlags::warnAboutOverwriting;
                 auto const suspend = !message[2].empty();
                 WeakReference<CamomileEditorMessageManager> weakReference(this);
                 m_file_chooser->launchAsync(folderChooserFlags, [=, this](FileChooser const& fileChooser)
