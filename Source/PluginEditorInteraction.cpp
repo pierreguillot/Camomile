@@ -308,15 +308,11 @@ bool CamomileEditorMessageManager::processMessages()
                     {
                         return;
                     }
-                    auto const file = fileChooser.getResult();
-                    if(!file.existsAsFile())
-                    {
-                        return;
-                    }
                     if(suspend)
                     {
                         m_processor.suspendProcessing(true);
                     }
+                    auto const file = fileChooser.getResult();
                     auto const path = file.getFullPathName().replaceCharacter('\\', '/').toStdString();
                     m_processor.enqueueMessages(string_savepanel, string_symbol, {path});
                     if(suspend)
