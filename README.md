@@ -40,7 +40,7 @@ The [latest stable release](https://github.com/pierreguillot/Camomile/releases/l
 git clone --recursive https://github.com/pierreguillot/Camomile.git
 cd Camomile
 mkdir build && cd build
-cmake .. (the generator can be specified using -G"Unix Makefiles", -G"XCode" or -G"Visual Studio 16 2019" -A x64)
+cmake .. (the generator can be specified using -G"Unix Makefiles", -G"Xcode" or -G"Visual Studio 16 2019" -A x64)
 cmake --build .
 ```
 
